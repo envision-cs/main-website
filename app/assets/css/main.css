@@ -1,0 +1,24 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+@theme {
+  --font-sans: 'proxima-nova', sans-serif;
+
+  --text-xs: 0.64rem;
+  --text-sm: 0.8rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.562rem;
+  --text-2xl: 1.953rem;
+  --text-3xl: 2.441rem;
+  --text-4xl: 3.052rem;
+  --text-5xl: 3.815rem;
+  --text-6xl: 4.57rem;
+  --text-7xl: 6.25rem;
+  --text-8xl: 8rem;
+  --text-9xl: 9.25rem;
+}
+
+body {
+  padding: 24px;
+}
