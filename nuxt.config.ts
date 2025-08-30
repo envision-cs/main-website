@@ -1,14 +1,25 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxt/image'],
+  modules: ['@nuxt/eslint', '@nuxt/ui-pro', '@nuxt/image'],
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
+    theme: {
+      colors: [
+        'primary',
+        'secondary',
+        'tertiary',
+        'info',
+        'success',
+        'warning',
+        'error',
+      ],
+    },
   },
-  srcDir: 'app/',
-  future: {
-    compatibilityVersion: 4,
+  uiPro: {
+    // eslint-disable-next-line node/no-process-env
+    license: process.env.NUXT_UI_PRO_LICENSE,
   },
   compatibilityDate: '2025-05-15',
   eslint: {

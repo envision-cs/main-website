@@ -8,12 +8,12 @@
       alt="Construction site hero image"
       sizes="sm:100vw md:100vw lg:100vw"
       densities="x1 x2"
-      class="h-[70vh] sm:h-[90vh] w-full object-cover"
+      class="h-[80vh] sm:h-[90vh] w-full object-cover"
       preload
     />
     <div class="absolute inset-0 bg-linear-to-t from-black/60 to-black/0" />
     <div class="absolute inset-0">
-      <UContainer class="h-full flex items-end pb-20 px-4">
+      <UContainer class="h-full flex items-end pb-10 md:pb-20 px-4">
         <div class="max-w-6xl mx-auto text-white">
           <h2 class="mt-2 uppercase text-3xl/9 sm:text-4xl/12 lg:text-6xl/18 font-medium">
             You need a builder who sees the bigger picture.
@@ -22,15 +22,16 @@
             We manage construction projects with excellence, purpose, and people-first precision.
           </p>
           <div class="mt-6 flex flex-wrap gap-3">
-            <UButton to="#projects" color="primary">
-              See Our Work
+            <UButton size="xl" color="primary">
+              Start Your Project
             </UButton>
             <UButton
               to="#cta"
-              variant="soft"
-              color="primary"
+              size="xl"
+              variant="outline"
+              color="neutral"
             >
-              Start a Project
+              See Our Work
             </UButton>
           </div>
         </div>
