@@ -40,5 +40,6 @@
       alt="Airport image"
     />
     <home-proven-process />
+    <home-inspire />
   </div>
 </template>
