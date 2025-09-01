@@ -39,5 +39,6 @@
       img="/airport.png"
       alt="Airport image"
     />
+    <home-proven-process />
   </div>
 </template>

@@ -4,6 +4,9 @@ export default defineAppConfig({
       primary: 'curious-blue',
     },
     button: {
+      slots: {
+        base: ['w-fit'],
+      },
       variants: {
         size: {
           xl: {
