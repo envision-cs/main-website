@@ -25,7 +25,7 @@ const steps = [
   >
     <div class="mt-6">
       <NuxtImg
-        src="https://picsum.photos/1200/450"
+        src="/airport.png"
         alt="Team collaboration"
         sizes="sm:100vw md:100vw lg:1024px"
         densities="x1 x2"

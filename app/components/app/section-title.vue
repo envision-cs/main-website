@@ -1,10 +1,5 @@
 <script setup lang="ts">
-type Link = {
-  to: string;
-  label: string;
-  variant?: string;
-  color?: 'primary' | 'neutral';
-};
+import type { Link } from '~~/types/global';
 
 defineProps<{
   eyebrow?: string;
@@ -39,7 +34,7 @@ defineProps<{
             size="xl"
             :color="link.color"
           >
-            Get in Touch
+            {{ link.label }}
           </UButton>
         </div>
       </div>
