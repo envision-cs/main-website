@@ -16,4 +16,14 @@ export default defineAppConfig({
       },
     },
   },
+  uiPro: {
+    page: {
+      slots: {
+        center: 'lg:col-span-8',
+      },
+    },
+    pageBody: {
+      base: 'mt-8 pb-24 space-y-24 md:space-y-56',
+    },
+  },
 });

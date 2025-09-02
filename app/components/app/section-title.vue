@@ -10,17 +10,17 @@ defineProps<{
 </script>
 
 <template>
-  <section :aria-labelledby="title" class="py-12 sm:py-16">
+  <section :aria-labelledby="title" class="">
     <UContainer>
       <div class="flex items-left md:items-center flex-col md:flex-row justify-between">
         <div class="max-w-3xl">
           <p class="text-base font-semibold text-primary">
             {{ eyebrow }}
           </p>
-          <h2 class="mt-2 text-2xl sm:text-3xl font-semibold text-balance">
+          <h2 class="mt-2 leading-tiny text-3xl sm:text-5xl font-semibold text-balance mb-4">
             {{ title }}
           </h2>
-          <p class="text-base md:text-lg text-muted max-w-3xl">
+          <p class="text-base text-muted max-w-3xl">
             {{ description }}
           </p>
         </div>

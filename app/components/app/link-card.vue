@@ -5,24 +5,25 @@ defineProps<{
   image?: string;
   icon?: string;
   eyebrow?: string;
-  title: string;
+  title?: string;
   description?: string;
   link?: Link;
 }>();
 </script>
 
 <template>
-  <div class="color relative aspect-[3/4] rounded-lg overflow-hidden p-5 flex flex-col">
+  <div class="color relative aspect-[3/4] rounded-lg overflow-hidden p-5 flex flex-col bg-primary">
     <NuxtImg
+      v-if="image"
       :src="image"
-      class="absolute inset-0 w-full h-full object-cover -z-1"
+      class="absolute inset-0 w-full h-full object-cover z-1"
       alt="Construction site hero image"
       sizes="sm:100vw md:100vw lg:100vw"
       densities="x1 x2"
       format="webp"
       fit="cover"
     />
-    <div>
+    <div class="relative z-10 text-white">
       <UIcon
         v-if="icon"
         :name="icon"
@@ -31,7 +32,9 @@ defineProps<{
       <p>
         {{ eyebrow }}
       </p>
-      <h3 class="mt-2 text-2xl sm:text-3xl font-semibold text-white">
+      <h3
+        class="mt-2 text-xl sm:text-2xl font-semibold"
+      >
         {{ title }}
       </h3>
       <p>
@@ -44,7 +47,7 @@ defineProps<{
       :to="link.to"
       size="xl"
       :color="link.color"
-      class="mt-auto self-end"
+      class="mt-auto self-end z-10"
       variant="outline"
     >
       {{ link.label }}

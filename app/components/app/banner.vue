@@ -12,7 +12,7 @@ defineProps<{
 </script>
 
 <template>
-  <section id="cta" class="py-12 md:py-24">
+  <section id="cta" class="">
     <UContainer>
       <div class="grid gap-6 md:gap-12">
         <div v-if="img" class="overflow-hidden rounded-xl">
@@ -27,10 +27,10 @@ defineProps<{
           <p class="text-base font-semibold text-primary">
             {{ eyebrow }}
           </p>
-          <h2 class="text-2xl sm:text-3xl font-semibold text-balance">
+          <h2 class="text-3xl sm:text-5xl font-semibold text-balance">
             {{ title }}
           </h2>
-          <p class="text-base md:text-lg text-muted max-w-3xl mx-auto">
+          <p class="text-base text-muted max-w-3xl mx-auto">
             {{ description }}
           </p>
           <div v-if="links?.length > 0" class=" flex flex-col sm:flex-row mt-2 gap-2 justify-start md:justify-center">
