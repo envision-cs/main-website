@@ -3,6 +3,7 @@ const items = [
   {
     eyebrow: 'Tampa Business Journal',
     title: 'Member Spotlight: Envision Construction Services',
+    icon: 'i-lucide-newspaper',
     link:
       {
         label: 'See More',
@@ -13,6 +14,7 @@ const items = [
   {
     eyebrow: 'Tampa Business Journal',
     title: 'Meet Envision CS, a 2021 Fast 50 honoree',
+    icon: 'i-lucide-newspaper',
     link:
       {
         label: 'See More',
@@ -23,6 +25,7 @@ const items = [
   {
     eyebrow: 'Tampa Business Journal',
     title: 'Member Spotlight: Envision Construction Services',
+    icon: 'i-lucide-newspaper',
     link:
       {
         label: 'See More',
@@ -41,7 +44,7 @@ const items = [
       v-slot="{ item }"
       class="border-t border-accented pt-6 mt-6"
       :items="items"
-      :ui="{ item: 'basis-1.5/1 sm:basis-2/3 md:basis-1/3' }"
+      :ui="{ item: 'basis-[70%] md:basis-[60%] lg:basis-1/3' }"
     >
       <app-link-card
         :image="item.image"

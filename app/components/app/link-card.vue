@@ -12,7 +12,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="color relative aspect-[3/4] rounded-lg overflow-hidden p-5 flex flex-col bg-primary">
+  <div class="color relative aspect-[3/4] rounded-lg overflow-hidden p-5 bg-primary grid">
     <NuxtImg
       v-if="image"
       :src="image"
@@ -23,17 +23,17 @@ defineProps<{
       format="webp"
       fit="cover"
     />
-    <div class="relative z-10 text-white">
+    <div class="relative z-10 text-white self-end">
       <UIcon
         v-if="icon"
         :name="icon"
-        class="size-5"
+        class="size-14"
       />
-      <p>
+      <p class="text-sm md:text-base">
         {{ eyebrow }}
       </p>
       <h3
-        class="mt-2 text-xl sm:text-2xl font-semibold"
+        class="mt-2 text-xl text-balance leading-5 sm:text-2xl sm:leading-8 font-semibold"
       >
         {{ title }}
       </h3>
@@ -47,7 +47,7 @@ defineProps<{
       :to="link.to"
       size="xl"
       :color="link.color"
-      class="mt-auto self-end z-10"
+      class=" self-end z-10 justify-self-end"
       variant="outline"
     >
       {{ link.label }}
