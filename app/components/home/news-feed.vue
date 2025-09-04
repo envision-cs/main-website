@@ -42,11 +42,11 @@ const items = [
   >
     <UCarousel
       v-slot="{ item }"
-      class="border-t border-accented pt-6 mt-6"
+      class="border-t border-accented pt-6 mt-6 items-stretch"
       :items="items"
-      :ui="{ item: 'basis-[70%] md:basis-[60%] lg:basis-1/3' }"
+      :ui="{ item: 'basis-4/5 lg:basis-1/3 [&:not(:last-child)]:border-r border-accented' }"
     >
-      <app-link-card
+      <app-news-card
         :image="item.image"
         :icon="item.icon"
         :eyebrow="item.eyebrow"
