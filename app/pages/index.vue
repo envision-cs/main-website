@@ -43,6 +43,24 @@
       <home-proven-process />
       <home-inspire />
       <home-news-feed />
+      <app-banner
+        eyebrow="Build with Confidence"
+        title="Your Vision Shouldn’t Be Left to Chance"
+        description="Choosing the wrong partner can mean wasted budget, endless delays, and a space that never meets its potential. We protect your investment, your timeline, and your vision"
+        :links="[
+          {
+            label: 'Start Your Project',
+            to: '#',
+            color: 'primary',
+          },
+          {
+            label: 'See Our Work',
+            to: '#',
+            variant: 'outline',
+            color: 'neutral',
+          },
+        ]"
+      />
     </UPageBody>
   </UPage>
 </template>

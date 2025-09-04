@@ -23,11 +23,11 @@ defineProps<{
             fit="cover"
           />
         </div>
-        <div class="text-left md:text-center grid gap-2">
+        <div class="max-w-[100ch] mx-auto text-left md:text-center grid gap-2">
           <p class="text-base font-semibold text-primary">
             {{ eyebrow }}
           </p>
-          <h2 class="text-3xl sm:text-5xl font-semibold text-balance">
+          <h2 class=" text-3xl sm:text-5xl font-semibold text-balance">
             {{ title }}
           </h2>
           <p class="text-base text-muted max-w-3xl mx-auto">
