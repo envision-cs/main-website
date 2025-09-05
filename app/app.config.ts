@@ -15,6 +15,11 @@ export default defineAppConfig({
         },
       },
     },
+    accordion: {
+      slots: {
+        label: 'text-lg lg:text-xl font-semibold',
+      },
+    },
   },
   uiPro: {
     page: {

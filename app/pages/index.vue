@@ -61,6 +61,7 @@
           },
         ]"
       />
+      <three-uniques />
     </UPageBody>
   </UPage>
 </template>

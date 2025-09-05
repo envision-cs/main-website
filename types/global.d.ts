@@ -1,6 +1,6 @@
 export type Link = {
   to: string;
   label: string;
-  variant?: string | undefined;
+  variant?: 'link' | 'solid' | 'outline' | 'soft' | 'subtle' | 'ghost' | undefined;
   color?: 'primary' | 'neutral';
 };

@@ -23,20 +23,17 @@ defineProps<{
             fit="cover"
           />
         </div>
-        <div class="max-w-[100ch] mx-auto text-left md:text-center grid gap-2">
+        <div class="text-left md:text-center grid gap-2">
           <p class="text-base font-semibold text-primary">
             {{ eyebrow }}
           </p>
-          <h2 class=" text-3xl sm:text-5xl font-semibold text-balance">
+          <h2 class="text-3xl sm:text-5xl font-semibold text-balance">
             {{ title }}
           </h2>
           <p class="text-base text-muted max-w-3xl mx-auto">
             {{ description }}
           </p>
-          <div
-            v-if="links && links?.length > 0"
-            class=" flex flex-col sm:flex-row mt-2 gap-2 justify-start md:justify-center"
-          >
+          <div v-if="links?.length > 0" class=" flex flex-col sm:flex-row mt-2 gap-2 justify-start md:justify-center">
             <UButton
               v-for="link in links"
               :key="link.label"
