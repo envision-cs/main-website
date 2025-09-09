@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Link } from '~~/types/global';
+import type { Link } from '#shared/types/global';
 
 defineProps<{
   image?: string;
@@ -45,7 +45,7 @@ defineProps<{
       :to="link.to"
       size="xl"
       :color="link.color"
-      class="mt-auto"
+      class="mt-auto self-end"
       variant="outline"
     >
       {{ link.label }}

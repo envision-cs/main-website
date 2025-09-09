@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Link } from '~~/types/global';
+import type { Link } from '#shared/types/global';
 
 defineProps<{
   eyebrow: string;
@@ -33,7 +33,7 @@ defineProps<{
           <p class="text-base text-muted max-w-3xl mx-auto">
             {{ description }}
           </p>
-          <div v-if="links?.length > 0" class=" flex flex-col sm:flex-row mt-2 gap-2 justify-start md:justify-center">
+          <div v-if="links && links?.length > 0" class=" flex flex-col sm:flex-row mt-2 gap-2 justify-start md:justify-center">
             <UButton
               v-for="link in links"
               :key="link.label"

@@ -62,6 +62,7 @@
         ]"
       />
       <three-uniques />
+      <app-pre-footer />
     </UPageBody>
   </UPage>
 </template>

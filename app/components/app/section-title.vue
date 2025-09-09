@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Link } from '~~/types/global';
+import type { Link } from '#shared/types/global';
 
 defineProps<{
   eyebrow?: string;

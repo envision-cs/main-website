@@ -4,15 +4,18 @@ import type { AccordionItem } from '@nuxt/ui';
 const items = [
   {
     label: 'Built on Faith, Driven by Purpose',
-    content: 'Our foundation is God, our work is built on integrity, and our mission is to serve with excellence. We don’t just construct buildings—we bring visions to life, creating spaces that inspire trust, transform communities, and stand the test of time.',
+    content:
+      'Our foundation is God, our work is built on integrity, and our mission is to serve with excellence. We don’t just construct buildings—we bring visions to life, creating spaces that inspire trust, transform communities, and stand the test of time.',
   },
   {
     label: 'Versatile. Adaptive. Enhanced Approach',
-    content: 'No two projects are the same, and neither is our approach. Whether it’s a small renovation or a large-scale build, we move with precision, flexibility, and care—delivering the personal attention of a local partner with the expertise of a national leader.',
+    content:
+      'No two projects are the same, and neither is our approach. Whether it’s a small renovation or a large-scale build, we move with precision, flexibility, and care—delivering the personal attention of a local partner with the expertise of a national leader.',
   },
   {
     label: 'Impact Beyond Construction',
-    content: 'We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge. With heart, craftsmanship, and purpose, we build legacies that elevate communities for generations to come.',
+    content:
+      'We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge. With heart, craftsmanship, and purpose, we build legacies that elevate communities for generations to come.',
   },
 ] satisfies AccordionItem[];
 </script>
@@ -20,7 +23,9 @@ const items = [
 <template>
   <section aria-label="Our Three Uniques">
     <UContainer>
-      <div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-4 min-h-[575px]">
+      <div
+        class="grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-4 min-h-[575px]"
+      >
         <NuxtImg
           src="/thegreens2.jpg"
           alt="Allen Green Senior Ariana Green and Allen Green Junior standing in from of a large crane wearing hard hats and safty vest"

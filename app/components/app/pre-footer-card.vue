@@ -12,18 +12,8 @@ defineProps<{
 </script>
 
 <template>
-  <div class="color relative aspect-[3/4] rounded-lg overflow-hidden p-5 bg-primary grid">
-    <NuxtImg
-      v-if="image"
-      :src="image"
-      class="absolute inset-0 w-full h-full object-cover z-1"
-      alt="Construction site hero image"
-      sizes="sm:100vw md:100vw lg:100vw"
-      densities="x1 x2"
-      format="webp"
-      fit="cover"
-    />
-    <div class="relative z-10 text-white self-end">
+  <div class="color relative rounded-lg overflow-hidden p-5 bg-primary grid">
+    <div class="relative z-10 text-white self-start">
       <UIcon
         v-if="icon"
         :name="icon"
@@ -33,7 +23,7 @@ defineProps<{
         {{ eyebrow }}
       </p>
       <h3
-        class="mt-2 text-xl text-balance leading-5 sm:text-2xl sm:leading-8 font-semibold"
+        class="mt-2 text-xl text-balance leading-5 md:text-3xl sm:leading-8 font-semibold"
       >
         {{ title }}
       </h3>
