@@ -1,6 +1,6 @@
 <template>
-  <UPage>
-    <UPageBody>
+  <UPage class="mt-0">
+    <UPageBody class="mt-0">
       <home-hero-banner />
       <app-banner
         eyebrow="Clarity From Day One"

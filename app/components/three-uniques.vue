@@ -38,7 +38,10 @@ const items = [
             title="Three Uniques that set us apart"
             description="At Envision, every decision we make is guided by a clear philosophy—three core principles that define how we work, why we work, and the impact we strive to create. These “Three Uniques” are more than values; they are the driving force behind our approach, shaping every project, partnership, and interaction."
           >
-            <UAccordion :items="items" class="mt-6" />
+            <UAccordion
+              :items="items"
+              class="mt-6"
+            />
           </app-section-title>
         </div>
       </div>

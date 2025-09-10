@@ -45,12 +45,14 @@
 
 :root {
   --ui-primary: var(--color-curious-blue-700);
+  --ui-secondary: var(--color-envision-green-700);
 }
 
 body {
-  padding: 2%;
+  padding-top: 1rem;
+  padding-inline: 2%;
 
   @media (min-width: 768px) {
-    padding: 24px;
+    padding-inline: 24px;
   }
 }

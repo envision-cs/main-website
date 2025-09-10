@@ -1,7 +1,87 @@
+import type { NavigationMenuItem } from '@nuxt/ui-pro';
+
 export default defineAppConfig({
+  navigationMenuItems: [
+    {
+      label: 'About',
+      to: '#',
+      children: [
+        {
+          label: 'Who we are',
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+        {
+          label: 'Our Partners',
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+        {
+          label: 'Our Process',
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+      ],
+    },
+    {
+      label: 'Services',
+      to: '#',
+      children: [
+        {
+          label: 'Construction Management',
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+        {
+          label: 'Design Build',
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+        {
+          label: 'Development and Master Planning',
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+        {
+          label: 'Tenant Improvement',
+
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+        {
+          label: 'Enhanced Preconstruction',
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+        {
+          label: 'Specialty Projects Division',
+          description:
+            'We provide construction management services to meet your needs.',
+        },
+      ],
+    },
+    {
+      label: 'Projects',
+      to: '#',
+    },
+    {
+      label: 'Life At Envision',
+      to: '#',
+    },
+    {
+      label: 'Meet the Team',
+      to: '#',
+    },
+    {
+      label: 'Contact Us',
+      to: '#',
+    },
+  ] as NavigationMenuItem[],
   ui: {
     colors: {
       primary: 'curious-blue',
+      secondary: 'envision-green',
+      neutral: 'stone',
     },
     button: {
       slots: {

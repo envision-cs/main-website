@@ -32,7 +32,7 @@ defineProps<{
       <p class="text-sm md:text-base font-semibold">
         {{ eyebrow }}
       </p>
-      <h3 class="mt-2 text-xl text-balance leading-7 sm:text-2xl sm:leading-8 ">
+      <h3 class="mt-2 text-xl text-balance leading-7 sm:text-2xl sm:leading-8">
         {{ title }}
       </h3>
       <p>

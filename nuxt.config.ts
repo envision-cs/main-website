@@ -9,7 +9,6 @@ export default defineNuxtConfig({
       colors: [
         'primary',
         'secondary',
-        'tertiary',
         'info',
         'success',
         'warning',
@@ -20,6 +19,14 @@ export default defineNuxtConfig({
   uiPro: {
     // eslint-disable-next-line node/no-process-env
     license: process.env.NUXT_UI_PRO_LICENSE,
+  },
+  icon: {
+    customCollections: [
+      {
+        prefix: 'logos',
+        dir: './app/assets/logos',
+      },
+    ],
   },
   compatibilityDate: '2025-05-15',
   eslint: {

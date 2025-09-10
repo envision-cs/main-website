@@ -1,5 +1,4 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <section id="hero" class="relative overflow-hidden flex items-center rounded-3xl">
@@ -8,7 +7,7 @@
       alt="Construction site hero image"
       sizes="sm:100vw md:100vw lg:100vw"
       densities="x1 x2"
-      class="h-[80vh] sm:h-[90vh] w-full object-cover"
+      class="h-[80vh] sm:h-[96vh] w-full object-cover"
       preload
     />
     <div class="absolute inset-0 bg-linear-to-t from-black/60 to-black/0" />
@@ -19,7 +18,8 @@
             You need a builder who sees the bigger picture.
           </h2>
           <p class="mt-2 md:mt-3 text-base/5 sm:text-2xl/8 text-white/80 text-balance">
-            We manage construction projects with excellence, purpose, and people-first precision.
+            We manage construction projects with excellence, purpose, and
+            people-first precision.
           </p>
           <div class="mt-6 flex flex-wrap gap-3">
             <UButton size="xl" color="primary">

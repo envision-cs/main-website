@@ -12,22 +12,20 @@ defineProps<{
 </script>
 
 <template>
-  <div class="color relative rounded-lg overflow-hidden p-5 bg-primary grid">
-    <div class="relative z-10 text-white self-start">
+  <div class="color relative rounded-lg overflow-hidden bg-accented p-5 grid">
+    <div class="relative z-10 self-start">
       <UIcon
         v-if="icon"
         :name="icon"
-        class="size-14"
+        class="size-10"
       />
       <p class="text-sm md:text-base">
         {{ eyebrow }}
       </p>
-      <h3
-        class="mt-2 text-xl text-balance leading-5 md:text-3xl sm:leading-8 font-semibold"
-      >
+      <h3 class="mt-2 text-xl text-balance leading-5 md:text-3xl sm:leading-8">
         {{ title }}
       </h3>
-      <p>
+      <p class="">
         {{ description }}
       </p>
     </div>
@@ -37,7 +35,7 @@ defineProps<{
       :to="link.to"
       size="xl"
       :color="link.color"
-      class=" self-end z-10 justify-self-end"
+      class="self-end z-10 justify-self-end"
       variant="outline"
     >
       {{ link.label }}
@@ -45,5 +43,4 @@ defineProps<{
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -33,12 +33,8 @@ const items: Item[] = [
 </script>
 
 <template>
-  <app-section-title
-    title="Ready to Build With Purpose"
-  >
-    <div
-      class="border-t border-accented pt-6 mt-6 grid grid-cols-1 md:grid-cols-3 gap-4"
-    >
+  <app-section-title title="Ready to Build With Purpose">
+    <div class="border-t border-accented pt-6 mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
       <app-pre-footer-card
         v-for="item in items"
         :key="item.title"
