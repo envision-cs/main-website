@@ -4,6 +4,10 @@
 @theme {
   --font-sans: 'proxima-nova', sans-serif;
 
+  --container-8xl: 90rem;
+  --breakpoint-md: 650px;
+  --breakpoint-md: 1025px;
+
   --color-curious-blue-50: oklch(0.978 0.011 234.814);
   --color-curious-blue-100: oklch(0.95 0.022 239.429);
   --color-curious-blue-200: oklch(0.896 0.049 234.187);
@@ -46,13 +50,46 @@
 :root {
   --ui-primary: var(--color-curious-blue-700);
   --ui-secondary: var(--color-envision-green-700);
+  --ui-container: var(--container-8xl);
 }
 
 body {
-  padding-top: 1rem;
-  padding-inline: 2%;
-
   @media (min-width: 768px) {
-    padding-inline: 24px;
+  }
+}
+
+.site-grid {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 1.4rem;
+}
+
+@media (min-width: 650px) {
+  .site-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-column-gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-grid {
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+  }
+}
+
+.site-max {
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  width: 100%;
+}
+
+@media (min-width: 650px) {
+  .site-max {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
