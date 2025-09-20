@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/html-indent -->
 <template>
   <UPage class="mt-0 ">
-    <div class="grid gap-22">
+    <div class="grid gap-32">
       <home-hero-banner />
       <app-banner
 eyebrow="Clarity From Day One"

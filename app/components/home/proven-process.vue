@@ -21,14 +21,18 @@ const steps = [
     />
   </div>
 
-  <div class="mt-10 site-grid site-max">
+  <div class="mt-10 site-max">
     <div
       v-for="(s, i) in steps"
       :key="s.k"
-      class="col-span-full  h-full flex gap-4 py-10 border-t border-accented w-full"
+      class="group site-grid relative col-span-full   gap-4 py-10 border-t border-accented w-full"
     >
-      <span class="text-7xl font-black text-primary-500 leading-[.9] pl-4 lg:pl-10">{{ i + 1 }}</span>
-      <div class="flex flex-col ">
+      <div class="col-span-full sm:col-span-1 text-7xl font-black text-primary-500 leading-[.9]">
+        0{{ i + 1 }}
+      </div>
+      <div
+        class="flex flex-col col-start-1 col-span-full min-[650px]:col-start-3 min-[650px]:-col-end-1 lg:col-start-4 lg:col-end-14 start-5 lg:col-end-13"
+      >
         <h3 class="text-2xl font-semibold">
           {{ s.k }}
         </h3>
@@ -36,6 +40,13 @@ const steps = [
           {{ s.text }}
         </p>
       </div>
+      <NuxtImg
+        src="/community.png"
+        name="i-heroicons-arrow-right-20-solid"
+        class="col-span-full w-full aspect-video lg:col-start-15"
+      />
     </div>
   </div>
 </template>
+
+<style scoped></style>
