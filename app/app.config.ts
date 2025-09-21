@@ -74,7 +74,7 @@ export default defineAppConfig({
     },
     {
       label: 'Contact Us',
-      to: '#',
+      to: '/contact',
     },
   ] as NavigationMenuItem[],
   ui: {

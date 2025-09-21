@@ -5,13 +5,8 @@ const items = config.navigationMenuItems;
 </script>
 
 <template>
-  <div class="fixed top-4 sm:top-8 mx-auto left-1/2 transform -translate-x-1/2 z-10 px-8 w-full max-w-[78rem]">
-    <UHeader
-      class="rounded-full"
-      :ui="{
-        root: 'bg-default',
-      }"
-    >
+  <div>
+    <UHeader>
       <template #title>
         <Icon
           name="logos:envision"
