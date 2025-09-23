@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui-pro', '@nuxt/image', 'motion-v/nuxt'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/ui-pro',
+    '@nuxt/image',
+    'motion-v/nuxt',
+    'nuxt-security',
+  ],
   devtools: { enabled: true },
   css: ['./app/assets/css/main.css'],
   ui: {
@@ -27,6 +33,8 @@ export default defineNuxtConfig({
         dir: './app/assets/logos',
       },
     ],
+  },
+  security: {
   },
   compatibilityDate: '2025-05-15',
   eslint: {

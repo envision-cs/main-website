@@ -73,7 +73,6 @@ title="Your Vision Shouldn’t Be Left to Chance"
         ]"
 />
       <three-uniques />
-      <app-pre-footer />
     </div>
   </UPage>
 </template>

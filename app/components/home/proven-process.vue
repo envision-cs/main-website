@@ -21,7 +21,7 @@ const steps = [
     />
   </div>
 
-  <div class="mt-10 site-max">
+  <div class="mt-0 site-max">
     <div
       v-for="(s, i) in steps"
       :key="s.k"
