@@ -32,9 +32,7 @@ defineProps<{
       <p class="text-sm md:text-base">
         {{ eyebrow }}
       </p>
-      <h3
-        class="mt-2 text-xl text-balance leading-5 sm:text-2xl sm:leading-8 font-semibold"
-      >
+      <h3 class="mt-2 text-xl text-balance leading-5 sm:text-2xl sm:leading-8 font-semibold">
         {{ title }}
       </h3>
       <p>
@@ -55,5 +53,4 @@ defineProps<{
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

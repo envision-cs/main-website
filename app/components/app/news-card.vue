@@ -12,7 +12,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="color rounded-lg overflow-hidden h-full p-5 flex flex-col min-h-[325px]">
+  <div class="color rounded-lg overflow-hidden h-full p-5 flex flex-col ">
     <NuxtImg
       v-if="image"
       :src="image"
@@ -23,7 +23,7 @@ defineProps<{
       format="webp"
       fit="cover"
     />
-    <div class="relative z-10 self-end">
+    <div class="relative z-10 ">
       <UIcon
         v-if="icon"
         :name="icon"
@@ -45,7 +45,7 @@ defineProps<{
       :to="link.to"
       size="xl"
       :color="link.color"
-      class="mt-auto self-end"
+      class="mt-auto "
       variant="outline"
     >
       {{ link.label }}

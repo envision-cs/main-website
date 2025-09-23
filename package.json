@@ -14,10 +14,14 @@
   },
   "dependencies": {
     "@nuxt/image": "1.11.0",
-    "@nuxt/ui-pro": "^3.3.2",
+    "@nuxt/ui": "^4.0.0",
+    "motion-v": "^1.7.1",
     "nuxt": "^4.0.3",
+    "nuxt-security": "2.4.0",
+    "posthog-js": "^1.268.1",
     "vue": "^3.5.20",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.2.1",

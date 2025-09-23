@@ -1,6 +1,4 @@
 <script setup lang="ts">
-const { onError } = useImgOnError();
-
 const steps = [
   { k: 'Listen', text: 'Every project begins with thoughtful listening. We take time to understand your vision, goals, and constraints. Through discovery meetings, site reviews, and clear communication, we lay the foundation for a partnership built on trust and alignment.' },
   { k: 'Plan', text: 'Before any work begins, we bring certainty to the process. From budget-aligned designs and permitting to early trade coordination and risk mitigation, we focus on eliminating surprises and protecting your timeline from day one.' },
@@ -10,49 +8,45 @@ const steps = [
 </script>
 
 <template>
-  <app-section-title
-    eyebrow="Success on purpose"
-    title="Our Proven Process"
-    description="Our proven process brings structure and consistency to every project. We listen, plan, and execute to reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency.
-"
-    :links="[
-      {
-        label: 'Start Your Project',
-        to: '#',
-        color: 'primary',
-      },
-    ]"
-  >
-    <div class="mt-6">
+  <div class="">
+    <app-banner
+      title="Our Proven Process"
+      description="Our proven process brings structure and consistency to every project. We listen, plan, and execute to reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency"
+      :images="[
+        {
+          img: '/airport.png',
+          alt: 'Airport image',
+
+        }]"
+    />
+  </div>
+
+  <div class="mt-0 site-max">
+    <div
+      v-for="(s, i) in steps"
+      :key="s.k"
+      class="group site-grid relative col-span-full   gap-4 py-10 border-t border-accented w-full"
+    >
+      <div class="col-span-full sm:col-span-1 text-7xl font-black text-primary-500 leading-[.9]">
+        0{{ i + 1 }}
+      </div>
+      <div
+        class="flex flex-col col-start-1 col-span-full min-[650px]:col-start-3 min-[650px]:-col-end-1 lg:col-start-4 lg:col-end-14 start-5 lg:col-end-13"
+      >
+        <h3 class="text-2xl font-semibold">
+          {{ s.k }}
+        </h3>
+        <p class="text-gray-600 leading-relaxed max-w-[60ch]">
+          {{ s.text }}
+        </p>
+      </div>
       <NuxtImg
-        src="/airport.png"
-        alt="Team collaboration"
-        sizes="sm:100vw md:100vw lg:1024px"
-        densities="x1 x2"
-        class="w-full rounded-xl aspect-square md:aspect-[calc(2*3+1)/3] object-cover"
-        loading="lazy"
-        format="webp"
-        fit="cover"
-        @error="onError"
+        src="/community.png"
+        name="i-heroicons-arrow-right-20-solid"
+        class="col-span-full w-full aspect-video lg:col-start-15"
       />
     </div>
-
-    <div class="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-2 border-t border-accented pt-6">
-      <div
-        v-for="(s, i) in steps"
-        :key="s.k"
-        class="h-full flex gap-4 p-4 md:odd:border-r border-accented"
-      >
-        <span class="text-7xl font-black text-primary-500 leading-none">{{ i + 1 }}</span>
-        <div class="flex flex-col ">
-          <h3 class="text-xl font-semibold">
-            {{ s.k }}
-          </h3>
-          <p class="text-gray-600 leading-relaxed">
-            {{ s.text }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </app-section-title>
+  </div>
 </template>
+
+<style scoped></style>

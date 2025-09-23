@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui-pro', '@nuxt/image'],
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/ui',
+    '@nuxt/image',
+    'motion-v/nuxt',
+    'nuxt-security',
+  ],
   devtools: { enabled: true },
   css: ['./app/assets/css/main.css'],
   ui: {
@@ -16,9 +22,12 @@ export default defineNuxtConfig({
       ],
     },
   },
-  uiPro: {
-    // eslint-disable-next-line node/no-process-env
-    license: process.env.NUXT_UI_PRO_LICENSE,
+  runtimeConfig: {
+    public: {
+      posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
+      posthogHost: 'https://us.i.posthog.com',
+      posthogDefaults: '2025-05-24',
+    },
   },
   icon: {
     customCollections: [
@@ -27,6 +36,8 @@ export default defineNuxtConfig({
         dir: './app/assets/logos',
       },
     ],
+  },
+  security: {
   },
   compatibilityDate: '2025-05-15',
   eslint: {
