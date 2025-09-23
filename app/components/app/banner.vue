@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { Link } from '#shared/types/global';
 
+import { NuxtImg } from '#components';
+import { motion, useScroll, useTransform } from 'motion-v';
+
 type Images = {
   img: string;
   alt: string;
@@ -18,34 +21,23 @@ const hasImages = images && images?.length > 0;
 const multipleImages = images && images?.length > 1;
 
 const partialImage = ref('col-span-full min-[650px]:col-span-full  lg:col-span-16 row-span-3 w-full h-full');
-// const fullImage = ref('col-span-full w-full h-full aspect-[13/8] object-cover');
 
-// Parallax (single image only)
+// Motion: Parallax (single image only)
 const bannerRef = ref<HTMLElement | null>(null);
-const parallaxY = ref(0);
 
-onMounted(() => {
-  if (multipleImages)
-    return;
-  const onScroll = () => {
-    if (!bannerRef.value)
-      return;
-    const rect = bannerRef.value.getBoundingClientRect();
-    // Translate proportionally to how far the banner is from the top
-    const translate = -rect.top * 0.90; // tweak intensity here
-    // Clamp to avoid excessive movement
-    parallaxY.value = Math.max(-80, Math.min(80, translate));
-  };
-  const onResize = () => onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onResize);
-  // Initial position
-  onScroll();
-  onBeforeUnmount(() => {
-    window.removeEventListener('scroll', onScroll as EventListener);
-    window.removeEventListener('resize', onResize);
-  });
+// Create a Motion-wrapped NuxtImg so we can bind motion values to style
+const MotionNuxtImg = motion.create(NuxtImg);
+
+// Track scroll progress of the banner section and map it to a Y translation
+// Offset "start end" -> "end start" means: when banner top hits viewport bottom (0) to when
+// banner bottom hits viewport top (1)
+const { scrollYProgress } = useScroll({
+  target: bannerRef,
+  offset: ['start end', 'end start'],
 });
+
+// Map progress 0..1 to -80..80px vertical translation
+const y = useTransform(scrollYProgress, [0, 1], [-99, 99]);
 </script>
 
 <template>
@@ -71,20 +63,20 @@ onMounted(() => {
         />
       </template>
 
-      <!-- Single image: parallax wrapper -->
+      <!-- Single image: parallax wrapper (Motion) -->
       <div
         v-else
         ref="bannerRef"
         class="col-span-full w-full h-full aspect-[13/6] overflow-hidden relative"
       >
-        <NuxtImg
+        <MotionNuxtImg
           :src="images[0]?.img"
           :alt="images[0]?.alt"
           height="700"
           width="900"
           class="absolute inset-0 w-full h-full object-cover will-change-transform"
           fit="cover"
-          :style="{ transform: `translateY(${parallaxY}px)` }"
+          :style="{ y }"
         />
       </div>
     </div>
