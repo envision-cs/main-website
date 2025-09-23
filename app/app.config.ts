@@ -1,4 +1,4 @@
-import type { NavigationMenuItem } from '@nuxt/ui-pro';
+import type { NavigationMenuItem } from '@nuxt/ui';
 
 export default defineAppConfig({
   navigationMenuItems: [
@@ -83,6 +83,14 @@ export default defineAppConfig({
       secondary: 'envision-green',
       neutral: 'stone',
     },
+    page: {
+      slots: {
+        center: 'lg:col-span-8',
+      },
+    },
+    pageBody: {
+      base: 'mt-8 pb-24 space-y-24 md:space-y-56',
+    },
     button: {
       slots: {
         base: ['w-fit'],
@@ -99,16 +107,6 @@ export default defineAppConfig({
       slots: {
         label: 'text-lg lg:text-xl font-semibold',
       },
-    },
-  },
-  uiPro: {
-    page: {
-      slots: {
-        center: 'lg:col-span-8',
-      },
-    },
-    pageBody: {
-      base: 'mt-8 pb-24 space-y-24 md:space-y-56',
     },
   },
 });

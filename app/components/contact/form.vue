@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@nuxt/ui';
 
-import * as z from 'zod';
+import * as z from 'zod/v3';
 
 const schema = z.object({
   name: z.string().min(2, 'Must be at least 2 characters'),

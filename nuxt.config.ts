@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
-    '@nuxt/ui-pro',
+    '@nuxt/ui',
     '@nuxt/image',
     'motion-v/nuxt',
     'nuxt-security',
@@ -22,9 +22,12 @@ export default defineNuxtConfig({
       ],
     },
   },
-  uiPro: {
-    // eslint-disable-next-line node/no-process-env
-    license: process.env.NUXT_UI_PRO_LICENSE,
+  runtimeConfig: {
+    public: {
+      posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
+      posthogHost: 'https://us.i.posthog.com',
+      posthogDefaults: '2025-05-24',
+    },
   },
   icon: {
     customCollections: [
