@@ -2,7 +2,11 @@
 @import '@nuxt/ui';
 
 @theme {
-  --font-sans: 'proxima-nova', sans-serif;
+  --font-sans: 'Proxima Nova', sans-serif;
+
+  --container-8xl: 90rem;
+  --breakpoint-md: 650px;
+  --breakpoint-md: 1025px;
 
   --container-8xl: 90rem;
   --breakpoint-md: 650px;
