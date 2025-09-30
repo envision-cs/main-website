@@ -20,7 +20,6 @@ const showNumbers = true;
           img: '/airport.png',
           alt: 'Airport image',
 
-
         }]"
     />
   </div>
@@ -34,7 +33,6 @@ const showNumbers = true;
       :text="s.text"
       :show-number="showNumbers"
     />
-
   </div>
 </template>
 

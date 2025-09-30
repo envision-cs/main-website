@@ -12,7 +12,7 @@
               />
 
               <template #content>
-                <Placeholder class="size-48 m-4 inline-flex" />
+                Hello
               </template>
             </UPopover>
           </div>
@@ -20,6 +20,33 @@
       </home-hero-banner>
 
       <app-banner title="Aviation" />
+
+      <app-grid>
+        <projects-card
+          title="PD: HCAA Tampa International Airport Airside A, C and F Restroom Renovations"
+          image="/TPA_ASC_Restrooms_Hero.jpg"
+          :link="{
+            title: '#',
+            to: '#',
+          }"
+        />
+        <projects-card
+          title="PD: HCAA Tampa International Airport Airside A, C and F Restroom Renovations"
+          image="/TPA_ASC_Restrooms_Hero.jpg"
+          :link="{
+            title: '#',
+            to: '#',
+          }"
+        />
+        <projects-card
+          title="PD: HCAA Tampa International Airport Airside A, C and F Restroom Renovations"
+          image="/TPA_ASC_Restrooms_Hero.jpg"
+          :link="{
+            title: '#',
+            to: '#',
+          }"
+        />
+      </app-grid>
     </div>
   </UPage>
 </template>

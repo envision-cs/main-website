@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { NuxtImg } from '#components';
 import { motion, useScroll, useTransform } from 'motion-v';
-
 
 type Images = {
   img: string;
@@ -32,9 +32,7 @@ const MotionNuxtImg = motion.create(NuxtImg);
 const { scrollYProgress } = useScroll({
   target: bannerRef,
   offset: ['start end', 'end start'],
-});
-
-// Map progress 0..1 to -80..80px vertical translation
+});// Map progress 0..1 to -80..80px vertical translation
 const y = useTransform(scrollYProgress, [0, 1], [-99, 99]);
 </script>
 

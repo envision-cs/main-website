@@ -13,7 +13,6 @@ defineProps<{
 </script>
 
 <template>
-
   <div
     class="news-card"
     :class="image ? 'has-image' : ''"
@@ -27,7 +26,6 @@ defineProps<{
         densities="x1 x2"
         format="webp"
         fit="cover"
-
       />
     </div>
 
@@ -69,7 +67,6 @@ defineProps<{
         </UButton>
       </div>
     </div>
-
   </div>
 </template>
 

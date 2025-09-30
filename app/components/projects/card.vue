@@ -91,8 +91,8 @@ defineProps<{
     margin: 0;
     font-family: 'Proxima Nova', var(--font-sans, sans-serif);
     font-weight: 600; /* Semibold */
-    font-size: 49px;
-    line-height: 49px;
+    font-size: 25px;
+    line-height: 25px;
     color: #fff;
   }
 }

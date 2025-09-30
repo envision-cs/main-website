@@ -86,6 +86,5 @@ title="Building Without the Headaches"
                   ]"
 />
 </div>
-
-  </UPage>
+</UPage>
 </template>

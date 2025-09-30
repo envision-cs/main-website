@@ -96,7 +96,6 @@ const alignClasses = computed(() => {
           </slot>
 
           <slot name="actions">
-
             Hellp
 
             <div class="mt-6 flex flex-wrap gap-3">
