@@ -39,17 +39,6 @@ defineProps<{
         {{ description }}
       </p>
     </div>
-    <UButton
-      v-if="link"
-      :key="link.label"
-      :to="link.to"
-      size="xl"
-      :color="link.color"
-      class=" self-end z-10 justify-self-end"
-      variant="outline"
-    >
-      {{ link.label }}
-    </UButton>
   </div>
 </template>
 

@@ -5,6 +5,7 @@
       <UMain>
         <NuxtPage />
       </UMain>
+      <app-footer />
     </NuxtLayout>
   </UApp>
 </template>

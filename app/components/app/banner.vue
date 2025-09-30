@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import type { Link } from '#shared/types/global';
-
-import { NuxtImg } from '#components';
 import { motion, useScroll, useTransform } from 'motion-v';
 
 type Images = {
