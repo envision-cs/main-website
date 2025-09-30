@@ -8,6 +8,10 @@
   --breakpoint-md: 650px;
   --breakpoint-md: 1025px;
 
+  --container-8xl: 90rem;
+  --breakpoint-md: 650px;
+  --breakpoint-md: 1025px;
+
   --color-curious-blue-50: oklch(0.978 0.011 234.814);
   --color-curious-blue-100: oklch(0.95 0.022 239.429);
   --color-curious-blue-200: oklch(0.896 0.049 234.187);

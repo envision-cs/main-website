@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { motion, useScroll, useTransform } from 'motion-v';
 
+
 type Images = {
   img: string;
   alt: string;

@@ -42,10 +42,12 @@ const items = [
 
 <template>
   <app-section-title title="Envision In the News">
+
     <div
       v-if="items.length > 0"
       class="news-feed border-t border-accented pt-6 mt-6 items-stretch flex flex-col lg:flex-row lg:flex-wrap xl:flex-nowrap gap-4"
     >
+
       <app-news-card
         v-for="item in items"
         :key="item.title"
@@ -54,6 +56,7 @@ const items = [
         :eyebrow="item.eyebrow"
         :title="item.title"
         :link="item.link"
+
         :wide="item.wide"
         class="w-full lg:w-auto"
         :class="[
@@ -66,6 +69,7 @@ const items = [
             ? 'xl:flex-1 xl:min-w-0'
             : 'xl:flex-none xl:shrink-0 xl:basis-[306.5px]',
         ]"
+
       />
     </div>
   </app-section-title>
