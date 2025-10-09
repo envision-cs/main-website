@@ -29,14 +29,16 @@ const items = [
         {
           img: '/thegreens2.jpg',
           alt: 'Allen Green Senior Ariana Green and Allen Green Junior standing in from of a large crane wearing hard hats and safty vest',
-        }]"
+        },
+      ]"
     />
   </div>
 
   <div class="mt-0 site-max">
     <app-list-item
-      v-for="item, i in items"
+      v-for="(item, i) in items"
       :key="i"
+      :index="i"
       :title="item.label"
       :text="item.content"
     />
