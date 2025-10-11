@@ -24,7 +24,7 @@ const showNumbers = true;
     />
   </div>
 
-  <div class="mt-0 site-max">
+  <div class="mt-0">
     <app-list-item
       v-for="(s, i) in steps"
       :key="s.k"

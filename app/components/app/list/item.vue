@@ -6,10 +6,18 @@ defineProps<{
   image?: string;
   showNumber?: boolean;
 }>();
+
+const hovered = ref(false);
 </script>
 
 <template>
-  <div class="group site-grid relative col-span-full gap-4 py-10 border-t border-accented w-full">
+  <div
+    class="group site-grid relative
+    col-span-full gap-4 py-10 border-t border-accented w-full
+    hover:bg-envision-green-100/50"
+    @mouseenter="() => hovered = true"
+    @mouseleave="() => hovered = false"
+  >
     <div v-if="showNumber" class="col-span-full sm:col-span-1 text-7xl font-black text-primary-500 leading-[.9]">
       0{{ index + 1 }}
     </div>
@@ -29,8 +37,9 @@ defineProps<{
     </div>
 
     <NuxtImg
+      v-if="hovered"
       :src="image || '/community.png'"
-      class="col-span-full w-full aspect-video lg:col-start-15"
+      class=" z-10 absolute top-1/2 -translate-y-1/2 col-span-full w-full aspect-video lg:col-start-14"
     />
   </div>
 </template>
