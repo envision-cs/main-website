@@ -123,40 +123,49 @@ onBeforeUnmount(() => anim?.cancel());
         />
       </div>
     </div>
-    <div class="site-grid gap-4 border-muted border-t border-b">
-      <motion.h2
-        :initial="{ opacity: 0, y: 50 }"
-        :while-in-view="{ opacity: 1, y: 0 }"
-        :transition="{ duration: 0.8, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' }"
-        :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
+    <div class="site-grid gap-4 border-muted border-t border-b min-h-[60lvh]">
+      <NuxtImg
+        src="/community.jpg"
+        :alt="images[1]?.alt"
+        class="hidden min-[700px]:block col-span-4 self-end pb-8"
+      />
+      <USeparator orientation="vertical" class="hidden min-[700px]:block min-[700px]:col-start-5 lg:col-start-13" />
+      <div
         class="
-          pt-10 text-3xl sm:text-5xl col-span-full font-semibold col-start-1
-          min-[700px]:py-10 min-[700px]:col-start-1 min-[700px]:col-end-6
-          lg:col-end-13 text-balance max-w-[20ch]
+        flex flex-col justify-between h-full col-span-full
+        min-[700px]:col-start-6 min-[700px]:col-end-13 min-[700px]:p-0
+        lg:col-start-14 lg:col-end-24
         "
       >
-        {{ title }}
-      </motion.h2>
-
-      <USeparator orientation="vertical" class="hidden min-[700px]:block min-[700px]:col-start-7 lg:col-start-15" />
-      <motion.p
-        v-if="description"
-        :initial="{ opacity: 0, y: 50 }"
-        :while-in-view="{ opacity: 1, y: 0 }"
-        :transition="{ duration: 0.9, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' }"
-        :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
-        class="
-          py-0 pb-10  h-full self-center text-lg max-w-3xl col-span-full flex items-center
-          min-[700px]:col-start-8 min-[700px]:col-end-13 min-[700px]:p-0  min-[700px]:py-10
-          lg:col-start-16 lg:col-end-24
+        <motion.h2
+          :initial="{ opacity: 0, y: 50 }"
+          :while-in-view="{ opacity: 1, y: 0 }"
+          :transition="{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }"
+          :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
+          class="
+           text-2xl pt-8 sm:text-4xl font-semibold text-balance max-w-[20ch]
         "
-      >
-        {{ description }}
-      </motion.p>
+        >
+          {{ title }}
+        </motion.h2>
+        <motion.p
+          v-if="description"
+          :initial="{ opacity: 0, y: 50 }"
+          :while-in-view="{ opacity: 1, y: 0 }"
+          :transition="{
+            duration: 0.9,
+            ease: [0.25, 0.46, 0.45, 0.94],
+          }"
+          :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
+          class="
+          pb-8 text-base max-w-3xl
 
-      <div v-else class="col-span-full min-[700px]:col-start-8 min-[700px]:col-end-12 lg:col-start-15 lg:col-end-24">
-        <slot />
+        "
+        >
+          {{ description }}
+        </motion.p>
       </div>
+
       <div v-if="links && links?.length > 3" class="flex flex-col sm:flex-row mt-2 gap-2 justify-start">
         <UButton
           v-for="link in links"
