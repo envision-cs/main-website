@@ -17,10 +17,6 @@ const { images = [] } = defineProps<{
 const hasImages = images && images?.length > 0;
 const multipleImages = images && images?.length > 1;
 
-const partialImage = ref(
-  'pl-6 col-span-full min-[700px]:col-span-full lg:col-span-16 row-span-3 w-full h-full',
-);
-
 const bannerRef = ref<HTMLElement | null>(null);
 let anim: Animation | undefined;
 
@@ -51,13 +47,21 @@ onBeforeUnmount(() => anim?.cancel());
 <template>
   <section
     id="cta"
-    class="grid gap-10 border-muted border-t border-b"
-    :class="{ 'gap-y-0': !hasImages }"
+    class="grid gap-10 "
+    :class="{
+      'gap-y-0': !hasImages,
+      'border-muted border-t pt-10': hasImages,
+    }"
   >
     <div v-if="hasImages" class="site-grid w-full col-start-1">
       <!-- Multiple images: keep original layout -->
       <template v-if="multipleImages">
-        <figure :class="partialImage">
+        <figure
+          class="
+          px-4 col-span-full row-span-3 w-full h-full
+          min-[700px]:col-start-1 min-[700px]:col-end-17 min-[700px]:px-0
+          "
+        >
           <NuxtImg
             :src="images[0]?.img"
             :alt="images[0]?.alt"
@@ -77,7 +81,11 @@ onBeforeUnmount(() => anim?.cancel());
           </figcaption>
         </figure>
         <figure
-          class="block lg:row-span-2 min-[700px]:hidden lg:block w-full h-full lg:col-start-17 col-span-full lg:-col-end-1"
+          class="
+          block col-span-full
+          min-[700px]:hidden
+          lg:block w-full h-full lg:col-start-17  lg:col-end-25
+          "
         >
           <NuxtImg
             :src="images[1]?.img"
@@ -115,14 +123,14 @@ onBeforeUnmount(() => anim?.cancel());
         />
       </div>
     </div>
-    <div class="site-grid gap-4">
+    <div class="site-grid gap-4 border-muted border-t border-b">
       <motion.h2
         :initial="{ opacity: 0, y: 50 }"
         :while-in-view="{ opacity: 1, y: 0 }"
         :transition="{ duration: 0.8, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' }"
         :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
         class="
-          pt-10 text-3xl sm:text-5xl col-span-full font-semibold col-start-1 pl-4
+          pt-10 text-3xl sm:text-5xl col-span-full font-semibold col-start-1
           min-[700px]:py-10 min-[700px]:col-start-1 min-[700px]:col-end-6
           lg:col-end-13 text-balance max-w-[20ch]
         "
@@ -138,8 +146,8 @@ onBeforeUnmount(() => anim?.cancel());
         :transition="{ duration: 0.9, easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' }"
         :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
         class="
-          py-0 pb-10 px-4 h-full self-center text-lg max-w-3xl col-span-full flex items-center
-          min-[700px]:col-start-8 min-[700px]:col-end-13 min-[700px]:p-0 min-[700px]:pr-4 min-[700px]:py-10
+          py-0 pb-10  h-full self-center text-lg max-w-3xl col-span-full flex items-center
+          min-[700px]:col-start-8 min-[700px]:col-end-13 min-[700px]:p-0  min-[700px]:py-10
           lg:col-start-16 lg:col-end-24
         "
       >

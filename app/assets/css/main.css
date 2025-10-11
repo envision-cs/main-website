@@ -69,6 +69,7 @@ body {
 .site-grid {
   margin: auto;
   display: grid;
+  padding-inline: 1rem;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-column-gap: 1.4rem;
 }
@@ -77,6 +78,7 @@ body {
   .site-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-column-gap: 2rem;
+    padding-inline: 1rem;
   }
 }
 

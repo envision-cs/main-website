@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/html-indent -->
 <template>
   <UPage class="mt-0 ">
-    <div class="grid gap-32">
+    <div class="grid">
       <home-hero-banner />
       <app-banner
 eyebrow="Clarity From Day One"
@@ -74,7 +74,7 @@ title="Your Vision Shouldn’t Be Left to Chance"
 />
       <three-uniques />
 
-<app-banner
+      <app-banner
 title="Building Without the Headaches"
         description="We know how stressful construction can feel when deadlines are missed, communication is poor, and leadership is unclear. That’s why we’ve built a process that keeps your project on track and you in the loop—every step of the way."
         :links="[
@@ -83,8 +83,8 @@ title="Building Without the Headaches"
             to: '#',
             color: 'primary',
           },
-                  ]"
+        ]"
 />
-</div>
-</UPage>
+    </div>
+  </UPage>
 </template>
