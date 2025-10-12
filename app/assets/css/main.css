@@ -52,6 +52,8 @@
 }
 
 :root {
+  interpolate-size: allow-keywords;
+
   --ui-primary: var(--color-curious-blue-700);
   --ui-secondary: var(--color-envision-green-700);
   --ui-container: var(--container-8xl);

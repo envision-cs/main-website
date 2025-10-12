@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { motion } from 'motion-v';
+
 defineProps<{
   index: number;
   title: string;
@@ -7,6 +9,8 @@ defineProps<{
   showNumber?: boolean;
 }>();
 
+const { snappy } = useEasings();
+
 const hovered = ref(false);
 </script>
 
@@ -14,7 +18,7 @@ const hovered = ref(false);
   <div
     class="group site-grid relative
     col-span-full gap-4 py-10 border-t border-accented w-full
-    hover:bg-envision-green-100/50"
+    hover:bg-envision-green-100/50 transition-all h-96"
     @mouseenter="() => hovered = true"
     @mouseleave="() => hovered = false"
   >
@@ -35,12 +39,28 @@ const hovered = ref(false);
         {{ text }}
       </p>
     </div>
-
-    <NuxtImg
-      v-if="hovered"
-      :src="image || '/community.png'"
-      class=" z-10 absolute top-1/2 -translate-y-1/2 col-span-full w-full aspect-video lg:col-start-14"
-    />
+    <AnimatePresence>
+      <motion.div
+        v-if="hovered"
+        :key="index"
+        :initial="{ x: '100%' }"
+        :animate="{
+          x: '0%',
+        }"
+        :transition="{
+          duration: 0.5,
+          ease: snappy,
+        }"
+        :exit="{ opacity: 0, x: '100%' }"
+        class="h-96 overflow-hidden col-start-14 -col-end-1"
+      >
+        <NuxtImg
+          :src="image || '/community.png'"
+          class="w-full h-full object-cover"
+          fit="cover"
+        />
+      </motion.div>
+    </AnimatePresence>
   </div>
 </template>
 

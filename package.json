@@ -16,6 +16,7 @@
   "dependencies": {
     "@nuxt/image": "1.11.0",
     "@nuxt/ui": "^4.0.0",
+    "@vueuse/motion": "^3.0.3",
     "motion": "^12.23.24",
     "motion-v": "^1.7.1",
     "nuxt": "^4.0.3",

@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { animate, motion, scroll } from 'motion-v';
 
-type Images = {
-  img: string;
-  alt: string;
-};
-
 const { images = [] } = defineProps<{
   eyebrow?: string;
   title: string;
@@ -13,6 +8,13 @@ const { images = [] } = defineProps<{
   links?: Link[];
   images?: Images[];
 }>();
+
+const { gentle } = useEasings();
+
+type Images = {
+  img: string;
+  alt: string;
+};
 
 const hasImages = images && images?.length > 0;
 const multipleImages = images && images?.length > 1;
@@ -29,7 +31,7 @@ onMounted(() => {
   // Move image up->down as the wrapper scrolls through the viewport
   anim = animate(target, { y: [-200, 200] }, {
     // use linear for true scroll mapping; or GSAP power2.out feel:
-    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+    ease: gentle,
   });
 
   if (!anim)
@@ -56,55 +58,27 @@ onBeforeUnmount(() => anim?.cancel());
     <div v-if="hasImages" class="site-grid w-full col-start-1">
       <!-- Multiple images: keep original layout -->
       <template v-if="multipleImages">
-        <figure
-          class="
-          px-4 col-span-full row-span-3 w-full h-full
-          min-[700px]:col-start-1 min-[700px]:col-end-17 min-[700px]:px-0
-          "
-        >
-          <NuxtImg
-            :src="images[0]?.img"
-            :alt="images[0]?.alt"
-            height="700"
-            width="900"
-            class="w-full"
-            fit="cover"
-          />
-          <figcaption class="flex flex-wrap justify-between">
-            <div>
-              <p>Building Without the Headaches</p>
-              <p class="font-semibold text-xl max-w-[20ch]">
-                Building Without the Headaches
-              </p>
-            </div>
-            <p>2025</p>
-          </figcaption>
-        </figure>
-        <figure
-          class="
-          block col-span-full
+        <app-image-card
+          :image="images[0]?.img"
+          :alt="images[0]?.alt"
+          area="aviation"
+          title="Building Without the Headaches"
+          year="2025"
+          direction="left"
+          class="px-4 col-span-full row-span-3 w-full h-full
+          min-[700px]:col-start-1 min-[700px]:col-end-17 min-[700px]:px-0"
+        />
+        <app-image-card
+          :image="images[0]?.img"
+          :alt="images[0]?.alt"
+          area="aviation"
+          direction="right"
+          title="Building Without the Headaches"
+          year="2025"
+          class="block col-span-full
           min-[700px]:hidden
-          lg:block w-full h-full lg:col-start-17  lg:col-end-25
-          "
-        >
-          <NuxtImg
-            :src="images[1]?.img"
-            :alt="images[1]?.alt"
-            height="400"
-            width="300"
-            class="w-full"
-            fit="cover"
-          />
-          <figcaption class="flex flex-wrap justify-between">
-            <div>
-              <p>Building Without the Headaches</p>
-              <p class="font-semibold text-xl max-w-[20ch]">
-                Building Without the Headaches
-              </p>
-            </div>
-            <p>2025</p>
-          </figcaption>
-        </figure>
+          lg:block w-full h-full lg:col-start-17  lg:col-end-25"
+        />
       </template>
 
       <!-- Single image: parallax wrapper (Motion) -->
@@ -140,7 +114,7 @@ onBeforeUnmount(() => anim?.cancel());
         <motion.h2
           :initial="{ opacity: 0, y: 50 }"
           :while-in-view="{ opacity: 1, y: 0 }"
-          :transition="{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }"
+          :transition="{ duration: 0.8, ease: gentle }"
           :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
           class="
            text-2xl pt-8 sm:text-4xl font-semibold text-balance max-w-[20ch]
@@ -154,7 +128,7 @@ onBeforeUnmount(() => anim?.cancel());
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{
             duration: 0.9,
-            ease: [0.25, 0.46, 0.45, 0.94],
+            ease: gentle,
           }"
           :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
           class="
