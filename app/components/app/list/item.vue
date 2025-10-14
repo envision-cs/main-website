@@ -17,17 +17,27 @@ const hovered = ref(false);
 <template>
   <div
     class="group site-grid relative
-    col-span-full gap-4 py-10 border-t border-accented w-full
-    hover:bg-envision-green-100/50 transition-all h-96"
+    col-span-full gap-4 border-t border-accented w-full
+      h-96"
     @mouseenter="() => hovered = true"
     @mouseleave="() => hovered = false"
   >
-    <div v-if="showNumber" class="col-span-full sm:col-span-1 text-7xl font-black text-primary-500 leading-[.9]">
+    <div
+      v-if="showNumber"
+      class="
+        self-center justify-end col-start-3
+        col-span-2 text-7xl font-black text-primary-500 leading-[.9]
+      "
+    >
       0{{ index + 1 }}
     </div>
 
     <div
-      class="flex flex-col col-start-1 col-span-full min-[650px]:-col-end-1 lg:col-end-14 start-5 lg:col-end-13"
+      class="
+        flex flex-col col-start-1 col-span-full self-center
+        min-[650px]:-col-end-1
+        lg:col-start-5 lg:col-end-13
+      "
       :class="[
         showNumber ? 'min-[650px]:col-start-3 lg:col-start-4' : '',
       ]"
@@ -42,6 +52,21 @@ const hovered = ref(false);
     <AnimatePresence>
       <motion.div
         v-if="hovered"
+        :initial="{ height: '0px' }"
+        :animate="{ height: 'auto' }"
+        :transition="{
+          duration: 0.5,
+          ease: snappy,
+        }"
+        class="hidden min-[700px]:block row-1 min-[700px]:col-5 lg:col-14"
+      >
+        <USeparator orientation="vertical" />
+      </motion.div>
+    </AnimatePresence>
+    <AnimatePresence>
+      <!--
+      <motion.div
+        v-if="hovered"
         :key="index"
         :initial="{ x: '100%' }"
         :animate="{
@@ -52,7 +77,7 @@ const hovered = ref(false);
           ease: snappy,
         }"
         :exit="{ opacity: 0, x: '100%' }"
-        class="h-96 overflow-hidden col-start-14 -col-end-1"
+        class="h-96 overflow-hidden col-14 -col-end-1 row-1"
       >
         <NuxtImg
           :src="image || '/community.png'"
@@ -60,6 +85,7 @@ const hovered = ref(false);
           fit="cover"
         />
       </motion.div>
+      -->
     </AnimatePresence>
   </div>
 </template>

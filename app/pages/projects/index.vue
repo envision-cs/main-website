@@ -1,3 +1,9 @@
+<script setup lang="ts">
+await useAsyncData('projects', () => {
+  return queryCollection('projects').all();
+});
+</script>
+
 <template>
   <UPage class="mt-0 ">
     <div class="grid gap-32">
