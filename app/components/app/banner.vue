@@ -7,6 +7,7 @@ const { images = [] } = defineProps<{
   description?: string;
   links?: Link[];
   images?: Images[];
+  flip?: boolean;
 }>();
 
 const { gentle } = useEasings();
@@ -49,13 +50,20 @@ onBeforeUnmount(() => anim?.cancel());
 <template>
   <section
     id="cta"
-    class="grid gap-10 "
+    class="grid gap-10"
     :class="{
       'gap-y-0': !hasImages,
+      '': flip,
       'border-muted border-t pt-10': hasImages,
     }"
   >
-    <div v-if="hasImages" class="site-grid w-full col-start-1">
+    <div
+      v-if="hasImages"
+      class="site-grid w-full col-start-1"
+      :class="{
+        'order-2': flip,
+      }"
+    >
       <!-- Multiple images: keep original layout -->
       <template v-if="multipleImages">
         <app-image-card
@@ -65,8 +73,8 @@ onBeforeUnmount(() => anim?.cancel());
           title="Building Without the Headaches"
           year="2025"
           direction="left"
-          class="px-4 col-span-full row-span-3 w-full h-full
-          min-[700px]:col-start-1 min-[700px]:col-end-17 min-[700px]:px-0"
+          class=" col-span-full row-span-3 w-full h-full
+          min-[700px]:col-start-1 min-[700px]:col-end-17 "
         />
         <app-image-card
           :image="images[0]?.img"
@@ -97,19 +105,30 @@ onBeforeUnmount(() => anim?.cancel());
         />
       </div>
     </div>
-    <div class="site-grid gap-4 border-muted border-t border-b min-h-[60lvh]">
+    <div class="site-grid gap-4 border-muted border-t border-b min-h-0 min-[700px]:min-h-[60lvh]">
       <NuxtImg
         src="/community.jpg"
         :alt="images[1]?.alt"
-        class="hidden min-[700px]:block col-span-4 self-end pb-8"
+        class="hidden min-[700px]:block col-span-4 self-end pb-8 row-start-1"
+        :class="{
+          '': !flip,
+          'col-start-20 lg:col-start-20': flip,
+        }"
       />
-      <USeparator orientation="vertical" class="hidden min-[700px]:block min-[700px]:col-start-5 lg:col-start-13" />
+      <USeparator
+        orientation="vertical"
+        class="hidden row-start-1 min-[700px]:block "
+        :class="{
+          'min-[700px]:col-start-5 lg:col-start-13': !flip,
+          'min-[700px]:col-start-16 lg:col-start-12': flip,
+        }"
+      />
       <div
-        class="
-        flex flex-col justify-between h-full col-span-full
-        min-[700px]:col-start-6 min-[700px]:col-end-13 min-[700px]:p-0
-        lg:col-start-14 lg:col-end-24
-        "
+        class="flex flex-col justify-normal min-[700px]:justify-between h-full col-span-full"
+        :class="{
+          'min-[700px]:col-start-6 min-[700px]:col-end-13 min-[700px]:p-0 lg:col-start-14 lg:col-end-24': !flip,
+          'min-[700px]:col-start-1 min-[700px]:col-end-16 min-[700px]:p-0 lg:col-start-1 lg:col-end-12': flip,
+        }"
       >
         <motion.h2
           :initial="{ opacity: 0, y: 50 }"
@@ -117,7 +136,7 @@ onBeforeUnmount(() => anim?.cancel());
           :transition="{ duration: 0.8, ease: gentle }"
           :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
           class="
-           text-2xl pt-8 sm:text-4xl font-semibold text-balance max-w-[20ch]
+           mb-6 text-2xl pt-8 sm:text-4xl font-semibold text-balance max-w-[20ch]
         "
         >
           {{ title }}
