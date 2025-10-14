@@ -1,58 +1,22 @@
 <script setup lang="ts">
-await useAsyncData('projects', () => {
+const { data: projects } = await useAsyncData('projects', () => {
   return queryCollection('projects').all();
+});
+
+const catagories = computed(() => {
+  const set = new Set();
+  set.add('All');
+  if (!projects.value)
+    return ['All'];
+  for (const project of projects.value) {
+    set.add(project.sector);
+  }
+  return Array.from(set);
 });
 </script>
 
 <template>
   <UPage class="mt-0 ">
-    <div class="grid gap-32">
-      <home-hero-banner title="Projects">
-        <template #actions>
-          <div class="mt-6">
-            <UPopover arrow>
-              <UButton
-                label="All"
-                color="neutral"
-                variant="subtle"
-              />
-
-              <template #content>
-                Hello
-              </template>
-            </UPopover>
-          </div>
-        </template>
-      </home-hero-banner>
-
-      <app-banner title="Aviation" />
-
-      <app-grid>
-        <projects-card
-          title="PD: HCAA Tampa International Airport Airside A, C and F Restroom Renovations"
-          image="/TPA_ASC_Restrooms_Hero.jpg"
-          :link="{
-            title: '#',
-            to: '#',
-          }"
-        />
-        <projects-card
-          title="PD: HCAA Tampa International Airport Airside A, C and F Restroom Renovations"
-          image="/TPA_ASC_Restrooms_Hero.jpg"
-          :link="{
-            title: '#',
-            to: '#',
-          }"
-        />
-        <projects-card
-          title="PD: HCAA Tampa International Airport Airside A, C and F Restroom Renovations"
-          image="/TPA_ASC_Restrooms_Hero.jpg"
-          :link="{
-            title: '#',
-            to: '#',
-          }"
-        />
-      </app-grid>
-    </div>
+    {{ catagories }}
   </UPage>
 </template>
