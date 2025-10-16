@@ -6,9 +6,13 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/content',
     'motion-v/nuxt',
-    'nuxt-security',
   ],
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+    timeline: {
+      enabled: true,
+    },
+  },
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
@@ -21,6 +25,14 @@ export default defineNuxtConfig({
         'warning',
         'error',
       ],
+    },
+  },
+  content: {
+    build: {
+      pathMeta: {},
+    },
+    preview: {
+      api: 'https://api.nuxt.studio',
     },
   },
   runtimeConfig: {
@@ -51,4 +63,5 @@ export default defineNuxtConfig({
       id: ['iae6upw'],
     },
   },
+
 });

@@ -4,7 +4,7 @@ import { z } from 'zod';
 export default defineContentConfig({
   collections: {
     projects: defineCollection({
-      type: 'data',
+      type: 'page',
       source: 'projects/*.md',
       schema: z.object({
         title: z.string(),

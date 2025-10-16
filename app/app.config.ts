@@ -62,7 +62,7 @@ export default defineAppConfig({
     },
     {
       label: 'Projects',
-      to: '/projects',
+      to: '/projects/',
     },
     {
       label: 'Life At Envision',

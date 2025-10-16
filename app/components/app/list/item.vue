@@ -17,7 +17,7 @@ const hovered = ref(false);
 <template>
   <div
     class="group site-grid relative
-    col-span-full gap-4 border-t border-accented w-full
+    col-span-full border-t border-accented w-full
       h-96"
     @mouseenter="() => hovered = true"
     @mouseleave="() => hovered = false"
@@ -25,21 +25,21 @@ const hovered = ref(false);
     <div
       v-if="showNumber"
       class="
-        self-center justify-end col-start-3
-        col-span-2 text-7xl font-black text-primary-500 leading-[.9]
+      number
+        self-center justify-end text-left
+         text-7xl font-black text-primary-500 leading-[.9]
+      min-[700px]:text-right
       "
     >
       0{{ index + 1 }}
     </div>
 
     <div
-      class="
-        flex flex-col col-start-1 col-span-full self-center
-        min-[650px]:-col-end-1
-        lg:col-start-5 lg:col-end-13
-      "
+      class=" content
+        flex flex-col col-span-full self-center pl-0 min-[700px]:pl-8
+              "
       :class="[
-        showNumber ? 'min-[650px]:col-start-3 lg:col-start-4' : '',
+
       ]"
     >
       <h3 class="text-2xl font-semibold">
@@ -52,19 +52,15 @@ const hovered = ref(false);
     <AnimatePresence>
       <motion.div
         v-if="hovered"
-        :initial="{ height: '0px' }"
-        :animate="{ height: 'auto' }"
-        :transition="{
-          duration: 0.5,
-          ease: snappy,
-        }"
-        class="hidden min-[700px]:block row-1 min-[700px]:col-5 lg:col-14"
+        :initial="{ scaleY: 0 }"
+        :animate="{ scaleY: 1 }"
+        :transition="{ duration: 0.6, easing: snappy }"
+        class="origin-top"
       >
-        <USeparator orientation="vertical" />
+        <USeparator orientation="vertical" class="divider items-end" />
       </motion.div>
     </AnimatePresence>
     <AnimatePresence>
-      <!--
       <motion.div
         v-if="hovered"
         :key="index"
@@ -74,10 +70,11 @@ const hovered = ref(false);
         }"
         :transition="{
           duration: 0.5,
+          delay: 0.2,
           ease: snappy,
         }"
         :exit="{ opacity: 0, x: '100%' }"
-        class="h-96 overflow-hidden col-14 -col-end-1 row-1"
+        class="hidden md:block h-96 overflow-hidden image"
       >
         <NuxtImg
           :src="image || '/community.png'"
@@ -85,9 +82,43 @@ const hovered = ref(false);
           fit="cover"
         />
       </motion.div>
-      -->
     </AnimatePresence>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.site-grid {
+  grid-template-areas:
+    'a a a a'
+    'c c c c';
+}
+
+@media (min-width: 700px) {
+  .site-grid {
+    grid-template-areas: 'a a a a b c c c c c c c ';
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-grid {
+    gap: 0;
+    grid-template-areas: 'a a a c c c c c c c c c c b i i i i i i i i i i';
+  }
+}
+
+.number {
+  grid-area: a;
+}
+
+.content {
+  grid-area: c;
+}
+
+.divider {
+  grid-area: b;
+}
+
+.image {
+  grid-area: i;
+}
+</style>

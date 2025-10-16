@@ -18,5 +18,10 @@ const catagories = computed(() => {
 <template>
   <UPage class="mt-0 ">
     {{ catagories }}
+    <div>
+      <NuxtLink :to="projects[0]?.path">
+        Go here
+      </NuxtLink>
+    </div>
   </UPage>
 </template>

@@ -105,29 +105,25 @@ onBeforeUnmount(() => anim?.cancel());
         />
       </div>
     </div>
-    <div class="site-grid gap-4 border-muted border-t border-b min-h-0 min-[700px]:min-h-[60lvh]">
+    <div
+      class="site-grid border-muted border-t border-b min-h-0 min-[700px]:min-h-[60lvh]"
+      :class="{
+        flip,
+      }"
+    >
       <NuxtImg
         src="/community.jpg"
         :alt="images[1]?.alt"
-        class="hidden min-[700px]:block col-span-4 self-end pb-8 row-start-1"
-        :class="{
-          '': !flip,
-          'col-start-20 lg:col-start-20': flip,
-        }"
+        class="hidden min-[700px]:block  self-end pb-8 image"
       />
-      <USeparator
-        orientation="vertical"
-        class="hidden row-start-1 min-[700px]:block "
-        :class="{
-          'min-[700px]:col-start-5 lg:col-start-13': !flip,
-          'min-[700px]:col-start-16 lg:col-start-12': flip,
-        }"
-      />
+      <motion.div class="divider">
+        <USeparator orientation="vertical" class="hidden items-end min-[700px]:flex " />
+      </motion.div>
       <div
-        class="flex flex-col justify-normal min-[700px]:justify-between h-full col-span-full"
+        class="content flex flex-col justify-normal
+        min-[700px]:justify-between h-full"
         :class="{
-          'min-[700px]:col-start-6 min-[700px]:col-end-13 min-[700px]:p-0 lg:col-start-14 lg:col-end-24': !flip,
-          'min-[700px]:col-start-1 min-[700px]:col-end-16 min-[700px]:p-0 lg:col-start-1 lg:col-end-12': flip,
+          'pl-0 min-[700px]:pl-8': !flip,
         }"
       >
         <motion.h2
@@ -175,3 +171,17 @@ onBeforeUnmount(() => anim?.cancel());
     </div>
   </section>
 </template>
+
+<style scoped>
+.image {
+  grid-area: a;
+}
+
+.divider {
+  grid-area: b;
+}
+
+.content {
+  grid-area: c;
+}
+</style>

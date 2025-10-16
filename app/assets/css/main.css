@@ -73,20 +73,29 @@ body {
   display: grid;
   padding-inline: 1rem;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-column-gap: 1.4rem;
+  grid-template-areas: 'c c c c';
 }
 
-@media (min-width: 650px) {
+@media (min-width: 700px) {
   .site-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-column-gap: 2rem;
+    grid-template-areas: 'a a a . b c c c c c c c ';
     padding-inline: 1rem;
+
+    &.flip {
+      grid-template-areas: 'c c c c c c c b . a a a';
+    }
   }
 }
 
 @media (min-width: 1024px) {
   .site-grid {
     grid-template-columns: repeat(24, minmax(0, 1fr));
+    grid-template-areas: 'a a a a . . . . . . . . . b c c c c c c c c c';
+
+    &.flip {
+      grid-template-areas: 'c c c c c c c c c b . . . . . . . . . a a a a';
+    }
   }
 }
 
