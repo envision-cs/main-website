@@ -8,6 +8,7 @@ export default defineAppConfig({
       children: [
         {
           label: 'Who we are',
+          to: '/about',
           description:
             'We provide construction management services to meet your needs.',
         },
@@ -18,6 +19,7 @@ export default defineAppConfig({
         },
         {
           label: 'Our Process',
+          to: '/our-process',
           description:
             'We provide construction management services to meet your needs.',
         },

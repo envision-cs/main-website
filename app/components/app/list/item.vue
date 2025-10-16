@@ -54,7 +54,7 @@ const hovered = ref(false);
         v-if="hovered"
         :initial="{ scaleY: 0 }"
         :animate="{ scaleY: 1 }"
-        :transition="{ duration: 0.6, easing: snappy }"
+        :transition="{ duration: 0.6, ease: snappy }"
         class="origin-top"
       >
         <USeparator orientation="vertical" class="divider items-end" />

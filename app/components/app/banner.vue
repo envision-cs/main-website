@@ -51,8 +51,8 @@ const multipleImages = images && images?.length > 1;
           min-[700px]:col-start-1 min-[700px]:col-end-17 lg:pr-8"
         />
         <app-image-card
-          :image="images[0]?.img as string"
-          :alt="images[0]?.alt ?? ''"
+          :image="images[1]?.img as string"
+          :alt="images[1]?.alt ?? ''"
           area="aviation"
           direction="right"
           title="Building Without the Headaches"

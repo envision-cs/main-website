@@ -41,7 +41,7 @@ title="Building With Heart and Precision"
         ]"
 :images="[
           {
-            img: '/airport.png',
+            img: '/greater-tampa-realtors-01.jpg',
             alt: 'Airport image',
 
           },

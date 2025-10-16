@@ -50,8 +50,6 @@ export default defineNuxtConfig({
       },
     ],
   },
-  security: {
-  },
   compatibilityDate: '2025-05-15',
   eslint: {
     config: {
