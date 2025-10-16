@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { animate, motion, scroll } from 'motion-v';
+import { motion } from 'motion-v';
 
 const { images = [] } = defineProps<{
   eyebrow?: string;
@@ -19,32 +19,6 @@ type Images = {
 
 const hasImages = images && images?.length > 0;
 const multipleImages = images && images?.length > 1;
-
-const bannerRef = ref<HTMLElement | null>(null);
-let anim: Animation | undefined;
-
-onMounted(() => {
-  const wrapper = bannerRef.value;
-  const target = wrapper?.querySelector('.parallax-img') as HTMLElement | null;
-  if (!wrapper || !target)
-    return;
-
-  // Move image up->down as the wrapper scrolls through the viewport
-  anim = animate(target, { y: [-200, 200] }, {
-    // use linear for true scroll mapping; or GSAP power2.out feel:
-    ease: gentle,
-  });
-
-  if (!anim)
-    return;
-
-  scroll(anim, {
-    target: wrapper,
-    offset: ['start end', 'end start'], // start when banner enters; end when it leaves
-  });
-});
-
-onBeforeUnmount(() => anim?.cancel());
 </script>
 
 <template>
@@ -67,18 +41,18 @@ onBeforeUnmount(() => anim?.cancel());
       <!-- Multiple images: keep original layout -->
       <template v-if="multipleImages">
         <app-image-card
-          :image="images[0]?.img"
-          :alt="images[0]?.alt"
+          :image="images[0]?.img as string"
+          :alt="images[0]?.alt ?? ''"
           area="aviation"
           title="Building Without the Headaches"
           year="2025"
           direction="left"
-          class=" col-span-full row-span-3 w-full h-full
-          min-[700px]:col-start-1 min-[700px]:col-end-17 "
+          class=" col-span-full row-span-3 w-full h-full pr-0
+          min-[700px]:col-start-1 min-[700px]:col-end-17 lg:pr-8"
         />
         <app-image-card
-          :image="images[0]?.img"
-          :alt="images[0]?.alt"
+          :image="images[0]?.img as string"
+          :alt="images[0]?.alt ?? ''"
           area="aviation"
           direction="right"
           title="Building Without the Headaches"
@@ -90,17 +64,13 @@ onBeforeUnmount(() => anim?.cancel());
       </template>
 
       <!-- Single image: parallax wrapper (Motion) -->
-      <div
-        v-else
-        ref="bannerRef"
-        class="col-span-full w-full h-full aspect-[13/6] overflow-hidden relative"
-      >
+      <div v-else class="col-span-full w-full h-full aspect-[13/6] overflow-hidden relative">
         <NuxtImg
           :src="images[0]?.img"
           :alt="images[0]?.alt"
           height="700"
           width="900"
-          class="parallax-img absolute inset-0 w-full h-full object-cover will-change-transform"
+          class=" inset-0 w-full h-full object-cover will-change-transform"
           fit="cover"
         />
       </div>

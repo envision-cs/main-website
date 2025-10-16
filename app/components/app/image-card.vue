@@ -10,7 +10,7 @@ const props = defineProps<{
   direction?: 'left' | 'right';
 }>();
 
-const { cinematic } = useEasings();
+const { snappy } = useEasings();
 
 const [scope, animate] = useAnimate();
 const isInView = useInView(scope, { once: false });
@@ -25,8 +25,8 @@ watch(isInView, (inView) => {
         x: props.direction === 'left' ? ['-100%', 0] : ['100%', 0],
       },
       {
-        duration: 0.7,
-        easing: cinematic,
+        duration: 0.8,
+        easing: snappy,
       },
     );
   }
