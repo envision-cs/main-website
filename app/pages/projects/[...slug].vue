@@ -13,6 +13,17 @@ useSeoMeta({
 
 <template>
   <UPage class="mt-0">
-    {{ page }}
+    <NuxtLink to="/projects">
+      Back
+    </NuxtLink>
+    <div v-if="page">
+      <h1 class="text-3xl font-bold">
+        {{ page.title }}
+      </h1>
+      <ContentRenderer :value="page" />
+    </div>
+    <div v-else>
+      Oh no! Page not found.
+    </div>
   </UPage>
 </template>

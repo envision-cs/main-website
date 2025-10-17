@@ -19,9 +19,15 @@ const catagories = computed(() => {
   <UPage class="mt-0 ">
     {{ catagories }}
     <div>
-      <NuxtLink :to="projects[0]?.path">
-        Go here
-      </NuxtLink>
+      <div class="flex flex-col gap-4">
+        <NuxtLink
+          v-for="project in projects"
+          :key="project.id"
+          :to="project.path"
+        >
+          {{ project.title }}
+        </NuxtLink>
+      </div>
     </div>
   </UPage>
 </template>
