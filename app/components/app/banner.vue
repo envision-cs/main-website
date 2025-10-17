@@ -18,7 +18,6 @@ type Images = {
 };
 
 const hasImages = images && images?.length > 0;
-const multipleImages = images && images?.length > 1;
 </script>
 
 <template>
@@ -31,50 +30,7 @@ const multipleImages = images && images?.length > 1;
       'border-muted border-t pt-10': hasImages,
     }"
   >
-    <div
-      v-if="hasImages"
-      class="site-grid w-full col-start-1"
-      :class="{
-        'order-2': flip,
-      }"
-    >
-      <!-- Multiple images: keep original layout -->
-      <template v-if="multipleImages">
-        <app-image-card
-          :image="images[0]?.img as string"
-          :alt="images[0]?.alt ?? ''"
-          area="aviation"
-          title="Building Without the Headaches"
-          year="2025"
-          direction="left"
-          class=" col-span-full row-span-3 w-full h-full pr-0
-          min-[700px]:col-start-1 min-[700px]:col-end-17 lg:pr-8"
-        />
-        <app-image-card
-          :image="images[1]?.img as string"
-          :alt="images[1]?.alt ?? ''"
-          area="aviation"
-          direction="right"
-          title="Building Without the Headaches"
-          year="2025"
-          class="block col-span-full
-          min-[700px]:hidden
-          lg:block w-full h-full lg:col-start-17  lg:col-end-25"
-        />
-      </template>
-
-      <!-- Single image: parallax wrapper (Motion) -->
-      <div v-else class="col-span-full w-full h-full aspect-[13/6] overflow-hidden relative">
-        <NuxtImg
-          :src="images[0]?.img"
-          :alt="images[0]?.alt"
-          height="700"
-          width="900"
-          class=" inset-0 w-full h-full object-cover will-change-transform"
-          fit="cover"
-        />
-      </div>
-    </div>
+    <app-banner-images :images="images" />
     <div
       class="site-grid border-muted border-t border-b min-h-0 min-[700px]:min-h-[60lvh]"
       :class="{
