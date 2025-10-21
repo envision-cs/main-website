@@ -1,7 +1,9 @@
 <script setup lang="ts">
+
 import { animate } from 'motion';
 
 const route = useRoute();
+
 
 // const items = config.navigationMenuItems;
 
