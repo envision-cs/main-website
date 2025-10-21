@@ -25,84 +25,37 @@ watch(route, () => {
 </script>
 
 <template>
-  <header>
-    <NuxtLink class="logo" to="/">
-      <Icon
-        name="logos:envision-white"
-        size="32"
-        alt="envision construction logo"
-      />
-    </NuxtLink>
-    <UButton
-      variant="outline"
-      color="neutral"
-      class="menu-btn"
-      @click="openMenu"
-    >
-      <Icon
-        name="i-lucide-menu"
-        size="24"
-        class="fill-current"
-      />
-    </UButton>
-  </header>
-  <AnimatePresence>
-    <dialog
-      id="main-menu"
-      ref="menu"
-      class="menu"
-      closedby="any"
-    >
-      <div class="main-menu__header">
-        <div class="main-menu__items">
-          <nav>
-            <ul>
-              <li>
-                <NuxtLink to="/projects">
-                  Projects
-                </NuxtLink>
-              </li>
+  <div>
+    <UHeader>
+      <template #title>
+        <Icon
+          name="logos:envision"
+          size="40"
+          alt="envision construction logo"
+        />
+      </template>
+      <template #right>
+        <UNavigationMenu
+          class="hidden lg:block"
+          :items="items"
+          :ui="{
+            link: 'px-4 py-2 text-base text-highlighted tracking-wide hover:bg-accented rounded-full',
+            linkLeadingIcon: 'hidden',
+            viewport: 'mt-6 bg-default',
+            childLinkLabel: 'text-base text-highlighted',
+          }"
+        />
+      </template>
 
-              <li>
-                <NuxtLink to="/about">
-                  About
-                </NuxtLink>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div class="main-menu__close">
-          <UButton
-            variant="outline"
-            color="neutral"
-            class="menu-btn"
-            @click="closeMenu"
-          >
-            close
-            <Icon
-              name="i-lucide-x"
-              size="24"
-              class="fill-current"
-            />
-          </UButton>
-        </div>
-      </div>
-
-      <div class="main-menu__body">
-        <div class="main-menu__secondary">
-          <div class="main-menu__secondary-items">
-            secondary Items
-          </div>
-          <div class="main-menu__social">
-            Social Icons
-          </div>
-        </div>
-        <NuxtLink to="/contact" class="main-menu__contact">
-          Contact
-        </NuxtLink>
-      </div>
-    </dialog>
-  </AnimatePresence>
+      <template #body>
+        <UNavigationMenu
+          :items="items"
+          orientation="vertical"
+          class="-mx-2.5"
+        />
+      </template>
+    </UHeader>
+  </div>
 </template>
 
 <style scoped>
