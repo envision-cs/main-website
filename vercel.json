@@ -1,0 +1,4 @@
+{
+  "buildCommand": "nuxt build",
+  "installCommand": "bun install --frozen-lockfile"
+}

@@ -16,6 +16,7 @@ export default defineNuxtConfig({
   },
   sourcemap: { client: 'hidden' },
   nitro: {
+    sourceMap: false,
     rollupConfig: {
       output: {
         sourcemapExcludeSources: false, // Make sure to set it (otherwise server sourcemaps will not be generated)
@@ -72,6 +73,7 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
+  vite: { build: { sourcemap: false } },
   font: {
     adobe: {
       id: ['iae6upw'],
