@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useAnimate } from 'motion-v';
+import { animate } from 'motion';
 
 const route = useRoute();
-const [animate] = useAnimate();
 
 // const items = config.navigationMenuItems;
 
@@ -46,63 +45,61 @@ watch(route, () => {
       />
     </UButton>
   </header>
-  <AnimatePresence>
-    <dialog
-      id="main-menu"
-      ref="menu"
-      class="menu"
-      closedby="any"
-    >
-      <div class="main-menu__header">
-        <div class="main-menu__items">
-          <nav>
-            <ul>
-              <li>
-                <NuxtLink to="/projects">
-                  Projects
-                </NuxtLink>
-              </li>
+  <dialog
+    id="main-menu"
+    ref="menu"
+    class="menu"
+    closedby="any"
+  >
+    <div class="main-menu__header">
+      <div class="main-menu__items">
+        <nav>
+          <ul>
+            <li>
+              <NuxtLink to="/projects">
+                Projects
+              </NuxtLink>
+            </li>
 
-              <li>
-                <NuxtLink to="/about">
-                  About
-                </NuxtLink>
-              </li>
-            </ul>
-          </nav>
+            <li>
+              <NuxtLink to="/about">
+                About
+              </NuxtLink>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="main-menu__close">
+        <UButton
+          variant="outline"
+          color="neutral"
+          class="menu-btn"
+          @click="closeMenu"
+        >
+          close
+          <Icon
+            name="i-lucide-x"
+            size="24"
+            class="fill-current"
+          />
+        </UButton>
+      </div>
+    </div>
+
+    <div class="main-menu__body">
+      <div class="main-menu__secondary">
+        <div class="main-menu__secondary-items">
+          secondary Items
         </div>
-        <div class="main-menu__close">
-          <UButton
-            variant="outline"
-            color="neutral"
-            class="menu-btn"
-            @click="closeMenu"
-          >
-            close
-            <Icon
-              name="i-lucide-x"
-              size="24"
-              class="fill-current"
-            />
-          </UButton>
+        <div class="main-menu__social">
+          Social Icons
         </div>
       </div>
-
-      <div class="main-menu__body">
-        <div class="main-menu__secondary">
-          <div class="main-menu__secondary-items">
-            secondary Items
-          </div>
-          <div class="main-menu__social">
-            Social Icons
-          </div>
-        </div>
-        <NuxtLink to="/contact" class="main-menu__contact">
-          Contact
-        </NuxtLink>
-      </div>
-    </dialog>
-  </AnimatePresence>
+      <NuxtLink to="/contact" class="main-menu__contact">
+        Contact
+      </NuxtLink>
+    </div>
+  </dialog>
 </template>
 
 <style scoped>
