@@ -1,33 +1,33 @@
 <script setup lang="ts">
-const items = [
-  {
-    image: '/onbudjet.png',
-    link:
-    {
-      label: 'See More',
-      to: '#',
-      color: 'neutral',
-    },
-  },
-  {
-    image: '/community.png',
-    link:
-    {
-      label: 'See More',
-      to: '#',
-      color: 'neutral',
-    },
-  },
-  {
-    image: '/happyClients.png',
-    link:
-    {
-      label: 'See More',
-      to: '#',
-      color: 'neutral',
-    },
-  },
-];
+// const items = [
+//   {
+//     image: '/onbudjet.png',
+//     link:
+//     {
+//       label: 'See More',
+//       to: '#',
+//       color: 'neutral',
+//     },
+//   },
+//   {
+//     image: '/community.png',
+//     link:
+//     {
+//       label: 'See More',
+//       to: '#',
+//       color: 'neutral',
+//     },
+//   },
+//   {
+//     image: '/happyClients.png',
+//     link:
+//     {
+//       label: 'See More',
+//       to: '#',
+//       color: 'neutral',
+//     },
+//   },
+// ];
 </script>
 
 <template>

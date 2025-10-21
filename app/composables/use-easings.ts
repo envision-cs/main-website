@@ -6,6 +6,7 @@ export function useEasings() {
   const gentle = cubicBezier(0.37, 0, 0.63, 1); // easeInOutSine
   const expressive = cubicBezier(0.34, 1.56, 0.64, 1); // easeOutBack
   const fast = cubicBezier(0.19, 1, 0.22, 1); // easeOutExpo
+  const base = cubicBezier(0.5, 0, 0.5, 1);
 
   return {
     cinematic,
@@ -13,5 +14,6 @@ export function useEasings() {
     gentle,
     expressive,
     fast,
+    base,
   };
 }
