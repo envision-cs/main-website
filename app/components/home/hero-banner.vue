@@ -53,6 +53,14 @@ const alignClasses = computed(() => {
       return 'items-end';
   }
 });
+
+const { $posthog } = useNuxtApp();
+
+function captureCustomEvent() {
+  $posthog().capture('home_button_clicked', {
+    user_name: 'Max the Hedgehog',
+  });
+}
 </script>
 
 <template>
@@ -96,13 +104,12 @@ const alignClasses = computed(() => {
           </slot>
 
           <slot name="actions">
-            Hellp
-
             <div class="mt-6 flex flex-wrap gap-3">
               <UButton
                 v-if="props.primaryAction"
                 v-bind="props.primaryAction"
                 :to="props.primaryAction?.to"
+                @click="captureCustomEvent"
               >
                 {{ props.primaryAction?.label }}
               </UButton>
