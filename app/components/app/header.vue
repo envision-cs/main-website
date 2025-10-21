@@ -4,7 +4,6 @@ import { useAnimate } from 'motion-v';
 const route = useRoute();
 const [animate] = useAnimate();
 
-// const config = useAppConfig();
 // const items = config.navigationMenuItems;
 
 const menu = ref<HTMLDialogElement>();
