@@ -44,21 +44,15 @@ defineProps<{
 </template>
 
 <style scoped>
-@reference '../../assets/css/main.css'
-
 .news-feature-card {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 32px 48px;
-  border-radius: 8px;
-  color: #3f3f46;
+  padding: 32px 16px;
 }
 
 .news-feature-card__meta {
   display: flex;
-  align-items: center;
   gap: 12px;
   width: 100%;
 }
@@ -80,20 +74,21 @@ defineProps<{
 }
 
 .news-feature-card__logo-icon {
-  width: 22px;
-  height: 22px;
+  width: 40px;
+  height: 40px;
   color: currentColor;
 }
 
 .news-feature-card__eyebrow {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.5;
   margin: 0;
 }
 
 .news-feature-card__title {
-  @apply text-2xl font-semibold;
+  font-size: var(--text-2xl);
+  font-weight: 500;
 }
 
 .news-feature-card__cta {
@@ -116,12 +111,6 @@ defineProps<{
 }
 
 @media (max-width: 768px) {
-  .news-feature-card {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 24px;
-  }
-
   .news-feature-card__cta {
     margin-top: 16px;
   }

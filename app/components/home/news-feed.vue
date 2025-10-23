@@ -59,7 +59,6 @@ const items = [
 <style scoped>
 .news-feed {
   display: grid;
-  gap: 32px;
 }
 
 .news-feed__list {
@@ -67,7 +66,7 @@ const items = [
   gap: 16px;
 }
 
-.news-feed__item {
-  width: 100%;
+.news-feed__item:not(:first-of-type) {
+  border-top: 1px solid var(--ui-border);
 }
 </style>

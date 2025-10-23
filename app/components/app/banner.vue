@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { motion } from 'motion-v';
+import { domAnimation, LazyMotion, m } from 'motion-v';
 
 const { images = [] } = defineProps<{
   eyebrow?: string;
@@ -23,11 +23,12 @@ const hasImages = images && images?.length > 0;
 <template>
   <section
     id="cta"
-    class="grid gap-10"
+    class="grid"
     :class="{
       'gap-y-0': !hasImages,
       '': flip,
-      'border-muted border-t pt-10': hasImages,
+      'border-muted border-t': hasImages,
+      'pt-10': images.length === 2,
     }"
   >
     <app-banner-images :images="images" />
@@ -42,9 +43,11 @@ const hasImages = images && images?.length > 0;
         :alt="images[1]?.alt"
         class="hidden min-[700px]:block  self-end pb-8 image"
       />
-      <motion.div class="divider">
-        <USeparator orientation="vertical" class="hidden items-end min-[700px]:flex " />
-      </motion.div>
+      <LazyMotion :features="domAnimation">
+        <m.div class="divider">
+          <USeparator orientation="vertical" class="hidden items-end min-[700px]:flex " />
+        </m.div>
+      </LazyMotion>
       <div
         class="content flex flex-col justify-normal
         min-[700px]:justify-between h-full"
@@ -52,33 +55,36 @@ const hasImages = images && images?.length > 0;
           'pl-0 min-[700px]:pl-8': !flip,
         }"
       >
-        <motion.h2
-          :initial="{ opacity: 0, y: 50 }"
-          :while-in-view="{ opacity: 1, y: 0 }"
-          :transition="{ duration: 0.8, ease: gentle }"
-          :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
-          class="
-           mb-6 text-2xl pt-8 sm:text-4xl font-semibold text-balance max-w-[20ch]
+        <LazyMotion :features="domAnimation">
+          <m.h2
+            :initial="{ opacity: 0, y: 50 }"
+            :while-in-view="{ opacity: 1, y: 0 }"
+            :transition="{ duration: 0.8, ease: gentle }"
+            :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
+            class=" title
+           mb-6 pt-8 font-semibold text-balance max-w-[20ch]
         "
-        >
-          {{ title }}
-        </motion.h2>
-        <motion.p
-          v-if="description"
-          :initial="{ opacity: 0, y: 50 }"
-          :while-in-view="{ opacity: 1, y: 0 }"
-          :transition="{
-            duration: 0.9,
-            ease: gentle,
-          }"
-          :viewport="{ once: true, margin: '0px 0px -25% 0px' }"
-          class="
+          >
+            {{ title }}
+          </m.h2>
+          <m.p
+            v-if="description"
+            :initial="{ opacity: 0, y: 50 }"
+            :while-in-view="{ opacity: 1, y: 0 }"
+            :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
+            :transition="{
+              duration: 0.9,
+              ease: gentle,
+            }"
+            :viewport="{ margin: '0px 0px -25% 0px' }"
+            class="
           pb-8 text-base max-w-3xl
 
         "
-        >
-          {{ description }}
-        </motion.p>
+          >
+            {{ description }}
+          </m.p>
+        </LazyMotion>
       </div>
 
       <div v-if="links && links?.length > 3" class="flex flex-col sm:flex-row mt-2 gap-2 justify-start">
@@ -109,5 +115,10 @@ const hasImages = images && images?.length > 0;
 
 .content {
   grid-area: c;
+}
+
+.title {
+  font-size: var(--font-size-h2);
+  line-height: 1;
 }
 </style>
