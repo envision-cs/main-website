@@ -1,23 +1,63 @@
 <script setup lang="ts">
-import { animate } from 'motion';
+import { useBreakpoints } from '@vueuse/core';
+import { animate, motionValue } from 'motion';
+
+// const config = useAppConfig();
+// const items = config.navigationMenuItems;
 
 const route = useRoute();
 
-// const items = config.navigationMenuItems;
+const breakpoints = useBreakpoints({
+  laptop: 1024,
+});
 
-const menu = ref<HTMLDialogElement>();
+const menu = ref<HTMLDialogElement | null>(null);
 
+const islaptop = breakpoints.greater('laptop');
+const y = motionValue('-100%');
+const scale = motionValue(0);
 function openMenu() {
-  menu.value?.showModal();
-  animate(menu.value, { opacity: [0, 1], scale: [0, 1] }, { duration: 0.4 });
+  const el = menu.value;
+  if (!el)
+    return;
+
+  el.showModal();
+
+  if (islaptop.value) {
+    // Reset the motion value before animating
+    scale.set(0);
+    animate(scale, 1, {
+      duration: 0.4,
+      onUpdate: latest => (el.style.transform = `scale(${latest})`),
+    });
+  }
+  else {
+    y.set('-100%');
+    animate(y, '0%', {
+      duration: 0.4,
+      onUpdate: latest => (el.style.transform = `translateY(${latest})`),
+    });
+  }
 }
 
 function closeMenu() {
-  animate(menu.value, { opacity: [1, 0], scale: [1, 0] }, { duration: 0.4 }).then(() => {
-    menu.value?.close();
-  });
-}
+  const el = menu.value;
+  if (!el)
+    return;
 
+  if (islaptop.value) {
+    animate(scale, 0, {
+      duration: 0.4,
+      onUpdate: latest => (el.style.transform = `scale(${latest})`),
+    }).finished.then(() => el.close());
+  }
+  else {
+    animate(y, '-100%', {
+      duration: 0.4,
+      onUpdate: latest => (el.style.transform = `translateY(${latest})`),
+    }).finished.then(() => el.close());
+  }
+}
 watch(route, () => {
   closeMenu();
 });
@@ -48,9 +88,11 @@ watch(route, () => {
   <dialog
     id="main-menu"
     ref="menu"
+    role="dialog"
     class="menu"
     closedby="any"
   >
+    {{ islaptop }}
     <div class="main-menu__header">
       <div class="main-menu__items">
         <nav>
@@ -136,8 +178,13 @@ header {
   transform-origin: top right;
   transition-behavior: allow-discrete;
 
-  height: calc(100vh - 2rem);
-  width: calc(50vw - 2rem);
+  height: max(70svh, 500px);
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    height: calc(100vh - 2rem);
+    width: calc(50vw - 2rem);
+  }
 }
 
 @keyframes open {

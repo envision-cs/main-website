@@ -63,35 +63,6 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
-  vite: {
-    build: {
-      sourcemap: false,
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (!id.includes('node_modules'))
-              return;
-
-            // Only chunk specific large libraries
-            if (id.includes('posthog-js') || id.includes('@posthog/nuxt'))
-              return 'vendor-analytics';
-            if (id.includes('@vueuse/motion') || id.includes('motion'))
-              return 'vendor-motion';
-            if (id.includes('@nuxt/ui'))
-              return 'vendor-ui';
-            if (id.includes('@nuxt/content'))
-              return 'vendor-content';
-            if (id.includes('@nuxt/image'))
-              return 'vendor-image';
-            if (id.includes('zod'))
-              return 'vendor-zod';
-
-            return 'vendor';
-          },
-        },
-      },
-    },
-  },
   font: {
     adobe: {
       id: ['iae6upw'],
