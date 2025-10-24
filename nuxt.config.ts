@@ -14,16 +14,6 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  sourcemap: { client: 'hidden' },
-  nitro: {
-    sourceMap: false,
-    rollupConfig: {
-      output: {
-        sourcemapExcludeSources: false, // Make sure to set it (otherwise server sourcemaps will not be generated)
-      },
-    },
-  },
-
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
