@@ -5,6 +5,8 @@ import { animate, motionValue } from 'motion';
 // const config = useAppConfig();
 // const items = config.navigationMenuItems;
 
+const { base } = useEasings();
+
 const route = useRoute();
 
 const breakpoints = useBreakpoints({
@@ -16,12 +18,19 @@ const menu = ref<HTMLDialogElement | null>(null);
 const islaptop = breakpoints.greater('laptop');
 const y = motionValue('-100%');
 const scale = motionValue(0);
+const opacity = motionValue(0);
 function openMenu() {
   const el = menu.value;
   if (!el)
     return;
 
   el.showModal();
+  opacity.set(0);
+  animate(opacity, 1, {
+    duration: 0.15,
+    onUpdate: latest => (el.style.opacity = `${latest}`),
+    ease: base,
+  });
 
   if (islaptop.value) {
     // Reset the motion value before animating
@@ -29,6 +38,7 @@ function openMenu() {
     animate(scale, 1, {
       duration: 0.4,
       onUpdate: latest => (el.style.transform = `scale(${latest})`),
+      ease: base,
     });
   }
   else {
@@ -36,6 +46,7 @@ function openMenu() {
     animate(y, '0%', {
       duration: 0.4,
       onUpdate: latest => (el.style.transform = `translateY(${latest})`),
+      ease: base,
     });
   }
 }
@@ -49,12 +60,14 @@ function closeMenu() {
     animate(scale, 0, {
       duration: 0.4,
       onUpdate: latest => (el.style.transform = `scale(${latest})`),
+      ease: base,
     }).finished.then(() => el.close());
   }
   else {
     animate(y, '-100%', {
       duration: 0.4,
       onUpdate: latest => (el.style.transform = `translateY(${latest})`),
+      ease: base,
     }).finished.then(() => el.close());
   }
 }
@@ -92,7 +105,6 @@ watch(route, () => {
     class="menu"
     closedby="any"
   >
-    {{ islaptop }}
     <div class="main-menu__header">
       <div class="main-menu__items">
         <nav>
@@ -170,18 +182,26 @@ header {
 }
 
 .menu {
+  display: flex;
+  flex-direction: column;
   position: fixed;
-  inset-block-start: 1rem;
-  inset-inline-start: auto;
-  inset-inline-end: 1rem;
-  inset-block-end: auto;
+  inset-block-start: 0.5rem;
+  inset-inline-start: 0.5rem;
+  inset-inline-end: 0.5rem;
+  inset-block-end: 0.5rem;
   transform-origin: top right;
   transition-behavior: allow-discrete;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
 
   height: max(70svh, 500px);
-  width: 100%;
+  width: calc(100svw - 2rem);
 
   @media (min-width: 1024px) {
+    inset-block-start: 0.5rem;
+    inset-inline-start: auto;
+    inset-inline-end: 0.5rem;
+    padding: 1.5rem 2rem;
     height: calc(100vh - 2rem);
     width: calc(50vw - 2rem);
   }
@@ -210,7 +230,6 @@ header {
 .main-menu__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .main-menu__items {
@@ -224,6 +243,7 @@ header {
 .main-menu__body {
   display: flex;
   flex-direction: column;
+  margin-top: auto;
 }
 
 .main-menu__secondary {
@@ -242,38 +262,5 @@ header {
 
 .main-menu__contact {
   /* contact info or button */
-}
-
-.menu[popover] {
-  position: fixed;
-  top: 0.5rem;
-  right: 0.5rem;
-  left: auto;
-  margin: 0;
-  z-index: 1000;
-  opacity: 0;
-  flex-direction: column;
-  height: 100%;
-  justify-content: space-between;
-  transform: scale(0);
-  transform-origin: top right;
-  transition-behavior: allow-discrete;
-  transition:
-    transform 400ms allow-discrete,
-    display 400ms allow-discrete;
-  will-change: transform, opacity;
-}
-
-.menu:popover-open {
-  height: calc(100vh - 2rem);
-  width: calc(50vw - 1rem);
-  opacity: 1;
-  display: flex;
-  transform: scale(1);
-  transition-behavior: allow-discrete;
-
-  @starting-style {
-    transform: scale(0);
-  }
 }
 </style>

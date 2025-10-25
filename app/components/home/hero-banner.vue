@@ -77,7 +77,7 @@ const alignClasses = computed(() => {
 
 const { $posthog } = useNuxtApp();
 
-function _captureCustomEvent() {
+function captureCustomEvent() {
   $posthog().capture('home_button_clicked', {
     user_name: 'Max the Hedgehog',
   });
