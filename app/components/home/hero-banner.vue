@@ -3,7 +3,15 @@ import { computed } from 'vue';
 
 type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'link';
 type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ButtonColor = 'primary' | 'neutral' | 'black' | 'white' | 'success' | 'warning' | 'error' | string;
+type ButtonColor
+  = | 'primary'
+    | 'neutral'
+    | 'black'
+    | 'white'
+    | 'success'
+    | 'warning'
+    | 'error'
+    | string;
 
 type Action = {
   label: string;
@@ -31,11 +39,24 @@ type Props = {
 
 const props = withDefaults(defineProps<Props>(), {
   title: 'You need a builder who sees the bigger picture.',
-  description: 'We manage construction projects with excellence, purpose, and people-first precision.',
+  description:
+    'We manage construction projects with excellence, purpose, and people-first precision.',
   imageSrc: '/hero-small.png',
   imageAlt: 'Construction site hero image',
-  primaryAction: () => ({ label: 'Start Your Project', to: '#', color: 'primary', size: 'xl', variant: 'solid' }),
-  secondaryAction: () => ({ label: 'See Our Work', to: '#cta', color: 'neutral', size: 'xl', variant: 'outline' }),
+  primaryAction: () => ({
+    label: 'Start Your Project',
+    to: '#',
+    color: 'primary',
+    size: 'xl',
+    variant: 'solid',
+  }),
+  secondaryAction: () => ({
+    label: 'See Our Work',
+    to: '#cta',
+    color: 'neutral',
+    size: 'xl',
+    variant: 'outline',
+  }),
   headingTag: 'h1',
   align: 'bottom',
   overlay: true,
@@ -56,7 +77,7 @@ const alignClasses = computed(() => {
 
 const { $posthog } = useNuxtApp();
 
-function captureCustomEvent() {
+function _captureCustomEvent() {
   $posthog().capture('home_button_clicked', {
     user_name: 'Max the Hedgehog',
   });

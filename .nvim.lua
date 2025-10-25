@@ -7,10 +7,10 @@ local conform = require("conform")
 local util = require("conform.util")
 
 conform.setup({
-	format_on_save = { timeout_ms = 1000, lsp_fallback = false },
+	format_on_save = { timeout_ms = 500, lsp_fallback = false },
 	formatters = {
 		eslint_d = {
-			command = "pnpx",
+			command = "bunx",
 			args = { "eslint_d", "--fix-to-stdout", "--stdin", "--stdin-filename", "$FILENAME" },
 			stdin = true,
 			cwd = util.root_file({
