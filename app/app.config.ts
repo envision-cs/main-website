@@ -14,6 +14,7 @@ export default defineAppConfig({
         },
         {
           label: 'Our Partners',
+          to: '/our-partners',
           description:
             'We provide construction management services to meet your needs.',
         },
@@ -31,32 +32,37 @@ export default defineAppConfig({
       children: [
         {
           label: 'Construction Management',
+          to: '/construction-management',
           description:
             'We provide construction management services to meet your needs.',
         },
         {
           label: 'Design Build',
+          to: 'design-build',
           description:
             'We provide construction management services to meet your needs.',
         },
         {
           label: 'Development and Master Planning',
+          to: 'development-and-master-planning',
           description:
             'We provide construction management services to meet your needs.',
         },
         {
           label: 'Tenant Improvement',
-
+          to: 'tenant-improvement',
           description:
             'We provide construction management services to meet your needs.',
         },
         {
           label: 'Enhanced Preconstruction',
+          to: 'enhanced-preconstruction',
           description:
             'We provide construction management services to meet your needs.',
         },
         {
           label: 'Specialty Projects Division',
+          to: 'specialty-projects-division',
           description:
             'We provide construction management services to meet your needs.',
         },
