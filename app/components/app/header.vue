@@ -1,79 +1,61 @@
 <script setup lang="ts">
-import { useBreakpoints } from '@vueuse/core';
-import { animate, motionValue } from 'motion';
+import type { NavigationMenuItem } from '@nuxt/ui';
 
-// const config = useAppConfig();
-// const items = config.navigationMenuItems;
+import { useBreakpoints, useEventListener } from '@vueuse/core';
 
-const { base } = useEasings();
+const config = useAppConfig();
+const items: NavigationMenuItem[] = config.navigationMenuItems;
 
-const route = useRoute();
+const mainMenuRef = ref<HTMLDialogElement | null>(null);
+const {
+  isOpen: isMainOpen,
+  openMenu: openMain,
+  closeMenu: closeMain,
+} = useAnimatedDialog(mainMenuRef);
+
+const subMenuRef = ref<HTMLDialogElement | null>(null);
+const {
+  isOpen: isSubOpen,
+  openMenu: openSub,
+  direction: subDirection,
+  closeMenu: closeSub,
+} = useAnimatedDialog(subMenuRef);
 
 const breakpoints = useBreakpoints({
   laptop: 1024,
 });
 
-const menu = ref<HTMLDialogElement | null>(null);
+const isLaptop = breakpoints.greater('laptop');
 
-const islaptop = breakpoints.greater('laptop');
-const y = motionValue('-100%');
-const scale = motionValue(0);
-const opacity = motionValue(0);
-function openMenu() {
-  const el = menu.value;
-  if (!el)
-    return;
-
-  el.showModal();
-  opacity.set(0);
-  animate(opacity, 1, {
-    duration: 0.15,
-    onUpdate: latest => (el.style.opacity = `${latest}`),
-    ease: base,
-  });
-
-  if (islaptop.value) {
-    // Reset the motion value before animating
-    scale.set(0);
-    animate(scale, 1, {
-      duration: 0.4,
-      onUpdate: latest => (el.style.transform = `scale(${latest})`),
-      ease: base,
-    });
+useEventListener(document, 'keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (isMainOpen.value || isSubOpen.value) {
+      closeMain();
+      closeSub();
+    }
   }
-  else {
-    y.set('-100%');
-    animate(y, '0%', {
-      duration: 0.4,
-      onUpdate: latest => (el.style.transform = `translateY(${latest})`),
-      ease: base,
-    });
-  }
-}
-
-function closeMenu() {
-  const el = menu.value;
-  if (!el)
-    return;
-
-  if (islaptop.value) {
-    animate(scale, 0, {
-      duration: 0.4,
-      onUpdate: latest => (el.style.transform = `scale(${latest})`),
-      ease: base,
-    }).finished.then(() => el.close());
-  }
-  else {
-    animate(y, '-100%', {
-      duration: 0.4,
-      onUpdate: latest => (el.style.transform = `translateY(${latest})`),
-      ease: base,
-    }).finished.then(() => el.close());
-  }
-}
-watch(route, () => {
-  closeMenu();
 });
+
+const subMenuItems = ref<NavigationMenuItem[]>();
+
+function handleOpen(children: NavigationMenuItem[]) {
+  if (isLaptop.value) {
+    subDirection.value = 'top';
+  }
+  else {
+    subDirection.value = 'bottom';
+  }
+  openSub();
+  subMenuItems.value = children;
+}
+
+watch(isMainOpen, () => {
+  if (isMainOpen.value)
+    return;
+  if (isSubOpen.value) {
+    closeSub();
+  }
+}, { immediate: true });
 </script>
 
 <template>
@@ -89,7 +71,7 @@ watch(route, () => {
       variant="outline"
       color="neutral"
       class="menu-btn"
-      @click="openMenu"
+      @click="openMain"
     >
       <Icon
         name="i-lucide-menu"
@@ -100,27 +82,15 @@ watch(route, () => {
   </header>
   <dialog
     id="main-menu"
-    ref="menu"
+    ref="mainMenuRef"
     role="dialog"
     class="menu"
-    closedby="any"
+    @keydown.esc="closeMain"
   >
     <div class="main-menu__header">
       <div class="main-menu__items">
         <nav>
-          <ul>
-            <li>
-              <NuxtLink to="/projects">
-                Projects
-              </NuxtLink>
-            </li>
-
-            <li>
-              <NuxtLink to="/about">
-                About
-              </NuxtLink>
-            </li>
-          </ul>
+          <app-navigation-menu-list :items="items" @open="({ children }) => handleOpen(children)" />
         </nav>
       </div>
       <div class="main-menu__close">
@@ -128,7 +98,7 @@ watch(route, () => {
           variant="outline"
           color="neutral"
           class="menu-btn"
-          @click="closeMenu"
+          @click="closeMain"
         >
           close
           <Icon
@@ -154,6 +124,26 @@ watch(route, () => {
       </NuxtLink>
     </div>
   </dialog>
+
+  <dialog
+    ref="subMenuRef"
+    class="sub-menu"
+    role="dialog"
+    @keydown.esc="closeSub"
+  >
+    <ul>
+      <li v-for="item in subMenuItems" :key="item.label">
+        <NuxtLink
+          v-if="item.to"
+          :to="item.to"
+          class="h-full w-full"
+        >
+          {{ item.label }}
+          <NuxtLink />
+        </nuxtlink>
+      </li>
+    </ul>
+  </dialog>
 </template>
 
 <style scoped>
@@ -161,7 +151,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 1;
   justify-content: space-between;
   display: flex;
   padding: 0.5rem;
@@ -182,20 +172,23 @@ header {
 }
 
 .menu {
+  display: none;
+}
+
+.menu:open {
   display: flex;
   flex-direction: column;
   position: fixed;
-  inset-block-start: 0.5rem;
-  inset-inline-start: 0.5rem;
-  inset-inline-end: 0.5rem;
-  inset-block-end: 0.5rem;
+  inset: 0;
   transform-origin: top right;
   transition-behavior: allow-discrete;
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
+  z-index: 1;
 
-  height: max(70svh, 500px);
-  width: calc(100svw - 2rem);
+  height: min(70svh, 500px);
+  max-width: 100dvi;
+  width: 100dvi;
 
   @media (min-width: 1024px) {
     inset-block-start: 0.5rem;
@@ -205,6 +198,11 @@ header {
     height: calc(100vh - 2rem);
     width: calc(50vw - 2rem);
   }
+}
+
+.menu::backdrop {
+  background: black;
+  opacity: 0.25;
 }
 
 @keyframes open {
@@ -231,6 +229,8 @@ header {
   display: flex;
   justify-content: space-between;
 }
+
+/* show only when the BUTTON is hovered/focused */
 
 .main-menu__items {
   /* primary nav links */
@@ -262,5 +262,50 @@ header {
 
 .main-menu__contact {
   /* contact info or button */
+}
+
+.sub-menu {
+  display: none;
+}
+
+.sub-menu:open {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset-block-start: auto;
+  inset-inline-start: 0.5rem;
+  inset-inline-end: 0.5rem;
+  inset-block-end: 0.5rem;
+  transform-origin: bottom left;
+  transition-behavior: allow-discrete;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  z-index: 1;
+
+  height: max(70svh, 500px);
+  max-width: 100dvi;
+  width: 100dvi;
+
+  @media (min-width: 1024px) {
+    transform-origin: top left;
+    inset-block-start: 0.5rem;
+    inset-inline-end: auto;
+    inset-inline-start: 0.5rem;
+    padding: 1.5rem 2rem;
+    height: calc(100vh - 2rem);
+    width: calc(50vw - 2rem);
+  }
+
+  ul {
+    height: 100%;
+    display: grid;
+    gap: 0.25rem;
+    grid-auto-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.sub-menu::backdrop {
+  display: none;
 }
 </style>
