@@ -36,6 +36,24 @@ useEventListener(document, 'keydown', (e) => {
   }
 });
 
+useEventListener<MouseEvent>(mainMenuRef, 'click', (event) => {
+  if (!event.target)
+    return;
+
+  if ((event.target as HTMLElement).nodeName === 'DIALOG') {
+    closeMain();
+  }
+});
+
+useEventListener<MouseEvent>(subMenuRef, 'click', (event) => {
+  if (!event.target)
+    return;
+
+  if ((event.target as HTMLElement).nodeName === 'DIALOG') {
+    closeSub();
+  }
+});
+
 const subMenuItems = ref<NavigationMenuItem[]>();
 
 function handleOpen(children: NavigationMenuItem[]) {
@@ -123,6 +141,11 @@ watch(isMainOpen, () => {
         Contact
       </NuxtLink>
     </div>
+    <button
+      class="mobileClose"
+      @drag="closeSub"
+      @click="closeSub"
+    />
   </dialog>
 
   <dialog
@@ -131,6 +154,11 @@ watch(isMainOpen, () => {
     role="dialog"
     @keydown.esc="closeSub"
   >
+    <button
+      class="mobileClose"
+      @drag="closeSub"
+      @click="closeSub"
+    />
     <ul>
       <li v-for="item in subMenuItems" :key="item.label">
         <NuxtLink
@@ -196,7 +224,7 @@ header {
     inset-inline-end: 0.5rem;
     padding: 1.5rem 2rem;
     height: calc(100vh - 2rem);
-    width: calc(50vw - 2rem);
+    width: calc(50vw - 1rem);
   }
 }
 
@@ -273,7 +301,6 @@ header {
   flex-direction: column;
   position: fixed;
   inset-block-start: auto;
-  inset-inline-start: 0.5rem;
   inset-inline-end: 0.5rem;
   inset-block-end: 0.5rem;
   transform-origin: bottom left;
@@ -293,7 +320,7 @@ header {
     inset-inline-start: 0.5rem;
     padding: 1.5rem 2rem;
     height: calc(100vh - 2rem);
-    width: calc(50vw - 2rem);
+    width: calc(50vw - 1rem);
   }
 
   ul {
@@ -306,6 +333,20 @@ header {
 }
 
 .sub-menu::backdrop {
-  display: none;
+  background: black;
+  opacity: 0.25;
+}
+
+.mobileClose {
+  height: 0.5rem;
+  width: 50%;
+  margin-inline: auto;
+  background: var(--color-neutral-500);
+  border-radius: 0.25rem;
+  margin-block: 1rem;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
 }
 </style>
