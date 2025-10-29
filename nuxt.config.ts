@@ -55,6 +55,9 @@ export default defineNuxtConfig({
     },
   },
   icon: {
+    serverBundle: {
+      collections: ['lucide', 'simple-icons'], // Only bundle what you need
+    },
     customCollections: [
       {
         prefix: 'logos',
@@ -77,6 +80,24 @@ export default defineNuxtConfig({
     enabled: true,
     timeline: {
       enabled: true,
+    },
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              if (id.includes('motion')) {
+                return 'motion';
+              }
+              if (id.includes('@vueuse') && !id.includes('vue')) {
+                return 'vendor-vueuse';
+              }
+            }
+          },
+        },
+      },
     },
   },
 });

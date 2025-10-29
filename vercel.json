@@ -1,6 +1,6 @@
 {
   "buildCommand": "bun run build",
-  "installCommand": "bun install --no-cache",
+  "installCommand": "bun install --frozen-lockfile",
   "framework": "nuxtjs",
   "outputDirectory": ".vercel/output"
 }
