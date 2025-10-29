@@ -64,17 +64,17 @@ if ($posthog) {
       <home-inspire />
       <home-news-feed />
       <app-banner
-        eyebrow="Build with Confidence"
-        title="Your Vision Shouldn’t Be Left to Chance"
-        description="Choosing the wrong partner can mean wasted budget, endless delays, and a space that never meets its potential. We protect your investment, your timeline, and your vision"
+        eyebrow="build with confidence"
+        title="your vision shouldn’t be left to chance"
+        description="choosing the wrong partner can mean wasted budget, endless delays, and a space that never meets its potential. we protect your investment, your timeline, and your vision"
         :links="[
           {
-            label: 'Start Your Project',
+            label: 'start your project',
             to: '#',
             color: 'primary',
           },
           {
-            label: 'See Our Work',
+            label: 'see our work',
             to: '#',
             variant: 'outline',
             color: 'neutral',

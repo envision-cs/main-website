@@ -54,9 +54,9 @@ useEventListener<MouseEvent>(subMenuRef, 'click', (event) => {
   }
 });
 
-const subMenuItems = ref<NavigationMenuItem[]>();
+const subMenuItems = ref<NavigationMenuItem[]>([]);
 
-function handleOpen(children: NavigationMenuItem[]) {
+function handleOpen(children: unknown) {
   if (isLaptop.value) {
     subDirection.value = 'top';
   }
@@ -64,7 +64,7 @@ function handleOpen(children: NavigationMenuItem[]) {
     subDirection.value = 'bottom';
   }
   openSub();
-  subMenuItems.value = children;
+  subMenuItems.value = children as NavigationMenuItem[];
 }
 
 watch(isMainOpen, () => {
@@ -108,14 +108,14 @@ watch(isMainOpen, () => {
     <div class="main-menu__header">
       <div class="main-menu__items">
         <nav>
-          <app-navigation-menu-list :items="items" @open="({ children }) => handleOpen(children)" />
+          <app-navigation-menu-list :items="items" @open="(obj) => handleOpen(obj.children)" />
         </nav>
       </div>
       <div class="main-menu__close">
         <UButton
           variant="outline"
           color="neutral"
-          class="menu-btn"
+          class="close-btn"
           @click="closeMain"
         >
           close
@@ -161,14 +161,12 @@ watch(isMainOpen, () => {
     />
     <ul>
       <li v-for="item in subMenuItems" :key="item.label">
-        <NuxtLink
+        <app-navigation-link-card
           v-if="item.to"
           :to="item.to"
+          :label="item.label"
           class="h-full w-full"
-        >
-          {{ item.label }}
-          <NuxtLink />
-        </nuxtlink>
+        />
       </li>
     </ul>
   </dialog>
@@ -182,21 +180,11 @@ header {
   z-index: 1;
   justify-content: space-between;
   display: flex;
-  padding: 0.5rem;
+  padding: calc(var(--spacing) * 2);
 }
 
 .logo {
   margin-inline: auto;
-}
-
-@keyframes growIn {
-  from {
-    transform: scale(0);
-  }
-
-  to {
-    transform: scale(1);
-  }
 }
 
 .menu {
@@ -210,8 +198,6 @@ header {
   inset: 0;
   transform-origin: top right;
   transition-behavior: allow-discrete;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
   z-index: 1;
 
   height: min(70svh, 500px);
@@ -219,12 +205,11 @@ header {
   width: 100dvi;
 
   @media (min-width: 1024px) {
-    inset-block-start: 0.5rem;
+    inset-block-start: calc(var(--spacing) * 2);
     inset-inline-start: auto;
-    inset-inline-end: 0.5rem;
-    padding: 1.5rem 2rem;
-    height: calc(100vh - 2rem);
-    width: calc(50vw - 1rem);
+    inset-inline-end: calc(var(--spacing) * 2);
+    height: calc(100vh - calc(var(--spacing) * 8));
+    width: calc(50vw - calc(var(--spacing) * 4));
   }
 }
 
@@ -256,16 +241,27 @@ header {
 .main-menu__header {
   display: flex;
   justify-content: space-between;
+  align-items: stretch;
+  border-bottom: 1px solid var(--ui-border);
 }
 
-/* show only when the BUTTON is hovered/focused */
-
 .main-menu__items {
-  /* primary nav links */
+  flex: 1;
+  border-right: 1px solid var(--ui-border);
+
+  :last-child {
+    padding-bottom: calc(var(--spacing) * 2);
+  }
+
+  @media (min-width: 1024px) {
+    padding-top: calc(var(--spacing) * 4);
+    padding-left: calc(var(--spacing) * 4);
+  }
 }
 
 .main-menu__close {
-  /* close button */
+  flex-shrink: 0;
+  padding: calc(var(--spacing) * 4);
 }
 
 .main-menu__body {
@@ -301,12 +297,12 @@ header {
   flex-direction: column;
   position: fixed;
   inset-block-start: auto;
-  inset-inline-end: 0.5rem;
-  inset-block-end: 0.5rem;
+  inset-inline-end: calc(var(--spacing) * 2);
+  inset-block-end: calc(var(--spacing) * 2);
   transform-origin: bottom left;
   transition-behavior: allow-discrete;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
+  border-radius: calc(var(--ui-radius));
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
   z-index: 1;
 
   height: max(70svh, 500px);
@@ -315,12 +311,12 @@ header {
 
   @media (min-width: 1024px) {
     transform-origin: top left;
-    inset-block-start: 0.5rem;
+    inset-block-start: calc(var(--spacing) * 2);
     inset-inline-end: auto;
-    inset-inline-start: 0.5rem;
-    padding: 1.5rem 2rem;
-    height: calc(100vh - 2rem);
-    width: calc(50vw - 1rem);
+    inset-inline-start: calc(var(--spacing) * 2);
+    padding: calc(var(--spacing) * 3) calc(var(--spacing) * 8);
+    height: calc(100vh - calc(var(--spacing) * 8));
+    width: calc(50vw - calc(var(--spacing) * 4));
   }
 
   ul {
@@ -338,12 +334,12 @@ header {
 }
 
 .mobileClose {
-  height: 0.5rem;
+  height: calc(var(--spacing) * 2);
   width: 50%;
   margin-inline: auto;
   background: var(--color-neutral-500);
-  border-radius: 0.25rem;
-  margin-block: 1rem;
+  border-radius: calc(var(--ui-radius));
+  margin-block: calc(var(--spacing) * 4);
 
   @media (min-width: 1024px) {
     display: none;

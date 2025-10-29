@@ -4,27 +4,27 @@ export default defineAppConfig({
   navigationMenuItems: [
     {
       label: 'About',
-      to: '#',
-      children: [
-        {
-          label: 'Who we are',
-          to: '/about',
-          description:
-            'We provide construction management services to meet your needs.',
-        },
-        {
-          label: 'Our Partners',
-          to: '/our-partners',
-          description:
-            'We provide construction management services to meet your needs.',
-        },
-        {
-          label: 'Our Process',
-          to: '/our-process',
-          description:
-            'We provide construction management services to meet your needs.',
-        },
-      ],
+      to: '/about',
+      //    children: [
+      //     {
+      //       label: 'Who we are',
+      //       to: '/about',
+      //       description:
+      //         'We provide construction management services to meet your needs.',
+      //     },
+      //     {
+      //       label: 'Our Partners',
+      //       to: '/our-partners',
+      //       description:
+      //         'We provide construction management services to meet your needs.',
+      //     },
+      //     {
+      //       label: 'Our Process',
+      //       to: '/our-process',
+      //       description:
+      //         'We provide construction management services to meet your needs.',
+      //     },
+      //   ],
     },
     {
       label: 'Services',

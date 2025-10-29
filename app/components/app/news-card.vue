@@ -108,7 +108,7 @@ defineProps<{
   & .news-card__inner {
     padding: 24px 16px;
     display: grid;
-    gap: 1rem;
+    gap: calc(vaj(--spacing) * 4);
     margin-bottom: 60px;
   }
 

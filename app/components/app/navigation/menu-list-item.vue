@@ -11,7 +11,7 @@ const emit = defineEmits<{
   (e: 'open', payload: { children: NavigationMenuItem[]; index: number }): void;
 }>();
 
-function emitOpen(children: NavigationMenuItem[] | undefined, index: number) {
+function emitOpen(children: NavigationMenuItem[], index: number) {
   if (!children || children.length === 0) {
     if (import.meta.client) {
       console.warn('[MainMenuList] Tried to open, but no children provided at index:', index);
@@ -42,6 +42,7 @@ function emitOpen(children: NavigationMenuItem[] | undefined, index: number) {
       v-else
       :to="item.to"
       role="menuitem"
+      class="menuitem"
     >
       {{ item.label }}
     </NuxtLink>
@@ -53,7 +54,11 @@ function emitOpen(children: NavigationMenuItem[] | undefined, index: number) {
       class="arrow"
       aria-hidden="true"
     >
-      <UIcon name="i-lucide-arrow-left" />
+      <UIcon
+        class="arrow-icon"
+        name="i-lucide-arrow-left"
+        size="32"
+      />
     </div>
   </li>
 </template>
@@ -63,23 +68,58 @@ function emitOpen(children: NavigationMenuItem[] | undefined, index: number) {
   position: relative;
 }
 
+.menuitem,
+.menu-parent {
+  font-size: var(--text-xl);
+  color: var(--ui-text);
+  line-height: 1.3;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  @media (min-width: 1024px) {
+    font-size: var(--text-2xl);
+  }
+}
+
+.menuitem:hover,
+.menu-parent:hover {
+  color: var(--ui-text-dimmed);
+}
+
+/* arrow container */
+.arrow {
+  position: absolute;
+  top: 50%;
+  left: -6rem;
+  display: grid;
+  padding: calc(var(--spacing) * 2);
+  background: var(--ui-bg);
+
+  /* initial state */
+  opacity: 0;
+  transform: translate(100%, -50%);
+
+  /* animate both directions */
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+}
+
+/* icon inside arrow */
+.arrow-icon {
+  opacity: 0;
+  transition: opacity 0.2s ease 0.3s;
+}
+
+/* hover state: slide in + fade in */
 .menu-parent:hover + .arrow,
 .menu-parent:focus-visible + .arrow {
   opacity: 1;
   transform: translate(0, -50%);
 }
 
-.arrow {
-  position: absolute;
-  top: 50%;
-  left: -4rem;
-  opacity: 0;
-  display: grid;
-  padding: calc(var(--spacing) * 2);
-  background: var(--ui-bg);
-  transform: translate(6px, -50%);
-  transition:
-    opacity 0.18s ease,
-    transform 0.18s ease;
+.menu-parent:hover + .arrow .arrow-icon,
+.menu-parent:focus-visible + .arrow .arrow-icon {
+  opacity: 1;
 }
 </style>

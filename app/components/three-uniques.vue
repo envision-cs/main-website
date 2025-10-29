@@ -34,11 +34,10 @@ const items = [
     />
   </div>
 
-  <div class="mt-0 site-max">
+  <div class="mt-0">
     <app-list-item
       v-for="(item, i) in items"
       :key="i"
-      :index="i"
       :title="item.label"
       :text="item.content"
     />

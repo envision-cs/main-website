@@ -8,12 +8,7 @@ export default defineNuxtConfig({
     '@posthog/nuxt',
     'motion-v/nuxt',
   ],
-  devtools: {
-    enabled: true,
-    timeline: {
-      enabled: true,
-    },
-  },
+
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
@@ -66,6 +61,12 @@ export default defineNuxtConfig({
   font: {
     adobe: {
       id: ['iae6upw'],
+    },
+  },
+  devtools: {
+    enabled: true,
+    timeline: {
+      enabled: true,
     },
   },
 });

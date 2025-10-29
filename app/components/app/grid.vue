@@ -10,6 +10,6 @@
 .item-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  gap: calc(var(--spacing) * 3);
 }
 </style>

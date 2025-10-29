@@ -12,17 +12,17 @@
   --breakpoint-md: 650px;
   --breakpoint-md: 1025px;
 
-  --color-curious-blue-50: oklch(0.978 0.011 234.814);
-  --color-curious-blue-100: oklch(0.95 0.022 239.429);
-  --color-curious-blue-200: oklch(0.896 0.049 234.187);
-  --color-curious-blue-300: oklch(0.815 0.091 233.14);
-  --color-curious-blue-400: oklch(0.733 0.128 233.733);
-  --color-curious-blue-500: oklch(0.634 0.135 238.396);
-  --color-curious-blue-600: oklch(0.56 0.132 243.136);
-  --color-curious-blue-700: oklch(0.478 0.112 243.857);
-  --color-curious-blue-800: oklch(0.427 0.093 241.472);
-  --color-curious-blue-900: oklch(0.378 0.079 242.34);
-  --color-curious-blue-950: oklch(0.284 0.059 245.802);
+  --color-envision-blue-50: oklch(0.978 0.011 234.814);
+  --color-envision-blue-100: oklch(0.95 0.022 239.429);
+  --color-envision-blue-200: oklch(0.896 0.049 234.187);
+  --color-envision-blue-300: oklch(0.815 0.091 233.14);
+  --color-envision-blue-400: oklch(0.733 0.128 233.733);
+  --color-envision-blue-500: oklch(0.634 0.135 238.396);
+  --color-envision-blue-600: oklch(0.56 0.132 243.136);
+  --color-envision-blue-700: oklch(0.478 0.112 243.857);
+  --color-envision-blue-800: oklch(0.427 0.093 241.472);
+  --color-envision-blue-900: oklch(0.378 0.079 242.34);
+  --color-envision-blue-950: oklch(0.284 0.059 245.802);
 
   --color-envision-green-50: oklch(0.932 0.166 130.998);
   --color-envision-green-100: oklch(0.88 0.144 140.43);
@@ -54,7 +54,7 @@
 :root {
   interpolate-size: allow-keywords;
 
-  --ui-primary: var(--color-curious-blue-700);
+  --ui-primary: var(--color-envision-blue-700);
   --ui-secondary: var(--color-envision-green-700);
   --ui-container: var(--container-8xl);
 

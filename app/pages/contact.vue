@@ -8,7 +8,7 @@ const steps = [
 
 <template>
   <UPage class="mt-0 ">
-    <div class="grid gap-32">
+    <div class="grid">
       <app-hero-banner title="Contact Us" />
 
       <app-banner title="Let’s Build Something That Lasts.">

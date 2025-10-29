@@ -19,6 +19,7 @@ const hovered = ref(false);
     class="group site-grid relative
     col-span-full border-t border-accented w-full
       h-96"
+    :class="{ show: showNumber }"
     @mouseenter="() => hovered = true"
     @mouseleave="() => hovered = false"
   >
@@ -34,14 +35,7 @@ const hovered = ref(false);
       0{{ index + 1 }}
     </div>
 
-    <div
-      class=" content
-        flex flex-col col-span-full self-center pl-0 min-[700px]:pl-8
-              "
-      :class="[
-
-      ]"
-    >
+    <div class="content flex flex-col col-span-full self-center pl-0 min-[700px]:pl-8">
       <h3 class="text-2xl font-semibold">
         {{ title }}
       </h3>
@@ -88,21 +82,33 @@ const hovered = ref(false);
 
 <style scoped>
 .site-grid {
-  grid-template-areas:
-    'a a a a'
-    'c c c c';
+  grid-template-areas: 'c c c c';
+
+  &.show {
+    grid-template-areas:
+      'a a a a'
+      'c c c c';
+  }
 }
 
 @media (min-width: 700px) {
   .site-grid {
-    grid-template-areas: 'a a a a b c c c c c c c ';
+    grid-template-areas: 'c c c c c c c c c c c c ';
+
+    &.show {
+      grid-template-areas: 'a a a a b c c c c c c c ';
+    }
   }
 }
 
 @media (min-width: 1024px) {
   .site-grid {
     gap: 0;
-    grid-template-areas: 'a a a c c c c c c c c c c b i i i i i i i i i i';
+    grid-template-areas: 'c c c c c c c c c c c c c b i i i i i i i i i i';
+
+    &.show {
+      grid-template-areas: 'a a a c c c c c c c c c c b i i i i i i i i i i';
+    }
   }
 }
 
