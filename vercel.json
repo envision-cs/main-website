@@ -1,7 +1,6 @@
 {
-  "git": {
-    "deploymentEnabled": {
-      "dev": true
-    }
-  }
+  "buildCommand": "bun run build",
+  "installCommand": "bun install --no-cache",
+  "framework": "nuxtjs",
+  "outputDirectory": ".vercel/output"
 }
