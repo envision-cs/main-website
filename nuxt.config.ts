@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     '@posthog/nuxt',
     'motion-v/nuxt',
   ],
-
+  nitro: { preset: 'vercel' },
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
