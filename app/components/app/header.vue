@@ -276,18 +276,6 @@ header {
   justify-content: space-between;
 }
 
-.main-menu__secondary-items {
-  /* links or subcategories */
-}
-
-.main-menu__social {
-  /* icons */
-}
-
-.main-menu__contact {
-  /* contact info or button */
-}
-
 .sub-menu {
   display: none;
 }
