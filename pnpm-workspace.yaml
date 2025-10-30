@@ -1,9 +1,0 @@
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@posthog/cli'
-  - better-sqlite3
-  - core-js
-  - esbuild
-  - sharp
-  - unrs-resolver
-  - vue-demi

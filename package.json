@@ -34,6 +34,7 @@
     "@iconify-json/simple-icons": "^1.2.54",
     "@nuxt/eslint": "1.9.0",
     "@nuxt/icon": "^2.0.0",
+    "@types/bun": "latest",
     "eslint": "^9.34.0",
     "eslint-plugin-format": "^1.0.1",
     "eslint_d": "^14.3.0",
@@ -42,6 +43,6 @@
     "typescript": "^5.9.2"
   },
   "lint-staged": {
-    "*": "pnpm lint"
+    "*": "bun lint"
   }
 }
