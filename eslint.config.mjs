@@ -15,7 +15,7 @@ export default withNuxt(
         semi: true,
         quotes: 'single',
       },
-      ignores: ['.pnpm-store/**', '**/migrations/*'],
+      ignores: ['.pnpm-store/**', '**/migrations/*', 'GEMINI.md'],
     },
     {
       rules: {

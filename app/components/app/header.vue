@@ -131,15 +131,32 @@ watch(isMainOpen, () => {
     <div class="main-menu__body">
       <div class="main-menu__secondary">
         <div class="main-menu__secondary-items">
-          <NuxtLink>
+          <app-navigation-secondary-link to="#">
             Locations
-          </NuxtLink>
-          <NuxtLink>
+          </app-navigation-secondary-link>
+          <app-navigation-secondary-link to="#">
             Our Partners
-          </NuxtLink>
+          </app-navigation-secondary-link>
         </div>
         <div class="main-menu__social">
-          Social Icons
+          <UButton
+            icon="i-lucide-instagram"
+            size="md"
+            color="neutral"
+            variant="outline"
+          />
+          <UButton
+            icon="i-lucide-linkedin"
+            size="md"
+            color="neutral"
+            variant="outline"
+          />
+          <UButton
+            icon="i-lucide-facebook"
+            size="md"
+            color="neutral"
+            variant="outline"
+          />
         </div>
       </div>
       <NuxtLink to="/contact" class="main-menu__contact">
@@ -286,10 +303,11 @@ header {
 .main-menu__secondary-items {
   display: flex;
   gap: calc(var(--spacing) * 4);
+}
 
-  a {
-    font-size: var(--text-lg);
-  }
+.main-menu__social {
+  display: flex;
+  gap: calc(var(--spacing) * 4);
 }
 
 .sub-menu {
