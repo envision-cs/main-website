@@ -1,8 +1,8 @@
 <script setup lang="ts">
 const route = useRoute();
+const id = computed(() => route.params.id);
 
-const { data: page } = await useAsyncData(route.path, () =>
-  queryCollection('projects').path(route.path).first());
+const { data: page } = await useFetch(`/api/projects/${id.value}`);
 
 const title = page.value?.seo?.title || page.value?.title;
 

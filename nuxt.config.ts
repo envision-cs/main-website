@@ -12,9 +12,6 @@ export default defineNuxtConfig({
     preset: 'vercel',
     minify: true,
   },
-  experimental: {
-    payloadExtraction: false,
-  },
   sourcemap: {
     server: false,
     client: false,
@@ -37,9 +34,11 @@ export default defineNuxtConfig({
     build: {
       pathMeta: {},
     },
+
     preview: {
       api: 'https://api.nuxt.studio',
     },
+
   },
   runtimeConfig: {
     public: {
@@ -83,6 +82,13 @@ export default defineNuxtConfig({
     },
   },
   vite: {
+    optimizeDeps: {
+      exclude: [
+        '@libsql/client',
+        'better-sqlite3',
+        'sql.js',
+      ],
+    },
     build: {
       rollupOptions: {
         output: {

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const { data: projects } = await useAsyncData('projects', () => {
-  return queryCollection('projects').all();
-});
+const { data: projects } = await useFetch('/api/projects');
 
 const catagories = computed(() => {
   const set = new Set();

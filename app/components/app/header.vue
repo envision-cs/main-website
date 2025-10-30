@@ -131,7 +131,12 @@ watch(isMainOpen, () => {
     <div class="main-menu__body">
       <div class="main-menu__secondary">
         <div class="main-menu__secondary-items">
-          secondary Items
+          <NuxtLink>
+            Locations
+          </NuxtLink>
+          <NuxtLink>
+            Our Partners
+          </NuxtLink>
         </div>
         <div class="main-menu__social">
           Social Icons
@@ -268,12 +273,23 @@ header {
   display: flex;
   flex-direction: column;
   margin-top: auto;
+  border-top: 1px solid var(--ui-border);
 }
 
 .main-menu__secondary {
   margin-top: auto;
   display: flex;
   justify-content: space-between;
+  padding: calc(var(--spacing) * 4);
+}
+
+.main-menu__secondary-items {
+  display: flex;
+  gap: calc(var(--spacing) * 4);
+
+  a {
+    font-size: var(--text-lg);
+  }
 }
 
 .sub-menu {

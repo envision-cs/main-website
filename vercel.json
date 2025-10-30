@@ -1,6 +1,6 @@
 {
-  "buildCommand": "bun run build",
-  "installCommand": "bun install --frozen-lockfile",
+  "buildCommand": "pnpm run build",
+  "installCommand": "pnpm install --frozen-lockfile",
   "framework": "nuxtjs",
   "outputDirectory": ".vercel/output"
 }
