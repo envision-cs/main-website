@@ -3,86 +3,94 @@ import type { NavigationMenuItem } from '@nuxt/ui';
 export default defineAppConfig({
   navigationMenuItems: [
     {
-      label: 'About',
-      to: '/about',
-      //    children: [
-      //     {
-      //       label: 'Who we are',
-      //       to: '/about',
-      //       description:
-      //         'We provide construction management services to meet your needs.',
-      //     },
-      //     {
-      //       label: 'Our Partners',
-      //       to: '/our-partners',
-      //       description:
-      //         'We provide construction management services to meet your needs.',
-      //     },
-      //     {
-      //       label: 'Our Process',
-      //       to: '/our-process',
-      //       description:
-      //         'We provide construction management services to meet your needs.',
-      //     },
-      //   ],
+      label: 'Company',
+      children: [
+        {
+          label: 'Home',
+          to: '/',
+        },
+        {
+          label: 'About',
+          to: '/about',
+        },
+        {
+          label: 'Life At Envision',
+          to: '/life-at-envision',
+        },
+        {
+          label: 'Contact Us',
+          to: '/contact',
+        },
+      ],
     },
     {
       label: 'Services',
-      to: '#',
       children: [
         {
           label: 'Construction Management',
-          to: '/construction-management',
-          description:
-            'We provide construction management services to meet your needs.',
+          to: '/services/construction-management',
         },
         {
           label: 'Design Build',
-          to: 'design-build',
-          description:
-            'We provide construction management services to meet your needs.',
+          to: '/services/design-build',
         },
         {
           label: 'Development and Master Planning',
-          to: 'development-and-master-planning',
-          description:
-            'We provide construction management services to meet your needs.',
+          to: '/services/development-and-master-planning',
         },
         {
           label: 'Tenant Improvement',
-          to: 'tenant-improvement',
-          description:
-            'We provide construction management services to meet your needs.',
+          to: '/services/tenant-improvement',
         },
         {
           label: 'Enhanced Preconstruction',
-          to: 'enhanced-preconstruction',
-          description:
-            'We provide construction management services to meet your needs.',
+          to: '/services/enhanced-preconstruction',
         },
         {
           label: 'Specialty Projects Division',
-          to: 'specialty-projects-division',
-          description:
-            'We provide construction management services to meet your needs.',
+          to: '/services/specialty-projects-division',
         },
       ],
     },
     {
       label: 'Projects',
-      to: '/projects/',
-    },
-    {
-      label: 'Life At Envision',
-      to: '#',
+      to: '/projects',
     },
     {
       label: 'Meet the Team',
-      to: '#',
+      to: '/team',
     },
     {
-      label: 'Contact Us',
-      to: '/contact',
+      label: 'About Us',
+      children: [
+        {
+          label: 'Who we are',
+          to: '/about',
+        },
+        {
+          label: 'Our Partners',
+          to: '/about/partners', // Assuming a sub-page for partners
+        },
+        {
+          label: 'Our Process',
+          to: '/our-process',
+        },
+      ],
+    },
+    {
+      label: 'Connect',
+      children: [
+        {
+          label: 'LinkedIn',
+          to: 'https://www.linkedin.com/company/envision-construction-services', // Placeholder
+          target: '_blank',
+        },
+        {
+          label: 'Facebook',
+          to: 'https://www.facebook.com/envisionconstructionservices', // Placeholder
+          target: '_blank',
+        },
+      ],
     },
   ] as NavigationMenuItem[],
   ui: {

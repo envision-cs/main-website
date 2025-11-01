@@ -159,9 +159,11 @@ watch(isMainOpen, () => {
           />
         </div>
       </div>
-      <NuxtLink to="/contact" class="main-menu__contact">
-        Contact
-      </NuxtLink>
+      <div class="px-2 pb-2">
+        <app-navigation-image-link-card to="/contact" image="/airport.png">
+          Contact
+        </app-navigation-image-link-card>
+      </div>
     </div>
     <button
       class="mobileClose"
@@ -183,12 +185,15 @@ watch(isMainOpen, () => {
     />
     <ul>
       <li v-for="item in subMenuItems" :key="item.label">
-        <app-navigation-link-card
+        <app-navigation-image-link-card
           v-if="item.to"
+          image="/airport.png"
           :to="item.to"
           :label="item.label"
           class="h-full w-full"
-        />
+        >
+          {{ item.label }}
+        </app-navigation-image-link-card>
       </li>
     </ul>
   </dialog>
@@ -270,6 +275,7 @@ header {
 .main-menu__items {
   flex: 1;
   border-right: 1px solid var(--ui-border);
+  padding-left: calc(var(--spacing) * 2);
 
   :last-child {
     padding-bottom: calc(var(--spacing) * 2);
@@ -302,7 +308,13 @@ header {
 
 .main-menu__secondary-items {
   display: flex;
-  gap: calc(var(--spacing) * 4);
+  gap: calc(var(--spacing) * 1);
+  flex-wrap: wrap;
+  line-height: 1;
+
+  :first-child {
+    margin-right: calc(var(--spacing) * 1);
+  }
 }
 
 .main-menu__social {
@@ -324,7 +336,7 @@ header {
   transform-origin: bottom left;
   transition-behavior: allow-discrete;
   border-radius: calc(var(--ui-radius));
-  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 2);
   z-index: 1;
 
   height: max(70svh, 500px);
@@ -336,7 +348,7 @@ header {
     inset-block-start: calc(var(--spacing) * 2);
     inset-inline-end: auto;
     inset-inline-start: calc(var(--spacing) * 2);
-    padding: calc(var(--spacing) * 3) calc(var(--spacing) * 8);
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 2);
     height: calc(100vh - calc(var(--spacing) * 8));
     width: calc(50vw - calc(var(--spacing) * 4));
   }
@@ -344,7 +356,7 @@ header {
   ul {
     height: 100%;
     display: grid;
-    gap: 0.25rem;
+    gap: calc(var(--spacing) * 2);
     grid-auto-rows: 1fr;
     grid-template-columns: 1fr 1fr;
   }

@@ -99,3 +99,26 @@ The website's content is managed using Nuxt Content. The content is written in M
 ### API
 
 The project has a server-side API endpoint to fetch all projects from the `content/projects/` directory. The API endpoint is located at `server/api/projects/index.get.ts`.
+
+## Current Tasks
+
+### Completed
+- **Contact Form:**
+  - [x] Integrated with Formspark for submissions.
+- **Footer:**
+  - [x] Updated footer links based on the sitemap.
+- **Navigation:**
+  - [x] Updated top-level navigation to include "Projects" and "Meet the Team".
+
+### In Progress
+- **Services Pages:**
+  - [ ] Create a main `services` page.
+  - [ ] Create individual pages for each service.
+
+### Up Next
+- **Team Members Page:**
+  - [ ] Set up Nuxt content for team members.
+  - [ ] Create a main index page for team members.
+  - [ ] Create a dynamic page for individual team members.
+- **Locations Map:**
+  - [ ] Add interactive maps to the contact page.

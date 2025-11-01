@@ -46,12 +46,25 @@ function onPhoneBlur() {
 }
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  toast.add({
-    title: 'Success',
-    description: 'The form has been submitted.',
-    color: 'success',
-  });
-  return event;
+  try {
+    await $fetch('https://submit-form.com/1mjeYb91R', {
+      method: 'POST',
+      body: event.data,
+    });
+    toast.add({
+      title: 'Success',
+      description: 'Your message has been sent!',
+      color: 'primary',
+    });
+  }
+  catch (error) {
+    console.error('Form submission error:', error);
+    toast.add({
+      title: 'Error',
+      description: 'There was an issue sending your message. Please try again later.',
+      color: 'error',
+    });
+  }
 }
 
 const text_count = computed(() => state.message?.length ? `${state.message?.length} / 250` : '0 / 250');
