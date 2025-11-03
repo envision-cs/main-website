@@ -3,9 +3,9 @@
 
 <template>
   <section class="banner">
-    <h1>
+    <app-typography tag="h1" variant="heading-huge">
       <slot />
-    </h1>
+    </app-typography>
   </section>
 </template>
 

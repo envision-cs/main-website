@@ -120,6 +120,8 @@ The project has a server-side API endpoint to fetch all projects from the `conte
 ### Up Next
 - **Location Maps:**
   - [ ] Add interactive maps to the contact page (User is working on this).
+- **Typography Component:**
+  - [ ] Create a reusable typography component.
 - **Styling:**
   - [ ] Style the projects page.
     - [x] Full page layout (Mobile and Desktop)
