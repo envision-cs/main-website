@@ -77,8 +77,8 @@ const hasImages = images && images?.length > 0;
               ease: gentle,
             }"
             :viewport="{ margin: '0px 0px -25% 0px' }"
-            class="
-          pb-8 text-base max-w-3xl
+            class=" description
+          pb-8 max-w-3xl
 
         "
           >
@@ -118,7 +118,11 @@ const hasImages = images && images?.length > 0;
 }
 
 .title {
-  font-size: var(--font-size-h2);
+  font-size: var(--font-size-h1);
   line-height: 1;
+}
+
+.description {
+  font-size: var(--font-size-text-t1);
 }
 </style>

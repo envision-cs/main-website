@@ -211,7 +211,7 @@ header {
 }
 
 .logo {
-  margin-inline: auto;
+  margin-left: calc(var(--spacing) * 4);
 }
 
 .menu {
@@ -269,12 +269,12 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  border-bottom: 1px solid var(--ui-border);
+  border-bottom: --_border;
 }
 
 .main-menu__items {
   flex: 1;
-  border-right: 1px solid var(--ui-border);
+  border-right: --_border;
   padding-left: calc(var(--spacing) * 2);
 
   :last-child {
@@ -296,7 +296,7 @@ header {
   display: flex;
   flex-direction: column;
   margin-top: auto;
-  border-top: 1px solid var(--ui-border);
+  border-top: --_border;
 }
 
 .main-menu__secondary {

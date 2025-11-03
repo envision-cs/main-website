@@ -67,6 +67,6 @@ const items = [
 }
 
 .news-feed__item:not(:first-of-type) {
-  border-top: 1px solid var(--ui-border);
+  border-top: --_border;
 }
 </style>

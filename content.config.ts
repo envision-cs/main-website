@@ -16,5 +16,18 @@ export default defineContentConfig({
         gallery: z.array(z.string()),
       }),
     }),
+    team: defineCollection({
+      type: 'page',
+      source: 'team/*.md',
+      schema: z.object({
+        name: z.string(),
+        title: z.string(),
+        image: z.string(),
+        bio: z.string(),
+        group: z.string(),
+        linkedin: z.string().optional(),
+        email: z.string().email().optional(),
+      }),
+    }),
   },
 });

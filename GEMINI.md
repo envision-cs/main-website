@@ -109,16 +109,23 @@ The project has a server-side API endpoint to fetch all projects from the `conte
   - [x] Updated footer links based on the sitemap.
 - **Navigation:**
   - [x] Updated top-level navigation to include "Projects" and "Meet the Team".
-
-### In Progress
 - **Services Pages:**
-  - [ ] Create a main `services` page.
-  - [ ] Create individual pages for each service.
+  - [x] Created a main `services` page.
+  - [x] Created individual pages for each service.
+- **Team Members Page:**
+  - [x] Set up Nuxt content for team members.
+  - [x] Created a main index page for team members.
+  - [x] Created a dynamic page for individual team members.
 
 ### Up Next
-- **Team Members Page:**
-  - [ ] Set up Nuxt content for team members.
-  - [ ] Create a main index page for team members.
-  - [ ] Create a dynamic page for individual team members.
-- **Locations Map:**
-  - [ ] Add interactive maps to the contact page.
+- **Location Maps:**
+  - [ ] Add interactive maps to the contact page (User is working on this).
+- **Styling:**
+  - [ ] Style the projects page.
+    - [x] Full page layout (Mobile and Desktop)
+    - [ ] Hero layout
+    - [ ] Project list
+    - [ ] Project cards
+  - [ ] Style the individual project pages.
+- **Hero Banners:**
+  - [ ] Update hero banners for non-homepage pages.

@@ -49,6 +49,8 @@
   --text-7xl: 6.25rem;
   --text-8xl: 8rem;
   --text-9xl: 9.25rem;
+
+  --border-main: 1px solid var(--ui-border);
 }
 
 :root {
@@ -63,6 +65,8 @@
   --font-size-h2: clamp(35px, 0.0381944444 * calc(100 * var(--vw, 1vw)), 55px);
   --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
   --font-size-h4: clamp(22px, 0.0152777778 * calc(100 * var(--vw, 1vw)), 22px);
+
+  --border: 1px solid var(--ui-border);
 }
 
 html {
