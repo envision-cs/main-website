@@ -36,12 +36,12 @@ const hovered = ref(false);
     </div>
 
     <div class="content flex flex-col col-span-full self-center pl-0 min-[700px]:pl-8">
-      <h3 class="text-2xl font-semibold">
+      <app-typography tag="h3" variant="heading-md">
         {{ title }}
-      </h3>
-      <p class="text-gray-600 leading-relaxed max-w-[60ch]">
+      </app-typography>
+      <app-typography tag="p" variant="text-md">
         {{ text }}
-      </p>
+      </app-typography>
     </div>
     <AnimatePresence>
       <motion.div

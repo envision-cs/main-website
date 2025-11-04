@@ -56,18 +56,18 @@ const hasImages = images && images?.length > 0;
         }"
       >
         <LazyMotion :features="domAnimation">
-          <m.h2
+          <m.div
             :initial="{ opacity: 0, y: 50 }"
             :while-in-view="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.8, ease: gentle }"
             :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
-            class=" title
-           mb-6 pt-8 font-semibold text-balance max-w-[20ch]
-        "
+            class="title mt-[calc(var(--spacing) * 8)]"
           >
-            {{ title }}
-          </m.h2>
-          <m.p
+            <app-typography tag="h2" variant="heading-xl">
+              {{ title }}
+            </app-typography>
+          </m.div>
+          <m.div
             v-if="description"
             :initial="{ opacity: 0, y: 50 }"
             :while-in-view="{ opacity: 1, y: 0 }"
@@ -77,13 +77,12 @@ const hasImages = images && images?.length > 0;
               ease: gentle,
             }"
             :viewport="{ margin: '0px 0px -25% 0px' }"
-            class=" description
-          pb-8 max-w-3xl
-
-        "
+            class=" description pb-8 max-w-3xl"
           >
-            {{ description }}
-          </m.p>
+            <app-typography tag="p" variant="text-lg">
+              {{ description }}
+            </app-typography>
+          </m.div>
         </LazyMotion>
       </div>
 
@@ -118,8 +117,7 @@ const hasImages = images && images?.length > 0;
 }
 
 .title {
-  font-size: var(--font-size-h1);
-  line-height: 1;
+  margin-top: calc(var(--spacing) * 8);
 }
 
 .description {

@@ -9,7 +9,7 @@ const catagories = computed(() => {
   for (const project of projects.value) {
     set.add(project.sector);
   }
-  return Array.from(set);
+  return Array.from(set) as string[];
 });
 </script>
 
@@ -18,20 +18,34 @@ const catagories = computed(() => {
     <projects-banner class="header">
       Project Sectors
     </projects-banner>
-    <div class="catagories">
-      Categories
-      {{ catagories }}
+    <div class="catagories p-0 py-4 md:p-4">
+      <div class="flex flex-col gap-2">
+        <ULink
+          v-for="catagory in catagories"
+          :key="catagory"
+          :to="{
+            name: 'projects-id',
+            params: { id: catagory },
+          }"
+          class="text-left"
+        >
+          {{ catagory }}
+        </ULink>
+      </div>
     </div>
     <div class="projects">
-      projects
-      <div class="flex flex-col gap-4">
-        <NuxtLink
+      <div class="flex flex-col">
+        <projects-card
           v-for="project in projects"
           :key="project.id"
+          :image="project.main_image"
+          :title="project.title"
+          :location="project.location"
+          :area="project.area"
+          :completed="project.completed"
+          :sector="project.sector"
           :to="project.path"
-        >
-          {{ project.title }}
-        </NuxtLink>
+        />
       </div>
     </div>
   </div>
@@ -57,6 +71,7 @@ const catagories = computed(() => {
 .projects {
   grid-column: 1/-1;
   border-bottom: 1px solid var(--ui-border);
+  padding-bottom: calc(var(--spacing) * 4);
 }
 
 @media (min-width: 700px) {

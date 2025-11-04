@@ -29,15 +29,23 @@ defineProps<{
         :name="icon"
         class="size-14"
       />
-      <p class="text-sm md:text-base">
+      <app-typography
+        v-else
+        tag="p"
+        variant="text-md"
+      >
         {{ eyebrow }}
-      </p>
-      <h3 class="mt-2 text-xl text-balance leading-5 sm:text-2xl sm:leading-8 font-semibold">
+      </app-typography>
+      <app-typography
+        tag="h3"
+        variant="heading-lg"
+        class="mt-[calc(var(--spacing-2)*2)]"
+      >
         {{ title }}
-      </h3>
-      <p>
+      </app-typography>
+      <app-typography tag="p" variant="text-md">
         {{ description }}
-      </p>
+      </app-typography>
     </div>
   </div>
 </template>

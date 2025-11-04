@@ -2,109 +2,136 @@
 defineProps<{
   image: string;
   title: string;
-  link: {
-    to: string;
-    title: string;
-  };
+  area: string;
+  sector: string;
+  location: string;
+  completed: string;
+  to: string;
 }>();
 </script>
 
 <template>
-  <div class="project-card">
-    <NuxtLink
-      :to="link.to"
-      class="project-card__link"
-      :aria-label="title"
-    >
+  <NuxtLink
+    :to="to"
+    :aria-label="title"
+    class="project-wrapper"
+  >
+    <article class="project-card ">
       <div class="project-card__media">
         <NuxtImg
           :src="image"
           :alt="title"
-          class="project-card__img"
+          class="image aspect-square object-fill"
           format="webp"
           densities="x1 x2"
         />
-        <div class="project-card__overlay" />
       </div>
-      <div class="project-card__body">
-        <h3 class="project-card__title">
+      <header class="title">
+        <app-typography class="h3" variant="heading-md">
           {{ title }}
-        </h3>
-      </div>
-    </NuxtLink>
-  </div>
+        </app-typography>
+      </header>
+      <ul class="stats">
+        <li>
+          <app-typography class="p" variant="heading-sm">
+            Location
+          </app-typography>
+          {{ location }}
+        </li>
+        <li>
+          <app-typography class="p" variant="heading-sm">
+            Area
+          </app-typography>
+          {{ area }}
+        </li>
+        <li>
+          <app-typography class="p" variant="heading-sm">
+            Completed
+          </app-typography>
+          {{ completed }}
+        </li>
+      </ul>
+      <footer class="sector">
+        {{ sector }}
+        <UIcon name="i-lucide-arrow-right" />
+      </footer>
+    </article>
+  </NuxtLink>
 </template>
 
 <style scoped>
-/*
-  CUBE CSS
-  - Composition: layout primitives
-  - Block: .project-card and elements
-  - Exceptions: state/interactive
-*/
+.project-wrapper {
+  container-type: inline-size;
+  border-bottom: 1px solid var(--ui-border);
+  background: transparent;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease;
+}
 
-/* Composition */
+.project-wrapper:hover {
+  background: var(--color-envision-blue-700);
+  color: #fff;
+}
+
 .project-card {
-  display: block;
-}
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: calc(var(--spacing) * 0);
 
-.project-card__link {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 400 / 519; /* Matches Figma component ratio */
-  overflow: hidden;
-}
-
-/* Block */
-.project-card {
-  & .project-card__media {
-    position: absolute;
-    inset: 0;
+  @media (width > 700px) {
+    padding: calc(var(--spacing) * 4);
   }
 
-  & .project-card__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 300ms ease;
-    transform-origin: center center;
-    display: block;
+  @container (width > 450px) {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas:
+      'img img . title title title title title title title title title'
+      'stats stats stats stats stats stats stats stats stats stats stats stats'
+      'sector sector sector sector sector sector sector sector sector sector sector sector';
   }
 
-  & .project-card__overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.5) 100%);
-    pointer-events: none;
-  }
-
-  & .project-card__body {
-    position: absolute;
-    inset: 0;
-    padding: 24px;
-    display: flex;
-    align-items: flex-end;
-  }
-
-  & .project-card__title {
-    margin: 0;
-    font-family: 'Proxima Nova', var(--font-sans, sans-serif);
-    font-weight: 600; /* Semibold */
-    font-size: 25px;
-    line-height: 25px;
-    color: #fff;
+  @container (width > 800px) {
+    grid-template-areas:
+      'img img . title title title title title . sector sector sector'
+      'stats stats stats stats stats stats stats stats stats stats stats stats';
   }
 }
 
-/* Exceptions */
-.project-card__link:hover .project-card__img,
-.project-card__link:focus-visible .project-card__img {
-  transform: scale(1.05);
+.project-card__media {
+  grid-area: img;
 }
 
-.project-card__link:focus-visible {
-  outline: 2px solid var(--ui-primary, #3b82f6);
-  outline-offset: 2px;
+.title {
+  grid-area: title;
+}
+
+.stats {
+  display: grid;
+  grid-area: stats;
+  grid-template-columns: 1fr 1fr;
+  flex-wrap: wrap;
+
+  li {
+    grid-column: span 1;
+  }
+
+  @container (width > 450px) {
+    display: grid;
+    grid-template-columns: subgrid;
+
+    li {
+      grid-column: span 4;
+    }
+  }
+}
+
+.sector {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  grid-area: sector;
 }
 </style>

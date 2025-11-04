@@ -26,12 +26,12 @@ defineProps<{
         </div>
 
         <div class="news-feature-card__text">
-          <p class="news-feature-card__eyebrow">
+          <app-typography tag="p">
             {{ eyebrow }}
-          </p>
-          <h3 class="news-feature-card__title">
+          </app-typography>
+          <app-typography tag="h3" variant="heading-md">
             {{ title }}
-          </h3>
+          </app-typography>
         </div>
       </div>
 
@@ -79,25 +79,10 @@ defineProps<{
   color: currentColor;
 }
 
-.news-feature-card__eyebrow {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.news-feature-card__title {
-  font-size: var(--text-2xl);
-  font-weight: 500;
-}
-
 .news-feature-card__cta {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1.5;
+  font-size: var(--font-size-text-t3);
   color: inherit;
   text-decoration: none;
   transition:

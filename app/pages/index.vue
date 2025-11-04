@@ -65,7 +65,7 @@ if ($posthog) {
       <home-news-feed />
       <app-banner
         eyebrow="build with confidence"
-        title="your vision shouldn’t be left to chance"
+        title="Your vision shouldn’t be left to chance"
         description="choosing the wrong partner can mean wasted budget, endless delays, and a space that never meets its potential. we protect your investment, your timeline, and your vision"
         :links="[
           {

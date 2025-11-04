@@ -31,12 +31,20 @@ const { base } = useEasings();
     </motion.div>
     <figcaption class="flex flex-wrap justify-between">
       <div>
-        <p>{{ area }}</p>
-        <p class="font-semibold text-xl max-w-[20ch]">
+        <app-typography tag="p" variant="text-md">
+          {{ area }}
+        </app-typography>
+        <app-typography
+          tag="h4"
+          variant="heading-sm"
+          class="max-w-[20ch]"
+        >
           {{ title }}
-        </p>
+        </app-typography>
       </div>
-      <p>{{ year }}</p>
+      <app-typography tag="p" variant="text-md">
+        {{ year }}
+      </app-typography>
     </figcaption>
   </figure>
 </template>

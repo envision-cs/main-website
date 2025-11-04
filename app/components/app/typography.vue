@@ -32,22 +32,27 @@ const variantClasses = computed(() => {
 <style scoped>
 .heading-huge {
   font-size: var(--font-size-huge);
+  line-height: 1;
 }
 
 .heading-xl {
   font-size: var(--font-size-h1);
+  line-height: 1;
 }
 
 .heading-lg {
   font-size: var(--font-size-h2);
+  line-height: 1;
 }
 
 .heading-md {
-  font-size: var(--font-size-text-h3);
+  font-size: var(--font-size-h3);
+  line-height: 1;
 }
 
 .heading-sm {
   font-size: var(--font-size-h4);
+  line-height: 1.1;
 }
 
 .text-xl {

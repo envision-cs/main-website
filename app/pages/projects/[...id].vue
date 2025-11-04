@@ -12,8 +12,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <UPage class="mt-0">
-    <NuxtLink to="/projects">
+  <UPage class="mt-15">
+    <NuxtLink to="/projects" class="back">
       Back
     </NuxtLink>
     <div v-if="page">
@@ -27,3 +27,9 @@ useSeoMeta({
     </div>
   </UPage>
 </template>
+
+<style scoped>
+.back {
+  padding: calc(var(--spacing) * 8);
+}
+</style>

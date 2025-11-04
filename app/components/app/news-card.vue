@@ -13,10 +13,7 @@ defineProps<{
 </script>
 
 <template>
-  <div
-    class="news-card"
-    :class="image ? 'has-image' : ''"
-  >
+  <div class="news-card" :class="image ? 'has-image' : ''">
     <!-- Image -->
     <div v-if="image" class="news-card__image">
       <NuxtImg
@@ -39,18 +36,26 @@ defineProps<{
             class="news-card__icon"
           />
           <div>
-            <p v-if="eyebrow" class="news-card__eyebrow">
+            <app-typography tag="p" variant="text-md">
               {{ eyebrow }}
-            </p>
-            <h3 v-if="title" class="news-card__title">
+            </app-typography>
+            <app-typography
+              v-if="title"
+              tag="h3"
+              variant="heading-md"
+            >
               {{ title }}
-            </h3>
+            </app-typography>
           </div>
         </div>
 
-        <p v-if="description" class="news-card__desc">
+        <app-typography
+          v-if="description"
+          tag="p"
+          variant="text-md"
+        >
           {{ description }}
-        </p>
+        </app-typography>
       </div>
 
       <div class="news-card__actions">
@@ -121,28 +126,6 @@ defineProps<{
     width: 46px;
     height: 46px;
     color: var(--ui-text);
-  }
-
-  & .news-card__eyebrow {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19.2px;
-    color: var(--ui-text);
-  }
-
-  & .news-card__title {
-    margin-top: 8px;
-    font-family: var(--font-sans);
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 28.8px;
-    color: var(--ui-text);
-  }
-
-  & .news-card__desc {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
   }
 
   & .news-card__actions {

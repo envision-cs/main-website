@@ -121,12 +121,14 @@ The project has a server-side API endpoint to fetch all projects from the `conte
 - **Location Maps:**
   - [ ] Add interactive maps to the contact page (User is working on this).
 - **Typography Component:**
-  - [ ] Create a reusable typography component.
+  - [x] Create a reusable typography component.
+- **Refactor Typography:**
+  - [x] Replace all typography with the new typography component.
 - **Styling:**
   - [ ] Style the projects page.
     - [x] Full page layout (Mobile and Desktop)
-    - [ ] Hero layout
-    - [ ] Project list
+    - [x] Hero layout
+    - [x] Project list
     - [ ] Project cards
   - [ ] Style the individual project pages.
 - **Hero Banners:**
