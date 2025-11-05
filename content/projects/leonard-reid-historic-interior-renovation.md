@@ -1,9 +1,11 @@
 ---
 title: Leonard Reid Historic Interior Renovation
+slug: leonard-reid-historic-interior-renovation
 completed: 2025
 location: Sarasota, FL
 area: 1400 SF
 sector: Arts and Entertainment
+sectorSlug: arts_and_entertainment
 main_image: /leonard-reid-01.jpg
 gallery:
   - /leonard-reid-02.jpg

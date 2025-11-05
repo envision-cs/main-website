@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
-const id = computed(() => route.params.id);
-
+const id = computed(() => route.params.project);
+const router = useRouter();
 const { data: page } = await useFetch(`/api/projects/${id.value}`);
 
 const title = page.value?.seo?.title || page.value?.title;
@@ -13,9 +13,9 @@ useSeoMeta({
 
 <template>
   <UPage class="mt-15">
-    <NuxtLink to="/projects" class="back">
+    <UButton @click="router.back()">
       Back
-    </NuxtLink>
+    </UButton>
     <div v-if="page">
       <h1 class="text-3xl font-bold">
         {{ page.title }}

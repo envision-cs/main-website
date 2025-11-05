@@ -63,7 +63,7 @@ const hasImages = images && images?.length > 0;
             :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
             class="title mt-[calc(var(--spacing) * 8)]"
           >
-            <app-typography tag="h2" variant="heading-xl">
+            <app-typography tag="h2" variant="heading-lg">
               {{ title }}
             </app-typography>
           </m.div>

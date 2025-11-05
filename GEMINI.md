@@ -128,8 +128,10 @@ The project has a server-side API endpoint to fetch all projects from the `conte
   - [ ] Style the projects page.
     - [x] Full page layout (Mobile and Desktop)
     - [x] Hero layout
+    - [ ] Add photo to hero banner
+    - [ ] Add description to hero banner
     - [x] Project list
-    - [ ] Project cards
+    - [x] Project cards
   - [ ] Style the individual project pages.
 - **Hero Banners:**
   - [ ] Update hero banners for non-homepage pages.

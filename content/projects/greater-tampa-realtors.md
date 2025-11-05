@@ -1,9 +1,11 @@
 ---
 title: Greater Tampa Realtors
+slug: greater-tampa-realtors
 completed: 2024
 location: Tampa, FL
 area: 1700 SF
 sector: Business/Corporate
+sectorSlug: business_corporate
 main_image: /greater-tampa-realtors-01.jpg
 gallery:
   - /greater-tampa-realtors-01.jpg

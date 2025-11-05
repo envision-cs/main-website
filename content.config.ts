@@ -8,10 +8,12 @@ export default defineContentConfig({
       source: 'projects/*.md',
       schema: z.object({
         title: z.string(),
+        slug: z.string(),
         completed: z.string(),
         location: z.string(),
         area: z.string(),
-        sector: z.array(z.string()),
+        sector: z.string(),
+        sectorSlug: z.string(),
         main_image: z.string(),
         gallery: z.array(z.string()),
       }),

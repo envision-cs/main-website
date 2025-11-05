@@ -1,9 +1,11 @@
 ---
 title: USL Super League Stadium Improvements at Blake High School
+slug: usl-super-league-stadium
 completed: 2024
 location: Tampa, FL
 area: ""
 sector: Athletics
+sectorSlug: athletics
 main_image: /usl-super-league-stadium-01.jpg
 gallery:
   - /usl-super-league-stadium-01.jpg

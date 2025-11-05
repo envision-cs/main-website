@@ -1,42 +1,69 @@
 <script setup lang="ts">
 const { data: projects } = await useFetch('/api/projects');
+const route = useRoute();
 
-const catagories = computed(() => {
-  const set = new Set();
-  set.add('All');
+const categories = computed<{ title: string; slug: string }[]>(() => {
+  const set = new Map<string, { title: string; slug: string }>();
+
+  // Always include “All”
+  set.set('all', { title: 'All', slug: 'all' });
+
   if (!projects.value)
-    return ['All'];
+    return Array.from(set.values());
+
   for (const project of projects.value) {
-    set.add(project.sector);
+    if (project.sector && project.sectorSlug) {
+      set.set(project.sectorSlug, {
+        title: project.sector,
+        slug: project.sectorSlug,
+      });
+    }
   }
-  return Array.from(set) as string[];
+
+  return Array.from(set.values());
+});
+
+const activeCategory = computed<{ title: string; slug: string } | undefined>(() => {
+  return categories.value.find(
+    category => category.slug === route.params.id,
+  );
+});
+
+const activeProjects = computed(() => {
+  if (activeCategory.value?.slug === 'all') {
+    return projects.value;
+  }
+  return projects.value?.filter(project => project.sector === activeCategory.value?.title);
 });
 </script>
 
 <template>
   <div class="main-layout site-grid">
     <projects-banner class="header">
-      Project Sectors
+      <template #title>
+        Project Sectors
+      </template>
+      {{ activeCategory?.title }}
     </projects-banner>
     <div class="catagories p-0 py-4 md:p-4">
       <div class="flex flex-col gap-2">
         <ULink
-          v-for="catagory in catagories"
-          :key="catagory"
+          v-for="catagory in categories"
+          :key="catagory.title"
           :to="{
             name: 'projects-id',
-            params: { id: catagory },
+            params: { id: catagory.slug },
           }"
           class="text-left"
         >
-          {{ catagory }}
+          {{ catagory.title }}
         </ULink>
       </div>
     </div>
     <div class="projects">
       <div class="flex flex-col">
         <projects-card
-          v-for="project in projects"
+          v-for="project in activeProjects"
           :key="project.id"
           :image="project.main_image"
           :title="project.title"
@@ -44,7 +71,7 @@ const catagories = computed(() => {
           :area="project.area"
           :completed="project.completed"
           :sector="project.sector"
-          :to="project.path"
+          :to="`${project.sectorSlug}/${project.slug}`"
         />
       </div>
     </div>
