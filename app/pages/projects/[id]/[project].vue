@@ -2,7 +2,7 @@
 const route = useRoute();
 const id = computed(() => route.params.project);
 const { data: page } = await useFetch(`/api/projects/${id.value}`);
-
+const router = useRouter();
 const title = page.value?.seo?.title || page.value?.title;
 
 useSeoMeta({
@@ -11,23 +11,38 @@ useSeoMeta({
 </script>
 
 <template>
-  <div v-if="page" class="site-grid">
-    <app-banner
-      class="hero"
-      :title="page.title"
-      :description="page.description"
-      :images="[{ img: page.main_image, alt: page.title }]"
-    />
-    <div class="content">
-      <ContentRenderer :value="page" />
-    </div>
+  <div v-if="page" class="site-grid relative">
+    <article>
+      <div class="sticky top-0 content">
+        <div>
+          <UButton @click="router.back()">
+            Back
+          </UButton>
+        </div>
+        <app-typography tag="h1" variant="heading-lg">
+          {{ page.title }}
+        </app-typography>
+        <NuxtImg :src="page.main_image" />
+        <div class="info">
+          <projects-info title="Location" :data="page.location" />
+          <projects-info
+            v-if="page.area"
+            title="Area"
+            :data="page.area"
+          />
+          <projects-info title="Completed" :data="page.completed" />
+        </div>
+        <div class>
+          <ContentRenderer :value="page" />
+        </div>
+      </div>
+    </article>
     <div class="gallery">
       <NuxtImg
-        v-for="image in page.images"
+        v-for="image in page.gallery"
         :key="image"
         :src="image"
         :alt="page.title"
-        class="image"
       />
     </div>
   </div>
@@ -37,20 +52,44 @@ useSeoMeta({
 </template>
 
 <style scoped>
-.hero {
-  margin-top: calc(var(--spacing) * 15);
+article {
+  position: sticky;
+  grid-column: 1/-1;
+
+  @media (min-width: 1024px) {
+    position: sticky;
+    top: calc(var(--spacing) * 15);
+    grid-column: 1/16;
+  }
 }
 
 .content {
-  grid-column: 1 / -1;
-  padding: calc(var(--spacing) * 4);
+  padding-top: calc(var(--spacing) * 15);
+
+  img {
+    width: 100%;
+  }
 }
 
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+
+  grid-column: 1/-1;
   gap: calc(var(--spacing) * 4);
-  grid-column: 1 / -1;
-  padding: calc(var(--spacing) * 4);
+
+  @media (min-width: 1024px) {
+    grid-column: 17/-1;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: calc(var(--spacing) * 8);
+  row-gap: calc(var(--spacing) * 4);
 }
 </style>

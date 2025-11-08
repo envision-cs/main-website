@@ -7,18 +7,14 @@ defineProps<{
 <template>
   <section class="banner">
     <app-typography tag="h1" variant="heading-xl">
-      <small>
+      <span>
         <slot name="title" />
-      </small>
+      </span>
       <br>
       <slot />
     </app-typography>
     <div class="content site-grid">
-      <NuxtImg
-        :src="`\/sectors\/${image}.jpg`"
-        alt="USL Super League"
-        class="image aspect-square object-cover"
-      />
+      <!-- <NuxtImg :src="`\/sectors\/${image}.jpg`" alt="USL Super League" class="image aspect-square object-cover" /> -->
       <app-typography
         tag="p"
         variant="text-lg"
@@ -42,6 +38,12 @@ defineProps<{
   @media (min-width: 700px) {
     min-height: 450px;
   }
+}
+
+span {
+  font-size: 0.3em;
+  color: var(--ui-text-dimmed);
+  text-transform: uppercase;
 }
 
 .content {
@@ -72,7 +74,7 @@ defineProps<{
 
   @media (min-width: 700px) {
     .image {
-      grid-column: span 6;
+      grid-column: span 4;
     }
 
     .text {

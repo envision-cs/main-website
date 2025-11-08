@@ -6,14 +6,14 @@ location: Tampa, FL
 area: ""
 sector: Athletics
 sectorSlug: athletics
-main_image: /usl-super-league-stadium-01.jpg
+main_image: /usl-super-league-01.jpg
 gallery:
-  - /usl-super-league-stadium-01.jpg
-  - /usl-super-league-stadium-02.jpg
-  - /usl-super-league-stadium-03.jpg
-  - /usl-super-league-stadium-04.jpg
-  - /usl-super-league-stadium-05.jpg
-  - /usl-super-league-stadium-06.jpg
+  - /usl-super-league-01.jpg
+  - /usl-super-league-02.jpg
+  - /usl-super-league-03.jpg
+  - /usl-super-league-04.jpg
+  - /usl-super-league-05.jpg
+  - /usl-super-league-06.jpg
 ---
 
 Envision completed preconstruction, design-assist, and construction services for this 17,000 SF office interior renovation. After having gone 15 years without renovation, the outdated finishes and layout were modernized to improve the office’s appearance, flow, and efficiency. To meet our client’s needs while also maintaining a safe environment for the staff to work in throughout construction, collaboration was key in the programming phase of this interior renovation.

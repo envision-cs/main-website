@@ -80,8 +80,8 @@ watch(isMainOpen, () => {
   <header>
     <NuxtLink class="logo" to="/">
       <Icon
-        name="logos:envision-white"
-        size="32"
+        name="logos:envision"
+        size="40"
         alt="envision construction logo"
       />
     </NuxtLink>
@@ -201,7 +201,7 @@ watch(isMainOpen, () => {
 
 <style scoped>
 header {
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
   z-index: 1;

@@ -6,7 +6,7 @@ location: Sarasota, FL
 area: 1400 SF
 sector: Arts and Entertainment
 sectorSlug: arts_and_entertainment
-main_image: /leonard-reid-01.jpg
+main_image: /leonard-reid-main.png
 gallery:
   - /leonard-reid-02.jpg
   - /leonard-reid-03.jpg
