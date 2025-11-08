@@ -39,6 +39,7 @@ const hasImages = images && images?.length > 0;
       }"
     >
       <NuxtImg
+        v-if="images.length > 1"
         src="/community.jpg"
         :alt="images[1]?.alt"
         class="hidden min-[700px]:block  self-end pb-8 image"

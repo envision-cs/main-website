@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
 const id = computed(() => route.params.project);
-const router = useRouter();
 const { data: page } = await useFetch(`/api/projects/${id.value}`);
 
 const title = page.value?.seo?.title || page.value?.title;
@@ -12,24 +11,46 @@ useSeoMeta({
 </script>
 
 <template>
-  <UPage class="mt-15">
-    <UButton @click="router.back()">
-      Back
-    </UButton>
-    <div v-if="page">
-      <h1 class="text-3xl font-bold">
-        {{ page.title }}
-      </h1>
+  <div v-if="page" class="site-grid">
+    <app-banner
+      class="hero"
+      :title="page.title"
+      :description="page.description"
+      :images="[{ img: page.main_image, alt: page.title }]"
+    />
+    <div class="content">
       <ContentRenderer :value="page" />
     </div>
-    <div v-else>
-      Oh no! Page not found.
+    <div class="gallery">
+      <NuxtImg
+        v-for="image in page.images"
+        :key="image"
+        :src="image"
+        :alt="page.title"
+        class="image"
+      />
     </div>
-  </UPage>
+  </div>
+  <div v-else>
+    Oh no! Page not found.
+  </div>
 </template>
 
 <style scoped>
-.back {
-  padding: calc(var(--spacing) * 8);
+.hero {
+  margin-top: calc(var(--spacing) * 15);
+}
+
+.content {
+  grid-column: 1 / -1;
+  padding: calc(var(--spacing) * 4);
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: calc(var(--spacing) * 4);
+  grid-column: 1 / -1;
+  padding: calc(var(--spacing) * 4);
 }
 </style>

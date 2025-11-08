@@ -15,7 +15,7 @@ defineProps<{
     </app-typography>
     <div class="content site-grid">
       <NuxtImg
-        :src="`/sectors/${image}.jpg`"
+        :src="`\/sectors\/${image}.jpg`"
         alt="USL Super League"
         class="image aspect-square object-cover"
       />
@@ -24,8 +24,8 @@ defineProps<{
         variant="text-lg"
         class="text"
       >
-        Explore a selection of our architectural, design and master planning projects across Canada in the Industrial,
-        Commercial and Office sectors.
+        Explore a curated range of Envision’s innovative design, digital, and development projects across the
+        Commercial, Industrial, and Corporate sectors throughout Central Florida.
       </app-typography>
     </div>
   </section>

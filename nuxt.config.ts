@@ -12,10 +12,6 @@ export default defineNuxtConfig({
     preset: 'vercel',
     minify: true,
   },
-  sourcemap: {
-    server: false,
-    client: false,
-  },
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
