@@ -39,7 +39,7 @@ const activeProjects = computed(() => {
 
 <template>
   <div class="main-layout site-grid">
-    <projects-banner class="header">
+    <projects-banner class="header" :image="activeCategory?.slug">
       <template #title>
         Project Sectors
       </template>

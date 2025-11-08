@@ -1,4 +1,7 @@
 <script setup lang="ts">
+defineProps<{
+  image: string;
+}>();
 </script>
 
 <template>
@@ -12,9 +15,9 @@
     </app-typography>
     <div class="content site-grid">
       <NuxtImg
-        src="/usl-super-league-06.jpg"
+        :src="`/sectors/${image}.jpg`"
         alt="USL Super League"
-        class="image"
+        class="image aspect-square object-cover"
       />
       <app-typography
         tag="p"
@@ -45,6 +48,7 @@
   display: grid;
   padding: 0;
   gap: calc(var(--spacing) * 4);
+  padding-bottom: calc(var(--spacing) * 4);
 
   .image {
     grid-column: 1/-1;
@@ -52,6 +56,7 @@
   }
 
   .text {
+    margin-top: auto;
     grid-column: 1/-1;
   }
 
@@ -67,7 +72,7 @@
 
   @media (min-width: 700px) {
     .image {
-      grid-column: span 5;
+      grid-column: span 6;
     }
 
     .text {
