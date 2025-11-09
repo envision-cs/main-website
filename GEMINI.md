@@ -118,6 +118,8 @@ The project has a server-side API endpoint to fetch all projects from the `conte
   - [x] Created a dynamic page for individual team members.
 
 ### Up Next
+- **Nuxt Studio Alpha:**
+  - [ ] Add Nuxt Studio Alpha.
 - **Location Maps:**
   - [ ] Add interactive maps to the contact page (User is working on this).
 - **Typography Component:**
@@ -138,3 +140,13 @@ The project has a server-side API endpoint to fetch all projects from the `conte
   - [ ] Style the individual project pages.
 - **Hero Banners:**
   - [ ] Update hero banners for non-homepage pages.
+- **Cleanup:**
+  - [ ] News links.
+  - [ ] Three uniques images.
+  - [ ] Add FavIcon.
+  - [ ] Add page titles.
+- **Contact Page:**
+  - [x] Put Contact form on Contact page.
+  - [ ] Add post-hog data tracking on contact form.
+- **Data Tracking:**
+  - [ ] Setup user consent for data tracking.

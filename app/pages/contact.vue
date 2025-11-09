@@ -10,10 +10,20 @@ const steps = [
   <UPage class="mt-0 ">
     <div class="grid">
       <app-hero-banner title="Contact Us" />
-
-      <app-banner title="Let’s Build Something That Lasts.">
-        <contact-form />
-      </app-banner>
+      <div class="contact mt-10 site-grid">
+        <div class="content">
+          <app-typography tag="h2" variant="heading-lg">
+            Let’s Build Something That Lasts.
+          </app-typography>
+          <app-typography>
+            We’re ready to connect—whether you’re starting a project, asking a question, or just want to talk
+            construction.
+          </app-typography>
+        </div>
+        <div class="contact-form">
+          <contact-form />
+        </div>
+      </div>
       <div>
         <app-banner
           title="Our Locations"
@@ -52,3 +62,49 @@ const steps = [
     </div>
   </UPage>
 </template>
+
+<style scoped>
+.contact {
+  --_padding: calc(var(--spacing) * 4);
+
+  gap: calc(var(--spacing) * 0);
+  width: 100%;
+
+  @media (min-width: 700px) {
+    --_padding: calc(var(--spacing) * 6);
+    gap: calc(var(--spacing) * 8);
+  }
+
+  @media (min-width: 1024px) {
+    --_padding: calc(var(--spacing) * 8);
+  }
+
+  .content {
+    padding: var(--_padding);
+    grid-column: 1 / -1;
+    max-width: 600px;
+
+    @media (min-width: 700px) {
+      grid-column: 1 / span 5;
+    }
+
+    @media (min-width: 1024px) {
+      grid-column: 1 / span 13;
+    }
+  }
+
+  .contact-form {
+    grid-column: 1 / -1;
+    padding: var(--_padding);
+
+    @media (min-width: 700px) {
+      border-left: 2px solid var(--ui-border);
+      grid-column: 6 / -1;
+    }
+
+    @media (min-width: 1024px) {
+      grid-column: 15 / -1;
+    }
+  }
+}
+</style>
