@@ -22,6 +22,7 @@
     "motion": "^12.23.24",
     "motion-v": "^1.7.1",
     "nuxt": "^4.2.1",
+    "nuxt-maplibre": "1.2.0",
     "nuxt-security": "2.4.0",
     "posthog-js": "^1.268.1",
     "vue": "^3.5.20",

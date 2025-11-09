@@ -34,7 +34,7 @@ const steps = [
 
             }]"
         />
-        <div class="mt-10 site-max">
+        <div class="">
           <div
             v-for="(s) in steps"
             :key="s.k"
@@ -51,11 +51,10 @@ const steps = [
                 {{ s.phone }}
               </p>
             </div>
-            <NuxtImg
-              src="/community.png"
-              name="i-heroicons-arrow-right-20-solid"
-              class="col-span-full w-full aspect-video lg:col-start-15"
-            />
+
+            <div class="col-span-full w-full aspect-video lg:col-start-15">
+              <app-map />
+            </div>
           </div>
         </div>
       </div>

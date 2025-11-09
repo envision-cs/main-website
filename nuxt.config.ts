@@ -1,13 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    '@nuxt/eslint',
-    '@nuxt/ui',
-    '@nuxt/image',
-    '@nuxt/content',
-    '@posthog/nuxt',
-    'motion-v/nuxt',
-  ],
+  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxt/image', '@nuxt/content', '@posthog/nuxt', 'motion-v/nuxt', 'nuxt-maplibre'],
   nitro: {
     preset: 'vercel',
     minify: true,

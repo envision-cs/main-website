@@ -100,9 +100,14 @@ The website's content is managed using Nuxt Content. The content is written in M
 
 The project has a server-side API endpoint to fetch all projects from the `content/projects/` directory. The API endpoint is located at `server/api/projects/index.get.ts`.
 
-## Current Tasks
+### Current Tasks
+
+#### Agent Instructions
+- When asked "what do I need to do" or "what's next", first refer to GEMINI.md, then to PLAN.md.
+- Do not start any task without explicit instruction from the user.
 
 ### Completed
+
 - **Contact Form:**
   - [x] Integrated with Formspark for submissions.
 - **Footer:**
@@ -117,11 +122,19 @@ The project has a server-side API endpoint to fetch all projects from the `conte
   - [x] Created a main index page for team members.
   - [x] Created a dynamic page for individual team members.
 
-### Up Next
+### TODO
+
 - **Nuxt Studio Alpha:**
   - [ ] Add Nuxt Studio Alpha.
 - **Location Maps:**
-  - [ ] Add interactive maps to the contact page (User is working on this).
+  - [x] Add interactive maps to the contact page (User is working on this).
+    - [x] Base map library is setup / configured
+    - [x] Map component library is setup / configured
+    - [x] Map light styles are setup / configured
+    - [x] Map dark styles are setup / configured
+    - [x] Map is displayed
+    - [ ] Restyle Location component
+    - [ ] Add email and call buttons
 - **Typography Component:**
   - [x] Create a reusable typography component.
 - **Refactor Typography:**
