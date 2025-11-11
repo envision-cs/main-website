@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const id = computed(() => route.params.project);
-const { data: page } = await useFetch(`/api/projects/${id.value}`);
+const { data: page } = useFetch(`/api/projects/${id.value}`);
 const router = useRouter();
 const title = page.value?.seo?.title || page.value?.title;
 
