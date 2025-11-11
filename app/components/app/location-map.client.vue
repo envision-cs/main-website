@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = useNuxtData('locations');
+const { data } = await useFetch('/api/locations');
 
 const style = 'https://tiles.openfreemap.org/styles/positron';
 const zoom = 9;

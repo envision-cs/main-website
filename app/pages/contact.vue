@@ -1,8 +1,5 @@
 <script setup lang="ts">
-const { data: locations } = await useAsyncData(
-  'locations',
-  () => $fetch('/api/locations'),
-);
+const { data: locations } = await useFetch('/api/locations');
 </script>
 
 <template>

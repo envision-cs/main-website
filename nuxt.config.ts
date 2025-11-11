@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxt/image', '@nuxt/content', '@posthog/nuxt', 'motion-v/nuxt', 'nuxt-maplibre'],
+  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxt/image', '@nuxt/content', '@posthog/nuxt', 'motion-v/nuxt', 'nuxt-maplibre', 'nuxt-studio'],
   nitro: {
     preset: 'vercel',
     minify: true,
@@ -68,6 +68,18 @@ export default defineNuxtConfig({
     enabled: true,
     timeline: {
       enabled: true,
+    },
+  },
+  studio: {
+    route: '/_studio',
+    repository: {
+      provider: 'github',
+      owner: 'envision-cs',
+      repo: 'main-website',
+      branch: 'main',
+    },
+    development: {
+      sync: true,
     },
   },
   vite: {
