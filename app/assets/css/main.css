@@ -51,6 +51,8 @@
   --text-9xl: 9.25rem;
 
   --border-main: 1px solid var(--ui-border);
+
+  --vw: 11.75px;
 }
 
 :root {

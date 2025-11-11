@@ -31,5 +31,18 @@ export default defineContentConfig({
         email: z.string().email().optional(),
       }),
     }),
+    locations: defineCollection({
+      type: 'data',
+      source: 'locations/**.md',
+      schema: z.object({
+        location: z.string(),
+        address: z.string(),
+        phone: z.string(),
+        email: z.string().email(),
+        latitude: z.number(),
+        longitude: z.number(),
+        image: z.string(),
+      }),
+    }),
   },
 });

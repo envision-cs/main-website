@@ -33,7 +33,7 @@ const hasImages = images && images?.length > 0;
   >
     <app-banner-images :images="images" />
     <div
-      class="site-grid border-muted border-t border-b min-h-0 min-[700px]:min-h-[60lvh]"
+      class="site-grid border-muted border-t border-b min-h-0 min-[700px]:min-h-[45lvh]"
       :class="{
         flip,
       }"
@@ -64,7 +64,7 @@ const hasImages = images && images?.length > 0;
             :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
             class="title mt-[calc(var(--spacing) * 8)]"
           >
-            <app-typography tag="h2" variant="heading-lg">
+            <app-typography tag="h2" variant="heading-xl">
               {{ title }}
             </app-typography>
           </m.div>

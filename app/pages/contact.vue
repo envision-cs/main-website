@@ -1,9 +1,8 @@
 <script setup lang="ts">
-const steps = [
-  { k: 'Tampa Office', address: '5000 Acline Drive East Tampa, FL 33619', phone: '813) 997-0330' },
-  { k: 'St Petersburg Office', address: '5136 4th St N Ste 201, St. Petersburg, FL 33701', phone: '813) 997-0330' },
-  { k: 'Pasco Office', address: '5000 Acline Drive East Tampa, FL 33619', phone: '813) 997-0330' },
-];
+const { data: locations } = await useAsyncData(
+  'locations',
+  () => $fetch('/api/locations'),
+);
 </script>
 
 <template>
@@ -34,27 +33,59 @@ const steps = [
 
             }]"
         />
-        <div class="">
-          <div
-            v-for="(s) in steps"
-            :key="s.k"
-            class="group site-grid relative col-span-full   gap-4 py-10 border-t border-accented w-full"
-          >
+        <div class="site-grid">
+          <div class="locations">
             <div
-              class="flex flex-col col-start-1 col-span-full min-[650px]:-col-end-1  lg:col-end-14 start-5 lg:col-end-13"
+              v-for="location in locations"
+              :key="location.id"
+              class=""
             >
-              <h3 class="text-2xl ">
-                {{ s.k }}
-              </h3>
-              <p class="text-muted leading-relaxed max-w-[60ch]">
-                {{ s.address }}<br>
-                {{ s.phone }}
-              </p>
+              <div class="">
+                <app-typography tag="h3" variant="heading-lg">
+                  {{ location.location }}
+                </app-typography>
+                <app-typography
+                  tag="p"
+                  variant="text-xl"
+                  class="mt-4 text-muted"
+                >
+                  {{ location.address }}
+                </app-typography>
+                <ul class="contact-list">
+                  <li>
+                    <div class="contact-list_card">
+                      <app-typography tag="p" variant="heading-sm">
+                        Phone
+                      </app-typography>
+                      <app-typography
+                        tag="p"
+                        variant="text-xl"
+                        class="text-muted"
+                      >
+                        {{ location.phone }}
+                      </app-typography>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="contact-list_card">
+                      <app-typography tag="p" variant="heading-sm">
+                        Email
+                      </app-typography>
+                      <app-typography
+                        tag="p"
+                        variant="text-xl"
+                        class="text-muted"
+                      >
+                        {{ location.email }}
+                      </app-typography>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
-
-            <div class="col-span-full w-full aspect-video lg:col-start-15">
-              <app-map />
-            </div>
+          </div>
+          <div class="location-map">
+            <app-location-map />
           </div>
         </div>
       </div>
@@ -97,7 +128,6 @@ const steps = [
     padding: var(--_padding);
 
     @media (min-width: 700px) {
-      border-left: 2px solid var(--ui-border);
       grid-column: 6 / -1;
     }
 
@@ -105,5 +135,25 @@ const steps = [
       grid-column: 15 / -1;
     }
   }
+}
+
+.contact-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 4);
+  margin-top: calc(var(--spacing) * 4);
+}
+
+.contact-list_card {
+  padding: calc(var(--spacing) * 1);
+}
+
+.locations {
+  grid-column: 1 / -1;
+}
+
+.location-map {
+  grid-column: 1 / -1;
+  min-height: 420px;
 }
 </style>
