@@ -1,10 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxt/eslint', '@nuxt/ui', '@nuxt/image', '@nuxt/content', '@posthog/nuxt', 'motion-v/nuxt', 'nuxt-maplibre', 'nuxt-studio'],
-  nitro: {
-    preset: 'vercel',
-    minify: true,
-  },
+  modules: [
+    '@nuxt/eslint',
+    '@nuxt/ui',
+    '@nuxt/image',
+    '@nuxt/content',
+    '@posthog/nuxt',
+    'motion-v/nuxt',
+    'nuxt-maplibre',
+    'nuxt-studio',
+  ],
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
@@ -76,35 +81,6 @@ export default defineNuxtConfig({
       provider: 'github',
       owner: 'envision-cs',
       repo: 'main-website',
-      branch: 'main',
-    },
-    development: {
-      sync: true,
-    },
-  },
-  vite: {
-    optimizeDeps: {
-      exclude: [
-        '@libsql/client',
-        'better-sqlite3',
-        'sql.js',
-      ],
-    },
-    build: {
-      rollupOptions: {
-        output: {
-          manualChunks: (id) => {
-            if (id.includes('node_modules')) {
-              if (id.includes('motion')) {
-                return 'motion';
-              }
-              if (id.includes('@vueuse') && !id.includes('vue')) {
-                return 'vendor-vueuse';
-              }
-            }
-          },
-        },
-      },
     },
   },
 });
