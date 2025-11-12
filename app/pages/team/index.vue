@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const { data: teamMembers } = await useAsyncData('teamMembers', () =>
-  queryContent('/team').find());
+const { data: teamMembers } = useFetch('/api/team');
 
 const groupedTeamMembers = computed(() => {
   if (!teamMembers.value) {
@@ -21,10 +20,7 @@ const groupedTeamMembers = computed(() => {
 
 <template>
   <UPage>
-    <UPageHeader
-      title="Meet the Team"
-      description="Our dedicated team of construction professionals."
-    />
+    <UPageHeader title="Meet the Team" description="Our dedicated team of construction professionals." />
 
     <UPageBody>
       <div

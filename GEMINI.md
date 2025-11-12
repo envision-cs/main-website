@@ -125,7 +125,7 @@ The project has a server-side API endpoint to fetch all projects from the `conte
 ### TODO
 
 - **Nuxt Studio Alpha:**
-  - [ ] Add Nuxt Studio Alpha.
+  - [x] Add Nuxt Studio Alpha.
 - **Location Maps:**
   - [x] Add interactive maps to the contact page (User is working on this).
     - [x] Base map library is setup / configured

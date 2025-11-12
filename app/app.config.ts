@@ -62,20 +62,21 @@ export default defineAppConfig({
     },
     {
       label: 'About Us',
-      children: [
-        {
-          label: 'Who we are',
-          to: '/about',
-        },
-        {
-          label: 'Our Partners',
-          to: '/about/partners', // Assuming a sub-page for partners
-        },
-        {
-          label: 'Our Process',
-          to: '/our-process',
-        },
-      ],
+      to: '/about',
+      // children: [
+      //  {
+      //    label: 'Who we are',
+      //    to: '/about',
+      //  },
+      //  {
+      //    label: 'Our Partners',
+      //    to: '/about/partners', // Assuming a sub-page for partners
+      //  },
+      //  {
+      //    label: 'Our Process',
+      //    to: '/our-process',
+      //  },
+      // ],
     },
     {
       label: 'Connect',
