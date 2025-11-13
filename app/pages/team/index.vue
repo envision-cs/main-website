@@ -7,14 +7,8 @@ const groupedTeamMembers = computed(() => {
   if (!teamMembers.value) {
     return {};
   }
-  return teamMembers.value.reduce((acc, member) => {
-    const group = member.group || 'Unassigned';
-    if (!acc[group]) {
-      acc[group] = [];
-    }
-    acc[group].push(member);
-    return acc;
-  }, {});
+
+  return Object.groupBy(teamMembers.value, ({ group }) => group);
 });
 </script>
 
