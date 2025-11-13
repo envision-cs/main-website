@@ -1,7 +1,7 @@
 ---
 name: Kevin Robinson
 title: Assistant Superintendent
-image: /images/team/Kevin_Robinson_01.jpg
+image: /team/Kevin_Robinson_01.jpg
 group: Red team
 linkedin: https://www.linkedin.com/in/janesmith
 email: jane.smith@envision.com

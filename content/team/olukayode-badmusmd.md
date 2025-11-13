@@ -1,7 +1,7 @@
 ---
 name: Olukayode Badmus
 title: Safety Coordinator
-image: /images/team/Olu_Badmus_01.jpg
+image: /team/Olu_Badmus_01.jpg
 group: Red team
 linkedin: https://www.linkedin.com/in/janesmith
 email: jane.smith@envision.com

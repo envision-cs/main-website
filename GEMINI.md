@@ -126,6 +126,13 @@ The project has a server-side API endpoint to fetch all projects from the `conte
 
 - **Nuxt Studio Alpha:**
   - [x] Add Nuxt Studio Alpha.
+- **Content:**
+  - [x] Orange Team
+  - [x] Red Team
+  - [ ] Green Team
+  - [ ] Gray Team
+  - [ ] C.O.L. Team
+  - [ ] Blue Team
 - **Location Maps:**
   - [x] Add interactive maps to the contact page (User is working on this).
     - [x] Base map library is setup / configured

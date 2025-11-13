@@ -1,7 +1,7 @@
 ---
 name: Brian Nehus
 title: Superintendent
-image: /images/team/Brian_Nehus_01.jpg
+image: /team/Brian_Nehus_01.jpg
 group: Red team
 linkedin: https://www.linkedin.com/in/janesmith
 email: jane.smith@envision.com

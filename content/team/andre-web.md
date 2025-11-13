@@ -1,7 +1,7 @@
 ---
 name: Andre Ramos
 title: Superintendent
-image: /images/team/Andre_Ramos_01.jpg
+image: /team/Andre_Ramos_01.jpg
 group: Red team
 linkedin: https://www.linkedin.com/in/janesmith
 email: jane.smith@envision.com

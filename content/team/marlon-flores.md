@@ -1,7 +1,7 @@
 ---
 name: Marlon Flores
 title: Superintendent
-image: /images/team/Marlon_Flores_01.jpg
+image: /team/Marlon_Flores_01.jpg
 group: Red team
 linkedin: https://www.linkedin.com/in/johndoe
 email: john.doe@envision.com
