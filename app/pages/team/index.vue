@@ -7,7 +7,6 @@ const groupedTeamMembers = computed(() => {
   if (!teamMembers.value) {
     return {};
   }
-
   return Object.groupBy(teamMembers.value, ({ group }) => group);
 });
 </script>
@@ -26,43 +25,49 @@ const groupedTeamMembers = computed(() => {
           {{ group }}
         </h2>
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <UCard v-for="member in members" :key="member.name">
-            <template #header>
-              <img
-                :src="member.image"
-                :alt="member.name"
-                class="w-full h-48 object-cover rounded-md mb-4"
-              >
-              <h3 class="text-xl font-bold">
-                {{ member.name }}
-              </h3>
-              <p class="text-primary-500 dark:text-primary-400">
-                {{ member.title }}
-              </p>
-            </template>
-            <p>{{ member.bio }}</p>
-            <template #footer>
-              <div class="flex gap-4">
-                <UButton
-                  v-if="member.linkedin"
-                  icon="i-simple-icons-linkedin"
-                  color="gray"
-                  variant="ghost"
-                  :to="member.linkedin"
-                  target="_blank"
-                  aria-label="LinkedIn"
-                />
-                <UButton
-                  v-if="member.email"
-                  icon="i-heroicons-envelope"
-                  color="gray"
-                  variant="ghost"
-                  :to="`mailto:${member.email}`"
-                  aria-label="Email"
-                />
-              </div>
-            </template>
-          </UCard>
+          <NuxtLink
+            v-for="member in members"
+            :key="member.name"
+            :to="member.path"
+          >
+            <UCard>
+              <template #header>
+                <img
+                  :src="member.image"
+                  :alt="member.name"
+                  class="w-full h-48 object-cover rounded-md mb-4"
+                >
+                <h3 class="text-xl font-bold">
+                  {{ member.name }}
+                </h3>
+                <p class="text-primary-500 dark:text-primary-400">
+                  {{ member.title }}
+                </p>
+              </template>
+              <p>{{ member.bio }}</p>
+              <template #footer>
+                <div class="flex gap-4">
+                  <UButton
+                    v-if="member.linkedin"
+                    icon="i-simple-icons-linkedin"
+                    color="gray"
+                    variant="ghost"
+                    :to="member.linkedin"
+                    target="_blank"
+                    aria-label="LinkedIn"
+                  />
+                  <UButton
+                    v-if="member.email"
+                    icon="i-heroicons-envelope"
+                    color="gray"
+                    variant="ghost"
+                    :to="`mailto:${member.email}`"
+                    aria-label="Email"
+                  />
+                </div>
+              </template>
+            </UCard>
+          </NuxtLink>
         </div>
       </div>
     </UPageBody>
