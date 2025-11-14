@@ -13,8 +13,6 @@ const groupedTeamMembers = computed(() => {
 
 <template>
   <UPage>
-    <UPageHeader title="Meet the Team" description="Our dedicated team of construction professionals." />
-
     <UPageBody>
       <div
         v-for="(members, group) in groupedTeamMembers"

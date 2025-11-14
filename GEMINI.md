@@ -103,6 +103,7 @@ The project has a server-side API endpoint to fetch all projects from the `conte
 ### Current Tasks
 
 #### Agent Instructions
+
 - When asked "what do I need to do" or "what's next", first refer to GEMINI.md, then to PLAN.md.
 - Do not start any task without explicit instruction from the user.
 
@@ -129,8 +130,8 @@ The project has a server-side API endpoint to fetch all projects from the `conte
 - **Content:**
   - [x] Orange Team
   - [x] Red Team
-  - [ ] Green Team
-  - [ ] Gray Team
+  - [x] Green Team
+  - [x] Gray Team
   - [ ] C.O.L. Team
   - [ ] Blue Team
 - **Location Maps:**

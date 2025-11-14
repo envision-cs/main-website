@@ -81,7 +81,7 @@ watch(isMainOpen, () => {
     <NuxtLink class="logo" to="/">
       <Icon
         name="logos:envision"
-        size="40"
+        size="30"
         alt="envision construction logo"
       />
     </NuxtLink>
@@ -208,6 +208,7 @@ header {
   justify-content: space-between;
   display: flex;
   padding: calc(var(--spacing) * 2);
+  border-bottom: 1px solid var(--ui-border);
 }
 
 .logo {
