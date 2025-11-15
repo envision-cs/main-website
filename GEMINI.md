@@ -133,7 +133,14 @@ The project has a server-side API endpoint to fetch all projects from the `conte
   - [x] Green Team
   - [x] Gray Team
   - [x] C.O.L. Team
-  - [ ] Blue Team
+  - [x] Blue Team
+- **Team member page:**
+  - [ ] layout
+  - [ ] photo
+  - [ ] bio
+- **About page:**
+- **Navigation:**
+- **Footer:**
 - **Location Maps:**
   - [x] Add interactive maps to the contact page (User is working on this).
     - [x] Base map library is setup / configured

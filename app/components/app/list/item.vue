@@ -2,7 +2,7 @@
 import { motion } from 'motion-v';
 
 defineProps<{
-  index: number;
+  index?: number;
   title: string;
   text: string;
   image?: string;
@@ -32,7 +32,7 @@ const hovered = ref(false);
       min-[700px]:text-right
       "
     >
-      0{{ index + 1 }}
+      0{{ (index ?? 0) + 1 }}
     </div>
 
     <div class="content flex flex-col col-span-full self-center pl-0 min-[700px]:pl-8">

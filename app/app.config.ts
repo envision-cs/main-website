@@ -126,4 +126,42 @@ export default defineAppConfig({
       },
     },
   },
+  teamColors: [
+    {
+      name: 'Green Team',
+      role: 'Leadership',
+      description: 'The Green Team is responsable tor Collaborating wirh each team in the company to ensure the best results are implemented within the company\'s operations',
+      teamColor: '#5AB847',
+    },
+    {
+      name: 'C.O.L Team',
+      role: 'BD | Marketing',
+      description: 'The C.O.L Team’s goal is to promote the growth of Envision, inwardly and outwardly by implementing branding and business development efforts.',
+      teamColor: '#BAE11F',
+    },
+    {
+      name: 'Orange Team',
+      role: 'Pre Construction',
+      description: 'The Orange Team helps to ensure efficiency when completing pre-construction related duties such as processing |TB\'s generating estimates and more',
+      teamColor: '#FFAE00',
+    },
+    {
+      name: 'Blue Team',
+      role: 'Operations',
+      description: 'The Blue Team collaborates to assume the overall finacial stability of Envision as well as to oversee all company operations that are executed the teams.',
+      teamColor: '#1D93D1',
+    },
+    {
+      name: 'Red Team',
+      role: 'Field Team',
+      description: 'The Read Team field supervisors collaborate to ensure the est delivery of schedule and quality of work is maintained and uncompromised on all Envision projects.',
+      teamColor: '#DF3E3E',
+    },
+    {
+      name: 'Gray Team',
+      role: 'Project',
+      description: 'The Gray Team is responsable for the successeful execution of all projects from start to completion This includes project planning site logistics and material order and tracking.',
+      teamColor: '#D9D9D9',
+    },
+  ],
 });

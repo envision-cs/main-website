@@ -44,5 +44,15 @@ export default defineContentConfig({
         image: z.string(),
       }),
     }),
+    teams: defineCollection({
+      type: 'data',
+      source: 'teams/*.md',
+      schema: z.object({
+        name: z.string(),
+        color: z.string(),
+        role: z.string(),
+        description: z.string(),
+      }),
+    }),
   },
 });

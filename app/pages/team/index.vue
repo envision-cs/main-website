@@ -22,28 +22,30 @@ const groupedTeamMembers = computed(() => {
         <h2 class="text-2xl font-bold mb-4" :class="`text-${group.toLowerCase().split(' ')[0]}-500`">
           {{ group }}
         </h2>
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 ">
           <NuxtLink
             v-for="member in members"
             :key="member.name"
             :to="member.path"
           >
-            <UCard>
-              <template #header>
-                <img
-                  :src="member.image"
-                  :alt="member.name"
-                  class="w-full h-48 object-cover rounded-md mb-4"
-                >
+            <article>
+              <NuxtImg
+                height="400"
+                width="300"
+                fit="cover"
+                format="webp"
+                :src="member.image"
+                :alt="member.name"
+                class=""
+              />
+              <div>
                 <h3 class="text-xl font-bold">
                   {{ member.name }}
                 </h3>
                 <p class="text-primary-500 dark:text-primary-400">
                   {{ member.title }}
                 </p>
-              </template>
-              <p>{{ member.bio }}</p>
-              <template #footer>
+                <p>{{ member.bio }}</p>
                 <div class="flex gap-4">
                   <UButton
                     v-if="member.linkedin"
@@ -63,11 +65,19 @@ const groupedTeamMembers = computed(() => {
                     aria-label="Email"
                   />
                 </div>
-              </template>
-            </UCard>
+              </div>
+            </article>
           </NuxtLink>
         </div>
       </div>
     </UPageBody>
   </UPage>
 </template>
+
+<style scoped>
+article {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+</style>
