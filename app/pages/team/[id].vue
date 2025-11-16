@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const route = useRoute();
-const router = useRouter();
 
 const id = computed(() => route.params.id as string);
 
@@ -26,12 +25,7 @@ useSeoMeta({
 
 <template>
   <UPage>
-    <div class="mt-20">
-      <UButton @click="router.back()">
-        Back
-      </UButton>
-    </div>
-    <div class="site-grid">
+    <div class="site-grid mt-40">
       <NuxtImg :src="teamMember?.image" class="image" />
       <div class="content">
         <div>
@@ -70,8 +64,18 @@ useSeoMeta({
     </div>
 
     <ContentRenderer :value="teamMember" class="" />
-
-    {{ relatedTeam }}
+    <app-team-member-list>
+      <app-team-member-card
+        v-for="member in relatedTeam"
+        :key="member.name"
+        :path="member.path"
+        :name="member.name"
+        :title="member.title"
+        :image="member.image"
+        :linkedin="member.linkedin"
+        :email="member.email"
+      />
+    </app-team-member-list>
   </UPage>
 </template>
 

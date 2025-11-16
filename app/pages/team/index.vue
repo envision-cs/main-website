@@ -33,57 +33,18 @@ const { data } = useFetch('/api/team');
             {{ team.description }}
           </app-typography>
         </div>
-        <div class="members-section">
-          <NuxtLink
+        <app-team-member-list>
+          <app-team-member-card
             v-for="member in team.members"
             :key="member.name"
-            class="team-member"
-            :to="member.path"
-          >
-            <article>
-              <NuxtImg
-                height="400"
-                width="400"
-                fit="cover"
-                format="webp"
-                :src="member.image"
-                :alt="member.name"
-                class="w-full mb-4"
-              />
-              <div>
-                <app-typography tag="h3" variant="heading-sm">
-                  {{ member.name }}
-                </app-typography>
-                <app-typography
-                  tag="p"
-                  variant="text-md"
-                  class="text-primary-500 dark:text-primary-400"
-                >
-                  {{ member.title }}
-                </app-typography>
-                <div class="flex gap-4">
-                  <UButton
-                    v-if="member.linkedin"
-                    icon="i-simple-icons-linkedin"
-                    color="neutral"
-                    variant="ghost"
-                    :to="member.linkedin"
-                    target="_blank"
-                    aria-label="LinkedIn"
-                  />
-                  <UButton
-                    v-if="member.email"
-                    icon="i-heroicons-envelope"
-                    color="neutral"
-                    variant="ghost"
-                    :to="`mailto:${member.email}`"
-                    aria-label="Email"
-                  />
-                </div>
-              </div>
-            </article>
-          </NuxtLink>
-        </div>
+            :path="member.path"
+            :name="member.name"
+            :title="member.title"
+            :image="member.image"
+            :linkedin="member.linkedin"
+            :email="member.email"
+          />
+        </app-team-member-list>
       </section>
     </UPageBody>
   </UPage>
@@ -116,30 +77,6 @@ const { data } = useFetch('/api/team');
 
   @media (min-width: 1024px) {
     grid-column: 1 / 12;
-  }
-}
-
-.members-section {
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: 1fr;
-  gap: calc(var(--spacing) * 6);
-  border-top: 1px solid var(--ui-border);
-  padding-top: calc(var(--spacing) * 4);
-
-  @media (min-width: 450px) {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-article {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  gap: calc(var(--spacing) * 4);
-
-  @media (min-width: 700px) {
-    grid-template-columns: 1fr 1fr;
   }
 }
 </style>
