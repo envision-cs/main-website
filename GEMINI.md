@@ -167,7 +167,7 @@ The project has a server-side API endpoint to fetch all projects from the `conte
     - [x] Update banner to be dynamic
   - [ ] Style the individual project pages.
 - **Hero Banners:**
-  - [ ] Update hero banners for non-homepage pages.
+  - [x] Update hero banners for non-homepage pages.
 - **Cleanup:**
   - [ ] News links.
   - [ ] Three uniques images.

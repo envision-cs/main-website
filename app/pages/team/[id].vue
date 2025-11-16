@@ -1,9 +1,24 @@
 <script setup lang="ts">
 const route = useRoute();
-const id = computed(() => route.params.id);
-const { data: teamMember } = useFetch(`/api/team/${id.value}`);
 const router = useRouter();
-const title = teamMember.value?.seo?.name || teamMember.value?.name;
+
+const id = computed(() => route.params.id as string);
+
+// 1) Fetch the team member first (SSR-safe, top-level await)
+const { data: teamMember } = await useFetch(`/api/team/${id.value}`);
+
+// 2) Second fetch that depends on the first
+//    Still called at top level (no if), but uses the data from teamMember.
+const { data: relatedTeam } = await useFetch('/api/team/team', {
+  query: {
+    team: teamMember.value?.group,
+    name: teamMember.value?.name,
+  },
+});
+
+// 3) Make title reactive
+const title = computed(() => teamMember.value?.name ?? 'Team member');
+
 useSeoMeta({
   title,
 });
@@ -55,6 +70,8 @@ useSeoMeta({
     </div>
 
     <ContentRenderer :value="teamMember" class="" />
+
+    {{ relatedTeam }}
   </UPage>
 </template>
 

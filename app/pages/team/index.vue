@@ -93,10 +93,10 @@ const { data } = useFetch('/api/team');
 .team-section {
   display: grid;
   grid-template-columns: subgrid;
-  margin-bottom: calc(var(--spacing) * 10);
+
+  border-top: 1px solid var(--ui-border);
 
   @media (min-width: 700px) {
-    margin-bottom: calc(var(--spacing) * 20);
   }
 }
 
@@ -108,8 +108,6 @@ const { data } = useFetch('/api/team');
   grid-column: 1 / -1;
   gap: calc(var(--spacing) * 3);
   border-right: none;
-
-  border-block: 1px solid var(--ui-border);
 
   @media (min-width: 700px) {
     grid-column: 1 / 7;
@@ -126,6 +124,8 @@ const { data } = useFetch('/api/team');
   grid-column: 1/-1;
   grid-template-columns: 1fr;
   gap: calc(var(--spacing) * 6);
+  border-top: 1px solid var(--ui-border);
+  padding-top: calc(var(--spacing) * 4);
 
   @media (min-width: 450px) {
     grid-template-columns: 1fr 1fr;
