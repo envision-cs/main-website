@@ -24,14 +24,23 @@ const variantClasses = computed(() => {
 </script>
 
 <template>
-  <component :is="tag" :class="variantClasses">
+  <component
+    :is="tag"
+    class="base"
+    :class="variantClasses"
+  >
     <slot />
   </component>
 </template>
 
 <style scoped>
+.base {
+  max-inline-size: 65ch;
+}
+
 .heading-huge {
   font-size: var(--font-size-huge);
+  font-weight: 600;
   line-height: 1;
 }
 

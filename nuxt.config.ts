@@ -34,6 +34,11 @@ export default defineNuxtConfig({
     },
 
   },
+  tailwindcss: {
+    safelist: [
+      { pattern: /bg-\[.*\]/ },
+    ],
+  },
   runtimeConfig: {
     public: {
       posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',

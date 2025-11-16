@@ -1,6 +1,6 @@
 ---
-color: "#DF3E3E"
-name: Red Team
-role: Field
-description: The Read Team field supervisors collaborate to ensure the est delivery of schedule and quality of work is maintained and uncompromised on all Envision projects.
+color: "#1D93D1"
+name: Blue Team
+role: Operations
+description: The Blue Team collaborates to assume the overall finacial stability of Envision as well as to oversee all company operations that are executed the teams.
 ---

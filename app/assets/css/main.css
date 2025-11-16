@@ -62,7 +62,7 @@
   --ui-secondary: var(--color-envision-green-700);
   --ui-container: var(--container-8xl);
 
-  --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 150px);
+  --font-size-huge: clamp(60px, 0.0521666667 * calc(100 * var(--vw, 1vw)), 85px);
   --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 75px);
   --font-size-h2: clamp(35px, 0.0381944444 * calc(100 * var(--vw, 1vw)), 55px);
   --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
@@ -137,7 +137,7 @@ body {
   --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
 }
 :root {
-  --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 150px);
+  --font-size-huge: clamp(60px, 0.0521666667 * calc(100 * var(--vw, 1vw)), 85px);
   --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 75px);
   --font-size-h2: clamp(35px, 0.0381944444 * calc(100 * var(--vw, 1vw)), 45px);
   --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);

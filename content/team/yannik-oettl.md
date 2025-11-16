@@ -2,7 +2,7 @@
 name: Yannik Oettl
 title: Project Engineer
 image: /team/Yannik_Oettl_01.jpg
-group: Gray team
+group: "Gray team"
 linkedin: https://www.linkedin.com/in/yannik-oettl/
 email: jane.smith@envision.com
 ---

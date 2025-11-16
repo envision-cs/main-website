@@ -1,56 +1,71 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-
-const { data: teamMembers } = useFetch('/api/team');
-
-const groupedTeamMembers = computed(() => {
-  if (!teamMembers.value) {
-    return {};
-  }
-  return Object.groupBy(teamMembers.value, ({ group }) => group);
-});
+const { data } = useFetch('/api/team');
 </script>
 
 <template>
   <UPage>
     <UPageBody>
-      <div
-        v-for="(members, group) in groupedTeamMembers"
-        :key="group"
-        class="mb-12"
+      <app-inner-hero />
+      <section
+        v-for="team in data"
+        :key="team.name"
+        class="team-section site-grid gap-4"
       >
-        <h2 class="text-2xl font-bold mb-4" :class="`text-${group.toLowerCase().split(' ')[0]}-500`">
-          {{ group }}
-        </h2>
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 ">
+        <div class="section-head">
+          <app-typography tag="h2" variant="heading-lg">
+            {{ team.name }}
+          </app-typography>
+          <div
+            class="w-80 h-3"
+            :class="[team.color]"
+            :style="{
+              backgroundColor: team.color,
+            }"
+          />
+          <app-typography tag="p" variant="heading-md">
+            {{ team.role }}
+          </app-typography>
+          <app-typography
+            tag="p"
+            variant="text-lg"
+            class="mt-auto"
+          >
+            {{ team.description }}
+          </app-typography>
+        </div>
+        <div class="members-section">
           <NuxtLink
-            v-for="member in members"
+            v-for="member in team.members"
             :key="member.name"
+            class="team-member"
             :to="member.path"
           >
             <article>
               <NuxtImg
                 height="400"
-                width="300"
+                width="400"
                 fit="cover"
                 format="webp"
                 :src="member.image"
                 :alt="member.name"
-                class=""
+                class="w-full mb-4"
               />
               <div>
-                <h3 class="text-xl font-bold">
+                <app-typography tag="h3" variant="heading-sm">
                   {{ member.name }}
-                </h3>
-                <p class="text-primary-500 dark:text-primary-400">
+                </app-typography>
+                <app-typography
+                  tag="p"
+                  variant="text-md"
+                  class="text-primary-500 dark:text-primary-400"
+                >
                   {{ member.title }}
-                </p>
-                <p>{{ member.bio }}</p>
+                </app-typography>
                 <div class="flex gap-4">
                   <UButton
                     v-if="member.linkedin"
                     icon="i-simple-icons-linkedin"
-                    color="gray"
+                    color="neutral"
                     variant="ghost"
                     :to="member.linkedin"
                     target="_blank"
@@ -59,7 +74,7 @@ const groupedTeamMembers = computed(() => {
                   <UButton
                     v-if="member.email"
                     icon="i-heroicons-envelope"
-                    color="gray"
+                    color="neutral"
                     variant="ghost"
                     :to="`mailto:${member.email}`"
                     aria-label="Email"
@@ -69,15 +84,62 @@ const groupedTeamMembers = computed(() => {
             </article>
           </NuxtLink>
         </div>
-      </div>
+      </section>
     </UPageBody>
   </UPage>
 </template>
 
 <style scoped>
-article {
+.team-section {
+  display: grid;
+  grid-template-columns: subgrid;
+  margin-bottom: calc(var(--spacing) * 10);
+
+  @media (min-width: 700px) {
+    margin-bottom: calc(var(--spacing) * 20);
+  }
+}
+
+.section-head {
   display: flex;
-  flex-wrap: wrap;
+  padding: calc(var(--spacing) * 4);
+  flex-direction: column;
+  min-height: calc(var(--spacing) * 100);
+  grid-column: 1 / -1;
+  gap: calc(var(--spacing) * 3);
+  border-right: none;
+
+  border-block: 1px solid var(--ui-border);
+
+  @media (min-width: 700px) {
+    grid-column: 1 / 7;
+    border-right: 1px solid var(--ui-border);
+  }
+
+  @media (min-width: 1024px) {
+    grid-column: 1 / 12;
+  }
+}
+
+.members-section {
+  display: grid;
+  grid-column: 1/-1;
+  grid-template-columns: 1fr;
+  gap: calc(var(--spacing) * 6);
+
+  @media (min-width: 450px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+article {
+  display: grid;
+  grid-template-columns: 1fr;
   align-items: center;
+  gap: calc(var(--spacing) * 4);
+
+  @media (min-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 </style>
