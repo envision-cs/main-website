@@ -1,146 +1,91 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+// const { $posthog } = useNuxtApp();
 
-type ButtonVariant = 'solid' | 'outline' | 'soft' | 'ghost' | 'link';
-type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-type ButtonColor
-  = | 'primary'
-    | 'neutral'
-    | 'black'
-    | 'white'
-    | 'success'
-    | 'warning'
-    | 'error'
-    | string;
-
-type Action = {
-  label: string;
-  to?: string | undefined;
-  href?: string | undefined;
-  variant?: ButtonVariant | undefined;
-  color?: ButtonColor | undefined;
-  size?: ButtonSize;
-  external?: boolean;
-};
-
-type Props = {
-  title?: string;
-  description?: string;
-  imageSrc?: string;
-  imageAlt?: string;
-  primaryAction?: Action | null;
-  secondaryAction?: Action | null;
-  headingTag?: string;
-  align?: 'top' | 'center' | 'bottom';
-  overlay?: boolean;
-  fullHeight?: boolean;
-  containerClass?: string;
-};
-
-const props = withDefaults(defineProps<Props>(), {
-  title: 'You need a builder who sees the bigger picture.',
-  description:
-    'We manage construction projects with excellence, purpose, and people-first precision.',
-  imageSrc: '/hero-small.png',
-  imageAlt: 'Construction site hero image',
-  primaryAction: () => ({
-    label: 'Start Your Project',
-    to: '#',
-    color: 'primary',
-    size: 'xl',
-    variant: 'solid',
-  }),
-  secondaryAction: () => ({
-    label: 'See Our Work',
-    to: '#cta',
-    color: 'neutral',
-    size: 'xl',
-    variant: 'outline',
-  }),
-  headingTag: 'h1',
-  align: 'bottom',
-  overlay: true,
-  fullHeight: true,
-  containerClass: '',
-});
-
-const alignClasses = computed(() => {
-  switch (props.align) {
-    case 'top':
-      return 'items-start';
-    case 'center':
-      return 'items-center';
-    default:
-      return 'items-end';
-  }
-});
-
-const { $posthog } = useNuxtApp();
-
-function captureCustomEvent() {
-  $posthog().capture('home_button_clicked', {
-    user_name: 'Max the Hedgehog',
-  });
-}
+// function captureCustomEvent() {
+//  $posthog().capture('home_button_clicked', {
+//    user_name: 'Max the Hedgehog',
+//  });
+// }
 </script>
 
 <template>
-  <section
-    id="hero"
-    role="region"
-    aria-label="Hero"
-    class="relative overflow-hidden"
-  >
-    <NuxtImg
-      :src="props.imageSrc"
-      :alt="props.imageAlt"
-      sizes="sm:100vw md:100vw lg:100vw"
-      densities="x1 x2"
-      class="w-full object-cover"
-      :class="[props.fullHeight ? 'h-dvh' : 'min-h-[60vh]']"
-      preload
-    />
-
-    <div v-if="props.overlay" class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/60 to-black/0" />
-
-    <div class="absolute inset-0">
-      <UContainer
-        class="h-full flex px-4 md:px-6"
-        :class="[alignClasses, props.fullHeight ? 'pb-10 md:pb-20' : 'py-10 md:py-16', props.containerClass]"
+  <section class="hero h-[95dvh] overflow-hidden grid">
+    <div class="title">
+      <app-typography
+        tag="h2"
+        variant="heading-huge"
+        class="capitalize"
       >
-        <div class="text-white max-w-6xl">
-          <slot name="title">
-            <component
-              :is="props.headingTag"
-              class="mt-2 uppercase text-balance text-3xl sm:text-4xl lg:text-6xl font-medium leading-none"
-            >
-              {{ props.title }}
-            </component>
-          </slot>
+        You need a builder who sees the bigger picture.
+      </app-typography>
 
-          <slot name="description">
-            <p class="mt-2 md:mt-3 text-base/5 sm:text-2xl/8 text-white/80 text-balance">
-              {{ props.description }}
-            </p>
-          </slot>
-
-          <slot name="actions">
-            <div class="mt-6 flex flex-wrap gap-3">
-              <UButton
-                v-if="props.primaryAction"
-                v-bind="props.primaryAction"
-                :to="props.primaryAction?.to"
-                @click="captureCustomEvent"
-              >
-                {{ props.primaryAction?.label }}
-              </UButton>
-              <UButton v-if="props.secondaryAction" v-bind="props.secondaryAction">
-                {{ props.secondaryAction?.label }}
-              </UButton>
-            </div>
-          </slot>
-        </div>
-      </UContainer>
+      <app-typography
+        tag="p"
+        variant="heading-sm"
+        class="mt-4"
+      >
+        We manage construction projects with excellence, purpose, and people-first precision.
+      </app-typography>
     </div>
+    <div class="actions">
+      <button>
+        Open Video
+      </button>
+    </div>
+    <div class="overlay" />
   </section>
 </template>
+
+<style scoped>
+.hero {
+  display: grid;
+  grid-template-columns: 1rem 1fr 1rem;
+  grid-template-rows: 1rem 1fr 1fr 1rem;
+  grid-template-areas:
+    '. . .'
+    '. c .'
+    '. b .'
+    '. . .';
+  isolation: isolate;
+}
+
+.title {
+  grid-area: c;
+  z-index: 2;
+  color: white;
+  text-wrap: balance;
+  font-weight: 400;
+  text-decoration: uppercase;
+  align-self: end;
+  max-width: 75ch;
+}
+
+.actions {
+  grid-area: b;
+  z-index: 2;
+  align-self: end;
+
+  button {
+    background: white;
+    padding: 0.5rem 0.25rem;
+    display: flex;
+    min-height: 3.25em;
+    min-width: 8em;
+    font-size: 0.875rem;
+    justify-items: start;
+    align-items: end;
+  }
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 43.16%, rgba(0, 0, 0, 0.55) 64.7%, rgba(0, 0, 0, 0.6) 81.1%),
+    url('/hero.png') lightgray 50% / cover no-repeat;
+  z-index: 1;
+}
+</style>

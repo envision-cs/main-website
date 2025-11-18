@@ -80,23 +80,31 @@ watch(isMainOpen, () => {
   <header>
     <NuxtLink class="logo" to="/">
       <Icon
-        name="logos:envision"
+        name="logos:envision-white"
         size="30"
         alt="envision construction logo"
       />
     </NuxtLink>
-    <UButton
-      variant="outline"
-      color="neutral"
-      class="menu-btn"
-      @click="openMain"
-    >
-      <Icon
-        name="i-lucide-menu"
-        size="24"
-        class="fill-current"
-      />
-    </UButton>
+    <div class="flex items-center gap-2">
+      <UButton
+        variant="ghost"
+        color="neutral"
+        @click="openMain"
+      >
+        <app-typography
+          tag="p"
+          variant="text-md"
+          class="text-black"
+        >
+          menu
+        </app-typography>
+        <Icon
+          name="i-lucide-menu"
+          size="24"
+          class="menu-btn fill-current"
+        />
+      </UButton>
+    </div>
   </header>
   <dialog
     id="main-menu"
@@ -208,7 +216,6 @@ header {
   justify-content: space-between;
   display: flex;
   padding: calc(var(--spacing) * 2);
-  border-bottom: 1px solid var(--ui-border);
 }
 
 .logo {
