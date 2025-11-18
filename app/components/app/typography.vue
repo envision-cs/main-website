@@ -2,7 +2,7 @@
 type Variant = 'heading-huge' | 'heading-xl' | 'heading-lg' | 'heading-md' | 'heading-sm' | 'text-xl' | 'text-lg' | 'text-md' | 'text-sm';
 
 const { tag = 'p', variant = 'text-md' } = defineProps<{
-  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p';
+  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
   variant?: Variant;
 }>();
 

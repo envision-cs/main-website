@@ -9,11 +9,11 @@
 </script>
 
 <template>
-  <section class="hero h-[95dvh] overflow-hidden grid">
+  <section class="hero h-[100dvh] overflow-hidden grid">
     <div class="title">
       <app-typography
         tag="h2"
-        variant="heading-huge"
+        variant="heading-xl"
         class="capitalize"
       >
         You need a builder who sees the bigger picture.
@@ -28,9 +28,9 @@
       </app-typography>
     </div>
     <div class="actions">
-      <button>
+      <app-button>
         Open Video
-      </button>
+      </app-button>
     </div>
     <div class="overlay" />
   </section>
@@ -40,8 +40,9 @@
 .hero {
   display: grid;
   grid-template-columns: 1rem 1fr 1rem;
-  grid-template-rows: 1rem 1fr 1fr 1rem;
+  grid-template-rows: 2rem 1fr 1fr 1fr 2rem;
   grid-template-areas:
+    '. . .'
     '. . .'
     '. c .'
     '. b .'
@@ -56,8 +57,7 @@
   text-wrap: balance;
   font-weight: 400;
   text-decoration: uppercase;
-  align-self: end;
-  max-width: 75ch;
+  max-width: 90ch;
 }
 
 .actions {
@@ -66,14 +66,6 @@
   align-self: end;
 
   button {
-    background: white;
-    padding: 0.5rem 0.25rem;
-    display: flex;
-    min-height: 3.25em;
-    min-width: 8em;
-    font-size: 0.875rem;
-    justify-items: start;
-    align-items: end;
   }
 }
 

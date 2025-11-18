@@ -51,8 +51,6 @@
   --text-9xl: 9.25rem;
 
   --border-main: 1px solid var(--ui-border);
-
-  --vw: 11.75px;
 }
 
 :root {
@@ -62,7 +60,13 @@
   --ui-secondary: var(--color-envision-green-700);
   --ui-container: var(--container-8xl);
 
-  --font-size-huge: clamp(60px, 0.0521666667 * calc(100 * var(--vw, 1vw)), 85px);
+  --vw: 1vw;
+  --font-size-text-t1: clamp(18px, 0.0125 * calc(100 * var(--vw, 1vw)), 18px);
+  --font-size-text-t2: clamp(16px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 16px);
+  --font-size-text-t3: clamp(14px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 14px);
+  --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
+
+  --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 150px);
   --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 75px);
   --font-size-h2: clamp(35px, 0.0381944444 * calc(100 * var(--vw, 1vw)), 55px);
   --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
@@ -82,6 +86,17 @@ html:has(dialog[open]) {
 body {
   @media (min-width: 768px) {
   }
+}
+
+.screen-reader-text {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: 0;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border: 0;
 }
 
 .site-grid {
@@ -128,18 +143,4 @@ body {
     padding-left: 2rem;
     padding-right: 2rem;
   }
-}
-
-:root {
-  --font-size-text-t1: clamp(18px, 0.0125 * calc(100 * var(--vw, 1vw)), 18px);
-  --font-size-text-t2: clamp(16px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 16px);
-  --font-size-text-t3: clamp(14px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 14px);
-  --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
-}
-:root {
-  --font-size-huge: clamp(60px, 0.0521666667 * calc(100 * var(--vw, 1vw)), 85px);
-  --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 75px);
-  --font-size-h2: clamp(35px, 0.0381944444 * calc(100 * var(--vw, 1vw)), 45px);
-  --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
-  --font-size-h4: clamp(22px, 0.0152777778 * calc(100 * var(--vw, 1vw)), 22px);
 }
