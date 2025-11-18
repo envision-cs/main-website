@@ -44,7 +44,7 @@ const hasImages = images && images?.length > 0;
         :alt="images[1]?.alt"
         class="hidden min-[700px]:block  self-end pb-8 image"
       />
-      <LazyMotion :features="domAnimation">
+      <LazyMotion>
         <m.div class="divider">
           <USeparator orientation="vertical" class="hidden items-end min-[700px]:flex " />
         </m.div>

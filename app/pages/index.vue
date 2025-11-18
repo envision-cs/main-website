@@ -11,42 +11,8 @@ if ($posthog) {
   <UPage class="mt-0 ">
     <div class="grid">
       <home-hero-banner />
-      <app-banner
-        flip
-        eyebrow="Clarity From Day One"
-        title="Building Without the Headaches"
-        description="We know how stressful construction can feel when deadlines are missed, communication is poor, and leadership is unclear. That’s why we’ve built a process that keeps your project on track and you in the loop—every step of the way."
-        :links="[
-          {
-            label: 'Start Your Project',
-            to: '#',
-            color: 'primary',
-          },
-          {
-            label: 'See Our Work',
-            to: '#',
-            variant: 'outline',
-            color: 'neutral',
-          },
-        ]"
-      />
-      <app-banner
-        eyebrow="Guided by Purpose"
-        title="Building With Heart and Precision"
-        description="At Envision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all."
-        :links="[
-          {
-            label: 'Start Your Project',
-            to: '#',
-            color: 'primary',
-          },
-          {
-            label: 'See Our Work',
-            to: '#',
-            variant: 'outline',
-            color: 'neutral',
-          },
-        ]"
+      <app-cta-a text="Building Without the Headaches" flip />
+      <app-banner-images
         :images="[
           {
             img: '/greater-tampa-realtors-01.jpg',
@@ -59,6 +25,11 @@ if ($posthog) {
 
           },
         ]"
+      />
+
+      <app-cta-a
+        text="Building With Heart and Precision"
+        body="At Envision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all."
       />
       <home-proven-process />
       <home-inspire />
