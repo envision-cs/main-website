@@ -57,7 +57,7 @@
   interpolate-size: allow-keywords;
 
   --ui-primary: var(--color-envision-blue-700);
-  --ui-secondary: var(--color-envision-green-700);
+  --ui-secondary: var(--color-envision-green-500);
   --ui-container: var(--container-8xl);
 
   --vw: 1vw;
@@ -88,14 +88,15 @@ body {
   }
 }
 
-.screen-reader-text {
-  position: absolute !important;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  margin: 0;
-  padding: 0;
+/* Utilities */
+.u-visually-hidden {
+  position: absolute;
   width: 1px;
   height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
   border: 0;
 }
 

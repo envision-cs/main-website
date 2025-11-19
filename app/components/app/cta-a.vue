@@ -2,12 +2,10 @@
 import { domAnimation, LazyMotion, m } from 'motion-v';
 
 withDefaults(defineProps<{
-  text?: string;
   body?: string;
   image?: string;
   flip?: boolean;
 }>(), {
-  text: 'Building With Heart and Precision',
   body: 'At Envision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all.',
   image: '/process.jpg',
 });
@@ -31,7 +29,7 @@ const { gentle } = useEasings();
             variant="heading-lg"
             class="text"
           >
-            {{ text }}
+            <slot />
           </app-typography>
         </m.div>
         <div class="content">

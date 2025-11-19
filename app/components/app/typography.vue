@@ -38,6 +38,10 @@ const variantClasses = computed(() => {
   max-inline-size: 65ch;
 }
 
+:deep(span) {
+  color: var(--ui-secondary);
+}
+
 .heading-huge {
   font-size: var(--font-size-huge);
   font-weight: 400;
