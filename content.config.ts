@@ -54,5 +54,13 @@ export default defineContentConfig({
         description: z.string(),
       }),
     }),
+    process: defineCollection({
+      type: 'data',
+      source: 'process/*.md',
+      schema: z.object({
+        title: z.string(),
+        image: z.string().optional(),
+      }),
+    }),
   },
 });

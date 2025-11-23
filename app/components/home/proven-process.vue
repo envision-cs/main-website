@@ -1,39 +1,34 @@
 <script setup lang="ts">
-const steps = [
-  { k: 'Listen', text: 'Every project begins with thoughtful listening. We take time to understand your vision, goals, and constraints. Through discovery meetings, site reviews, and clear communication, we lay the foundation for a partnership built on trust and alignment.' },
-  { k: 'Plan', text: 'Before any work begins, we bring certainty to the process. From budget-aligned designs and permitting to early trade coordination and risk mitigation, we focus on eliminating surprises and protecting your timeline from day one.' },
-  { k: 'Execute', text: 'With the plan in place, we deliver with precision. Using tools like Procore, we provide full visibility, weekly updates, and proactive oversight. Our team owns the outcome, communicates clearly, and protects your project through to the final walkthrough.' },
-  { k: 'Cultivate', text: 'Our work doesn’t end at closeout. We stay engaged with system training, 30-60-90 day check-ins, and a one-year walkthrough. The goal: ensure your space performs, your team is supported, and your trust in us grows long after the build is done.' },
-];
-
-// Toggle step numbering on/off
-const showNumbers = true;
+const { data } = useFetch('/api/process');
 </script>
 
 <template>
-  <div class="">
-    <app-banner
-      title="Our Proven Process"
-      description="Our proven process brings structure and consistency to every project. We listen, plan, and execute to reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency"
-      :images="[
-        {
-          img: '/airport.png',
-          alt: 'Airport image',
+  <section class="grid grid-cols-1 md:grid-cols-2">
+    <app-banner-content>
+      <template #title>
+        Our <span>Proven</span> Process
+      </template>
+      <template #body>
+        Our proven process brings structure and consistency to every project. We listen, plan, and execute to
+        reduce
+        risk, maintain alignment, and deliver on time, on budget, and with complete transparency"
+      </template>
+    </app-banner-content>
 
-        }]"
-    />
-  </div>
-
-  <div class="mt-0">
-    <app-list-item
-      v-for="(s, i) in steps"
-      :key="s.k"
-      :index="i"
-      :title="s.k"
-      :text="s.text"
-      :show-number="showNumbers"
-    />
-  </div>
+    <div class="mt-0">
+      <app-accordion :data name="our-process" />
+    </div>
+  </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: calc(var(--spacing) * 10);
+  padding-inline: calc(var(--spacing) * 4);
+  border: 1px solid var(--ui-border);
+  gap: calc(var(--spacing) * 20);
+}
+</style>

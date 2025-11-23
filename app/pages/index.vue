@@ -15,25 +15,11 @@ if ($posthog) {
         Building Without the <span>Headaches</span>
       </app-cta-a>
       <app-card-group-a />
-      <app-banner-images
-        :images="[
-          {
-            img: '/greater-tampa-realtors-01.jpg',
-            alt: 'Airport image',
-
-          },
-          {
-            img: '/airport.png',
-            alt: 'Airport image',
-
-          },
-        ]"
-      />
-
       <app-cta-a
-        text="Building With Heart and Precision"
         body="At Envision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all."
-      />
+      >
+        Building With <span>Heart</span> and <span>Precision</span>
+      </app-cta-a>
       <home-proven-process />
       <home-inspire />
       <home-news-feed />
