@@ -20,6 +20,7 @@ if ($posthog) {
       >
         Building With <span>Heart</span> and <span>Precision</span>
       </app-cta-a>
+      <app-parallax />
       <home-proven-process />
       <home-inspire />
       <home-news-feed />
