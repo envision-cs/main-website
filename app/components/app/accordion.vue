@@ -3,7 +3,6 @@ defineProps<{
   data: object[];
   name: string;
 }>();
-const { data } = useFetch('/api/process');
 </script>
 
 <template>

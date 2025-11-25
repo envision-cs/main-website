@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const image = '/usl-super-league-01.jpg';
+defineProps<{
+  image: string;
+}>();
 </script>
 
 <template>

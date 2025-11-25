@@ -36,7 +36,7 @@ if ($posthog) {
       >
         Building With <span>Heart</span> and <span>Precision</span>
       </app-cta-a>
-      <app-parallax />
+      <app-parallax image="/usl-super-league-01.jpg" />
       <home-proven-process />
       <app-cta-a
         text="Our proven process brings structure and consistency to every project. We listen, plan, and execute to reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency."
@@ -50,6 +50,7 @@ if ($posthog) {
       >
         Build with <span>Confidence</span>
       </app-cta-a>
+      <app-parallax image="/usl-super-league-01.jpg" />
       <three-uniques />
 
       <app-banner

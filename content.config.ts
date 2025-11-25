@@ -62,5 +62,13 @@ export default defineContentConfig({
         image: z.string().optional(),
       }),
     }),
+    threeUniques: defineCollection({
+      type: 'data',
+      source: 'process/*.md',
+      schema: z.object({
+        title: z.string(),
+        image: z.string().optional(),
+      }),
+    }),
   },
 });
