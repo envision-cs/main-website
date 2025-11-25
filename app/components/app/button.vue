@@ -46,39 +46,18 @@ button {
   position: relative;
   overflow: hidden;
   text-transform: uppercase;
-  transition: all 0.35s;
+  transition:
+    color 0.4s ease-in-out,
+    box-shadow 0.4s ease-in-out;
+  box-shadow: inset 0 0 0 0 var(--ui-primary);
 
   span {
     z-index: 2;
   }
 }
 
-button:before,
-button:after {
-  position: absolute;
-  content: '';
-  width: 100%;
-  height: 100%;
-  left: -100%;
-  background: var(--ui-primary);
-  z-index: 1;
-  transition: all 0.35s;
-}
-
-button:before {
-  opacity: 0.5;
-}
-
-button:after {
-  transition-delay: 0.2s;
-}
-
 button:hover {
   color: #fff;
-}
-
-button:hover:before,
-button:hover:after {
-  left: 0;
+  box-shadow: inset 100vmax 0 0 0 var(--ui-primary);
 }
 </style>

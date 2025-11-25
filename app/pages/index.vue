@@ -45,24 +45,11 @@ if ($posthog) {
       </app-cta-a>
       <app-gallery />
       <home-news-feed />
-      <app-banner
-        eyebrow="build with confidence"
-        title="Your vision shouldn’t be left to chance"
-        description="choosing the wrong partner can mean wasted budget, endless delays, and a space that never meets its potential. we protect your investment, your timeline, and your vision"
-        :links="[
-          {
-            label: 'start your project',
-            to: '#',
-            color: 'primary',
-          },
-          {
-            label: 'see our work',
-            to: '#',
-            variant: 'outline',
-            color: 'neutral',
-          },
-        ]"
-      />
+      <app-cta-a
+        body="At Envision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all."
+      >
+        Build with <span>Confidence</span>
+      </app-cta-a>
       <three-uniques />
 
       <app-banner

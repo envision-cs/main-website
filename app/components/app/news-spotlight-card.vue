@@ -17,14 +17,6 @@ defineProps<{
   <article>
     <NuxtLink :to="link?.to" class="news-feature-card">
       <div class="news-feature-card__meta">
-        <div class="news-feature-card__logo">
-          <UIcon
-            :name="icon"
-            class="news-feature-card__logo-icon"
-            aria-hidden="true"
-          />
-        </div>
-
         <div class="news-feature-card__text">
           <app-typography tag="p">
             {{ eyebrow }}
@@ -47,8 +39,10 @@ defineProps<{
 .news-feature-card {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  padding: 32px 16px;
+  min-height: 280px;
+  gap: calc(var(--spacing) * 4);
+  border-top: 1px solid var(--ui-border);
+  padding: calc(var(--spacing) * 8) calc(var(--spacing) * 4);
 }
 
 .news-feature-card__meta {

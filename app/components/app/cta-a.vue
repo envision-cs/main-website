@@ -29,6 +29,8 @@ withDefaults(defineProps<{
 <style scoped>
 .cta {
   display: grid;
+  gap: 1px;
+  background-color: var(--ui-border);
 
   @media (min-width: 800px) {
     display: grid;
@@ -49,6 +51,7 @@ withDefaults(defineProps<{
   width: 100%;
   height: 100%;
   display: grid;
+  background: #fff;
   padding-inline: calc(var(--spacing) * 4);
   padding-block: calc(var(--spacing) * 10);
   grid-template-rows: repeat(3, 1fr);

@@ -48,6 +48,7 @@ const { gentle } = useEasings();
   padding-inline: calc(var(--spacing) * 4);
   border: 1px solid var(--ui-border);
   gap: calc(var(--spacing) * 20);
+  background-color: #fff;
 }
 
 .text {
