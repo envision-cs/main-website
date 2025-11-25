@@ -15,7 +15,9 @@ const { data } = useFetch('/api/process');
       :name="name"
     >
       <summary>
-        {{ item.title }}
+        <app-typography variant="heading-md" tag="h3">
+          {{ item.title }}
+        </app-typography>
         <UIcon class="icon" name="i-lucide-plus" />
       </summary>
       <ContentRenderer :value="item.meta" class="" />

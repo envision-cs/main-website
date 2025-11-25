@@ -35,7 +35,7 @@ defineProps<{
           </app-typography>
           <UIcon
             name="i-lucide-arrow-right"
-            size="42"
+            size="32"
             class="arrow"
           />
         </div>
@@ -69,7 +69,7 @@ defineProps<{
 .project-card__image {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
 }
 

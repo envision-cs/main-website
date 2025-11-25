@@ -1,13 +1,24 @@
+<script setup lang="ts">
+type Card = {
+  title: string;
+  link: string;
+  image: string;
+  sector: string;
+  completed: string;
+};
+
+defineProps<{
+  cards: Card[];
+}>();
+</script>
+
 <template>
   <section>
     <app-display-card
-      title="Greater Tampa Realtors"
-      link="/projects/business_corporate/greater-tampa-realtors"
-      image="/greater-tampa-realtors-01.jpg"
-      sector="Business/Corporate"
-      completed="2024"
+      v-for="(card, index) in cards"
+      :key="index"
+      v-bind="card"
     />
-    <app-display-card />
   </section>
 </template>
 

@@ -4,7 +4,7 @@ const image = '/usl-super-league-01.jpg';
 
 <template>
   <section class="hero" :style="{ backgroundImage: `url(${image})` }">
-    <div class="hero-content">
+    <!--  <div class="hero-content">
       <app-typography
         tag="p"
         variant="text-xl"
@@ -15,7 +15,7 @@ const image = '/usl-super-league-01.jpg';
           view project
         </app-button>
       </app-typography>
-    </div>
+    </div> -->
   </section>
 </template>
 
