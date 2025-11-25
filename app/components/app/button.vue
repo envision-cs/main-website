@@ -18,18 +18,7 @@
 }
 
 button {
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  border: 0;
   background: none transparent;
-  color: inherit;
-  vertical-align: middle;
-  text-align: center;
-  text-decoration: none;
-  text-transform: none;
-  font: inherit;
-  line-height: normal;
   cursor: pointer;
 
   display: flex;

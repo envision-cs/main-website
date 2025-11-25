@@ -87,7 +87,7 @@ watch(isMainOpen, () => {
     </NuxtLink>
     <div class="flex items-center gap-2">
       <UButton
-        variant="ghost"
+        variant="outline"
         color="neutral"
         @click="openMain"
       >
@@ -168,9 +168,11 @@ watch(isMainOpen, () => {
         </div>
       </div>
       <div class="px-2 pb-2">
-        <app-navigation-image-link-card to="/contact" image="/airport.png">
-          Contact
-        </app-navigation-image-link-card>
+        <app-display-card
+          link="/contact"
+          title="Contact"
+          image="/contact.jpg"
+        />
       </div>
     </div>
     <button
@@ -193,15 +195,12 @@ watch(isMainOpen, () => {
     />
     <ul>
       <li v-for="item in subMenuItems" :key="item.label">
-        <app-navigation-image-link-card
-          v-if="item.to"
-          image="/airport.png"
-          :to="item.to"
-          :label="item.label"
+        <app-display-card
           class="h-full w-full"
-        >
-          {{ item.label }}
-        </app-navigation-image-link-card>
+          :image="item.image"
+          :link="item.to"
+          :title="item.label"
+        />
       </li>
     </ul>
   </dialog>

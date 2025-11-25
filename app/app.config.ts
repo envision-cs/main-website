@@ -29,26 +29,28 @@ export default defineAppConfig({
         {
           label: 'Construction Management',
           to: '/services/construction-management',
+          image: 'construction-managment.jpg',
         },
         {
           label: 'Design Build',
           to: '/services/design-build',
+          image: 'design-build.jpg',
         },
-        {
-          label: 'Development and Master Planning',
-          to: '/services/development-and-master-planning',
-        },
+
         {
           label: 'Tenant Improvement',
           to: '/services/tenant-improvement',
+          image: 'tenant-improvment.jpg',
         },
         {
           label: 'Enhanced Preconstruction',
           to: '/services/enhanced-preconstruction',
+          image: 'enhanced-preconstruction.jpg',
         },
         {
           label: 'Specialty Projects Division',
           to: '/services/specialty-projects-division',
+          image: 'specialty-projects.jpg',
         },
       ],
     },
@@ -98,7 +100,7 @@ export default defineAppConfig({
     colors: {
       primary: 'curious-blue',
       secondary: 'envision-green',
-      neutral: 'stone',
+      neutral: 'slate',
     },
     page: {
       slots: {

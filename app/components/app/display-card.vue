@@ -41,9 +41,8 @@ defineProps<{
         </div>
 
         <span class="project-card__cta">
-          View project
           <span class="u-visually-hidden">
-            : {{ title }}
+            View project : {{ title }}
           </span>
         </span>
       </figcaption>
@@ -69,7 +68,6 @@ defineProps<{
 .project-card__image {
   display: block;
   width: 100%;
-  aspect-ratio: 3 / 4;
   object-fit: cover;
 }
 
