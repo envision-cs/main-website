@@ -64,7 +64,7 @@ export default defineContentConfig({
     }),
     threeUniques: defineCollection({
       type: 'data',
-      source: 'process/*.md',
+      source: 'threeUniques/*.md',
       schema: z.object({
         title: z.string(),
         image: z.string().optional(),

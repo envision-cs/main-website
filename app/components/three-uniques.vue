@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = useFetch('/api/threeUniques');
+const { data: threeUniques } = useFetch('/api/threeUniques');
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const { data } = useFetch('/api/threeUniques');
     </app-banner-content>
 
     <div class="mt-0">
-      <app-accordion :data name="three uniques" />
+      <app-accordion :data="threeUniques" name="threeUniques" />
     </div>
   </section>
 </template>

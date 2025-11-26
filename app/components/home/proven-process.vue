@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = useFetch('/api/process');
+const { data: our_process } = useFetch('/api/process');
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const { data } = useFetch('/api/process');
     </app-banner-content>
 
     <div class="mt-0">
-      <app-accordion :data name="our-process" />
+      <app-accordion :data="our_process" name="our-process" />
     </div>
   </section>
 </template>
