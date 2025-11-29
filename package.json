@@ -8,8 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint_d .",
+    "lint:fix": "eslint_d . --fix",
     "prepare": "husky"
   },
   "dependencies": {

@@ -28,7 +28,7 @@ export default defineContentConfig({
         bio: z.string(),
         group: z.string(),
         linkedin: z.string().optional(),
-        email: z.string().email().optional(),
+        email: z.string().optional(),
       }),
     }),
     locations: defineCollection({
@@ -38,7 +38,7 @@ export default defineContentConfig({
         location: z.string(),
         address: z.string(),
         phone: z.string(),
-        email: z.string().email(),
+        email: z.string(),
         latitude: z.number(),
         longitude: z.number(),
         image: z.string(),
@@ -52,6 +52,14 @@ export default defineContentConfig({
         color: z.string(),
         role: z.string(),
         description: z.string(),
+      }),
+    }),
+    services: defineCollection({
+      type: 'data',
+      source: 'services/*.md',
+      schema: z.object({
+        title: z.string(),
+        image: z.string().optional(),
       }),
     }),
     process: defineCollection({

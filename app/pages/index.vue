@@ -50,7 +50,7 @@ if ($posthog) {
       >
         Build with <span>Confidence</span>
       </app-cta-a>
-      <app-parallax image="/usl-super-league-01.jpg" />
+      <app-parallax image="/thegreens.jpg" />
       <three-uniques />
 
       <app-banner

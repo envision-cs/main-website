@@ -71,11 +71,11 @@ section.hero {
 
 @keyframes parallax {
   from {
-    background-position: bottom 0px center;
+    background-position: center 0%;
   }
 
   to {
-    background-position: bottom 200% center;
+    background-position: center 50%;
   }
 }
 

@@ -6,6 +6,8 @@ defineProps<{
   sector: string;
   title: string;
   completed: string;
+  aspectRatio?: '4/3' | '16/9' | '3/4' | '1/1' | '3/1';
+  heading: 'heading-sm' | 'heading-md';
 }>();
 </script>
 
@@ -15,6 +17,14 @@ defineProps<{
       <img
         class="project-card__image"
         :src="image"
+        :class="{
+          'aspect-auto': aspectRatio === '1/1',
+          'aspect-video': aspectRatio === '16/9',
+          'aspect-4/3': aspectRatio === '4/3',
+          'aspect-3/4': aspectRatio === '3/4',
+          'aspect-3/1': aspectRatio === '3/1',
+        }
+        "
         alt="Renovated open-plan office with glass partitions and warm wood finishes"
         loading="lazy"
       >
@@ -30,7 +40,7 @@ defineProps<{
           </app-typography>
         </div>
         <div class="flex justify-between">
-          <app-typography tag="h3" variant="heading-md">
+          <app-typography tag="h3" :variant="heading">
             {{ title }}
           </app-typography>
           <UIcon

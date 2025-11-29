@@ -172,6 +172,8 @@ watch(isMainOpen, () => {
           link="/contact"
           title="Contact"
           image="/contact.jpg"
+          aspect-ratio="3/1"
+          heading="heading-sm"
         />
       </div>
     </div>
@@ -195,12 +197,21 @@ watch(isMainOpen, () => {
     />
     <ul>
       <li v-for="item in subMenuItems" :key="item.label">
-        <app-display-card
-          class="h-full w-full"
-          :image="item.image"
-          :link="item.to"
-          :title="item.label"
-        />
+        <NuxtLink
+          :to="item.to"
+          class="overflow-hidden"
+          fit="cover"
+        >
+          <div class="aspect-auto">
+            <NuxtImg
+              :src="item.image"
+              height="125"
+              width="200"
+              class=" object-cover w-full"
+            />
+          </div>
+          {{ item.label }}
+        </NuxtLink>
       </li>
     </ul>
   </dialog>
@@ -362,10 +373,13 @@ header {
 
   ul {
     height: 100%;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: calc(var(--spacing) * 2);
-    grid-auto-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
+
+    li {
+      flex: 0 0 calc(50% - var(--spacing) * 1);
+    }
   }
 }
 

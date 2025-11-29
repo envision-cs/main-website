@@ -47,7 +47,7 @@ const { gentle } = useEasings();
   padding-block: calc(var(--spacing) * 10);
   padding-inline: calc(var(--spacing) * 4);
   border: 1px solid var(--ui-border);
-  gap: calc(var(--spacing) * 20);
+  gap: calc(var(--spacing) * 4);
   background-color: #fff;
 }
 
