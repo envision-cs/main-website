@@ -58,6 +58,7 @@ export default defineContentConfig({
       type: 'data',
       source: 'services/*.md',
       schema: z.object({
+        param: z.string(),
         title: z.string(),
         image: z.string().optional(),
       }),

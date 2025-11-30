@@ -38,91 +38,48 @@ const activeProjects = computed(() => {
 </script>
 
 <template>
-  <div class="main-layout site-grid">
-    <projects-banner class="header" :image="activeCategory?.slug">
-      <template #title>
-        Project Sectors
-      </template>
-      {{ activeCategory?.title }}
-    </projects-banner>
-    <div class="catagories p-0 py-4 md:p-4">
-      <div class="flex flex-col gap-2">
-        <ULink
-          v-for="catagory in categories"
-          :key="catagory.title"
-          :to="{
-            name: 'projects-id',
-            params: { id: catagory.slug },
-          }"
-          class="text-left"
-        >
-          {{ catagory.title }}
-        </ULink>
+  <layout-a>
+    <template #header-slot>
+      <projects-banner class="header" :image="activeCategory?.slug">
+        <template #title>
+          Project Sectors
+        </template>
+        {{ activeCategory?.title }}
+      </projects-banner>
+    </template>
+    <template #aside-slot>
+      <div class="catagories p-0 py-4 md:p-4">
+        <div class="flex flex-col gap-2">
+          <ULink
+            v-for="catagory in categories"
+            :key="catagory.title"
+            :to="{
+              name: 'projects-id',
+              params: { id: catagory.slug },
+            }"
+            class="text-left"
+          >
+            {{ catagory.title }}
+          </ULink>
+        </div>
       </div>
-    </div>
-    <div class="projects">
-      <div class="flex flex-col">
-        <projects-card
-          v-for="project in activeProjects"
-          :key="project.id"
-          :image="project.main_image"
-          :title="project.title"
-          :location="project.location"
-          :area="project.area"
-          :completed="project.completed"
-          :sector="project.sector"
-          :to="`${project.sectorSlug}/${project.slug}`"
-        />
+    </template>
+    <template #main-slot>
+      <div class="projects">
+        <div class="flex flex-col">
+          <projects-card
+            v-for="project in activeProjects"
+            :key="project.id"
+            :image="project.main_image"
+            :title="project.title"
+            :location="project.location"
+            :area="project.area"
+            :completed="project.completed"
+            :sector="project.sector"
+            :to="`${project.sectorSlug}/${project.slug}`"
+          />
+        </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </layout-a>
 </template>
-
-<style scoped>
-.main-layout {
-  margin-top: 0;
-  min-height: 100dvb;
-  grid-template-rows: min-content min-content auto;
-}
-
-.header {
-  grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
-}
-
-.catagories {
-  grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
-}
-
-.projects {
-  grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
-  padding-bottom: calc(var(--spacing) * 4);
-}
-
-@media (min-width: 700px) {
-  .main-layout {
-    grid-template-rows: min-content auto;
-  }
-
-  .catagories {
-    grid-column: 1/4;
-    border-right: 1px solid var(--ui-border);
-  }
-
-  .projects {
-    grid-column: 4/-1;
-  }
-}
-
-@media (min-width: 1024px) {
-  .catagories {
-    grid-column: 1/6;
-  }
-
-  .projects {
-    grid-column: 6/-1;
-  }
-}
-</style>

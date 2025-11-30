@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/html-indent -->
 <script setup>
 const { $posthog } = useNuxtApp();
 
@@ -52,18 +51,12 @@ if ($posthog) {
       </app-cta-a>
       <app-parallax image="/thegreens.jpg" />
       <three-uniques />
+      <app-cta-a
 
-      <app-banner
-        title="Building Without the Headaches"
-        description="We know how stressful construction can feel when deadlines are missed, communication is poor, and leadership is unclear. That’s why we’ve built a process that keeps your project on track and you in the loop—every step of the way."
-        :links="[
-          {
-            label: 'Start Your Project',
-            to: '#',
-            color: 'primary',
-          },
-        ]"
-      />
+        text="We know how stressful construction can feel when deadlines are missed, communication is poor, and leadership is unclear. That’s why we’ve built a process that keeps your project on track and you in the loop—every step of the way."
+      >
+        Building <span>Without</span> the <span>Headaches</span>
+      </app-cta-a>
     </div>
   </UPage>
 </template>

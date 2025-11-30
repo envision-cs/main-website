@@ -14,12 +14,12 @@ defineProps<{
       :name="name"
     >
       <summary>
-        <app-typography variant="heading-md" tag="h3">
+        <app-typography variant="heading-sm" tag="h3">
           {{ item.title }}
         </app-typography>
         <UIcon class="icon" name="i-lucide-plus" />
       </summary>
-      <ContentRenderer :value="item.meta" class="" />
+      <ContentRenderer :value="item.meta" class="text-muted" />
     </details>
   </div>
 </template>

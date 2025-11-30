@@ -1,6 +1,7 @@
 ---
 title: Enhanced Preconstruction
 image: enhanced-preconstruction.jpg
+param: enhanced-preconstruction
 ---
 
 ### Preconstruction Approach

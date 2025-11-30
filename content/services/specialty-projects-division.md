@@ -1,6 +1,7 @@
 ---
 title: Specialty Projects Division
 image: specialty-projects-division.jpg
+param: specialty-projects-division
 ---
 
 For the projects that still matter, but don’t need the full machine.

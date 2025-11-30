@@ -1,0 +1,93 @@
+<script setup  lang="ts">
+const { data } = useFetch(`/api/services`);
+
+const categories = computed<{ title: string; slug: string }[]>(() => {
+  const set = new Map<string, { title: string; slug: string }>();
+
+  if (!data.value)
+    return Array.from(set.values());
+
+  for (const service of data.value) {
+    set.set(service.param, {
+      title: service.title,
+      slug: service.param,
+    });
+  }
+
+  return Array.from(set.values());
+});
+</script>
+
+<template>
+  <layout-a>
+    <template #header-slot>
+      projects
+    </template>
+    <template #aside-slot>
+      <div class="catagories p-0 py-4 md:p-4">
+        <div class="flex flex-col gap-2">
+          <ULink
+            v-for="catagory in categories"
+            :key="catagory.title"
+            :to="catagory.slug"
+            class="text-left"
+          >
+            {{ catagory.title }}
+          </ULink>
+        </div>
+      </div>
+    </template>
+    <template #main-slot>
+      <slot />
+    </template>
+  </layout-a>
+</template>
+
+<style scoped>
+.main-layout {
+  margin-top: 0;
+  min-height: 100dvb;
+  grid-template-rows: min-content min-content auto;
+}
+
+.header {
+  grid-column: 1/-1;
+  border-bottom: 1px solid var(--ui-border);
+}
+
+.catagories {
+  grid-column: 1/-1;
+  border-bottom: 1px solid var(--ui-border);
+}
+
+.projects {
+  grid-column: 1/-1;
+  border-bottom: 1px solid var(--ui-border);
+  padding-bottom: calc(var(--spacing) * 4);
+}
+
+@media (min-width: 700px) {
+  .main-layout {
+    grid-template-rows: min-content auto;
+  }
+
+  .catagories {
+    grid-column: 1/4;
+    border-right: 1px solid var(--ui-border);
+  }
+
+  .projects {
+    grid-column: 4/-1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .catagories {
+    grid-column: 1/6;
+  }
+
+  .projects {
+    grid-column: 6/-1;
+  }
+}
+</style>
