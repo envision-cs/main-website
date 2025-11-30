@@ -2,6 +2,7 @@
 title: Enhanced Preconstruction
 image: enhanced-preconstruction.jpg
 param: enhanced-preconstruction
+description: Preconstruction services in Central Florida using BIM, real-time estimating, and target value design for budget-conscious, timely project delivery.
 ---
 
 ### Preconstruction Approach

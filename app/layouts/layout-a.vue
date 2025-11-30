@@ -1,5 +1,7 @@
 <script setup  lang="ts">
-const { data } = useFetch(`/api/services`);
+const { data } = useFetch(`/api/services`, {
+  key: 'services',
+});
 
 const categories = computed<{ title: string; slug: string }[]>(() => {
   const set = new Map<string, { title: string; slug: string }>();
@@ -24,17 +26,28 @@ const categories = computed<{ title: string; slug: string }[]>(() => {
       projects
     </template>
     <template #aside-slot>
-      <div class="catagories p-0 py-4 md:p-4">
-        <div class="flex flex-col gap-2">
-          <ULink
+      <div class="catagories p-0 py-4 md:p-4 h-full">
+        <ul class="flex flex-col gap-2 sticky top-0">
+          <li>
+            <ULink to="/services">
+              All Services
+            </ULink>
+          </li>
+          <li
             v-for="catagory in categories"
             :key="catagory.title"
-            :to="catagory.slug"
-            class="text-left"
           >
-            {{ catagory.title }}
-          </ULink>
-        </div>
+            <ULink
+              :to="{
+                name: 'services-services',
+                params: { services: catagory.slug },
+              }"
+              class="text-left"
+            >
+              {{ catagory.title }}
+            </ULink>
+          </li>
+        </ul>
       </div>
     </template>
     <template #main-slot>

@@ -15,14 +15,7 @@ export default defineNuxtConfig({
   ui: {
     colorMode: false,
     theme: {
-      colors: [
-        'primary',
-        'secondary',
-        'info',
-        'success',
-        'warning',
-        'error',
-      ],
+      colors: ['primary', 'secondary', 'info', 'success', 'warning', 'error'],
     },
   },
   content: {
@@ -33,12 +26,9 @@ export default defineNuxtConfig({
     preview: {
       api: 'https://api.nuxt.studio',
     },
-
   },
   tailwindcss: {
-    safelist: [
-      { pattern: /bg-\[.*\]/ },
-    ],
+    safelist: [{ pattern: /bg-\[.*\]/ }],
   },
   runtimeConfig: {
     public: {
@@ -80,6 +70,9 @@ export default defineNuxtConfig({
     timeline: {
       enabled: true,
     },
+  },
+  experimental: {
+    sharedPrerenderData: true,
   },
   studio: {
     route: '/_studio',

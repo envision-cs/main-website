@@ -11,6 +11,15 @@ definePageMeta({
 
 <template>
   <div v-if="data">
-    {{ data.title }}
+    <app-typography tag="h1" variant="heading-lg">
+      {{ data.title }}
+    </app-typography>
+    <NuxtImg
+      :src="data.image"
+      height="500"
+      sizes="100vw sm:50vw md:600px"
+      format="webp"
+    />
+    <ContentRenderer :value="data.meta" class="prose max-w-prose" />
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data } = useFetch(`/api/services`);
+const { data } = useNuxtData('services');
 
 definePageMeta({
   layout: 'layout-a',
@@ -8,7 +8,15 @@ definePageMeta({
 
 <template>
   <div>
-    <h1>Services</h1>
-    {{ data }}
+    <ul>
+      <li v-for="service in data" :key="service.title">
+        <app-cta-b
+          :title="service.title"
+          :image="service.image"
+          :path="service.param"
+          :description="service.description"
+        />
+      </li>
+    </ul>
   </div>
 </template>

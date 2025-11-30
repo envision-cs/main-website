@@ -1,7 +1,8 @@
 ---
 title: Specialty Projects Division
-image: specialty-projects-division.jpg
+image: specialty-projects.jpg
 param: specialty-projects-division
+description: Fast-turn specialty construction projects ($1K-$100K) in Central Florida. High-quality maintenance and improvements delivered with speed and care.
 ---
 
 For the projects that still matter, but don’t need the full machine.

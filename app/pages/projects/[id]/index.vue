@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const { data: projects } = useFetch('/api/projects');
+const { data: projects } = useFetch('/api/projects', {
+  key: 'projects',
+});
+
 const route = useRoute();
 
 const categories = computed<{ title: string; slug: string }[]>(() => {
