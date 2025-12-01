@@ -1,4 +1,6 @@
 <script setup  lang="ts">
+const route = useRoute();
+
 const { data } = useFetch(`/api/services`, {
   key: 'services',
 });
@@ -13,47 +15,72 @@ const categories = computed<{ title: string; slug: string }[]>(() => {
     set.set(service.param, {
       title: service.title,
       slug: service.param,
+      image: service.image,
     });
   }
 
   return Array.from(set.values());
 });
+
+const activeCategory = computed<{ title: string; slug: string } | undefined>(() => {
+  const title = categories.value.find(
+    category => category.slug === route.params.services,
+  );
+  return title || { title: 'All Services', slug: '' };
+});
 </script>
 
 <template>
-  <layout-a>
-    <template #header-slot>
-      projects
-    </template>
-    <template #aside-slot>
-      <div class="catagories p-0 py-4 md:p-4 h-full">
-        <ul class="flex flex-col gap-2 sticky top-0">
-          <li>
-            <ULink to="/services">
-              All Services
-            </ULink>
-          </li>
-          <li
-            v-for="catagory in categories"
-            :key="catagory.title"
-          >
-            <ULink
-              :to="{
-                name: 'services-services',
-                params: { services: catagory.slug },
-              }"
-              class="text-left"
-            >
-              {{ catagory.title }}
-            </ULink>
-          </li>
-        </ul>
-      </div>
-    </template>
-    <template #main-slot>
-      <slot />
-    </template>
-  </layout-a>
+  <div>
+    <app-header />
+    <UMain :style="mainStyle">
+      <layout-a>
+        <template #header-slot>
+          <app-banner-b class="header" :image="activeCategory?.slug">
+            <template #title>
+              Envision Services
+            </template>
+            {{ activeCategory.title }}
+            <NuxtImg
+              :src="activeCategory?.image"
+              height="200"
+              sizes="100vw sm:50vw md:200px"
+              format="webp"
+            />
+          </app-banner-b>
+        </template>
+        <template #aside-slot>
+          <div class="catagories p-0 py-4 md:p-4 h-full">
+            <ul class="flex flex-col gap-2 sticky top-0">
+              <li>
+                <ULink to="/services">
+                  All Services
+                </ULink>
+              </li>
+              <li
+                v-for="catagory in categories"
+                :key="catagory.title"
+              >
+                <ULink
+                  :to="{
+                    name: 'services-services',
+                    params: { services: catagory.slug },
+                  }"
+                  class="text-left"
+                >
+                  {{ catagory.title }}
+                </ULink>
+              </li>
+            </ul>
+          </div>
+        </template>
+        <template #main-slot>
+          <slot />
+        </template>
+      </layout-a>
+    </UMain>
+    <app-footer />
+  </div>
 </template>
 
 <style scoped>

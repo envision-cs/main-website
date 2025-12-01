@@ -43,16 +43,16 @@ const activeProjects = computed(() => {
 <template>
   <layout-a>
     <template #header-slot>
-      <projects-banner class="header" :image="activeCategory?.slug">
+      <app-banner-b class="header" :image="activeCategory?.slug">
         <template #title>
           Project Sectors
         </template>
         {{ activeCategory?.title }}
-      </projects-banner>
+      </app-banner-b>
     </template>
     <template #aside-slot>
-      <div class="catagories p-0 py-4 md:p-4">
-        <div class="flex flex-col gap-2">
+      <div class="catagories p-0 py-4 md:p-4 h-full">
+        <div class="flex flex-col gap-2 sticky top-0">
           <ULink
             v-for="catagory in categories"
             :key="catagory.title"

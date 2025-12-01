@@ -80,7 +80,7 @@ watch(isMainOpen, () => {
   <header>
     <NuxtLink class="logo" to="/">
       <Icon
-        name="logos:envision-white"
+        name="logos:envision"
         size="30"
         alt="envision construction logo"
       />
@@ -219,17 +219,29 @@ watch(isMainOpen, () => {
 
 <style scoped>
 header {
-  position: absolute;
+  position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 100;
   justify-content: space-between;
   display: flex;
   padding: calc(var(--spacing) * 2);
+  background-color: transparent;
+
+  animation: stickyNav linear forwards;
+  animation-timeline: view();
+  animation-range-start: 100vh;
+  animation-range-end: 150vh;
 }
 
 .logo {
   margin-left: calc(var(--spacing) * 4);
+}
+
+@keyframes stickyNav {
+  100% {
+    background-color: var(--color-white);
+  }
 }
 
 .menu {
@@ -243,7 +255,7 @@ header {
   inset: 0;
   transform-origin: top right;
   transition-behavior: allow-discrete;
-  z-index: 1;
+  z-index: 110;
 
   height: min(70svh, 500px);
   max-width: 100dvi;
@@ -355,7 +367,7 @@ header {
   transition-behavior: allow-discrete;
   border-radius: calc(var(--ui-radius));
   padding: calc(var(--spacing) * 2) calc(var(--spacing) * 2);
-  z-index: 1;
+  z-index: 110;
 
   height: max(70svh, 500px);
   max-width: 100dvi;

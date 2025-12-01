@@ -8,7 +8,13 @@ defineProps<{
 </script>
 
 <template>
-  <NuxtLink :to="path" class="p-4 flex flex-wrap gap-4 items-center border-t border-muted">
+  <NuxtLink
+    :to="{
+      name: 'services-services',
+      params: { services: path },
+    }"
+    class="p-4 flex flex-wrap gap-4 items-center border-t border-muted"
+  >
     <NuxtPicture
       v-if="image"
       :src="image"
