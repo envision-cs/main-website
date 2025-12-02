@@ -10,7 +10,7 @@
       </div>
     </div>
     <div>
-      <div class="p-8 space-y-4">
+      <div class="p-8 space-y-4 h-full">
         <slot name="body" />
       </div>
     </div>

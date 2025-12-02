@@ -76,45 +76,48 @@ watchEffect(() => {
         <NuxtImg
           :src="teamMember?.image"
           class="image"
+          sizes="100vw sm:500px md:770px"
           format="webp"
         />
-        <div class="content">
-          <div>
-            <app-typography tag="h1" variant="heading-lg">
-              {{ teamMember.name }}
-            </app-typography>
-            <app-typography tag="p" variant="text-lg">
-              {{ teamMember.title }}
-            </app-typography>
-          </div>
-          <div>
-            <app-typography tag="p" variant="text-sm">
-              {{ teamMember?.email }}
-            </app-typography>
-            <div class="flex gap-4">
-              <UButton
-                v-if="teamMember.linkedin"
-                icon="i-simple-icons-linkedin"
-                color="gray"
-                variant="ghost"
-                :to="teamMember.linkedin"
-                target="_blank"
-                aria-label="LinkedIn"
-              />
-              <UButton
-                v-if="teamMember.email"
-                icon="i-heroicons-envelope"
-                color="gray"
-                variant="ghost"
-                :to="`mailto:${teamMember.email}`"
-                aria-label="Email"
-              />
-            </div>
-          </div>
-        </div>
       </template>
       <template #body>
-        <ContentRenderer :value="teamMember" class="" />
+        <div class="grid items-content-center h-full">
+          <div class="content">
+            <div>
+              <app-typography tag="h1" variant="heading-lg">
+                {{ teamMember.name }}
+              </app-typography>
+              <app-typography tag="p" variant="text-lg">
+                {{ teamMember.title }}
+              </app-typography>
+            </div>
+            <div>
+              <app-typography tag="p" variant="text-sm">
+                {{ teamMember?.email }}
+              </app-typography>
+              <div class="flex gap-4">
+                <UButton
+                  v-if="teamMember.linkedin"
+                  icon="i-simple-icons-linkedin"
+                  color="gray"
+                  variant="ghost"
+                  :to="teamMember.linkedin"
+                  target="_blank"
+                  aria-label="LinkedIn"
+                />
+                <UButton
+                  v-if="teamMember.email"
+                  icon="i-heroicons-envelope"
+                  color="gray"
+                  variant="ghost"
+                  :to="`mailto:${teamMember.email}`"
+                  aria-label="Email"
+                />
+              </div>
+            </div>
+          </div>
+          <ContentRenderer :value="teamMember" class="" />
+        </div>
       </template>
     </app-section-a>
     <div class="site-grid mt-40" />
@@ -173,6 +176,7 @@ watchEffect(() => {
 }
 
 .image {
+  width: 100%;
   grid-column: span 12;
 
   @media (min-width: 1024px) {
