@@ -70,8 +70,7 @@ defineProps<{
 }
 
 .project-wrapper:hover {
-  background: var(--color-envision-blue-700);
-  color: #fff;
+  background: var(--color-envision-blue-500);
 }
 
 .project-card {

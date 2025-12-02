@@ -6,31 +6,35 @@ const { data: locations } = await useFetch('/api/locations');
   <UPage class="mt-0 ">
     <div class="grid">
       <app-hero-banner title="Contact Us" />
-      <div class="contact mt-10 site-grid">
-        <div class="content">
-          <app-typography tag="h2" variant="heading-lg">
-            Let’s Build Something That Lasts.
-          </app-typography>
-          <app-typography>
-            We’re ready to connect—whether you’re starting a project, asking a question, or just want to talk
-            construction.
-          </app-typography>
-        </div>
-        <div class="contact-form">
+      <app-section-a>
+        <template #header>
+          <div class="content">
+            <app-typography
+              tag="h2"
+              variant="heading-lg"
+              class="font-semibold text-balance"
+            >
+              Let’s <span>Build</span> Something That <span>Lasts</span>.
+            </app-typography>
+            <app-typography>
+              We’re ready to connect—whether you’re starting a project, asking a question, or just want to talk
+              construction.
+            </app-typography>
+          </div>
+        </template>
+        <template #body>
           <contact-form />
-        </div>
-      </div>
-      <div>
-        <app-banner
-          title="Our Locations"
-          :images="[
-            {
-              img: '/airport.png',
-              alt: 'Airport image',
-
-            }]"
-        />
-        <div class="site-grid">
+        </template>
+      </app-section-a>
+      <app-section-a>
+        <template #header>
+          <app-typography
+            tag="h2"
+            variant="heading-lg"
+            class="font-semibold text-balance"
+          >
+            Our <span>Locations</span>
+          </app-typography>
           <div class="locations">
             <div
               v-for="location in locations"
@@ -38,7 +42,11 @@ const { data: locations } = await useFetch('/api/locations');
               class=""
             >
               <div class="">
-                <app-typography tag="h3" variant="heading-lg">
+                <app-typography
+                  tag="h3"
+                  variant="heading-sm"
+                  class="text-semibold"
+                >
                   {{ location.location }}
                 </app-typography>
                 <app-typography
@@ -51,7 +59,11 @@ const { data: locations } = await useFetch('/api/locations');
                 <ul class="contact-list">
                   <li>
                     <div class="contact-list_card">
-                      <app-typography tag="p" variant="heading-sm">
+                      <app-typography
+                        tag="p"
+                        variant="text-lg"
+                        class="font-semibold"
+                      >
                         Phone
                       </app-typography>
                       <app-typography
@@ -65,12 +77,16 @@ const { data: locations } = await useFetch('/api/locations');
                   </li>
                   <li>
                     <div class="contact-list_card">
-                      <app-typography tag="p" variant="heading-sm">
+                      <app-typography
+                        tag="p"
+                        variant="text-lg"
+                        class="font-semibold"
+                      >
                         Email
                       </app-typography>
                       <app-typography
                         tag="p"
-                        variant="text-xl"
+                        variant="text-lg"
                         class="text-muted"
                       >
                         {{ location.email }}
@@ -81,11 +97,11 @@ const { data: locations } = await useFetch('/api/locations');
               </div>
             </div>
           </div>
-          <div class="location-map">
-            <app-location-map />
-          </div>
-        </div>
-      </div>
+        </template>
+        <template #body>
+          <app-location-map class="h-[100vh] min-h-[50vh]" />
+        </template>
+      </app-section-a>
     </div>
   </UPage>
 </template>

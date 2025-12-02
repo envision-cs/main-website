@@ -135,9 +135,9 @@ The project has a server-side API endpoint to fetch all projects from the `conte
   - [x] C.O.L. Team
   - [x] Blue Team
 - **Team member page:**
-  - [ ] layout
-  - [ ] photo
-  - [ ] bio
+  - [x] layout
+  - [x] photo
+  - [x] bio
 - **About page:**
 - **Navigation:**
 - **Footer:**
