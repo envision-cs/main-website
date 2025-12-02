@@ -70,7 +70,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <UPage>
+  <UPage class="mt-[25px]">
     <app-section-a>
       <template #header>
         <NuxtImg
