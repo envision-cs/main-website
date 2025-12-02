@@ -1,81 +1,168 @@
 <script setup lang="ts">
 const route = useRoute();
-
 const id = computed(() => route.params.id as string);
 
-// 1) Fetch the team member first (SSR-safe, top-level await)
-const { data: teamMember } = await useFetch(`/api/team/${id.value}`);
-
-// 2) Second fetch that depends on the first
-//    Still called at top level (no if), but uses the data from teamMember.
-const { data: relatedTeam } = await useFetch('/api/team/team', {
-  query: {
-    team: teamMember.value?.group,
-    name: teamMember.value?.name,
+// 1) Fetch team member (reactive to route param)
+const { data: teamMember, error: memberError } = await useAsyncData(
+  `team-member-${id.value}`, // Fixed: key should be string, not arrow function
+  () => $fetch(`/api/team/${id.value}`), // Fixed: template literal syntax
+  {
+    watch: [id],
+    lazy: false,
+    server: true,
   },
+);
+
+// 2) Fetch full team list (one time)
+const { data: team, error: teamError } = await useAsyncData(
+  'team',
+  () => $fetch('/api/team'),
+  {
+    // Cache this since it's shared across pages
+    getCachedData: key => useNuxtApp().static.data[key],
+  },
+);
+
+// 3) Related groups - optimized logic
+const relatedTeam = computed(() => {
+  if (!team.value?.length || !teamMember.value?.group)
+    return [];
+
+  const groupName = teamMember.value.group.toLowerCase();
+  return team.value.filter(t => t.name?.toLowerCase() === groupName);
 });
 
-// 3) Make title reactive
-const title = computed(() => teamMember.value?.name ?? 'Team member');
+const filteredRelatedTeam = computed(() => {
+  if (!teamMember.value)
+    return relatedTeam.value;
+
+  const currentMemberName = teamMember.value.name;
+  return relatedTeam.value
+    .map(group => ({
+      ...group,
+      members: group.members.filter(m => m.name !== currentMemberName),
+    }))
+    .filter(group => group.members.length > 0); // Remove empty groups
+});
+
+// 4) Page metadata
+const title = computed(() => teamMember.value?.name ?? 'Team Member');
 
 useSeoMeta({
   title,
+  ogTitle: title,
+  description: computed(() =>
+    teamMember.value
+      ? `Learn more about ${teamMember.value.name} from our team`
+      : 'Meet our team member',
+  ),
+});
+
+// 5) Handle errors gracefully
+watchEffect(() => {
+  if (memberError.value) {
+    console.error('Error fetching team member:', memberError.value);
+  }
+  if (teamError.value) {
+    console.error('Error fetching team:', teamError.value);
+  }
 });
 </script>
 
 <template>
   <UPage>
-    <div class="site-grid mt-40">
-      <NuxtImg :src="teamMember?.image" class="image" />
-      <div class="content">
-        <div>
-          <app-typography tag="h1" variant="heading-lg">
-            {{ teamMember.name }}
-          </app-typography>
-          <app-typography tag="p" variant="text-lg">
-            {{ teamMember.title }}
-          </app-typography>
-        </div>
-        <div>
-          <app-typography tag="p" variant="text-sm">
-            {{ teamMember?.email }}
-          </app-typography>
-          <div class="flex gap-4">
-            <UButton
-              v-if="teamMember.linkedin"
-              icon="i-simple-icons-linkedin"
-              color="gray"
-              variant="ghost"
-              :to="teamMember.linkedin"
-              target="_blank"
-              aria-label="LinkedIn"
-            />
-            <UButton
-              v-if="teamMember.email"
-              icon="i-heroicons-envelope"
-              color="gray"
-              variant="ghost"
-              :to="`mailto:${teamMember.email}`"
-              aria-label="Email"
-            />
+    <app-section-a>
+      <template #header>
+        <NuxtImg
+          :src="teamMember?.image"
+          class="image"
+          format="webp"
+        />
+        <div class="content">
+          <div>
+            <app-typography tag="h1" variant="heading-lg">
+              {{ teamMember.name }}
+            </app-typography>
+            <app-typography tag="p" variant="text-lg">
+              {{ teamMember.title }}
+            </app-typography>
+          </div>
+          <div>
+            <app-typography tag="p" variant="text-sm">
+              {{ teamMember?.email }}
+            </app-typography>
+            <div class="flex gap-4">
+              <UButton
+                v-if="teamMember.linkedin"
+                icon="i-simple-icons-linkedin"
+                color="gray"
+                variant="ghost"
+                :to="teamMember.linkedin"
+                target="_blank"
+                aria-label="LinkedIn"
+              />
+              <UButton
+                v-if="teamMember.email"
+                icon="i-heroicons-envelope"
+                color="gray"
+                variant="ghost"
+                :to="`mailto:${teamMember.email}`"
+                aria-label="Email"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+      <template #body>
+        <ContentRenderer :value="teamMember" class="" />
+      </template>
+    </app-section-a>
+    <div class="site-grid mt-40" />
 
-    <ContentRenderer :value="teamMember" class="" />
-    <app-team-member-list>
-      <app-team-member-card
-        v-for="member in relatedTeam"
-        :key="member.name"
-        :path="member.path"
-        :name="member.name"
-        :title="member.title"
-        :image="member.image"
-        :linkedin="member.linkedin"
-        :email="member.email"
-      />
-    </app-team-member-list>
+    <app-section-a
+      v-for="team in filteredRelatedTeam"
+      :key="team.name"
+      class="team-section"
+    >
+      <template #header>
+        <div class="section-head">
+          <app-typography tag="h2" variant="heading-lg">
+            {{ team.name }}
+          </app-typography>
+          <div
+            class="w-80 h-3"
+            :class="[team.color]"
+            :style="{
+              backgroundColor: team.color,
+            }"
+          />
+          <app-typography tag="p" variant="heading-md">
+            {{ team.role }}
+          </app-typography>
+          <app-typography
+            tag="p"
+            variant="text-lg"
+            class="mt-auto"
+          >
+            {{ team.description }}
+          </app-typography>
+        </div>
+      </template>
+      <template #body>
+        <app-team-member-list>
+          <app-team-member-card
+            v-for="member in team.members"
+            :key="member.name"
+            :path="member.path"
+            :name="member.name"
+            :title="member.title"
+            :image="member.image"
+            :linkedin="member.linkedin"
+            :email="member.email"
+          />
+        </app-team-member-list>
+      </template>
+    </app-section-a>
   </UPage>
 </template>
 
