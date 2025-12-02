@@ -34,6 +34,8 @@ defineProps<{
   gap: calc(var(--spacing) * 4);
   min-height: 280px;
   margin-top: calc(var(--spacing) * 15);
+  grid-template-columns: subgrid;
+  grid-column: 1/-1;
 
   @media (min-width: 700px) {
     min-height: 450px;

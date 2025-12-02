@@ -6,7 +6,7 @@
   <section class="section-a">
     <div class="border-r border-muted">
       <div class="sticky top-16 px-4 py-8">
-        <slot name="sticky" />
+        <slot name="header" />
       </div>
     </div>
     <div>
