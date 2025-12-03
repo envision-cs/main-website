@@ -14,20 +14,44 @@ defineProps<{
       :name="name"
     >
       <summary>
-        <app-typography variant="heading-sm" tag="h3">
+        <app-typography
+          variant="heading-md"
+          tag="h3"
+        >
           {{ item.title }}
         </app-typography>
         <UIcon class="icon" name="i-lucide-plus" />
       </summary>
-      <ContentRenderer :value="item.meta" class="text-muted" />
+      <ContentRenderer :value="item.meta" class="text-white" />
     </details>
   </div>
 </template>
 
 <style scoped>
+.accordion {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 details {
+  flex: 0 0 auto;
+  overflow: hidden;
   padding: calc(var(--spacing) * 4);
   border: 1px solid var(--ui-border);
+  transition: background-color 0.2s ease-in-out;
+}
+
+details:hover {
+  background-color: var(--ui-secondary);
+  color: #fff;
+}
+
+details[open] {
+  flex: 1 1 auto;
+  overflow: auto;
+  background-color: var(--ui-primary);
+  color: #fff;
 }
 
 details summary {

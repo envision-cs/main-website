@@ -20,3 +20,9 @@ const { data: threeUniques } = useFetch('/api/threeUniques');
     </div>
   </section>
 </template>
+
+<style scoped>
+section {
+  min-height: min(640px, 45vw);
+}
+</style>

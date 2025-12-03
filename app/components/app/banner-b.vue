@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <section class="banner">
-    <app-typography tag="h1" variant="heading-xl">
+    <app-typography tag="h1" variant="heading-huge">
       <span>
         <slot name="title" />
       </span>

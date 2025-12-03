@@ -31,6 +31,7 @@ withDefaults(defineProps<{
   display: grid;
   gap: 1px;
   background-color: var(--ui-border);
+  min-height: min(640px, 45vw);
 
   @media (min-width: 800px) {
     display: grid;

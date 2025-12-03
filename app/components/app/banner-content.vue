@@ -43,7 +43,6 @@ const { gentle } = useEasings();
 .content-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding-block: calc(var(--spacing) * 10);
   padding-inline: calc(var(--spacing) * 4);
   border: 1px solid var(--ui-border);

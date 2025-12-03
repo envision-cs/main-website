@@ -22,6 +22,10 @@ const { data: our_process } = useFetch('/api/process');
 </template>
 
 <style scoped>
+section {
+  min-height: min(640px, 45vw);
+}
+
 .content-wrapper {
   display: flex;
   flex-direction: column;
