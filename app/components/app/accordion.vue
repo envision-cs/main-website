@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import type { ContentFile } from '@nuxt/content';
+
 defineProps<{
-  data: object[];
+  data: ContentFile[];
   name: string;
 }>();
 </script>
@@ -9,20 +11,40 @@ defineProps<{
   <div class="accordion">
     <details
       v-for="item, idx in data"
-      :key="item.id"
+      :id="`acc-${name}-${idx}`"
+      :key="idx"
       :open="idx === 0"
       :name="name"
     >
-      <summary>
+      <summary
+        :id="`acc-${name}-${idx}-summary`"
+        :aria-controls="`acc-panel-${name}-${idx}`"
+      >
         <app-typography
           variant="heading-md"
           tag="h3"
         >
-          {{ item.title }}
+          {{ item?.title }}
         </app-typography>
-        <UIcon class="icon" name="i-lucide-plus" />
+        <UIcon
+          class="icon"
+          name="i-lucide-plus"
+          aria-hidden="true"
+          focusable="false"
+          size="24"
+        />
       </summary>
-      <ContentRenderer :value="item.meta" class="text-white" />
+      <div
+        :id="`acc-panel-${name}-${idx}`"
+        class="text-white"
+        role="region"
+        :aria-labelledby="`acc-${name}-${idx}-summary`"
+      >
+        <ContentRenderer
+          v-if="item.meta"
+          :value="item.meta"
+        />
+      </div>
     </details>
   </div>
 </template>
@@ -39,11 +61,11 @@ details {
   overflow: hidden;
   padding: calc(var(--spacing) * 4);
   border: 1px solid var(--ui-border);
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.4s ease-in-out;
 }
 
 details:hover {
-  background-color: var(--ui-secondary);
+  background-color: var(--color-envision-blue-700);
   color: #fff;
 }
 
@@ -62,7 +84,7 @@ details summary {
 
   span {
     transform: rotate(0deg);
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.3s ease-in-out;
   }
 }
 
@@ -80,13 +102,19 @@ details summary::-webkit-details-marker {
 details::details-content {
   overflow: hidden;
   height: 0;
-  transition:
-    height 0.2s,
-    content-visibility 0.3s;
-  transition-behavior: allow-discrete;
 }
 
-details[open]::details-content {
-  height: auto;
+@media (prefers-reduced-motion: no-preference) {
+  details::details-content {
+    transition:
+      height 0.4s ease,
+      background-color 0.4s ease,
+      content-visibility 0.3s;
+    transition-behavior: allow-discrete;
+  }
+
+  details[open]::details-content {
+    height: auto;
+  }
 }
 </style>
