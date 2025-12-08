@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     'motion-v/nuxt',
     'nuxt-maplibre',
     'nuxt-studio',
+    '@nuxt/hints',
   ],
   css: ['./app/assets/css/main.css'],
   ui: {

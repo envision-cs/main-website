@@ -6,12 +6,12 @@ const { data } = useFetch('/api/team', {
 
 <template>
   <div class="site-grid">
-    <app-banner-b image="/greater-tampa-realtors-02.jpg" class="col-start-1 -col-end-1">
+    <app-banner-c image="/greater-tampa-realtors-02.jpg" class="col-start-1 -col-end-1">
       <template #title>
         Envision
       </template>
       Meet the team
-    </app-banner-b>
+    </app-banner-c>
     <app-section-a
       v-for="team in data"
       :key="team.name"

@@ -1,16 +1,21 @@
 <script setup lang="ts">
-
+defineProps<{
+  noPadding?: boolean;
+}>();
 </script>
 
 <template>
   <section class="section-a">
     <div class="border-r border-muted">
-      <div class="sticky top-16 px-4 py-8">
+      <div class="sticky top-16 px-4 py-16">
         <slot name="header" />
       </div>
     </div>
-    <div>
-      <div class="p-8 space-y-4 h-full">
+    <div class="min-h-[70vh]">
+      <div
+        class=" space-y-4 h-full"
+        :class="noPadding ? 'p-0' : 'p-16'"
+      >
         <slot name="body" />
       </div>
     </div>

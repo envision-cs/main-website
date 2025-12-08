@@ -36,7 +36,6 @@ defineProps<{
       </summary>
       <div
         :id="`acc-panel-${name}-${idx}`"
-        class="text-white"
         role="region"
         :aria-labelledby="`acc-${name}-${idx}-summary`"
       >
@@ -64,16 +63,9 @@ details {
   transition: background-color 0.4s ease-in-out;
 }
 
-details:hover {
-  background-color: var(--color-envision-blue-700);
-  color: #fff;
-}
-
 details[open] {
   flex: 1 1 auto;
   overflow: auto;
-  background-color: var(--ui-primary);
-  color: #fff;
 }
 
 details summary {
@@ -108,7 +100,6 @@ details::details-content {
   details::details-content {
     transition:
       height 0.4s ease,
-      background-color 0.4s ease,
       content-visibility 0.3s;
     transition-behavior: allow-discrete;
   }

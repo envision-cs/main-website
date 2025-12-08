@@ -123,38 +123,38 @@ watchEffect(() => {
     <div class="site-grid mt-40" />
 
     <app-section-a
-      v-for="team in filteredRelatedTeam"
-      :key="team.name"
+      v-for="t in filteredRelatedTeam"
+      :key="t.name"
       class="team-section"
     >
       <template #header>
         <div class="section-head">
           <app-typography tag="h2" variant="heading-lg">
-            {{ team.name }}
+            {{ t.name }}
           </app-typography>
           <div
             class="w-80 h-3"
-            :class="[team.color]"
+            :class="[t.color]"
             :style="{
-              backgroundColor: team.color,
+              backgroundColor: t.color,
             }"
           />
           <app-typography tag="p" variant="heading-md">
-            {{ team.role }}
+            {{ t.role }}
           </app-typography>
           <app-typography
             tag="p"
             variant="text-lg"
             class="mt-auto"
           >
-            {{ team.description }}
+            {{ t.description }}
           </app-typography>
         </div>
       </template>
       <template #body>
         <app-team-member-list>
           <app-team-member-card
-            v-for="member in team.members"
+            v-for="member in t.members"
             :key="member.name"
             :path="member.path"
             :name="member.name"

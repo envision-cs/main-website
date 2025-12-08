@@ -29,9 +29,8 @@ withDefaults(defineProps<{
 <style scoped>
 .cta {
   display: grid;
-  gap: 1px;
-  background-color: var(--ui-border);
   min-height: min(640px, 45vw);
+  border-inline: 1px solid var(--ui-border);
 
   @media (min-width: 800px) {
     display: grid;

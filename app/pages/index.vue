@@ -17,14 +17,14 @@ if ($posthog) {
         :cards="[{
                    title: 'Greater Tampa Realtors',
                    link: '/projects/business_corporate/greater-tampa-realtors',
-                   image: '/greater-tampa-realtors-01.jpg',
+                   image: '/UTMPB-LobbyCornerOut.jpg',
                    sector: 'Business/Corporate',
                    completed: '2024',
                  },
                  {
                    title: 'Greater Tampa Realtors',
                    link: '/projects/business_corporate/greater-tampa-realtors',
-                   image: '/greater-tampa-realtors-01.jpg',
+                   image: '/USFSPResidenceHall-Exteriors-DuskLandscapefromRamp.jpg',
                    sector: 'Business/Corporate',
                    completed: '2024',
                  },

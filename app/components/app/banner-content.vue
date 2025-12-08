@@ -48,6 +48,10 @@ const { gentle } = useEasings();
   border: 1px solid var(--ui-border);
   gap: calc(var(--spacing) * 4);
   background-color: #fff;
+
+  @media (min-width: 768px) {
+    padding-block: calc(var(--spacing) * 24);
+  }
 }
 
 .text {

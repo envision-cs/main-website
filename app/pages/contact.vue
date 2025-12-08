@@ -5,7 +5,16 @@ const { data: locations } = await useFetch('/api/locations');
 <template>
   <UPage class="mt-0 ">
     <div class="grid">
-      <app-hero-banner title="Contact Us" />
+      <app-banner-b class="col-start-1 -col-end-1">
+        Contact Us
+        <NuxtImg
+          src="/greater-tampa-realtors-02.jpg"
+          height="200"
+          sizes="100vw sm:50vw md:200px"
+          format="webp"
+        />
+      </app-banner-b>
+
       <app-section-a>
         <template #header>
           <div class="content">
@@ -26,7 +35,7 @@ const { data: locations } = await useFetch('/api/locations');
           <contact-form />
         </template>
       </app-section-a>
-      <app-section-a>
+      <app-section-a no-padding>
         <template #header>
           <app-typography
             tag="h2"
@@ -35,67 +44,15 @@ const { data: locations } = await useFetch('/api/locations');
           >
             Our <span>Locations</span>
           </app-typography>
-          <div class="locations">
-            <div
+          <div class="location-wrapper">
+            <app-location-card
               v-for="location in locations"
               :key="location.id"
-              class=""
-            >
-              <div class="">
-                <app-typography
-                  tag="h3"
-                  variant="heading-sm"
-                  class="text-semibold"
-                >
-                  {{ location.location }}
-                </app-typography>
-                <app-typography
-                  tag="p"
-                  variant="text-xl"
-                  class="mt-4 text-muted"
-                >
-                  {{ location.address }}
-                </app-typography>
-                <ul class="contact-list">
-                  <li>
-                    <div class="contact-list_card">
-                      <app-typography
-                        tag="p"
-                        variant="text-lg"
-                        class="font-semibold"
-                      >
-                        Phone
-                      </app-typography>
-                      <app-typography
-                        tag="p"
-                        variant="text-xl"
-                        class="text-muted"
-                      >
-                        {{ location.phone }}
-                      </app-typography>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="contact-list_card">
-                      <app-typography
-                        tag="p"
-                        variant="text-lg"
-                        class="font-semibold"
-                      >
-                        Email
-                      </app-typography>
-                      <app-typography
-                        tag="p"
-                        variant="text-lg"
-                        class="text-muted"
-                      >
-                        {{ location.email }}
-                      </app-typography>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+              :title="location.location"
+              :address="location.address"
+              :phone="location.phone"
+              :email="location.email"
+            />
           </div>
         </template>
         <template #body>
@@ -150,19 +107,9 @@ const { data: locations } = await useFetch('/api/locations');
   }
 }
 
-.contact-list {
+.location-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: calc(var(--spacing) * 4);
-  margin-top: calc(var(--spacing) * 4);
-}
-
-.contact-list_card {
-  padding: calc(var(--spacing) * 1);
-}
-
-.locations {
-  grid-column: 1 / -1;
 }
 
 .location-map {

@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.8.0",
+    "@nuxt/hints": "1.0.0-alpha.3",
     "@nuxt/image": "2.0.0",
     "@nuxt/ui": "^4.1.0",
     "@posthog/nuxt": "^1.1.3",

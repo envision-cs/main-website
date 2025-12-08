@@ -1,34 +1,27 @@
 <script setup lang="ts">
 defineProps<{
-  link: string;
-  image: string;
-  alt: string;
-  sector: string;
-  title: string;
-  completed: string;
+  link?: string;
+  image?: string;
+  alt?: string;
+  sector?: string;
+  title?: string;
+  completed?: string;
   aspectRatio?: '4/3' | '16/9' | '3/4' | '1/1' | '3/1';
-  heading: 'heading-sm' | 'heading-md';
+  heading?: 'heading-sm' | 'heading-md';
 }>();
 </script>
 
 <template>
   <NuxtLink class="project-card" :href="link">
     <figure class="project-card__figure">
-      <img
+      <NuxtImg
         class="project-card__image"
+        format="webp"
         :src="image"
-        :class="{
-          'aspect-auto': aspectRatio === '1/1',
-          'aspect-video': aspectRatio === '16/9',
-          'aspect-4/3': aspectRatio === '4/3',
-          'aspect-3/4': aspectRatio === '3/4',
-          'aspect-3/1': aspectRatio === '3/1',
-        }
-        "
         alt="Renovated open-plan office with glass partitions and warm wood finishes"
         loading="lazy"
-      >
-
+        sizes="100vw sm:640px md:768px lg:1024px xl:1400px"
+      />
       <figcaption class="project-card__body">
         <div class="flex justify-between">
           <app-typography tag="p" variant="text-lg">
@@ -41,7 +34,7 @@ defineProps<{
         </div>
         <div class="flex justify-between">
           <app-typography tag="h3" :variant="heading">
-            {{ title }}
+            {{ title }} Hello
           </app-typography>
           <UIcon
             name="i-lucide-arrow-right"
@@ -65,6 +58,7 @@ defineProps<{
   display: block;
   text-decoration: none;
   overflow: hidden;
+  padding-block: calc(var(--spacing) * 10);
 }
 
 .project-card__figure {
@@ -79,6 +73,11 @@ defineProps<{
   display: block;
   width: 100%;
   object-fit: cover;
+  aspect-ratio: 1/1;
+
+  @media (min-width: 750px) {
+    aspect-ratio: v-bind(aspectRatio);
+  }
 }
 
 .project-card__body {
