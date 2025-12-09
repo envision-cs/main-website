@@ -29,7 +29,6 @@ withDefaults(defineProps<{
 <style scoped>
 .cta {
   display: grid;
-  min-height: min(640px, 45vw);
   border-inline: 1px solid var(--ui-border);
 
   @media (min-width: 800px) {

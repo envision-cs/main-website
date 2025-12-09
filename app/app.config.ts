@@ -3,27 +3,6 @@ import type { NavigationMenuItem } from '@nuxt/ui';
 export default defineAppConfig({
   navigationMenuItems: [
     {
-      label: 'Company',
-      children: [
-        {
-          label: 'Home',
-          to: '/',
-        },
-        {
-          label: 'About',
-          to: '/about',
-        },
-        {
-          label: 'Life At Envision',
-          to: '/life-at-envision',
-        },
-        {
-          label: 'Contact Us',
-          to: '/contact',
-        },
-      ],
-    },
-    {
       label: 'Services',
       children: [
         {
@@ -82,18 +61,7 @@ export default defineAppConfig({
     },
     {
       label: 'Connect',
-      children: [
-        {
-          label: 'LinkedIn',
-          to: 'https://www.linkedin.com/company/envision-construction-services', // Placeholder
-          target: '_blank',
-        },
-        {
-          label: 'Facebook',
-          to: 'https://www.facebook.com/envisionconstructionservices', // Placeholder
-          target: '_blank',
-        },
-      ],
+      to: '/contact',
     },
   ] as NavigationMenuItem[],
   ui: {
