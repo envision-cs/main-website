@@ -28,7 +28,7 @@ defineProps<{
   gap: 1px;
 
   div:first-child {
-    border-right: 1px solid var(--ui-border);
+    /*border-right: 1px solid var(--ui-border);*/
   }
 
   @media (min-width: 800px) {
@@ -36,7 +36,7 @@ defineProps<{
     grid-template-columns: 1fr 1fr;
 
     div:first-child {
-      border-right: 1px solid var(--ui-border);
+      /*border-right: 1px solid var(--ui-border);*/
     }
   }
 }

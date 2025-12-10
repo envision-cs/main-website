@@ -3,27 +3,26 @@ const { data: our_process } = useFetch('/api/process');
 </script>
 
 <template>
-  <section class="grid grid-cols-1 md:grid-cols-2">
-    <app-banner-content>
-      <template #title>
+  <app-section-a no-padding>
+    <template #header>
+      <app-typography tag="h2" variant="heading-lg">
         Our <span>Proven</span> Process
-      </template>
-      <template #body>
+      </app-typography>
+      <p>
         Our proven process brings structure and consistency to every project. We listen, plan, and execute to
-        reduce
-        risk, maintain alignment, and deliver on time, on budget, and with complete transparency"
-      </template>
-    </app-banner-content>
+        reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency.
+      </p>
+    </template>
 
-    <div class="mt-0">
+    <template #body>
       <app-accordion :data="our_process" name="our-process" />
-    </div>
-  </section>
+    </template>
+  </app-section-a>
 </template>
 
 <style scoped>
 section {
-  min-height: min(640px, 45vw);
+  /*min-height: min(640px, 45vw);*/
 }
 
 .content-wrapper {
@@ -32,7 +31,6 @@ section {
   justify-content: space-between;
   padding-block: calc(var(--spacing) * 10);
   padding-inline: calc(var(--spacing) * 4);
-  border: 1px solid var(--ui-border);
   gap: calc(var(--spacing) * 20);
 }
 </style>

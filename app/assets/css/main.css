@@ -60,6 +60,8 @@
   --ui-secondary: var(--color-envision-green-500);
   --ui-container: var(--container-8xl);
 
+  --ui-border: var(--ui-color-neutral-900);
+
   --vw: 1vw;
   --font-size-text-t1: clamp(18px, 0.0125 * calc(100 * var(--vw, 1vw)), 18px);
   --font-size-text-t2: clamp(16px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 16px);

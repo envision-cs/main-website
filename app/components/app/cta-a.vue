@@ -19,7 +19,7 @@ withDefaults(defineProps<{
         {{ body }}
       </template>
     </app-banner-content>
-
+    <USeparator orientation="vertical" />
     <div class="image">
       <NuxtImg src="/process.jpg" />
     </div>
@@ -29,12 +29,12 @@ withDefaults(defineProps<{
 <style scoped>
 .cta {
   display: grid;
-  border-inline: 1px solid var(--ui-border);
+  /*border-bottom: 1px solid var(--ui-border);*/
 
   @media (min-width: 800px) {
     display: grid;
     direction: rtl;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
   }
 
   > * {
@@ -51,14 +51,12 @@ withDefaults(defineProps<{
   height: 100%;
   display: grid;
   background: #fff;
-  padding-inline: calc(var(--spacing) * 4);
-  padding-block: calc(var(--spacing) * 10);
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    '. . .'
-    'm m .'
-    'm m .';
+    'm m m'
+    'm m m'
+    'm m m';
 
   img {
     max-inline-size: 100%;
@@ -69,22 +67,22 @@ withDefaults(defineProps<{
   }
 
   @media (min-width: 800px) {
-    grid-template-areas:
+    /*grid-template-areas:
       'tl tm tr'
       'ml mm mr'
       'bl bm br';
 
     img {
       grid-area: bl;
-    }
+    }*/
   }
 }
 
 .cta.flip .image {
   grid-template-areas:
-    '. . .'
-    '. m m'
-    '. m m';
+    'm m m'
+    'm m m'
+    'm m m';
 
   img {
     max-inline-size: 100%;
@@ -95,14 +93,14 @@ withDefaults(defineProps<{
   }
 
   @media (min-width: 800px) {
-    grid-template-areas:
+    /* grid-template-areas:
       'tl tm tr'
       'ml mm mr'
       'bl bm br';
 
     img {
-      grid-area: br;
-    }
+
+    }*/
   }
 }
 </style>

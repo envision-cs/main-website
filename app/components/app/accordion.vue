@@ -42,6 +42,7 @@ defineProps<{
         <ContentRenderer
           v-if="item.meta"
           :value="item.meta"
+          class="text-muted"
         />
       </div>
     </details>

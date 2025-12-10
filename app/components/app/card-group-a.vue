@@ -29,6 +29,7 @@ section {
   display: grid;
   padding-inline: calc(var(--spacing) * 4);
   gap: calc(var(--spacing) * 4);
+  border-bottom: 1px solid var(--ui-border);
 
   :first-child {
     display: none;

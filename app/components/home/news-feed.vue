@@ -37,21 +37,22 @@ const items = [
 </script>
 
 <template>
-  <section class="grid grid-cols-1 md:grid-cols-2">
-    <div>
-      <app-banner-content class="sticky top-0">
-        <template #title>
-          Envision in the <span>News</span>
-        </template>
-        <template #body>
-          Our proven process brings structure and consistency to every project. We listen, plan, and execute to
-          reduce
-          risk, maintain alignment, and deliver on time, on budget, and with complete transparency"
-        </template>
-      </app-banner-content>
-    </div>
+  <app-section-a no-padding>
+    <template #header>
+      <app-typography tag="h2" variant="heading-lg">
+        Envision in the <span>News</span>
+      </app-typography>
+      <app-typography
+        tag="p"
+        variant="text-md"
+        class="max-w-[60ch]"
+      >
+        Our proven process brings structure and consistency to every project. We listen, plan, and execute to
+        reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency.
+      </app-typography>
+    </template>
 
-    <div class="mt-0 content-wrapper">
+    <template #body>
       <div class="news-feed__list">
         <app-news-spotlight-card
           v-for="item in items"
@@ -63,8 +64,8 @@ const items = [
           :link="item.link"
         />
       </div>
-    </div>
-  </section>
+    </template>
+  </app-section-a>
 </template>
 
 <style scoped>
