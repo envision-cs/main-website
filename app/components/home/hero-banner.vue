@@ -1,11 +1,5 @@
 <script setup lang="ts">
-// const { $posthog } = useNuxtApp();
 
-// function captureCustomEvent() {
-//  $posthog().capture('home_button_clicked', {
-//    user_name: 'Max the Hedgehog',
-//  });
-// }
 </script>
 
 <template>
