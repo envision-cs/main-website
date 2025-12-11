@@ -58,7 +58,6 @@ defineProps<{
   display: block;
   text-decoration: none;
   overflow: hidden;
-  padding-block: calc(var(--spacing) * 10);
 }
 
 .project-card__figure {

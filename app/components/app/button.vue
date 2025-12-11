@@ -1,6 +1,37 @@
+<script setup lang="ts">
+import { toRefs } from 'vue';
+
+const props = withDefaults(
+  defineProps<{
+    color?: 'primary' | 'secondary' | 'white';
+    href?: string;
+  }>(),
+  {
+    color: 'primary',
+  },
+);
+
+const { color, href } = toRefs(props);
+</script>
+
 <template>
-  <button>
+  <NuxtLink
+    v-if="href"
+    :to="href"
+    class="app-button"
+    :class="`app-button--${color}`"
+  >
     <app-typography tag="span" variant="text-lg">
+      <slot />
+    </app-typography>
+  </NuxtLink>
+  <button
+    v-else
+    type="button"
+    class="app-button"
+    :class="`app-button--${color}`"
+  >
+    <app-typography variant="text-lg">
       <slot />
     </app-typography>
   </button>
@@ -17,36 +48,58 @@
   );
 }
 
-button {
-  background: none transparent;
-  cursor: pointer;
+.app-button {
+  --button-accent: var(--ui-primary);
+  --button-bg: white;
+  --button-text: var(--ui-text-inverted);
+  --button-hover-text: #fff;
 
-  display: flex;
+  appearance: none;
+  background: var(--button-bg);
+  border: none;
+  color: var(--button-text);
+  cursor: pointer;
+  display: inline-flex;
   width: var(--button-width);
-  align-items: flex-end;
-  color: var(--ui-text-muted);
-  background: white;
   padding: calc(var(--spacing) * 1) calc(var(--spacing) * 1);
-  display: flex;
   min-height: 3.25em;
   min-width: 8em;
-  justify-items: start;
-  align-items: end;
+  align-items: flex-end;
   position: relative;
   overflow: hidden;
   text-transform: uppercase;
   transition:
     color 0.4s ease-in-out,
     box-shadow 0.4s ease-in-out;
-  box-shadow: inset 0 0 0 0 var(--ui-primary);
+  box-shadow: inset 0 0 0 0 var(--button-accent);
+  text-decoration: none;
 
   span {
     z-index: 2;
   }
 }
 
-button:hover {
-  color: #fff;
-  box-shadow: inset 100vmax 0 0 0 var(--ui-primary);
+.app-button:hover {
+  color: var(--button-hover-text);
+  box-shadow: inset 100vmax 0 0 0 var(--button-accent);
+}
+
+.app-button--primary {
+  --button-bg: var(--ui-primary);
+  --button-accent: var(--ui-secondary);
+  --button-text: var(--ui-text-inverted);
+}
+
+.app-button--secondary {
+  --button-bg: var(--ui-secondary);
+  --button-accent: var(--ui-secondary);
+  --button-text: var(--ui-text-muted);
+}
+
+.app-button--white {
+  --button-accent: #fff;
+  --button-bg: transparent;
+  --button-text: #fff;
+  --button-hover-text: var(--ui-primary);
 }
 </style>

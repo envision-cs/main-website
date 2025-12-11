@@ -10,7 +10,11 @@ if ($posthog) {
   <UPage class="mt-0 ">
     <div class="grid">
       <home-hero-banner />
-      <app-cta-a text="Building Without the Headaches" flip>
+      <app-cta-a
+        text="Building Without the Headaches"
+        body="At Envision we are people first. Everything we do is to build community and relationships that go beyond construction."
+        flip
+      >
         Building Without the <span>Headaches</span>
       </app-cta-a>
       <app-card-group-a

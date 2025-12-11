@@ -5,13 +5,13 @@ defineProps<{
 </script>
 
 <template>
-  <section class="section-a">
+  <section class="section-a site-max">
     <div class="border-r border-muted">
       <div class="sticky top-16 px-4 py-16">
         <slot name="header" />
       </div>
     </div>
-    <div class="min-h-[70vh]">
+    <div>
       <div
         class=" space-y-4 h-full"
         :class="noPadding ? 'p-0' : 'p-16'"

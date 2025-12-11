@@ -14,7 +14,7 @@ defineProps<{
 </script>
 
 <template>
-  <section>
+  <section class="site-max">
     <app-display-card
       v-for="(card, index) in cards"
       :key="index"
@@ -27,9 +27,7 @@ defineProps<{
 <style scoped>
 section {
   display: grid;
-  padding-inline: calc(var(--spacing) * 4);
   gap: calc(var(--spacing) * 4);
-  border-bottom: 1px solid var(--ui-border);
 
   :first-child {
     display: none;

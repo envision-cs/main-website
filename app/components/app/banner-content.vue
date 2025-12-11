@@ -35,6 +35,17 @@ const { gentle } = useEasings();
           </app-typography>
         </m.div>
       </div>
+      <div class="content">
+        <m.div
+          :initial="{ opacity: 0, y: 50 }"
+          :while-in-view="{ opacity: 1, y: 0 }"
+          :transition="{ duration: 0.8, ease: gentle }"
+          :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
+          class="title mt-[calc(var(--spacing) * 8)]"
+        >
+          <slot name="action" />
+        </m.div>
+      </div>
     </LazyMotion>
   </div>
 </template>
@@ -44,7 +55,6 @@ const { gentle } = useEasings();
   display: flex;
   flex-direction: column;
   padding-block: calc(var(--spacing) * 10);
-  padding-inline: calc(var(--spacing) * 4);
   gap: calc(var(--spacing) * 4);
   background-color: #fff;
 
