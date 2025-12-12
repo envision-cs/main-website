@@ -12,6 +12,19 @@ const props = withDefaults(defineProps<{
 });
 
 const hasActions = computed(() => Boolean(props.phone || props.email));
+
+const phoneLink = computed(() => {
+  if (!props.phone)
+    return undefined;
+  const cleaned = props.phone.replace(/[^\d+]/g, '');
+  return `tel:${cleaned}`;
+});
+
+const emailLink = computed(() => {
+  if (!props.email)
+    return undefined;
+  return props.email.startsWith('mailto:') ? props.email : `mailto:${props.email}`;
+});
 </script>
 
 <template>
@@ -57,7 +70,7 @@ const hasActions = computed(() => Boolean(props.phone || props.email));
     <div v-if="hasActions" class="location-card__actions">
       <a
         v-if="email"
-        :href="email"
+        :href="emailLink"
         class="location-card__action"
         aria-label="Email this office"
       >
@@ -71,7 +84,7 @@ const hasActions = computed(() => Boolean(props.phone || props.email));
 
       <a
         v-if="phone"
-        :href="phone"
+        :href="phoneLink"
         class="location-card__action"
         aria-label="Call this office"
       >

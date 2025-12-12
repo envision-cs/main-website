@@ -12,7 +12,7 @@ gallery:
   - /usl-super-league-02.jpg
   - /usl-super-league-03.jpg
   - /usl-super-league-04.jpg
-  - /usl-super-league-05.jpg
+  - /usl-super-league-05.png
   - /usl-super-league-06.jpg
 ---
 
