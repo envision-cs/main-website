@@ -56,7 +56,7 @@ const { data: locations } = await useFetch('/api/locations');
           </div>
         </template>
         <template #body>
-          <app-location-map class="h-[100vh] min-h-[50vh]" />
+          <app-location-map class="h-screen min-h-[50vh]" />
         </template>
       </app-section-a>
     </div>

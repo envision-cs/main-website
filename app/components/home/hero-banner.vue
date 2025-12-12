@@ -73,9 +73,6 @@
   grid-area: b;
   z-index: 2;
   align-self: end;
-
-  button {
-  }
 }
 
 .overlay {

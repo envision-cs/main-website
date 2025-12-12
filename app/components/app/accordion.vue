@@ -60,7 +60,6 @@ details {
   flex: 0 0 auto;
   overflow: hidden;
   padding: calc(var(--spacing) * 4);
-  border: 1px solid var(--ui-border);
   transition: background-color 0.4s ease-in-out;
 }
 

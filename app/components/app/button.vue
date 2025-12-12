@@ -38,16 +38,6 @@ const { color, href } = toRefs(props);
 </template>
 
 <style scoped>
-:root {
-  --button-width: max(
-    245px,
-    calc(
-      0.1875 * (calc(100 * var(--vw, 1vw)) - 2 * var(1rem, 0px)) - (1 - 0.1875) * var(1rem, 0px) + 0 *
-        var(--grid-gutter, 0px)
-    )
-  );
-}
-
 .app-button {
   --button-accent: var(--ui-primary);
   --button-bg: white;
@@ -60,17 +50,21 @@ const { color, href } = toRefs(props);
   color: var(--button-text);
   cursor: pointer;
   display: inline-flex;
-  width: var(--button-width);
-  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 1);
-  min-height: 3.25em;
-  min-width: 8em;
-  align-items: flex-end;
+  gap: 0.35em;
+  padding: 0.9em 1.35em;
+  min-height: 3em;
+  min-width: 7.5em;
+  align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
   text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
   transition:
     color 0.4s ease-in-out,
-    box-shadow 0.4s ease-in-out;
+    box-shadow 0.4s ease-in-out,
+    transform 0.25s ease;
   box-shadow: inset 0 0 0 0 var(--button-accent);
   text-decoration: none;
 
@@ -82,6 +76,12 @@ const { color, href } = toRefs(props);
 .app-button:hover {
   color: var(--button-hover-text);
   box-shadow: inset 100vmax 0 0 0 var(--button-accent);
+  transform: translateY(-1px);
+}
+
+.app-button:focus-visible {
+  outline: 2px solid var(--button-accent);
+  outline-offset: 2px;
 }
 
 .app-button--primary {

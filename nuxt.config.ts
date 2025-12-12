@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -9,8 +10,8 @@ export default defineNuxtConfig({
     '@posthog/nuxt',
     'motion-v/nuxt',
     'nuxt-maplibre',
-    'nuxt-studio',
     '@nuxt/hints',
+    'nuxt-studio',
   ],
   css: ['./app/assets/css/main.css'],
   ui: {
