@@ -58,6 +58,7 @@ const variantClasses = computed(() => {
 .heading-lg {
   font-size: var(--font-size-h2);
   line-height: 1;
+  text-wrap: balance;
   font-weight: 500;
 }
 

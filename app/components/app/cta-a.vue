@@ -11,7 +11,7 @@ withDefaults(defineProps<{
 
 <template>
   <section class="cta site-max" :class="{ flip }">
-    <app-banner-content>
+    <app-banner-content class="cta-content">
       <template #title>
         <slot />
       </template>
@@ -22,7 +22,7 @@ withDefaults(defineProps<{
       </template>
 
       <template #action>
-        <app-button color="primary">
+        <app-button color="secondary">
           Learn More
         </app-button>
       </template>
@@ -36,7 +36,7 @@ withDefaults(defineProps<{
 <style scoped>
 .cta {
   display: grid;
-  /*border-bottom: 1px solid var(--ui-border);*/
+  border-block: 1px solid var(--ui-border);
 
   @media (min-width: 800px) {
     display: grid;
@@ -57,13 +57,13 @@ withDefaults(defineProps<{
   width: 100%;
   height: 100%;
   display: grid;
-  background: #fff;
+  padding: calc(var(--spacing) * 8);
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
-    '. . .'
-    '. m m'
-    '. m m';
+    'm m m'
+    'm m m'
+    'm m m';
 
   img {
     max-inline-size: 100%;
@@ -76,8 +76,8 @@ withDefaults(defineProps<{
   @media (min-width: 800px) {
     grid-template-areas:
       'tl tm tr'
-      'ml mm mr'
-      'bl bm br';
+      'bl bl mr'
+      'bl bl br';
 
     img {
       grid-area: bl;
@@ -87,9 +87,9 @@ withDefaults(defineProps<{
 
 .cta.flip .image {
   grid-template-areas:
-    '. . .'
-    '. . .'
-    '. . m';
+    'm m m'
+    'm m m'
+    'm m m';
 
   img {
     max-inline-size: 100%;
@@ -102,12 +102,16 @@ withDefaults(defineProps<{
   @media (min-width: 800px) {
     grid-template-areas:
       'tl tm tr'
-      'ml mm mr'
-      'bl bm br';
+      'ml br br'
+      'bl br br';
 
     img {
       grid-area: br;
     }
   }
+}
+
+.cta-content {
+  padding: calc(var(--spacing) * 8);
 }
 </style>

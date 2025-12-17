@@ -21,7 +21,7 @@ const { color, href } = toRefs(props);
     class="app-button"
     :class="`app-button--${color}`"
   >
-    <app-typography tag="span" variant="text-lg">
+    <app-typography tag="span" variant="text-sm">
       <slot />
     </app-typography>
   </NuxtLink>
@@ -31,7 +31,7 @@ const { color, href } = toRefs(props);
     class="app-button"
     :class="`app-button--${color}`"
   >
-    <app-typography variant="text-lg">
+    <app-typography variant="text-md">
       <slot />
     </app-typography>
   </button>
@@ -39,10 +39,12 @@ const { color, href } = toRefs(props);
 
 <style scoped>
 .app-button {
-  --button-accent: var(--ui-primary);
+  --button-accent: var(--ui-secondary);
   --button-bg: white;
   --button-text: var(--ui-text-inverted);
   --button-hover-text: #fff;
+  --grid-gutter: 20px;
+  --grid-margin: 20px;
 
   appearance: none;
   background: var(--button-bg);
@@ -50,12 +52,13 @@ const { color, href } = toRefs(props);
   color: var(--button-text);
   cursor: pointer;
   display: inline-flex;
+  align-items: flex-end;
+  padding-block: calc(var(--spacing) * 1);
+  padding-inline: calc(var(--spacing) * 2);
   gap: 0.35em;
-  padding: 0.9em 1.35em;
   min-height: 3em;
   min-width: 7.5em;
-  align-items: center;
-  justify-content: center;
+  width: min(200px, calc(0.1875 * (100 * var(--vw, 1vw))));
   position: relative;
   overflow: hidden;
   text-transform: uppercase;
@@ -64,7 +67,7 @@ const { color, href } = toRefs(props);
   transition:
     color 0.4s ease-in-out,
     box-shadow 0.4s ease-in-out,
-    transform 0.25s ease;
+    transform 0.4s ease-in-out;
   box-shadow: inset 0 0 0 0 var(--button-accent);
   text-decoration: none;
 
@@ -76,7 +79,6 @@ const { color, href } = toRefs(props);
 .app-button:hover {
   color: var(--button-hover-text);
   box-shadow: inset 100vmax 0 0 0 var(--button-accent);
-  transform: translateY(-1px);
 }
 
 .app-button:focus-visible {
@@ -92,8 +94,8 @@ const { color, href } = toRefs(props);
 
 .app-button--secondary {
   --button-bg: var(--ui-secondary);
-  --button-accent: var(--ui-secondary);
-  --button-text: var(--ui-text-muted);
+  --button-accent: var(--color-envision-green-300);
+  --button-text: var(--ui-text-inverted);
 }
 
 .app-button--white {

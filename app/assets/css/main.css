@@ -70,7 +70,7 @@
 
   --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 150px);
   --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 75px);
-  --font-size-h2: clamp(35px, 0.0381944444 * calc(100 * var(--vw, 1vw)), 55px);
+  --font-size-h2: clamp(35px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 65px);
   --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
   --font-size-h4: clamp(22px, 0.0152777778 * calc(100 * var(--vw, 1vw)), 22px);
 
@@ -134,16 +134,16 @@ body {
 }
 
 .site-max {
-  max-width: 1600px;
-  margin-left: auto;
+  /*max-width: 1600px;*/
+  /*margin-left: auto;
   margin-right: auto;
   padding-inline: 2%;
-  width: 100%;
+  width: 100%;*/
 }
 
 @media (min-width: 650px) {
   .site-max {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    /*padding-left: 2rem;
+    padding-right: 2rem;*/
   }
 }

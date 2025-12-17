@@ -28,20 +28,18 @@ const { gentle } = useEasings();
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.8, ease: gentle }"
           :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
-          class="title mt-[calc(var(--spacing) * 8)]"
+          class="mt-[calc(var(--spacing) * 8)]"
         >
-          <app-typography variant="text-lg">
+          <app-typography variant="text-lg " class="max-w-[30ch]">
             <slot name="body" />
           </app-typography>
         </m.div>
-      </div>
-      <div class="content">
         <m.div
           :initial="{ opacity: 0, y: 50 }"
           :while-in-view="{ opacity: 1, y: 0 }"
           :transition="{ duration: 0.8, ease: gentle }"
           :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
-          class="title mt-[calc(var(--spacing) * 8)]"
+          class="actions mt-[calc(var(--spacing) * 8)]"
         >
           <slot name="action" />
         </m.div>
@@ -54,27 +52,32 @@ const { gentle } = useEasings();
 .content-wrapper {
   display: flex;
   flex-direction: column;
-  padding-block: calc(var(--spacing) * 10);
   gap: calc(var(--spacing) * 4);
   background-color: #fff;
+  height: 100%;
+  justify-content: space-between;
 
   @media (min-width: 768px) {
-    padding-block: calc(var(--spacing) * 24);
   }
 }
 
 .text {
   text-wrap: balance;
-  max-width: 20ch;
+  max-width: 10ch;
 }
 
 .content {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 4);
 
   p {
-    max-width: 60ch;
+    max-width: 30ch;
+  }
+
+  .actions {
+    place-self: end;
   }
 }
 </style>

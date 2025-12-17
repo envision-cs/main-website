@@ -26,7 +26,10 @@ defineProps<{
 
 <style scoped>
 section {
+  position: relative;
   display: grid;
+  padding: calc(var(--spacing) * 8);
+  background-color: #fff;
   gap: calc(var(--spacing) * 4);
 
   :first-child {
