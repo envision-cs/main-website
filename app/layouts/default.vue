@@ -20,9 +20,31 @@ const mainStyle = computed(() => {
 <template>
   <div>
     <app-header />
-    <UMain :style="mainStyle">
-      <slot />
-    </UMain>
+    <div class="divider">
+      <UMain :style="mainStyle">
+        <slot />
+      </UMain>
+    </div>
     <app-footer />
   </div>
 </template>
+
+<style scoped>
+.divider {
+  position: relative;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0px;
+  height: 100%;
+  background-color: var(--ui-border);
+
+  @media (min-width: 800px) {
+    width: 1px;
+  }
+}
+</style>

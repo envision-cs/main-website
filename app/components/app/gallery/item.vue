@@ -22,6 +22,7 @@ const isCurrent = computed(() => props.index === currentIndex.value);
 <style scoped>
 .gallery-item {
   width: 380px;
+  height: 400px;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }

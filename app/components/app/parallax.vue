@@ -24,7 +24,7 @@ defineProps<{
 <style scoped>
 section {
   padding: 2rem;
-  height: 50dvh;
+  height: 70vh;
   min-height: 300px;
   display: flex;
   flex-direction: column;

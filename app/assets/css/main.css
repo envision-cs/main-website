@@ -60,7 +60,7 @@
   --ui-secondary: var(--color-envision-green-500);
   --ui-container: var(--container-8xl);
 
-  --ui-border: var(--ui-color-neutral-900);
+  --ui-border: var(--ui-color-neutral-300);
 
   --vw: 1vw;
   --font-size-text-t1: clamp(18px, 0.0125 * calc(100 * var(--vw, 1vw)), 18px);
@@ -103,7 +103,7 @@ body {
 }
 
 .site-grid {
-  margin: auto;
+  margin-inline: auto;
   display: grid;
   padding-inline: 1rem;
   grid-template-columns: repeat(4, minmax(0, 1fr));

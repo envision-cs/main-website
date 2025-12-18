@@ -30,7 +30,7 @@ const { gentle } = useEasings();
           :in-view-options="{ once: true, margin: '0px 0px -25% 0px' }"
           class="mt-[calc(var(--spacing) * 8)]"
         >
-          <app-typography variant="text-lg " class="max-w-[30ch]">
+          <app-typography variant="text-lg " class="max-w-[40ch]">
             <slot name="body" />
           </app-typography>
         </m.div>
@@ -63,7 +63,7 @@ const { gentle } = useEasings();
 
 .text {
   text-wrap: balance;
-  max-width: 10ch;
+  max-width: 20ch;
 }
 
 .content {
@@ -73,7 +73,8 @@ const { gentle } = useEasings();
   gap: calc(var(--spacing) * 4);
 
   p {
-    max-width: 30ch;
+    max-width: 45ch;
+    text-wrap: balance;
   }
 
   .actions {

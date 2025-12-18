@@ -6,7 +6,7 @@ defineProps<{
   sector?: string;
   title?: string;
   completed?: string;
-  aspectRatio?: '4/3' | '16/9' | '3/4' | '1/1' | '3/1';
+  aspectRatio?: '5/3' | '4/3' | '16/9' | '3/4' | '1/1' | '3/1';
   heading?: 'heading-sm' | 'heading-md';
 }>();
 </script>

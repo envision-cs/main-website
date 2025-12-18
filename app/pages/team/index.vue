@@ -5,13 +5,18 @@ const { data } = useFetch('/api/team', {
 </script>
 
 <template>
-  <div class="site-grid">
-    <app-banner-c image="/greater-tampa-realtors-02.jpg" class="col-start-1 -col-end-1">
-      <template #title>
-        Envision
-      </template>
+  <div class="">
+    <app-banner-b class="col-start-1 -col-end-1">
       Meet the team
-    </app-banner-c>
+      <template #image>
+        <NuxtImg
+          src=""
+          class="h-full w-full object-cover -z-10"
+          fit="cover"
+          format="webp"
+        />
+      </template>
+    </app-banner-b>
     <app-section-a
       v-for="team in data"
       :key="team.name"
@@ -63,6 +68,7 @@ const { data } = useFetch('/api/team', {
 .team-section {
   display: grid;
   grid-column: 1/-1;
+  border-top: 1px solid var(--ui-border);
 }
 
 .section-head {

@@ -124,6 +124,7 @@ const galleryItems = ref([
       :index="index"
     >
       <app-display-card
+        aspect-ratio="5/3"
         title="Greater Tampa Realtors"
         link="/projects/business_corporate/greater-tampa-realtors"
         image="/greater-tampa-realtors-01.jpg"

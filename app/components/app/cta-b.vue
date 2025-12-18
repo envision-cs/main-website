@@ -18,6 +18,7 @@ defineProps<{
     <NuxtPicture
       v-if="image"
       :src="image"
+      class="img"
       format="webp"
       height="300"
       width="300"

@@ -7,12 +7,14 @@ const { data: locations } = await useFetch('/api/locations');
     <div class="grid">
       <app-banner-b class="col-start-1 -col-end-1">
         Contact Us
-        <NuxtImg
-          src="/greater-tampa-realtors-02.jpg"
-          height="200"
-          sizes="100vw sm:50vw md:200px"
-          format="webp"
-        />
+        <template #image>
+          <NuxtImg
+            src=""
+            class="h-full w-full object-cover -z-10"
+            fit="cover"
+            format="webp"
+          />
+        </template>
       </app-banner-b>
 
       <app-section-a>

@@ -6,7 +6,7 @@ defineProps<{
 
 <template>
   <section class="section-a site-max">
-    <div class="border-r border-muted">
+    <div class="">
       <div class="sticky top-16 px-4 py-16">
         <slot name="header" />
       </div>

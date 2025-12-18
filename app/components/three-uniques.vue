@@ -3,8 +3,8 @@ const { data: threeUniques } = useFetch('/api/threeUniques');
 </script>
 
 <template>
-  <section class="site-max grid grid-cols-1 md:grid-cols-2">
-    <app-banner-content>
+  <section class="cta site-max">
+    <app-banner-content class="cta-content">
       <template #title>
         Our <span>Three</span> Uniques
       </template>
@@ -22,6 +22,16 @@ const { data: threeUniques } = useFetch('/api/threeUniques');
 </template>
 
 <style scoped>
-section {
+.cta {
+  display: grid;
+  border-block: 1px solid var(--ui-border);
+
+  @media (min-width: 800px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.cta-content {
+  padding: calc(var(--spacing) * 8);
 }
 </style>

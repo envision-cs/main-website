@@ -16,9 +16,7 @@ withDefaults(defineProps<{
         <slot />
       </template>
       <template #body>
-        <app-typography tag="p" variant="text-lg">
-          {{ body }}
-        </app-typography>
+        {{ body }}
       </template>
 
       <template #action>

@@ -12,6 +12,8 @@ defineProps({
     :src="fallbackSrc"
     :alt="alt"
     :sources="sources"
+    width="300"
+    height="400"
     format="webp"
     loading="lazy"
   />
