@@ -72,7 +72,7 @@ defineProps<{
   display: block;
   width: 100%;
   object-fit: cover;
-  aspect-ratio: 1/1;
+  aspect-ratio: v-bind(aspectRatio);
 
   @media (min-width: 750px) {
     aspect-ratio: v-bind(aspectRatio);

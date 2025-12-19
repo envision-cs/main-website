@@ -45,8 +45,8 @@ const variantClasses = computed(() => {
 .heading-huge {
   font-size: var(--font-size-huge);
   font-weight: 400;
-  line-height: 1;
   font-weight: 500;
+  line-height: 0.9;
 }
 
 .heading-xl {

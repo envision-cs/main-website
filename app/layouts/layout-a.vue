@@ -36,17 +36,11 @@ const activeCategory = computed<{ title: string; slug: string } | undefined>(() 
     <UMain :style="mainStyle">
       <layout-a>
         <template #header-slot>
-          <app-banner-b class="header" :image="activeCategory?.slug">
+          <app-banner-b class="header" :image="activeCategory?.image">
             <template #title>
               Envision Services
             </template>
             {{ activeCategory.title }}
-            <NuxtImg
-              :src="activeCategory?.image"
-              height="200"
-              sizes="100vw sm:50vw md:200px"
-              format="webp"
-            />
           </app-banner-b>
         </template>
         <template #aside-slot>

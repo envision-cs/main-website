@@ -26,9 +26,6 @@ const core = [
 <template>
   <div>
     <app-banner-b>
-      <template #title>
-        Envision
-      </template>
       About Us
     </app-banner-b>
     <app-section-a flip>

@@ -38,6 +38,10 @@ const activeProjects = computed(() => {
   }
   return projects.value?.filter(project => project.sector === activeCategory.value?.title);
 });
+
+definePageMeta({
+  layout: 'none',
+});
 </script>
 
 <template>
@@ -45,7 +49,7 @@ const activeProjects = computed(() => {
     <template #header-slot>
       <app-banner-b class="header" :image="activeCategory?.slug">
         <template #title>
-          Project Sectors
+          Projects
         </template>
         {{ activeCategory?.title }}
       </app-banner-b>

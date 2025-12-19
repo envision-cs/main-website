@@ -68,7 +68,7 @@
   --font-size-text-t3: clamp(14px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 14px);
   --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
 
-  --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 150px);
+  --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 95px);
   --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 75px);
   --font-size-h2: clamp(35px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 65px);
   --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
@@ -105,7 +105,7 @@ body {
 .site-grid {
   margin-inline: auto;
   display: grid;
-  padding-inline: 1rem;
+  /*padding-inline: 1rem;*/
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-areas: 'c c c c';
 }
@@ -114,7 +114,7 @@ body {
   .site-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-template-areas: 'a a a . b c c c c c c c ';
-    padding-inline: 1rem;
+    /*padding-inline: 1rem;*/
 
     &.flip {
       grid-template-areas: 'c c c c c c c b . a a a';
