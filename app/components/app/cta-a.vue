@@ -5,7 +5,7 @@ withDefaults(defineProps<{
   flip?: boolean;
 }>(), {
   body: 'At En<slvision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all.',
-  image: '/process.jpg',
+  image: 'https://placehold.co/100x75',
 });
 </script>
 
@@ -26,7 +26,15 @@ withDefaults(defineProps<{
       </template>
     </app-banner-content>
     <div class="image">
-      <NuxtImg src="/process.jpg" />
+      <NuxtImg
+        :src="image"
+        format="webp"
+        height="300"
+        width="400"
+        fit="cover"
+        sizes="100vw sm:50vw md:800px lg:500px"
+        placeholder
+      />
     </div>
   </section>
 </template>
@@ -55,7 +63,7 @@ withDefaults(defineProps<{
   width: 100%;
   height: 100%;
   display: grid;
-  padding: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 4);
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
@@ -72,6 +80,7 @@ withDefaults(defineProps<{
   }
 
   @media (min-width: 800px) {
+    padding: calc(var(--spacing) * 8);
     grid-template-areas:
       'tl tm tr'
       'bl bl mr'
@@ -110,6 +119,10 @@ withDefaults(defineProps<{
 }
 
 .cta-content {
-  padding: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 4);
+
+  @media (min-width: 800px) {
+    padding: calc(var(--spacing) * 8);
+  }
 }
 </style>

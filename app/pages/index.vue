@@ -13,6 +13,7 @@
       <app-cta-a
         text="Building Without the Headaches"
         body="At Envision we are people first. Everything we do is to build community and relationships that go beyond construction."
+        image="/IMG_1915.jpg"
         flip
       >
         Building Without the <span>Headaches</span>

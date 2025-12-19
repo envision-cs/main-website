@@ -64,6 +64,7 @@ const { gentle } = useEasings();
 .text {
   text-wrap: balance;
   max-width: 20ch;
+  text-transform: uppercase;
 }
 
 .content {
