@@ -42,7 +42,7 @@ defineProps<{
         <ContentRenderer
           v-if="item.meta"
           :value="item.meta"
-          class="text-muted"
+          class=" prose [&_p]:max-w-[60ch] [&_p]:text-balance"
         />
       </div>
     </details>
@@ -54,18 +54,29 @@ defineProps<{
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 50vh;
 }
 
 details {
   flex: 0 0 auto;
   overflow: hidden;
   padding: calc(var(--spacing) * 4);
-  transition: background-color 0.4s ease-in-out;
+  will-change: true;
+  transition:
+    background-color 0.4s ease-in-out,
+    color 0.4s ease-in-out;
+  border-bottom: 1px solid var(--ui-border);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
 }
 
 details[open] {
   flex: 1 1 auto;
   overflow: auto;
+  color: #fff;
+  background-color: var(--ui-primary);
 }
 
 details summary {

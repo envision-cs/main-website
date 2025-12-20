@@ -15,7 +15,7 @@ const { data: threeUniques } = useFetch('/api/threeUniques');
       </template>
     </app-banner-content>
 
-    <div class="mt-0">
+    <div class="mt-0 acc">
       <app-accordion :data="threeUniques" name="threeUniques" />
     </div>
   </section>
@@ -32,6 +32,10 @@ const { data: threeUniques } = useFetch('/api/threeUniques');
   }
 }
 .cta-content {
-  padding: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 4);
+
+  @media (min-width: 800px) {
+    padding: calc(var(--spacing) * 8);
+  }
 }
 </style>

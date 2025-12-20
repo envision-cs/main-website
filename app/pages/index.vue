@@ -54,7 +54,7 @@
       >
         Build with <span>Confidence</span>
       </app-cta-a>
-      <app-parallax image="/thegreens.jpg" />
+      <app-parallax image="/HomePageAllens.webp" />
       <three-uniques />
       <app-cta-a
 
