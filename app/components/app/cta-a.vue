@@ -32,6 +32,7 @@ withDefaults(defineProps<{
         height="300"
         width="400"
         fit="cover"
+        loading="lazy"
         sizes="100vw sm:50vw md:800px lg:500px"
         placeholder
       />

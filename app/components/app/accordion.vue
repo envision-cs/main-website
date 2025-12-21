@@ -31,7 +31,7 @@ defineProps<{
           name="i-lucide-plus"
           aria-hidden="true"
           focusable="false"
-          size="24"
+          size="32"
         />
       </summary>
       <div
