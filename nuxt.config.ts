@@ -11,8 +11,9 @@ export default defineNuxtConfig({
     'motion-v/nuxt',
     'nuxt-maplibre',
     '@nuxt/hints',
-    'nuxt-studio',
-  ],
+    // eslint-disable-next-line node/no-process-env
+    process.env.NODE_ENV !== 'test' ? 'nuxt-studio' : undefined,
+  ].filter(Boolean) as any,
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
