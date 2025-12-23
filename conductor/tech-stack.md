@@ -25,6 +25,9 @@ This document outlines the core technologies used in the Envision Construction S
 - **PostHog:** Providing comprehensive product analytics and user tracking.
 - **ESLint & Prettier:** For maintaining code quality and consistent formatting (using @antfu/eslint-config).
 - **Husky & lint-staged:** For running quality checks before every commit.
+- **Vitest & @nuxt/test-utils:** For unit and integration testing.
+
+> **Note (2025-12-23):** Added Vitest and @nuxt/test-utils to enable Test-Driven Development as per project workflow.
 
 ## Deployment & Runtime
 
