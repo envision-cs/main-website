@@ -16,7 +16,7 @@ describe('locationCard', () => {
       props: defaultProps,
       global: {
         stubs: {
-          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
+          UButton: true,
         },
       },
     });
@@ -29,7 +29,6 @@ describe('locationCard', () => {
       props: defaultProps,
       global: {
         stubs: {
-          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
           UButton: true,
         },
       },
@@ -46,7 +45,6 @@ describe('locationCard', () => {
       props: defaultProps,
       global: {
         stubs: {
-          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
           UButton: true,
         },
       },
@@ -66,7 +64,6 @@ describe('locationCard', () => {
       },
       global: {
         stubs: {
-          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
           UButton: true,
         },
       },
@@ -74,22 +71,8 @@ describe('locationCard', () => {
     expect(wrapper.findAllComponents({ name: 'UButton' }).length).toBe(0);
   });
 
-  it('renders using UCard component', () => {
-    const wrapper = mount(LocationCard, { props: defaultProps, global: { stubs: { UCard: true, UButton: true } } });
-    expect(wrapper.findComponent({ name: 'UCard' }).exists()).toBe(true);
-  });
-
-  it('renders actions using UButton', () => {
-    const wrapper = mount(LocationCard, {
-      props: defaultProps,
-      global: {
-        stubs: {
-          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
-          UButton: true,
-        },
-      },
-    });
-    const buttons = wrapper.findAllComponents({ name: 'UButton' });
-    expect(buttons.length).toBe(2);
+  it('renders using proper HTML structure (article)', () => {
+    const wrapper = mount(LocationCard, { props: defaultProps, global: { stubs: { UButton: true } } });
+    expect(wrapper.find('article.location-card').exists()).toBe(true);
   });
 });

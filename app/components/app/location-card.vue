@@ -28,22 +28,22 @@ const emailLink = computed(() => {
 </script>
 
 <template>
-  <UCard class="location-card" :ui="{ body: { padding: 'p-0 sm:p-0' }, footer: { padding: 'p-0 sm:p-0' } }">
-    <template #header>
+  <article class="location-card">
+    <header class="header">
       <app-typography
         tag="h3"
-        variant="heading-sm"
-        class="font-semibold text-gray-700 dark:text-gray-200"
+        variant="heading-md"
+        class="title"
       >
         {{ title }}
       </app-typography>
-    </template>
+    </header>
 
-    <div class="p-4 space-y-1">
+    <div class="details">
       <app-typography
         tag="p"
         variant="text-xl"
-        class="leading-snug"
+        class="address"
       >
         {{ address }}
       </app-typography>
@@ -51,7 +51,7 @@ const emailLink = computed(() => {
         v-if="phone"
         tag="p"
         variant="text-xl"
-        class="leading-snug"
+        class="contact-info"
       >
         {{ phone }}
       </app-typography>
@@ -59,41 +59,93 @@ const emailLink = computed(() => {
         v-if="email"
         tag="p"
         variant="text-xl"
-        class="leading-snug"
+        class="contact-info"
       >
         {{ email }}
       </app-typography>
     </div>
 
-    <template v-if="hasActions" #footer>
-      <div class="flex border-t border-gray-200 dark:border-gray-700 divide-x divide-gray-200 dark:divide-gray-700">
-        <UButton
-          v-if="email"
-          :to="emailLink"
-          variant="ghost"
-          color="gray"
-          icon="i-lucide-mail"
-          :label="emailLabel"
-          class="flex-1 justify-center rounded-none hover:bg-primary-500 hover:text-white transition-colors py-3"
-        />
+    <footer v-if="hasActions" class="actions">
+      <UButton
+        v-if="email"
+        :to="emailLink"
+        variant="ghost"
+        color="gray"
+        icon="i-lucide-mail"
+        :label="emailLabel"
+        class="action-btn"
+      />
 
-        <UButton
-          v-if="phone"
-          :to="phoneLink"
-          variant="ghost"
-          color="gray"
-          icon="i-lucide-phone-call"
-          :label="callLabel"
-          class="flex-1 justify-center rounded-none hover:bg-primary-500 hover:text-white transition-colors py-3"
-        />
-      </div>
-    </template>
-  </UCard>
+      <UButton
+        v-if="phone"
+        :to="phoneLink"
+        variant="ghost"
+        color="gray"
+        icon="i-lucide-phone-call"
+        :label="callLabel"
+        class="action-btn"
+      />
+    </footer>
+  </article>
 </template>
 
 <style scoped>
 .location-card {
-  flex-basis: 50%;
+  container-type: inline-size;
+  border-bottom: 1px solid var(--ui-border);
+  background: transparent;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease;
+  padding: calc(var(--spacing) * 4);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.location-card:hover {
+  background: var(--color-envision-blue-500);
+}
+
+.header {
+  margin-bottom: 0.5rem;
+}
+
+.details {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+  border-top: 1px solid var(--ui-border); /* Optional: Separator like UCard footer */
+  padding-top: 1rem;
+}
+
+/* Remove border-top from actions on hover if it looks weird against the blue bg,
+   or adjust the border color. For now, let's keep it simple.
+   Actually, ProjectCard doesn't have a visible footer border, it relies on alignment.
+   I'll remove the border-top for a cleaner look.
+*/
+.actions {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* Style buttons to inherit color or be white on hover */
+.action-btn {
+  /* Ensure text is visible on dark background */
+}
+
+.location-card:hover :deep(.action-btn) {
+  /* Force white text on hover if the background is dark blue */
+  /* This depends on the button variant. 'ghost' color 'gray' might be invisible on blue. */
+  /* We might need to override the button styling dynamically or via CSS */
+  color: white;
 }
 </style>
