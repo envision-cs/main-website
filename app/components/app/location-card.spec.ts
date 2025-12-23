@@ -12,24 +12,50 @@ describe('locationCard', () => {
   };
 
   it('renders title and address', () => {
-    const wrapper = mount(LocationCard, { props: defaultProps });
+    const wrapper = mount(LocationCard, {
+      props: defaultProps,
+      global: {
+        stubs: {
+          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
+        },
+      },
+    });
     expect(wrapper.text()).toContain('Tampa Office');
     expect(wrapper.text()).toContain('123 Main St, Tampa, FL');
   });
 
   it('renders call button with correct link (strips non-digits)', () => {
-    const wrapper = mount(LocationCard, { props: defaultProps });
-    const callLink = wrapper.find('a[href^="tel:"]');
-    expect(callLink.exists()).toBe(true);
-    // The component strips non-digits
-    expect(callLink.attributes('href')).toBe('tel:5551234567');
+    const wrapper = mount(LocationCard, {
+      props: defaultProps,
+      global: {
+        stubs: {
+          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
+          UButton: true,
+        },
+      },
+    });
+    const buttons = wrapper.findAllComponents({ name: 'UButton' });
+    const callLink = buttons.find(b => b.attributes('icon') === 'i-lucide-phone-call');
+
+    expect(callLink).toBeDefined();
+    expect(callLink?.attributes('to')).toBe('tel:5551234567');
   });
 
   it('renders email button with correct link', () => {
-    const wrapper = mount(LocationCard, { props: defaultProps });
-    const emailLink = wrapper.find('a[href^="mailto:"]');
-    expect(emailLink.exists()).toBe(true);
-    expect(emailLink.attributes('href')).toBe('mailto:tampa@example.com');
+    const wrapper = mount(LocationCard, {
+      props: defaultProps,
+      global: {
+        stubs: {
+          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
+          UButton: true,
+        },
+      },
+    });
+    const buttons = wrapper.findAllComponents({ name: 'UButton' });
+    const emailLink = buttons.find(b => b.attributes('icon') === 'i-lucide-mail');
+
+    expect(emailLink).toBeDefined();
+    expect(emailLink?.attributes('to')).toBe('mailto:tampa@example.com');
   });
 
   it('does not render actions if phone/email are missing', () => {
@@ -38,14 +64,32 @@ describe('locationCard', () => {
         title: 'Office',
         address: 'Address',
       },
+      global: {
+        stubs: {
+          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
+          UButton: true,
+        },
+      },
     });
-    expect(wrapper.find('a[href^="tel:"]').exists()).toBe(false);
-    expect(wrapper.find('a[href^="mailto:"]').exists()).toBe(false);
+    expect(wrapper.findAllComponents({ name: 'UButton' }).length).toBe(0);
   });
 
-  it.skip('renders using UCard component', () => {
-    const wrapper = mount(LocationCard, { props: defaultProps, global: { stubs: { UCard: true, UIcon: true } } });
-    // This should FAIL until we refactor
+  it('renders using UCard component', () => {
+    const wrapper = mount(LocationCard, { props: defaultProps, global: { stubs: { UCard: true, UButton: true } } });
     expect(wrapper.findComponent({ name: 'UCard' }).exists()).toBe(true);
+  });
+
+  it('renders actions using UButton', () => {
+    const wrapper = mount(LocationCard, {
+      props: defaultProps,
+      global: {
+        stubs: {
+          UCard: { template: '<div><slot name="header" /><slot /><slot name="footer" /></div>' },
+          UButton: true,
+        },
+      },
+    });
+    const buttons = wrapper.findAllComponents({ name: 'UButton' });
+    expect(buttons.length).toBe(2);
   });
 });
