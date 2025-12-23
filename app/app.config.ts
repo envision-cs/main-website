@@ -59,10 +59,7 @@ export default defineAppConfig({
       //  },
       // ],
     },
-    {
-      label: 'Connect',
-      to: '/contact',
-    },
+
   ] as NavigationMenuItem[],
   ui: {
     colors: {
