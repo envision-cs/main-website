@@ -110,7 +110,7 @@ const { data: locations } = await useFetch('/api/locations');
 }
 
 .location-wrapper {
-  display: flex;
+  width: 100%;
   flex-wrap: wrap;
 }
 

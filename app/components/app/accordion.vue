@@ -76,7 +76,7 @@ details[open] {
   flex: 1 1 auto;
   overflow: auto;
   color: #fff;
-  background-color: var(--ui-primary);
+  background-color: var(--color-envision-blue-600);
 }
 
 details summary {

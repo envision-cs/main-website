@@ -80,5 +80,13 @@ export default defineContentConfig({
         image: z.string().optional(),
       }),
     }),
+    coreValues: defineCollection({
+      type: 'data',
+      source: 'coreValues/*.md',
+      schema: z.object({
+        title: z.string(),
+        image: z.string().optional(),
+      }),
+    }),
   },
 });

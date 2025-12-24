@@ -69,7 +69,6 @@ nav {
 }
 
 .location-wrapper {
-  display: flex;
   flex-wrap: wrap;
 }
 </style>

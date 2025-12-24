@@ -1,26 +1,5 @@
 <script setup lang="ts">
-const core = [
-  {
-    title: 'Be the Soluion',
-    description: 'Our success and fulfillment depends on our willingness to always seek and help provide solutions. Help first We are the easy button We pride ourselves on being the solution Clarity Breeds Confidence',
-  },
 
-  {
-    title: 'It\'s Bigger Than You',
-    description: 'No two projects are the same, and neither is our approach. Whether it’s a small renovation or a large-scale build, we move with precision, flexibility, and care—delivering the personal attention of a local partner with the expertise of a national leader.',
-  },
-
-  {
-    title: 'Be The Light',
-    description: 'We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge. With heart, craftsmanship, and purpose, we build legacies that elevate communities for generations to come.',
-  },
-  {
-    title: 'Find A Better Way',
-  },
-  {
-    title: 'Be Humbly Confident',
-  },
-];
 </script>
 
 <template>
@@ -54,24 +33,8 @@ const core = [
     </app-section-a>
 
     <three-uniques />
-
-    <app-banner
-      title="Our Core Values"
-      description="Choosing the wrong partner can mean wasted budget, endless delays, and a space that never meets its potential. We protect your investment, your timeline, and your vision"
-    />
-    <div>
-      <ul class="site-grid">
-        <li
-          v-for="item in core"
-          :key="item.title"
-          class="item"
-        >
-          <h3 class="mt-2 text-xl text-balance leading-5 sm:text-2xl sm:leading-8 font-semibold">
-            {{ item.title }}
-          </h3>
-        </li>
-      </ul>
-    </div>
+    <app-parallax image="/HomePageAllens.webp" />
+    <core-values />
   </div>
 </template>
 
