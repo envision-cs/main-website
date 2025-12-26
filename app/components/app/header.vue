@@ -142,14 +142,12 @@ watch(isMainOpen, () => {
           <app-navigation-secondary-link to="#">
             Locations
           </app-navigation-secondary-link>
-          <app-navigation-secondary-link to="#">
-            Our Partners
-          </app-navigation-secondary-link>
         </div>
         <div class="main-menu__social">
           <UButton
             icon="i-lucide-instagram"
             size="md"
+            to="https://www.instagram.com/envisioncs_/"
             color="neutral"
             variant="outline"
           />
@@ -157,11 +155,13 @@ watch(isMainOpen, () => {
             icon="i-lucide-linkedin"
             size="md"
             color="neutral"
+            to="https://www.linkedin.com/company/envision-cs/posts/?feedView=all"
             variant="outline"
           />
           <UButton
             icon="i-lucide-facebook"
             size="md"
+            to="https://www.facebook.com/envisioncstampa"
             color="neutral"
             variant="outline"
           />
