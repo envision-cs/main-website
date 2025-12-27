@@ -7,14 +7,14 @@ defineProps<{
 <template>
   <section class="section-a site-max">
     <div class="">
-      <div class="sticky top-16 px-4 py-16">
+      <div class="sticky top-8 px-4 py-8">
         <slot name="header" />
       </div>
     </div>
     <div>
       <div
         class=" space-y-4 h-full"
-        :class="noPadding ? 'p-0' : 'p-16'"
+        :class="noPadding ? 'p-0' : 'p-8'"
       >
         <slot name="body" />
       </div>
