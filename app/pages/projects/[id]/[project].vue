@@ -11,9 +11,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <div v-if="page" class="site-grid relative">
+  <section v-if="page" class="grid grid-cols-1 min-[800px]:grid-cols-2 pt-12">
     <article>
-      <div class="sticky top-0 content">
+      <div class="">
         <div>
           <UButton @click="router.back()">
             Back
@@ -45,7 +45,7 @@ useSeoMeta({
         :alt="page.title"
       />
     </div>
-  </div>
+  </section>
   <div v-else>
     Oh no! Page not found.
   </div>
@@ -54,12 +54,10 @@ useSeoMeta({
 <style scoped>
 article {
   position: sticky;
-  grid-column: 1/-1;
 
   @media (min-width: 1024px) {
     position: sticky;
     top: calc(var(--spacing) * 15);
-    grid-column: 1/16;
   }
 }
 
@@ -73,12 +71,9 @@ article {
 
 .gallery {
   display: grid;
-
-  grid-column: 1/-1;
   gap: calc(var(--spacing) * 4);
 
   @media (min-width: 1024px) {
-    grid-column: 17/-1;
   }
 
   img {

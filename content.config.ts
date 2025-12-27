@@ -38,6 +38,7 @@ export default defineContentConfig({
         location: z.string(),
         address: z.string(),
         phone: z.string(),
+        city: z.string(),
         email: z.string(),
         latitude: z.number(),
         longitude: z.number(),

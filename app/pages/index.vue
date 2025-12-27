@@ -48,7 +48,6 @@
         Delivering Projects that <span>Inspire</span> and <span>Engage</span>
       </app-cta-a>
       <app-gallery />
-      <home-news-feed />
       <app-cta-a
         body="At Envision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all."
       >
