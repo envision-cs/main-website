@@ -16,7 +16,7 @@ const { gentle } = useEasings();
       >
         <app-typography
           tag="h2"
-          variant="heading-lg"
+          variant="heading-md"
           class="text"
         >
           <slot name="title" />

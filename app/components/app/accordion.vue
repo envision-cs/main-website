@@ -10,18 +10,17 @@ defineProps<{
 <template>
   <div class="accordion">
     <details
-      v-for="item, idx in data"
+      v-for="(item, idx) in data"
       :id="`acc-${name}-${idx}`"
       :key="idx"
       :open="idx === 0"
-      :name="name"
     >
       <summary
         :id="`acc-${name}-${idx}-summary`"
         :aria-controls="`acc-panel-${name}-${idx}`"
       >
         <app-typography
-          variant="heading-md"
+          variant="heading-sm"
           tag="h3"
         >
           {{ item?.title }}
@@ -38,12 +37,15 @@ defineProps<{
         :id="`acc-panel-${name}-${idx}`"
         role="region"
         :aria-labelledby="`acc-${name}-${idx}-summary`"
+        class="panel"
       >
-        <ContentRenderer
-          v-if="item.meta"
-          :value="item.meta"
-          class=" prose [&_p]:max-w-[60ch] [&_p]:text-balance"
-        />
+        <div class="panel__inner">
+          <ContentRenderer
+            v-if="item.meta"
+            :value="item.meta"
+            class=" prose [&_p]:max-w-[60ch] [&_p]:text-balance"
+          />
+        </div>
       </div>
     </details>
   </div>
@@ -54,13 +56,11 @@ defineProps<{
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 50vh;
 }
 
 details {
   flex: 0 0 auto;
   overflow: hidden;
-  padding: calc(var(--spacing) * 4);
   will-change: true;
   transition:
     background-color 0.4s ease-in-out,
@@ -73,17 +73,18 @@ details {
 }
 
 details[open] {
-  flex: 1 1 auto;
-  overflow: auto;
-  color: #fff;
-  background-color: var(--color-envision-blue-600);
+  flex: 0 0 auto;
+  overflow: hidden;
 }
 
 details summary {
   list-style: none;
   display: flex;
+  padding: 1rem;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 0px solid var(--ui-border);
+  transition: all 0.3s ease-in-out;
 
   span {
     transform: rotate(0deg);
@@ -92,8 +93,17 @@ details summary {
 }
 
 details[open] summary {
+  border-bottom: 1px solid var(--ui-border);
   span {
     transform: rotate(45deg);
+  }
+}
+
+summary {
+  cursor: pointer;
+
+  &:hover {
+    color: var(--ui-primary);
   }
 }
 
@@ -107,16 +117,36 @@ details::details-content {
   height: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  details::details-content {
-    transition:
-      height 0.4s ease,
-      content-visibility 0.3s;
-    transition-behavior: allow-discrete;
-  }
+details::details-content {
+  transition:
+    height 0.4s ease,
+    content-visibility 0.3s;
+  transition-behavior: allow-discrete;
+}
 
-  details[open]::details-content {
-    height: auto;
-  }
+details[open]::details-content {
+  height: auto;
+}
+
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+  padding-inline: 1rem;
+}
+
+.panel__inner {
+  overflow: hidden;
+}
+
+/* when open, expand */
+details[open] .panel {
+  grid-template-rows: 1fr;
+}
+
+/* optional: if you want scroll, put it here */
+details[open] .panel__inner {
+  max-height: 60vh;
+  overflow: auto;
 }
 </style>

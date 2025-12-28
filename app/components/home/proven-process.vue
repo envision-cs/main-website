@@ -5,13 +5,17 @@ const { data: our_process } = useFetch('/api/process');
 <template>
   <app-section-a no-padding>
     <template #header>
-      <app-typography tag="h2" variant="heading-lg">
+      <app-typography tag="h2" variant="heading-md">
         Our <span>Proven</span> Process
       </app-typography>
-      <p>
+      <app-typography
+        variant="text-md"
+        tag="p"
+        class="max-w-[60ch]"
+      >
         Our proven process brings structure and consistency to every project. We listen, plan, and execute to
         reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency.
-      </p>
+      </app-typography>
     </template>
 
     <template #body>
