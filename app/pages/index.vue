@@ -12,7 +12,7 @@
       <home-hero-banner />
       <app-cta-a
         text="Building Without the Headaches"
-        body="At Envision we are people first. Everything we do is to build community and relationships that go beyond construction."
+        body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
         image="/IMG_1915.jpg"
         flip
       >
@@ -36,31 +36,17 @@
         ]"
       />
       <app-cta-a
-        body="At Envision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all."
+        body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
       >
         Building With <span>Heart</span> and <span>Precision</span>
       </app-cta-a>
       <app-parallax image="/usl-super-league-01.jpg" />
       <home-proven-process />
-      <app-cta-a
-        text="Our proven process brings structure and consistency to every project. We listen, plan, and execute to reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency."
-      >
-        Delivering Projects that <span>Inspire</span> and <span>Engage</span>
-      </app-cta-a>
-      <app-gallery />
-      <app-cta-a
-        body="At Envision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all."
-      >
-        Build with <span>Confidence</span>
-      </app-cta-a>
       <app-parallax image="/HomePageAllens.webp" />
       <three-uniques />
-      <app-cta-a
-
-        text="We know how stressful construction can feel when deadlines are missed, communication is poor, and leadership is unclear. That’s why we’ve built a process that keeps your project on track and you in the loop—every step of the way."
-      >
-        Building <span>Without</span> the <span>Headaches</span>
-      </app-cta-a>
+      <quote
+        quote="Don’t risk another over-budget, under-communicated build. Work with a team that values your success."
+      />
     </div>
   </UPage>
 </template>
