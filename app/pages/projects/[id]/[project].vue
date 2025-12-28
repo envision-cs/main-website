@@ -66,7 +66,9 @@ useSeoMeta({
             <NuxtImg
               :src="image"
               :alt="page.title"
+              fit="fill"
               format="avif"
+              sizes="50vw md:400px"
             />
           </button>
         </li>
@@ -112,14 +114,24 @@ article {
 
 .gallery {
   display: grid;
-  gap: calc(var(--spacing) * 4);
+  grid-template-columns: repeat(2, 1fr);
+}
 
-  @media (min-width: 1024px) {
-  }
+.gallery li {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
 
-  img {
-    width: 100%;
-  }
+.gallery button {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills square, no distortion */
 }
 
 .info {
@@ -129,13 +141,37 @@ article {
   row-gap: calc(var(--spacing) * 4);
 }
 
-#image {
-  margin: auto;
-  width: 90%;
-  max-height: 90%;
+#image[popover] {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 
-  img {
-    width: 100%;
-  }
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+#image figure {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#image img {
+  max-width: 100vw;
+  max-height: 90vh;
+
+  width: 90%;
+  height: aut0;
+
+  object-fit: contain;
 }
 </style>

@@ -27,7 +27,7 @@
     "nuxt": "^4.2.2",
     "nuxt-maplibre": "1.2.0",
     "nuxt-security": "2.4.0",
-    "nuxt-studio": "1.0.0-alpha.1",
+    "nuxt-studio": "1.0.0-beta.3",
     "posthog-js": "^1.290.0",
     "vue": "^3.5.24",
     "vue-router": "^4.6.3",
