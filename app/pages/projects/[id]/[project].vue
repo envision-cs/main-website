@@ -20,7 +20,6 @@ const imageSrc = computed(() => {
 });
 
 function handleImageClick(image: string) {
-  imageRef.value?.showPopover();
   activeImage.value = image;
 }
 
