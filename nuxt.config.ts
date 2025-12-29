@@ -88,6 +88,7 @@ export default defineNuxtConfig({
       provider: 'github',
       owner: 'envision-cs',
       repo: 'main-website',
+      branch: 'main',
     },
   },
 });
