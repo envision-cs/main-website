@@ -8,14 +8,16 @@ const title = page.value?.seo?.title || page.value?.title;
 const activeImage = ref<string | null>(null);
 const imageRef = useTemplateRef<HTMLDivElement>('image');
 
-watch(
-  () => page.value?.gallery,
-  (gallery) => {
-    if (!activeImage.value && gallery?.length)
-      activeImage.value = gallery[0];
-  },
-  { immediate: true },
-);
+const imageSrc = computed(() => {
+  const src = activeImage.value;
+  if (!src)
+    return null;
+  if (src.startsWith('http'))
+    return src;
+  if (src.startsWith('/'))
+    return src;
+  return `/images/projects/${src}`; // adjust folder
+});
 
 function handleImageClick(image: string) {
   imageRef.value?.showPopover();
@@ -87,7 +89,7 @@ useSeoMeta({
           <figure>
             <NuxtImg
               :key="activeImage"
-              :src="activeImage"
+              :src="imageSrc"
               :alt="page.title"
               format="avif"
             />
@@ -177,7 +179,7 @@ article {
   max-height: 90vh;
 
   width: 90%;
-  height: aut0;
+  height: auto;
 
   object-fit: contain;
 }
