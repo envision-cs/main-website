@@ -74,13 +74,40 @@ watch(isMainOpen, () => {
     closeSub();
   }
 }, { immediate: true });
+
+const { y } = useWindowScroll();
+const { height } = useWindowSize();
+
+const showHeader = ref(true);
+const isFixed = ref(false);
+const isWhite = ref(false);
+
+watch(y, (newY, oldY) => {
+  if (typeof oldY === 'undefined')
+    return;
+
+  const heroHeight = height.value || 0;
+  const isScrollingUp = newY < oldY;
+  const isPastHero = newY > heroHeight;
+
+  if (isPastHero) {
+    isFixed.value = true;
+    isWhite.value = true;
+    showHeader.value = isScrollingUp;
+  }
+  else {
+    isFixed.value = false;
+    isWhite.value = false;
+    showHeader.value = true;
+  }
+});
 </script>
 
 <template>
-  <header>
+  <header :class="{ 'header--fixed': isFixed, 'header--hidden': !showHeader, 'header--white': isWhite }">
     <NuxtLink class="logo" to="/">
       <Icon
-        name="logos:envision"
+        :name="isWhite ? 'logos:envision' : 'logos:envision-white'"
         size="30"
         alt="envision construction logo"
       />
@@ -219,7 +246,7 @@ watch(isMainOpen, () => {
 
 <style scoped>
 header {
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
   z-index: 100;
@@ -227,21 +254,25 @@ header {
   display: flex;
   padding: calc(var(--spacing) * 2);
   background-color: transparent;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
 
-  animation: stickyNav linear forwards;
-  animation-timeline: view();
-  animation-range-start: 100vh;
-  animation-range-end: 150vh;
+header.header--fixed {
+  position: fixed;
+}
+
+header.header--hidden {
+  transform: translateY(-100%);
+}
+
+header.header--white {
+  background-color: var(--color-white);
 }
 
 .logo {
   margin-left: calc(var(--spacing) * 4);
-}
-
-@keyframes stickyNav {
-  100% {
-    background-color: var(--color-white);
-  }
 }
 
 .menu {

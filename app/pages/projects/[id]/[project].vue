@@ -28,69 +28,76 @@ useSeoMeta({
 </script>
 
 <template>
-  <app-section-a v-if="page" class="grid grid-cols-1 min-[800px]:grid-cols-2 pt-12">
-    <template #header>
-      <article>
-        <div class="">
-          <div>
-            <UButton @click="router.back()">
-              Back
-            </UButton>
+  <div>
+    <app-banner-b
+      :image="page?.main_image"
+    >
+      {{ page?.title }}
+    </app-banner-b>
+    <app-section-a v-if="page" class="grid grid-cols-1 min-[800px]:grid-cols-2 pt-12">
+      <template #header>
+        <article>
+          <div class="">
+            <div>
+              <UButton @click="router.back()">
+                Back
+              </UButton>
+            </div>
+            <app-typography
+              tag="h1"
+              variant="heading-md"
+              class="max-w-[50ch] text-balance"
+            >
+              {{ page.title }}
+            </app-typography>
+            <div class="info">
+              <projects-info title="Location" :data="page.location" />
+              <projects-info
+                v-if="page.area"
+                title="Area"
+                :data="page.area"
+              />
+              <projects-info title="Completed" :data="page.completed" />
+            </div>
+            <div class="max-w-[75ch]">
+              <ContentRenderer :value="page" />
+            </div>
           </div>
-          <app-typography
-            tag="h1"
-            variant="heading-md"
-            class="max-w-[50ch] text-balance"
-          >
-            {{ page.title }}
-          </app-typography>
-          <div class="info">
-            <projects-info title="Location" :data="page.location" />
-            <projects-info
-              v-if="page.area"
-              title="Area"
-              :data="page.area"
-            />
-            <projects-info title="Completed" :data="page.completed" />
-          </div>
-          <div class="max-w-[75ch]">
-            <ContentRenderer :value="page" />
-          </div>
-        </div>
-      </article>
-    </template>
-    <template #body>
-      <ul class="gallery">
-        <li v-for="image in page.gallery" :key="image">
-          <button popovertarget="image" @click="handleImageClick(image)">
+        </article>
+      </template>
+      <template #body>
+        <ul class="gallery">
+          <li v-for="image in page.gallery" :key="image">
+            <button popovertarget="image" @click="handleImageClick(image)">
+              <NuxtImg
+                :src="image"
+                :alt="page.title"
+                fit="fill"
+                format="avif"
+                sizes="50vw md:400px"
+              />
+            </button>
+          </li>
+        </ul>
+        <aside
+          id="image"
+          ref="imageRef"
+          popover
+        >
+          <figure>
             <NuxtImg
-              :src="image"
+              :key="activeImage"
+              :src="activeImage"
               :alt="page.title"
-              fit="fill"
               format="avif"
-              sizes="50vw md:400px"
             />
-          </button>
-        </li>
-      </ul>
-      <aside
-        id="image"
-        ref="imageRef"
-        popover
-      >
-        <figure>
-          <NuxtImg
-            :key="activeImage"
-            :src="activeImage"
-            :alt="page.title"
-            format="avif"
-          />
-        </figure>
-      </aside>
-    </template>
-  </app-section-a>
-  <div v-else>
-    Oh no! Page not found.
+          </figure>
+        </aside>
+      </template>
+    </app-section-a>
+    <div v-else>
+      Oh no! Page not found.
+    </div>
   </div>
 </template>
 

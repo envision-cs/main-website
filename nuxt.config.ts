@@ -22,12 +22,6 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
-    prerender: {
-      routes: ['/'],
-      failOnError: false,
-      crawlLinks: true,
-      ignore: ['/ _vercel/image'],
-    },
   },
   routeRules: {
     '/_vercel/**': { prerender: false },
