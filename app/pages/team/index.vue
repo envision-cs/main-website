@@ -6,7 +6,7 @@ const { data } = useFetch('/api/team', {
 
 <template>
   <div class="">
-    <app-banner-b class="col-start-1 -col-end-1">
+    <app-banner-b class="col-start-1 -col-end-1" image="meet-the-team.jpg">
       Meet the team
       <template #image>
         <NuxtImg
@@ -24,7 +24,7 @@ const { data } = useFetch('/api/team', {
     >
       <template #header>
         <div class="section-head">
-          <app-typography tag="h2" variant="heading-lg">
+          <app-typography tag="h2" variant="heading-md">
             {{ team.name }}
           </app-typography>
           <div
@@ -34,13 +34,13 @@ const { data } = useFetch('/api/team', {
               backgroundColor: team.color,
             }"
           />
-          <app-typography tag="p" variant="heading-md">
+          <app-typography tag="p" variant="heading-sm">
             {{ team.role }}
           </app-typography>
           <app-typography
             tag="p"
             variant="text-lg"
-            class="mt-auto"
+            class="mt-auto max-w-sm"
           >
             {{ team.description }}
           </app-typography>

@@ -57,13 +57,20 @@ defineProps<{
 </template>
 
 <style scoped>
+.team-member {
+  display: block;
+  container-type: inline-size;
+}
+
 article {
   display: grid;
   grid-template-columns: 1fr;
   align-items: center;
   gap: calc(var(--spacing) * 4);
+}
 
-  @media (min-width: 700px) {
+@container (min-width: 700px) {
+  article {
     grid-template-columns: 1fr 1fr;
   }
 }

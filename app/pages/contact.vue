@@ -5,16 +5,8 @@ const { data: locations } = await useFetch('/api/locations');
 <template>
   <UPage class="mt-0 ">
     <div class="grid">
-      <app-banner-b class="col-start-1 -col-end-1">
+      <app-banner-b image="contact.jpg" class="col-start-1 -col-end-1">
         Contact Us
-        <template #image>
-          <NuxtImg
-            src=""
-            class="h-full w-full object-cover -z-10"
-            fit="cover"
-            format="webp"
-          />
-        </template>
       </app-banner-b>
 
       <app-section-a>
@@ -22,8 +14,8 @@ const { data: locations } = await useFetch('/api/locations');
           <div class="content">
             <app-typography
               tag="h2"
-              variant="heading-lg"
-              class="font-semibold text-balance"
+              variant="heading-md"
+              class="font-semibold text-balance uppercase"
             >
               Let’s <span>Build</span> Something That <span>Lasts</span>.
             </app-typography>
@@ -41,8 +33,8 @@ const { data: locations } = await useFetch('/api/locations');
         <template #header>
           <app-typography
             tag="h2"
-            variant="heading-lg"
-            class="font-semibold text-balance"
+            variant="heading-md"
+            class="font-semibold text-balance uppercase"
           >
             Our <span>Locations</span>
           </app-typography>
@@ -52,6 +44,7 @@ const { data: locations } = await useFetch('/api/locations');
               :key="location.id"
               :title="location.location"
               :address="location.address"
+              :city="location.city"
               :phone="location.phone"
               :email="location.email"
             />
@@ -111,6 +104,8 @@ const { data: locations } = await useFetch('/api/locations');
 
 .location-wrapper {
   width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   flex-wrap: wrap;
 }
 

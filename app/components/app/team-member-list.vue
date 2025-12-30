@@ -13,7 +13,7 @@
   padding-top: calc(var(--spacing) * 4);
 
   @media (min-width: 450px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>

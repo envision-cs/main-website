@@ -43,7 +43,7 @@ const bgImage = computed(() => (props.image ? `url("/${props.image}")` : 'none')
   position: relative;
   flex-direction: column;
   gap: calc(var(--spacing) * 4);
-  min-height: 280px;
+  min-height: 350px;
   grid-column: 1 / -1;
   padding-top: calc(var(--spacing) * 24);
   padding-inline: calc(var(--spacing) * 4);

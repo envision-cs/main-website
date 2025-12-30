@@ -47,7 +47,7 @@ definePageMeta({
 <template>
   <layout-a>
     <template #header-slot>
-      <app-banner-b class="header" :image="activeCategory?.slug">
+      <app-banner-b class="header" image="projects-all.jpg">
         <template #title>
           Projects
         </template>
