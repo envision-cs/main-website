@@ -51,7 +51,7 @@ const { data: locations } = await useFetch('/api/locations');
           </div>
         </template>
         <template #body>
-          <app-location-map class="h-screen min-h-[50vh]" />
+          <app-location-map class="min-h-[500px]" />
         </template>
       </app-section-a>
     </div>
@@ -107,10 +107,5 @@ const { data: locations } = await useFetch('/api/locations');
   display: grid;
   grid-template-columns: 1fr 1fr;
   flex-wrap: wrap;
-}
-
-.location-map {
-  grid-column: 1 / -1;
-  min-height: 420px;
 }
 </style>
