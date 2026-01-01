@@ -42,7 +42,7 @@
       </app-cta-a>
       <app-parallax image="/usl-super-league-01.jpg" />
       <home-proven-process />
-      <app-parallax image="/HomePageAllens.webp" />
+      <app-parallax image="/HomePageAllens.webp" mobile-image="/thegreens2.jpg" />
       <three-uniques />
       <quote
         quote="Don’t risk another over-budget, under-communicated build. Work with a team that values your success."

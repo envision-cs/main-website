@@ -1,11 +1,18 @@
 <script setup lang="ts">
 defineProps<{
+  mobileImage?: string;
   image: string;
 }>();
 </script>
 
 <template>
-  <section class="hero" :style="{ backgroundImage: `url(${image})` }">
+  <section
+    class="hero"
+    :style="{
+      '--backgroundImage': `url(${image})`,
+      '--mobileImage': `url(${mobileImage || image})`,
+    }"
+  >
     <!--  <div class="hero-content">
       <app-typography
         tag="p"
@@ -30,6 +37,11 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-image: var(--backgroundImage);
+
+  @media (max-width: 800px) {
+    background-image: var(--mobileImage);
+  }
 }
 
 section > * {
@@ -47,7 +59,7 @@ section.hero {
   background-color: #1a1a1a;
   background-color: #272727;
   background-size: auto 5rem;
-  background-position: center;
+  background-position: 20% 30%;
   background-repeat: no-repeat;
   background-size: cover;
 
