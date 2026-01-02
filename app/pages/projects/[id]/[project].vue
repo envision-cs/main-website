@@ -53,13 +53,6 @@ useSeoMeta({
                 Back
               </UButton>
             </div>
-            <app-typography
-              tag="h1"
-              variant="heading-md"
-              class="max-w-[50ch] text-balance"
-            >
-              {{ page.title }}
-            </app-typography>
             <div class="info">
               <projects-info title="Location" :data="page.location" />
               <projects-info
