@@ -19,8 +19,17 @@ const imageSrc = computed(() => {
   return `/images/projects/${src}`; // adjust folder
 });
 
+const isLoading = ref(false);
+
 function handleImageClick(image: string) {
+  if (activeImage.value === image)
+    return;
   activeImage.value = image;
+  isLoading.value = true;
+}
+
+function onLoad() {
+  isLoading.value = false;
 }
 
 useSeoMeta({
@@ -83,14 +92,31 @@ useSeoMeta({
         <aside
           id="image"
           ref="imageRef"
-          popover
+          popover="auto"
         >
+          <button
+            popovertarget="image"
+            popovertargetaction="hide"
+            class="close-btn"
+          >
+            <UIcon
+              name="i-lucide-x"
+              class="w-6 h-6 text-black"
+            />
+          </button>
           <figure>
+            <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <UIcon name="i-lucide-loader-2" class="w-10 h-10 text-white animate-spin" />
+            </div>
             <NuxtImg
               :key="activeImage"
               :src="imageSrc"
               :alt="page.title"
+              lazy="true"
               format="avif"
+              sizes="100vw sm:500px md:600px lg:900px xl:1100px 2xl:1300px"
+              @load="onLoad"
+              @error="onLoad"
             />
           </figure>
         </aside>
@@ -161,6 +187,22 @@ article {
 
   overflow: hidden;
   background: rgba(0, 0, 0, 0.85);
+}
+
+.close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 50;
+
+  background-color: white;
+  border-radius: 9999px;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
 }
 
 #image figure {
