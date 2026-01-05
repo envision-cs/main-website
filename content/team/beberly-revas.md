@@ -1,10 +1,10 @@
 ---
-name: Adrian Suarez
-title: Assistant Project Manager
-image: /team/Adrian_Suarez.jpg
+name: Beberly Rivas
+title: Sr. Project Engineer
+image: /team/Beberly_Rivas_01.jpg
 group: Gray team
-linkedin: https://www.linkedin.com/in/yannik-oettl/
+linkedin: https://www.linkedin.com/in/beberlyrivasr/
 email: jane.smith@envision.com
 ---
 
-Having worked with $10 to $150 million projects for several years, Adrian Suarez is an Assistant Project Manager on Envision’s Project Planning Team. Adrian is responsible for scheduling project activities, coordinating the flow of construction, and working closely with the design team to ensure alignment. In his spare time, he enjoys working out and spending time with his friends and family.
+With over 10 years of experience in the construction industry and a degree in Civil Engineering, Beberly Rivas is a part of Envision’s Project Planning Team as a Sr. Project Engineer. Beberly uses her years of experience to support project management with documentation and administration. In her spare time, she enjoys quality time with her family.

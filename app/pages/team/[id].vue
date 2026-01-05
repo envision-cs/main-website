@@ -125,11 +125,11 @@ watchEffect(() => {
     <app-section-a
       v-for="t in filteredRelatedTeam"
       :key="t.name"
-      class="team-section"
+      class="team-section border-t border-muted"
     >
       <template #header>
         <div class="section-head">
-          <app-typography tag="h2" variant="heading-lg">
+          <app-typography tag="h2" variant="heading-md">
             {{ t.name }}
           </app-typography>
           <div
@@ -139,13 +139,13 @@ watchEffect(() => {
               backgroundColor: t.color,
             }"
           />
-          <app-typography tag="p" variant="heading-md">
+          <app-typography tag="p" variant="heading-sm">
             {{ t.role }}
           </app-typography>
           <app-typography
             tag="p"
             variant="text-lg"
-            class="mt-auto"
+            class="mt-auto max-w-sm"
           >
             {{ t.description }}
           </app-typography>
@@ -170,6 +170,18 @@ watchEffect(() => {
 </template>
 
 <style scoped>
+.team-section {
+  display: grid;
+  grid-column: 1/-1;
+  border-top: 1px solid var(--ui-border);
+}
+
+.section-head {
+  display: flex;
+  padding: calc(var(--spacing) * 4);
+  flex-direction: column;
+  gap: calc(var(--spacing) * 3);
+}
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;

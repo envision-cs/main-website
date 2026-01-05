@@ -1,10 +1,10 @@
 ---
-name: Yannik Oettl
-title: Project Engineer
-image: /team/Yannik_Oettl_01.jpg
+name: Adrian Suarez
+title: Assistant Project Manager
+image: /team/Adrian_Suarez.jpg
 group: Gray team
 linkedin: https://www.linkedin.com/in/yannik-oettl/
 email: jane.smith@envision.com
 ---
 
-Project Engineer Yannik Oettl serves on Envision’s Project Planning Team with several years of experience in the field. Yannik is responsible for creating shop drawings and submittals, document control, quantity surveys, and RFIs, as well as tracking and expediting materials and equipment. While not at work, he enjoys spending time with family and friends, being outside, traveling, and completing home projects.
+Having worked with $10 to $150 million projects for several years, Adrian Suarez is an Assistant Project Manager on Envision’s Project Planning Team. Adrian is responsible for scheduling project activities, coordinating the flow of construction, and working closely with the design team to ensure alignment. In his spare time, he enjoys working out and spending time with his friends and family.
