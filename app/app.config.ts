@@ -24,7 +24,7 @@ export default defineAppConfig({
         {
           label: 'Enhanced Preconstruction',
           to: '/services/enhanced-preconstruction',
-          image: 'enhanced-preconstruction.jpg',
+          image: 'enhanced-preconstruction.png',
         },
         {
           label: 'Specialty Projects Division',
