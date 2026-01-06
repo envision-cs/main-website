@@ -19,6 +19,7 @@
     "@nuxt/image": "2.0.0",
     "@nuxt/ui": "^4.3.0",
     "@posthog/nuxt": "^1.4.6",
+    "@shikijs/engine-javascript": "^3.20.0",
     "@vueuse/motion": "^3.0.3",
     "better-sqlite3": "^12.5.0",
     "dev": "^0.1.3",
