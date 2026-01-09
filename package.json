@@ -21,6 +21,7 @@
     "@nuxtjs/mdc": "^0.19.2",
     "@posthog/nuxt": "^1.4.6",
     "@shikijs/engine-javascript": "^3.20.0",
+    "@shikijs/engine-oniguruma": "^3.21.0",
     "@vueuse/motion": "^3.0.3",
     "better-sqlite3": "^12.5.0",
     "dev": "^0.1.3",
