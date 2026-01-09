@@ -18,6 +18,7 @@
     "@nuxt/hints": "1.0.0-alpha.3",
     "@nuxt/image": "2.0.0",
     "@nuxt/ui": "^4.3.0",
+    "@nuxtjs/mdc": "^0.19.2",
     "@posthog/nuxt": "^1.4.6",
     "@shikijs/engine-javascript": "^3.20.0",
     "@vueuse/motion": "^3.0.3",
