@@ -1,9 +1,9 @@
 <script setup>
-// const { $posthog } = useNuxtApp();
+const { $posthog } = useNuxtApp();
 
-// if ($posthog) {
-//   $posthog().capture('$pageview');
-// }
+if ($posthog) {
+  $posthog().capture('$pageview');
+}
 </script>
 
 <template>
@@ -36,6 +36,7 @@
         ]"
       />
       <app-cta-a
+        image="rtm-auditorium.jpg"
         body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
       >
         Building With <span>Heart</span> and <span>Precision</span>

@@ -113,15 +113,17 @@ watch(y, (newY, oldY) => {
       />
     </NuxtLink>
     <div class="flex items-center gap-2">
-      <UButton
-        variant="outline"
+      <button
+        v-if="isWhite"
+        variant="ghost"
         color="neutral"
+        size="sm"
+        class="text-black flex gap-2"
         @click="openMain"
       >
         <app-typography
           tag="p"
           variant="text-md"
-          class="text-black"
         >
           menu
         </app-typography>
@@ -130,7 +132,27 @@ watch(y, (newY, oldY) => {
           size="24"
           class="menu-btn fill-current"
         />
-      </UButton>
+      </button>
+      <button
+        v-else
+        variant="ghost"
+        color="white"
+        size="sm"
+        class="text-white flex gap-2"
+        @click="openMain"
+      >
+        <app-typography
+          tag="p"
+          variant="text-md"
+        >
+          menu
+        </app-typography>
+        <Icon
+          name="i-lucide-menu"
+          size="24"
+          class="menu-btn fill-current"
+        />
+      </button>
     </div>
   </header>
   <dialog

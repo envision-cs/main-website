@@ -29,9 +29,9 @@ const backgroundImg = computed(() => {
         </app-typography>
       </div>
       <div class="actions mt-auto">
-        <app-button color="white">
+        <!-- <app-button color="white">
           Open Video
-        </app-button>
+        </app-button> -->
       </div>
     </div>
 

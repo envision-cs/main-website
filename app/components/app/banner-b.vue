@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   image?: string;
+  body?: string;
 }>();
 
 const img = useImage();
@@ -40,8 +41,7 @@ const bgStyles = computed(() => {
         variant="text-lg"
         class="text"
       >
-        Explore a curated range of Envision’s innovative design, digital, and development projects across the
-        Commercial, Industrial, and Corporate sectors throughout Central Florida.
+        {{ body }}
       </app-typography>
 
       <!-- wrap the slot so you can style it -->

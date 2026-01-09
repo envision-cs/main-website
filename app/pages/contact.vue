@@ -34,7 +34,7 @@ const { data: locations } = await useFetch('/api/locations');
           <app-typography
             tag="h2"
             variant="heading-md"
-            class="font-semibold text-balance uppercase"
+            class="font-semibold text-balance uppercase pb-8"
           >
             Our <span>Locations</span>
           </app-typography>

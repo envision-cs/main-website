@@ -22,14 +22,22 @@ const services = items.find(item => item.label === 'Services');
             <nav class="">
               <ul>
                 <li v-for="item in items" :key="item.id">
-                  <NuxtLink :to="item.to">
+                  <NuxtLink
+                    variant="link"
+                    :to="item.to"
+                    color="neutral"
+                  >
                     {{ item.label }}
                   </NuxtLink>
                 </li>
               </ul>
               <ul>
                 <li v-for="item in services?.children" :key="item.id">
-                  <NuxtLink :to="item.to">
+                  <NuxtLink
+                    variant="link"
+                    :to="item.to"
+                    color="neutral"
+                  >
                     {{ item.label }}
                   </NuxtLink>
                 </li>
@@ -73,7 +81,17 @@ address {
 
 .main-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: calc(var(--spacing) * 2);
+
+  nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  a:hover {
+    color: var(--ui-primary);
+  }
 }
 
 .footer-wrapper {
@@ -90,7 +108,12 @@ address {
 .location-wrapper {
   display: grid;
   padding-top: 1rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: calc(var(--spacing) * 4);
+
+  @media (min-width: 475px) {
+    grid-template-columns: 1fr 1fr;
+  }
 
   @media (min-width: 800px) {
     padding-top: 0;
