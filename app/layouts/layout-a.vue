@@ -92,6 +92,7 @@ const activeCategory = computed<{ title: string; slug: string } | undefined>(() 
 .catagories {
   grid-column: 1/-1;
   border-bottom: 1px solid var(--ui-border);
+  padding-inline: calc(var(--spacing) * 4);
 }
 
 .projects {

@@ -3,6 +3,7 @@ withDefaults(defineProps<{
   body?: string;
   image?: string;
   flip?: boolean;
+  href?: string;
 }>(), {
   body: 'At En<slvision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all.',
   image: 'https://placehold.co/100x75',
@@ -19,10 +20,14 @@ withDefaults(defineProps<{
         {{ body }}
       </template>
 
-      <template #action>
-        <app-button color="secondary">
+      <template v-if="href" #action>
+        <UButton
+          :to="href"
+          color="secondary"
+          variant="solid"
+        >
           Learn More
-        </app-button>
+        </UButton>
       </template>
     </app-banner-content>
     <div class="image">

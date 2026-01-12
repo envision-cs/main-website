@@ -26,6 +26,7 @@ defineProps<{
 .section-a {
   display: grid;
   gap: 1px;
+  border-top: 1px solid var(--ui-border);
 
   div:first-child {
     /*border-right: 1px solid var(--ui-border);*/

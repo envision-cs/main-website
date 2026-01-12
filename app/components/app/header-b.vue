@@ -74,71 +74,23 @@ watch(isMainOpen, () => {
     closeSub();
   }
 }, { immediate: true });
-
-const { y } = useWindowScroll();
-const { height } = useWindowSize();
-
-const showHeader = ref(true);
-const isFixed = ref(false);
-const isWhite = ref(false);
-
-watch(y, (newY, oldY) => {
-  if (typeof oldY === 'undefined')
-    return;
-
-  const heroHeight = height.value || 0;
-  const isScrollingUp = newY < oldY;
-  const isPastHero = newY > heroHeight;
-
-  if (isPastHero) {
-    isFixed.value = true;
-    isWhite.value = true;
-    showHeader.value = isScrollingUp;
-  }
-  else {
-    isFixed.value = false;
-    isWhite.value = false;
-    showHeader.value = true;
-  }
-});
 </script>
 
 <template>
-  <header :class="{ 'header--fixed': isFixed, 'header--hidden': !showHeader, 'header--white': isWhite }">
+  <header>
     <NuxtLink class="logo" to="/">
       <Icon
-        :name="isWhite ? 'logos:envision' : 'logos:envision-white'"
+        name="logos:envision"
         size="30"
         alt="envision construction logo"
       />
     </NuxtLink>
     <div class="flex items-center gap-2">
       <button
-        v-if="isWhite"
-        variant="ghost"
-        color="neutral"
-        size="sm"
-        class="text-black flex gap-2"
-        @click="openMain"
-      >
-        <app-typography
-          tag="p"
-          variant="text-md"
-        >
-          menu
-        </app-typography>
-        <Icon
-          name="i-lucide-menu"
-          size="24"
-          class="menu-btn fill-current"
-        />
-      </button>
-      <button
-        v-else
         variant="ghost"
         color="white"
         size="sm"
-        class="text-white flex gap-2"
+        class="flex gap-2"
         @click="openMain"
       >
         <app-typography
@@ -253,9 +205,7 @@ watch(y, (newY, oldY) => {
         >
           <NuxtImg
             :src="item.image"
-            width="200"
-            height="125"
-            class=" object-cover w-full"
+            class=" object-cover w-full h-full"
           />
           {{ item.label }}
         </NuxtLink>
@@ -273,7 +223,8 @@ header {
   justify-content: space-between;
   display: flex;
   padding: calc(var(--spacing) * 2);
-  background-color: transparent;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--ui-border);
   transition:
     transform 0.3s ease,
     background-color 0.3s ease;
@@ -435,8 +386,9 @@ header.header--white {
   }
 
   ul {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
     gap: calc(var(--spacing) * 2);
 
     li {

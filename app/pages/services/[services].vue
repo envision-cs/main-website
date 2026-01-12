@@ -7,6 +7,11 @@ const { data } = useFetch(`/api/services/${service.value}`);
 definePageMeta({
   layout: 'layout-a',
 });
+
+useSeoMeta({
+  title: data.value?.title || 'Service',
+  description: data.value?.description || 'Service Description',
+});
 </script>
 
 <template>

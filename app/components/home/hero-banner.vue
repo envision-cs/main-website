@@ -22,11 +22,20 @@ const backgroundImg = computed(() => {
 
         <app-typography
           tag="p"
-          variant="text-lg"
-          class="mt-4"
+          variant="text-xl"
+          class="mt-2"
         >
           We manage construction projects with excellence, purpose, and people-first precision.
         </app-typography>
+        <UButton
+          color="neutral"
+          variant="solid"
+          to="contact"
+          size="lg"
+          class="mt-4"
+        >
+          Start your project
+        </UButton>
       </div>
       <div class="actions mt-auto">
         <!-- <app-button color="white">

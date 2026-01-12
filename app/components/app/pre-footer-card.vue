@@ -12,7 +12,7 @@ defineProps<{
 </script>
 
 <template>
-  <div class="color relative rounded-lg overflow-hidden bg-accented p-5 grid">
+  <div class="color relative rounded-lg overflow-hidden bg-accented p-5 grid border border-t border-muted">
     <div class="relative z-10 self-start">
       <UIcon
         v-if="icon"

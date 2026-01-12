@@ -34,7 +34,7 @@ defineProps<{
         </div>
         <div class="flex justify-between">
           <app-typography tag="h3" :variant="heading">
-            {{ title }} Hello
+            {{ title }}
           </app-typography>
           <UIcon
             name="i-lucide-arrow-right"

@@ -24,7 +24,6 @@
     "@shikijs/engine-oniguruma": "^3.21.0",
     "@vueuse/motion": "^3.0.3",
     "better-sqlite3": "^12.5.0",
-    "dev": "^0.1.3",
     "motion": "^12.24.0",
     "motion-v": "^1.7.5",
     "nuxt": "^4.2.2",

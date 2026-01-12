@@ -75,6 +75,10 @@ const services = items.find(item => item.label === 'Services');
 </template>
 
 <style scoped>
+footer {
+  border-top: 1px solid var(--ui-border);
+}
+
 address {
   font-style: normal;
 }

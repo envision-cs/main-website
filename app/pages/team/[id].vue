@@ -58,6 +58,10 @@ useSeoMeta({
   ),
 });
 
+definePageMeta({
+  layout: 'layout-b',
+});
+
 // 5) Handle errors gracefully
 watchEffect(() => {
   if (memberError.value) {
