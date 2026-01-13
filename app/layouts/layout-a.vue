@@ -1,4 +1,6 @@
 <script setup  lang="ts">
+import { SpeedInsights } from '@vercel/speed-insights/nuxt';
+
 const route = useRoute();
 
 const { data } = useFetch(`/api/services`, {
@@ -73,6 +75,7 @@ const activeCategory = computed<{ title: string; slug: string } | undefined>(() 
         </template>
       </layout-a>
     </UMain>
+    <SpeedInsights />
     <app-footer />
   </div>
 </template>

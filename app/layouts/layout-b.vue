@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { SpeedInsights } from '@vercel/speed-insights/nuxt';
+
 const { width } = useWindowSize();
 const isClient = ref(false);
 
@@ -25,6 +27,7 @@ const mainStyle = computed(() => {
         <slot />
       </UMain>
     </div>
+    <SpeedInsights />
     <app-footer />
   </div>
 </template>
