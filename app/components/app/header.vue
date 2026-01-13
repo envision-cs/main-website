@@ -67,6 +67,12 @@ function handleOpen(children: unknown) {
   subMenuItems.value = children as NavigationMenuItem[];
 }
 
+const route = useRoute();
+watch(() => route.path, () => {
+  closeMain();
+  closeSub();
+});
+
 watch(isMainOpen, () => {
   if (isMainOpen.value)
     return;
