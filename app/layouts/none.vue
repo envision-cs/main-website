@@ -26,5 +26,6 @@ const mainStyle = computed(() => {
       <slot />
     </UMain>
     <SpeedInsights />
+    <app-footer />
   </div>
 </template>

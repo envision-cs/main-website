@@ -8,7 +8,7 @@ gallery:
   - /moffitt-cancer-center-linac-03.jpeg
   - /moffitt-cancer-center-linac-04.jpeg
 location: Tampa, FL
-main_image: /moffitt-cancer-center-linac-01.jpeg
+main_image: /moffitt-cancer-center-linac-03.jpeg
 sector: Healthcare
 sectorSlug: healthcare
 slug: moffitt-cancer-center-linac

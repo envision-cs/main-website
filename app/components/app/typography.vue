@@ -1,5 +1,5 @@
 <script setup lang="ts">
-type Variant = 'heading-huge' | 'heading-xl' | 'heading-lg' | 'heading-md' | 'heading-sm' | 'text-xl' | 'text-lg' | 'text-md' | 'text-sm';
+type Variant = 'heading-huge' | 'heading-xl' | 'heading-lg' | 'heading-md' | 'heading-sm' | 'text-xl' | 'text-lg' | 'text-md' | 'text-sm' | 'eyebrow-md';
 
 const { tag = 'p', variant = 'text-md' } = defineProps<{
   tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
@@ -16,6 +16,7 @@ const VARIANT_CLASSES: Record<Variant, string> = {
   'text-lg': 'text-lg',
   'text-md': 'text-md',
   'text-sm': 'text-sm',
+  'eyebrow-md': 'eyebrow-md',
 };
 
 const variantClasses = computed(() => {
@@ -88,5 +89,11 @@ const variantClasses = computed(() => {
 
 .text-sm {
   font-size: var(--font-size-text-t4);
+}
+
+.eyebrow-md {
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  color: var(--ui-primary);
 }
 </style>

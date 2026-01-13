@@ -55,7 +55,7 @@ definePageMeta({
       </app-banner-b>
     </template>
     <template #aside-slot>
-      <div class="catagories p-0 py-4 md:p-4 h-full">
+      <div class="catagories px-4 py-4 md:p-4 h-full">
         <div class="flex flex-col gap-2 sticky top-0">
           <ULink
             v-for="catagory in categories"

@@ -53,7 +53,11 @@ const services = items.find(item => item.label === 'Services');
               class="pl-0 min-[800px]:pl-8"
             >
               <address>
-                <AppTypography class="uppercase mb-2 text-primary font-bold">
+                <AppTypography
+                  variant="eyebrow-md"
+                  tag="h3"
+                  class="mb-2"
+                >
                   {{ location.location }}
                 </AppTypography>
                 <AppTypography
