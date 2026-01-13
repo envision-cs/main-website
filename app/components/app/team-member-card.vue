@@ -42,14 +42,14 @@ defineProps<{
             target="_blank"
             aria-label="LinkedIn"
           />
-          <UButton
+          <!-- <UButton
             v-if="email"
             icon="i-heroicons-envelope"
             color="neutral"
             variant="ghost"
             :to="`mailto:${email}`"
             aria-label="Email"
-          />
+          /> -->
         </div>
       </div>
     </article>

@@ -96,9 +96,9 @@ watchEffect(() => {
               </app-typography>
             </div>
             <div>
-              <app-typography tag="p" variant="text-sm">
+              <!-- <app-typography tag="p" variant="text-sm">
                 {{ teamMember?.email }}
-              </app-typography>
+              </app-typography> -->
               <div class="flex gap-4">
                 <UButton
                   v-if="teamMember.linkedin"
@@ -109,14 +109,14 @@ watchEffect(() => {
                   target="_blank"
                   aria-label="LinkedIn"
                 />
-                <UButton
+                <!-- <UButton
                   v-if="teamMember.email"
                   icon="i-heroicons-envelope"
                   color="gray"
                   variant="ghost"
                   :to="`mailto:${teamMember.email}`"
                   aria-label="Email"
-                />
+                /> -->
               </div>
             </div>
           </div>
