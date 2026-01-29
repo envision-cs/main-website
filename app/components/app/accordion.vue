@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { ContentFile } from '@nuxt/content';
-
 defineProps<{
-  data: ContentFile[];
+  data: any[] | undefined | null;
   name: string;
 }>();
 </script>
@@ -10,10 +8,10 @@ defineProps<{
 <template>
   <div class="accordion">
     <details
-      v-for="(item, idx) in data"
+      v-for="(item, idx) in (data || [])"
       :id="`acc-${name}-${idx}`"
       :key="idx"
-      :open="idx === 0"
+      open
     >
       <summary
         :id="`acc-${name}-${idx}-summary`"

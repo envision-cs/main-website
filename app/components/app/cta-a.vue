@@ -69,7 +69,8 @@ withDefaults(defineProps<{
   width: 100%;
   height: 100%;
   display: grid;
-  padding: calc(var(--spacing) * 4);
+  /* padding: calc(var(--spacing) * 4); */
+
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas:
@@ -86,14 +87,14 @@ withDefaults(defineProps<{
   }
 
   @media (min-width: 800px) {
-    padding: calc(var(--spacing) * 8);
+    /* padding: calc(var(--spacing) * 8); */
     grid-template-areas:
-      'tl tm tr'
-      'bl bl mr'
-      'bl bl br';
+      'br br br'
+      'br br br'
+      'br br br';
 
     img {
-      grid-area: bl;
+      grid-area: br;
     }
   }
 }
@@ -114,9 +115,9 @@ withDefaults(defineProps<{
 
   @media (min-width: 800px) {
     grid-template-areas:
-      'tl tm tr'
-      'ml br br'
-      'bl br br';
+      'br br br'
+      'br br br'
+      'br br br';
 
     img {
       grid-area: br;
