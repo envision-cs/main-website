@@ -3,22 +3,26 @@ const { data: threeUniques } = useFetch('/api/threeUniques');
 </script>
 
 <template>
-  <section class="cta site-max">
-    <app-banner-content class="cta-content">
-      <template #title>
+  <app-section-a no-padding class="border-b border-ui-accented">
+    <template #header>
+      <app-typography tag="h2" variant="heading-md">
         Our <span>Three</span> Uniques
-      </template>
-      <template #body>
+      </app-typography>
+      <app-typography
+        variant="text-md"
+        tag="p"
+        class="max-w-[60ch]"
+      >
         At Envision, every decision we make is guided by a clear philosophy—three core principles that define how we
         work, why we work, and the impact we strive to create. These “Three Uniques” are more than values; they are the
         driving force behind our approach, shaping every project, partnership, and interaction.
-      </template>
-    </app-banner-content>
+      </app-typography>
+    </template>
 
-    <div class="mt-0 acc">
+    <template #body>
       <app-accordion :data="threeUniques" name="threeUniques" />
-    </div>
-  </section>
+    </template>
+  </app-section-a>
 </template>
 
 <style scoped>

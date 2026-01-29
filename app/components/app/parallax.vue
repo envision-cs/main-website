@@ -13,18 +13,7 @@ defineProps<{
       '--mobileImage': `url(${mobileImage || image})`,
     }"
   >
-    <!--  <div class="hero-content">
-      <app-typography
-        tag="p"
-        variant="text-xl"
-        class="text-white"
-      >
-        <h2>Naturally Occurring Magnetic Fields</h2>
-        <app-button>
-          view project
-        </app-button>
-      </app-typography>
-    </div> -->
+    <!-- .. -->
   </section>
 </template>
 
@@ -32,7 +21,7 @@ defineProps<{
 section {
   padding: 2rem;
   height: 70vh;
-  min-height: 300px;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,6 +29,7 @@ section {
   background-image: var(--backgroundImage);
 
   @media (max-width: 800px) {
+    min-height: 300px;
     background-image: var(--mobileImage);
   }
 }
