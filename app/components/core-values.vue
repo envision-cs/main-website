@@ -3,20 +3,24 @@ const { data } = useFetch('/api/coreValues');
 </script>
 
 <template>
-  <section class="cta site-max">
-    <app-banner-content class="cta-content">
-      <template #title>
+  <app-section-a no-padding>
+    <template #header>
+      <app-typography tag="h2" variant="heading-md">
         Our <span>Core</span> Values
-      </template>
-      <template #body>
+      </app-typography>
+      <app-typography
+        variant="text-md"
+        tag="p"
+        class="max-w-[60ch]"
+      >
         Choosing the wrong partner can mean wasted budget, endless delays, and a space that never meets its potential. We protect your investment, your timeline, and your vision
-      </template>
-    </app-banner-content>
+      </app-typography>
+    </template>
 
-    <div class="mt-0 acc">
+    <template #body>
       <app-accordion :data="data" name="Core Values" />
-    </div>
-  </section>
+    </template>
+  </app-section-a>
 </template>
 
 <style scoped>

@@ -12,7 +12,7 @@
     <app-section-a flip>
       <template #header>
         <app-typography
-          variant="heading-lg"
+          variant="heading-md"
           tag="h2"
           class=""
         >

@@ -30,6 +30,15 @@ const services = items.find(item => item.label === 'Services');
                     {{ item.label }}
                   </NuxtLink>
                 </li>
+                <li>
+                  <NuxtLink
+                    variant="link"
+                    to="/contact"
+                    color="neutral"
+                  >
+                    Contact
+                  </NuxtLink>
+                </li>
               </ul>
               <ul>
                 <li v-for="item in services?.children" :key="item.id">

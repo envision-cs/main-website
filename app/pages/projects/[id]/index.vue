@@ -73,7 +73,7 @@ definePageMeta({
     </template>
     <template #main-slot>
       <div class="projects">
-        <div class="flex flex-col">
+        <div class="projects-grid">
           <projects-card
             v-for="project in activeProjects"
             :key="project.id"
@@ -90,3 +90,21 @@ definePageMeta({
     </template>
   </layout-a>
 </template>
+
+<style>
+.projects {
+  container-type: inline-size;
+  container-name: projects;
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  container: projects;
+}
+
+@container projects (width > 700px) {
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+</style>

@@ -87,11 +87,11 @@ defineProps<{
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding-inline: calc(var(--spacing) * 4);
-  padding-block: calc(var(--spacing) * 2);
+  padding-inline: calc(var(--spacing) * 2);
+  padding-block: calc(var(--spacing) * 1);
 
   @media (width > 700px) {
-    padding: calc(var(--spacing) * 4);
+    padding: calc(var(--spacing) * 2);
   }
 
   @container (width > 450px) {
