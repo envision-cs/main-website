@@ -28,7 +28,7 @@ const { data } = await useAsyncData('hero', async () => {
           variant="heading-xl"
           class="uppercase font-bold"
         >
-          You need a builder who sees the bigger picture.
+          {{ data.data.title }}
         </app-typography>
 
         <app-typography
@@ -37,7 +37,7 @@ const { data } = await useAsyncData('hero', async () => {
           variant="text-xl"
           class="mt-2"
         >
-          We manage construction projects with excellence, purpose, and people-first precision.
+          {{ data.data.subtitle }}
         </app-typography>
         <UButton
           color="neutral"
