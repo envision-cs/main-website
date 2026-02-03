@@ -10,7 +10,7 @@ const { images = [] } = defineProps<{
   flip?: boolean;
 }>();
 
-const { gentle } = useEasings();
+const { gentle } = useeasings();
 
 type Images = {
   img: string;

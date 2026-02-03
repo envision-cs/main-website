@@ -8,6 +8,15 @@ defineProps<{
   completed: string;
   to: string;
 }>();
+
+const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
+const contentHeight = ref(0);
+
+onMounted(() => {
+  if (contentRef.value) {
+    contentHeight.value = contentRef.value.clientHeight;
+  }
+});
 </script>
 
 <template>
@@ -17,131 +26,152 @@ defineProps<{
     class="project-wrapper"
   >
     <article class="project-card ">
-      <div class="project-card__media">
-        <NuxtImg
-          :src="image"
-          :alt="title"
-          class="image aspect-square object-fill"
-          format="webp"
-          densities="x1 x2"
-        />
+      <NuxtImg
+        :src="image"
+        :alt="title"
+        class="image w-full h-full object-fill"
+        format="webp"
+        densities="x1 x2"
+      />
+      <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
+        <header ref="contentRef" class="title">
+          <app-typography class="h3" variant="heading-md">
+            {{ title }}
+          </app-typography>
+        </header>
+        <ul class="stats">
+          <li v-if="location">
+            <app-typography tag="p" variant="eyebrow-md">
+              Location
+            </app-typography>
+            <app-typography tag="p">
+              {{ location }}
+            </app-typography>
+          </li>
+          <li v-if="area">
+            <app-typography tag="p" variant="eyebrow-md">
+              Area
+            </app-typography>
+            <app-typography tag="p">
+              {{ area }}
+            </app-typography>
+          </li>
+          <li v-if="completed">
+            <app-typography class="p" variant="eyebrow-md">
+              Completed
+            </app-typography>
+            <app-typography tag="p">
+              {{ completed }}
+            </app-typography>
+          </li>
+        </ul>
+        <footer class="sector">
+          {{ sector }}
+          <UIcon name="i-lucide-arrow-right" />
+        </footer>
       </div>
-      <header class="title">
-        <app-typography class="h3" variant="heading-md">
-          {{ title }}
-        </app-typography>
-      </header>
-      <ul class="stats">
-        <li v-if="location">
-          <app-typography tag="p" variant="eyebrow-md">
-            Location
-          </app-typography>
-          <app-typography tag="p">
-            {{ location }}
-          </app-typography>
-        </li>
-        <li v-if="area">
-          <app-typography tag="p" variant="eyebrow-md">
-            Area
-          </app-typography>
-          <app-typography tag="p">
-            {{ area }}
-          </app-typography>
-        </li>
-        <li v-if="completed">
-          <app-typography class="p" variant="eyebrow-md">
-            Completed
-          </app-typography>
-          <app-typography tag="p">
-            {{ completed }}
-          </app-typography>
-        </li>
-      </ul>
-      <footer class="sector">
-        {{ sector }}
-        <UIcon name="i-lucide-arrow-right" />
-      </footer>
     </article>
   </NuxtLink>
 </template>
 
 <style scoped>
-.project-wrapper {
-  container-type: inline-size;
-  border-bottom: 1px solid var(--ui-border);
-  background: transparent;
-  transition:
-    background 0.4s ease,
-    color 0.4s ease;
+:global(:root) {
+  --ease: var(--ease-base);
 }
 
-.project-wrapper:hover {
-  background: var(--color-envision-blue-500);
+.project-wrapper {
+  container-type: inline-size;
+  display: block;
+  overflow: hidden;
 
-  p {
-    color: #fff;
+  &:hover {
+    .image {
+      filter: blur(5px);
+      transform: scale(1.1);
+    }
+
+    .content,
+    .stats,
+    .sector {
+      transform: translateY(0);
+    }
   }
 }
 
 .project-card {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding-inline: calc(var(--spacing) * 2);
-  padding-block: calc(var(--spacing) * 1);
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: white;
+  isolation: isolate;
 
-  @media (width > 700px) {
-    padding: calc(var(--spacing) * 2);
-  }
-
-  @container (width > 450px) {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-areas:
-      'img img . title title title title title title title title title'
-      'stats stats stats stats stats stats stats stats stats stats stats stats'
-      'sector sector sector sector sector sector sector sector sector sector sector sector';
-  }
-
-  @container (width > 800px) {
-    grid-template-areas:
-      'img img . title title title title title . sector sector sector'
-      'stats stats stats stats stats stats stats stats stats stats stats stats';
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1;
+    pointer-events: none;
   }
 }
 
-.project-card__media {
-  grid-area: img;
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(0);
+  z-index: 0;
+  transition:
+    transform 0.5s var(--ease),
+    filter 0.5s var(--ease);
+}
+
+.content {
+  z-index: 2;
+  transform: translateY(calc(100% - var(--titleHeight)));
+  transition: transform 0.5s var(--ease);
+}
+
+.title,
+.stats,
+.sector {
+  position: relative;
+  z-index: 2;
 }
 
 .title {
-  grid-area: title;
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
 }
 
 .stats {
   display: grid;
-  grid-area: stats;
-  grid-template-columns: 1fr 1fr;
-  flex-wrap: wrap;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ease);
+  transition-delay: 120ms;
 
   li {
     grid-column: span 1;
-  }
-
-  @container (width > 450px) {
-    display: grid;
-    grid-template-columns: subgrid;
-
-    li {
-      grid-column: span 4;
-    }
   }
 }
 
 .sector {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-  grid-area: sector;
+  border-top: 1px solid rgb(255 255 255 / 0.3);
+  padding-top: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ease);
+  transition-delay: 220ms;
 }
 </style>

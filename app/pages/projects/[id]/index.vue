@@ -102,9 +102,15 @@ definePageMeta({
   container: projects;
 }
 
-@container projects (width > 700px) {
+@container projects (width > 750px) {
   .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@container projects (width > 1400px) {
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 </style>

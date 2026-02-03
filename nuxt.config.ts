@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     '@posthog/nuxt',
     'motion-v/nuxt',
     'nuxt-maplibre',
+    '@nuxtjs/strapi',
     '@nuxt/hints',
     // eslint-disable-next-line node/no-process-env
     process.env.NODE_ENV !== 'test' ? 'nuxt-studio' : undefined,
@@ -51,6 +52,9 @@ export default defineNuxtConfig({
     public: {
       posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
       posthogDefaults: '2025-05-24',
+      strapi: {
+        url: 'http://localhost:1337',
+      },
     },
   },
   posthogConfig: {
@@ -76,6 +80,9 @@ export default defineNuxtConfig({
     config: {
       standalone: false,
     },
+  },
+  strapi: {
+    version: 'v5',
   },
   font: {
     adobe: {
