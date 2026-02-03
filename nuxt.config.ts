@@ -81,9 +81,6 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
-  strapi: {
-    version: 'v5',
-  },
   font: {
     adobe: {
       id: ['iae6upw'],
