@@ -53,7 +53,7 @@ export default defineNuxtConfig({
       posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
       posthogDefaults: '2025-05-24',
       strapi: {
-        url: 'http://localhost:1337',
+        url: '',
       },
     },
   },
