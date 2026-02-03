@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     'nuxt-maplibre',
     '@nuxtjs/strapi',
     '@nuxt/hints',
-    // eslint-disable-next-line node/no-process-env
+
     process.env.NODE_ENV !== 'test' ? 'nuxt-studio' : undefined,
   ].filter(Boolean) as any,
   css: ['./app/assets/css/main.css'],
@@ -103,5 +103,14 @@ export default defineNuxtConfig({
       repo: 'main-website',
       branch: 'main',
     },
+  },
+  strapi: {
+    url: process.env.STRAPI_URL,
+    token: process.env.STRAPI_TOKEN || undefined,
+    prefix: '/api',
+    admin: '/admin',
+    version: 'v5',
+    cookie: {},
+    cookieName: 'strapi_jwt',
   },
 });
