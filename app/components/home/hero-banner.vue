@@ -11,8 +11,6 @@ const { data } = await useAsyncData('hero', async () => {
     return null;
   }
 }, { default: () => null });
-
-console.warn(data.value);
 </script>
 
 <template>
@@ -58,7 +56,7 @@ console.warn(data.value);
 
     <div class="overlay z-10" aria-hidden="true" />
     <NuxtImg
-      src="/hero.png"
+      :src="data.data.image.url"
       alt="Exterior view of a residence hall at dusk"
       format="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
       fit="cover"
