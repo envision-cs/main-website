@@ -1,30 +1,57 @@
 <script setup lang="ts">
+const { find } = useStrapi();
 const route = useRoute();
-const id = computed(() => route.params.project);
-const { data: page } = useFetch(`/api/projects/${id.value}`);
 const router = useRouter();
-const title = page.value?.seo?.title || page.value?.title;
+
+const slug = computed(() => route.params.project);
+
+const { data: projectData } = await useAsyncData(
+  () => `project-${slug.value}`,
+  async () => {
+    const res = await find('projects', {
+      filters: { slug: { $eq: slug.value } },
+      populate: '*',
+    });
+    return res;
+  },
+  { watch: [slug], default: () => null },
+);
+
+const page = computed(() => {
+  // Strapi find returns { data: [...] }. Prefer first match.
+  const entry = Array.isArray(projectData.value?.data)
+    ? projectData.value?.data?.[0]
+    : projectData.value?.data ?? null;
+
+  const gallery = entry.gallery.map((image) => {
+    return { url: image.url, altText: image.alternativeText };
+  });
+
+  return {
+    id: entry?.id ?? attrs.id,
+    title: entry.title,
+    slug: entry.slug,
+    main_image: entry.mainImage.url,
+    location: entry.location,
+    area: entry.area,
+    completed: entry.completed,
+    gallery,
+    content: entry.description,
+  };
+});
+
+const title = computed(() => page.value?.title);
+const contentHtml = computed(() => page.value?.content || '');
 
 const activeImage = ref<string | null>(null);
 const imageRef = useTemplateRef<HTMLDivElement>('image');
 
-const imageSrc = computed(() => {
-  const src = activeImage.value;
-  if (!src)
-    return null;
-  if (src.startsWith('http'))
-    return src;
-  if (src.startsWith('/'))
-    return src;
-  return `/images/projects/${src}`; // adjust folder
-});
-
 const isLoading = ref(false);
 
 function handleImageClick(image: string) {
-  if (activeImage.value === image)
+  if (activeImage.value === image.url)
     return;
-  activeImage.value = image;
+  activeImage.value = image.url;
   isLoading.value = true;
 }
 
@@ -63,7 +90,7 @@ useSeoMeta({
               <projects-info title="Completed" :data="page.completed" />
             </div>
             <div class="max-w-[75ch]">
-              <ContentRenderer :value="page" />
+              <div v-html="contentHtml" />
             </div>
           </div>
         </article>
@@ -73,8 +100,8 @@ useSeoMeta({
           <li v-for="image in page.gallery" :key="image">
             <button popovertarget="image" @click="handleImageClick(image)">
               <NuxtImg
-                :src="image"
-                :alt="page.title"
+                :src="image.url"
+                :alt="image.altText"
                 fit="fill"
                 format="avif"
                 sizes="50vw md:400px"
@@ -103,7 +130,7 @@ useSeoMeta({
             </div>
             <NuxtImg
               :key="activeImage"
-              :src="imageSrc"
+              :src="activeImage"
               :alt="page.title"
               lazy="true"
               format="avif"
