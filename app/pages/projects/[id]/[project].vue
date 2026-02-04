@@ -36,15 +36,13 @@ const page = computed(() => {
     area: entry.area,
     completed: entry.completed,
     gallery,
-    content: entry.description,
+    content: entry.content,
   };
 });
 
 const title = computed(() => page.value?.title);
-const contentHtml = computed(() => page.value?.content || '');
 
 const activeImage = ref<string | null>(null);
-const imageRef = useTemplateRef<HTMLDivElement>('image');
 
 const isLoading = ref(false);
 
@@ -89,8 +87,8 @@ useSeoMeta({
               />
               <projects-info title="Completed" :data="page.completed" />
             </div>
-            <div class="max-w-[75ch]">
-              <div v-html="contentHtml" />
+            <div v-if="page.content" class="max-w-[75ch]">
+              <StrapiBlocksText :nodes="page.content" />
             </div>
           </div>
         </article>
@@ -111,7 +109,6 @@ useSeoMeta({
         </ul>
         <aside
           id="image"
-          ref="imageRef"
           popover="auto"
         >
           <button

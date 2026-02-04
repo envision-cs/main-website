@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     'motion-v/nuxt',
     'nuxt-maplibre',
     '@nuxtjs/strapi',
+    'nuxt-strapi-blocks-renderer',
     '@nuxt/hints',
 
     process.env.NODE_ENV !== 'test' ? 'nuxt-studio' : undefined,
