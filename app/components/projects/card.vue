@@ -23,6 +23,7 @@ onMounted(() => {
   <NuxtLink
     :to="to"
     :aria-label="title"
+    prefetch-on="interaction"
     class="project-wrapper"
   >
     <article class="project-card ">

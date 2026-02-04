@@ -20,7 +20,7 @@ const { data } = await useAsyncData('page-data', async () => {
 
 const route = useRoute();
 
-const categories = computed<{ title: string; slug: string }[]>(() => {
+const categories = computed<{ title: string; slug: string; image: string }[]>(() => {
   const set = new Map<string, { name: string; slug: string; image: string }>();
 
   // Always include “All”
@@ -94,7 +94,7 @@ definePageMeta({
             :area="project.area"
             :completed="project.completed"
             :sector="project.sector.name"
-            :to="project.slug"
+            :to="`${project.sector.slug}/${project.slug}`"
           />
         </div>
       </div>

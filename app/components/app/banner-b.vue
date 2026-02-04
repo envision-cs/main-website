@@ -40,11 +40,6 @@ defineProps<{
       >
         {{ body }}
       </app-typography>
-
-      <!-- wrap the slot so you can style it -->
-      <div v-if="!imageSrc" class="image-container">
-        <slot name="image" />
-      </div>
     </div>
 
     <div class="overlay" aria-hidden="true" />
