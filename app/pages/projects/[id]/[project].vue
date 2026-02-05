@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+
 const { find } = useStrapi();
 const route = useRoute();
 const router = useRouter();
@@ -37,6 +39,7 @@ const page = computed(() => {
     completed: entry.completed,
     gallery,
     content: entry.content,
+    description: entry.description,
   };
 });
 
@@ -56,6 +59,8 @@ function handleImageClick(image: string) {
 function onLoad() {
   isLoading.value = false;
 }
+
+const { data: ast } = await useAsyncData('markdown', () => parseMarkdown(page.value.description));
 
 useSeoMeta({
   title,
@@ -88,7 +93,7 @@ useSeoMeta({
               <projects-info title="Completed" :data="page.completed" />
             </div>
             <div v-if="page.content" class="max-w-[75ch]">
-              <StrapiBlocksText :nodes="page.content" />
+              <MDCRenderer :body="ast.body" :data="ast.data" />
             </div>
           </div>
         </article>

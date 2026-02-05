@@ -24,9 +24,8 @@ export default defineNuxtConfig({
     '@nuxtjs/strapi',
     'nuxt-strapi-blocks-renderer',
     '@nuxt/hints',
-
-    process.env.NODE_ENV !== 'test' ? 'nuxt-studio' : undefined,
-  ].filter(Boolean) as any,
+    'nuxt-studio',
+  ],
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
@@ -82,11 +81,11 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
-  font: {
-    adobe: {
-      id: ['iae6upw'],
-    },
-  },
+  // font: {
+  //   adobe: {
+  //     id: ['iae6upw'],
+  //   },
+  // },
   devtools: {
     enabled: true,
     timeline: {
