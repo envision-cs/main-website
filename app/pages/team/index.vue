@@ -49,12 +49,12 @@ const { data } = useFetch('/api/team', {
       <template #body>
         <app-team-member-list>
           <app-team-member-card
-            v-for="member in team.members"
+            v-for="member in team.team_members"
             :key="member.name"
-            :path="member.path"
+            :path="member.slug"
             :name="member.name"
             :title="member.title"
-            :image="member.image"
+            :image="member.photo.url"
             :linkedin="member.linkedin"
             :email="member.email"
           />

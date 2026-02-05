@@ -7,32 +7,46 @@ defineProps<{
   linkedin?: string;
   email?: string;
 }>();
+
+const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
+const contentHeight = ref(0);
+
+onMounted(() => {
+  if (contentRef.value) {
+    contentHeight.value = contentRef.value.clientHeight;
+  }
+});
 </script>
 
 <template>
-  <NuxtLink class="team-member" :to="path">
-    <article>
+  <NuxtLink
+    :to="path"
+    :aria-label="name"
+    prefetch-on="interaction"
+    class="team-wrapper"
+  >
+    <article class="team-card">
       <NuxtImg
-        height="400"
-        width="400"
-        fit="cover"
-        format="webp"
         :src="image"
         :alt="name"
-        class="w-full mb-4"
+        class="image w-full h-full object-cover"
+        format="webp"
+        densities="x1 x2"
       />
-      <div>
-        <app-typography tag="h3" variant="heading-sm">
-          {{ name }}
-        </app-typography>
-        <app-typography
-          tag="p"
-          variant="text-md"
-          class="text-primary-500 dark:text-primary-400"
-        >
-          {{ title }}
-        </app-typography>
-        <div class="flex gap-4">
+      <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
+        <header ref="contentRef" class="title">
+          <app-typography class="h3" variant="heading-md">
+            {{ name }}
+          </app-typography>
+          <app-typography
+            tag="p"
+            variant="text-md"
+            class="role text-primary-200 dark:text-primary-200"
+          >
+            {{ title }}
+          </app-typography>
+        </header>
+        <footer class="actions">
           <UButton
             v-if="linkedin"
             icon="i-simple-icons-linkedin"
@@ -42,36 +56,99 @@ defineProps<{
             target="_blank"
             aria-label="LinkedIn"
           />
-          <!-- <UButton
+          <UButton
             v-if="email"
             icon="i-heroicons-envelope"
             color="neutral"
             variant="ghost"
             :to="`mailto:${email}`"
             aria-label="Email"
-          /> -->
-        </div>
+          />
+        </footer>
       </div>
     </article>
   </NuxtLink>
 </template>
 
 <style scoped>
-.team-member {
-  display: block;
+:global(:root) {
+  --ease: var(--ease-base);
+}
+
+.team-wrapper {
   container-type: inline-size;
-}
+  display: block;
+  overflow: hidden;
 
-article {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  gap: calc(var(--spacing) * 4);
-}
+  &:hover {
+    .image {
+      transform: scale(1.1);
+    }
 
-@container (min-width: 700px) {
-  article {
-    grid-template-columns: 1fr 1fr;
+    .content,
+    .actions {
+      transform: translateY(0);
+    }
   }
+}
+
+.team-card {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: white;
+  isolation: isolate;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transition: transform 0.5s var(--ease);
+}
+
+.content {
+  z-index: 2;
+  transform: translateY(calc(100% - var(--titleHeight)));
+  transition: transform 0.5s var(--ease);
+}
+
+.title,
+.actions {
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  margin-bottom: 0.75rem;
+  text-wrap: balance;
+}
+
+.role {
+  opacity: 0.85;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ease);
+  transition-delay: 150ms;
 }
 </style>

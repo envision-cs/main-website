@@ -3,8 +3,8 @@ const { find } = useStrapi();
 const { data } = await useAsyncData('page-data', async () => {
   try {
     const [projectRes, sectorsRes] = await Promise.all([
-      find('projects', { populate: '*' }),
-      find('sectors', { populate: '*' }),
+      find<ApiProjectProject>('projects', { populate: '*' }),
+      find<ApiSectorSector>('sectors', { populate: '*' }),
     ]);
 
     return {
@@ -29,7 +29,7 @@ const categories = computed<{ title: string; slug: string; image: string }[]>(()
   if (!data.value.sectors.length)
     return Array.from(set.values());
 
-  for (const sector of data.value.sectors) {
+  for (const sector of data.value?.sectors) {
     set.set(sector.slug, { name: sector.name, slug: sector.slug, image: sector.image.url });
   }
 

@@ -2,84 +2,35 @@
 const route = useRoute();
 const id = computed(() => route.params.id as string);
 
-// 1) Fetch team member (reactive to route param)
-const { data: teamMember, error: memberError } = await useAsyncData(
-  `team-member-${id.value}`, // Fixed: key should be string, not arrow function
-  () => $fetch(`/api/team/${id.value}`), // Fixed: template literal syntax
-  {
-    watch: [id],
-    lazy: false,
-    server: true,
+const { data } = useFetch(`/api/team/${id.value}`, {
+  params: {
+    id: id.value,
   },
-);
-
-// 2) Fetch full team list (one time)
-const { data: team, error: teamError } = await useAsyncData(
-  'team',
-  () => $fetch('/api/team'),
-  {
-    // Cache this since it's shared across pages
-    getCachedData: key => useNuxtApp().static.data[key],
-  },
-);
+});
 
 // 3) Related groups - optimized logic
-const relatedTeam = computed(() => {
-  if (!team.value?.length || !teamMember.value?.group)
-    return [];
-
-  const groupName = teamMember.value.group.toLowerCase();
-  return team.value.filter(t => t.name?.toLowerCase() === groupName);
-});
-
-const filteredRelatedTeam = computed(() => {
-  if (!teamMember.value)
-    return relatedTeam.value;
-
-  const currentMemberName = teamMember.value.name;
-  return relatedTeam.value
-    .map(group => ({
-      ...group,
-      members: group.members.filter(m => m.name !== currentMemberName),
-    }))
-    .filter(group => group.members.length > 0); // Remove empty groups
-});
+const relatedTeam = data.value?.team;
 
 // 4) Page metadata
-const title = computed(() => teamMember.value?.name ?? 'Team Member');
+const title = computed(() => data.value?.teamMember.name);
 
 useSeoMeta({
-  title,
-  ogTitle: title,
-  description: computed(() =>
-    teamMember.value
-      ? `Learn more about ${teamMember.value.name} from our team`
-      : 'Meet our team member',
-  ),
+  title: title.value,
 });
 
 definePageMeta({
   layout: 'layout-b',
 });
-
-// 5) Handle errors gracefully
-watchEffect(() => {
-  if (memberError.value) {
-    console.error('Error fetching team member:', memberError.value);
-  }
-  if (teamError.value) {
-    console.error('Error fetching team:', teamError.value);
-  }
-});
 </script>
 
 <template>
-  <UPage class="mt-[25px]">
+  <UPage v-if="data?.teamMember" class="mt-[25px]">
     <app-section-a>
       <template #header>
         <NuxtImg
-          :src="teamMember?.image"
+          :src="data.teamMember?.photo.url"
           class="image"
+          fetch-priority="high"
           sizes="100vw sm:500px md:770px"
           format="webp"
         />
@@ -89,10 +40,10 @@ watchEffect(() => {
           <div class="content">
             <div>
               <app-typography tag="h1" variant="heading-lg">
-                {{ teamMember.name }}
+                {{ data.teamMember.name }}
               </app-typography>
               <app-typography tag="p" variant="text-lg">
-                {{ teamMember.title }}
+                {{ data.teamMember.title }}
               </app-typography>
             </div>
             <div>
@@ -101,11 +52,11 @@ watchEffect(() => {
               </app-typography> -->
               <div class="flex gap-4">
                 <UButton
-                  v-if="teamMember.linkedin"
+                  v-if="data.teamMember.linkedin"
                   icon="i-simple-icons-linkedin"
                   color="gray"
                   variant="ghost"
-                  :to="teamMember.linkedin"
+                  :to="data.teamMember.linkedin"
                   target="_blank"
                   aria-label="LinkedIn"
                 />
@@ -120,14 +71,14 @@ watchEffect(() => {
               </div>
             </div>
           </div>
-          <ContentRenderer :value="teamMember" class="" />
+          <ContentRenderer :value="data.teamMember.bio" class="" />
         </div>
       </template>
     </app-section-a>
     <div class="site-grid mt-40" />
 
     <app-section-a
-      v-for="t in filteredRelatedTeam"
+      v-for="t in data.team"
       :key="t.name"
       class="team-section border-t border-muted"
     >
@@ -138,32 +89,32 @@ watchEffect(() => {
           </app-typography>
           <div
             class="w-80 h-3"
-            :class="[t.color]"
+            :class="[t.title]"
             :style="{
-              backgroundColor: t.color,
+              backgroundColor: t.team.color,
             }"
           />
           <app-typography tag="p" variant="heading-sm">
-            {{ t.role }}
+            {{ t.team.role }}
           </app-typography>
           <app-typography
             tag="p"
             variant="text-lg"
             class="mt-auto max-w-sm"
           >
-            {{ t.description }}
+            {{ t.team.description }}
           </app-typography>
         </div>
       </template>
       <template #body>
         <app-team-member-list>
           <app-team-member-card
-            v-for="member in t.members"
-            :key="member.name"
-            :path="member.path"
+            v-for="member in relatedTeam"
+            :key="member.id"
+            :path="`/team/${member.slug}`"
             :name="member.name"
             :title="member.title"
-            :image="member.image"
+            :image="member.photo.url"
             :linkedin="member.linkedin"
             :email="member.email"
           />
@@ -171,6 +122,9 @@ watchEffect(() => {
       </template>
     </app-section-a>
   </UPage>
+  <div v-else>
+    Nothing Here
+  </div>
 </template>
 
 <style scoped>
