@@ -9,7 +9,6 @@
   display: grid;
   grid-column: 1/-1;
   grid-template-columns: 1fr;
-  gap: calc(var(--spacing) * 6);
 
   @media (min-width: 450px) {
     grid-template-columns: 1fr 1fr;

@@ -1,18 +1,36 @@
 <script setup lang="ts">
+import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+
 const route = useRoute();
 const id = computed(() => route.params.id as string);
 
-const { data } = useFetch(`/api/team/${id.value}`, {
-  params: {
-    id: id.value,
+const { data } = await useAsyncData(
+  'team-member-page',
+  async () => {
+    const response = await $fetch(`/api/team/${id.value}`, {
+      params: {
+        id: id.value,
+      },
+    });
+    const ast = response?.teamMember?.bio
+      ? await parseMarkdown(response.teamMember.bio)
+      : null;
+
+    return {
+      ...response,
+      ast,
+    };
   },
-});
+  {
+    watch: [id],
+  },
+);
 
 // 3) Related groups - optimized logic
-const relatedTeam = data.value?.team;
+const relatedTeam = computed(() => data.value?.team || []);
 
 // 4) Page metadata
-const title = computed(() => data.value?.teamMember.name);
+const title = computed(() => data.value?.teamMember?.name);
 
 useSeoMeta({
   title: title.value,
@@ -47,9 +65,6 @@ definePageMeta({
               </app-typography>
             </div>
             <div>
-              <!-- <app-typography tag="p" variant="text-sm">
-                {{ teamMember?.email }}
-              </app-typography> -->
               <div class="flex gap-4">
                 <UButton
                   v-if="data.teamMember.linkedin"
@@ -60,49 +75,41 @@ definePageMeta({
                   target="_blank"
                   aria-label="LinkedIn"
                 />
-                <!-- <UButton
-                  v-if="teamMember.email"
-                  icon="i-heroicons-envelope"
-                  color="gray"
-                  variant="ghost"
-                  :to="`mailto:${teamMember.email}`"
-                  aria-label="Email"
-                /> -->
               </div>
             </div>
           </div>
-          <ContentRenderer :value="data.teamMember.bio" class="" />
+
+          <MDCRenderer :body="data.ast?.body" :data="data.ast?.data" />
         </div>
       </template>
     </app-section-a>
     <div class="site-grid mt-40" />
 
     <app-section-a
-      v-for="t in data.team"
-      :key="t.name"
+      :key="data.teamMember.team.name"
+      no-padding
       class="team-section border-t border-muted"
     >
       <template #header>
         <div class="section-head">
           <app-typography tag="h2" variant="heading-md">
-            {{ t.name }}
+            {{ data.teamMember.team.name }}
           </app-typography>
           <div
             class="w-80 h-3"
-            :class="[t.title]"
             :style="{
-              backgroundColor: t.team.color,
+              backgroundColor: data.teamMember.team.color,
             }"
           />
           <app-typography tag="p" variant="heading-sm">
-            {{ t.team.role }}
+            {{ data.teamMember.team.role }}
           </app-typography>
           <app-typography
             tag="p"
             variant="text-lg"
             class="mt-auto max-w-sm"
           >
-            {{ t.team.description }}
+            {{ data.teamMember.team.description }}
           </app-typography>
         </div>
       </template>

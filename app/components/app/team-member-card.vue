@@ -30,8 +30,7 @@ onMounted(() => {
         :src="image"
         :alt="name"
         class="image w-full h-full object-cover"
-        format="webp"
-        densities="x1 x2"
+        format="avif"
       />
       <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
         <header ref="contentRef" class="title">
@@ -107,7 +106,7 @@ onMounted(() => {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(to top, rgba(12, 44, 69, 0.85) 0%, rgba(12, 44, 69, 0.4) 25%, rgba(12, 44, 69, 0) 50%);
     z-index: 1;
     pointer-events: none;
   }
