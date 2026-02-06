@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { data: threeUniques } = useFetch('/api/threeUniques');
+const { data: threeUniques } = await useAsyncData('three-uniqes', () => $fetch('/api/threeUniques'), {
+  default: () => [],
+});
 </script>
 
 <template>

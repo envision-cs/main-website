@@ -39,7 +39,6 @@ defineProps<{
       >
         <div class="panel__inner">
           <ContentRenderer
-            v-if="item.meta"
             :value="item.meta"
             class=" prose [&_p]:max-w-[60ch] [&_p]:text-balance"
           />

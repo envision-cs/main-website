@@ -58,9 +58,10 @@ const { data } = await useAsyncData('hero', async () => {
     <NuxtImg
       :src="data.data.image.url"
       alt="Exterior view of a residence hall at dusk"
-      format="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+      size="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
       fit="cover"
       preload
+      format="avif"
       loading="eager"
       class="image h-full w-full z-0 object-cover"
     />

@@ -21,6 +21,7 @@ const { data } = useFetch('/api/team', {
       v-for="team in data"
       :key="team.name"
       class="team-section"
+      no-padding
     >
       <template #header>
         <div class="section-head">

@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
+  devtools: {
+    enabled: true,
+  },
   app: {
     head: {
       meta: [
@@ -86,12 +89,7 @@ export default defineNuxtConfig({
   //     id: ['iae6upw'],
   //   },
   // },
-  devtools: {
-    enabled: true,
-    timeline: {
-      enabled: true,
-    },
-  },
+
   experimental: {
     sharedPrerenderData: true,
   },
