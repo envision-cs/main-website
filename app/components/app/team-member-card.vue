@@ -34,7 +34,7 @@ onMounted(() => {
       />
       <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
         <header ref="contentRef" class="title">
-          <app-typography class="h3" variant="heading-md">
+          <app-typography class="h3" variant="heading-sm">
             {{ name }}
           </app-typography>
           <app-typography
