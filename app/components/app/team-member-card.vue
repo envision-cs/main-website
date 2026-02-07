@@ -19,55 +19,57 @@ onMounted(() => {
 </script>
 
 <template>
-  <NuxtLink
-    :to="path"
-    :aria-label="name"
-    prefetch-on="interaction"
-    class="team-wrapper"
-  >
-    <article class="team-card">
-      <NuxtImg
-        :src="image"
-        :alt="name"
-        class="image w-full h-full object-cover"
-        format="webp"
-        sizes="(max-width: 768px) 100vw, 300px"
-      />
-      <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
-        <header ref="contentRef" class="title">
-          <app-typography class="h3" variant="heading-sm">
-            {{ name }}
-          </app-typography>
-          <app-typography
-            tag="p"
-            variant="text-md"
-            class="role text-primary-200 dark:text-primary-200"
-          >
-            {{ title }}
-          </app-typography>
-        </header>
-        <footer class="actions">
-          <UButton
-            v-if="linkedin"
-            icon="i-simple-icons-linkedin"
-            color="neutral"
-            variant="ghost"
-            :to="linkedin"
-            target="_blank"
-            aria-label="LinkedIn"
-          />
-          <UButton
-            v-if="email"
-            icon="i-heroicons-envelope"
-            color="neutral"
-            variant="ghost"
-            :to="`mailto:${email}`"
-            aria-label="Email"
-          />
-        </footer>
-      </div>
-    </article>
-  </NuxtLink>
+  <li>
+    <NuxtLink
+      :to="path"
+      :aria-label="name"
+      prefetch-on="interaction"
+      class="team-wrapper"
+    >
+      <article class="team-card">
+        <NuxtImg
+          :src="image"
+          :alt="name"
+          class="image w-full h-full object-cover"
+          format="webp"
+          sizes="(max-width: 768px) 100vw, 300px"
+        />
+        <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
+          <header ref="contentRef" class="title">
+            <app-typography class="h3" variant="heading-sm">
+              {{ name }}
+            </app-typography>
+            <app-typography
+              tag="p"
+              variant="text-md"
+              class="role text-primary-200 dark:text-primary-200"
+            >
+              {{ title }}
+            </app-typography>
+          </header>
+          <footer class="actions">
+            <UButton
+              v-if="linkedin"
+              icon="i-simple-icons-linkedin"
+              color="neutral"
+              variant="ghost"
+              :to="linkedin"
+              target="_blank"
+              aria-label="LinkedIn"
+            />
+            <UButton
+              v-if="email"
+              icon="i-heroicons-envelope"
+              color="neutral"
+              variant="ghost"
+              :to="`mailto:${email}`"
+              aria-label="Email"
+            />
+          </footer>
+        </div>
+      </article>
+    </NuxtLink>
+  </li>
 </template>
 
 <style scoped>

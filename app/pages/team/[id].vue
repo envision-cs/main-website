@@ -42,7 +42,7 @@ definePageMeta({
 </script>
 
 <template>
-  <UPage v-if="data?.teamMember" class="mt-[25px]">
+  <UPage v-if="data?.teamMember" class="mt-6.25">
     <app-section-a>
       <template #header>
         <NuxtImg

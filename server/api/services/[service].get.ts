@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const config = useRuntimeConfig();
-  const url = `${config.strapi.url}/api/services?filters[param][$eq]=${encodeURIComponent(service)}&populate=*`;
+  const url = `${config.strapi.url}/api/services?populate=*`;
   const [strapiError, response] = await catchError(
     $fetch<APIServices>(url, {
       method: 'GET',
@@ -27,7 +27,11 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const strapiService = response?.data?.[0];
+  const strapiService = response?.data?.find((item: any) => {
+    // support either flat or Strapi-style attributes payloads
+    const attrs = item?.attributes ?? item;
+    return attrs?.param === service || attrs?.slug === service;
+  });
   if (!strapiService) {
     throw createError({
       statusCode: 404,
