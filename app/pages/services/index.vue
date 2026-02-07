@@ -35,6 +35,7 @@ const services = computed(() =>
       :path="`/services/${service.slug}`"
       :name="service.title"
       :image="service.image"
+      title-size="heading-md"
     />
   </app-team-member-list>
 </template>

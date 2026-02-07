@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+
 const route = useRoute();
 
 const service = computed(() => route.params.services as string);
@@ -6,7 +8,7 @@ const fetchKey = computed(() => `service-${service.value}`);
 
 const { data } = await useAsyncData(
   fetchKey,
-  () => $fetch(`/api/services/${service.value}`),
+  async () => $fetch(`/api/services/${service.value}`),
   {
     watch: [service],
     default: () => null,
@@ -14,6 +16,7 @@ const { data } = await useAsyncData(
 );
 
 const serviceData = computed(() => data.value);
+const content = await parseMarkdown(data?.value?.description);
 
 definePageMeta({
   layout: 'layout-a',
@@ -26,7 +29,7 @@ useSeoMeta(() => ({
 </script>
 
 <template>
-  <div v-if="serviceData" class="p-4 md:p-8">
-    {{ data?.content }}
+  <div v-if="content.body" class="p-4">
+    <MDCRenderer :body="content.body" :data="content.data" />
   </div>
 </template>

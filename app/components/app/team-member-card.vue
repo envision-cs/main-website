@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useResizeObserver } from '@vueuse/core';
+
 defineProps<{
   path: string;
   image: string;
@@ -6,15 +8,25 @@ defineProps<{
   title: string;
   linkedin?: string;
   email?: string;
+  titleSize: string;
 }>();
 
 const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
 const contentHeight = ref(0);
 
-onMounted(() => {
-  if (contentRef.value) {
-    contentHeight.value = contentRef.value.clientHeight;
+function updateHeight() {
+  contentHeight.value = contentRef.value?.clientHeight ?? 0;
+}
+
+useResizeObserver(contentRef, (entries) => {
+  const entry = entries[0];
+  if (entry) {
+    contentHeight.value = entry.contentRect.height;
   }
+});
+
+onMounted(() => {
+  updateHeight();
 });
 </script>
 
@@ -36,7 +48,7 @@ onMounted(() => {
         />
         <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
           <header ref="contentRef" class="title">
-            <app-typography class="h3" variant="heading-sm">
+            <app-typography class="h3" :variant="titleSize">
               {{ name }}
             </app-typography>
             <app-typography
