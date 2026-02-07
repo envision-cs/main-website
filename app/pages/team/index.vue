@@ -6,7 +6,11 @@ const { data } = useFetch('/api/team', {
 
 <template>
   <div class="">
-    <app-banner-b class="col-start-1 -col-end-1" image="meet-the-team.jpg">
+    <app-banner-b
+      class="col-start-1 -col-end-1"
+      image="meet-the-team.jpg"
+      body="Collaborating with Colors (CWC) is how we define teams within our team and their function in relation to Envision. Our six teams—the Orange Team, Gray Team, COL Team, Red Team, Blue Team, and Green Team—collaborate to deliver high-quality projects on time and within budget. We chose to empower our team members by recognizing their strengths, discovering where they best fit into daily operations, and developing a title that best illustrates the value that the team member adds to the company. Meet the Envision team"
+    >
       Meet the team
       <template #image>
         <NuxtImg

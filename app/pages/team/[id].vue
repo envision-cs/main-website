@@ -4,8 +4,10 @@ import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 const route = useRoute();
 const id = computed(() => route.params.id as string);
 
+const asyncDataKey = computed(() => `team-member-page-${id.value}`);
+
 const { data } = await useAsyncData(
-  'team-member-page',
+  asyncDataKey,
   async () => {
     const response = await $fetch(`/api/team/${id.value}`, {
       params: {
@@ -21,9 +23,7 @@ const { data } = await useAsyncData(
       ast,
     };
   },
-  {
-    watch: [id],
-  },
+  { watch: [id] },
 );
 
 // 3) Related groups - optimized logic
@@ -69,7 +69,6 @@ definePageMeta({
                 <UButton
                   v-if="data.teamMember.linkedin"
                   icon="i-simple-icons-linkedin"
-                  color="gray"
                   variant="ghost"
                   :to="data.teamMember.linkedin"
                   target="_blank"
@@ -78,8 +77,9 @@ definePageMeta({
               </div>
             </div>
           </div>
-
-          <MDCRenderer :body="data.ast?.body" :data="data.ast?.data" />
+          <diV v-if="data.ast?.body">
+            <MDCRenderer :body="data.ast?.body" :data="data.ast?.data" />
+          </diV>
         </div>
       </template>
     </app-section-a>
@@ -147,6 +147,7 @@ definePageMeta({
   flex-direction: column;
   gap: calc(var(--spacing) * 3);
 }
+
 .hero {
   display: grid;
   grid-template-columns: 1fr 1fr;

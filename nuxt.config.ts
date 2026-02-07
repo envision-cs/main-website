@@ -84,11 +84,6 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
-  // font: {
-  //   adobe: {
-  //     id: ['iae6upw'],
-  //   },
-  // },
 
   experimental: {
     sharedPrerenderData: true,

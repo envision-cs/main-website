@@ -29,18 +29,17 @@ defineProps<{
       >
         <slot name="title" />
       </app-typography>
-    </div>
-
-    <div class="content site-grid">
       <app-typography
         id="banner-body"
         tag="p"
-        variant="text-lg"
+        variant="text-md"
         class="text"
       >
         {{ body }}
       </app-typography>
     </div>
+
+    <div class="content site-grid" />
 
     <div class="overlay" aria-hidden="true" />
     <NuxtImg

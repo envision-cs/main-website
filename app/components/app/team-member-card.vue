@@ -30,7 +30,8 @@ onMounted(() => {
         :src="image"
         :alt="name"
         class="image w-full h-full object-cover"
-        format="avif"
+        format="webp"
+        sizes="(max-width: 768px) 100vw, 300px"
       />
       <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
         <header ref="contentRef" class="title">
