@@ -12,10 +12,19 @@ defineProps<{
 const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
 const contentHeight = ref(0);
 
-onMounted(() => {
-  if (contentRef.value) {
-    contentHeight.value = contentRef.value.clientHeight;
+function updateHeight() {
+  contentHeight.value = contentRef.value?.clientHeight ?? 0;
+}
+
+useResizeObserver(contentRef, (entries) => {
+  const entry = entries[0];
+  if (entry) {
+    contentHeight.value = entry.contentRect.height;
   }
+});
+
+onMounted(() => {
+  updateHeight();
 });
 </script>
 
@@ -58,7 +67,7 @@ onMounted(() => {
             </app-typography>
           </li>
           <li v-if="completed">
-            <app-typography class="p" variant="eyebrow-md">
+            <app-typography tag="p" variant="eyebrow-md">
               Completed
             </app-typography>
             <app-typography tag="p">
@@ -76,10 +85,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-:global(:root) {
-  --ease: var(--ease-base);
-}
-
 .project-wrapper {
   container-type: inline-size;
   display: block;
@@ -129,8 +134,8 @@ onMounted(() => {
   filter: blur(0);
   z-index: 0;
   transition:
-    transform 0.5s var(--ease),
-    filter 0.5s var(--ease);
+    transform 0.5s var(--ease-base),
+    filter 0.5s var(--ease-base);
 }
 
 .content {

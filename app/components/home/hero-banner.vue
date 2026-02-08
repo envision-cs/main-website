@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { } from '~/types';
-
 const { find } = useStrapi();
 const { data } = await useAsyncData('hero', async () => {
   try {
@@ -11,10 +9,12 @@ const { data } = await useAsyncData('hero', async () => {
     return null;
   }
 }, { default: () => null });
+const hero = computed(() => data.value?.data ?? null);
 </script>
 
 <template>
   <section
+    v-if="hero"
     class="hero h-dvh overflow-hidden grid"
     aria-labelledby="hero-title"
     aria-describedby="hero-summary"
@@ -28,7 +28,7 @@ const { data } = await useAsyncData('hero', async () => {
           variant="heading-xl"
           class="uppercase font-bold"
         >
-          {{ data.data.title }}
+          {{ hero.title }}
         </app-typography>
 
         <app-typography
@@ -37,7 +37,7 @@ const { data } = await useAsyncData('hero', async () => {
           variant="text-xl"
           class="mt-2"
         >
-          {{ data.data.subtitle }}
+          {{ hero.subtitle }}
         </app-typography>
         <UButton
           color="neutral"
@@ -56,9 +56,10 @@ const { data } = await useAsyncData('hero', async () => {
 
     <div class="overlay z-10" aria-hidden="true" />
     <NuxtImg
-      :src="data.data.image.url"
+      v-if="hero.image?.url"
+      :src="hero.image.url"
       alt="Exterior view of a residence hall at dusk"
-      size="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+      sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
       fit="cover"
       preload
       format="avif"

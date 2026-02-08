@@ -4,6 +4,12 @@ import { catchError } from '~~/shared/utils/catch-error';
 
 export default defineEventHandler(async (event) => {
   const { id } = getRouterParams(event);
+  if (!id) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Missing team member id',
+    });
+  }
   const config = useRuntimeConfig();
   const url = `${config.strapi.url}/api/team-members?populate=*`;
   const [error, response] = await catchError(

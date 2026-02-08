@@ -69,9 +69,7 @@ useSeoMeta({
 
 <template>
   <div>
-    <app-banner-b
-      :image="page?.main_image"
-    >
+    <app-banner-b :image="page?.main_image">
       {{ page?.title }}
     </app-banner-b>
     <app-section-a v-if="page" class="grid grid-cols-1 min-[800px]:grid-cols-2 pt-12">
@@ -92,7 +90,7 @@ useSeoMeta({
               />
               <projects-info title="Completed" :data="page.completed" />
             </div>
-            <div v-if="page.content" class="max-w-[75ch]">
+            <div v-if="ast?.body" class="max-w-[75ch]">
               <MDCRenderer :body="ast.body" :data="ast.data" />
             </div>
           </div>
@@ -100,7 +98,7 @@ useSeoMeta({
       </template>
       <template #body>
         <ul class="gallery">
-          <li v-for="image in page.gallery" :key="image">
+          <li v-for="image in page.gallery" :key="image.url">
             <button popovertarget="image" @click="handleImageClick(image)">
               <NuxtImg
                 :src="image.url"
@@ -112,19 +110,13 @@ useSeoMeta({
             </button>
           </li>
         </ul>
-        <aside
-          id="image"
-          popover="auto"
-        >
+        <aside id="image" popover="auto">
           <button
             popovertarget="image"
             popovertargetaction="hide"
             class="close-btn"
           >
-            <UIcon
-              name="i-lucide-x"
-              class="w-6 h-6 text-black"
-            />
+            <UIcon name="i-lucide-x" class="w-6 h-6 text-black" />
           </button>
           <figure>
             <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -187,7 +179,8 @@ article {
 .gallery img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* fills square, no distortion */
+  object-fit: cover;
+  /* fills square, no distortion */
 }
 
 .info {

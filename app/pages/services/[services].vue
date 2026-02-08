@@ -16,7 +16,11 @@ const { data } = await useAsyncData(
 );
 
 const serviceData = computed(() => data.value);
-const content = await parseMarkdown(data?.value?.description);
+const content = computedAsync(async () => {
+  if (!serviceData.value?.description)
+    return null;
+  return parseMarkdown(serviceData.value.description);
+}, null);
 
 definePageMeta({
   layout: 'layout-a',
@@ -29,7 +33,12 @@ useSeoMeta(() => ({
 </script>
 
 <template>
-  <div v-if="content.body" class="p-4">
+  <div v-if="content" class="p-4">
     <MDCRenderer :body="content.body" :data="content.data" />
+  </div>
+  <div v-else class="p-4">
+    <app-typography tag="p" variant="text-md">
+      No description available for this service.
+    </app-typography>
   </div>
 </template>

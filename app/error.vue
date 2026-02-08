@@ -20,23 +20,31 @@ const goHome = () => clearError({ redirect: '/' });
 <template>
   <UApp>
     <NuxtLayout name="default">
-      <section class="not-found">
-        <div class="hero">
+      <section class="flex flex-col gap-12 md:gap-16 pb-12 md:pb-16">
+        <div class="relative min-h-[85vh] lg:min-h-[90vh] border-b border-muted overflow-clip">
           <NuxtImg
             src="/USFSPResidenceHall-Exteriors-DuskLandscapefromRamp.jpg"
             alt="Envision project exterior"
-            class="hero__image"
+            class="w-full h-full object-cover saturate-105"
             sizes="sm:100vw md:100vw lg:100vw"
             densities="x1 x2"
             preload
           />
-          <div class="hero__overlay" />
-          <div class="hero__content site-grid">
-            <div class="hero__label">
-              <span class="pill">{{ isNotFound ? '404' : props.error?.statusCode }}</span>
-              <span class="pill pill--ghost">{{ isNotFound ? 'Page not found' : 'Unexpected error' }}</span>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+          <div class="absolute inset-0 site-grid grid items-end px-6 py-12 md:px-16 md:py-20 lg:py-24 gap-6">
+            <div class="col-span-full flex flex-wrap gap-2 md:gap-3 md:col-span-6 lg:col-span-10">
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-white/10 text-white uppercase tracking-[0.08em] text-sm"
+              >
+                {{ isNotFound ? '404' : props.error?.statusCode }}
+              </span>
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-white/10 border border-white/40 text-white uppercase tracking-[0.08em] text-sm"
+              >
+                {{ isNotFound ? 'Page not found' : 'Unexpected error' }}
+              </span>
             </div>
-            <div class="hero__text">
+            <div class="col-span-full flex flex-col gap-4 text-white md:col-span-10 lg:col-span-12">
               <app-typography
                 tag="h1"
                 variant="heading-lg"
@@ -47,11 +55,11 @@ const goHome = () => clearError({ redirect: '/' });
               <app-typography
                 tag="p"
                 variant="text-lg"
-                class="hero__description"
+                class="text-white/85 max-w-[36ch]"
               >
                 {{ description }}
               </app-typography>
-              <div class="hero__actions">
+              <div class="flex flex-wrap items-center gap-3">
                 <app-button color="primary" href="/">
                   Back to home
                 </app-button>
@@ -61,7 +69,7 @@ const goHome = () => clearError({ redirect: '/' });
                 <UButton
                   variant="ghost"
                   color="neutral"
-                  class="hero__retry"
+                  class="text-white border-white/40"
                   @click="goHome"
                 >
                   Clear error & reload
@@ -71,41 +79,60 @@ const goHome = () => clearError({ redirect: '/' });
           </div>
         </div>
 
-        <div class="info site-grid">
-          <div class="info__card">
+        <div class="site-grid gap-4 px-4 md:px-8">
+          <div
+            class="col-span-full md:col-span-12 lg:col-span-11 border border-muted rounded-lg p-6 md:p-10 bg-white shadow-xl"
+          >
             <app-typography tag="h2" variant="heading-sm">
               Quick paths
             </app-typography>
-            <ul class="info__links">
+            <ul class="mt-4 grid gap-2">
               <li>
-                <NuxtLink to="/services/construction-management">
+                <NuxtLink
+                  class="font-medium border-b border-transparent pb-1 hover:text-primary hover:border-primary"
+                  to="/services/construction-management"
+                >
                   Construction Management
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/projects/all">
+                <NuxtLink
+                  class="font-medium border-b border-transparent pb-1 hover:text-primary hover:border-primary"
+                  to="/projects/all"
+                >
                   Projects
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/team">
+                <NuxtLink
+                  class="font-medium border-b border-transparent pb-1 hover:text-primary hover:border-primary"
+                  to="/team"
+                >
                   Meet the Team
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/about">
+                <NuxtLink
+                  class="font-medium border-b border-transparent pb-1 hover:text-primary hover:border-primary"
+                  to="/about"
+                >
                   About Us
                 </NuxtLink>
               </li>
               <li>
-                <NuxtLink to="/contact">
+                <NuxtLink
+                  class="font-medium border-b border-transparent pb-1 hover:text-primary hover:border-primary"
+                  to="/contact"
+                >
                   Contact
                 </NuxtLink>
               </li>
             </ul>
           </div>
 
-          <div class="info__card info__card--muted">
+          <div
+            class="col-span-full md:col-span-12 lg:col-span-11 border border-muted rounded-lg p-6 md:p-10 bg-gradient-to-br from-primary/5 to-secondary/5 shadow-xl"
+          >
             <app-typography
               tag="h3"
               variant="heading-sm"
@@ -116,12 +143,12 @@ const goHome = () => clearError({ redirect: '/' });
             <app-typography
               tag="p"
               variant="text-md"
-              class="text-muted"
+              class="text-neutral-600"
             >
               If you typed the address manually, double-check the spelling. Otherwise, use the links here or return home
               and we\'ll guide you.
             </app-typography>
-            <div class="info__actions">
+            <div class="flex flex-wrap gap-3 mt-4">
               <UButton
                 size="lg"
                 variant="soft"
@@ -147,170 +174,3 @@ const goHome = () => clearError({ redirect: '/' });
     </NuxtLayout>
   </UApp>
 </template>
-
-<style scoped>
-.not-found {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spacing) * 12);
-  padding-bottom: calc(var(--spacing) * 12);
-}
-
-.hero {
-  position: relative;
-  min-height: min(90vh, 960px);
-  border-bottom: var(--border-main);
-  overflow: clip;
-}
-
-.hero__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(1.05);
-}
-
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.35) 40%, rgba(0, 0, 0, 0.7) 100%);
-}
-
-.hero__content {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  align-content: end;
-  padding: calc(var(--spacing) * 6) calc(var(--spacing) * 4);
-
-  @media (min-width: 700px) {
-    padding: calc(var(--spacing) * 10) calc(var(--spacing) * 8);
-  }
-}
-
-.hero__label {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--spacing) * 2);
-
-  @media (min-width: 700px) {
-    grid-column: 1 / span 6;
-  }
-
-  @media (min-width: 1024px) {
-    grid-column: 1 / span 10;
-  }
-}
-
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35em;
-  padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
-  border-radius: calc(var(--ui-radius));
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: var(--font-size-text-t4);
-}
-
-.pill--ghost {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-}
-
-.hero__text {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--spacing) * 4);
-  color: #fff;
-
-  @media (min-width: 700px) {
-    grid-column: 1 / span 10;
-  }
-
-  @media (min-width: 1024px) {
-    grid-column: 1 / span 12;
-  }
-}
-
-.hero__description {
-  color: rgba(255, 255, 255, 0.85);
-  max-width: 36ch;
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--spacing) * 3);
-  align-items: center;
-}
-
-.hero__retry {
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.4);
-}
-
-.info {
-  gap: calc(var(--spacing) * 4);
-  padding-inline: calc(var(--spacing) * 4);
-
-  @media (min-width: 700px) {
-    padding-inline: calc(var(--spacing) * 8);
-  }
-}
-
-.info__card {
-  grid-column: 1 / -1;
-  border: var(--border-main);
-  border-radius: calc(var(--ui-radius));
-  padding: calc(var(--spacing) * 6);
-  background: #fff;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.04);
-
-  @media (min-width: 700px) {
-    grid-column: span 12;
-  }
-
-  @media (min-width: 1024px) {
-    grid-column: span 11;
-  }
-}
-
-.info__card--muted {
-  background: linear-gradient(135deg, rgba(6, 98, 164, 0.05), rgba(90, 184, 71, 0.05));
-}
-
-.info__links {
-  margin-top: calc(var(--spacing) * 4);
-  display: grid;
-  gap: calc(var(--spacing) * 2);
-
-  a {
-    color: inherit;
-    font-weight: 500;
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    padding-bottom: calc(var(--spacing) * 1);
-  }
-
-  a:hover {
-    color: var(--ui-primary);
-    border-color: var(--ui-primary);
-  }
-}
-
-.info__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--spacing) * 3);
-  margin-top: calc(var(--spacing) * 4);
-}
-
-.text-muted {
-  color: var(--ui-color-neutral-600);
-}
-</style>

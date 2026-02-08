@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useResizeObserver } from '@vueuse/core';
 
+type TypographyVariant = 'heading-sm' | 'heading-md' | 'heading-lg' | 'text-sm' | 'text-md' | 'text-lg';
+
 defineProps<{
   path: string;
   image: string;
@@ -8,7 +10,7 @@ defineProps<{
   title: string;
   linkedin?: string;
   email?: string;
-  titleSize: string;
+  titleSize: TypographyVariant;
 }>();
 
 const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
@@ -85,10 +87,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-:global(:root) {
-  --ease: var(--ease-base);
-}
-
 .team-wrapper {
   container-type: inline-size;
   display: block;
@@ -134,13 +132,13 @@ onMounted(() => {
   height: 100%;
   object-fit: cover;
   z-index: 0;
-  transition: transform 0.5s var(--ease);
+  transition: transform 0.5s var(--ease-base);
 }
 
 .content {
   z-index: 2;
   transform: translateY(calc(100% - var(--titleHeight)));
-  transition: transform 0.5s var(--ease);
+  transition: transform 0.5s var(--ease-base);
 }
 
 .title,
@@ -162,7 +160,7 @@ onMounted(() => {
   display: flex;
   gap: 0.5rem;
   transform: translateY(100%);
-  transition: transform 0.5s var(--ease);
+  transition: transform 0.5s var(--ease-base);
   transition-delay: 150ms;
 }
 </style>

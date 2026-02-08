@@ -9,11 +9,7 @@ const asyncDataKey = computed(() => `team-member-page-${id.value}`);
 const { data } = await useAsyncData(
   asyncDataKey,
   async () => {
-    const response = await $fetch(`/api/team/${id.value}`, {
-      params: {
-        id: id.value,
-      },
-    });
+    const response = await $fetch(`/api/team/${id.value}`);
     const ast = response?.teamMember?.bio
       ? await parseMarkdown(response.teamMember.bio)
       : null;
@@ -46,7 +42,7 @@ definePageMeta({
     <app-section-a>
       <template #header>
         <NuxtImg
-          :src="data.teamMember?.photo.url"
+          :src="data.teamMember?.photo?.url"
           class="image"
           fetch-priority="high"
           sizes="100vw sm:500px md:770px"
@@ -77,15 +73,16 @@ definePageMeta({
               </div>
             </div>
           </div>
-          <diV v-if="data.ast?.body">
+          <div v-if="data.ast?.body">
             <MDCRenderer :body="data.ast?.body" :data="data.ast?.data" />
-          </diV>
+          </div>
         </div>
       </template>
     </app-section-a>
     <div class="site-grid mt-40" />
 
     <app-section-a
+      v-if="data.teamMember?.team"
       :key="data.teamMember.team.name"
       no-padding
       class="team-section border-t border-muted"
@@ -121,7 +118,7 @@ definePageMeta({
             :path="`/team/${member.slug}`"
             :name="member.name"
             :title="member.title"
-            :image="member.photo.url"
+            :image="member.photo?.url"
             :linkedin="member.linkedin"
             :email="member.email"
           />

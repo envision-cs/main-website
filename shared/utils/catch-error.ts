@@ -6,6 +6,6 @@ export async function catchError<T>(
       return [undefined, data] as [undefined, T];
     })
     .catch((error) => {
-      return [error];
+      return [error instanceof Error ? error : new Error(String(error))];
     });
 }

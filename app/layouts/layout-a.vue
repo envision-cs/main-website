@@ -17,11 +17,13 @@ function resolveImage(image: unknown) {
 }
 
 const categories = computed(() =>
-  services.value.map(service => ({
-    title: service.title,
-    slug: service.slug,
-    image: resolveImage(service.image),
-  })),
+  (services.value ?? [])
+    .filter(service => Boolean(service?.param || service?.title))
+    .map(service => ({
+      title: service.title,
+      slug: service.param ?? service.slug,
+      image: resolveImage(service.image),
+    })),
 );
 
 const activeCategory = computed<{ title: string; slug: string; image?: string }>(() => {
@@ -47,22 +49,22 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
         </app-banner-b>
       </div>
 
-      <aside class="catagories p-0 py-4 md:p-4 h-full">
+      <aside class="categories p-0 py-4 md:p-4 h-full">
         <ul class="flex flex-col gap-2 sticky top-0">
           <li>
             <ULink to="/services">
               All Services
             </ULink>
           </li>
-          <li v-for="catagory in categories" :key="catagory.title">
+          <li v-for="category in categories" :key="category?.title || category?.slug">
             <ULink
               :to="{
                 name: 'services-services',
-                params: { services: catagory.slug },
+                params: { services: category.slug },
               }"
               class="text-left"
             >
-              {{ catagory.title }}
+              {{ category.title }}
             </ULink>
           </li>
         </ul>
@@ -89,7 +91,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
   border-bottom: 1px solid var(--ui-border);
 }
 
-.catagories {
+.categories {
   grid-column: 1/-1;
   border-bottom: 1px solid var(--ui-border);
   padding-inline: calc(var(--spacing) * 4);
@@ -106,7 +108,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
     grid-template-rows: min-content auto;
   }
 
-  .catagories {
+  .categories {
     grid-column: 1/4;
     border-right: 1px solid var(--ui-border);
   }
@@ -117,7 +119,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
 }
 
 @media (min-width: 1024px) {
-  .catagories {
+  .categories {
     grid-column: 1/6;
   }
 

@@ -69,59 +69,12 @@ withDefaults(defineProps<{
   width: 100%;
   height: 100%;
   display: grid;
-  /* padding: calc(var(--spacing) * 4); */
-
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-areas:
-    'm m m'
-    'm m m'
-    'm m m';
 
   img {
     max-inline-size: 100%;
     height: 100%;
     width: 100%;
-    grid-area: m;
     object-fit: cover;
-  }
-
-  @media (min-width: 800px) {
-    /* padding: calc(var(--spacing) * 8); */
-    grid-template-areas:
-      'br br br'
-      'br br br'
-      'br br br';
-
-    img {
-      grid-area: br;
-    }
-  }
-}
-
-.cta.flip .image {
-  grid-template-areas:
-    'm m m'
-    'm m m'
-    'm m m';
-
-  img {
-    max-inline-size: 100%;
-    height: 100%;
-    width: 100%;
-    grid-area: m;
-    object-fit: cover;
-  }
-
-  @media (min-width: 800px) {
-    grid-template-areas:
-      'br br br'
-      'br br br'
-      'br br br';
-
-    img {
-      grid-area: br;
-    }
   }
 }
 

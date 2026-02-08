@@ -1,7 +1,8 @@
 <script setup lang="ts">
-const { data: our_process, pending } = await useAsyncData('our-process', () => $fetch('/api/process'), {
+const { data: our_process, pending, error } = await useAsyncData('our-process', () => $fetch('/api/process'), {
   server: true,
   lazy: false,
+  default: () => [],
 });
 </script>
 
@@ -23,7 +24,7 @@ const { data: our_process, pending } = await useAsyncData('our-process', () => $
 
     <template #body>
       <app-accordion
-        v-if="!pending"
+        v-if="!pending && !error"
         :data="our_process"
         name="our-process"
       />
@@ -32,10 +33,6 @@ const { data: our_process, pending } = await useAsyncData('our-process', () => $
 </template>
 
 <style scoped>
-section {
-  /*min-height: min(640px, 45vw);*/
-}
-
 .content-wrapper {
   display: flex;
   flex-direction: column;

@@ -61,7 +61,7 @@ const { data } = useFetch('/api/team', {
             :path="`/team/${member.slug}`"
             :name="member.name"
             :title="member.title"
-            :image="member.photo.url"
+            :image="member.photo?.url"
             :linkedin="member.linkedin"
             :email="member.email"
           />
