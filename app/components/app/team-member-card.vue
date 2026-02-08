@@ -11,6 +11,7 @@ defineProps<{
   linkedin?: string;
   email?: string;
   titleSize: TypographyVariant;
+  color?: string;
 }>();
 
 const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
@@ -40,7 +41,7 @@ onMounted(() => {
       prefetch-on="interaction"
       class="team-wrapper"
     >
-      <article class="team-card">
+      <article class="team-card" :style="{ '--teamColor': color || '#0c2c45' }">
         <NuxtImg
           :src="image"
           :alt="name"
@@ -119,7 +120,13 @@ onMounted(() => {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(12, 44, 69, 0.85) 0%, rgba(12, 44, 69, 0.4) 25%, rgba(12, 44, 69, 0) 50%);
+    --darkerColor: color-mix(in srgb, var(--teamColor) 70%, black);
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--darkerColor) 75%, transparent) 0%,
+      color-mix(in srgb, var(--darkerColor) 45%, transparent) 10%,
+      transparent 30%
+    );
     z-index: 1;
     pointer-events: none;
   }

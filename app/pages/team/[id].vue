@@ -86,25 +86,28 @@ definePageMeta({
       :key="data.teamMember.team.name"
       no-padding
       class="team-section border-t border-muted"
+      :style="{ '--teamColor': data.teamMember.team.color }"
     >
       <template #header>
-        <div class="section-head">
+        <div class="section-head" :style="{ '--teamColor': data.teamMember.team.color }">
+          <div class="team-role">
+            <span class="team-role-dot" aria-hidden="true" />
+            <app-typography
+              tag="p"
+              variant="text-sm"
+              class="team-role-label"
+            >
+              {{ data.teamMember.team.role }}
+            </app-typography>
+          </div>
           <app-typography tag="h2" variant="heading-md">
             {{ data.teamMember.team.name }}
           </app-typography>
-          <div
-            class="w-80 h-3"
-            :style="{
-              backgroundColor: data.teamMember.team.color,
-            }"
-          />
-          <app-typography tag="p" variant="heading-sm">
-            {{ data.teamMember.team.role }}
-          </app-typography>
+          <div class="team-accent" aria-hidden="true" />
           <app-typography
             tag="p"
             variant="text-lg"
-            class="mt-auto max-w-sm"
+            class="mt-auto max-w-sm team-description"
           >
             {{ data.teamMember.team.description }}
           </app-typography>
@@ -121,6 +124,8 @@ definePageMeta({
             :image="member.photo?.url"
             :linkedin="member.linkedin"
             :email="member.email"
+            :color="data.teamMember.team.color"
+            title-size="heading-md"
           />
         </app-team-member-list>
       </template>
@@ -136,13 +141,64 @@ definePageMeta({
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--teamColor) 12%, white) 0%,
+    color-mix(in srgb, var(--teamColor) 3%, white) 35%,
+    white 75%
+  );
 }
 
 .section-head {
+  --teamColor: var(--ui-primary);
+  position: relative;
+  overflow: hidden;
   display: flex;
   padding: calc(var(--spacing) * 4);
   flex-direction: column;
   gap: calc(var(--spacing) * 3);
+}
+
+.team-role {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--teamColor) 18%, white);
+}
+
+.team-role-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+  background: var(--teamColor);
+}
+
+.team-role-label {
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.team-accent {
+  width: min(100%, 12rem);
+  height: 0.35rem;
+  border-radius: 999px;
+  background-color: var(--teamColor);
+}
+
+.team-description {
+  line-height: 1.4;
+  max-width: 38ch;
+}
+
+@media (min-width: 1024px) {
+  .section-head {
+    padding: calc(var(--spacing) * 5);
+    gap: calc(var(--spacing) * 3.5);
+  }
 }
 
 .hero {

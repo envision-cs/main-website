@@ -64,6 +64,8 @@ const { data } = useFetch('/api/team', {
             :image="member.photo?.url"
             :linkedin="member.linkedin"
             :email="member.email"
+            :color="team.color"
+            title-size="heading-md"
           />
         </app-team-member-list>
       </template>

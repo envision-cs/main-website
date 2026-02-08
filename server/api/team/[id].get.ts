@@ -18,9 +18,12 @@ export default defineEventHandler(async (event) => {
     }),
   );
 
-  if (error) {
+  if (error || !response?.data) {
     console.error('Error fetching team members:', error);
-    return;
+    throw createError({
+      statusCode: error ? 500 : 404,
+      statusMessage: error ? 'Error fetching team members' : 'Team members not found',
+    });
   }
 
   const teamMember = response.data.find((member) => {
@@ -28,7 +31,10 @@ export default defineEventHandler(async (event) => {
   });
 
   if (!teamMember) {
-    throw new Error('Team member not found');
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Team member not found',
+    });
   }
 
   const team = response.data.filter(member => member.team.name === teamMember.team.name);

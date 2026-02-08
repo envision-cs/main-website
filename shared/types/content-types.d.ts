@@ -53,6 +53,7 @@ export type Team = {
   publishedAt: string;
   order: number;
   description: string;
+  team_members?: TeamMember[];
 };
 
 export type TeamMember = {
@@ -69,7 +70,10 @@ export type TeamMember = {
   bio: string;
   photo: Photo;
   team: Team;
+  order?: number;
 };
+
+export type APITeam = APICollectionResponse<Team>;
 
 export type APITeamMember = APICollectionResponse<TeamMember>;
 
