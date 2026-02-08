@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const { data: threeUniques } = useFetch('/api/threeUniques');
+const { data: threeUniques } = await useAsyncData('three-uniques', () => $fetch('/api/threeUniques'), {
+  default: () => [],
+});
 </script>
 
 <template>
@@ -35,6 +37,7 @@ const { data: threeUniques } = useFetch('/api/threeUniques');
     grid-template-columns: 1fr 1fr;
   }
 }
+
 .cta-content {
   padding: calc(var(--spacing) * 4);
 

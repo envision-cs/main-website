@@ -1,6 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
+  devtools: {
+    enabled: true,
+  },
   app: {
     head: {
       meta: [
@@ -21,10 +24,11 @@ export default defineNuxtConfig({
     '@posthog/nuxt',
     'motion-v/nuxt',
     'nuxt-maplibre',
+    '@nuxtjs/strapi',
+    'nuxt-strapi-blocks-renderer',
     '@nuxt/hints',
-    // eslint-disable-next-line node/no-process-env
-    process.env.NODE_ENV !== 'test' ? 'nuxt-studio' : undefined,
-  ].filter(Boolean) as any,
+    'nuxt-studio',
+  ],
   css: ['./app/assets/css/main.css'],
   ui: {
     colorMode: false,
@@ -51,6 +55,9 @@ export default defineNuxtConfig({
     public: {
       posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
       posthogDefaults: '2025-05-24',
+      strapi: {
+        url: '',
+      },
     },
   },
   posthogConfig: {
@@ -77,17 +84,7 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
-  font: {
-    adobe: {
-      id: ['iae6upw'],
-    },
-  },
-  devtools: {
-    enabled: true,
-    timeline: {
-      enabled: true,
-    },
-  },
+
   experimental: {
     sharedPrerenderData: true,
   },
@@ -99,5 +96,14 @@ export default defineNuxtConfig({
       repo: 'main-website',
       branch: 'main',
     },
+  },
+  strapi: {
+    url: process.env.STRAPI_URL,
+    token: process.env.STRAPI_TOKEN || undefined,
+    prefix: '/api',
+    admin: '/admin',
+    version: 'v5',
+    cookie: {},
+    cookieName: 'strapi_jwt',
   },
 });

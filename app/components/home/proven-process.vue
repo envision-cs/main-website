@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const { data: our_process } = useFetch('/api/process');
+const { data: our_process, pending, error } = await useAsyncData('our-process', () => $fetch('/api/process'), {
+  server: true,
+  lazy: false,
+  default: () => [],
+});
 </script>
 
 <template>
@@ -19,16 +23,16 @@ const { data: our_process } = useFetch('/api/process');
     </template>
 
     <template #body>
-      <app-accordion :data="our_process" name="our-process" />
+      <app-accordion
+        v-if="!pending && !error"
+        :data="our_process"
+        name="our-process"
+      />
     </template>
   </app-section-a>
 </template>
 
 <style scoped>
-section {
-  /*min-height: min(640px, 45vw);*/
-}
-
 .content-wrapper {
   display: flex;
   flex-direction: column;

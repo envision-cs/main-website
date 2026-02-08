@@ -1,31 +1,43 @@
 <script setup lang="ts">
-const img = useImage();
-
-const backgroundImg = computed(() => {
-  const imgUrl = img('/USFSPResidenceHall-Exteriors-DuskLandscapefromRamp.jpg', { format: 'webp', resize: '100vw sm:50vw md:400px', fit: 'cover' });
-
-  return `url('${imgUrl}')`;
-});
+const { find } = useStrapi();
+const { data } = await useAsyncData('hero', async () => {
+  try {
+    return await find('home-hero', { populate: '*' });
+  }
+  catch (err) {
+    console.error('Strapi error:', err);
+    return null;
+  }
+}, { default: () => null });
+const hero = computed(() => data.value?.data ?? null);
 </script>
 
 <template>
-  <section class="hero h-[100dvh] overflow-hidden grid" :style="{ '--backgroundImage': backgroundImg }">
+  <section
+    v-if="hero"
+    class="hero h-dvh overflow-hidden grid"
+    aria-labelledby="hero-title"
+    aria-describedby="hero-summary"
+    role="region"
+  >
     <div class="content site-max">
       <div class="title">
         <app-typography
+          id="hero-title"
           tag="h2"
           variant="heading-xl"
           class="uppercase font-bold"
         >
-          You need a builder who sees the bigger picture.
+          {{ hero.title }}
         </app-typography>
 
         <app-typography
+          id="hero-summary"
           tag="p"
           variant="text-xl"
           class="mt-2"
         >
-          We manage construction projects with excellence, purpose, and people-first precision.
+          {{ hero.subtitle }}
         </app-typography>
         <UButton
           color="neutral"
@@ -38,19 +50,19 @@ const backgroundImg = computed(() => {
         </UButton>
       </div>
       <div class="actions mt-auto">
-        <!-- <app-button color="white">
-          Open Video
-        </app-button> -->
+        <!-- leave empty -->
       </div>
     </div>
 
-    <div class="overlay z-10" />
+    <div class="overlay z-10" aria-hidden="true" />
     <NuxtImg
-      src="/USFSPResidenceHall-Exteriors-DuskLandscapefromRamp.jpg"
-      alt="Hero Image"
-      format="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+      v-if="hero.image?.url"
+      :src="hero.image.url"
+      alt="Exterior view of a residence hall at dusk"
+      sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
       fit="cover"
       preload
+      format="avif"
       loading="eager"
       class="image h-full w-full z-0 object-cover"
     />

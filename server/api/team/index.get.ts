@@ -1,16 +1,25 @@
-import { queryCollection } from '@nuxt/content/server';
+import type { APITeam } from '~~/shared/types/content-types';
 
-export default defineEventHandler(async (event) => {
-  const team = await queryCollection(event, 'teams').all();
-  const team_members = await queryCollection(event, 'team').all();
+import { catchError } from '~~/shared/utils/catch-error';
 
-  const grouped_teams = team.map(team => ({
-    name: team.name,
-    description: team.description,
-    color: team.color,
-    role: team.role,
-    members: team_members.filter(tm => tm.group.toLowerCase() === team.name.toLowerCase()),
-  }));
+export default defineEventHandler(async () => {
+  const config = useRuntimeConfig();
+  const url = `${config.strapi.url}/api/teams?populate[team_members][populate]=*`;
+  const [error, response] = await catchError(
+    $fetch<APITeam>(url, {
+      method: 'GET',
+    }),
+  );
 
-  return grouped_teams;
+  if (error || !response?.data) {
+    console.error('Error fetching teams:', error);
+    throw createError({
+      statusCode: error ? 500 : 404,
+      statusMessage: error ? 'Error fetching teams' : 'Teams not found',
+    });
+  }
+
+  return [...response.data].sort((a, b) => {
+    return (a.order ?? 0) - (b.order ?? 0);
+  });
 });

@@ -131,4 +131,12 @@ export default defineAppConfig({
       teamColor: '#D9D9D9',
     },
   ],
+  EASINGS: {
+    cinematic: [0.645, 0.045, 0.355, 1],
+    snappy: [0.165, 0.84, 0.44, 1],
+    gentle: [0.37, 0, 0.63, 1],
+    expressive: [0.34, 1.56, 0.64, 1],
+    fast: [0.19, 1, 0.22, 1],
+    base: [0.25, 0.46, 0.45, 0.94],
+  },
 });

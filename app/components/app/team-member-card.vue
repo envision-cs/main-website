@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useResizeObserver } from '@vueuse/core';
+
+type TypographyVariant = 'heading-sm' | 'heading-md' | 'heading-lg' | 'text-sm' | 'text-md' | 'text-lg';
+
 defineProps<{
   path: string;
   image: string;
@@ -6,72 +10,164 @@ defineProps<{
   title: string;
   linkedin?: string;
   email?: string;
+  titleSize: TypographyVariant;
+  color?: string;
 }>();
+
+const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
+const contentHeight = ref(0);
+
+function updateHeight() {
+  contentHeight.value = contentRef.value?.clientHeight ?? 0;
+}
+
+useResizeObserver(contentRef, (entries) => {
+  const entry = entries[0];
+  if (entry) {
+    contentHeight.value = entry.contentRect.height;
+  }
+});
+
+onMounted(() => {
+  updateHeight();
+});
 </script>
 
 <template>
-  <NuxtLink class="team-member" :to="path">
-    <article>
-      <NuxtImg
-        height="400"
-        width="400"
-        fit="cover"
-        format="webp"
-        :src="image"
-        :alt="name"
-        class="w-full mb-4"
-      />
-      <div>
-        <app-typography tag="h3" variant="heading-sm">
-          {{ name }}
-        </app-typography>
-        <app-typography
-          tag="p"
-          variant="text-md"
-          class="text-primary-500 dark:text-primary-400"
-        >
-          {{ title }}
-        </app-typography>
-        <div class="flex gap-4">
-          <UButton
-            v-if="linkedin"
-            icon="i-simple-icons-linkedin"
-            color="neutral"
-            variant="ghost"
-            :to="linkedin"
-            target="_blank"
-            aria-label="LinkedIn"
-          />
-          <!-- <UButton
-            v-if="email"
-            icon="i-heroicons-envelope"
-            color="neutral"
-            variant="ghost"
-            :to="`mailto:${email}`"
-            aria-label="Email"
-          /> -->
+  <li>
+    <NuxtLink
+      :to="path"
+      :aria-label="name"
+      prefetch-on="interaction"
+      class="team-wrapper"
+    >
+      <article class="team-card" :style="{ '--teamColor': color || '#0c2c45' }">
+        <NuxtImg
+          :src="image"
+          :alt="name"
+          class="image w-full h-full object-cover"
+          format="webp"
+          sizes="(max-width: 768px) 100vw, 300px"
+        />
+        <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
+          <header ref="contentRef" class="title">
+            <app-typography class="h3" :variant="titleSize">
+              {{ name }}
+            </app-typography>
+            <app-typography
+              tag="p"
+              variant="text-md"
+              class="role text-primary-200 dark:text-primary-200"
+            >
+              {{ title }}
+            </app-typography>
+          </header>
+          <footer class="actions">
+            <UButton
+              v-if="linkedin"
+              icon="i-simple-icons-linkedin"
+              color="neutral"
+              variant="ghost"
+              :to="linkedin"
+              target="_blank"
+              aria-label="LinkedIn"
+            />
+            <UButton
+              v-if="email"
+              icon="i-heroicons-envelope"
+              color="neutral"
+              variant="ghost"
+              :to="`mailto:${email}`"
+              aria-label="Email"
+            />
+          </footer>
         </div>
-      </div>
-    </article>
-  </NuxtLink>
+      </article>
+    </NuxtLink>
+  </li>
 </template>
 
 <style scoped>
-.team-member {
-  display: block;
+.team-wrapper {
   container-type: inline-size;
-}
+  display: block;
+  overflow: hidden;
 
-article {
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: center;
-  gap: calc(var(--spacing) * 4);
-}
+  &:hover {
+    .image {
+      transform: scale(1.1);
+    }
 
-@container (min-width: 700px) {
-  article {
-    grid-template-columns: 1fr 1fr;
+    .content,
+    .actions {
+      transform: translateY(0);
+    }
   }
+}
+
+.team-card {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  color: white;
+  isolation: isolate;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    --darkerColor: color-mix(in srgb, var(--teamColor) 70%, black);
+    background: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--darkerColor) 75%, transparent) 0%,
+      color-mix(in srgb, var(--darkerColor) 45%, transparent) 10%,
+      transparent 30%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transition: transform 0.5s var(--ease-base);
+}
+
+.content {
+  z-index: 2;
+  transform: translateY(calc(100% - var(--titleHeight)));
+  transition: transform 0.5s var(--ease-base);
+}
+
+.title,
+.actions {
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  margin-bottom: 0.75rem;
+  text-wrap: balance;
+}
+
+.role {
+  opacity: 0.85;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  transform: translateY(100%);
+  transition: transform 0.5s var(--ease-base);
+  transition-delay: 150ms;
 }
 </style>

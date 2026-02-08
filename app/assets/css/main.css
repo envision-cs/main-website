@@ -1,8 +1,40 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/ProximaNovaLight.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/ProximaNovaRegular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/ProximaNovaSemibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  src: url('/fonts/ProximaNovaExtrabold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-sans: 'Proxima Nova', sans-serif;
+  --font-sans: 'Proxima Nova', 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
 
   --container-8xl: 90rem;
   --breakpoint-md: 650px;
@@ -132,20 +164,5 @@ body {
     &.flip {
       grid-template-areas: 'c c c c c c c c c b . . . . . . . . . a a a a';
     }
-  }
-}
-
-.site-max {
-  /*max-width: 1600px;*/
-  /*margin-left: auto;
-  margin-right: auto;
-  padding-inline: 2%;
-  width: 100%;*/
-}
-
-@media (min-width: 650px) {
-  .site-max {
-    /*padding-left: 2rem;
-    padding-right: 2rem;*/
   }
 }

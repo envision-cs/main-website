@@ -12,9 +12,7 @@ defineProps<{
       '--backgroundImage': `url(${image})`,
       '--mobileImage': `url(${mobileImage || image})`,
     }"
-  >
-    <!-- .. -->
-  </section>
+  />
 </template>
 
 <style scoped>

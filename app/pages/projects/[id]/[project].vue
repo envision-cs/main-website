@@ -1,36 +1,66 @@
 <script setup lang="ts">
+import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+
+const { find } = useStrapi();
 const route = useRoute();
-const id = computed(() => route.params.project);
-const { data: page } = useFetch(`/api/projects/${id.value}`);
 const router = useRouter();
-const title = page.value?.seo?.title || page.value?.title;
+
+const slug = computed(() => route.params.project);
+
+const { data: projectData } = await useAsyncData(
+  () => `project-${slug.value}`,
+  async () => {
+    const res = await find('projects', {
+      filters: { slug: { $eq: slug.value } },
+      populate: '*',
+    });
+    return res;
+  },
+  { watch: [slug], default: () => null },
+);
+
+const page = computed(() => {
+  // Strapi find returns { data: [...] }. Prefer first match.
+  const entry = Array.isArray(projectData.value?.data)
+    ? projectData.value?.data?.[0]
+    : projectData.value?.data ?? null;
+
+  const gallery = entry.gallery.map((image) => {
+    return { url: image.url, altText: image.alternativeText };
+  });
+
+  return {
+    id: entry?.id ?? attrs.id,
+    title: entry.title,
+    slug: entry.slug,
+    main_image: entry.mainImage.url,
+    location: entry.location,
+    area: entry.area,
+    completed: entry.completed,
+    gallery,
+    content: entry.content,
+    description: entry.description,
+  };
+});
+
+const title = computed(() => page.value?.title);
 
 const activeImage = ref<string | null>(null);
-const imageRef = useTemplateRef<HTMLDivElement>('image');
-
-const imageSrc = computed(() => {
-  const src = activeImage.value;
-  if (!src)
-    return null;
-  if (src.startsWith('http'))
-    return src;
-  if (src.startsWith('/'))
-    return src;
-  return `/images/projects/${src}`; // adjust folder
-});
 
 const isLoading = ref(false);
 
 function handleImageClick(image: string) {
-  if (activeImage.value === image)
+  if (activeImage.value === image.url)
     return;
-  activeImage.value = image;
+  activeImage.value = image.url;
   isLoading.value = true;
 }
 
 function onLoad() {
   isLoading.value = false;
 }
+
+const { data: ast } = await useAsyncData('markdown', () => parseMarkdown(page.value.description));
 
 useSeoMeta({
   title,
@@ -39,9 +69,7 @@ useSeoMeta({
 
 <template>
   <div>
-    <app-banner-b
-      :image="page?.main_image"
-    >
+    <app-banner-b :image="page?.main_image">
       {{ page?.title }}
     </app-banner-b>
     <app-section-a v-if="page" class="grid grid-cols-1 min-[800px]:grid-cols-2 pt-12">
@@ -62,19 +90,19 @@ useSeoMeta({
               />
               <projects-info title="Completed" :data="page.completed" />
             </div>
-            <div class="max-w-[75ch]">
-              <ContentRenderer :value="page" />
+            <div v-if="ast?.body" class="max-w-[75ch]">
+              <MDCRenderer :body="ast.body" :data="ast.data" />
             </div>
           </div>
         </article>
       </template>
       <template #body>
         <ul class="gallery">
-          <li v-for="image in page.gallery" :key="image">
+          <li v-for="image in page.gallery" :key="image.url">
             <button popovertarget="image" @click="handleImageClick(image)">
               <NuxtImg
-                :src="image"
-                :alt="page.title"
+                :src="image.url"
+                :alt="image.altText"
                 fit="fill"
                 format="avif"
                 sizes="50vw md:400px"
@@ -82,20 +110,13 @@ useSeoMeta({
             </button>
           </li>
         </ul>
-        <aside
-          id="image"
-          ref="imageRef"
-          popover="auto"
-        >
+        <aside id="image" popover="auto">
           <button
             popovertarget="image"
             popovertargetaction="hide"
             class="close-btn"
           >
-            <UIcon
-              name="i-lucide-x"
-              class="w-6 h-6 text-black"
-            />
+            <UIcon name="i-lucide-x" class="w-6 h-6 text-black" />
           </button>
           <figure>
             <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -103,7 +124,7 @@ useSeoMeta({
             </div>
             <NuxtImg
               :key="activeImage"
-              :src="imageSrc"
+              :src="activeImage"
               :alt="page.title"
               lazy="true"
               format="avif"
@@ -158,7 +179,8 @@ article {
 .gallery img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* fills square, no distortion */
+  object-fit: cover;
+  /* fills square, no distortion */
 }
 
 .info {

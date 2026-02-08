@@ -7,13 +7,18 @@ const config = useAppConfig();
 const items: NavigationMenuItem[] = config.navigationMenuItems;
 
 const mainMenuRef = ref<HTMLDialogElement | null>(null);
+const subMenuRef = ref<HTMLDialogElement | null>(null);
+const menuToggleRef = ref<HTMLButtonElement | null>(null);
+const submenuCloseRef = ref<HTMLButtonElement | null>(null);
+const firstMainLinkRef = ref<HTMLElement | null>(null);
+const firstSubLinkRef = ref<HTMLElement | null>(null);
+
 const {
   isOpen: isMainOpen,
   openMenu: openMain,
   closeMenu: closeMain,
 } = useAnimatedDialog(mainMenuRef);
 
-const subMenuRef = ref<HTMLDialogElement | null>(null);
 const {
   isOpen: isSubOpen,
   openMenu: openSub,
@@ -29,9 +34,14 @@ const isLaptop = breakpoints.greater('laptop');
 
 useEventListener(document, 'keydown', (e) => {
   if (e.key === 'Escape') {
-    if (isMainOpen.value || isSubOpen.value) {
-      closeMain();
+    if (isSubOpen.value) {
       closeSub();
+      submenuCloseRef.value?.focus();
+      return;
+    }
+    if (isMainOpen.value) {
+      closeMain();
+      menuToggleRef.value?.focus();
     }
   }
 });
@@ -65,6 +75,10 @@ function handleOpen(children: unknown) {
   }
   openSub();
   subMenuItems.value = children as NavigationMenuItem[];
+  nextTick(() => {
+    firstSubLinkRef.value = subMenuRef.value?.querySelector('a, button');
+    firstSubLinkRef.value?.focus();
+  });
 }
 
 const route = useRoute();
@@ -80,6 +94,15 @@ watch(isMainOpen, () => {
     closeSub();
   }
 }, { immediate: true });
+
+watch(isMainOpen, (open) => {
+  if (open) {
+    nextTick(() => {
+      firstMainLinkRef.value = mainMenuRef.value?.querySelector('a, button');
+      firstMainLinkRef.value?.focus();
+    });
+  }
+});
 
 const { y } = useWindowScroll();
 const { height } = useWindowSize();
@@ -110,8 +133,18 @@ watch(y, (newY, oldY) => {
 </script>
 
 <template>
-  <header :class="{ 'header--fixed': isFixed, 'header--hidden': !showHeader, 'header--white': isWhite }">
-    <NuxtLink class="logo" to="/">
+  <header
+    :class="{
+      'header--fixed': isFixed,
+      'header--hidden': !showHeader,
+      'header--white': isWhite,
+    }"
+  >
+    <NuxtLink
+      class="logo"
+      to="/"
+      aria-label="Envision home"
+    >
       <Icon
         :name="isWhite ? 'logos:envision' : 'logos:envision-white'"
         size="30"
@@ -120,37 +153,17 @@ watch(y, (newY, oldY) => {
     </NuxtLink>
     <div class="flex items-center gap-2">
       <button
-        v-if="isWhite"
-        variant="ghost"
-        color="neutral"
-        size="sm"
-        class="text-black flex gap-2"
+        ref="menuToggleRef"
+        type="button"
+        class="menu-toggle"
+        :class="{ 'menu-toggle--dark': isWhite }"
+        aria-haspopup="dialog"
+        aria-controls="main-menu"
+        :aria-expanded="isMainOpen"
         @click="openMain"
       >
-        <app-typography
-          tag="p"
-          variant="text-md"
-        >
-          menu
-        </app-typography>
-        <Icon
-          name="i-lucide-menu"
-          size="24"
-          class="menu-btn fill-current"
-        />
-      </button>
-      <button
-        v-else
-        variant="ghost"
-        color="white"
-        size="sm"
-        class="text-white flex gap-2"
-        @click="openMain"
-      >
-        <app-typography
-          tag="p"
-          variant="text-md"
-        >
+        <span class="sr-only">Open main menu</span>
+        <app-typography tag="p" variant="text-md">
           menu
         </app-typography>
         <Icon
@@ -161,50 +174,57 @@ watch(y, (newY, oldY) => {
       </button>
     </div>
   </header>
+
   <dialog
     id="main-menu"
     ref="mainMenuRef"
     role="dialog"
+    aria-modal="true"
+    aria-labelledby="main-menu-title"
     class="menu"
     @keydown.esc="closeMain"
   >
+    <h2 id="main-menu-title" class="sr-only">
+      Main navigation
+    </h2>
     <div class="main-menu__header">
       <div class="main-menu__items">
-        <nav>
+        <nav aria-label="Primary">
           <app-navigation-menu-list :items="items" @open="(obj) => handleOpen(obj.children)" />
         </nav>
       </div>
       <div class="main-menu__close">
-        <UButton
-          variant="outline"
-          color="neutral"
+        <button
+          type="button"
           class="close-btn"
           @click="closeMain"
         >
-          close
+          <span class="sr-only">Close menu</span>
           <Icon
             name="i-lucide-x"
             size="24"
             class="fill-current"
+            aria-hidden="true"
           />
-        </UButton>
+        </button>
       </div>
     </div>
 
     <div class="main-menu__body">
-      <div class="main-menu__secondary">
+      <div class="main-menu__secondary" aria-label="Quick links">
         <div class="main-menu__secondary-items">
           <app-navigation-secondary-link to="#">
             Locations
           </app-navigation-secondary-link>
         </div>
-        <div class="main-menu__social">
+        <div class="main-menu__social" aria-label="Social links">
           <UButton
             icon="i-lucide-instagram"
             size="md"
             to="https://www.instagram.com/envisioncs_/"
             color="neutral"
             variant="outline"
+            aria-label="Instagram"
           />
           <UButton
             icon="i-lucide-linkedin"
@@ -212,6 +232,7 @@ watch(y, (newY, oldY) => {
             color="neutral"
             to="https://www.linkedin.com/company/envision-cs/posts/?feedView=all"
             variant="outline"
+            aria-label="LinkedIn"
           />
           <UButton
             icon="i-lucide-facebook"
@@ -219,6 +240,7 @@ watch(y, (newY, oldY) => {
             to="https://www.facebook.com/envisioncstampa"
             color="neutral"
             variant="outline"
+            aria-label="Facebook"
           />
         </div>
       </div>
@@ -233,37 +255,44 @@ watch(y, (newY, oldY) => {
       </div>
     </div>
     <button
+      ref="submenuCloseRef"
+      type="button"
       class="mobileClose"
-      @drag="closeSub"
-      @click="closeSub"
-    />
+      @click="closeMain"
+    >
+      Close menu
+    </button>
   </dialog>
 
   <dialog
     ref="subMenuRef"
     class="sub-menu"
     role="dialog"
+    aria-modal="true"
+    aria-label="Sub menu"
     @keydown.esc="closeSub"
   >
     <button
+      type="button"
       class="mobileClose"
-      @drag="closeSub"
       @click="closeSub"
-    />
-    <ul class="columns-2">
+    >
+      Close submenu
+    </button>
+    <ul class="columns-2" role="list">
       <li v-for="item in subMenuItems" :key="item.label">
         <NuxtLink
           :to="item.to"
           class="overflow-hidden"
-          fit="cover"
         >
           <NuxtImg
             :src="item.image"
             width="200"
             height="125"
-            class=" object-cover w-full"
+            class="object-cover w-full"
+            :alt="item.label"
           />
-          {{ item.label }}
+          <span class="submenu-label">{{ item.label }}</span>
         </NuxtLink>
       </li>
     </ul>
@@ -299,6 +328,43 @@ header.header--white {
 
 .logo {
   margin-left: calc(var(--spacing) * 4);
+}
+
+.menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  color: white;
+  background: transparent;
+  border: 1px solid transparent;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.menu-toggle--dark {
+  color: var(--color-neutral-900);
+}
+
+.close-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ui-border);
+  padding: 0.55rem 0.9rem;
+  border-radius: calc(var(--ui-radius));
+  background: color-mix(in srgb, var(--ui-surface) 90%, white);
+  color: inherit;
+}
+
+.menu-toggle:focus-visible,
+.close-btn:focus-visible,
+.mobileClose:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
 }
 
 .menu {
@@ -463,9 +529,42 @@ header.header--white {
   background: var(--color-neutral-500);
   border-radius: calc(var(--ui-radius));
   margin-block: calc(var(--spacing) * 4);
+  color: white;
+  border: 1px solid transparent;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
 
   @media (min-width: 1024px) {
     display: none;
+  }
+}
+
+.submenu-label {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header,
+  .menu,
+  .sub-menu,
+  .menu-toggle,
+  .close-btn,
+  .mobileClose {
+    transition: none !important;
+    animation: none !important;
   }
 }
 </style>

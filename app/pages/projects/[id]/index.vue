@@ -1,32 +1,42 @@
 <script setup lang="ts">
-const { data: projects } = useFetch('/api/projects', {
-  key: 'projects',
-});
+const { find } = useStrapi();
+const { data } = await useAsyncData('page-data', async () => {
+  try {
+    const [projectRes, sectorsRes] = await Promise.all([
+      find<ApiProjectProject>('projects', { populate: '*' }),
+      find<ApiSectorSector>('sectors', { populate: '*' }),
+    ]);
+
+    return {
+      projects: projectRes.data,
+      sectors: sectorsRes.data,
+    };
+  }
+  catch (err) {
+    console.error('Strapi error:', err);
+    return null;
+  }
+}, { default: () => ({ projects: null, sectors: null }) });
 
 const route = useRoute();
 
-const categories = computed<{ title: string; slug: string }[]>(() => {
-  const set = new Map<string, { title: string; slug: string }>();
+const categories = computed<{ title: string; slug: string; image: string }[]>(() => {
+  const set = new Map<string, { name: string; slug: string; image: string }>();
 
   // Always include “All”
-  set.set('all', { title: 'All', slug: 'all' });
+  set.set('all', { name: 'All', slug: 'all', image: 'https://ik.imagekit.io/pnixsw7lg/strapi-uploads/celestar-headquarters-01.jpg' });
 
-  if (!projects.value)
+  if (!data.value.sectors.length)
     return Array.from(set.values());
 
-  for (const project of projects.value) {
-    if (project.sector && project.sectorSlug) {
-      set.set(project.sectorSlug, {
-        title: project.sector,
-        slug: project.sectorSlug,
-      });
-    }
+  for (const sector of data.value?.sectors) {
+    set.set(sector.slug, { name: sector.name, slug: sector.slug, image: sector.image.url });
   }
 
   return Array.from(set.values());
 });
 
-const activeCategory = computed<{ title: string; slug: string } | undefined>(() => {
+const activeCategory = computed<{ title: string; slug: string; image: string } | undefined>(() => {
   return categories.value.find(
     category => category.slug === route.params.id,
   );
@@ -34,9 +44,10 @@ const activeCategory = computed<{ title: string; slug: string } | undefined>(() 
 
 const activeProjects = computed(() => {
   if (activeCategory.value?.slug === 'all') {
-    return projects.value;
+    return data.value.projects;
   }
-  return projects.value?.filter(project => project.sector === activeCategory.value?.title);
+
+  return data.value.projects.filter(project => project.sector.slug === activeCategory.value?.slug);
 });
 
 definePageMeta({
@@ -59,14 +70,14 @@ definePageMeta({
         <div class="flex flex-col gap-2 sticky top-0">
           <ULink
             v-for="catagory in categories"
-            :key="catagory.title"
+            :key="catagory.name"
             :to="{
               name: 'projects-id',
               params: { id: catagory.slug },
             }"
             class="text-left"
           >
-            {{ catagory.title }}
+            {{ catagory.name }}
           </ULink>
         </div>
       </div>
@@ -77,13 +88,13 @@ definePageMeta({
           <projects-card
             v-for="project in activeProjects"
             :key="project.id"
-            :image="project.main_image"
+            :image="project.mainImage.url"
             :title="project.title"
             :location="project.location"
             :area="project.area"
             :completed="project.completed"
-            :sector="project.sector"
-            :to="`${project.sectorSlug}/${project.slug}`"
+            :sector="project.sector.name"
+            :to="`${project.sector.slug}/${project.slug}`"
           />
         </div>
       </div>
@@ -102,9 +113,15 @@ definePageMeta({
   container: projects;
 }
 
-@container projects (width > 700px) {
+@container projects (width > 750px) {
   .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@container projects (width > 1400px) {
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 </style>

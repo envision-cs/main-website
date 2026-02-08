@@ -13,14 +13,8 @@ defineProps<{
       :key="idx"
       open
     >
-      <summary
-        :id="`acc-${name}-${idx}-summary`"
-        :aria-controls="`acc-panel-${name}-${idx}`"
-      >
-        <app-typography
-          variant="heading-sm"
-          tag="h3"
-        >
+      <summary :id="`acc-${name}-${idx}-summary`" :aria-controls="`acc-panel-${name}-${idx}`">
+        <app-typography variant="heading-sm" tag="h3">
           {{ item?.title }}
         </app-typography>
         <UIcon
@@ -38,11 +32,7 @@ defineProps<{
         class="panel"
       >
         <div class="panel__inner">
-          <ContentRenderer
-            v-if="item.meta"
-            :value="item.meta"
-            class=" prose [&_p]:max-w-[60ch] [&_p]:text-balance"
-          />
+          <ContentRenderer :value="item?.meta.body || ''" class=" prose [&_p]:max-w-[60ch] [&_p]:text-balance" />
         </div>
       </div>
     </details>
@@ -92,6 +82,7 @@ details summary {
 
 details[open] summary {
   border-bottom: 1px solid var(--ui-border);
+
   span {
     transform: rotate(45deg);
   }

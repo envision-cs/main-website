@@ -1,54 +1,57 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   image?: string;
+  imageAlt?: string;
   body?: string;
 }>();
-
-const img = useImage();
-
-const bgStyles = computed(() => {
-  if (!props.image)
-    return {};
-  const url = props.image.startsWith('/') ? props.image : `/${props.image}`;
-
-  const mobile = img(url, { width: 700, format: 'webp' });
-  const tablet = img(url, { width: 1200, format: 'webp' });
-  const desktop = img(url, { width: 1920, format: 'webp' });
-
-  return {
-    '--banner-image-mobile': `url("${mobile}")`,
-    '--banner-image-tablet': `url("${tablet}")`,
-    '--banner-image-desktop': `url("${desktop}")`,
-  };
-});
 </script>
 
 <template>
-  <section class="banner" :style="bgStyles">
+  <section
+    class="banner"
+    aria-labelledby="banner-title"
+    aria-describedby="banner-subtitle banner-body"
+    role="region"
+  >
     <div class="header my-auto">
-      <app-typography tag="h1" variant="heading-huge">
+      <app-typography
+        id="banner-title"
+        tag="h1"
+        variant="heading-huge"
+      >
         <slot />
       </app-typography>
 
-      <app-typography tag="p" variant="heading-md">
+      <app-typography
+        id="banner-subtitle"
+        tag="p"
+        variant="heading-md"
+      >
         <slot name="title" />
       </app-typography>
-    </div>
-
-    <div class="content site-grid">
       <app-typography
+        id="banner-body"
         tag="p"
-        variant="text-lg"
+        variant="text-md"
         class="text"
       >
         {{ body }}
       </app-typography>
-
-      <!-- wrap the slot so you can style it -->
-      <div class="image-container">
-        <slot name="image" />
-      </div>
     </div>
+
+    <div class="content site-grid" />
+
+    <div class="overlay" aria-hidden="true" />
+    <NuxtImg
+      v-if="image"
+      :src="image"
+      :alt="imageAlt || ''"
+      sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+      fit="cover"
+      preload
+      loading="eager"
+      class="image h-full w-full z-0 object-cover"
+    />
   </section>
 </template>
 
@@ -65,6 +68,7 @@ const bgStyles = computed(() => {
   padding-inline: calc(var(--spacing) * 4);
   padding-bottom: calc(var(--spacing) * 4);
   color: var(--ui-text-inverted);
+  overflow: hidden;
 
   @media (min-width: 700px) {
     padding-inline: calc(var(--spacing) * 8);
@@ -74,12 +78,16 @@ const bgStyles = computed(() => {
 
 .header {
   margin-top: auto;
+  position: relative;
+  z-index: 2;
 }
 
 .content {
   display: grid;
   padding: 0;
   gap: calc(var(--spacing) * 4);
+  position: relative;
+  z-index: 2;
 }
 
 .text {
@@ -109,21 +117,21 @@ const bgStyles = computed(() => {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  z-index: -10;
+  z-index: 0;
+}
 
-  --bg-image: var(--banner-image-mobile);
+.image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
 
-  @media (min-width: 700px) {
-    --bg-image: var(--banner-image-tablet);
-  }
-
-  @media (min-width: 1024px) {
-    --bg-image: var(--banner-image-desktop);
-  }
-
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
     linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0) 43.16%, rgba(0, 0, 0, 0.55) 64.7%, rgba(0, 0, 0, 0.6) 81.1%),
-    var(--bg-image) 50% / cover no-repeat;
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 43.16%, rgba(0, 0, 0, 0.55) 64.7%, rgba(0, 0, 0, 0.6) 81.1%);
 }
 </style>
