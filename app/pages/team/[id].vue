@@ -91,7 +91,6 @@ definePageMeta({
       <template #header>
         <div class="section-head" :style="{ '--teamColor': data.teamMember.team.color }">
           <div class="team-role">
-            <span class="team-role-dot" aria-hidden="true" />
             <app-typography
               tag="p"
               variant="text-sm"
@@ -103,7 +102,7 @@ definePageMeta({
           <app-typography tag="h2" variant="heading-md">
             {{ data.teamMember.team.name }}
           </app-typography>
-          <div class="team-accent" aria-hidden="true" />
+          <!-- <div class="team-accent" aria-hidden="true" /> -->
           <app-typography
             tag="p"
             variant="text-lg"
@@ -116,7 +115,7 @@ definePageMeta({
       <template #body>
         <app-team-member-list>
           <app-team-member-card
-            v-for="member in relatedTeam"
+            v-for="member in relatedTeam.filter(m => m.slug !== id)"
             :key="member.id"
             :path="`/team/${member.slug}`"
             :name="member.name"
@@ -141,12 +140,14 @@ definePageMeta({
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
+  /*
   background: linear-gradient(
     140deg,
     color-mix(in srgb, var(--teamColor) 12%, white) 0%,
     color-mix(in srgb, var(--teamColor) 3%, white) 35%,
     white 75%
   );
+    */
 }
 
 .section-head {
@@ -165,8 +166,10 @@ definePageMeta({
   align-items: center;
   gap: 0.55rem;
   padding: 0.4rem 0.85rem;
-  border-radius: 999px;
+  border-left: calc(var(--spacing) * 2) solid var(--teamColor);
+  /*
   background: color-mix(in srgb, var(--teamColor) 18%, white);
+  */
 }
 
 .team-role-dot {

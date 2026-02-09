@@ -91,7 +91,7 @@ defineProps<{
 }
 
 .text {
-  margin-top: auto;
+  margin-top: calc(var(--spacing) * 4);
   grid-column: 1 / -1;
 }
 

@@ -141,7 +141,7 @@ onMounted(() => {
 .content {
   z-index: 2;
   transform: translateY(calc(100% - var(--titleHeight)));
-  transition: transform 0.5s var(--ease);
+  transition: transform 0.5s var(--ease-base);
 }
 
 .title,
@@ -162,7 +162,7 @@ onMounted(() => {
   gap: 0.5rem 1rem;
   margin-bottom: 1rem;
   transform: translateY(100%);
-  transition: transform 0.5s var(--ease);
+  transition: transform 0.5s var(--ease-base);
   transition-delay: 120ms;
 
   li {
@@ -177,7 +177,7 @@ onMounted(() => {
   border-top: 1px solid rgb(255 255 255 / 0.3);
   padding-top: 1rem;
   transform: translateY(100%);
-  transition: transform 0.5s var(--ease);
+  transition: transform 0.5s var(--ease-base);
   transition-delay: 220ms;
 }
 </style>

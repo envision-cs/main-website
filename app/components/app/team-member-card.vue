@@ -95,12 +95,12 @@ onMounted(() => {
 
   &:hover {
     .image {
-      transform: scale(1.1);
+      transform: scale(1.1) translateZ(0);
     }
 
     .content,
     .actions {
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
     }
   }
 }
@@ -115,6 +115,7 @@ onMounted(() => {
   padding: 1.5rem;
   color: white;
   isolation: isolate;
+  transform-style: preserve-3d;
 
   &::after {
     content: '';
@@ -140,18 +141,24 @@ onMounted(() => {
   object-fit: cover;
   z-index: 0;
   transition: transform 0.5s var(--ease-base);
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: scale(1) translateZ(0);
 }
 
 .content {
   z-index: 2;
-  transform: translateY(calc(100% - var(--titleHeight)));
+  transform: translateY(calc(100% - var(--titleHeight))) translateZ(0);
   transition: transform 0.5s var(--ease-base);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .title,
 .actions {
   position: relative;
   z-index: 2;
+  backface-visibility: hidden;
 }
 
 .title {
@@ -166,8 +173,9 @@ onMounted(() => {
 .actions {
   display: flex;
   gap: 0.5rem;
-  transform: translateY(100%);
+  transform: translate3d(0, 100%, 0);
   transition: transform 0.5s var(--ease-base);
   transition-delay: 150ms;
+  will-change: transform;
 }
 </style>

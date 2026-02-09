@@ -35,7 +35,7 @@ export default defineAppConfig({
     },
     {
       label: 'Projects',
-      to: '/projects/all',
+      to: '/projects',
     },
     {
       label: 'Meet the Team',

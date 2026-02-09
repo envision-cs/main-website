@@ -16,36 +16,20 @@ const { data } = await useAsyncData('page-data', async () => {
     console.error('Strapi error:', err);
     return null;
   }
-}, { default: () => ({ projects: null, sectors: null }) });
-
-const route = useRoute();
+}, { default: () => ({ projects: [], sectors: [] }) });
 
 const categories = computed<{ title: string; slug: string; image: string }[]>(() => {
-  const set = new Map<string, { name: string; slug: string; image: string }>();
+  if (!data.value?.sectors?.length)
+    return [];
 
-  if (!data.value.sectors.length)
-    return Array.from(set.values());
-
-  for (const sector of data.value?.sectors) {
-    set.set(sector.slug, { name: sector.name, slug: sector.slug, image: sector.image.url });
-  }
-
-  return Array.from(set.values());
+  return data.value.sectors.map(sector => ({
+    name: sector.name,
+    slug: sector.slug,
+    image: sector.image.url,
+  }));
 });
 
-const activeCategory = computed<{ title: string; slug: string; image: string } | undefined>(() => {
-  return categories.value.find(
-    category => category.slug === route.params.id,
-  );
-});
-
-const activeProjects = computed(() => {
-  if (!activeCategory.value?.slug) {
-    return data.value.projects;
-  }
-
-  return data.value.projects.filter(project => project.sector.slug === activeCategory.value?.slug);
-});
+const activeProjects = computed(() => data.value?.projects ?? []);
 
 definePageMeta({
   layout: 'none',
@@ -59,15 +43,18 @@ definePageMeta({
         <template #title>
           Projects
         </template>
-        {{ activeCategory?.title || 'All Projects' }}
+        All Projects
       </app-banner-b>
     </template>
     <template #aside-slot>
       <div class="catagories px-4 py-4 md:p-4 h-full">
         <div class="flex flex-col gap-2 sticky top-0">
+          <ULink to="/projects" class="text-left">
+            All
+          </ULink>
           <ULink
             v-for="catagory in categories"
-            :key="catagory.name"
+            :key="catagory.slug"
             :to="{
               name: 'projects-id',
               params: { id: catagory.slug },
@@ -75,9 +62,6 @@ definePageMeta({
             class="text-left"
           >
             {{ catagory.name }}
-          </ULink>
-          <ULink to="/projects" class="text-left">
-            All
           </ULink>
         </div>
       </div>
@@ -107,6 +91,7 @@ definePageMeta({
   container-type: inline-size;
   container-name: projects;
 }
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

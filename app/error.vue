@@ -98,7 +98,7 @@ const goHome = () => clearError({ redirect: '/' });
               <li>
                 <NuxtLink
                   class="font-medium border-b border-transparent pb-1 hover:text-primary hover:border-primary"
-                  to="/projects/all"
+                  to="/projects"
                 >
                   Projects
                 </NuxtLink>
