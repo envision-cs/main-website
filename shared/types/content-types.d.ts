@@ -160,3 +160,20 @@ export type ContentService = {
   meta?: unknown;
   [key: string]: unknown;
 };
+
+export type APILocation = APICollectionResponse<Location>;
+
+export type Location = {
+  id: string;
+  documentId: string;
+  name: string;
+  address: string;
+  phone: string;
+  city: string;
+  email: string;
+  latitude: number;
+  longitude: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+};

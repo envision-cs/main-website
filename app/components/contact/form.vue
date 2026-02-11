@@ -19,12 +19,12 @@ const schema = z.object({
 });
 type Schema = z.output<typeof schema>;
 
-const state = reactive<Partial<Schema>>({
-  name: undefined,
-  company: undefined,
-  email: undefined,
-  phone: undefined,
-  message: undefined,
+const state = reactive({
+  name: '',
+  company: '',
+  email: '',
+  phone: '',
+  message: '',
 });
 
 const toast = useToast();
@@ -67,7 +67,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   }
 }
 
-const text_count = computed(() => state.message?.length ? `${state.message?.length} / 250` : '0 / 250');
+const text_count = computed(() => `${state.message.length} / 250`);
 </script>
 
 <template>

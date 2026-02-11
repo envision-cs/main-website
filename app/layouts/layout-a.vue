@@ -3,26 +3,15 @@ import { SpeedInsights } from '@vercel/speed-insights/nuxt';
 
 const route = useRoute();
 
-const { data: services } = await useAsyncData(
-  'services-list',
-  () => $fetch('/api/services'),
-  { default: () => [] },
-);
-
-function resolveImage(image: unknown) {
-  if (typeof image === 'string')
-    return image;
-  const img = image as { url?: string; data?: { attributes?: { url?: string } } } | undefined;
-  return img?.url || img?.data?.attributes?.url;
-}
+const { services } = await useServicesList();
 
 const categories = computed(() =>
-  (services.value ?? [])
-    .filter(service => Boolean(service?.param || service?.title))
+  services.value
+    .filter(service => Boolean(service?.title))
     .map(service => ({
       title: service.title,
-      slug: service.param ?? service.slug,
-      image: resolveImage(service.image),
+      slug: service.slug,
+      image: service.image,
     })),
 );
 

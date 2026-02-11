@@ -1,14 +1,15 @@
 <script setup lang="ts">
-const { data: locations } = await useFetch('/api/locations');
+const { data: contactData, error } = await useFetch<ContactResponse>('/api/contact');
 </script>
 
 <template>
-  <UPage class="mt-0 ">
+  <UPage class="mt-0">
     <div class="grid">
       <app-banner-b image="contact.jpg" class="col-start-1 -col-end-1">
         Contact Us
       </app-banner-b>
 
+      <!-- Intro + Form   -->
       <app-section-a>
         <template #header>
           <div class="content">
@@ -19,41 +20,85 @@ const { data: locations } = await useFetch('/api/locations');
             >
               Let’s <span>Build</span> Something That <span>Lasts</span>.
             </app-typography>
+
             <app-typography>
-              We’re ready to connect—whether you’re starting a project, asking a question, or just want to talk
-              construction.
+              We’re ready to connect—whether you’re starting a project,
+              asking a question, or just want to talk construction.
             </app-typography>
           </div>
         </template>
+
         <template #body>
           <contact-form />
         </template>
       </app-section-a>
-      <app-section-a no-padding>
+
+      <!-- Locations    -->
+      <app-section-a no-padding-main no-padding>
         <template #header>
           <app-typography
             tag="h2"
             variant="heading-md"
-            class="font-semibold text-balance uppercase pb-8"
+            class="font-semibold text-balance uppercase p-8 "
           >
             Our <span>Locations</span>
           </app-typography>
+
           <div class="location-wrapper">
             <app-location-card
-              v-for="location in locations"
+              v-for="location in contactData.locations"
               :key="location.id"
-              :title="location.location"
-              :address="location.address"
+              :title="location.name"
+              :address="location?.address"
               :city="location.city"
               :phone="location.phone"
               :email="location.email"
             />
           </div>
         </template>
+
         <template #body>
-          <app-location-map class="min-h-[500px]" />
+          <Client-only>
+            <app-location-map class="min-h-[500px]" />
+          </Client-only>
         </template>
       </app-section-a>
+
+      <!-- Team header -->
+      <app-section-a v-if="contactData.team.length && !error" no-padding>
+        <template #header>
+          <div class="section-head">
+            <div class="team-role">
+              <app-typography
+                tag="h2"
+                variant="heading-md"
+                class="font-semibold text-balance uppercase pb-8"
+              >
+                Speak with our <span>team</span>
+              </app-typography>
+            </div>
+          </div>
+        </template>
+
+        <template #body>
+          <app-team-member-list>
+            <app-team-member-card
+              v-for="member in contactData.team"
+              :key="member.id"
+              :path="`/team/${member.slug}`"
+              :name="member.name"
+              :title="member.title"
+              :image="member.photo?.url"
+              :linkedin="member.linkedin"
+              :email="member.email"
+              title-size="heading-md"
+            />
+          </app-team-member-list>
+        </template>
+      </app-section-a>
+      <section v-else>
+        {{ error?.message }}
+      </section>
     </div>
   </UPage>
 </template>
@@ -100,12 +145,5 @@ const { data: locations } = await useFetch('/api/locations');
       grid-column: 15 / -1;
     }
   }
-}
-
-.location-wrapper {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  flex-wrap: wrap;
 }
 </style>

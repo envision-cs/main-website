@@ -2,20 +2,10 @@
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
 const route = useRoute();
+const { services } = await useServicesList();
 
 const service = computed(() => route.params.services as string);
-const fetchKey = computed(() => `service-${service.value}`);
-
-const { data } = await useAsyncData(
-  fetchKey,
-  async () => $fetch(`/api/services/${service.value}`),
-  {
-    watch: [service],
-    default: () => null,
-  },
-);
-
-const serviceData = computed(() => data.value);
+const serviceData = computed(() => services.value.find(item => item.slug === service.value) ?? null);
 const content = computedAsync(async () => {
   if (!serviceData.value?.description)
     return null;

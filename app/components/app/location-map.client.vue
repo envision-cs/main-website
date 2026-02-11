@@ -6,7 +6,10 @@ const zoom = 9;
 </script>
 
 <template>
-  <div class="h-full w-full">
+  <div
+    class="h-full w-full"
+    style="height: 100%; width: 100%"
+  >
     <MglMap
       :map-style="style"
       :center="[-82.452606, 27.964157]"
@@ -17,7 +20,6 @@ const zoom = 9;
       :double-click-zoom="false"
       :touch-zoom-rotate="false"
       :keyboard="false"
-      style="height: 100%; width: 100%"
     >
       <template v-for="location in data" :key="location.id">
         <MglMarker :coordinates="[location.longitude, location.latitude]">

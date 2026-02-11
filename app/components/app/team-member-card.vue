@@ -35,55 +35,54 @@ onMounted(() => {
 
 <template>
   <li>
-    <NuxtLink
-      :to="path"
-      :aria-label="name"
-      prefetch-on="interaction"
-      class="team-wrapper"
-    >
-      <article class="team-card" :style="{ '--teamColor': color || '#0c2c45' }">
-        <NuxtImg
-          :src="image"
-          :alt="name"
-          class="image w-full h-full object-cover"
-          format="webp"
-          sizes="(max-width: 768px) 100vw, 300px"
-        />
-        <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
-          <header ref="contentRef" class="title">
-            <app-typography class="h3" :variant="titleSize">
-              {{ name }}
-            </app-typography>
-            <app-typography
-              tag="p"
-              variant="text-md"
-              class="role text-primary-200 dark:text-primary-200"
-            >
-              {{ title }}
-            </app-typography>
-          </header>
-          <footer class="actions">
-            <UButton
-              v-if="linkedin"
-              icon="i-simple-icons-linkedin"
-              color="neutral"
-              variant="ghost"
-              :to="linkedin"
-              target="_blank"
-              aria-label="LinkedIn"
-            />
-            <UButton
-              v-if="email"
-              icon="i-heroicons-envelope"
-              color="neutral"
-              variant="ghost"
-              :to="`mailto:${email}`"
-              aria-label="Email"
-            />
-          </footer>
-        </div>
-      </article>
-    </NuxtLink>
+    <article class="team-wrapper team-card" :style="{ '--teamColor': color || '#0c2c45' }">
+      <NuxtLink
+        :to="path"
+        :aria-label="name"
+        prefetch-on="interaction"
+        class="card-link"
+      />
+      <NuxtImg
+        :src="image"
+        :alt="name"
+        class="image w-full h-full object-cover"
+        format="webp"
+        sizes="(max-width: 768px) 100vw, 300px"
+      />
+      <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
+        <header ref="contentRef" class="title">
+          <app-typography class="h3" :variant="titleSize">
+            {{ name }}
+          </app-typography>
+          <app-typography
+            tag="p"
+            variant="text-md"
+            class="role text-primary-200 dark:text-primary-200"
+          >
+            {{ title }}
+          </app-typography>
+        </header>
+        <footer class="actions">
+          <UButton
+            v-if="linkedin"
+            icon="i-simple-icons-linkedin"
+            color="neutral"
+            variant="ghost"
+            :to="linkedin"
+            target="_blank"
+            aria-label="LinkedIn"
+          />
+          <UButton
+            v-if="email"
+            icon="i-heroicons-envelope"
+            color="neutral"
+            variant="ghost"
+            :to="`mailto:${email}`"
+            aria-label="Email"
+          />
+        </footer>
+      </div>
+    </article>
   </li>
 </template>
 
@@ -92,6 +91,7 @@ onMounted(() => {
   container-type: inline-size;
   display: block;
   overflow: hidden;
+  position: relative;
 
   &:hover {
     .image {
@@ -103,6 +103,12 @@ onMounted(() => {
       transform: translate3d(0, 0, 0);
     }
   }
+}
+
+.card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .team-card {
