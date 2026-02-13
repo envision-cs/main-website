@@ -4,7 +4,28 @@ import type { NavigationMenuItem } from '@nuxt/ui';
 import { useBreakpoints, useEventListener } from '@vueuse/core';
 
 const config = useAppConfig();
-const items: NavigationMenuItem[] = config.navigationMenuItems;
+const { services } = await useServicesList();
+
+const serviceMenuItems = computed<NavigationMenuItem[]>(() =>
+  services.value.map(service => ({
+    label: service.title,
+    to: `/services/${service.slug}`,
+    image: service.image,
+  })),
+);
+
+const items = computed<NavigationMenuItem[]>(() =>
+  config.navigationMenuItems.map((item) => {
+    if (item.label !== 'Services')
+      return item;
+
+    return {
+      ...item,
+      to: '/services',
+      children: serviceMenuItems.value,
+    };
+  }),
+);
 
 const mainMenuRef = ref<HTMLDialogElement | null>(null);
 const subMenuRef = ref<HTMLDialogElement | null>(null);
@@ -79,6 +100,13 @@ function handleOpen(children: unknown) {
     firstSubLinkRef.value = subMenuRef.value?.querySelector('a, button');
     firstSubLinkRef.value?.focus();
   });
+}
+
+function getSubMenuImage(item: NavigationMenuItem): string {
+  if (typeof item.image === 'string' && item.image.length > 0)
+    return item.image;
+
+  return 'projects-all.jpg';
 }
 
 const route = useRoute();
@@ -279,20 +307,31 @@ watch(y, (newY, oldY) => {
     >
       Close submenu
     </button>
-    <ul class="columns-2" role="list">
-      <li v-for="item in subMenuItems" :key="item.label">
+    <ul class="sub-menu-grid" role="list">
+      <li
+        v-for="item in subMenuItems"
+        :key="item.label"
+        class="sub-menu-item"
+      >
         <NuxtLink
           :to="item.to"
-          class="overflow-hidden"
+          class="submenu-card"
+          :aria-label="item.label"
         >
           <NuxtImg
-            :src="item.image"
-            width="200"
-            height="125"
-            class="object-cover w-full"
+            :src="getSubMenuImage(item)"
+            width="600"
+            height="800"
+            class="submenu-card__image"
             :alt="item.label"
           />
-          <span class="submenu-label">{{ item.label }}</span>
+          <div class="submenu-card__content">
+            <span class="submenu-card__title">{{ item.label }}</span>
+            <span class="submenu-card__meta">
+              View service
+              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+            </span>
+          </div>
         </NuxtLink>
       </li>
     </ul>
@@ -505,16 +544,105 @@ header.header--white {
     height: calc(100vh - calc(var(--spacing) * 8));
     width: calc(50vw - calc(var(--spacing) * 4));
   }
+}
 
-  ul {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: calc(var(--spacing) * 2);
+.sub-menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--spacing) * 2);
+}
 
-    li {
-      flex: 0 0 calc(50% - var(--spacing) * 1);
-    }
+.sub-menu-item {
+  min-width: 0;
+}
+
+.submenu-card {
+  --submenu-title-height: 3.5rem;
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--ui-text-inverted);
+  border-radius: calc(var(--ui-radius));
+  outline: 1px solid rgb(255 255 255 / 0.2);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.82) 0%, rgb(0 0 0 / 0.45) 45%, rgb(0 0 0 / 0.05) 100%);
   }
+}
+
+.submenu-card__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: blur(0);
+  transform: scale(1);
+  transition:
+    transform 0.5s var(--ease-base),
+    filter 0.5s var(--ease-base);
+}
+
+.submenu-card__content {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  transform: translateY(calc(100% - var(--submenu-title-height)));
+  transition: transform 0.5s var(--ease-base);
+}
+
+.submenu-card__title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.submenu-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgb(255 255 255 / 0.35);
+  padding-top: 0.75rem;
+  opacity: 0;
+  transform: translateY(100%);
+  transition:
+    transform 0.5s var(--ease-base),
+    opacity 0.3s var(--ease-base);
+  transition-delay: 140ms;
+}
+
+.submenu-card:hover .submenu-card__image,
+.submenu-card:focus-visible .submenu-card__image {
+  transform: scale(1.08);
+  filter: blur(5px);
+}
+
+.submenu-card:hover .submenu-card__content,
+.submenu-card:focus-visible .submenu-card__content {
+  transform: translateY(0);
+}
+
+.submenu-card:hover .submenu-card__meta,
+.submenu-card:focus-visible .submenu-card__meta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.submenu-card:focus-visible {
+  outline: 2px solid var(--ui-primary);
+  outline-offset: 3px;
 }
 
 .sub-menu::backdrop {
@@ -539,11 +667,6 @@ header.header--white {
   }
 }
 
-.submenu-label {
-  display: inline-block;
-  margin-top: 0.5rem;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -562,7 +685,11 @@ header.header--white {
   .sub-menu,
   .menu-toggle,
   .close-btn,
-  .mobileClose {
+  .mobileClose,
+  .submenu-card,
+  .submenu-card__image,
+  .submenu-card__content,
+  .submenu-card__meta {
     transition: none !important;
     animation: none !important;
   }
