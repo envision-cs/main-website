@@ -1,22 +1,22 @@
 <script setup lang="ts">
-const { find } = useStrapi();
-const { data } = await useAsyncData('page-data', async () => {
-  try {
-    const [projectRes, sectorsRes] = await Promise.all([
-      find<ApiProjectProject>('projects', { populate: '*' }),
-      find<ApiSectorSector>('sectors', { populate: '*' }),
-    ]);
+const { data } = await useAsyncData(
+  'page-data',
+  async () => {
+    try {
+      const [projects, sectors] = await Promise.all([
+        $fetch('/api/projects'),
+        $fetch('/api/sectors'),
+      ]);
 
-    return {
-      projects: projectRes.data,
-      sectors: sectorsRes.data,
-    };
-  }
-  catch (err) {
-    console.error('Strapi error:', err);
-    return null;
-  }
-}, { default: () => ({ projects: null, sectors: null }) });
+      return { projects, sectors };
+    }
+    catch (err) {
+      console.error('API error:', err);
+      return null;
+    }
+  },
+  { default: () => ({ projects: null, sectors: null }) },
+);
 
 const route = useRoute();
 
