@@ -3,8 +3,17 @@ import type { NavigationMenuItem } from '@nuxt/ui';
 
 import { useBreakpoints, useEventListener } from '@vueuse/core';
 
+const props = withDefaults(defineProps<{
+  variant?: 'a' | 'b';
+  contactImage?: string;
+}>(), {
+  variant: 'a',
+  contactImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122',
+});
+
 const config = useAppConfig();
 const items: NavigationMenuItem[] = config.navigationMenuItems;
+const isWhite = computed(() => props.variant === 'b');
 
 const mainMenuRef = ref<HTMLDialogElement | null>(null);
 const subMenuRef = ref<HTMLDialogElement | null>(null);
@@ -110,43 +119,10 @@ watch(isMainOpen, (open) => {
     });
   }
 });
-
-const { y } = useWindowScroll();
-const { height } = useWindowSize();
-
-const showHeader = ref(true);
-const isFixed = ref(false);
-const isWhite = ref(false);
-
-watch(y, (newY, oldY) => {
-  if (typeof oldY === 'undefined')
-    return;
-
-  const heroHeight = height.value || 0;
-  const isScrollingUp = newY < oldY;
-  const isPastHero = newY > heroHeight;
-
-  if (isPastHero) {
-    isFixed.value = true;
-    isWhite.value = true;
-    showHeader.value = isScrollingUp;
-  }
-  else {
-    isFixed.value = false;
-    isWhite.value = false;
-    showHeader.value = true;
-  }
-});
 </script>
 
 <template>
-  <header
-    :class="{
-      'header--fixed': isFixed,
-      'header--hidden': !showHeader,
-      'header--white': isWhite,
-    }"
-  >
+  <header :class="{ 'header--white': isWhite }">
     <NuxtLink
       class="logo"
       to="/"
@@ -255,7 +231,7 @@ watch(y, (newY, oldY) => {
         <app-display-card
           link="/contact"
           title="Contact"
-          image="https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122"
+          :image="props.contactImage"
           aspect-ratio="3/1"
           heading="heading-sm"
         />
@@ -327,21 +303,12 @@ header {
   display: flex;
   padding: calc(var(--spacing) * 2);
   background-color: transparent;
-  transition:
-    transform 0.3s ease,
-    background-color 0.3s ease;
-}
-
-header.header--fixed {
-  position: fixed;
-}
-
-header.header--hidden {
-  transform: translateY(-100%);
+  transition: background-color 0.2s ease;
 }
 
 header.header--white {
   background-color: var(--color-white);
+  border-bottom: 1px solid var(--ui-border);
 }
 
 .logo {
