@@ -66,7 +66,7 @@ definePageMeta({
             :area="project.area"
             :completed="project.completed"
             :sector="project.sector?.name"
-            :to="`projects/${project.sector?.slug}/${project.slug}`"
+            :to="`${project.sector?.slug}/${project.slug}`"
           />
         </div>
       </div>
