@@ -21,7 +21,11 @@ const { data: contactData, error } = await useFetch<ContactResponse>('/api/conta
               Let’s <span>Build</span> Something That <span>Lasts</span>.
             </app-typography>
 
-            <app-typography>
+            <app-typography
+              tag="p"
+              variant="text-md"
+              class="text-balance max-w-sm"
+            >
               We’re ready to connect—whether you’re starting a project,
               asking a question, or just want to talk construction.
             </app-typography>
@@ -106,7 +110,6 @@ const { data: contactData, error } = await useFetch<ContactResponse>('/api/conta
 <style scoped>
 .contact {
   --_padding: calc(var(--spacing) * 4);
-
   gap: calc(var(--spacing) * 0);
   width: 100%;
 
@@ -122,7 +125,7 @@ const { data: contactData, error } = await useFetch<ContactResponse>('/api/conta
   .content {
     padding: var(--_padding);
     grid-column: 1 / -1;
-    max-width: 600px;
+    max-width: 55ch;
 
     @media (min-width: 700px) {
       grid-column: 1 / span 5;

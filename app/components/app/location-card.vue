@@ -15,10 +15,10 @@ defineProps<{
     <div class="card-content">
       <AppTypography
         tag="h3"
-        variant="heading-md"
+        variant="heading-sm"
         class="text-trim"
       >
-        {{ title }} hello
+        {{ title }}
       </AppTypography>
       <div class="address">
         <AppTypography
@@ -37,7 +37,6 @@ defineProps<{
           {{ city }}
         </AppTypography>
       </div>
-      <Icon name="i-lucide-arrow-right" />
     </div>
   </article>
 </template>
@@ -47,6 +46,8 @@ article {
   border-bottom: 1px solid var(--ui-border);
   padding-inline: calc(var(--spacing) * 8);
   padding-block: calc(var(--spacing) * 4);
+  container-type: inline-size;
+  container-name: article;
 
   &:first-of-type {
     border-top: 1px solid var(--ui-border);
@@ -60,9 +61,16 @@ article {
 
 .card-content {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  align-items: end;
-  gap: calc(var(--spacing) * 4);
+  align-items: start;
+  gap: calc(var(--spacing));
+
+  @container article (width > 500px) {
+    flex-direction: row;
+    align-items: end;
+    gap: calc(var(--spacing) * 4);
+  }
 }
 
 .address {

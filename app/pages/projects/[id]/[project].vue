@@ -19,21 +19,30 @@ const { data: projectData } = await useAsyncData(
   { watch: [slug], default: () => null },
 );
 
+type GalleryImage = {
+  url: string;
+  altText: string;
+};
+
 const page = computed(() => {
   // Strapi find returns { data: [...] }. Prefer first match.
   const entry = Array.isArray(projectData.value?.data)
     ? projectData.value?.data?.[0]
     : projectData.value?.data ?? null;
 
-  const gallery = entry.gallery.map((image) => {
+  if (!entry) {
+    return null;
+  }
+
+  const gallery: GalleryImage[] = (entry.gallery || []).map((image: any) => {
     return { url: image.url, altText: image.alternativeText };
   });
 
   return {
-    id: entry?.id ?? attrs.id,
+    id: entry.id,
     title: entry.title,
     slug: entry.slug,
-    main_image: entry.mainImage.url,
+    main_image: entry.mainImage?.url,
     location: entry.location,
     area: entry.area,
     completed: entry.completed,
@@ -49,7 +58,7 @@ const activeImage = ref<string | null>(null);
 
 const isLoading = ref(false);
 
-function handleImageClick(image: string) {
+function handleImageClick(image: GalleryImage) {
   if (activeImage.value === image.url)
     return;
   activeImage.value = image.url;
@@ -60,7 +69,12 @@ function onLoad() {
   isLoading.value = false;
 }
 
-const { data: ast } = await useAsyncData('markdown', () => parseMarkdown(page.value.description));
+const { data: ast } = await useAsyncData('markdown', async () => {
+  if (!page.value?.description) {
+    return null;
+  }
+  return parseMarkdown(page.value.description);
+}, { watch: [page] });
 
 useSeoMeta({
   title,

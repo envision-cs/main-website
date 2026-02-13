@@ -29,7 +29,7 @@ const categories = computed<{ name: string; slug: string; image?: string }[]>(()
   }));
 });
 
-const activeProjects = computed(() => data.value?.projects ?? []);
+const activeProjects = computed(() => data.value?.projects.filter(p => p.beck === true));
 const bannerImage = computed(() => 'projects-all.jpg');
 
 definePageMeta({
@@ -40,11 +40,15 @@ definePageMeta({
 <template>
   <layout-a>
     <template #header-slot>
-      <app-banner-b class="header" :image="bannerImage">
+      <app-banner-b
+        class="header"
+        :image="bannerImage"
+        body=""
+      >
         <template #title>
           Projects
         </template>
-        All
+        Beck/Envision
       </app-banner-b>
     </template>
     <template #aside-slot>

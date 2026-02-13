@@ -86,11 +86,7 @@ export default defineNuxtConfig({
   },
   vite: {
     server: {
-      // Polling is more reliable than FS events in some local/dev setups.
-      watch: {
-        usePolling: true,
-        interval: 150,
-      },
+      hmr: { protocol: 'ws', host: 'localhost' },
     },
   },
 
