@@ -8,28 +8,28 @@ export default defineAppConfig({
         {
           label: 'Construction Management',
           to: '/services/construction-management',
-          image: 'construction-managment.jpg',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/2K6A2696.jpg',
         },
         {
           label: 'Design Build',
           to: '/services/design-build',
-          image: 'design-build.jpg',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_3125.jpg',
         },
 
         {
           label: 'Tenant Improvement',
           to: '/services/tenant-improvement',
-          image: 'tenant-improvment.jpg',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/2019%20Fall%20Stakeholders%20Presentation_Draft%20email.jpg',
         },
         {
           label: 'Enhanced Preconstruction',
           to: '/services/enhanced-preconstruction',
-          image: 'enhanced-preconstruction.png',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_4100%20(2).jpg',
         },
         {
           label: 'Specialty Projects Division',
           to: '/services/specialty-projects-division',
-          image: 'specialty-projects.jpg',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0231.jpg',
         },
       ],
     },

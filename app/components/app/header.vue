@@ -4,28 +4,7 @@ import type { NavigationMenuItem } from '@nuxt/ui';
 import { useBreakpoints, useEventListener } from '@vueuse/core';
 
 const config = useAppConfig();
-const { services } = await useServicesList();
-
-const serviceMenuItems = computed<NavigationMenuItem[]>(() =>
-  services.value.map(service => ({
-    label: service.title,
-    to: `/services/${service.slug}`,
-    image: service.image,
-  })),
-);
-
-const items = computed<NavigationMenuItem[]>(() =>
-  config.navigationMenuItems.map((item) => {
-    if (item.label !== 'Services')
-      return item;
-
-    return {
-      ...item,
-      to: '/services',
-      children: serviceMenuItems.value,
-    };
-  }),
-);
+const items: NavigationMenuItem[] = config.navigationMenuItems;
 
 const mainMenuRef = ref<HTMLDialogElement | null>(null);
 const subMenuRef = ref<HTMLDialogElement | null>(null);
@@ -276,7 +255,7 @@ watch(y, (newY, oldY) => {
         <app-display-card
           link="/contact"
           title="Contact"
-          image="/contact.jpg"
+          image="https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122"
           aspect-ratio="3/1"
           heading="heading-sm"
         />
@@ -321,7 +300,7 @@ watch(y, (newY, oldY) => {
           <NuxtImg
             :src="getSubMenuImage(item)"
             width="600"
-            height="800"
+            height="338"
             class="submenu-card__image"
             :alt="item.label"
           />
@@ -557,7 +536,7 @@ header.header--white {
 }
 
 .submenu-card {
-  --submenu-title-height: 3.5rem;
+  --submenu-title-height: 3.25rem;
   position: relative;
   display: block;
   aspect-ratio: 16 / 9;
@@ -573,7 +552,7 @@ header.header--white {
     inset: 0;
     z-index: 1;
     pointer-events: none;
-    background: linear-gradient(to top, rgb(0 0 0 / 0.82) 0%, rgb(0 0 0 / 0.45) 45%, rgb(0 0 0 / 0.05) 100%);
+    background: linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0) 100%);
   }
 }
 
@@ -583,9 +562,8 @@ header.header--white {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;
   filter: blur(0);
-  transform: scale(1);
+  z-index: 0;
   transition:
     transform 0.5s var(--ease-base),
     filter 0.5s var(--ease-base);
@@ -613,7 +591,7 @@ header.header--white {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid rgb(255 255 255 / 0.35);
+  border-top: 1px solid rgb(255 255 255 / 0.3);
   padding-top: 0.75rem;
   opacity: 0;
   transform: translateY(100%);
@@ -625,19 +603,20 @@ header.header--white {
 
 .submenu-card:hover .submenu-card__image,
 .submenu-card:focus-visible .submenu-card__image {
-  transform: scale(1.08);
   filter: blur(5px);
+  transform: scale(1.1);
 }
 
 .submenu-card:hover .submenu-card__content,
-.submenu-card:focus-visible .submenu-card__content {
+.submenu-card:focus-visible .submenu-card__content,
+.submenu-card:hover .submenu-card__meta,
+.submenu-card:focus-visible .submenu-card__meta {
   transform: translateY(0);
 }
 
 .submenu-card:hover .submenu-card__meta,
 .submenu-card:focus-visible .submenu-card__meta {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .submenu-card:focus-visible {
