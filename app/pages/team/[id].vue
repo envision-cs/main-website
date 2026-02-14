@@ -25,6 +25,16 @@ const { data } = await useAsyncData(
 // 3) Related groups - optimized logic
 const relatedTeam = computed(() => data.value?.team || []);
 
+function teamOverlay(color?: string) {
+  const teamColor = color || '#0c2c45';
+  return `linear-gradient(
+    to top,
+    color-mix(in srgb, ${teamColor} 75%, transparent) 0%,
+    color-mix(in srgb, ${teamColor} 45%, transparent) 10%,
+    transparent 30%
+  )`;
+}
+
 // 4) Page metadata
 const title = computed(() => data.value?.teamMember?.name);
 
@@ -114,18 +124,65 @@ definePageMeta({
       </template>
       <template #body>
         <app-team-member-list>
-          <app-team-member-card
+          <li
             v-for="member in relatedTeam.filter(m => m.slug !== id)"
             :key="member.id"
-            :path="`/team/${member.slug}`"
-            :name="member.name"
-            :title="member.title"
-            :image="member.photo?.url"
-            :linkedin="member.linkedin"
-            :email="member.email"
-            :color="data.teamMember.team.color"
-            title-size="heading-md"
-          />
+          >
+            <app-reveal-card
+              :to="`/team/${member.slug}`"
+              :aria-label="member.name"
+              :image="member.photo?.url"
+              :alt="member.name"
+              link-mode="overlay"
+              aspect-ratio="3/4"
+              image-sizes="(max-width: 768px) 100vw, 300px"
+              :image-hover-blur="0"
+              :image-hover-scale="1.1"
+              :overlay="teamOverlay(data.teamMember.team.color)"
+              :container-type="true"
+              :rounded="false"
+              :outlined="false"
+              :meta-border="false"
+              :meta-fade="false"
+              details-delay="0ms"
+              meta-delay="150ms"
+              class="team-member-card"
+            >
+              <template #title>
+                <app-typography class="h3 team-member-title" variant="heading-md">
+                  {{ member.name }}
+                </app-typography>
+                <app-typography
+                  tag="p"
+                  variant="text-md"
+                  class="team-member-role text-primary-200 dark:text-primary-200"
+                >
+                  {{ member.title }}
+                </app-typography>
+              </template>
+              <template #meta>
+                <div class="team-member-actions">
+                  <UButton
+                    v-if="member.linkedin"
+                    icon="i-simple-icons-linkedin"
+                    color="neutral"
+                    variant="ghost"
+                    :to="member.linkedin"
+                    target="_blank"
+                    aria-label="LinkedIn"
+                  />
+                  <UButton
+                    v-if="member.email"
+                    icon="i-heroicons-envelope"
+                    color="neutral"
+                    variant="ghost"
+                    :to="`mailto:${member.email}`"
+                    aria-label="Email"
+                  />
+                </div>
+              </template>
+            </app-reveal-card>
+          </li>
         </app-team-member-list>
       </template>
     </app-section-a>
@@ -195,6 +252,30 @@ definePageMeta({
 .team-description {
   line-height: 1.4;
   max-width: 38ch;
+}
+
+.team-member-card {
+  :deep(.reveal-card__content) {
+    color: white;
+  }
+
+  :deep(.reveal-card__meta) {
+    justify-content: flex-start;
+  }
+}
+
+.team-member-title {
+  margin-bottom: 0.75rem;
+  text-wrap: balance;
+}
+
+.team-member-role {
+  opacity: 0.85;
+}
+
+.team-member-actions {
+  display: flex;
+  gap: 0.5rem;
 }
 
 @media (min-width: 1024px) {

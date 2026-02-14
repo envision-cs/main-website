@@ -8,150 +8,69 @@ defineProps<{
   completed: string;
   to: string;
 }>();
-
-const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
-const contentHeight = ref(0);
-
-function updateHeight() {
-  contentHeight.value = contentRef.value?.clientHeight ?? 0;
-}
-
-useResizeObserver(contentRef, (entries) => {
-  const entry = entries[0];
-  if (entry) {
-    contentHeight.value = entry.contentRect.height;
-  }
-});
-
-onMounted(() => {
-  updateHeight();
-});
 </script>
 
 <template>
-  <NuxtLink
+  <app-reveal-card
     :to="to"
     :aria-label="title"
-    prefetch-on="interaction"
     class="project-wrapper"
+    :image="image"
+    :alt="title"
+    aspect-ratio="3/4"
+    image-densities="x1 x2"
+    image-object-fit="cover"
+    :container-type="true"
+    :rounded="false"
+    :outlined="false"
+    :title-offset="8"
+    details-delay="120ms"
+    meta-delay="220ms"
   >
-    <article class="project-card ">
-      <NuxtImg
-        :src="image"
-        :alt="title"
-        class="image w-full h-full object-fill"
-        format="webp"
-        densities="x1 x2"
-      />
-      <div class="content" :style="{ '--titleHeight': `${contentHeight - 8}px` }">
-        <header ref="contentRef" class="title">
-          <app-typography class="h3" variant="heading-md">
-            {{ title }}
+    <template #title>
+      <app-typography class="h3 project-title" variant="heading-md">
+        {{ title }}
+      </app-typography>
+    </template>
+    <template #details>
+      <ul class="stats">
+        <li v-if="location">
+          <app-typography tag="p" variant="eyebrow-md">
+            Location
           </app-typography>
-        </header>
-        <ul class="stats">
-          <li v-if="location">
-            <app-typography tag="p" variant="eyebrow-md">
-              Location
-            </app-typography>
-            <app-typography tag="p">
-              {{ location }}
-            </app-typography>
-          </li>
-          <li v-if="area">
-            <app-typography tag="p" variant="eyebrow-md">
-              Area
-            </app-typography>
-            <app-typography tag="p">
-              {{ area }}
-            </app-typography>
-          </li>
-          <li v-if="completed">
-            <app-typography tag="p" variant="eyebrow-md">
-              Completed
-            </app-typography>
-            <app-typography tag="p">
-              {{ completed }}
-            </app-typography>
-          </li>
-        </ul>
-        <footer class="sector">
-          {{ sector }}
-          <UIcon name="i-lucide-arrow-right" />
-        </footer>
+          <app-typography tag="p">
+            {{ location }}
+          </app-typography>
+        </li>
+        <li v-if="area">
+          <app-typography tag="p" variant="eyebrow-md">
+            Area
+          </app-typography>
+          <app-typography tag="p">
+            {{ area }}
+          </app-typography>
+        </li>
+        <li v-if="completed">
+          <app-typography tag="p" variant="eyebrow-md">
+            Completed
+          </app-typography>
+          <app-typography tag="p">
+            {{ completed }}
+          </app-typography>
+        </li>
+      </ul>
+    </template>
+    <template #meta>
+      <div class="sector">
+        {{ sector }}
+        <UIcon name="i-lucide-arrow-right" />
       </div>
-    </article>
-  </NuxtLink>
+    </template>
+  </app-reveal-card>
 </template>
 
 <style scoped>
-.project-wrapper {
-  container-type: inline-size;
-  display: block;
-  overflow: hidden;
-
-  &:hover {
-    .image {
-      filter: blur(5px);
-      transform: scale(1.1);
-    }
-
-    .content,
-    .stats,
-    .sector {
-      transform: translateY(0);
-    }
-  }
-}
-
-.project-card {
-  position: relative;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem;
-  color: white;
-  isolation: isolate;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%);
-    z-index: 1;
-    pointer-events: none;
-  }
-}
-
-.image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(0);
-  z-index: 0;
-  transition:
-    transform 0.5s var(--ease-base),
-    filter 0.5s var(--ease-base);
-}
-
-.content {
-  z-index: 2;
-  transform: translateY(calc(100% - var(--titleHeight)));
-  transition: transform 0.5s var(--ease-base);
-}
-
-.title,
-.stats,
-.sector {
-  position: relative;
-  z-index: 2;
-}
-
-.title {
+.project-title {
   margin-bottom: 0.5rem;
   text-wrap: balance;
 }
@@ -161,10 +80,6 @@ onMounted(() => {
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem 1rem;
   margin-bottom: 1rem;
-  transform: translateY(100%);
-  transition: transform 0.5s var(--ease-base);
-  transition-delay: 120ms;
-
   li {
     grid-column: span 1;
   }
@@ -174,10 +89,5 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid rgb(255 255 255 / 0.3);
-  padding-top: 1rem;
-  transform: translateY(100%);
-  transition: transform 0.5s var(--ease-base);
-  transition-delay: 220ms;
 }
 </style>

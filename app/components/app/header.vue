@@ -231,6 +231,7 @@ watch(isMainOpen, (open) => {
         <app-display-card
           link="/contact"
           title="Contact"
+          :title-offset="-24"
           :image="props.contactImage"
           aspect-ratio="3/1"
           heading="heading-sm"
@@ -268,26 +269,28 @@ watch(isMainOpen, (open) => {
         :key="item.label"
         class="sub-menu-item"
       >
-        <NuxtLink
+        <app-reveal-card
           :to="item.to"
-          class="submenu-card"
           :aria-label="item.label"
+          :image="getSubMenuImage(item)"
+          :alt="item.label"
+          aspect-ratio="16/9"
+          :title-offset="-16"
+          :meta-fade="true"
+          class="submenu-reveal-card"
         >
-          <NuxtImg
-            :src="getSubMenuImage(item)"
-            width="600"
-            height="338"
-            class="submenu-card__image"
-            :alt="item.label"
-          />
-          <div class="submenu-card__content">
-            <span class="submenu-card__title">{{ item.label }}</span>
-            <span class="submenu-card__meta">
+          <template #title>
+            <app-typography tag="h3" variant="heading-sm">
+              {{ item.label }}
+            </app-typography>
+          </template>
+          <template #meta>
+            <span class="submenu-reveal-card__meta">
               View service
               <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
             </span>
-          </div>
-        </NuxtLink>
+          </template>
+        </app-reveal-card>
       </li>
     </ul>
   </dialog>
@@ -502,93 +505,10 @@ header.header--white {
   min-width: 0;
 }
 
-.submenu-card {
-  --submenu-title-height: 3.25rem;
-  position: relative;
-  display: block;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  isolation: isolate;
-  color: var(--ui-text-inverted);
-  border-radius: calc(var(--ui-radius));
-  outline: 1px solid rgb(255 255 255 / 0.2);
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0) 100%);
-  }
-}
-
-.submenu-card__image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(0);
-  z-index: 0;
-  transition:
-    transform 0.5s var(--ease-base),
-    filter 0.5s var(--ease-base);
-}
-
-.submenu-card__content {
-  position: absolute;
-  inset: auto 0 0;
-  z-index: 2;
-  display: grid;
-  gap: 0.75rem;
-  padding: 1rem;
-  transform: translateY(calc(100% - var(--submenu-title-height)));
-  transition: transform 0.5s var(--ease-base);
-}
-
-.submenu-card__title {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  line-height: 1.2;
-  text-wrap: balance;
-}
-
-.submenu-card__meta {
+.submenu-reveal-card__meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid rgb(255 255 255 / 0.3);
-  padding-top: 0.75rem;
-  opacity: 0;
-  transform: translateY(100%);
-  transition:
-    transform 0.5s var(--ease-base),
-    opacity 0.3s var(--ease-base);
-  transition-delay: 140ms;
-}
-
-.submenu-card:hover .submenu-card__image,
-.submenu-card:focus-visible .submenu-card__image {
-  filter: blur(5px);
-  transform: scale(1.1);
-}
-
-.submenu-card:hover .submenu-card__content,
-.submenu-card:focus-visible .submenu-card__content,
-.submenu-card:hover .submenu-card__meta,
-.submenu-card:focus-visible .submenu-card__meta {
-  transform: translateY(0);
-}
-
-.submenu-card:hover .submenu-card__meta,
-.submenu-card:focus-visible .submenu-card__meta {
-  opacity: 1;
-}
-
-.submenu-card:focus-visible {
-  outline: 2px solid var(--ui-primary);
-  outline-offset: 3px;
 }
 
 .sub-menu::backdrop {
@@ -631,11 +551,7 @@ header.header--white {
   .sub-menu,
   .menu-toggle,
   .close-btn,
-  .mobileClose,
-  .submenu-card,
-  .submenu-card__image,
-  .submenu-card__content,
-  .submenu-card__meta {
+  .mobileClose {
     transition: none !important;
     animation: none !important;
   }

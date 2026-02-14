@@ -55,14 +55,20 @@ const page = computed(() => {
 const title = computed(() => page.value?.title);
 
 const activeImage = ref<string | null>(null);
+const imagePopoverRef = useTemplateRef<HTMLElement | null>('imagePopoverRef');
 
 const isLoading = ref(false);
 
 function handleImageClick(image: GalleryImage) {
-  if (activeImage.value === image.url)
-    return;
-  activeImage.value = image.url;
-  isLoading.value = true;
+  if (activeImage.value !== image.url) {
+    activeImage.value = image.url;
+    isLoading.value = true;
+  }
+
+  const popover = imagePopoverRef.value;
+  if (popover && !popover.matches(':popover-open')) {
+    popover.showPopover();
+  }
 }
 
 function onLoad() {
@@ -113,18 +119,33 @@ useSeoMeta({
       <template #body>
         <ul class="gallery">
           <li v-for="image in page.gallery" :key="image.url">
-            <button popovertarget="image" @click="handleImageClick(image)">
-              <NuxtImg
-                :src="image.url"
-                :alt="image.altText"
-                fit="fill"
-                format="avif"
-                sizes="50vw md:400px"
-              />
-            </button>
+            <app-reveal-card
+              to="#"
+              :aria-label="`Open ${page.title} gallery image`"
+              :image="image.url"
+              :alt="image.altText || page.title"
+              aspect-ratio="1/1"
+              overlay="linear-gradient(to top, rgb(0 0 0 / 0.2) 0%, rgb(0 0 0 / 0) 100%)"
+              :image-hover-blur="0"
+              :image-hover-scale="1.03"
+              :meta-border="false"
+              :meta-fade="false"
+              :rounded="false"
+              :outlined="false"
+              content-padding="0"
+              content-gap="0"
+              :title-offset="0"
+              details-delay="0ms"
+              meta-delay="0ms"
+              @click.prevent="handleImageClick(image)"
+            />
           </li>
         </ul>
-        <aside id="image" popover="auto">
+        <aside
+          id="image"
+          ref="imagePopoverRef"
+          popover="auto"
+        >
           <button
             popovertarget="image"
             popovertargetaction="hide"
