@@ -14,10 +14,10 @@ export async function useServicesList() {
 
   const services = computed<ServiceWithSlug[]>(() =>
     (data.value ?? [])
-      .filter(service => Boolean(service?.slug))
+      .filter(service => Boolean(service?.slug || service?.param))
       .map(service => ({
         ...service,
-        slug: service.slug,
+        slug: service.slug || service.param,
         image: service?.image.url,
       })),
   );

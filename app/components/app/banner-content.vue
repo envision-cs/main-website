@@ -55,7 +55,7 @@ const { gentle } = useEasings();
   gap: calc(var(--spacing) * 4);
   background-color: #fff;
   height: 100%;
-  justify-content: space-between;
+  justify-content: start;
 
   @media (min-width: 768px) {
   }

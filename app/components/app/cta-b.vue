@@ -9,10 +9,7 @@ defineProps<{
 
 <template>
   <NuxtLink
-    :to="{
-      name: 'services-services',
-      params: { services: path },
-    }"
+    :to="`/services/${path}`"
     class="p-4 flex flex-wrap gap-4 items-center border-t border-muted"
   >
     <NuxtPicture

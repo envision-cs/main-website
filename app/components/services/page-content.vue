@@ -1,20 +1,23 @@
 <script setup lang="ts">
+import type { Service } from '~~/shared/types/content-types';
+
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
-const route = useRoute();
-const { services } = await useServicesList();
+const props = defineProps<{
+  service: string;
+}>();
 
-const service = computed(() => route.params.services as string);
-const serviceData = computed(() => services.value.find(item => item.slug === service.value) ?? null);
+const { data: serviceData } = await useAsyncData(
+  `service-${props.service}`,
+  () => $fetch<Service>(`/api/services/${props.service}`),
+  { default: () => null },
+);
+
 const content = computedAsync(async () => {
   if (!serviceData.value?.description)
     return null;
   return parseMarkdown(serviceData.value.description);
 }, null);
-
-definePageMeta({
-  layout: 'layout-a',
-});
 
 useSeoMeta(() => ({
   title: serviceData.value?.title || 'Service',

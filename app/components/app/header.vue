@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui';
 
-import { useBreakpoints, useEventListener } from '@vueuse/core';
+import { useBreakpoints } from '@vueuse/core';
 
 const props = withDefaults(defineProps<{
   variant?: 'a' | 'b';
@@ -12,83 +12,66 @@ const props = withDefaults(defineProps<{
 });
 
 const config = useAppConfig();
-const items: NavigationMenuItem[] = config.navigationMenuItems;
+const items = computed<NavigationMenuItem[]>(() => {
+  return (config.navigationMenuItems || []) as NavigationMenuItem[];
+});
+
 const isWhite = computed(() => props.variant === 'b');
-
-const mainMenuRef = ref<HTMLDialogElement | null>(null);
-const subMenuRef = ref<HTMLDialogElement | null>(null);
-const menuToggleRef = ref<HTMLButtonElement | null>(null);
-const submenuCloseRef = ref<HTMLButtonElement | null>(null);
-const firstMainLinkRef = ref<HTMLElement | null>(null);
-const firstSubLinkRef = ref<HTMLElement | null>(null);
-
-const {
-  isOpen: isMainOpen,
-  openMenu: openMain,
-  closeMenu: closeMain,
-} = useAnimatedDialog(mainMenuRef);
-
-const {
-  isOpen: isSubOpen,
-  openMenu: openSub,
-  direction: subDirection,
-  closeMenu: closeSub,
-} = useAnimatedDialog(subMenuRef);
+const isMainOpen = ref(false);
+const isSubOpen = ref(false);
+const subMenuItems = ref<NavigationMenuItem[]>([]);
+const subMenuTitle = ref('Menu');
 
 const breakpoints = useBreakpoints({
   laptop: 1024,
 });
-
 const isLaptop = breakpoints.greater('laptop');
 
-useEventListener(document, 'keydown', (e) => {
-  if (e.key === 'Escape') {
-    if (isSubOpen.value) {
-      closeSub();
-      submenuCloseRef.value?.focus();
-      return;
+const menuSlide = computed<{ mainMenu: string; subMenu: string }>(() => {
+  return {
+    mainMenu: isLaptop.value ? 'right' : 'top',
+    submenu: isLaptop.value ? 'left' : 'bottom',
+  };
+});
+
+const slideoverUi = {
+  overlay: 'bg-black/25',
+  content: '',
+  wrapper: 'bg-red-500',
+  body: 'bg-red-500',
+};
+
+const mainNavigationUi = {
+  root: 'w-[50dvi]',
+  list: 'w-full gap-1',
+  item: 'w-full',
+  link: 'w-full justify-between rounded-none px-0 py-2 text-xl leading-tight lg:text-2xl',
+  linkLabel: 'text-current',
+  linkTrailing: 'ml-auto',
+};
+
+const mainMenuItems = computed<NavigationMenuItem[]>(() => {
+  return items.value.map((item) => {
+    if (item.children?.length) {
+      return {
+        ...item,
+        type: 'trigger',
+        to: undefined,
+        children: undefined,
+        trailingIcon: 'i-lucide-chevron-right',
+        onSelect: (event: Event) => {
+          event.preventDefault();
+          openSubMenu(item);
+        },
+      } satisfies NavigationMenuItem;
     }
-    if (isMainOpen.value) {
-      closeMain();
-      menuToggleRef.value?.focus();
-    }
-  }
-});
 
-useEventListener<MouseEvent>(mainMenuRef, 'click', (event) => {
-  if (!event.target)
-    return;
-
-  if ((event.target as HTMLElement).nodeName === 'DIALOG') {
-    closeMain();
-  }
-});
-
-useEventListener<MouseEvent>(subMenuRef, 'click', (event) => {
-  if (!event.target)
-    return;
-
-  if ((event.target as HTMLElement).nodeName === 'DIALOG') {
-    closeSub();
-  }
-});
-
-const subMenuItems = ref<NavigationMenuItem[]>([]);
-
-function handleOpen(children: unknown) {
-  if (isLaptop.value) {
-    subDirection.value = 'top';
-  }
-  else {
-    subDirection.value = 'bottom';
-  }
-  openSub();
-  subMenuItems.value = children as NavigationMenuItem[];
-  nextTick(() => {
-    firstSubLinkRef.value = subMenuRef.value?.querySelector('a, button');
-    firstSubLinkRef.value?.focus();
+    return {
+      ...item,
+      onSelect: () => closeAllMenus(),
+    } satisfies NavigationMenuItem;
   });
-}
+});
 
 function getSubMenuImage(item: NavigationMenuItem): string {
   if (typeof item.image === 'string' && item.image.length > 0)
@@ -97,26 +80,43 @@ function getSubMenuImage(item: NavigationMenuItem): string {
   return 'projects-all.jpg';
 }
 
+function getItemTo(item: NavigationMenuItem): string {
+  if (typeof item.to === 'string' && item.to.length > 0)
+    return item.to;
+
+  return '#';
+}
+
+function openSubMenu(item: NavigationMenuItem) {
+  const children = Array.isArray(item.children)
+    ? item.children
+    : [];
+
+  if (!children.length)
+    return;
+
+  subMenuItems.value = children as NavigationMenuItem[];
+  subMenuTitle.value = item.label || 'Menu';
+  isSubOpen.value = true;
+}
+
+function closeSubMenu() {
+  isSubOpen.value = false;
+}
+
+function closeAllMenus() {
+  isMainOpen.value = false;
+  isSubOpen.value = false;
+}
+
 const route = useRoute();
 watch(() => route.path, () => {
-  closeMain();
-  closeSub();
+  closeAllMenus();
 });
 
-watch(isMainOpen, () => {
-  if (isMainOpen.value)
-    return;
-  if (isSubOpen.value) {
-    closeSub();
-  }
-}, { immediate: true });
-
 watch(isMainOpen, (open) => {
-  if (open) {
-    nextTick(() => {
-      firstMainLinkRef.value = mainMenuRef.value?.querySelector('a, button');
-      firstMainLinkRef.value?.focus();
-    });
+  if (!open) {
+    isSubOpen.value = false;
   }
 });
 </script>
@@ -135,165 +135,181 @@ watch(isMainOpen, (open) => {
       />
     </NuxtLink>
     <div class="flex items-center gap-2">
-      <button
-        ref="menuToggleRef"
-        type="button"
-        class="menu-toggle"
-        :class="{ 'menu-toggle--dark': isWhite }"
-        aria-haspopup="dialog"
-        aria-controls="main-menu"
-        :aria-expanded="isMainOpen"
-        @click="openMain"
+      <USlideover
+        v-model:open="isMainOpen"
+        :side="menuSlide.mainMenu"
+        inset
+        :close="false"
+        :ui="slideoverUi"
       >
-        <span class="sr-only">Open main menu</span>
-        <app-typography tag="p" variant="text-md">
-          menu
-        </app-typography>
-        <Icon
-          name="i-lucide-menu"
-          size="24"
-          class="menu-btn fill-current"
-        />
-      </button>
+        <button
+          type="button"
+          class="menu-toggle"
+          :class="{ 'menu-toggle--dark': isWhite }"
+        >
+          <span class="sr-only">Open main menu</span>
+          <app-typography tag="p" variant="text-md">
+            menu
+          </app-typography>
+          <Icon
+            name="i-lucide-menu"
+            size="24"
+            class="menu-btn fill-current"
+          />
+        </button>
+
+        <template #content>
+          <div class="menu-panel">
+            <div class="main-menu__header">
+              <div class="main-menu__items">
+                <nav aria-label="Primary">
+                  <UNavigationMenu
+                    orientation="vertical"
+                    variant="link"
+                    :items="mainMenuItems"
+                    :ui="mainNavigationUi"
+                  />
+                </nav>
+              </div>
+              <div class="main-menu__close">
+                <UButton
+                  icon="i-lucide-x"
+                  color="neutral"
+                  variant="outline"
+                  aria-label="Close menu"
+                  @click="closeAllMenus"
+                />
+              </div>
+            </div>
+
+            <div class="main-menu__body">
+              <div class="main-menu__secondary" aria-label="Quick links">
+                <div class="main-menu__secondary-items">
+                  <app-navigation-secondary-link to="#">
+                    Locations
+                  </app-navigation-secondary-link>
+                </div>
+                <div class="main-menu__social" aria-label="Social links">
+                  <UButton
+                    icon="i-lucide-instagram"
+                    size="md"
+                    to="https://www.instagram.com/envisioncs_/"
+                    color="neutral"
+                    variant="outline"
+                    aria-label="Instagram"
+                  />
+                  <UButton
+                    icon="i-lucide-linkedin"
+                    size="md"
+                    color="neutral"
+                    to="https://www.linkedin.com/company/envision-cs/posts/?feedView=all"
+                    variant="outline"
+                    aria-label="LinkedIn"
+                  />
+                  <UButton
+                    icon="i-lucide-facebook"
+                    size="md"
+                    to="https://www.facebook.com/envisioncstampa"
+                    color="neutral"
+                    variant="outline"
+                    aria-label="Facebook"
+                  />
+                </div>
+              </div>
+              <div class="px-2 pb-2">
+                <app-display-card
+                  link="/contact"
+                  title="Contact"
+                  class="w-full"
+                  :title-offset="-24"
+                  :image="props.contactImage"
+                  aspect-ratio="3/1"
+                  heading="heading-sm"
+                />
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="mobileClose"
+              @click="closeAllMenus"
+            >
+              Close menu
+            </button>
+          </div>
+        </template>
+      </USlideover>
     </div>
   </header>
 
-  <dialog
-    id="main-menu"
-    ref="mainMenuRef"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="main-menu-title"
-    class="menu"
-    @keydown.esc="closeMain"
+  <USlideover
+    v-model:open="isSubOpen"
+    :side="menuSlide.submenu"
+    inset
+    :close="false"
+    :ui="slideoverUi"
   >
-    <h2 id="main-menu-title" class="sr-only">
-      Main navigation
-    </h2>
-    <div class="main-menu__header">
-      <div class="main-menu__items">
-        <nav aria-label="Primary">
-          <app-navigation-menu-list :items="items" @open="(obj) => handleOpen(obj.children)" />
-        </nav>
-      </div>
-      <div class="main-menu__close">
-        <button
-          type="button"
-          class="close-btn"
-          @click="closeMain"
-        >
-          <span class="sr-only">Close menu</span>
-          <Icon
-            name="i-lucide-x"
-            size="24"
-            class="fill-current"
-            aria-hidden="true"
-          />
-        </button>
-      </div>
-    </div>
-
-    <div class="main-menu__body">
-      <div class="main-menu__secondary" aria-label="Quick links">
-        <div class="main-menu__secondary-items">
-          <app-navigation-secondary-link to="#">
-            Locations
-          </app-navigation-secondary-link>
-        </div>
-        <div class="main-menu__social" aria-label="Social links">
+    <template #content>
+      <div class="sub-menu-panel">
+        <div class="sub-menu__header">
           <UButton
-            icon="i-lucide-instagram"
-            size="md"
-            to="https://www.instagram.com/envisioncs_/"
+            icon="i-lucide-chevron-left"
             color="neutral"
-            variant="outline"
-            aria-label="Instagram"
+            variant="ghost"
+            aria-label="Back to main menu"
+            @click="closeSubMenu"
           />
+          <app-typography
+            tag="p"
+            variant="text-sm"
+            class="sub-menu__title"
+          >
+            {{ menuSlide.subMenu }}
+            {{ subMenuTitle }}
+          </app-typography>
           <UButton
-            icon="i-lucide-linkedin"
-            size="md"
+            icon="i-lucide-x"
             color="neutral"
-            to="https://www.linkedin.com/company/envision-cs/posts/?feedView=all"
-            variant="outline"
-            aria-label="LinkedIn"
-          />
-          <UButton
-            icon="i-lucide-facebook"
-            size="md"
-            to="https://www.facebook.com/envisioncstampa"
-            color="neutral"
-            variant="outline"
-            aria-label="Facebook"
+            variant="ghost"
+            aria-label="Close menu"
+            @click="closeAllMenus"
           />
         </div>
-      </div>
-      <div class="px-2 pb-2">
-        <app-display-card
-          link="/contact"
-          title="Contact"
-          :title-offset="-24"
-          :image="props.contactImage"
-          aspect-ratio="3/1"
-          heading="heading-sm"
-        />
-      </div>
-    </div>
-    <button
-      ref="submenuCloseRef"
-      type="button"
-      class="mobileClose"
-      @click="closeMain"
-    >
-      Close menu
-    </button>
-  </dialog>
 
-  <dialog
-    ref="subMenuRef"
-    class="sub-menu"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Sub menu"
-    @keydown.esc="closeSub"
-  >
-    <button
-      type="button"
-      class="mobileClose"
-      @click="closeSub"
-    >
-      Close submenu
-    </button>
-    <ul class="sub-menu-grid" role="list">
-      <li
-        v-for="item in subMenuItems"
-        :key="item.label"
-        class="sub-menu-item"
-      >
-        <app-reveal-card
-          :to="item.to"
-          :aria-label="item.label"
-          :image="getSubMenuImage(item)"
-          :alt="item.label"
-          aspect-ratio="16/9"
-          :title-offset="-16"
-          :meta-fade="true"
-          class="submenu-reveal-card"
-        >
-          <template #title>
-            <app-typography tag="h3" variant="heading-sm">
-              {{ item.label }}
-            </app-typography>
-          </template>
-          <template #meta>
-            <span class="submenu-reveal-card__meta">
-              View service
-              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-            </span>
-          </template>
-        </app-reveal-card>
-      </li>
-    </ul>
-  </dialog>
+        <ul class="sub-menu-grid" role="list">
+          <li
+            v-for="item in subMenuItems"
+            :key="item.label"
+            class="sub-menu-item"
+          >
+            <app-reveal-card
+              :to="getItemTo(item)"
+              :aria-label="item.label"
+              :image="getSubMenuImage(item)"
+              :alt="item.label"
+              aspect-ratio="16/9"
+              :title-offset="-16"
+              :meta-fade="true"
+              class="submenu-reveal-card"
+              @click="closeAllMenus"
+            >
+              <template #title>
+                <app-typography tag="h3" variant="heading-sm">
+                  {{ item.label }}
+                </app-typography>
+              </template>
+              <template #meta>
+                <span class="submenu-reveal-card__meta">
+                  View service
+                  <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+                </span>
+              </template>
+            </app-reveal-card>
+          </li>
+        </ul>
+      </div>
+    </template>
+  </USlideover>
 </template>
 
 <style scoped>
@@ -337,72 +353,22 @@ header.header--white {
   color: var(--color-neutral-900);
 }
 
-.close-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--ui-border);
-  padding: 0.55rem 0.9rem;
-  border-radius: calc(var(--ui-radius));
-  background: color-mix(in srgb, var(--ui-surface) 90%, white);
-  color: inherit;
-}
-
 .menu-toggle:focus-visible,
-.close-btn:focus-visible,
 .mobileClose:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
 
-.menu {
-  display: none;
-}
-
-.menu:open {
+.menu-panel,
+.sub-menu-panel {
   display: flex;
   flex-direction: column;
-  position: fixed;
-  inset: 0;
-  transform-origin: top right;
-  transition-behavior: allow-discrete;
-  z-index: 110;
-
-  height: min(70svh, 500px);
   max-width: 100dvi;
-  width: 100dvi;
+  height: max(70svh, 500px);
 
   @media (min-width: 1024px) {
-    inset-block-start: calc(var(--spacing) * 2);
-    inset-inline-start: auto;
-    inset-inline-end: calc(var(--spacing) * 2);
+    max-width: calc(60vw - calc(var(--spacing) * 4));
     height: calc(100vh - calc(var(--spacing) * 8));
-    width: calc(50vw - calc(var(--spacing) * 4));
-  }
-}
-
-.menu::backdrop {
-  background: black;
-  opacity: 0.25;
-}
-
-@keyframes open {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes close {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
   }
 }
 
@@ -410,17 +376,13 @@ header.header--white {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
-  border-bottom: --_border;
+  border-bottom: 1px solid var(--ui-border);
 }
 
 .main-menu__items {
   flex: 1;
-  border-right: --_border;
+  border-right: 1px solid var(--ui-border);
   padding-left: calc(var(--spacing) * 2);
-
-  :last-child {
-    padding-bottom: calc(var(--spacing) * 2);
-  }
 
   @media (min-width: 1024px) {
     padding-top: calc(var(--spacing) * 4);
@@ -437,7 +399,7 @@ header.header--white {
   display: flex;
   flex-direction: column;
   margin-top: auto;
-  border-top: --_border;
+  border-top: 1px solid var(--ui-border);
 }
 
 .main-menu__secondary {
@@ -452,10 +414,6 @@ header.header--white {
   gap: calc(var(--spacing) * 1);
   flex-wrap: wrap;
   line-height: 1;
-
-  :first-child {
-    margin-right: calc(var(--spacing) * 1);
-  }
 }
 
 .main-menu__social {
@@ -463,42 +421,28 @@ header.header--white {
   gap: calc(var(--spacing) * 4);
 }
 
-.sub-menu {
-  display: none;
+.sub-menu__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(var(--spacing) * 2);
+  border-bottom: 1px solid var(--ui-border);
 }
 
-.sub-menu:open {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  inset-block-start: auto;
-  inset-inline-end: calc(var(--spacing) * 2);
-  inset-block-end: calc(var(--spacing) * 2);
-  transform-origin: bottom left;
-  transition-behavior: allow-discrete;
-  border-radius: calc(var(--ui-radius));
-  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 2);
-  z-index: 110;
-
-  height: max(70svh, 500px);
-  max-width: 100dvi;
-  width: 100dvi;
-
-  @media (min-width: 1024px) {
-    transform-origin: top left;
-    inset-block-start: calc(var(--spacing) * 2);
-    inset-inline-end: auto;
-    inset-inline-start: calc(var(--spacing) * 2);
-    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 2);
-    height: calc(100vh - calc(var(--spacing) * 8));
-    width: calc(50vw - calc(var(--spacing) * 4));
-  }
+.sub-menu__title {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .sub-menu-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: calc(var(--spacing) * 2);
+  padding: calc(var(--spacing) * 2);
+
+  @media (min-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .sub-menu-item {
@@ -509,11 +453,6 @@ header.header--white {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.sub-menu::backdrop {
-  background: black;
-  opacity: 0.25;
 }
 
 .mobileClose {
@@ -547,10 +486,7 @@ header.header--white {
 
 @media (prefers-reduced-motion: reduce) {
   header,
-  .menu,
-  .sub-menu,
   .menu-toggle,
-  .close-btn,
   .mobileClose {
     transition: none !important;
     animation: none !important;

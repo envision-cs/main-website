@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/nuxt';
 const route = useRoute();
 
 const { services } = await useServicesList();
+const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');
 
 const categories = computed(() =>
   services.value
@@ -17,7 +18,7 @@ const categories = computed(() =>
 
 const activeCategory = computed<{ title: string; slug: string; image?: string }>(() => {
   return (
-    categories.value.find(category => category.slug === route.params.services) ?? {
+    categories.value.find(category => category.slug === currentServiceSlug.value) ?? {
       title: 'All Services',
       slug: 'all',
     }
@@ -47,10 +48,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
           </li>
           <li v-for="category in categories" :key="category?.title || category?.slug">
             <ULink
-              :to="{
-                name: 'services-services',
-                params: { services: category.slug },
-              }"
+              :to="`/services/${category.slug}`"
               class="text-left"
             >
               {{ category.title }}

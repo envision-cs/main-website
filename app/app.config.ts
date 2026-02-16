@@ -31,6 +31,10 @@ export default defineAppConfig({
           to: '/services/specialty-projects-division',
           image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0231.jpg',
         },
+        {
+          label: 'Development and Master Planning',
+          to: '/services/development-and-master-planning',
+        },
       ],
     },
     {

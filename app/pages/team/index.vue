@@ -85,7 +85,7 @@ function teamOverlay(color?: string) {
               :meta-border="false"
               :meta-fade="false"
               details-delay="0ms"
-              :title-offset="16"
+              :title-offset="-32"
               meta-delay="150ms"
               class="team-member-card"
             >
