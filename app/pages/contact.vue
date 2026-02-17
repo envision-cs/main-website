@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { data: contactData, error } = await useFetch<ContactResponse>('/api/contact');
+const { data: contactData, error } = await useFetch('/api/contact');
 </script>
 
 <template>

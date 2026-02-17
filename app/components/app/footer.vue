@@ -55,31 +55,16 @@ const services = items.find(item => item.label === 'Services');
           </div>
         </div>
         <div class="location-container">
-          <ul class="location-wrapper" aria-label="Office locations">
-            <li
+          <ul class="" aria-label="Office locations">
+            <app-location-card
               v-for="location in locations"
-              :key="location.location"
-              class="pl-0 min-[800px]:pl-8"
-            >
-              <address>
-                <AppTypography
-                  variant="eyebrow-md"
-                  tag="h3"
-                  class="mb-2"
-                >
-                  {{ location.location }}
-                </AppTypography>
-                <AppTypography
-                  tag="p"
-                  variant="text-lg"
-                  class=""
-                >
-                  {{ location.address }}<br>
-                  {{ location.city }}<br>
-                  {{ location.phone }}
-                </AppTypography>
-              </address>
-            </li>
+              :key="location.id"
+              :title="location.name"
+              :address="location?.address"
+              :city="location.city"
+              :phone="location.phone"
+              :email="location.email"
+            />
           </ul>
         </div>
       </div>

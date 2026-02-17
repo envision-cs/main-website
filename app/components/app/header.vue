@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui';
 
-import { useBreakpoints } from '@vueuse/core';
+import { useMediaQuery } from '@vueuse/core';
 
 const props = withDefaults(defineProps<{
   variant?: 'a' | 'b';
@@ -22,15 +22,12 @@ const isSubOpen = ref(false);
 const subMenuItems = ref<NavigationMenuItem[]>([]);
 const subMenuTitle = ref('Menu');
 
-const breakpoints = useBreakpoints({
-  laptop: 1024,
-});
-const isLaptop = breakpoints.greater('laptop');
+const isLaptop = useMediaQuery('(min-width: 1024px)');
 
 const menuSlide = computed<{ mainMenu: string; subMenu: string }>(() => {
   return {
     mainMenu: isLaptop.value ? 'right' : 'top',
-    submenu: isLaptop.value ? 'left' : 'bottom',
+    subMenu: isLaptop.value ? 'left' : 'bottom',
   };
 });
 
@@ -42,7 +39,7 @@ const slideoverUi = {
 };
 
 const mainNavigationUi = {
-  root: 'w-[50dvi]',
+  root: '',
   list: 'w-full gap-1',
   item: 'w-full',
   link: 'w-full justify-between rounded-none px-0 py-2 text-xl leading-tight lg:text-2xl',
@@ -162,14 +159,12 @@ watch(isMainOpen, (open) => {
           <div class="menu-panel">
             <div class="main-menu__header">
               <div class="main-menu__items">
-                <nav aria-label="Primary">
-                  <UNavigationMenu
-                    orientation="vertical"
-                    variant="link"
-                    :items="mainMenuItems"
-                    :ui="mainNavigationUi"
-                  />
-                </nav>
+                <UNavigationMenu
+                  orientation="vertical"
+                  variant="link"
+                  :items="mainMenuItems"
+                  :ui="mainNavigationUi"
+                />
               </div>
               <div class="main-menu__close">
                 <UButton
@@ -232,10 +227,9 @@ watch(isMainOpen, (open) => {
             <button
               type="button"
               class="mobileClose"
+              aria-label="Close menu"
               @click="closeAllMenus"
-            >
-              Close menu
-            </button>
+            />
           </div>
         </template>
       </USlideover>
@@ -244,7 +238,7 @@ watch(isMainOpen, (open) => {
 
   <USlideover
     v-model:open="isSubOpen"
-    :side="menuSlide.submenu"
+    :side="menuSlide.subMenu"
     inset
     :close="false"
     :ui="slideoverUi"
@@ -373,14 +367,18 @@ header.header--white {
 }
 
 .main-menu__header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   justify-content: space-between;
   align-items: stretch;
   border-bottom: 1px solid var(--ui-border);
 }
 
+.main-menu__header > button {
+}
+
 .main-menu__items {
-  flex: 1;
+  width: 100%;
   border-right: 1px solid var(--ui-border);
   padding-left: calc(var(--spacing) * 2);
 
@@ -391,7 +389,6 @@ header.header--white {
 }
 
 .main-menu__close {
-  flex-shrink: 0;
   padding: calc(var(--spacing) * 4);
 }
 
@@ -436,7 +433,7 @@ header.header--white {
 
 .sub-menu-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: calc(var(--spacing) * 2);
   padding: calc(var(--spacing) * 2);
 

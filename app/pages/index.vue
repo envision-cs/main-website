@@ -47,6 +47,8 @@ if ($posthog) {
       <three-uniques />
       <quote
         quote="Don’t risk another over-budget, under-communicated build. Work with a team that values your success."
+        name="Allen Green Jr."
+        title="Managing Director, Envision"
       />
     </div>
   </UPage>

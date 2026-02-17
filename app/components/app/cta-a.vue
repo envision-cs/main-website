@@ -18,6 +18,7 @@ withDefaults(defineProps<{
       </template>
       <template #body>
         {{ body }}
+        <slot name="body" />
       </template>
 
       <template v-if="href" #action>

@@ -9,7 +9,7 @@ definePageMeta({
     <app-cta-a
       text="Building Without the Headaches"
       body="Great projects begin with excellence in preconstruction. Our diligence in the feasibility and preconstruction process is what ultimately leads to a successful, timely, and cost effective project---because your budget and timeline is our top priority."
-      image="/IMG_1915.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1988.jpg"
       flip
     >
       Preconstruction  <span>Approach</span>
@@ -47,7 +47,7 @@ definePageMeta({
     <app-cta-a
       text="Building Without the Headaches"
       body="While the conventional design process involves estimating a design and redesigning if there are budget overruns, we instead help design to a budget using the target value design approach. This approach is an effective method of maximizing the program requirements of a building and adding value."
-      image=""
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A5388.jpg"
     >
       Target Value <span>Design</span>
     </app-cta-a>
@@ -63,7 +63,6 @@ definePageMeta({
       text="Building Without the Headaches"
       body="We go above and beyond in our due diligence period to identify issues early, alleviate potential budget and schedule surprises down the road. Our preconstruction, project management, and field teams collaborate to build the project schedule—identifying critical path activities, key milestones, and long-lead items in coordination with our trade partners."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg"
-      flip
     >
       Enhanced Project <span>Schedule</span>
     </app-cta-a>
