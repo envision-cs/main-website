@@ -21,6 +21,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
     categories.value.find(category => category.slug === currentServiceSlug.value) ?? {
       title: 'All Services',
       slug: 'all',
+      image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134',
     }
   );
 });
@@ -47,10 +48,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
             </ULink>
           </li>
           <li v-for="category in categories" :key="category?.title || category?.slug">
-            <ULink
-              :to="`/services/${category.slug}`"
-              class="text-left"
-            >
+            <ULink :to="`/services/${category.slug}`" class="text-left">
               {{ category.title }}
             </ULink>
           </li>
