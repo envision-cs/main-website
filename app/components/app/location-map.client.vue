@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { MglMap, MglMarker } from '@indoorequal/vue-maplibre-gl';
+
 const style = 'https://tiles.openfreemap.org/styles/positron';
 const zoom = 9;
 </script>

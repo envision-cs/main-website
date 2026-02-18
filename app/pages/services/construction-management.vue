@@ -80,6 +80,11 @@ definePageMeta({
         </ul>
       </template>
     </app-cta-a>
+    <quote
+      quote="It was a pleasure working with the Envision team."
+      name="John Luksas"
+      title="Assistant Director, Operations USF College of Nursing"
+    />
   </div>
 </template>
 
@@ -94,7 +99,8 @@ li {
   counter-increment: steps;
   padding-top: calc(var(--spacing) * 2);
   display: flex;
-  align-items: flex-start; /* or center */
+  align-items: flex-start;
+  /* or center */
 
   &::before {
     content: counter(steps);

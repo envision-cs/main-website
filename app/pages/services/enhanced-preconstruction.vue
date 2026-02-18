@@ -12,7 +12,7 @@ definePageMeta({
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1988.jpg"
       flip
     >
-      Preconstruction  <span>Approach</span>
+      Preconstruction <span>Approach</span>
     </app-cta-a>
     <app-cta-a
       text="Building Without the Headaches"
@@ -27,7 +27,7 @@ definePageMeta({
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMAGE%2015%20(1).PNG"
       flip
     >
-      Model-Based and Real-Time  <span>Estimating</span>
+      Model-Based and Real-Time <span>Estimating</span>
     </app-cta-a>
     <app-cta-a
       text="Building Without the Headaches"
@@ -66,5 +66,10 @@ definePageMeta({
     >
       Enhanced Project <span>Schedule</span>
     </app-cta-a>
+    <quote
+      quote="Strong endorsement of Envison. We were very pleased with the prodessionalism and quality of the work!"
+      name="Darryl Shaw"
+      title="Co-Owner, USL Super League"
+    />
   </div>
 </template>

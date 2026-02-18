@@ -23,13 +23,12 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@posthog/nuxt',
     'motion-v/nuxt',
-    'nuxt-maplibre',
     '@nuxtjs/strapi',
     'nuxt-strapi-blocks-renderer',
     '@nuxt/hints',
     'nuxt-studio',
   ],
-  css: ['./app/assets/css/main.css'],
+  css: ['~/assets/css/main.css', '~/assets/css/maplibre-gl.css'],
   ui: {
     colorMode: false,
     theme: {
@@ -84,12 +83,6 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
-  vite: {
-    server: {
-      hmr: { protocol: 'ws', host: 'localhost' },
-    },
-  },
-
   experimental: {
     sharedPrerenderData: true,
   },

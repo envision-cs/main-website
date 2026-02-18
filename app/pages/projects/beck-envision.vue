@@ -74,9 +74,7 @@ definePageMeta({
             meta-delay="220ms"
           >
             <template #title>
-              <app-typography class="h3 project-card-title" variant="heading-md">
-                {{ project.title }}
-              </app-typography>
+              <app-typography class="h3 project-card-title" variant="heading-md" />
             </template>
             <template #details>
               <ul class="project-card-stats">

@@ -7,11 +7,12 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "postinstall": "nuxt prepare && cp node_modules/maplibre-gl/dist/maplibre-gl.css public/maplibre-gl.css",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:poll": "NUXT_USE_POLLING=1 nuxt dev"
   },
   "dependencies": {
     "@nuxt/content": "^3.10.0",

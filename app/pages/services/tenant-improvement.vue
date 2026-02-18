@@ -28,5 +28,10 @@ definePageMeta({
       needs."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/Sligh%20Middle%20School%20-%20Interior%20-%20Kitchen%20-%20Two.jpg"
     />
+    <quote
+      quote="Our deepest gratitude to the Envision team for your increadile work..."
+      name="John Luksas"
+      title="Assistant Director, Operations USF College of Nursing"
+    />
   </div>
 </template>
