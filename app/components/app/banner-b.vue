@@ -48,6 +48,7 @@ defineProps<{
       :alt="imageAlt || ''"
       sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
       fit="cover"
+      format="avif"
       preload
       loading="eager"
       class="image h-full w-full z-0 object-cover"

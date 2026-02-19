@@ -18,7 +18,7 @@ function teamOverlay(color?: string) {
   <div class="">
     <app-banner-b
       class="col-start-1 -col-end-1"
-      image="meet-the-team.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A1792.jpg"
       body="Collaborating with Colors (CWC) is how we define teams within our team and their function in relation to Envision. Our six teams—the Orange Team, Gray Team, COL Team, Red Team, Blue Team, and Green Team—collaborate to deliver high-quality projects on time and within budget. We chose to empower our team members by recognizing their strengths, discovering where they best fit into daily operations, and developing a title that best illustrates the value that the team member adds to the company. Meet the Envision team"
     >
       Meet the team
@@ -64,10 +64,7 @@ function teamOverlay(color?: string) {
       </template>
       <template #body>
         <app-team-member-list>
-          <li
-            v-for="member in team.team_members"
-            :key="member.name"
-          >
+          <li v-for="member in team.team_members" :key="member.name">
             <app-reveal-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
