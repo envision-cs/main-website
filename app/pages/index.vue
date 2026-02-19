@@ -30,9 +30,7 @@ if ($posthog) {
       >
         Building Without the <span>Headaches</span>
       </app-cta-a>
-      <app-card-group-a
-        :cards="featuredProjectCards"
-      />
+      <app-card-group-a :cards="featuredProjectCards" />
       <app-cta-a
         image="rtm-auditorium.jpg"
         body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
@@ -44,9 +42,9 @@ if ($posthog) {
       <app-parallax image="/HomePageAllens.webp" mobile-image="/thegreens2.jpg" />
       <three-uniques />
       <quote
-        quote="Don’t risk another over-budget, under-communicated build. Work with a team that values your success."
-        name="Allen Green Jr."
-        title="Managing Director, Envision"
+        quote="Envision has consistently impressed us with their commitment to timely project completion."
+        name="Kelvin Mack"
+        title="Maintenance Director of Central, HCPS"
       />
     </div>
   </UPage>

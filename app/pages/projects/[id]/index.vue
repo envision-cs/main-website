@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { formatMonthYear } = useFormatDate();
+
 const { data } = await useAsyncData(
   'page-data',
   async () => {
@@ -118,7 +120,7 @@ definePageMeta({
                     Completed
                   </app-typography>
                   <app-typography tag="p">
-                    {{ project.completed }}
+                    {{ formatMonthYear(project.completed) }}
                   </app-typography>
                 </li>
               </ul>
@@ -141,6 +143,7 @@ definePageMeta({
   container-type: inline-size;
   container-name: projects;
 }
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

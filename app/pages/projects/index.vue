@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const { formatMonthYear } = useFormatDate();
 const { data } = await useAsyncData('page-data', async () => {
   try {
     const [projectRes, sectorsRes] = await Promise.all([
@@ -96,7 +97,7 @@ definePageMeta({
                     Completed
                   </app-typography>
                   <app-typography tag="p">
-                    {{ new Date(project.completed).getFullYear() }}
+                    {{ formatMonthYear(project.completed) }}
                   </app-typography>
                 </li>
               </ul>

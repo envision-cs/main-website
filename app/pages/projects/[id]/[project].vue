@@ -3,6 +3,8 @@ import type { Project } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
+const { formatMonthYear } = useFormatDate();
+
 const route = useRoute();
 
 const slug = computed(() => {
@@ -64,6 +66,7 @@ const page = computed(() => {
     area: entry.area,
     completed: entry.completed,
     gallery,
+    beck: entry.beck,
     content: entry.content,
     description: entry.description,
   };
@@ -120,7 +123,7 @@ useSeoMeta({
                 title="Area"
                 :data="page.area"
               />
-              <projects-info title="Completed" :data="page.completed" />
+              <projects-info title="Completed" :data="formatMonthYear(page.completed)" />
             </div>
             <div v-if="ast?.body" class="max-w-[75ch]">
               <MDCRenderer :body="ast.body" :data="ast.data" />
@@ -173,6 +176,7 @@ useSeoMeta({
               <UIcon name="i-lucide-loader-2" class="w-10 h-10 text-white animate-spin" />
             </div>
             <NuxtImg
+              v-if="activeImage"
               :key="activeImage"
               :src="activeImage"
               :alt="page.title"
@@ -182,6 +186,11 @@ useSeoMeta({
               @load="onLoad"
               @error="onLoad"
             />
+            <div v-else>
+              <AppTypography tag="p">
+                Image failed to load
+              </AppTypography>
+            </div>
           </figure>
         </aside>
       </template>

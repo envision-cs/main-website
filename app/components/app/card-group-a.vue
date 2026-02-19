@@ -21,7 +21,7 @@ defineProps<{
       :image="card.image"
       :title="card.title"
       :to="card.link"
-      aspect-ratio="3/4"
+      aspect-ratio="4/3"
       :title-offset="-16"
       :image-hover-blur="0"
     >

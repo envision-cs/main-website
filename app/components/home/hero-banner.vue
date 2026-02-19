@@ -39,15 +39,15 @@ const hero = computed(() => data.value?.data ?? null);
         >
           {{ hero.subtitle }}
         </app-typography>
-        <UButton
-          color="neutral"
-          variant="solid"
-          to="contact"
+        <app-button
+          variant="outline"
+          color="white"
+          href="/contact"
           size="lg"
-          class="mt-4"
+          class="[--btn-outline:white] [--btn-text:white] [--btn-hover-text:white] mt-4"
         >
           Start your project
-        </UButton>
+        </app-button>
       </div>
       <div class="actions mt-auto">
         <!-- leave empty -->

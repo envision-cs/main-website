@@ -48,20 +48,6 @@ export default defineAppConfig({
     {
       label: 'About Us',
       to: '/about',
-      // children: [
-      //  {
-      //    label: 'Who we are',
-      //    to: '/about',
-      //  },
-      //  {
-      //    label: 'Our Partners',
-      //    to: '/about/partners', // Assuming a sub-page for partners
-      //  },
-      //  {
-      //    label: 'Our Process',
-      //    to: '/our-process',
-      //  },
-      // ],
     },
 
   ] as NavigationMenuItem[],
@@ -81,12 +67,27 @@ export default defineAppConfig({
     },
     button: {
       slots: {
-        base: ['w-fit'],
+        base: [
+          'w-fit relative isolate overflow-hidden rounded-none',
+          '[--btn-outline:var(--ui-color-neutral-900)] [--btn-text:var(--ui-color-neutral-900)] [--btn-hover-text:white]',
+          'before:pointer-events-none before:absolute before:inset-x-0 before:bottom-0 before:z-0 before:h-full before:origin-bottom before:scale-y-0',
+          'before:rounded-none before:bg-[var(--ui-primary)] before:content-[""]',
+          'before:transition-transform before:duration-300 before:ease-out',
+          'hover:before:scale-y-100 disabled:hover:before:scale-y-0 hover:text-[var(--btn-hover-text)]',
+        ],
+        label: 'relative z-10',
+        leadingIcon: 'relative z-10',
+        trailingIcon: 'relative z-10',
+        leadingAvatar: 'relative z-10',
       },
       variants: {
+        variant: {
+          outline: '!ring-2 !ring-inset !ring-[var(--btn-outline)] !bg-transparent !text-[var(--btn-text)] focus-visible:!ring-[var(--btn-outline)]',
+          ghost: '!ring-2 !ring-inset !ring-[var(--btn-outline)] !bg-transparent !text-[var(--btn-text)] focus-visible:!ring-[var(--btn-outline)]',
+        },
         size: {
           xl: {
-            base: 'px-4 py-2 md:px-6 md:py-3 rounded-full',
+            base: 'px-4 py-2 md:px-6 md:py-3 rounded-none',
           },
         },
       },
