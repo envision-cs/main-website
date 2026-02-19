@@ -66,14 +66,14 @@ const goHome = () => clearError({ redirect: '/' });
                 <app-button color="white" href="/contact">
                   Talk with our team
                 </app-button>
-                <UButton
+                <app-button
                   variant="ghost"
                   color="neutral"
                   class="text-white border-white/40"
                   @click="goHome"
                 >
                   Clear error & reload
-                </UButton>
+                </app-button>
               </div>
             </div>
           </div>
@@ -149,7 +149,7 @@ const goHome = () => clearError({ redirect: '/' });
               and we\'ll guide you.
             </app-typography>
             <div class="flex flex-wrap gap-3 mt-4">
-              <UButton
+              <app-button
                 size="lg"
                 variant="soft"
                 color="primary"
@@ -157,8 +157,8 @@ const goHome = () => clearError({ redirect: '/' });
                 href="mailto:info@envisioncs.com"
               >
                 Email our team
-              </UButton>
-              <UButton
+              </app-button>
+              <app-button
                 size="lg"
                 variant="ghost"
                 color="neutral"
@@ -166,7 +166,7 @@ const goHome = () => clearError({ redirect: '/' });
                 href="tel:8137123070"
               >
                 813-712-3070
-              </UButton>
+              </app-button>
             </div>
           </div>
         </div>

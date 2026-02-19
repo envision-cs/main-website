@@ -22,13 +22,13 @@ withDefaults(defineProps<{
       </template>
 
       <template v-if="href" #action>
-        <UButton
+        <app-button
           :to="href"
           color="secondary"
           variant="solid"
         >
           Learn More
-        </UButton>
+        </app-button>
       </template>
     </app-banner-content>
     <div class="image">

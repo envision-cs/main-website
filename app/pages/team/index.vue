@@ -100,7 +100,7 @@ function teamOverlay(color?: string) {
               </template>
               <template #meta>
                 <div class="team-member-actions">
-                  <UButton
+                  <app-button
                     v-if="member.linkedin"
                     icon="i-simple-icons-linkedin"
                     color="neutral"
@@ -109,7 +109,7 @@ function teamOverlay(color?: string) {
                     target="_blank"
                     aria-label="LinkedIn"
                   />
-                  <UButton
+                  <app-button
                     v-if="member.email"
                     icon="i-heroicons-envelope"
                     color="neutral"

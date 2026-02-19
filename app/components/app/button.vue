@@ -2,11 +2,13 @@
 const props = withDefaults(
   defineProps<{
     href?: string;
+    to?: string;
     type?: 'button' | 'submit' | 'reset';
     size?: 'sm' | 'md' | 'lg';
-    variant?: 'base' | 'outline' | 'secondary';
+    variant?: 'base' | 'outline' | 'secondary' | 'solid' | 'ghost' | 'soft' | 'link';
     fill?: 'primary' | 'secondary';
-    color?: 'primary' | 'secondary' | 'white';
+    color?: 'primary' | 'secondary' | 'white' | 'neutral';
+    icon?: string;
     disabled?: boolean;
     ariaLabel?: string;
     target?: '_self' | '_blank' | '_parent' | '_top';
@@ -19,6 +21,7 @@ const props = withDefaults(
     variant: 'base',
     fill: 'primary',
     color: undefined,
+    icon: undefined,
     disabled: false,
     ariaLabel: undefined,
     target: undefined,
@@ -27,7 +30,8 @@ const props = withDefaults(
   },
 );
 
-const isLink = computed(() => Boolean(props.href));
+const destination = computed(() => props.to ?? props.href);
+const isLink = computed(() => Boolean(destination.value));
 const isDisabledLink = computed(() => isLink.value && props.disabled);
 
 const resolvedFill = computed(() => {
@@ -41,6 +45,10 @@ const resolvedFill = computed(() => {
 const resolvedVariant = computed(() => {
   if (props.color === 'white')
     return 'outline';
+  if (props.variant === 'solid')
+    return 'base';
+  if (props.variant === 'link')
+    return 'ghost';
   return props.variant;
 });
 
@@ -68,6 +76,12 @@ const computedRel = computed(() => {
     aria-disabled="true"
     :aria-label="ariaLabel"
   >
+    <UIcon
+      v-if="icon"
+      :name="icon"
+      class="app-btn__icon"
+      aria-hidden="true"
+    />
     <span class="app-btn__label">
       <slot />
     </span>
@@ -75,12 +89,18 @@ const computedRel = computed(() => {
 
   <NuxtLink
     v-else-if="isLink"
-    :to="href"
+    :to="destination"
     :target="target"
     :rel="computedRel"
     :class="classes"
     :aria-label="ariaLabel"
   >
+    <UIcon
+      v-if="icon"
+      :name="icon"
+      class="app-btn__icon"
+      aria-hidden="true"
+    />
     <span class="app-btn__label">
       <slot />
     </span>
@@ -93,6 +113,12 @@ const computedRel = computed(() => {
     :class="classes"
     :aria-label="ariaLabel"
   >
+    <UIcon
+      v-if="icon"
+      :name="icon"
+      class="app-btn__icon"
+      aria-hidden="true"
+    />
     <span class="app-btn__label">
       <slot />
     </span>
@@ -104,6 +130,7 @@ const computedRel = computed(() => {
   --btn-bg: #fff;
   --btn-text: #111;
   --btn-border: #111;
+  --btn-outline: var(--btn-border);
   --btn-fill: var(--ui-primary);
   --btn-hover-text: #fff;
   --btn-focus: var(--btn-fill);
@@ -117,7 +144,7 @@ const computedRel = computed(() => {
   justify-content: center;
   gap: 0.5rem;
 
-  border: 1px solid var(--btn-border);
+  border: 1px solid var(--btn-outline);
   border-radius: 0;
   background-color: var(--btn-bg);
   color: var(--btn-text);
@@ -152,6 +179,13 @@ const computedRel = computed(() => {
 .app-btn__label {
   position: relative;
   z-index: 1;
+}
+
+.app-btn__icon {
+  position: relative;
+  z-index: 1;
+  width: 1.1em;
+  height: 1.1em;
 }
 
 .app-btn:hover:not(.is-disabled):not(:disabled)::before {
@@ -210,14 +244,26 @@ const computedRel = computed(() => {
 
 .app-btn--variant-base {
   --btn-bg: #fff;
-  --btn-text: #fff;
+  --btn-text: #111;
   --btn-border: #111;
 }
 
 .app-btn--variant-outline {
   --btn-bg: transparent;
-  --btn-text: #fff;
+  --btn-text: #111;
   --btn-border: #111;
+}
+
+.app-btn--variant-ghost {
+  --btn-bg: transparent;
+  --btn-text: #111;
+  --btn-border: transparent;
+}
+
+.app-btn--variant-soft {
+  --btn-bg: color-mix(in srgb, var(--btn-fill) 10%, white);
+  --btn-text: #111;
+  --btn-border: color-mix(in srgb, var(--btn-fill) 30%, transparent);
 }
 
 .app-btn--variant-secondary {

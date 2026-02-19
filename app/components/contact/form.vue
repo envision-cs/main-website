@@ -157,12 +157,12 @@ const text_count = computed(() => `${state.message.length} / 250`);
       />
     </UFormField>
 
-    <UButton
+    <app-button
       type="submit"
       color="primary"
       block
     >
       Submit
-    </UButton>
+    </app-button>
   </UForm>
 </template>

@@ -22,7 +22,7 @@ defineProps<{
           </p>
         </div>
         <div class="mt-auto">
-          <UButton
+          <app-button
             v-for="link in links"
             :key="link.label"
             :to="link.to"
@@ -30,7 +30,7 @@ defineProps<{
             :color="link.color"
           >
             {{ link.label }}
-          </UButton>
+          </app-button>
         </div>
       </div>
       <slot />

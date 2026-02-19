@@ -167,7 +167,7 @@ watch(isMainOpen, (open) => {
                 />
               </div>
               <div class="main-menu__close">
-                <UButton
+                <app-button
                   icon="i-lucide-x"
                   color="neutral"
                   variant="outline"
@@ -185,7 +185,7 @@ watch(isMainOpen, (open) => {
                   </app-navigation-secondary-link>
                 </div>
                 <div class="main-menu__social" aria-label="Social links">
-                  <UButton
+                  <app-button
                     icon="i-lucide-instagram"
                     size="md"
                     to="https://www.instagram.com/envisioncs_/"
@@ -193,7 +193,7 @@ watch(isMainOpen, (open) => {
                     variant="outline"
                     aria-label="Instagram"
                   />
-                  <UButton
+                  <app-button
                     icon="i-lucide-linkedin"
                     size="md"
                     color="neutral"
@@ -201,7 +201,7 @@ watch(isMainOpen, (open) => {
                     variant="outline"
                     aria-label="LinkedIn"
                   />
-                  <UButton
+                  <app-button
                     icon="i-lucide-facebook"
                     size="md"
                     to="https://www.facebook.com/envisioncstampa"
@@ -246,7 +246,7 @@ watch(isMainOpen, (open) => {
     <template #content>
       <div class="sub-menu-panel">
         <div class="sub-menu__header">
-          <UButton
+          <app-button
             icon="i-lucide-chevron-left"
             color="neutral"
             variant="ghost"
@@ -261,7 +261,7 @@ watch(isMainOpen, (open) => {
             {{ menuSlide.subMenu }}
             {{ subMenuTitle }}
           </app-typography>
-          <UButton
+          <app-button
             icon="i-lucide-x"
             color="neutral"
             variant="ghost"

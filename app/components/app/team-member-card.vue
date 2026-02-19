@@ -59,7 +59,7 @@ const overlay = computed(() => {
       </template>
       <template #meta>
         <div class="actions">
-          <UButton
+          <app-button
             v-if="linkedin"
             icon="i-simple-icons-linkedin"
             color="neutral"
@@ -68,7 +68,7 @@ const overlay = computed(() => {
             target="_blank"
             aria-label="LinkedIn"
           />
-          <UButton
+          <app-button
             v-if="email"
             icon="i-heroicons-envelope"
             color="neutral"

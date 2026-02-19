@@ -16,7 +16,7 @@ describe('locationCard', () => {
       props: defaultProps,
       global: {
         stubs: {
-          UButton: true,
+          AppButton: true,
         },
       },
     });
@@ -29,11 +29,11 @@ describe('locationCard', () => {
       props: defaultProps,
       global: {
         stubs: {
-          UButton: true,
+          AppButton: true,
         },
       },
     });
-    const buttons = wrapper.findAllComponents({ name: 'UButton' });
+    const buttons = wrapper.findAllComponents({ name: 'AppButton' });
     const callLink = buttons.find(b => b.attributes('icon') === 'i-lucide-phone-call');
 
     expect(callLink).toBeDefined();
@@ -45,11 +45,11 @@ describe('locationCard', () => {
       props: defaultProps,
       global: {
         stubs: {
-          UButton: true,
+          AppButton: true,
         },
       },
     });
-    const buttons = wrapper.findAllComponents({ name: 'UButton' });
+    const buttons = wrapper.findAllComponents({ name: 'AppButton' });
     const emailLink = buttons.find(b => b.attributes('icon') === 'i-lucide-mail');
 
     expect(emailLink).toBeDefined();
@@ -64,15 +64,15 @@ describe('locationCard', () => {
       },
       global: {
         stubs: {
-          UButton: true,
+          AppButton: true,
         },
       },
     });
-    expect(wrapper.findAllComponents({ name: 'UButton' }).length).toBe(0);
+    expect(wrapper.findAllComponents({ name: 'AppButton' }).length).toBe(0);
   });
 
   it('renders using proper HTML structure (article)', () => {
-    const wrapper = mount(LocationCard, { props: defaultProps, global: { stubs: { UButton: true } } });
+    const wrapper = mount(LocationCard, { props: defaultProps, global: { stubs: { AppButton: true } } });
     expect(wrapper.find('article.location-card').exists()).toBe(true);
   });
 });

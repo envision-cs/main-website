@@ -72,7 +72,7 @@ definePageMeta({
             </div>
             <div>
               <div class="flex gap-4">
-                <UButton
+                <app-button
                   v-if="data.teamMember.linkedin"
                   icon="i-simple-icons-linkedin"
                   variant="ghost"
@@ -124,10 +124,7 @@ definePageMeta({
       </template>
       <template #body>
         <app-team-member-list>
-          <li
-            v-for="member in relatedTeam.filter(m => m.slug !== id)"
-            :key="member.id"
-          >
+          <li v-for="member in relatedTeam.filter(m => m.slug !== id)" :key="member.id">
             <app-reveal-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
@@ -162,19 +159,19 @@ definePageMeta({
               </template>
               <template #meta>
                 <div class="team-member-actions">
-                  <UButton
+                  <app-button
                     v-if="member.linkedin"
                     icon="i-simple-icons-linkedin"
-                    color="neutral"
+                    color="white"
                     variant="ghost"
                     :to="member.linkedin"
                     target="_blank"
                     aria-label="LinkedIn"
                   />
-                  <UButton
+                  <app-button
                     v-if="member.email"
                     icon="i-heroicons-envelope"
-                    color="neutral"
+                    color="white"
                     variant="ghost"
                     :to="`mailto:${member.email}`"
                     aria-label="Email"
