@@ -1,15 +1,14 @@
 <script setup lang="ts">
-const { find } = useStrapi();
 const { data } = await useAsyncData('page-data', async () => {
   try {
     const [projectRes, sectorsRes] = await Promise.all([
-      find<ApiProjectProject>('projects', { populate: '*' }),
-      find<ApiSectorSector>('sectors', { populate: '*' }),
+      $fetch('/api/projects'),
+      $fetch('/api/sectors'),
     ]);
 
     return {
-      projects: projectRes.data,
-      sectors: sectorsRes.data,
+      projects: projectRes,
+      sectors: sectorsRes,
     };
   }
   catch (err) {
