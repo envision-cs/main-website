@@ -227,7 +227,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
 }
 
 .reveal-card--rounded {
-  border-radius: calc(var(--ui-radius));
 }
 
 .reveal-card--outlined {

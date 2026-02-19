@@ -96,7 +96,7 @@ definePageMeta({
                     Completed
                   </app-typography>
                   <app-typography tag="p">
-                    {{ project.completed }}
+                    {{ new Date(project.completed).getFullYear() }}
                   </app-typography>
                 </li>
               </ul>

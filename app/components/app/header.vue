@@ -33,7 +33,7 @@ const menuSlide = computed<{ mainMenu: string; subMenu: string }>(() => {
 
 const slideoverUi = {
   overlay: 'bg-black/25',
-  content: '',
+  content: 'w-[calc(100%-2rem)] lg:w-[45vw] lg:max-w-none',
   wrapper: 'bg-red-500',
   body: 'bg-red-500',
 };
@@ -361,7 +361,8 @@ header.header--white {
   height: max(70svh, 500px);
 
   @media (min-width: 1024px) {
-    max-width: calc(60vw - calc(var(--spacing) * 4));
+    max-width: 100%;
+    width: 100%;
     height: calc(100vh - calc(var(--spacing) * 8));
   }
 }

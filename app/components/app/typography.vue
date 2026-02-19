@@ -94,6 +94,5 @@ const variantClasses = computed(() => {
 .eyebrow-md {
   font-weight: var(--font-weight-bold);
   text-transform: uppercase;
-  color: var(--ui-primary);
 }
 </style>

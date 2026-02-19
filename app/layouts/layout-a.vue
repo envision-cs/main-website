@@ -47,7 +47,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
               All Services
             </ULink>
           </li>
-          <li v-for="category in categories" :key="category?.title || category?.slug">
+          <li v-for="category in categories" :key="category?.title">
             <ULink :to="`/services/${category.slug}`" class="text-left">
               {{ category.title }}
             </ULink>

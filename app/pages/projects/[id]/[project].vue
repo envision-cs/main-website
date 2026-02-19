@@ -1,20 +1,23 @@
 <script setup lang="ts">
+import type { Project } from '~~/shared/types/content-types';
+
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
-const { find } = useStrapi();
 const route = useRoute();
-const router = useRouter();
 
-const slug = computed(() => route.params.project);
+const slug = computed(() => route.params.project as string);
+const asyncDataKey = computed(() => `project-page-${slug.value}`);
 
 const { data: projectData } = await useAsyncData(
-  () => `project-${slug.value}`,
+  asyncDataKey,
   async () => {
-    const res = await find('projects', {
-      filters: { slug: { $eq: slug.value } },
-      populate: '*',
-    });
-    return res;
+    try {
+      return await $fetch<Project>(`/api/projects/${encodeURIComponent(slug.value)}`);
+    }
+    catch (err) {
+      console.error(`Error fetching project "${slug.value}":`, err);
+      return null;
+    }
   },
   { watch: [slug], default: () => null },
 );
@@ -25,17 +28,17 @@ type GalleryImage = {
 };
 
 const page = computed(() => {
-  // Strapi find returns { data: [...] }. Prefer first match.
-  const entry = Array.isArray(projectData.value?.data)
-    ? projectData.value?.data?.[0]
-    : projectData.value?.data ?? null;
+  const entry = projectData.value;
 
   if (!entry) {
     return null;
   }
 
-  const gallery: GalleryImage[] = (entry.gallery || []).map((image: any) => {
-    return { url: image.url, altText: image.alternativeText };
+  const gallery: GalleryImage[] = (entry.gallery || []).map((image) => {
+    return {
+      url: image.url,
+      altText: typeof image.alternativeText === 'string' ? image.alternativeText : '',
+    };
   });
 
   return {
@@ -96,11 +99,6 @@ useSeoMeta({
       <template #header>
         <article>
           <div class="">
-            <div>
-              <UButton @click="router.back()">
-                Back
-              </UButton>
-            </div>
             <div class="info">
               <projects-info title="Location" :data="page.location" />
               <projects-info
@@ -112,6 +110,9 @@ useSeoMeta({
             </div>
             <div v-if="ast?.body" class="max-w-[75ch]">
               <MDCRenderer :body="ast.body" :data="ast.data" />
+            </div>
+            <div>
+              <Icon name="logos:belogo" size="60" />
             </div>
           </div>
         </article>
