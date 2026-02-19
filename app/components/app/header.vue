@@ -282,6 +282,7 @@ watch(isMainOpen, (open) => {
               :image="getSubMenuImage(item)"
               :alt="item.label"
               aspect-ratio="16/9"
+              image-loading="eager"
               :title-offset="-16"
               :meta-fade="true"
               class="submenu-reveal-card"

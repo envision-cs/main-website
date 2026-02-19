@@ -1,6 +1,18 @@
 <script setup>
 const { $posthog } = useNuxtApp();
 
+const { data: featuredProjectCards } = await useAsyncData('homepage-featured-projects', async () => {
+  try {
+    return await $fetch('/api/homepage-featured-project-section');
+  }
+  catch (err) {
+    console.error('Failed to fetch homepage featured projects:', err);
+    return [];
+  }
+}, {
+  default: () => [],
+});
+
 if ($posthog) {
   $posthog().capture('$pageview');
 }
@@ -19,21 +31,7 @@ if ($posthog) {
         Building Without the <span>Headaches</span>
       </app-cta-a>
       <app-card-group-a
-        :cards="[{
-                   title: 'Greater Tampa Realtors',
-                   link: '/projects/business_corporate/greater-tampa-realtors',
-                   image: '/UTMPB-LobbyCornerOut.jpg',
-                   sector: 'Business/Corporate',
-                   completed: '2024',
-                 },
-                 {
-                   title: 'Greater Tampa Realtors',
-                   link: '/projects/business_corporate/greater-tampa-realtors',
-                   image: '/USFSPResidenceHall-Exteriors-DuskLandscapefromRamp.jpg',
-                   sector: 'Business/Corporate',
-                   completed: '2024',
-                 },
-        ]"
+        :cards="featuredProjectCards"
       />
       <app-cta-a
         image="rtm-auditorium.jpg"

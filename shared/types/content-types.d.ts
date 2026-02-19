@@ -100,7 +100,7 @@ export type Project = {
   publishedAt: string;
   description: string;
   content: Content[];
-  beck: unknown;
+  beck: boolean;
   gallery: Photo[];
   mainImage: Photo;
   sector: Sector;
@@ -148,6 +148,7 @@ export type ContentProject = {
   sectorSlug: string;
   main_image: string;
   gallery: string[];
+  beck: boolen;
   [key: string]: unknown;
 };
 

@@ -5,12 +5,26 @@ import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
 const route = useRoute();
 
-const slug = computed(() => route.params.project as string);
+const slug = computed(() => {
+  const param = route.params.project;
+
+  if (typeof param !== 'string')
+    return '';
+
+  const normalized = param.trim();
+  if (!normalized || normalized === 'null' || normalized === 'undefined')
+    return '';
+
+  return normalized;
+});
 const asyncDataKey = computed(() => `project-page-${slug.value}`);
 
 const { data: projectData } = await useAsyncData(
   asyncDataKey,
   async () => {
+    if (!slug.value)
+      return null;
+
     try {
       return await $fetch<Project>(`/api/projects/${encodeURIComponent(slug.value)}`);
     }
@@ -111,7 +125,7 @@ useSeoMeta({
             <div v-if="ast?.body" class="max-w-[75ch]">
               <MDCRenderer :body="ast.body" :data="ast.data" />
             </div>
-            <div>
+            <div v-if="page?.beck">
               <Icon name="logos:belogo" size="60" />
             </div>
           </div>
