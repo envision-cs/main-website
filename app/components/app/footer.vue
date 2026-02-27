@@ -18,7 +18,7 @@ const year = new Date().getFullYear();
             aria-hidden="true"
           />
           <p class="site-footer__tagline">
-            Built with clarity, precision, and care.
+            Proven Process: Listen. Plan. Execute. Cultivate.
           </p>
         </div>
 

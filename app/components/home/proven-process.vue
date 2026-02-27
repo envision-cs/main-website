@@ -7,29 +7,23 @@ const { data: our_process, pending, error } = await useAsyncData('our-process', 
 </script>
 
 <template>
-  <app-section-a no-padding>
-    <template #header>
-      <app-typography tag="h2" variant="heading-md">
-        Our <span>Proven</span> Process
-      </app-typography>
-      <app-typography
-        variant="text-md"
-        tag="p"
-        class="max-w-[60ch]"
-      >
-        Our proven process brings structure and consistency to every project. We listen, plan, and execute to
-        reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency.
-      </app-typography>
-    </template>
-
-    <template #body>
-      <app-accordion
-        v-if="!pending && !error"
-        :data="our_process"
-        name="our-process"
-      />
-    </template>
-  </app-section-a>
+  <div>
+    <app-cta-a
+      text="Building Without the Headaches"
+      body="Our proven process brings structure and consistency to every project. We listen, plan, and execute to
+        reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency."
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/usl-super-league-01.jpg"
+      flip
+      content-position="bottom-left"
+    >
+      Our <span>Proven</span> Process
+    </app-cta-a>
+    <app-accordion
+      v-if="!pending && !error"
+      :data="our_process"
+      name="our-process"
+    />
+  </div>
 </template>
 
 <style scoped>

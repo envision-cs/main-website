@@ -41,9 +41,12 @@ defineProps<{
 
 <style scoped>
 .accordion {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 750px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 details {

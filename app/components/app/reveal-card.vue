@@ -110,11 +110,11 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
       }"
     >
       <NuxtImg
+        provider="imagekit"
         :src="image"
         :alt="imageAlt"
         :format="imageFormat"
         :sizes="imageSizes"
-        :densities="imageDensities"
         :loading="imageLoading"
         :width="imageWidth"
         :height="imageHeight"

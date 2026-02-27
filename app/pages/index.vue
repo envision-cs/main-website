@@ -33,13 +33,15 @@ if ($posthog) {
       </app-cta-a>
       <app-card-group-a :cards="featuredProjectCards" />
       <app-cta-a
-        image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
+        text="Building Without the Headaches"
         body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
+        image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
+        flip
         content-position="bottom-left"
       >
-        Building With <span>Heart</span> and <span>Precision</span>
+        Building
+        With <span>Heart</span> and <span>Precision</span>
       </app-cta-a>
-      <app-parallax image="/usl-super-league-01.jpg" />
       <home-proven-process />
       <app-parallax image="/HomePageAllens.webp" mobile-image="/thegreens2.jpg" />
       <three-uniques />

@@ -2,16 +2,6 @@
 const { data } = useFetch('/api/team', {
   key: 'team',
 });
-
-function teamOverlay(color?: string) {
-  const teamColor = color || '#0c2c45';
-  return `linear-gradient(
-    to top,
-    color-mix(in srgb, ${teamColor} 75%, transparent) 0%,
-    color-mix(in srgb, ${teamColor} 45%, transparent) 10%,
-    transparent 30%
-  )`;
-}
 </script>
 
 <template>
@@ -36,7 +26,7 @@ function teamOverlay(color?: string) {
       :key="team.name"
       class="team-section"
       no-padding
-      :style="{ '--teamColor': team.color }"
+      :style="{ '--teamColor': '#000' }"
     >
       <template #header>
         <div class="section-head" :style="{ '--teamColor': team.color }">
@@ -75,7 +65,6 @@ function teamOverlay(color?: string) {
               image-sizes="(max-width: 768px) 100vw, 300px"
               :image-hover-blur="0"
               :image-hover-scale="1.1"
-              :overlay="teamOverlay(team.color)"
               :container-type="true"
               :rounded="false"
               :outlined="false"
