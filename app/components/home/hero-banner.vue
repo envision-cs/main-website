@@ -54,7 +54,7 @@ const hero = computed(() => data.value?.data ?? null);
       </div>
     </div>
 
-    <div class="overlay z-10" aria-hidden="true" />
+    <app-gradient-overlay direction="bottom" class="overlay" />
     <NuxtImg
       v-if="hero.image?.url"
       :src="hero.image.url"
@@ -94,6 +94,10 @@ const hero = computed(() => data.value?.data ?? null);
   }
 }
 
+.overlay {
+  z-index: 2;
+}
+
 .image {
   grid-column: 1/-1;
   grid-row: 1/-1;
@@ -114,16 +118,5 @@ const hero = computed(() => data.value?.data ?? null);
   grid-area: b;
   z-index: 2;
   margin-top: auto;
-}
-
-.overlay {
-  height: 100vh;
-  width: 100%;
-  grid-column: 1/-1;
-  grid-row: 1/-1;
-  background:
-    linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0) 43.16%, rgba(0, 0, 0, 0.55) 64.7%, rgba(0, 0, 0, 0.6) 81.1%);
-  z-index: 1;
 }
 </style>

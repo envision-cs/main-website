@@ -48,6 +48,7 @@ const variantClasses = computed(() => {
   font-weight: 400;
   font-weight: 500;
   line-height: 0.9;
+  max-width: 25ch;
 }
 
 .heading-xl {

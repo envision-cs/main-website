@@ -18,6 +18,7 @@ defineProps<{
         id="banner-title"
         tag="h1"
         variant="heading-huge"
+        class="max-w-full md:max-w-[60vw] text-balance"
       >
         <slot />
       </app-typography>

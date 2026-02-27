@@ -61,9 +61,8 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) * 4);
-  background-color: #fff;
-  height: 100%;
   justify-content: start;
+  isolation: isolate;
 
   @media (min-width: 768px) {
   }

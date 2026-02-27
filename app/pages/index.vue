@@ -25,15 +25,17 @@ if ($posthog) {
       <app-cta-a
         text="Building Without the Headaches"
         body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
-        image="/IMG_1915.jpg"
+        image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
         flip
+        content-position="bottom-left"
       >
         Building Without the <span>Headaches</span>
       </app-cta-a>
       <app-card-group-a :cards="featuredProjectCards" />
       <app-cta-a
-        image="rtm-auditorium.jpg"
+        image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
         body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
+        content-position="bottom-left"
       >
         Building With <span>Heart</span> and <span>Precision</span>
       </app-cta-a>

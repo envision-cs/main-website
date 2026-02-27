@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useSlots } from 'vue';
+
 const props = withDefaults(
   defineProps<{
     href?: string;
@@ -52,6 +54,11 @@ const resolvedVariant = computed(() => {
   return props.variant;
 });
 
+const slots = useSlots();
+
+// Returns true if the default slot has content
+const hasSlot = computed(() => !!slots.default);
+
 const classes = computed(() => [
   'app-btn',
   `app-btn--size-${props.size}`,
@@ -59,13 +66,8 @@ const classes = computed(() => [
   `app-btn--fill-${resolvedFill.value}`,
   { 'app-btn--legacy-white': props.color === 'white' },
   { 'app-btn--block': props.block, 'is-disabled': props.disabled },
+  { 'app-btn--icon-only': !!props.icon && !hasSlot.value },
 ]);
-
-const computedRel = computed(() => {
-  if (props.rel)
-    return props.rel;
-  return props.target === '_blank' ? 'noopener noreferrer' : undefined;
-});
 </script>
 
 <template>
@@ -82,7 +84,7 @@ const computedRel = computed(() => {
       class="app-btn__icon"
       aria-hidden="true"
     />
-    <span class="app-btn__label">
+    <span v-if="hasSlot" class="app-btn__label">
       <slot />
     </span>
   </span>
@@ -101,7 +103,7 @@ const computedRel = computed(() => {
       class="app-btn__icon"
       aria-hidden="true"
     />
-    <span class="app-btn__label">
+    <span v-if="hasSlot" class="app-btn__label">
       <slot />
     </span>
   </NuxtLink>
@@ -119,7 +121,7 @@ const computedRel = computed(() => {
       class="app-btn__icon"
       aria-hidden="true"
     />
-    <span class="app-btn__label">
+    <span v-if="hasSlot" class="app-btn__label">
       <slot />
     </span>
   </button>
@@ -213,6 +215,10 @@ const computedRel = computed(() => {
 
 .app-btn--block {
   width: 100%;
+}
+
+.app-btn--icon-only {
+  gap: 0;
 }
 
 .app-btn--size-sm {

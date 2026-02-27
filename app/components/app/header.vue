@@ -126,7 +126,7 @@ watch(isMainOpen, (open) => {
       aria-label="Envision home"
     >
       <Icon
-        :name="isWhite ? 'logos:envision' : 'logos:envision-white'"
+        :name="isWhite ? 'logos:envision' : 'logos:envision'"
         size="30"
         alt="envision construction logo"
       />

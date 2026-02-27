@@ -8,12 +8,12 @@ defineProps<{
 <template>
   <section class="section-a site-max">
     <div class="">
-      <div class="sticky top-8  " :class="noPaddingMain ? 'p-0' : 'p-8'">
+      <div class="sticky top-8" :class="noPaddingMain ? 'p-0' : 'px-4 pt-4 md:p-8'">
         <slot name="header" />
       </div>
     </div>
     <div>
-      <div class=" space-y-4 h-full" :class="noPadding ? 'p-0' : 'p-8'">
+      <div class=" space-y-4 h-full" :class="noPadding ? 'p-0' : 'px-4 pt-4 md:p-8 pb-8'">
         <slot name="body" />
       </div>
     </div>

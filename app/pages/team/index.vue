@@ -40,7 +40,7 @@ function teamOverlay(color?: string) {
     >
       <template #header>
         <div class="section-head" :style="{ '--teamColor': team.color }">
-          <div class="team-role">
+          <app-team-background class="team-role">
             <app-typography
               tag="p"
               variant="text-sm"
@@ -48,7 +48,7 @@ function teamOverlay(color?: string) {
             >
               {{ team.role }}
             </app-typography>
-          </div>
+          </app-team-background>
           <app-typography tag="h2" variant="heading-md">
             {{ team.name }}
           </app-typography>
@@ -132,14 +132,6 @@ function teamOverlay(color?: string) {
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
-  /*
-  background: linear-gradient(
-    140deg,
-    color-mix(in srgb, var(--teamColor) 12%, white) 0%,
-    color-mix(in srgb, var(--teamColor) 3%, white) 35%,
-    white 75%
-  );
-*/
 }
 
 .section-head {
@@ -147,8 +139,8 @@ function teamOverlay(color?: string) {
   position: relative;
   overflow: hidden;
   display: flex;
-  padding: calc(var(--spacing) * 4);
   flex-direction: column;
+  padding-bottom: calc(var(--spacing) * 4);
   gap: calc(var(--spacing) * 3);
 }
 
@@ -159,9 +151,6 @@ function teamOverlay(color?: string) {
   gap: 0.55rem;
   padding: 0.4rem 0.85rem;
   border-left: calc(var(--spacing) * 2) solid var(--teamColor);
-  /*
-  background: color-mix(in srgb, var(--teamColor) 18%, white);
-  */
 }
 
 .team-role-dot {
