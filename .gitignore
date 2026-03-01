@@ -25,3 +25,5 @@ context.md
 .env.*
 !.env.example
 .vercel
+
+.worktrees/
