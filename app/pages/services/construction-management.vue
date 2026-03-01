@@ -11,7 +11,6 @@ definePageMeta({
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_9820.jpg"
       flip
     >
-      <UIcon name="i-lucide-ear" />Listen
       <template #body>
         <ul>
           <li>Project Kickoff and Discovery</li>
@@ -26,7 +25,6 @@ definePageMeta({
       body="Where most projects break down, we build certainty. Our planning process locks in budget, coordination, and clarity before the first shovel hits the ground."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A2696.jpg"
     >
-      <UIcon name="i-lucide-clipboard-list" />
       Plan
       <template #body>
         <ul>
@@ -46,7 +44,6 @@ definePageMeta({
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0400.jpg"
       flip
     >
-      <UIcon name="i-lucide-hammer" />
       Execute
       <template #body>
         <ul>
@@ -68,7 +65,6 @@ definePageMeta({
       body="12-Month Legacy Lap: We don’t disappear at closeout. We stay engaged so your space performs, your team is supported, and your trust grows."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0570.jpg"
     >
-      <UIcon name="i-lucide-refresh-ccw" />
       Cultivate
       <template #body>
         <ul>
@@ -105,7 +101,6 @@ li {
   &::before {
     content: counter(steps);
     margin-right: 0.75em;
-    background: var(--color-primary);
     color: var(--color-white);
     width: 1.6em;
     height: 1.6em;

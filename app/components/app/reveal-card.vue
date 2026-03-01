@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useResizeObserver } from '@vueuse/core';
-
 const props = withDefaults(defineProps<{
   to?: string;
   ariaLabel?: string;
@@ -20,7 +18,6 @@ const props = withDefaults(defineProps<{
   overlay?: string;
   contentPadding?: string;
   contentGap?: string;
-  titleOffset?: number;
   detailsDelay?: string;
   metaDelay?: string;
   detailsFade?: boolean;
@@ -47,7 +44,6 @@ const props = withDefaults(defineProps<{
   overlay: 'linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0) 100%)',
   contentPadding: '1rem',
   contentGap: '0.75rem',
-  titleOffset: 8,
   detailsDelay: '100ms',
   metaDelay: '140ms',
   detailsFade: false,
@@ -56,24 +52,6 @@ const props = withDefaults(defineProps<{
   containerType: false,
   rounded: true,
   outlined: true,
-});
-
-const titleRef = useTemplateRef<HTMLDivElement | null>('titleRef');
-const titleHeight = ref(0);
-
-function updateHeight() {
-  titleHeight.value = titleRef.value?.clientHeight ?? 0;
-}
-
-useResizeObserver(titleRef, (entries) => {
-  const entry = entries[0];
-  if (entry) {
-    titleHeight.value = entry.contentRect.height;
-  }
-});
-
-onMounted(() => {
-  updateHeight();
 });
 
 const imageAlt = computed(() => props.alt || props.ariaLabel);
@@ -101,7 +79,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
         '--reveal-overlay': overlay,
         '--reveal-padding': contentPadding,
         '--reveal-gap': contentGap,
-        '--reveal-title-height': `${Math.max(titleHeight - titleOffset, 0)}px`,
         '--reveal-blur': `${imageHoverBlur}px`,
         '--reveal-scale': String(imageHoverScale),
         '--reveal-object-fit': imageObjectFit,
@@ -121,7 +98,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
         class="reveal-card__image"
       />
       <div class="reveal-card__content">
-        <header ref="titleRef" class="reveal-card__title">
+        <header class="reveal-card__title">
           <slot name="title" />
         </header>
         <div
@@ -129,7 +106,9 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
           class="reveal-card__details"
           :class="{ 'reveal-card__details--fade': detailsFade }"
         >
-          <slot name="details" />
+          <div class="reveal-card__details-inner">
+            <slot name="details" />
+          </div>
         </div>
         <footer
           v-if="hasMeta"
@@ -139,7 +118,9 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
             'reveal-card__meta--borderless': !metaBorder,
           }"
         >
-          <slot name="meta" />
+          <div class="reveal-card__meta-inner">
+            <slot name="meta" />
+          </div>
         </footer>
       </div>
     </article>
@@ -157,7 +138,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
       '--reveal-overlay': overlay,
       '--reveal-padding': contentPadding,
       '--reveal-gap': contentGap,
-      '--reveal-title-height': `${Math.max(titleHeight - titleOffset, 0)}px`,
       '--reveal-blur': `${imageHoverBlur}px`,
       '--reveal-scale': String(imageHoverScale),
       '--reveal-object-fit': imageObjectFit,
@@ -183,7 +163,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
       class="reveal-card__image"
     />
     <div class="reveal-card__content">
-      <header ref="titleRef" class="reveal-card__title">
+      <header class="reveal-card__title">
         <slot name="title" />
       </header>
       <div
@@ -191,7 +171,9 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
         class="reveal-card__details"
         :class="{ 'reveal-card__details--fade': detailsFade }"
       >
-        <slot name="details" />
+        <div class="reveal-card__details-inner">
+          <slot name="details" />
+        </div>
       </div>
       <footer
         v-if="hasMeta"
@@ -201,7 +183,9 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
           'reveal-card__meta--borderless': !metaBorder,
         }"
       >
-        <slot name="meta" />
+        <div class="reveal-card__meta-inner">
+          <slot name="meta" />
+        </div>
       </footer>
     </div>
   </article>
@@ -209,6 +193,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
 
 <style scoped>
 .reveal-card__wrapper {
+  container-type: inline-size;
   display: block;
   overflow: hidden;
   text-decoration: none;
@@ -224,9 +209,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
   overflow: hidden;
   isolation: isolate;
   color: var(--ui-text-inverted);
-}
-
-.reveal-card--rounded {
 }
 
 .reveal-card--outlined {
@@ -257,6 +239,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
   z-index: 0;
   transform: scale(1);
   filter: blur(0);
+  will-change: transform, filter;
   transition:
     transform 0.5s var(--ease-base),
     filter 0.5s var(--ease-base);
@@ -269,21 +252,31 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
   display: grid;
   gap: v-bind('props.contentGap');
   padding: v-bind('props.contentPadding');
-  transform: translateY(calc(90% - v-bind('`${Math.max(titleHeight - props.titleOffset, 0)}px`')));
-  transition: transform 0.5s var(--ease-base);
 }
 
 .reveal-card__title {
   text-wrap: balance;
+  font-size: 1cqh;
 }
 
 .reveal-card__details {
-  transform: translateY(100%);
-  transition: transform 0.5s var(--ease-base);
-  transition-delay: v-bind('props.detailsDelay');
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease-base);
+  transition-behavior: allow-discrete;
 }
 
-.reveal-card__details--fade {
+.reveal-card__details-inner {
+  overflow: hidden;
+  transform: translateY(0.75rem);
+  will-change: transform, opacity;
+  transition:
+    transform 0.5s var(--ease-base),
+    opacity 0.3s var(--ease-base);
+  transition-behavior: allow-discrete;
+}
+
+.reveal-card__details--fade .reveal-card__details-inner {
   opacity: 0;
   transition:
     transform 0.5s var(--ease-base),
@@ -291,22 +284,35 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
 }
 
 .reveal-card__meta {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s var(--ease-base);
+  transition-behavior: allow-discrete;
+}
+
+.reveal-card__meta-inner {
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid rgb(255 255 255 / 0.3);
-  padding-top: 0.75rem;
-  transform: translateY(100%);
-  transition: transform 0.5s var(--ease-base);
-  transition-delay: v-bind('props.metaDelay');
+  border-top: 1px solid transparent;
+  padding-top: 0;
+  transform: translateY(0.75rem);
+  will-change: transform, opacity;
+  transition:
+    transform 0.5s var(--ease-base),
+    opacity 0.3s var(--ease-base),
+    border-top-color 0.5s var(--ease-base),
+    padding-top 0.5s var(--ease-base);
+  transition-behavior: allow-discrete;
 }
 
-.reveal-card__meta--borderless {
+.reveal-card__meta--borderless .reveal-card__meta-inner {
   border-top: 0;
   padding-top: 0;
 }
 
-.reveal-card__meta--fade {
+.reveal-card__meta--fade .reveal-card__meta-inner {
   opacity: 0;
   transition:
     transform 0.5s var(--ease-base),
@@ -321,10 +327,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
   transform: scale(v-bind('String(props.imageHoverScale)'));
 }
 
-.reveal-card__wrapper:hover .reveal-card__content,
-.reveal-card__wrapper:focus-visible .reveal-card__content,
-.reveal-card--overlay:hover .reveal-card__content,
-.reveal-card--overlay:focus-within .reveal-card__content,
 .reveal-card__wrapper:hover .reveal-card__details,
 .reveal-card__wrapper:focus-visible .reveal-card__details,
 .reveal-card--overlay:hover .reveal-card__details,
@@ -333,17 +335,37 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
 .reveal-card__wrapper:focus-visible .reveal-card__meta,
 .reveal-card--overlay:hover .reveal-card__meta,
 .reveal-card--overlay:focus-within .reveal-card__meta {
+  grid-template-rows: 1fr;
   transform: translateY(0);
 }
 
-.reveal-card__wrapper:hover .reveal-card__details--fade,
-.reveal-card__wrapper:focus-visible .reveal-card__details--fade,
-.reveal-card--overlay:hover .reveal-card__details--fade,
-.reveal-card--overlay:focus-within .reveal-card__details--fade,
-.reveal-card__wrapper:hover .reveal-card__meta--fade,
-.reveal-card__wrapper:focus-visible .reveal-card__meta--fade,
-.reveal-card--overlay:hover .reveal-card__meta--fade,
-.reveal-card--overlay:focus-within .reveal-card__meta--fade {
+.reveal-card__wrapper:hover .reveal-card__details-inner,
+.reveal-card__wrapper:focus-visible .reveal-card__details-inner,
+.reveal-card--overlay:hover .reveal-card__details-inner,
+.reveal-card--overlay:focus-within .reveal-card__details-inner,
+.reveal-card__wrapper:hover .reveal-card__meta-inner,
+.reveal-card__wrapper:focus-visible .reveal-card__meta-inner,
+.reveal-card--overlay:hover .reveal-card__meta-inner,
+.reveal-card--overlay:focus-within .reveal-card__meta-inner {
+  transform: translateY(0);
+}
+
+.reveal-card__wrapper:hover .reveal-card__meta:not(.reveal-card__meta--borderless) .reveal-card__meta-inner,
+.reveal-card__wrapper:focus-visible .reveal-card__meta:not(.reveal-card__meta--borderless) .reveal-card__meta-inner,
+.reveal-card--overlay:hover .reveal-card__meta:not(.reveal-card__meta--borderless) .reveal-card__meta-inner,
+.reveal-card--overlay:focus-within .reveal-card__meta:not(.reveal-card__meta--borderless) .reveal-card__meta-inner {
+  border-top-color: rgb(255 255 255 / 0.3);
+  padding-top: 0.75rem;
+}
+
+.reveal-card__wrapper:hover .reveal-card__details--fade .reveal-card__details-inner,
+.reveal-card__wrapper:focus-visible .reveal-card__details--fade .reveal-card__details-inner,
+.reveal-card--overlay:hover .reveal-card__details--fade .reveal-card__details-inner,
+.reveal-card--overlay:focus-within .reveal-card__details--fade .reveal-card__details-inner,
+.reveal-card__wrapper:hover .reveal-card__meta--fade .reveal-card__meta-inner,
+.reveal-card__wrapper:focus-visible .reveal-card__meta--fade .reveal-card__meta-inner,
+.reveal-card--overlay:hover .reveal-card__meta--fade .reveal-card__meta-inner,
+.reveal-card--overlay:focus-within .reveal-card__meta--fade .reveal-card__meta-inner {
   opacity: 1;
 }
 
@@ -351,6 +373,41 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
 .reveal-card__overlay-link:focus-visible {
   outline: 2px solid var(--ui-primary);
   outline-offset: 3px;
+}
+
+@starting-style {
+  .reveal-card__wrapper:hover .reveal-card__details,
+  .reveal-card__wrapper:focus-visible .reveal-card__details,
+  .reveal-card--overlay:hover .reveal-card__details,
+  .reveal-card--overlay:focus-within .reveal-card__details,
+  .reveal-card__wrapper:hover .reveal-card__meta,
+  .reveal-card__wrapper:focus-visible .reveal-card__meta,
+  .reveal-card--overlay:hover .reveal-card__meta,
+  .reveal-card--overlay:focus-within .reveal-card__meta {
+    grid-template-rows: 0fr;
+  }
+
+  .reveal-card__wrapper:hover .reveal-card__details-inner,
+  .reveal-card__wrapper:focus-visible .reveal-card__details-inner,
+  .reveal-card--overlay:hover .reveal-card__details-inner,
+  .reveal-card--overlay:focus-within .reveal-card__details-inner,
+  .reveal-card__wrapper:hover .reveal-card__meta-inner,
+  .reveal-card__wrapper:focus-visible .reveal-card__meta-inner,
+  .reveal-card--overlay:hover .reveal-card__meta-inner,
+  .reveal-card--overlay:focus-within .reveal-card__meta-inner {
+    transform: translateY(0.75rem);
+  }
+
+  .reveal-card__wrapper:hover .reveal-card__details--fade .reveal-card__details-inner,
+  .reveal-card__wrapper:focus-visible .reveal-card__details--fade .reveal-card__details-inner,
+  .reveal-card--overlay:hover .reveal-card__details--fade .reveal-card__details-inner,
+  .reveal-card--overlay:focus-within .reveal-card__details--fade .reveal-card__details-inner,
+  .reveal-card__wrapper:hover .reveal-card__meta--fade .reveal-card__meta-inner,
+  .reveal-card__wrapper:focus-visible .reveal-card__meta--fade .reveal-card__meta-inner,
+  .reveal-card--overlay:hover .reveal-card__meta--fade .reveal-card__meta-inner,
+  .reveal-card--overlay:focus-within .reveal-card__meta--fade .reveal-card__meta-inner {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -361,6 +418,21 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
   .reveal-card__meta {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+@media (max-width: 550px) {
+  .reveal-card__meta {
+    grid-template-rows: 1fr;
+  }
+
+  .reveal-card__meta-inner {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .reveal-card__meta--fade .reveal-card__meta-inner {
+    opacity: 1;
   }
 }
 </style>

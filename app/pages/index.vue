@@ -43,7 +43,6 @@ if ($posthog) {
         With <span>Heart</span> and <span>Precision</span>
       </app-cta-a>
       <home-proven-process />
-      <app-parallax image="/HomePageAllens.webp" mobile-image="/thegreens2.jpg" />
       <three-uniques />
       <quote
         quote="Envision has consistently impressed us with their commitment to timely project completion."

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const { data: our_process, pending, error } = await useAsyncData('our-process', () => $fetch('/api/process'), {
   server: true,
-  lazy: false,
+  lazy: true,
   default: () => [],
 });
 </script>

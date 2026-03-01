@@ -70,7 +70,11 @@ definePageMeta({
             meta-delay="220ms"
           >
             <template #title>
-              <app-typography class="h3 project-card-title" variant="heading-md">
+              <app-typography
+                tag="h3"
+                class="h3 project-card-title"
+                variant="heading-md"
+              >
                 {{ project.title }}
               </app-typography>
             </template>
@@ -123,13 +127,28 @@ definePageMeta({
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   container: projects;
 }
-
+@container projects (width > 550px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@container projects (width > 1000px ) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@container projects (width > 1400px) {
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 .project-card-title {
   margin-bottom: 0.5rem;
   text-wrap: balance;
+  font-size: 3cqh;
 }
 
 .project-card-stats {
@@ -143,17 +162,5 @@ definePageMeta({
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-@container projects (width > 750px) {
-  .projects-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@container projects (width > 1400px) {
-  .projects-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
 }
 </style>

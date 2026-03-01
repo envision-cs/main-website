@@ -11,8 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "prepare": "husky",
-    "dev:poll": "NUXT_USE_POLLING=1 nuxt dev"
+    "prepare": "husky"
   },
   "dependencies": {
     "@nuxt/content": "^3.10.0",

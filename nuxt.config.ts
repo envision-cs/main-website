@@ -28,6 +28,21 @@ export default defineNuxtConfig({
     '@nuxt/hints',
     'nuxt-studio',
   ],
+  vite: {
+    server: {
+      watch: {
+        ignored: [
+          '**/node_modules/**',
+          '**/.git/**',
+          '**/.nuxt/**',
+          '**/.output/**',
+          '**/.vercel/**',
+          '**/.worktrees/**',
+          '**/.data/**',
+        ],
+      },
+    },
+  },
   css: ['~/assets/css/main.css', '~/assets/css/maplibre-gl.css'],
   ui: {
     colorMode: false,
