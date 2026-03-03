@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<{
         <div class="title">
           <app-typography
             tag="h2"
-            variant="heading-md"
+            variant="heading-lg"
             class="text"
           >
             <slot name="title">
@@ -153,6 +153,7 @@ const props = withDefaults(defineProps<{
 .text {
   text-wrap: balance;
   max-width: 20ch;
+  font-weight: 600;
   text-transform: uppercase;
 }
 

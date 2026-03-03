@@ -26,7 +26,7 @@ const hero = computed(() => data.value?.data ?? null);
           id="hero-title"
           tag="h2"
           variant="heading-xl"
-          class="uppercase font-bold"
+          class="uppercase"
         >
           {{ hero.title }}
         </app-typography>
