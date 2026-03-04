@@ -1,0 +1,10 @@
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - '@posthog/cli'
+  - better-sqlite3
+  - core-js
+  - esbuild
+  - protobufjs
+  - sharp
+  - unrs-resolver
+  - vue-demi

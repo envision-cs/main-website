@@ -93,7 +93,6 @@ const classes = computed(() => [
     v-else-if="isLink"
     :to="destination"
     :target="target"
-    :rel="computedRel"
     :class="classes"
     :aria-label="ariaLabel"
   >

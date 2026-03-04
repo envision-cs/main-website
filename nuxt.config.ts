@@ -24,25 +24,12 @@ export default defineNuxtConfig({
     '@posthog/nuxt',
     'motion-v/nuxt',
     '@nuxtjs/strapi',
-    'nuxt-strapi-blocks-renderer',
-    '@nuxt/hints',
+    // 'nuxt-strapi-blocks-renderer',
+    // '@nuxt/hints',
     'nuxt-studio',
+    'v-gsap-nuxt',
   ],
-  vite: {
-    server: {
-      watch: {
-        ignored: [
-          '**/node_modules/**',
-          '**/.git/**',
-          '**/.nuxt/**',
-          '**/.output/**',
-          '**/.vercel/**',
-          '**/.worktrees/**',
-          '**/.data/**',
-        ],
-      },
-    },
-  },
+  vite: {},
   css: ['~/assets/css/main.css', '~/assets/css/maplibre-gl.css'],
   ui: {
     colorMode: false,
@@ -57,13 +44,12 @@ export default defineNuxtConfig({
     build: {
       pathMeta: {},
     },
-
+    experimental: {
+      nativeSqlite: true,
+    },
     preview: {
       api: 'https://api.nuxt.studio',
     },
-  },
-  tailwindcss: {
-    safelist: [{ pattern: /bg-\[.*\]/ }],
   },
   runtimeConfig: {
     public: {
