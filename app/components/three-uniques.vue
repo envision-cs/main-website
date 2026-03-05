@@ -17,16 +17,22 @@ const process = [
     id: 1,
     title: 'Built on Faith, Driven by Purpose',
     description: 'Our foundation is God, our work is built on integrity, and our mission is to serve with excellence.',
+    image: 'https://ik.imagekit.io/pnixsw7lg/main-website/20250519_134053.jpg?updatedAt=1771548280364',
+    color: '--color-envision-blue-600',
   },
   {
     id: 2,
     title: 'Impact Beyond Construction',
     description: 'We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge. With heart, craftsmanship, and purpose, we build legacies that elevate communities for generations to come.',
+    image: 'https://ik.imagekit.io/pnixsw7lg/main-website/117812314_10158747995319553_8729798724554644994_o.jpg?updatedAt=1771547653476',
+    color: '--color-envision-green-500',
   },
   {
     id: 3,
     title: 'Versatile. Adaptive. Enhanced Approach',
     description: 'No two projects are the same, and neither is our approach. Whether it’s a small renovation or a large-scale build, we move with precision, flexibility, and care—delivering the personal attention of a local partner with the expertise of a national leader.',
+    image: 'https://ik.imagekit.io/pnixsw7lg/main-website/USFSP%20Residence%20Hall%20-%20Dusk%20Window%20View%20to%20Locker.jpg?updatedAt=1771547653634',
+    color: '--color-envision-gray-700',
   },
 ];
 
@@ -37,18 +43,49 @@ onMounted(() => {
   ctx = useGSAP().context((self) => {
     const gallery = self?.selector('.gallery')[0];
     const right = self?.selector('.right')[0];
+    const images = self?.selector('.item:not(:first-child)') ?? [];
 
-    ScrollTrigger.create({
-      trigger: gallery,
-      start: 'top top',
-      end: 'bottom bottom',
-      pin: right,
+    if (!gallery || !right || !images.length)
+      return;
+
+    const gsap = useGSAP();
+    const mm = gsap.matchMedia();
+
+    gsap.set(images, { yPercent: 100 });
+
+    mm.add('(min-width: 850px)', () => {
+      const desktopAnimation = gsap.to(images, { yPercent: 0, stagger: 0.5, ease: 'none' });
+
+      ScrollTrigger.create({
+        trigger: gallery,
+        start: 'top top',
+        end: 'bottom bottom',
+        pin: right,
+        animation: desktopAnimation,
+        scrub: true,
+      });
+    });
+
+    mm.add('(max-width: 849px)', () => {
+      const mobileAnimation = gsap.to(images, { yPercent: 0, stagger: 0.5, ease: 'none' });
+
+      ScrollTrigger.create({
+        trigger: right,
+        start: 'top top',
+        end: () => `+=${images.length * 100}%`,
+        pin: right,
+        animation: mobileAnimation,
+        scrub: true,
+        anticipatePin: 1,
+        pinSpacing: true,
+        invalidateOnRefresh: true,
+      });
     });
   }, gallaryRef.value);
 });
 
 onUnmounted(() => {
-  ctx.revert();
+  ctx?.revert();
 });
 </script>
 
@@ -56,36 +93,51 @@ onUnmounted(() => {
   <section ref="galleryRef">
     <div class="gallery">
       <div class="left">
-        <ul class="desktopContent">
-          <li v-for="p in process" :key="p.id">
-            <app-typography tag="h3" varient="heading-huge">
-              {{ p.title }}
+        <div class="desktopContent">
+          <div class="title-wrapper">
+            <app-typography
+              tag="h2"
+              variant="heading-huge"
+              bold
+            >
+              Our Three <span>Uniques</span>
             </app-typography>
-            <p>
-              {{ p.description }}
-            </p>
-          </li>
-        </ul>
+            <app-typography
+              v-gsap.splitText.words.mask.whenVisible.once.reversable.from="{ opacity: 0, stagger: 0.25 }"
+              tag="p"
+            >
+              At Envision, every decision we make is guided by a clear philosophy—three core principles that define how
+              we work, why we work, and the impact we strive to create. These<span> “Three Uniques”</span> are more than
+              values; they are the driving force behind our approach, shaping every project, partnership, and
+              interaction
+            </app-typography>
+          </div>
+        </div>
       </div>
       <div class="right">
         <div class="desktopPhotos">
-          <NuxtImg
-            provider="imagekit"
-            src="https://ik.imagekit.io/pnixsw7lg/main-website/20250519_134053.jpg?updatedAt=1771548280364"
-            class="image"
-          />
-
-          <NuxtImg
-            provider="imagekit"
-            src="https://ik.imagekit.io/pnixsw7lg/main-website/117812314_10158747995319553_8729798724554644994_o.jpg?updatedAt=1771547653476"
-            class="image"
-          />
-
-          <NuxtImg
-            provider="imagekit"
-            src="https://ik.imagekit.io/pnixsw7lg/main-website/USFSP%20Residence%20Hall%20-%20Dusk%20Window%20View%20to%20Locker.jpg?updatedAt=1771547653634"
-            class="image"
-          />
+          <div
+            v-for="p in process"
+            :key="p.id"
+            class="item"
+            :style="{ '--overlay-color': `var(${p.color})` }"
+          >
+            <div class="content">
+              <app-typography
+                tag="h3"
+                variant="heading-lg"
+                class="title"
+              >
+                {{ p.title }}
+              </app-typography>
+              <p>{{ p.description }}</p>
+            </div>
+            <NuxtImg
+              :src="p.image"
+              provider="imagekit"
+              fit="cover"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -95,15 +147,32 @@ onUnmounted(() => {
 <style scoped>
 .gallery {
   display: flex;
+  flex-direction: column;
+  min-height: 400vh;
+
+  @media (min-width: 850px) {
+    flex-direction: row;
+    min-height: auto;
+  }
 }
 
 .left {
-  width: 50%;
+  width: 100%;
 }
 
 .right {
   height: 100vh;
-  width: 50%;
+  width: 100%;
+
+  @media (min-width: 850px) {
+    width: 50%;
+  }
+}
+
+.left {
+  @media (min-width: 850px) {
+    width: 50%;
+  }
 }
 
 .desktopPhotos {
@@ -112,11 +181,86 @@ onUnmounted(() => {
   height: 100%;
 }
 
-.image {
+.item {
   position: absolute;
-  width: 100%;
+  max-height: 100vh;
   height: 100%;
-  object-fit: cover;
+  width: 100%;
+  isolation: isolate;
+  display: grid;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--overlay-color);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
+  img {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+    height: 100%;
+    width: 100%;
+    filter: grayscale(1) contrast(0.4);
+    object-fit: cover;
+  }
+
+  .content {
+    max-height: 100vh;
+    display: grid;
+    place-content: center;
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+    z-index: 1;
+    color: #fff;
+    text-wrap: balance;
+    max-width: 60ch;
+    margin-inline: auto;
+    text-align: center;
+    padding-inline: calc(var(--spacing) * 4);
+
+    h2 {
+      font-weight: 800;
+      max-width: 12ch;
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+
+    p {
+      opacity: 0.7;
+    }
+  }
+}
+
+.desktopContent {
+  height: 100vh;
+  background-color: var(--color-envision-gray-300);
+
+  @media (min-width: 850px) {
+    height: 300vh;
+  }
+}
+
+.title-wrapper {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  max-width: 600px;
+  margin-inline: auto;
+  padding-inline: calc(var(--spacing) * 4);
+
+  h3 {
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 2rem;
+    line-height: 1.1;
+    text-wrap: wrap;
+  }
 }
 
 li {
