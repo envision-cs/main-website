@@ -95,22 +95,31 @@ onUnmounted(() => {
       <div class="left">
         <div class="desktopContent">
           <div class="title-wrapper">
-            <app-typography
-              tag="h2"
-              variant="heading-huge"
-              bold
-            >
-              Our Three <span>Uniques</span>
-            </app-typography>
-            <app-typography
-              v-gsap.splitText.words.mask.whenVisible.once.reversable.from="{ opacity: 0, stagger: 0.25 }"
-              tag="p"
-            >
-              At Envision, every decision we make is guided by a clear philosophy—three core principles that define how
-              we work, why we work, and the impact we strive to create. These<span> “Three Uniques”</span> are more than
-              values; they are the driving force behind our approach, shaping every project, partnership, and
-              interaction
-            </app-typography>
+            <div class="title">
+              <app-typography
+                tag="h2"
+                variant="heading-huge"
+                bold="true"
+              >
+                Our Three <span>Uniques</span>
+              </app-typography>
+              <app-typography
+                v-gsap.splitText.words.mask.whenVisible.reversable.from="{ opacity: 0, stagger: 0.5 }"
+                tag="p"
+              >
+                At Envision, every decision we make is guided by a clear philosophy—three core principles that define
+                how
+                we work, why we work, and the impact we strive to create. These<span> “Three Uniques”</span> are more
+                than
+                values; they are the driving force behind our approach, shaping every project, partnership, and
+                interaction
+              </app-typography>
+            </div>
+            <NuxtImg
+              src="https://ik.imagekit.io/pnixsw7lg/main-website/EH_USFSPDavisHall_Int_21.webp?updatedAt=1771413849873"
+              alt=""
+              class="overlay-img"
+            />
           </div>
         </div>
       </div>
@@ -149,6 +158,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   min-height: 400vh;
+  overflow-x: clip;
 
   @media (min-width: 850px) {
     flex-direction: row;
@@ -221,9 +231,8 @@ onUnmounted(() => {
     text-align: center;
     padding-inline: calc(var(--spacing) * 4);
 
-    h2 {
-      font-weight: 800;
-      max-width: 12ch;
+    h3 {
+      font-weight: 600;
       margin-bottom: calc(var(--spacing) * 4);
     }
 
@@ -235,7 +244,7 @@ onUnmounted(() => {
 
 .desktopContent {
   height: 100vh;
-  background-color: var(--color-envision-gray-300);
+  position: relative;
 
   @media (min-width: 850px) {
     height: 300vh;
@@ -245,21 +254,29 @@ onUnmounted(() => {
 .title-wrapper {
   position: sticky;
   top: 0;
-  display: grid;
-  place-content: center;
-  height: 100vh;
-  max-width: 600px;
-  margin-inline: auto;
-  padding-inline: calc(var(--spacing) * 4);
+  overflow: hidden;
+  isolation: isolate;
 
-  h3 {
-    font-weight: 600;
-  }
+  .title {
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    max-width: 600px;
+    margin-inline: auto;
+    padding-inline: calc(var(--spacing) * 4);
+    z-index: 5;
 
-  p {
-    font-size: 2rem;
-    line-height: 1.1;
-    text-wrap: wrap;
+    h2 {
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+
+    p {
+      font-size: 2rem;
+      line-height: 1.1;
+      text-wrap: wrap;
+    }
   }
 }
 
@@ -274,6 +291,19 @@ li {
     padding-inline: calc(var(--spacing) * 8);
     padding-block: calc(var(--spacing) * 20);
   }
+}
+
+.overlay-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  mix-blend-mode: color;
+  opacity: 0.1;
+  filter: grayscale();
+  z-index: 2;
 }
 
 li:nth-child(1) {

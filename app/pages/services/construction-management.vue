@@ -11,6 +11,7 @@ definePageMeta({
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_9820.jpg"
       flip
     >
+      Listen
       <template #body>
         <ul>
           <li>Project Kickoff and Discovery</li>
