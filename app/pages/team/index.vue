@@ -92,8 +92,8 @@ const { data } = useFetch('/api/team', {
                   <app-button
                     v-if="member.linkedin"
                     icon="i-simple-icons-linkedin"
-                    color="neutral"
-                    variant="ghost"
+                    color="white"
+                    variant="soft"
                     :to="member.linkedin"
                     target="_blank"
                     aria-label="LinkedIn"
@@ -101,8 +101,8 @@ const { data } = useFetch('/api/team', {
                   <app-button
                     v-if="member.email"
                     icon="i-heroicons-envelope"
-                    color="neutral"
-                    variant="ghost"
+                    color="white"
+                    variant="soft"
                     :to="`mailto:${member.email}`"
                     aria-label="Email"
                   />
@@ -189,6 +189,7 @@ const { data } = useFetch('/api/team', {
 .team-member-actions {
   display: flex;
   gap: 0.5rem;
+  color: #fff;
 }
 
 @media (min-width: 1024px) {

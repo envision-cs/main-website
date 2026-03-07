@@ -185,8 +185,8 @@ const classes = computed(() => [
 .app-btn__icon {
   position: relative;
   z-index: 1;
-  width: 1.1em;
-  height: 1.1em;
+  width: 1.5em;
+  height: 1.5em;
 }
 
 .app-btn:hover:not(.is-disabled):not(:disabled)::before {
@@ -267,7 +267,7 @@ const classes = computed(() => [
 
 .app-btn--variant-soft {
   --btn-bg: color-mix(in srgb, var(--btn-fill) 10%, white);
-  --btn-text: #111;
+  --btn-text: red;
   --btn-border: color-mix(in srgb, var(--btn-fill) 30%, transparent);
 }
 

@@ -101,7 +101,7 @@ onUnmounted(() => {
                 variant="heading-huge"
                 bold="true"
               >
-                Our Three <span>Uniques</span>
+                Our<br><span> Three</span><br> <span class="text-envision-blue-500">Uniques</span>
               </app-typography>
               <app-typography
                 v-gsap.splitText.words.mask.whenVisible.reversable.from="{ opacity: 0, stagger: 0.5 }"
@@ -270,6 +270,10 @@ onUnmounted(() => {
       font-weight: 600;
       text-transform: uppercase;
       margin-bottom: calc(var(--spacing) * 4);
+
+      span:first-of-type {
+        color: var(--color-envision-blue-500);
+      }
     }
 
     p {
