@@ -31,13 +31,4 @@ const variantClasses = computed(() => {
     grid-template-columns: 1fr 2fr;
   }
 }
-
-.small {
-}
-
-.medium {
-}
-
-.large {
-}
 </style>

@@ -1,88 +1,139 @@
-<script setup>
-import { useId } from 'vue';
+<script setup lang="ts">
+import {
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuRoot,
+  NavigationMenuTrigger,
+} from 'reka-ui';
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-defineProps({
+const props = defineProps({
   buttonText: String,
+  image: {
+    type: String,
+    default: 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122',
+  },
 });
-const popoverId = useId();
-// Create a unique CSS variable name for the anchor
-const anchorName = `--anchor-${popoverId.replace(/:/g, '')}`;
+
+const route = useRoute();
+const menuValue = 'services';
+const openMenu = ref('');
+
+watch(() => route.fullPath, () => {
+  openMenu.value = '';
+});
 </script>
 
 <template>
-  <div class="container">
-    <button
-      :popovertarget="popoverId"
-      :style="{ anchorName }"
-      class="anchor-button"
-    >
-      {{ buttonText }}
-    </button>
+  <NavigationMenuRoot
+    v-model="openMenu"
+    class="container"
+    :delay-duration="0"
+    :skip-delay-duration="0"
+    disable-click-trigger
+  >
+    <NavigationMenuList>
+      <NavigationMenuItem :value="menuValue">
+        <NavigationMenuTrigger as-child>
+          <button
+            type="button"
+            class="anchor-button"
+            aria-haspopup="menu"
+          >
+            {{ props.buttonText }}
+          </button>
+        </NavigationMenuTrigger>
 
-    <div
-      :id="popoverId"
-      popover
-      :style="{ positionAnchor: anchorName }"
-      class="styled-popover"
-    >
-      <div class="popover-content">
-        <slot />
-      </div>
-    </div>
-  </div>
+        <NavigationMenuContent class="styled-popover">
+          <div class="popover-image-wrapper">
+            <NuxtImg
+              v-if="props.image"
+              :src="props.image"
+              alt=""
+              class="popover-image"
+            />
+          </div>
+          <div class="popover-content">
+            <slot />
+          </div>
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    </NavigationMenuList>
+  </NavigationMenuRoot>
 </template>
 
 <style scoped>
-.styled-popover {
-  --_duration: 0.2s;
+.container {
+  display: inline-flex;
+}
 
+.container :deep(ul) {
+  list-style: none;
   margin: 0;
-  inset: auto;
-  position-area: bottom span-all;
-  margin-top: calc(var(--spacing));
+  padding: 0;
+}
 
+.anchor-button {
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.styled-popover {
+  margin: 0;
+  border: 0;
   padding: calc(var(--spacing) * 2);
   border-radius: 2px;
   background: white;
-
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity var(--_duration) var(--ease-base),
-    transform var(--_duration) var(--ease-base),
-    overlay var(--_duration) allow-discrete,
-    display var(--_duration) allow-discrete;
+  display: grid;
+  grid-template-columns: minmax(18rem, 1fr) 3fr;
+  align-items: start;
+  max-height: min(32rem, calc(100dvh - 4rem));
+  width: 100dvw;
+  max-width: none;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform-origin: top left;
+  animation: menu-enter 0.2s var(--ease-base);
+  z-index: 120;
 }
 
-.styled-popover:popover-open {
-  opacity: 1;
-  transform: translateY(0);
+.popover-image-wrapper {
+  background-color: var(--ui-primary);
+  width: 100%;
+  height: clamp(12rem, 20vw, 17rem);
+  overflow: hidden;
+  display: flex;
+}
 
-  @starting-style {
+.popover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  mix-blend-mode: multiply;
+  display: block;
+}
+
+@keyframes menu-enter {
+  from {
     opacity: 0;
     transform: translateY(8px);
   }
-}
-
-/* Fallback for browsers that don't support anchor positioning yet */
-@supports not (anchor-name: --test) {
-  .styled-popover:popover-open {
-    inset: 0;
-    margin: auto;
-    width: fit-content;
-    height: fit-content;
-  }
-}
-
-@keyframes fade {
-  from {
-    opacity: 1;
-    translate: 0 0;
-  }
 
   to {
-    opacity: 0;
-    translate: 0 1em;
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 </style>

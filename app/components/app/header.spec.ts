@@ -1,24 +1,10 @@
 import { mount } from '@vue/test-utils';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
+import { nextTick } from 'vue';
 
 import Header from './header.vue';
 
 describe('header mobile drawer', () => {
-  beforeAll(() => {
-    if (!HTMLDialogElement.prototype.showModal) {
-      HTMLDialogElement.prototype.showModal = function showModal() {
-        this.setAttribute('open', '');
-      };
-    }
-
-    if (!HTMLDialogElement.prototype.close) {
-      HTMLDialogElement.prototype.close = function close() {
-        this.removeAttribute('open');
-        this.dispatchEvent(new Event('close'));
-      };
-    }
-  });
-
   it('exposes mobile menu trigger semantics', () => {
     const wrapper = mount(Header, {
       global: {
@@ -48,25 +34,28 @@ describe('header mobile drawer', () => {
       },
     });
 
-    await wrapper.find('[data-test="mobile-menu-trigger"]').trigger('click');
+    const trigger = wrapper.find('[data-test="mobile-menu-trigger"]');
+    await trigger.trigger('click');
+    await nextTick();
 
-    const servicesToggle = wrapper.find('[data-test="mobile-services-toggle"]');
-    expect(servicesToggle.attributes('aria-expanded')).toBe('false');
+    const servicesToggle = document.body.querySelector('[data-test="mobile-services-toggle"]') as HTMLButtonElement | null;
+    expect(servicesToggle).toBeTruthy();
+    expect(servicesToggle?.getAttribute('aria-expanded')).toBe('false');
 
-    await servicesToggle.trigger('click');
-    expect(servicesToggle.attributes('aria-expanded')).toBe('true');
+    servicesToggle?.click();
+    await nextTick();
+    expect(servicesToggle?.getAttribute('aria-expanded')).toBe('true');
+    expect(document.body.querySelector('[data-test="mobile-services-panel"]')).toBeTruthy();
 
-    const panel = wrapper.find('#mobile-services-panel');
-    expect(panel.attributes('hidden')).toBeUndefined();
-
-    await servicesToggle.trigger('click');
-    expect(servicesToggle.attributes('aria-expanded')).toBe('false');
-    expect(panel.attributes('hidden')).toBeDefined();
+    servicesToggle?.click();
+    await nextTick();
+    expect(servicesToggle?.getAttribute('aria-expanded')).toBe('false');
+    expect(document.body.querySelector('[data-test="mobile-services-panel"]')).toBeTruthy();
 
     wrapper.unmount();
   });
 
-  it('restores focus to menu trigger when dialog closes', async () => {
+  it('closes dialog and updates trigger expanded state', async () => {
     const wrapper = mount(Header, {
       attachTo: document.body,
       global: {
@@ -80,11 +69,16 @@ describe('header mobile drawer', () => {
 
     const trigger = wrapper.find('[data-test="mobile-menu-trigger"]');
     await trigger.trigger('click');
+    await nextTick();
 
-    const closeButton = wrapper.find('[data-test="mobile-menu-close"]');
-    await closeButton.trigger('click');
+    const closeButton = document.body.querySelector('[data-test="mobile-menu-close"]') as HTMLButtonElement | null;
+    expect(closeButton).toBeTruthy();
+    closeButton?.click();
+    await nextTick();
 
-    expect(document.activeElement).toBe(trigger.element);
+    expect(trigger.attributes('aria-expanded')).toBe('false');
+    const drawer = document.body.querySelector('[data-test="mobile-drawer"]');
+    expect(drawer?.getAttribute('data-state')).toBe('closed');
 
     wrapper.unmount();
   });

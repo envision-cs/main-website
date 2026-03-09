@@ -1,4 +1,14 @@
 <script setup lang="ts">
+import {
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuRoot,
+  NavigationMenuTrigger,
+  NavigationMenuViewport,
+} from 'reka-ui';
+
 const props = withDefaults(defineProps<{
   variant?: 'a' | 'b';
   contactImage?: string;
@@ -7,427 +17,343 @@ const props = withDefaults(defineProps<{
   contactImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122',
 });
 
-const isWhite = computed(() => props.variant === 'b');
+const desktopMenuValue = ref('');
+const route = useRoute();
 
-const drawerOpen = ref(false);
-const servicesExpanded = ref(false);
-
-const menuButtonRef = ref<HTMLButtonElement | null>(null);
-const drawerRef = ref<HTMLDialogElement | null>(null);
-const firstDrawerLinkRef = ref<HTMLElement | null>(null);
-
-async function openDrawer() {
-  if (!drawerRef.value || drawerOpen.value)
-    return;
-
-  drawerRef.value.showModal();
-  drawerOpen.value = true;
-  await nextTick();
-  firstDrawerLinkRef.value?.focus();
-}
-
-function closeDrawer() {
-  if (!drawerRef.value)
-    return;
-
-  drawerRef.value.close();
-}
-
-function onDrawerClose() {
-  drawerOpen.value = false;
-  servicesExpanded.value = false;
-  menuButtonRef.value?.focus();
-}
-
-function onDrawerClick(event: MouseEvent) {
-  if (event.target === drawerRef.value)
-    closeDrawer();
-}
-
-function closeDrawerAndNavigate() {
-  closeDrawer();
-}
+watch(() => route.fullPath, () => {
+  desktopMenuValue.value = '';
+});
 </script>
 
 <template>
-  <header class="site-max" :class="{ 'header--white': isWhite }">
+  <header class="header-root">
     <NuxtLink
-      class="logo"
+      class="brand-link"
       to="/"
       aria-label="Envision home"
     >
       <Icon
-        :name="isWhite ? 'logos:envision' : 'logos:envision'"
+        :name="props.variant === 'b' ? 'logos:envision' : 'logos:envision'"
         size="30"
         alt="envision construction logo"
       />
     </NuxtLink>
 
-    <button
-      ref="menuButtonRef"
-      class="mobile-menu-trigger"
-      type="button"
-      data-test="mobile-menu-trigger"
-      aria-label="Open main menu"
-      aria-haspopup="dialog"
-      :aria-expanded="String(drawerOpen)"
-      @click="openDrawer"
+    <NavigationMenuRoot
+      v-model="desktopMenuValue"
+      class="desktop-nav NavigationMenuRoot"
+      :delay-duration="0"
+      :skip-delay-duration="0"
+      disable-click-trigger
+      aria-label="Primary"
     >
-      Menu
-    </button>
+      <NavigationMenuList class="desktop-nav-list NavigationMenuList">
+        <NavigationMenuItem value="services">
+          <NavigationMenuTrigger as-child>
+            <button type="button" class="NavigationMenuTrigger">
+              Services
+            </button>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent class="NavigationMenuContent" data-test="desktop-services-content">
+            <NuxtLink class="NavigationMenuLink big-link" to="/services">
+              All Services
+            </NuxtLink>
+            <ul class="List two">
+              <li>
+                <app-navigation-panel-link
+                  to="/services/specialty-projects-division"
+                  title="Specialty Projects Division"
+                  description="Not every project is large-scale, but every project deserves the same precision, coordination, and care."
+                />
+              </li>
+              <li>
+                <app-navigation-panel-link
+                  to="/services/construction-management"
+                  title="Construction Management"
+                  description="Not every project is large-scale, but every project deserves the same precision, coordination, and care."
+                />
+              </li>
+              <li>
+                <app-navigation-panel-link
+                  to="/services/enhanced-preconstruction"
+                  title="Enhanced Preconstruction"
+                  description="Not every project is large-scale, but every project deserves the same precision, coordination, and care."
+                />
+              </li>
+              <li>
+                <app-navigation-panel-link
+                  to="/services/design-build"
+                  title="Design Build"
+                  description="Not every project is large-scale, but every project deserves the same precision, coordination, and care."
+                />
+              </li>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
 
-    <nav class="main-nav" aria-label="Primary">
-      <ul>
-        <li>
-          <nav-dropdown button-text="Services">
-            <div id="nav-panel">
-              <ul>
-                <li>
-                  <NuxtLink autofocus to="/services/">
-                    All Services
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/services/specialty-projects-division">
-                    Specialty Projects Division
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/services/construction-management">
-                    Construction Managment
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/services/enhanced-preconstruction">
-                    Enhanced Preconstruction
-                  </NuxtLink>
-                </li>
-                <li>
-                  <NuxtLink to="/services/design-build">
-                    Design Build
-                  </NuxtLink>
-                </li>
-              </ul>
-            </div>
-          </nav-dropdown>
-        </li>
+        <NavigationMenuItem>
+          <NavigationMenuLink as-child>
+            <NuxtLink class="NavigationMenuLink" to="/projects">
+              Projects
+            </NuxtLink>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
 
-        <li>
-          <NuxtLink to="/projects">
-            Projects
-          </NuxtLink>
-        </li>
+        <NavigationMenuItem>
+          <NavigationMenuLink as-child>
+            <NuxtLink class="NavigationMenuLink" to="/team">
+              Meet the Team
+            </NuxtLink>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
 
-        <li>
-          <NuxtLink to="/team">
-            Meet the Team
-          </NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/about">
-            About Us
-          </NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/contact">
-            Contact
-          </NuxtLink>
-        </li>
-      </ul>
-    </nav>
+        <NavigationMenuItem>
+          <NavigationMenuLink as-child>
+            <NuxtLink class="NavigationMenuLink" to="/about">
+              About Us
+            </NuxtLink>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
 
-    <dialog
-      ref="drawerRef"
-      class="mobile-drawer"
-      data-test="mobile-drawer"
-      aria-label="Main menu"
-      @close="onDrawerClose"
-      @click="onDrawerClick"
-    >
-      <div class="mobile-drawer__panel">
-        <div class="mobile-drawer__header">
-          <p class="mobile-drawer__title">
-            Menu
-          </p>
-          <button
-            class="mobile-menu-close"
-            type="button"
-            data-test="mobile-menu-close"
-            aria-label="Close main menu"
-            @click="closeDrawer"
-          >
-            Close
-          </button>
-        </div>
-
-        <nav aria-label="Mobile primary">
-          <ul class="mobile-menu-list">
-            <li>
-              <button
-                class="mobile-services-toggle"
-                type="button"
-                data-test="mobile-services-toggle"
-                aria-controls="mobile-services-panel"
-                :aria-expanded="String(servicesExpanded)"
-                @click="servicesExpanded = !servicesExpanded"
-              >
-                Services
-              </button>
-              <div
-                id="mobile-services-panel"
-                :hidden="!servicesExpanded"
-              >
-                <ul class="mobile-submenu-list">
-                  <li>
-                    <NuxtLink
-                      ref="firstDrawerLinkRef"
-                      class="mobile-menu-link"
-                      to="/services/"
-                      @click="closeDrawerAndNavigate"
-                    >
-                      All Services
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink
-                      class="mobile-menu-link"
-                      to="/services/specialty-projects-division"
-                      @click="closeDrawerAndNavigate"
-                    >
-                      Specialty Projects Division
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink
-                      class="mobile-menu-link"
-                      to="/services/construction-management"
-                      @click="closeDrawerAndNavigate"
-                    >
-                      Construction Management
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink
-                      class="mobile-menu-link"
-                      to="/services/enhanced-preconstruction"
-                      @click="closeDrawerAndNavigate"
-                    >
-                      Enhanced Preconstruction
-                    </NuxtLink>
-                  </li>
-                  <li>
-                    <NuxtLink
-                      class="mobile-menu-link"
-                      to="/services/design-build"
-                      @click="closeDrawerAndNavigate"
-                    >
-                      Design Build
-                    </NuxtLink>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <NuxtLink
-                class="mobile-menu-link"
-                to="/projects"
-                @click="closeDrawerAndNavigate"
-              >
-                Projects
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                class="mobile-menu-link"
-                to="/team"
-                @click="closeDrawerAndNavigate"
-              >
-                Meet the Team
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                class="mobile-menu-link"
-                to="/about"
-                @click="closeDrawerAndNavigate"
-              >
-                About Us
-              </NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                class="mobile-menu-link"
-                to="/contact"
-                @click="closeDrawerAndNavigate"
-              >
-                Contact
-              </NuxtLink>
-            </li>
-          </ul>
-        </nav>
+        <NavigationMenuItem>
+          <NavigationMenuLink as-child>
+            <NuxtLink class="NavigationMenuLink" to="/contact">
+              Contact
+            </NuxtLink>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+      <div class="ViewportPosition">
+        <NavigationMenuViewport class="NavigationMenuViewport" />
       </div>
-    </dialog>
+    </NavigationMenuRoot>
+
+    <app-mobile-nav-drawer />
   </header>
 </template>
 
-<style scoped>
-header {
-  --header-height: 4rem;
-
-  position: absolute;
-  height: var(--header-height);
-  top: 0;
+<style>
+.header-root {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  z-index: 100;
-  margin-inline: auto;
-  justify-content: space-between;
-  display: flex;
-  flex-wrap: wrap;
+  z-index: 10;
+  padding: 0.75rem 1rem;
+}
+
+.brand-link {
+  display: inline-flex;
   align-items: center;
-  padding-inline: calc(var(--spacing) * 8);
-  padding-block: calc(var(--spacing) * 4);
-  background-color: transparent;
-  transition: background-color 0.2s ease;
-  color: #fff;
 }
 
-header.header--white {
-  background-color: var(--color-white);
-  border-bottom: 1px solid var(--ui-border);
-}
-
-.logo {
-  margin-left: calc(var(--spacing) * 4);
-}
-
-.main-nav ul {
-  display: flex;
-  text-transform: uppercase;
-  gap: calc(var(--spacing) * 4);
-}
-
-#services-button {
-  anchor-name: --services;
-}
-
-#nav-panel ul {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.mobile-menu-trigger,
-.mobile-menu-close,
-.mobile-services-toggle,
-.mobile-menu-link {
-  min-height: 44px;
-}
-
-.mobile-menu-trigger,
-.mobile-menu-close,
-.mobile-services-toggle {
-  border: 1px solid var(--ui-border);
-  background: var(--color-white);
-  color: var(--color-black);
-  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
-  text-transform: uppercase;
-}
-
-.mobile-menu-link {
-  display: flex;
-  align-items: center;
-  padding-block: calc(var(--spacing) * 2);
-  text-transform: uppercase;
-}
-
-.mobile-menu-trigger:focus-visible,
-.mobile-menu-close:focus-visible,
-.mobile-services-toggle:focus-visible,
-.mobile-menu-link:focus-visible,
-.main-nav a:focus-visible,
-.main-nav button:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 2px;
-}
-
-.mobile-drawer {
-  margin: 0 0 0 auto;
-  height: 100dvh;
-  width: min(28rem, 92vw);
-  border: none;
-  padding: 0;
-  color: var(--color-black);
-  background: transparent;
-}
-
-.mobile-drawer::backdrop {
-  background: rgb(0 0 0 / 45%);
-}
-
-.mobile-drawer__panel {
-  height: 100%;
-  background: var(--color-white);
-  padding: calc(var(--spacing) * 4);
-  overflow-y: auto;
-}
-
-.mobile-drawer__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: calc(var(--spacing) * 4);
-}
-
-.mobile-drawer__title {
-  margin: 0;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.mobile-menu-list,
-.mobile-submenu-list {
-  display: grid;
-  gap: calc(var(--spacing) * 2);
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.mobile-submenu-list {
-  margin-top: calc(var(--spacing) * 2);
-  padding-left: calc(var(--spacing) * 3);
+.desktop-nav {
+  display: none;
 }
 
 @media (min-width: 768px) {
-  .mobile-menu-trigger,
-  .mobile-drawer {
-    display: none;
-  }
-
-  .main-nav {
-    display: block;
-  }
-}
-
-@media (max-width: 767px) {
-  header {
-    padding-inline: calc(var(--spacing) * 4);
-  }
-
-  .main-nav {
-    display: none;
-  }
-
-  .mobile-menu-trigger {
-    display: inline-flex;
-    align-items: center;
+  .desktop-nav {
+    display: flex;
     justify-content: center;
+    width: 100%;
+  }
+
+  .NavigationMenuRoot {
+    position: relative;
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .NavigationMenuList {
+    display: flex;
+    justify-content: center;
+    color: white;
+    gap: calc(var(--spacing) * 4);
+    padding: 4px;
+    border-radius: 6px;
+    list-style: none;
+    margin: 0;
+  }
+
+  .NavigationMenuTrigger {
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .big-link {
+    cursor: pointer;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 16rem;
+    display: flex;
+    align-items: flex-end;
+    color: white;
+    padding: 1rem;
+  }
+
+  .big-link::before,
+  .big-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .big-link::before {
+    background-image: url('/focus-flooring-office-01.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+    z-index: -2;
+  }
+
+  .big-link::after {
+    background-color: var(--color-envision-blue-500);
+    mix-blend-mode: multiply;
+    z-index: -1;
+  }
+
+  .NavigationMenuTrigger:hover {
+    border-bottom: 1px solid var(--color-primary-500);
+  }
+
+  .NavigationMenuContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    animation-duration: 250ms;
+    animation-timing-function: ease;
+  }
+
+  .NavigationMenuContent[data-motion='from-start'] {
+    animation-name: enterFromLeft;
+  }
+
+  .NavigationMenuContent[data-motion='from-end'] {
+    animation-name: enterFromRight;
+  }
+
+  .NavigationMenuContent[data-motion='to-start'] {
+    animation-name: exitToLeft;
+  }
+
+  .NavigationMenuContent[data-motion='to-end'] {
+    animation-name: exitToRight;
+  }
+
+  .ViewportPosition {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    perspective: 2000px;
+  }
+
+  .NavigationMenuIndicator {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 10px;
+    top: 100%;
+    overflow: hidden;
+    z-index: 1;
+    transition:
+      width,
+      transform 250ms ease;
+  }
+
+  .NavigationMenuViewport {
+    position: relative;
+    transform-origin: top center;
+    margin-top: 10px;
+    width: 100dvi;
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+    height: var(--reka-navigation-menu-viewport-height);
+    transition:
+      width,
+      height,
+      300ms ease;
+  }
+
+  .List {
+    display: grid;
+    padding: 22px;
+    margin: 0;
+    column-gap: 10px;
+    list-style: none;
+  }
+
+  .List.two {
+    grid-template-rows: repeat(3, 1fr);
+  }
+
+  .Arrow {
+    position: relative;
+    top: 70%;
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    transform: rotate(45deg);
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-    animation: none !important;
+@keyframes enterFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(120px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes enterFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-120px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes exitToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(120px);
+  }
+}
+
+@keyframes exitToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-120px);
   }
 }
 </style>

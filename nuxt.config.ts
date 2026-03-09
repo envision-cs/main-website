@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     '@posthog/nuxt',
     'motion-v/nuxt',
     '@nuxtjs/strapi',
+    'reka-ui/nuxt',
     // 'nuxt-strapi-blocks-renderer',
     // '@nuxt/hints',
     'nuxt-studio',
