@@ -122,7 +122,7 @@ watch(() => route.fullPath, () => {
     <link-button
       to="/contact"
       size="sm"
-      class="header-cta"
+      class="header-cta header-cta--mobile-hidden"
     >
       Contact
     </link-button>
@@ -159,7 +159,15 @@ watch(() => route.fullPath, () => {
   flex-shrink: 0;
 }
 
+.header-cta.header-cta--mobile-hidden {
+  display: none !important;
+}
+
 @media (min-width: 768px) {
+  .header-cta.header-cta--mobile-hidden {
+    display: inline-flex !important;
+  }
+
   .desktop-nav {
     display: flex;
     justify-content: center;

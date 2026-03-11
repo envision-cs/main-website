@@ -3,7 +3,6 @@ import {
   CollapsibleContent,
   CollapsibleRoot,
   CollapsibleTrigger,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogOverlay,
@@ -18,10 +17,13 @@ const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const menuButtonRef = ref<HTMLButtonElement | null>(null);
 const firstDrawerLinkRef = ref<HTMLElement | null>(null);
+const isDrawerClosing = ref(false);
 const route = useRoute();
+const gsap = useGSAP();
 
-watch(() => route.fullPath, () => {
-  mobileDrawerOpen.value = false;
+watch(() => route.fullPath, async () => {
+  if (mobileDrawerOpen.value)
+    await closeDrawer();
   mobileServicesOpen.value = false;
 });
 
@@ -31,34 +33,131 @@ watch(mobileDrawerOpen, (open) => {
 });
 
 function closeDrawerAndNavigate() {
+  void closeDrawer();
+}
+
+function getDrawerElements() {
+  const content = document.body.querySelector('[data-test="mobile-drawer"]') as HTMLElement | null;
+  const overlay = document.body.querySelector('[data-test="mobile-drawer-overlay"]') as HTMLElement | null;
+  const navTargets = content
+    ? Array.from(content.querySelectorAll('[data-anim="mobile-nav-link"]')) as HTMLElement[]
+    : [];
+
+  return { content, overlay, navTargets };
+}
+
+function focusTarget(target: unknown, fallbackSelector: string) {
+  if (target && typeof (target as { focus?: () => void }).focus === 'function') {
+    (target as { focus: () => void }).focus();
+    return;
+  }
+
+  const fallback = document.body.querySelector(fallbackSelector) as HTMLElement | null;
+  fallback?.focus();
+}
+
+function animateDrawerOpen() {
+  const { content, overlay, navTargets } = getDrawerElements();
+  if (!content)
+    return;
+
+  const targets = overlay ? [overlay, content, ...navTargets] : [content, ...navTargets];
+  gsap.killTweensOf(targets);
+
+  if (overlay) {
+    gsap.set(overlay, { autoAlpha: 0 });
+    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: 'power2.out' });
+  }
+
+  gsap.set(content, { xPercent: 100 });
+  if (navTargets.length)
+    gsap.set(navTargets, { autoAlpha: 0, x: 24 });
+
+  const timeline = gsap.timeline();
+  timeline.to(content, { xPercent: 0, duration: 0.4, ease: 'power3.out' }, 0);
+
+  if (navTargets.length)
+    timeline.to(navTargets, { autoAlpha: 1, x: 0, duration: 0.24, stagger: 0.06, ease: 'power2.out' }, 0.1);
+}
+
+function animateDrawerClose() {
+  const { content, overlay, navTargets } = getDrawerElements();
+  if (!content)
+    return Promise.resolve();
+
+  const targets = overlay ? [overlay, content, ...navTargets] : [content, ...navTargets];
+  gsap.killTweensOf(targets);
+
+  return new Promise<void>((resolve) => {
+    if (navTargets.length) {
+      gsap.to(navTargets, {
+        autoAlpha: 0,
+        x: 14,
+        duration: 0.14,
+        stagger: { each: 0.03, from: 'end' },
+        ease: 'power2.in',
+      });
+    }
+
+    if (overlay)
+      gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: 'power2.inOut' });
+
+    gsap.to(content, {
+      xPercent: 100,
+      duration: 0.3,
+      ease: 'power3.in',
+      onComplete: resolve,
+    });
+  });
+}
+
+async function closeDrawer() {
+  if (!mobileDrawerOpen.value || isDrawerClosing.value)
+    return;
+
+  isDrawerClosing.value = true;
+  await nextTick();
+  await animateDrawerClose();
   mobileDrawerOpen.value = false;
+  mobileServicesOpen.value = false;
+  isDrawerClosing.value = false;
+}
+
+async function onDrawerOpenChange(nextOpen: boolean) {
+  if (nextOpen) {
+    mobileDrawerOpen.value = true;
+    await nextTick();
+    animateDrawerOpen();
+    return;
+  }
+
+  await closeDrawer();
 }
 
 function onDrawerOpenAutoFocus(event: Event) {
   event.preventDefault();
-  firstDrawerLinkRef.value?.focus();
+  focusTarget(firstDrawerLinkRef.value, '[data-test="mobile-services-toggle"]');
 }
 
 function onDrawerCloseAutoFocus(event: Event) {
   event.preventDefault();
-  menuButtonRef.value?.focus();
+  focusTarget(menuButtonRef.value, '[data-test="mobile-menu-trigger"]');
 }
 </script>
 
 <template>
-  <DialogRoot v-model:open="mobileDrawerOpen">
+  <DialogRoot :open="mobileDrawerOpen" @update:open="onDrawerOpenChange">
     <DialogTrigger as-child>
-      <button
+      <Button
         ref="menuButtonRef"
-        class="mobile-trigger"
-        type="button"
+        size="sm"
         data-test="mobile-menu-trigger"
         aria-label="Open main menu"
         aria-haspopup="dialog"
         :aria-expanded="String(mobileDrawerOpen)"
       >
         Menu
-      </button>
+      </Button>
     </DialogTrigger>
 
     <DialogPortal>
@@ -76,16 +175,15 @@ function onDrawerCloseAutoFocus(event: Event) {
         </VisuallyHidden>
 
         <div class="mobile-content-header">
-          <DialogClose as-child>
-            <button
-              class="mobile-close"
-              type="button"
-              data-test="mobile-menu-close"
-              aria-label="Close main menu"
-            >
-              Close
-            </button>
-          </DialogClose>
+          <Button
+            size="sm"
+            type="button"
+            data-test="mobile-menu-close"
+            aria-label="Close main menu"
+            @click="closeDrawerAndNavigate"
+          >
+            Close
+          </Button>
         </div>
 
         <nav class="mobile-nav" aria-label="Mobile primary">
@@ -97,6 +195,7 @@ function onDrawerCloseAutoFocus(event: Event) {
                     class="mobile-services-toggle"
                     type="button"
                     data-test="mobile-services-toggle"
+                    data-anim="mobile-nav-link"
                   >
                     Services
                   </button>
@@ -108,6 +207,7 @@ function onDrawerCloseAutoFocus(event: Event) {
                         ref="firstDrawerLinkRef"
                         class="mobile-link"
                         to="/services/"
+                        data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
                         All Services
@@ -117,6 +217,7 @@ function onDrawerCloseAutoFocus(event: Event) {
                       <NuxtLink
                         class="mobile-link"
                         to="/services/specialty-projects-division"
+                        data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
                         Specialty Projects Division
@@ -126,6 +227,7 @@ function onDrawerCloseAutoFocus(event: Event) {
                       <NuxtLink
                         class="mobile-link"
                         to="/services/construction-management"
+                        data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
                         Construction Management
@@ -135,6 +237,7 @@ function onDrawerCloseAutoFocus(event: Event) {
                       <NuxtLink
                         class="mobile-link"
                         to="/services/enhanced-preconstruction"
+                        data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
                         Enhanced Preconstruction
@@ -144,6 +247,7 @@ function onDrawerCloseAutoFocus(event: Event) {
                       <NuxtLink
                         class="mobile-link"
                         to="/services/design-build"
+                        data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
                         Design Build
@@ -157,6 +261,7 @@ function onDrawerCloseAutoFocus(event: Event) {
               <NuxtLink
                 class="mobile-link"
                 to="/projects"
+                data-anim="mobile-nav-link"
                 @click="closeDrawerAndNavigate"
               >
                 Projects
@@ -166,6 +271,7 @@ function onDrawerCloseAutoFocus(event: Event) {
               <NuxtLink
                 class="mobile-link"
                 to="/team"
+                data-anim="mobile-nav-link"
                 @click="closeDrawerAndNavigate"
               >
                 Meet the Team
@@ -175,6 +281,7 @@ function onDrawerCloseAutoFocus(event: Event) {
               <NuxtLink
                 class="mobile-link"
                 to="/about"
+                data-anim="mobile-nav-link"
                 @click="closeDrawerAndNavigate"
               >
                 About Us
@@ -184,6 +291,7 @@ function onDrawerCloseAutoFocus(event: Event) {
               <NuxtLink
                 class="mobile-link"
                 to="/contact"
+                data-anim="mobile-nav-link"
                 @click="closeDrawerAndNavigate"
               >
                 Contact

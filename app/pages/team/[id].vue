@@ -48,8 +48,8 @@ definePageMeta({
 </script>
 
 <template>
-  <UPage v-if="data?.teamMember" class="mt-6.25">
-    <app-section-a>
+  <UPage v-if="data?.teamMember" class="">
+    <app-section-a no-padding-main>
       <template #header>
         <NuxtImg
           :src="data.teamMember?.photo?.url"
@@ -60,7 +60,7 @@ definePageMeta({
         />
       </template>
       <template #body>
-        <div class="grid items-content-center h-full">
+        <div class="grid items-content-center h-full pt-10">
           <div class="content">
             <div>
               <app-typography tag="h1" variant="heading-lg">
@@ -89,7 +89,7 @@ definePageMeta({
         </div>
       </template>
     </app-section-a>
-    <div class="site-grid mt-40" />
+    <div class="site-grid" />
 
     <app-section-a
       v-if="data.teamMember?.team"
@@ -289,6 +289,8 @@ definePageMeta({
 
 .image {
   width: 100%;
+  height: 100%;
+  object-fit: covor;
   grid-column: span 12;
 
   @media (min-width: 1024px) {

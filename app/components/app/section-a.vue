@@ -2,13 +2,14 @@
 defineProps<{
   noPadding?: boolean;
   noPaddingMain?: boolean;
+  fill: boolean;
 }>();
 </script>
 
 <template>
   <section class="section-a site-max">
-    <div class="">
-      <div class="sticky top-8" :class="noPaddingMain ? 'p-0' : 'px-4 pt-4 md:p-8'">
+    <div :class="{ 'h-full': fill }">
+      <div class="sticky" :class="[noPaddingMain ? 'p-0 top-0' : 'px-4 pt-4 top-8 md:p-8', { 'h-full ': fill }]">
         <slot name="header" />
       </div>
     </div>

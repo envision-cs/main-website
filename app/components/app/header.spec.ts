@@ -1,10 +1,22 @@
 import { mount } from '@vue/test-utils';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { nextTick } from 'vue';
 
 import Header from './header.vue';
 
 describe('header mobile drawer', () => {
+  function wait(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  beforeEach(() => {
+    document.body.innerHTML = '';
+  });
+
+  afterEach(() => {
+    document.body.innerHTML = '';
+  });
+
   it('uses compact size for the contact link button', () => {
     const wrapper = mount(Header, {
       global: {
@@ -19,6 +31,7 @@ describe('header mobile drawer', () => {
     const cta = wrapper.findComponent({ name: 'LinkButton' });
     expect(cta.exists()).toBe(true);
     expect(cta.props('size')).toBe('sm');
+    expect(cta.classes()).toContain('header-cta--mobile-hidden');
   });
 
   it('exposes mobile menu trigger semantics', () => {
@@ -34,6 +47,7 @@ describe('header mobile drawer', () => {
 
     const trigger = wrapper.find('[data-test="mobile-menu-trigger"]');
     expect(trigger.exists()).toBe(true);
+    expect(trigger.classes()).toContain('mobile-trigger');
     expect(trigger.attributes('aria-haspopup')).toBe('dialog');
     expect(trigger.attributes('aria-expanded')).toBe('false');
   });
@@ -87,14 +101,15 @@ describe('header mobile drawer', () => {
     await trigger.trigger('click');
     await nextTick();
 
-    const closeButton = document.body.querySelector('[data-test="mobile-menu-close"]') as HTMLButtonElement | null;
+    const closeButton = Array.from(document.body.querySelectorAll('[data-test="mobile-menu-close"]')).at(-1) as HTMLButtonElement | undefined;
     expect(closeButton).toBeTruthy();
     closeButton?.click();
+    await wait(450);
     await nextTick();
 
     expect(trigger.attributes('aria-expanded')).toBe('false');
     const drawer = document.body.querySelector('[data-test="mobile-drawer"]');
-    expect(drawer?.getAttribute('data-state')).toBe('closed');
+    expect(drawer === null || drawer.getAttribute('data-state') === 'closed').toBe(true);
 
     wrapper.unmount();
   });
