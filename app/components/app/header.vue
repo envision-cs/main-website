@@ -143,6 +143,8 @@ watch(() => route.fullPath, () => {
   z-index: 10;
   padding: 0.75rem 1rem;
   max-width: 1536px;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(1px);
 }
 
 .brand-link {

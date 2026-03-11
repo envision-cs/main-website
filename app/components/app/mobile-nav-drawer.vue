@@ -147,11 +147,10 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 <template>
   <DialogRoot :open="mobileDrawerOpen" @update:open="onDrawerOpenChange">
-    <DialogTrigger as-child>
+    <DialogTrigger class="mobile-trigger" as-child>
       <Button
         ref="menuButtonRef"
         size="sm"
-        data-test="mobile-menu-trigger"
         aria-label="Open main menu"
         aria-haspopup="dialog"
         :aria-expanded="String(mobileDrawerOpen)"
@@ -178,6 +177,7 @@ function onDrawerCloseAutoFocus(event: Event) {
           <Button
             size="sm"
             type="button"
+            class="mobile-nav-close"
             data-test="mobile-menu-close"
             aria-label="Close main menu"
             @click="closeDrawerAndNavigate"
@@ -306,12 +306,7 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 <style scoped>
 .mobile-trigger {
-  min-height: 44px;
-  min-width: 44px;
-  border: 1px solid #d1d5db;
-  background: #fff;
-  color: #111827;
-  padding: 0.5rem 0.75rem;
+  display: block;
 }
 
 .mobile-overlay {
