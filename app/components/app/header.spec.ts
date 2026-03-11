@@ -5,6 +5,22 @@ import { nextTick } from 'vue';
 import Header from './header.vue';
 
 describe('header mobile drawer', () => {
+  it('uses compact size for the contact link button', () => {
+    const wrapper = mount(Header, {
+      global: {
+        stubs: {
+          Icon: true,
+          NuxtLink: true,
+          NavDropdown: true,
+        },
+      },
+    });
+
+    const cta = wrapper.findComponent({ name: 'LinkButton' });
+    expect(cta.exists()).toBe(true);
+    expect(cta.props('size')).toBe('sm');
+  });
+
   it('exposes mobile menu trigger semantics', () => {
     const wrapper = mount(Header, {
       global: {

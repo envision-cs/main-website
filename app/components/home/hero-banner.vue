@@ -39,22 +39,16 @@ const hero = computed(() => data.value?.data ?? null);
         >
           {{ hero.subtitle }}
         </app-typography>
-        <app-button
-          variant="outline"
-          color="white"
-          href="/contact"
-          size="lg"
-          class="[--btn-outline:white] [--btn-text:white] [--btn-hover-text:white] mt-4"
-        >
+        <link-button variant="secondary" to="/contact">
           Start your project
-        </app-button>
+        </link-button>
       </div>
       <div class="actions mt-auto">
         <!-- leave empty -->
       </div>
     </div>
 
-    <app-gradient-overlay direction="bottom" class="overlay" />
+    <app-gradient-overlay direction="top" class="overlay" />
     <NuxtImg
       v-if="hero.image?.url"
       :src="hero.image.url"

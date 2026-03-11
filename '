@@ -114,18 +114,19 @@ watch(() => route.fullPath, () => {
             </NuxtLink>
           </NavigationMenuLink>
         </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuLink as-child>
+            <NuxtLink class="NavigationMenuLink" to="/contact">
+              Contact
+            </NuxtLink>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
       </NavigationMenuList>
       <div class="ViewportPosition">
         <NavigationMenuViewport class="NavigationMenuViewport" />
       </div>
     </NavigationMenuRoot>
-    <link-button
-      to="/contact"
-      size="sm"
-      class="header-cta"
-    >
-      Contact
-    </link-button>
 
     <app-mobile-nav-drawer />
   </header>
@@ -152,11 +153,6 @@ watch(() => route.fullPath, () => {
 
 .desktop-nav {
   display: none;
-  min-width: 0;
-}
-
-.header-cta {
-  flex-shrink: 0;
 }
 
 @media (min-width: 768px) {
@@ -176,20 +172,18 @@ watch(() => route.fullPath, () => {
 
   .NavigationMenuList {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     color: white;
     gap: calc(var(--spacing) * 4);
     padding: 4px;
     border-radius: 6px;
     list-style: none;
     margin: 0;
-    width: 100%;
-  }
 
-  /* push last item to far right */
-  .NavigationMenuList > :last-child {
-    margin-left: auto;
+    & > :last-child {
+      margin-left: auto;
+    }
   }
 
   .NavigationMenuTrigger {

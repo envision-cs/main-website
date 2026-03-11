@@ -22,7 +22,7 @@ const angle = computed(() => {
 
 const overlayBackground = computed(() =>
   `linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.0) 70%), 
-   linear-gradient(${angle.value}, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.45) 30%, rgba(0, 0, 0, 0) 60%)`,
+   linear-gradient(${angle.value}, rgba(0, 0, 0, .6) 0%, rgba(0, 0, 0, 0.45) 45%, rgba(0, 0, 0, 0) 70%)`,
 );
 </script>
 
