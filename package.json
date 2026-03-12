@@ -2,6 +2,7 @@
   "name": "nuxt-app",
   "type": "module",
   "private": true,
+  "packageManager": "pnpm",
   "scripts": {
     "build": "nuxt build",
     "dev": "portless envision nuxt dev",
