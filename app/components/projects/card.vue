@@ -8,12 +8,31 @@ defineProps<{
   completed: string;
   to: string;
 }>();
+
+const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
+const contentHeight = ref(0);
+
+function updateHeight() {
+  contentHeight.value = contentRef.value?.clientHeight ?? 0;
+}
+
+useResizeObserver(contentRef, (entries) => {
+  const entry = entries[0];
+  if (entry) {
+    contentHeight.value = entry.contentRect.height;
+  }
+});
+
+onMounted(() => {
+  updateHeight();
+});
 </script>
 
 <template>
   <app-reveal-card
     :to="to"
     :aria-label="title"
+    prefetch-on="interaction"
     class="project-wrapper"
     :image="image"
     :alt="title"
@@ -80,6 +99,7 @@ defineProps<{
   grid-template-columns: repeat(2, 1fr);
   gap: 0.5rem 1rem;
   margin-bottom: 1rem;
+
   li {
     grid-column: span 1;
   }

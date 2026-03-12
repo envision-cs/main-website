@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   variant: 'a',
   contactImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122',
+
 });
 
 const servicesFeatureImage = 'https://www.figma.com/api/mcp/asset/056d63cb-3124-4599-8f32-c1a275374d00';
@@ -621,6 +622,35 @@ function toggleDesktopMenu() {
   to {
     opacity: 0;
     transform: translateX(-120px);
+  }
+}
+
+.submenu-label {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header,
+  .menu,
+  .sub-menu,
+  .menu-toggle,
+  .close-btn,
+  .mobileClose {
+    transition: none !important;
+    animation: none !important;
   }
 }
 </style>

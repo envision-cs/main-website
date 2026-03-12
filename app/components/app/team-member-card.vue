@@ -2,6 +2,7 @@
 type TypographyVariant = 'heading-sm' | 'heading-md' | 'heading-lg' | 'text-sm' | 'text-md' | 'text-lg';
 
 const props = defineProps<{
+
   path: string;
   image: string;
   name: string;

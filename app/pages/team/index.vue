@@ -121,6 +121,12 @@ const { data } = useFetch('/api/team', {
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
+  background: linear-gradient(
+    140deg,
+    color-mix(in srgb, var(--teamColor) 12%, white) 0%,
+    color-mix(in srgb, var(--teamColor) 3%, white) 35%,
+    white 75%
+  );
 }
 
 .section-head {

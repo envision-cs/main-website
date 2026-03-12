@@ -7,10 +7,7 @@ definePageMeta({
 
 <template>
   <app-team-member-list dense>
-    <li
-      v-for="service in data"
-      :key="service.slug"
-    >
+    <li v-for="service in data" :key="service.slug">
       <app-reveal-card
         :to="`/services/${service.slug}`"
         :aria-label="service.title"
