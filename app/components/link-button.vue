@@ -27,7 +27,6 @@ withDefaults(defineProps<{
 <style scoped>
 .btn {
   --color: #000;
-
   display: inline-flex;
   white-space: nowrap;
   isolation: isolate;

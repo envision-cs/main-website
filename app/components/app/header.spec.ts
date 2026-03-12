@@ -4,11 +4,7 @@ import { nextTick } from 'vue';
 
 import Header from './header.vue';
 
-describe('header mobile drawer', () => {
-  function wait(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
+describe('header navigation', () => {
   beforeEach(() => {
     document.body.innerHTML = '';
   });
@@ -23,7 +19,9 @@ describe('header mobile drawer', () => {
         stubs: {
           Icon: true,
           NuxtLink: true,
-          NavDropdown: true,
+          AppMobileNavDrawer: {
+            template: '<div data-test="mobile-drawer-component" />',
+          },
         },
       },
     });
@@ -31,85 +29,108 @@ describe('header mobile drawer', () => {
     const cta = wrapper.findComponent({ name: 'LinkButton' });
     expect(cta.exists()).toBe(true);
     expect(cta.props('size')).toBe('sm');
-    expect(cta.classes()).toContain('header-cta--mobile-hidden');
+    expect(wrapper.find('.header-cta--mobile-hidden').exists()).toBe(true);
   });
 
-  it('exposes mobile menu trigger semantics', () => {
+  it('renders the mobile drawer component', () => {
     const wrapper = mount(Header, {
       global: {
         stubs: {
           Icon: true,
           NuxtLink: true,
-          NavDropdown: true,
+          AppMobileNavDrawer: {
+            template: '<div data-test="mobile-drawer-component" />',
+          },
         },
       },
     });
 
-    const trigger = wrapper.find('[data-test="mobile-menu-trigger"]');
-    expect(trigger.exists()).toBe(true);
-    expect(trigger.classes()).toContain('mobile-trigger');
-    expect(trigger.attributes('aria-haspopup')).toBe('dialog');
+    expect(wrapper.find('[data-test="mobile-drawer-component"]').exists()).toBe(true);
+  });
+
+  it('applies the shared inline nav style to all top-level desktop items', () => {
+    const wrapper = mount(Header, {
+      global: {
+        stubs: {
+          Icon: true,
+          NuxtLink: {
+            props: ['to'],
+            template: '<a :href="to"><slot /></a>',
+          },
+          AppMobileNavDrawer: {
+            template: '<div data-test="mobile-drawer-component" />',
+          },
+        },
+      },
+    });
+
+    expect(wrapper.findAll('.desktop-inline-nav-link')).toHaveLength(4);
+    const trigger = wrapper.find('[data-test="desktop-services-trigger"]');
+    expect(trigger.classes()).toContain('desktop-inline-nav-link');
     expect(trigger.attributes('aria-expanded')).toBe('false');
   });
 
-  it('toggles services disclosure aria-expanded and controlled region state', async () => {
+  it('opens and closes the desktop fullscreen mega menu', async () => {
     const wrapper = mount(Header, {
       attachTo: document.body,
       global: {
         stubs: {
           Icon: true,
           NuxtLink: true,
-          NavDropdown: true,
+          AppMobileNavDrawer: {
+            template: '<div data-test="mobile-drawer-component" />',
+          },
         },
       },
     });
 
-    const trigger = wrapper.find('[data-test="mobile-menu-trigger"]');
-    await trigger.trigger('click');
+    expect(wrapper.find('.main-header').classes()).not.toContain('main-header--desktop-open');
+    expect(wrapper.find('[data-test="desktop-mega-menu-backdrop"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="desktop-mega-menu-panel"]').exists()).toBe(false);
+
+    const trigger = wrapper.find('[data-test="desktop-services-trigger"]');
+    expect(trigger.exists()).toBe(true);
+
+    await trigger.trigger('pointerenter');
     await nextTick();
 
-    const servicesToggle = document.body.querySelector('[data-test="mobile-services-toggle"]') as HTMLButtonElement | null;
-    expect(servicesToggle).toBeTruthy();
-    expect(servicesToggle?.getAttribute('aria-expanded')).toBe('false');
+    expect(wrapper.find('.main-header').classes()).toContain('main-header--desktop-open');
+    expect(wrapper.find('[data-test="desktop-mega-menu-backdrop"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="desktop-mega-menu-panel"]').exists()).toBe(true);
 
-    servicesToggle?.click();
+    await wrapper.find('[data-test="desktop-mega-menu-backdrop"]').trigger('click');
     await nextTick();
-    expect(servicesToggle?.getAttribute('aria-expanded')).toBe('true');
-    expect(document.body.querySelector('[data-test="mobile-services-panel"]')).toBeTruthy();
 
-    servicesToggle?.click();
-    await nextTick();
-    expect(servicesToggle?.getAttribute('aria-expanded')).toBe('false');
-    expect(document.body.querySelector('[data-test="mobile-services-panel"]')).toBeTruthy();
+    expect(wrapper.find('.main-header').classes()).not.toContain('main-header--desktop-open');
+    expect(wrapper.find('[data-test="desktop-mega-menu-backdrop"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="desktop-mega-menu-panel"]').exists()).toBe(false);
 
     wrapper.unmount();
   });
 
-  it('closes dialog and updates trigger expanded state', async () => {
+  it('renders the Figma service dropdown structure', async () => {
     const wrapper = mount(Header, {
       attachTo: document.body,
       global: {
         stubs: {
           Icon: true,
-          NuxtLink: true,
-          NavDropdown: true,
+          NuxtLink: {
+            props: ['to'],
+            template: '<a :href="to"><slot /></a>',
+          },
+          AppMobileNavDrawer: {
+            template: '<div data-test="mobile-drawer-component" />',
+          },
         },
       },
     });
 
-    const trigger = wrapper.find('[data-test="mobile-menu-trigger"]');
-    await trigger.trigger('click');
+    await wrapper.find('[data-test="desktop-services-trigger"]').trigger('pointerenter');
     await nextTick();
 
-    const closeButton = Array.from(document.body.querySelectorAll('[data-test="mobile-menu-close"]')).at(-1) as HTMLButtonElement | undefined;
-    expect(closeButton).toBeTruthy();
-    closeButton?.click();
-    await wait(450);
-    await nextTick();
-
-    expect(trigger.attributes('aria-expanded')).toBe('false');
-    const drawer = document.body.querySelector('[data-test="mobile-drawer"]');
-    expect(drawer === null || drawer.getAttribute('data-state') === 'closed').toBe(true);
+    expect(wrapper.find('[data-test="services-feature-panel"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="services-grid"]').exists()).toBe(true);
+    expect(wrapper.findAll('[data-test="services-grid-item"]')).toHaveLength(5);
 
     wrapper.unmount();
   });
