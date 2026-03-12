@@ -25,6 +25,16 @@ const { data } = await useAsyncData(
 // 3) Related groups - optimized logic
 const relatedTeam = computed(() => data.value?.team || []);
 
+function teamOverlay(color?: string) {
+  const teamColor = color || '#0c2c45';
+  return `linear-gradient(
+    to top,
+    color-mix(in srgb, ${teamColor} 75%, transparent) 0%,
+    color-mix(in srgb, ${teamColor} 45%, transparent) 10%,
+    transparent 30%
+  )`;
+}
+
 // 4) Page metadata
 const title = computed(() => data.value?.teamMember?.name);
 
@@ -38,8 +48,8 @@ definePageMeta({
 </script>
 
 <template>
-  <UPage v-if="data?.teamMember" class="mt-6.25">
-    <app-section-a>
+  <UPage v-if="data?.teamMember" class="">
+    <app-section-a no-padding-main>
       <template #header>
         <NuxtImg
           :src="data.teamMember?.photo?.url"
@@ -50,7 +60,7 @@ definePageMeta({
         />
       </template>
       <template #body>
-        <div class="grid items-content-center h-full">
+        <div class="grid items-content-center h-full pt-10">
           <div class="content">
             <div>
               <app-typography tag="h1" variant="heading-lg">
@@ -62,7 +72,7 @@ definePageMeta({
             </div>
             <div>
               <div class="flex gap-4">
-                <UButton
+                <app-button
                   v-if="data.teamMember.linkedin"
                   icon="i-simple-icons-linkedin"
                   variant="ghost"
@@ -79,7 +89,7 @@ definePageMeta({
         </div>
       </template>
     </app-section-a>
-    <div class="site-grid mt-40" />
+    <div class="site-grid" />
 
     <app-section-a
       v-if="data.teamMember?.team"
@@ -91,7 +101,6 @@ definePageMeta({
       <template #header>
         <div class="section-head" :style="{ '--teamColor': data.teamMember.team.color }">
           <div class="team-role">
-            <span class="team-role-dot" aria-hidden="true" />
             <app-typography
               tag="p"
               variant="text-sm"
@@ -103,7 +112,7 @@ definePageMeta({
           <app-typography tag="h2" variant="heading-md">
             {{ data.teamMember.team.name }}
           </app-typography>
-          <div class="team-accent" aria-hidden="true" />
+          <!-- <div class="team-accent" aria-hidden="true" /> -->
           <app-typography
             tag="p"
             variant="text-lg"
@@ -115,18 +124,62 @@ definePageMeta({
       </template>
       <template #body>
         <app-team-member-list>
-          <app-team-member-card
-            v-for="member in relatedTeam"
-            :key="member.id"
-            :path="`/team/${member.slug}`"
-            :name="member.name"
-            :title="member.title"
-            :image="member.photo?.url"
-            :linkedin="member.linkedin"
-            :email="member.email"
-            :color="data.teamMember.team.color"
-            title-size="heading-md"
-          />
+          <li v-for="member in relatedTeam.filter(m => m.slug !== id)" :key="member.id">
+            <app-reveal-card
+              :to="`/team/${member.slug}`"
+              :aria-label="member.name"
+              :image="member.photo?.url"
+              :alt="member.name"
+              link-mode="overlay"
+              aspect-ratio="3/4"
+              image-sizes="(max-width: 768px) 100vw, 300px"
+              :image-hover-blur="0"
+              :image-hover-scale="1.1"
+              :overlay="teamOverlay(data.teamMember.team.color)"
+              :container-type="true"
+              :rounded="false"
+              :outlined="false"
+              :meta-border="false"
+              :meta-fade="false"
+              details-delay="0ms"
+              meta-delay="150ms"
+              class="team-member-card"
+            >
+              <template #title>
+                <app-typography class="h3 team-member-title" variant="heading-md">
+                  {{ member.name }}
+                </app-typography>
+                <app-typography
+                  tag="p"
+                  variant="text-md"
+                  class="team-member-role text-primary-200 dark:text-primary-200"
+                >
+                  {{ member.title }}
+                </app-typography>
+              </template>
+              <template #meta>
+                <div class="team-member-actions">
+                  <app-button
+                    v-if="member.linkedin"
+                    icon="i-simple-icons-linkedin"
+                    color="white"
+                    variant="ghost"
+                    :to="member.linkedin"
+                    target="_blank"
+                    aria-label="LinkedIn"
+                  />
+                  <app-button
+                    v-if="member.email"
+                    icon="i-heroicons-envelope"
+                    color="white"
+                    variant="ghost"
+                    :to="`mailto:${member.email}`"
+                    aria-label="Email"
+                  />
+                </div>
+              </template>
+            </app-reveal-card>
+          </li>
         </app-team-member-list>
       </template>
     </app-section-a>
@@ -141,12 +194,14 @@ definePageMeta({
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
+  /*
   background: linear-gradient(
     140deg,
     color-mix(in srgb, var(--teamColor) 12%, white) 0%,
     color-mix(in srgb, var(--teamColor) 3%, white) 35%,
     white 75%
   );
+    */
 }
 
 .section-head {
@@ -165,8 +220,10 @@ definePageMeta({
   align-items: center;
   gap: 0.55rem;
   padding: 0.4rem 0.85rem;
-  border-radius: 999px;
+  border-left: calc(var(--spacing) * 2) solid var(--teamColor);
+  /*
   background: color-mix(in srgb, var(--teamColor) 18%, white);
+  */
 }
 
 .team-role-dot {
@@ -194,6 +251,30 @@ definePageMeta({
   max-width: 38ch;
 }
 
+.team-member-card {
+  :deep(.reveal-card__content) {
+    color: white;
+  }
+
+  :deep(.reveal-card__meta) {
+    justify-content: flex-start;
+  }
+}
+
+.team-member-title {
+  margin-bottom: 0.75rem;
+  text-wrap: balance;
+}
+
+.team-member-role {
+  opacity: 0.85;
+}
+
+.team-member-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
 @media (min-width: 1024px) {
   .section-head {
     padding: calc(var(--spacing) * 5);
@@ -208,6 +289,8 @@ definePageMeta({
 
 .image {
   width: 100%;
+  height: 100%;
+  object-fit: covor;
   grid-column: span 12;
 
   @media (min-width: 1024px) {

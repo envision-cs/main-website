@@ -8,34 +8,38 @@ export default defineAppConfig({
         {
           label: 'Construction Management',
           to: '/services/construction-management',
-          image: 'construction-managment.jpg',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/2K6A2696.jpg',
         },
         {
           label: 'Design Build',
           to: '/services/design-build',
-          image: 'design-build.jpg',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_3125.jpg',
         },
 
         {
           label: 'Tenant Improvement',
           to: '/services/tenant-improvement',
-          image: 'tenant-improvment.jpg',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/2019%20Fall%20Stakeholders%20Presentation_Draft%20email.jpg',
         },
         {
           label: 'Enhanced Preconstruction',
           to: '/services/enhanced-preconstruction',
-          image: 'enhanced-preconstruction.png',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_4100%20(2).jpg',
         },
         {
           label: 'Specialty Projects Division',
           to: '/services/specialty-projects-division',
-          image: 'specialty-projects.jpg',
+          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0231.jpg',
+        },
+        {
+          label: 'Development and Master Planning',
+          to: '/services/development-and-master-planning',
         },
       ],
     },
     {
       label: 'Projects',
-      to: '/projects/all',
+      to: '/projects',
     },
     {
       label: 'Meet the Team',
@@ -44,20 +48,6 @@ export default defineAppConfig({
     {
       label: 'About Us',
       to: '/about',
-      // children: [
-      //  {
-      //    label: 'Who we are',
-      //    to: '/about',
-      //  },
-      //  {
-      //    label: 'Our Partners',
-      //    to: '/about/partners', // Assuming a sub-page for partners
-      //  },
-      //  {
-      //    label: 'Our Process',
-      //    to: '/our-process',
-      //  },
-      // ],
     },
 
   ] as NavigationMenuItem[],
@@ -77,12 +67,27 @@ export default defineAppConfig({
     },
     button: {
       slots: {
-        base: ['w-fit'],
+        base: [
+          'w-fit relative isolate overflow-hidden rounded-none',
+          '[--btn-outline:var(--ui-color-neutral-900)] [--btn-text:var(--ui-color-neutral-900)] [--btn-hover-text:white]',
+          'before:pointer-events-none before:absolute before:inset-x-0 before:bottom-0 before:z-0 before:h-full before:origin-bottom before:scale-y-0',
+          'before:rounded-none before:bg-[var(--ui-primary)] before:content-[""]',
+          'before:transition-transform before:duration-300 before:ease-out',
+          'hover:before:scale-y-100 disabled:hover:before:scale-y-0 hover:text-[var(--btn-hover-text)]',
+        ],
+        label: 'relative z-10',
+        leadingIcon: 'relative z-10',
+        trailingIcon: 'relative z-10',
+        leadingAvatar: 'relative z-10',
       },
       variants: {
+        variant: {
+          outline: '!ring-2 !ring-inset !ring-[var(--btn-outline)] !bg-transparent !text-[var(--btn-text)] focus-visible:!ring-[var(--btn-outline)]',
+          ghost: '!ring-2 !ring-inset !ring-[var(--btn-outline)] !bg-transparent !text-[var(--btn-text)] focus-visible:!ring-[var(--btn-outline)]',
+        },
         size: {
           xl: {
-            base: 'px-4 py-2 md:px-6 md:py-3 rounded-full',
+            base: 'px-4 py-2 md:px-6 md:py-3 rounded-none',
           },
         },
       },

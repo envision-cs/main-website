@@ -1,131 +1,96 @@
 <script setup lang="ts">
-defineProps<{
-  link?: string;
+import type { RouteLocationRaw } from 'vue-router';
+
+const props = withDefaults(defineProps<{
+  link?: RouteLocationRaw;
   image?: string;
   alt?: string;
   sector?: string;
   title?: string;
   completed?: string;
+  ctaLabel?: string;
   aspectRatio?: '5/3' | '4/3' | '16/9' | '3/4' | '1/1' | '3/1';
   heading?: 'heading-sm' | 'heading-md';
-}>();
+}>(), {
+  aspectRatio: '16/9',
+  heading: 'heading-md',
+  ctaLabel: 'View details',
+});
+
+const linkTo = computed(() => props.link || '#');
+const imageAlt = computed(() => props.alt || props.title || 'Display card image');
 </script>
 
 <template>
-  <NuxtLink class="project-card" :href="link">
-    <figure class="project-card__figure">
-      <NuxtImg
-        class="project-card__image"
-        format="webp"
-        :src="image"
-        alt="Renovated open-plan office with glass partitions and warm wood finishes"
-        loading="lazy"
-        sizes="100vw sm:640px md:768px lg:1024px xl:1400px"
-      />
-      <figcaption class="project-card__body">
-        <div class="flex justify-between">
-          <app-typography tag="p" variant="text-lg">
-            {{ sector }}
-          </app-typography>
-
-          <app-typography tag="p" variant="text-lg">
-            {{ completed }}
-          </app-typography>
-        </div>
-        <div class="flex justify-between">
-          <app-typography tag="h3" :variant="heading">
-            {{ title }}
-          </app-typography>
-          <UIcon
-            name="i-lucide-arrow-right"
-            size="32"
-            class="arrow"
-          />
-        </div>
-
-        <span class="project-card__cta">
-          <span class="u-visually-hidden">
-            View project : {{ title }}
-          </span>
-        </span>
-      </figcaption>
-    </figure>
-  </NuxtLink>
+  <app-reveal-card
+    :to="linkTo"
+    :aria-label="props.title || 'View details'"
+    :image="props.image || ''"
+    :alt="imageAlt"
+    image-loading="lazy"
+    image-sizes="100vw sm:640px md:768px lg:1024px xl:1400px"
+    :aspect-ratio="props.aspectRatio"
+    :title-offset="12"
+    details-delay="100ms"
+    meta-delay="140ms"
+    :details-fade="true"
+    :meta-fade="true"
+    class="display-card"
+  >
+    <template #details>
+      <div v-if="props.sector || props.completed" class="display-card__stats">
+        <app-typography
+          v-if="props.sector"
+          tag="p"
+          variant="text-sm"
+        >
+          {{ props.sector }}
+        </app-typography>
+        <app-typography
+          v-if="props.completed"
+          tag="p"
+          variant="text-sm"
+        >
+          {{ props.completed }}
+        </app-typography>
+      </div>
+    </template>
+    <template #title>
+      <app-typography
+        tag="h3"
+        :variant="props.heading"
+        class="display-card__title"
+      >
+        {{ props.title }}
+      </app-typography>
+    </template>
+    <template #meta>
+      <span class="display-card__meta">
+        {{ props.ctaLabel }}
+        <UIcon
+          name="i-lucide-arrow-right"
+          size="20"
+          aria-hidden="true"
+        />
+      </span>
+    </template>
+  </app-reveal-card>
 </template>
 
 <style scoped>
-.project-card {
-  display: block;
-  text-decoration: none;
-  overflow: hidden;
-}
-
-.project-card__figure {
-  margin: 0;
+.display-card__stats {
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-/* image is important content, not decorative */
-.project-card__image {
-  display: block;
-  width: 100%;
-  object-fit: cover;
-  aspect-ratio: v-bind(aspectRatio);
-
-  @media (min-width: 750px) {
-    aspect-ratio: v-bind(aspectRatio);
-  }
+.display-card__title {
+  text-wrap: balance;
 }
 
-.project-card__body {
-  padding: calc(var(--spacing) * 2);
+.display-card__meta {
   display: flex;
-  flex-direction: column;
-  row-gap: 0.35rem;
-}
-
-.project-card__kicker {
-  margin: 0 0 0.1rem;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--project-card-muted);
-}
-
-.project-card__title {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.3;
-}
-
-.project-card__cta {
-  margin-top: 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--project-card-accent);
-}
-
-.arrow {
-  opacity: 0;
-  transform: translateX(-50%);
-  transition:
-    opacity 0.2s ease-in-out,
-    transform 0.2s ease-in-out;
-}
-
-/* **State: hover / focus** */
-.project-card:hover,
-.project-card:focus-visible {
-  .arrow {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.project-card:focus-visible {
-  outline: 2px solid var(--project-card-accent);
-  outline-offset: 2px;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>

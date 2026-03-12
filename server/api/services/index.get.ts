@@ -12,7 +12,6 @@ export default defineEventHandler(async () => {
   );
 
   if (strapiError) {
-    console.error('Error fetching services from Strapi:', strapiError);
     throw createError({
       statusCode: 502,
       statusMessage: 'Unable to fetch services',

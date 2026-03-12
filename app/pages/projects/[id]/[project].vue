@@ -1,43 +1,72 @@
 <script setup lang="ts">
+import type { Project } from '~~/shared/types/content-types';
+
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
-const { find } = useStrapi();
-const route = useRoute();
-const router = useRouter();
+const { formatMonthYear } = useFormatDate();
 
-const slug = computed(() => route.params.project);
+const route = useRoute();
+
+const slug = computed(() => {
+  const param = route.params.project;
+
+  if (typeof param !== 'string')
+    return '';
+
+  const normalized = param.trim();
+  if (!normalized || normalized === 'null' || normalized === 'undefined')
+    return '';
+
+  return normalized;
+});
+const asyncDataKey = computed(() => `project-page-${slug.value}`);
 
 const { data: projectData } = await useAsyncData(
-  () => `project-${slug.value}`,
+  asyncDataKey,
   async () => {
-    const res = await find('projects', {
-      filters: { slug: { $eq: slug.value } },
-      populate: '*',
-    });
-    return res;
+    if (!slug.value)
+      return null;
+
+    try {
+      return await $fetch<Project>(`/api/projects/${encodeURIComponent(slug.value)}`);
+    }
+    catch (err) {
+      console.error(`Error fetching project "${slug.value}":`, err);
+      return null;
+    }
   },
   { watch: [slug], default: () => null },
 );
 
-const page = computed(() => {
-  // Strapi find returns { data: [...] }. Prefer first match.
-  const entry = Array.isArray(projectData.value?.data)
-    ? projectData.value?.data?.[0]
-    : projectData.value?.data ?? null;
+type GalleryImage = {
+  url: string;
+  altText: string;
+};
 
-  const gallery = entry.gallery.map((image) => {
-    return { url: image.url, altText: image.alternativeText };
+const page = computed(() => {
+  const entry = projectData.value;
+
+  if (!entry) {
+    return null;
+  }
+
+  const gallery: GalleryImage[] = (entry.gallery || []).map((image) => {
+    return {
+      url: image.url,
+      altText: typeof image.alternativeText === 'string' ? image.alternativeText : '',
+    };
   });
 
   return {
-    id: entry?.id ?? attrs.id,
+    id: entry.id,
     title: entry.title,
     slug: entry.slug,
-    main_image: entry.mainImage.url,
+    main_image: entry.mainImage?.url,
     location: entry.location,
     area: entry.area,
     completed: entry.completed,
     gallery,
+    beck: entry.beck,
     content: entry.content,
     description: entry.description,
   };
@@ -46,21 +75,32 @@ const page = computed(() => {
 const title = computed(() => page.value?.title);
 
 const activeImage = ref<string | null>(null);
+const imagePopoverRef = useTemplateRef<HTMLElement | null>('imagePopoverRef');
 
 const isLoading = ref(false);
 
-function handleImageClick(image: string) {
-  if (activeImage.value === image.url)
-    return;
-  activeImage.value = image.url;
-  isLoading.value = true;
+function handleImageClick(image: GalleryImage) {
+  if (activeImage.value !== image.url) {
+    activeImage.value = image.url;
+    isLoading.value = true;
+  }
+
+  const popover = imagePopoverRef.value;
+  if (popover && !popover.matches(':popover-open')) {
+    popover.showPopover();
+  }
 }
 
 function onLoad() {
   isLoading.value = false;
 }
 
-const { data: ast } = await useAsyncData('markdown', () => parseMarkdown(page.value.description));
+const { data: ast } = await useAsyncData('markdown', async () => {
+  if (!page.value?.description) {
+    return null;
+  }
+  return parseMarkdown(page.value.description);
+}, { watch: [page] });
 
 useSeoMeta({
   title,
@@ -72,15 +112,14 @@ useSeoMeta({
     <app-banner-b :image="page?.main_image">
       {{ page?.title }}
     </app-banner-b>
-    <app-section-a v-if="page" class="grid grid-cols-1 min-[800px]:grid-cols-2 pt-12">
+    <app-section-a
+      v-if="page"
+      no-padding
+      class="grid grid-cols-1 min-[800px]:grid-cols-2 "
+    >
       <template #header>
         <article>
           <div class="">
-            <div>
-              <UButton @click="router.back()">
-                Back
-              </UButton>
-            </div>
             <div class="info">
               <projects-info title="Location" :data="page.location" />
               <projects-info
@@ -88,10 +127,13 @@ useSeoMeta({
                 title="Area"
                 :data="page.area"
               />
-              <projects-info title="Completed" :data="page.completed" />
+              <projects-info title="Completed" :data="formatMonthYear(page.completed)" />
             </div>
             <div v-if="ast?.body" class="max-w-[75ch]">
               <MDCRenderer :body="ast.body" :data="ast.data" />
+            </div>
+            <div v-if="page?.beck">
+              <Icon name="logos:belogo" size="60" />
             </div>
           </div>
         </article>
@@ -99,18 +141,33 @@ useSeoMeta({
       <template #body>
         <ul class="gallery">
           <li v-for="image in page.gallery" :key="image.url">
-            <button popovertarget="image" @click="handleImageClick(image)">
-              <NuxtImg
-                :src="image.url"
-                :alt="image.altText"
-                fit="fill"
-                format="avif"
-                sizes="50vw md:400px"
-              />
-            </button>
+            <app-reveal-card
+              to="#"
+              :aria-label="`Open ${page.title} gallery image`"
+              :image="image.url"
+              :alt="image.altText || page.title"
+              aspect-ratio="1/1"
+              overlay="linear-gradient(to top, rgb(0 0 0 / 0.2) 0%, rgb(0 0 0 / 0) 100%)"
+              :image-hover-blur="0"
+              :image-hover-scale="1.03"
+              :meta-border="false"
+              :meta-fade="false"
+              :rounded="false"
+              :outlined="false"
+              content-padding="0"
+              content-gap="0"
+              :title-offset="0"
+              details-delay="0ms"
+              meta-delay="0ms"
+              @click.prevent="handleImageClick(image)"
+            />
           </li>
         </ul>
-        <aside id="image" popover="auto">
+        <aside
+          id="image"
+          ref="imagePopoverRef"
+          popover="auto"
+        >
           <button
             popovertarget="image"
             popovertargetaction="hide"
@@ -123,6 +180,7 @@ useSeoMeta({
               <UIcon name="i-lucide-loader-2" class="w-10 h-10 text-white animate-spin" />
             </div>
             <NuxtImg
+              v-if="activeImage"
               :key="activeImage"
               :src="activeImage"
               :alt="page.title"
@@ -132,6 +190,11 @@ useSeoMeta({
               @load="onLoad"
               @error="onLoad"
             />
+            <div v-else>
+              <AppTypography tag="p">
+                Image failed to load
+              </AppTypography>
+            </div>
           </figure>
         </aside>
       </template>

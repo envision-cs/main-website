@@ -88,7 +88,7 @@ const hasImages = images && images?.length > 0;
       </div>
 
       <div v-if="links && links?.length > 3" class="flex flex-col sm:flex-row mt-2 gap-2 justify-start">
-        <UButton
+        <app-button
           v-for="link in links"
           :key="link.label"
           size="xl"
@@ -98,7 +98,7 @@ const hasImages = images && images?.length > 0;
           class=""
         >
           {{ link.label }}
-        </UButton>
+        </app-button>
       </div>
     </div>
   </section>

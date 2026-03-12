@@ -22,7 +22,7 @@ const mainStyle = computed(() => {
 <template>
   <div>
     <app-header />
-    <div class="divider">
+    <div class="">
       <UMain :style="mainStyle">
         <slot />
       </UMain>

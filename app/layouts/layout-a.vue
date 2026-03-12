@@ -3,34 +3,25 @@ import { SpeedInsights } from '@vercel/speed-insights/nuxt';
 
 const route = useRoute();
 
-const { data: services } = await useAsyncData(
-  'services-list',
-  () => $fetch('/api/services'),
-  { default: () => [] },
-);
-
-function resolveImage(image: unknown) {
-  if (typeof image === 'string')
-    return image;
-  const img = image as { url?: string; data?: { attributes?: { url?: string } } } | undefined;
-  return img?.url || img?.data?.attributes?.url;
-}
+const { services } = await useServicesList();
+const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');
 
 const categories = computed(() =>
-  (services.value ?? [])
-    .filter(service => Boolean(service?.param || service?.title))
+  services.value
+    .filter(service => Boolean(service?.title))
     .map(service => ({
       title: service.title,
-      slug: service.param ?? service.slug,
-      image: resolveImage(service.image),
+      slug: service.slug,
+      image: service.image,
     })),
 );
 
 const activeCategory = computed<{ title: string; slug: string; image?: string }>(() => {
   return (
-    categories.value.find(category => category.slug === route.params.services) ?? {
+    categories.value.find(category => category.slug === currentServiceSlug.value) ?? {
       title: 'All Services',
       slug: 'all',
+      image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134',
     }
   );
 });
@@ -56,14 +47,8 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
               All Services
             </ULink>
           </li>
-          <li v-for="category in categories" :key="category?.title || category?.slug">
-            <ULink
-              :to="{
-                name: 'services-services',
-                params: { services: category.slug },
-              }"
-              class="text-left"
-            >
+          <li v-for="category in categories" :key="category?.title">
+            <ULink :to="`/services/${category.slug}`" class="text-left">
               {{ category.title }}
             </ULink>
           </li>

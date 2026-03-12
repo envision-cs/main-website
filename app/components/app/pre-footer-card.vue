@@ -29,7 +29,7 @@ defineProps<{
         {{ description }}
       </p>
     </div>
-    <UButton
+    <app-button
       v-if="link"
       :key="link.label"
       :to="link.to"
@@ -39,7 +39,7 @@ defineProps<{
       variant="outline"
     >
       {{ link.label }}
-    </UButton>
+    </app-button>
   </div>
 </template>
 

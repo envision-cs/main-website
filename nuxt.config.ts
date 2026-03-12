@@ -23,13 +23,15 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@posthog/nuxt',
     'motion-v/nuxt',
-    'nuxt-maplibre',
     '@nuxtjs/strapi',
-    'nuxt-strapi-blocks-renderer',
-    '@nuxt/hints',
+    'reka-ui/nuxt',
+    // 'nuxt-strapi-blocks-renderer',
+    // '@nuxt/hints',
     'nuxt-studio',
+    'v-gsap-nuxt',
   ],
-  css: ['./app/assets/css/main.css'],
+  vite: {},
+  css: ['~/assets/css/main.css', '~/assets/css/maplibre-gl.css'],
   ui: {
     colorMode: false,
     theme: {
@@ -43,13 +45,12 @@ export default defineNuxtConfig({
     build: {
       pathMeta: {},
     },
-
+    experimental: {
+      nativeSqlite: true,
+    },
     preview: {
       api: 'https://api.nuxt.studio',
     },
-  },
-  tailwindcss: {
-    safelist: [{ pattern: /bg-\[.*\]/ }],
   },
   runtimeConfig: {
     public: {
@@ -58,6 +59,11 @@ export default defineNuxtConfig({
       strapi: {
         url: '',
       },
+    },
+  },
+  image: {
+    imagekit: {
+      baseURL: '',
     },
   },
   posthogConfig: {
@@ -84,7 +90,6 @@ export default defineNuxtConfig({
       standalone: false,
     },
   },
-
   experimental: {
     sharedPrerenderData: true,
   },

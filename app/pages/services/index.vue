@@ -1,41 +1,40 @@
 <script setup lang="ts">
-const { data: servicesData } = await useAsyncData(
-  'services-list',
-  () => $fetch('/api/services'),
-  { default: () => [] },
-);
-
+const { data } = await useServicesList();
 definePageMeta({
   layout: 'layout-a',
 });
-
-function resolveImage(image: unknown) {
-  if (typeof image === 'string')
-    return image;
-  const img = image as { url?: string; data?: { attributes?: { url?: string } } } | undefined;
-  return img?.url || img?.data?.attributes?.url;
-}
-
-const services = computed(() =>
-  (servicesData.value ?? [])
-    .filter(service => Boolean(service?.param ?? service?.slug))
-    .map(service => ({
-      ...service,
-      slug: service.param ?? service.slug,
-      image: resolveImage(service.image),
-    })),
-);
 </script>
 
 <template>
   <app-team-member-list dense>
-    <app-team-member-card
-      v-for="service in services"
-      :key="service.slug"
-      :path="`/services/${service.slug}`"
-      :name="service.title"
-      :image="service.image"
-      title-size="heading-md"
-    />
+    <li v-for="service in data" :key="service.slug">
+      <app-reveal-card
+        :to="`/services/${service.slug}`"
+        :aria-label="service.title"
+        :image="service.image.url"
+        :alt="service.title"
+        aspect-ratio="3/4"
+      >
+        <template #title>
+          <app-typography class="h3 project-card-title" variant="heading-md">
+            {{ service.title }}
+          </app-typography>
+        </template>
+        <template #meta>
+          <span class="submenu-reveal-card__meta">
+            View service
+            <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+          </span>
+        </template>
+      </app-reveal-card>
+    </li>
   </app-team-member-list>
 </template>
+
+<style scoped>
+.submenu-reveal-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+</style>

@@ -1,6 +1,18 @@
 <script setup>
 const { $posthog } = useNuxtApp();
 
+const { data: featuredProjectCards } = await useAsyncData('homepage-featured-projects', async () => {
+  try {
+    return await $fetch('/api/homepage-featured-project-section');
+  }
+  catch (err) {
+    console.error('Failed to fetch homepage featured projects:', err);
+    return [];
+  }
+}, {
+  default: () => [],
+});
+
 if ($posthog) {
   $posthog().capture('$pageview');
 }
@@ -13,40 +25,29 @@ if ($posthog) {
       <app-cta-a
         text="Building Without the Headaches"
         body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
-        image="/IMG_1915.jpg"
+        image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
         flip
+        content-position="bottom-left"
       >
         Building Without the <span>Headaches</span>
       </app-cta-a>
-      <app-card-group-a
-        :cards="[{
-                   title: 'Greater Tampa Realtors',
-                   link: '/projects/business_corporate/greater-tampa-realtors',
-                   image: '/UTMPB-LobbyCornerOut.jpg',
-                   sector: 'Business/Corporate',
-                   completed: '2024',
-                 },
-                 {
-                   title: 'Greater Tampa Realtors',
-                   link: '/projects/business_corporate/greater-tampa-realtors',
-                   image: '/USFSPResidenceHall-Exteriors-DuskLandscapefromRamp.jpg',
-                   sector: 'Business/Corporate',
-                   completed: '2024',
-                 },
-        ]"
-      />
+      <app-card-group-a :cards="featuredProjectCards" />
       <app-cta-a
-        image="rtm-auditorium.jpg"
+        text="Building Without the Headaches"
         body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
+        image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
+        flip
+        content-position="bottom-left"
       >
-        Building With <span>Heart</span> and <span>Precision</span>
+        Building
+        With <span>Heart</span> and <span>Precision</span>
       </app-cta-a>
-      <app-parallax image="/usl-super-league-01.jpg" />
       <home-proven-process />
-      <app-parallax image="/HomePageAllens.webp" mobile-image="/thegreens2.jpg" />
       <three-uniques />
       <quote
-        quote="Don’t risk another over-budget, under-communicated build. Work with a team that values your success."
+        quote="Envision has consistently impressed us with their commitment to timely project completion."
+        name="Kelvin Mack"
+        title="Maintenance Director of Central, HCPS"
       />
     </div>
   </UPage>

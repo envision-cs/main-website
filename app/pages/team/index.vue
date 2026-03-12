@@ -8,7 +8,7 @@ const { data } = useFetch('/api/team', {
   <div class="">
     <app-banner-b
       class="col-start-1 -col-end-1"
-      image="meet-the-team.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A1792.jpg"
       body="Collaborating with Colors (CWC) is how we define teams within our team and their function in relation to Envision. Our six teams—the Orange Team, Gray Team, COL Team, Red Team, Blue Team, and Green Team—collaborate to deliver high-quality projects on time and within budget. We chose to empower our team members by recognizing their strengths, discovering where they best fit into daily operations, and developing a title that best illustrates the value that the team member adds to the company. Meet the Envision team"
     >
       Meet the team
@@ -26,12 +26,11 @@ const { data } = useFetch('/api/team', {
       :key="team.name"
       class="team-section"
       no-padding
-      :style="{ '--teamColor': team.color }"
+      :style="{ '--teamColor': '#000' }"
     >
       <template #header>
         <div class="section-head" :style="{ '--teamColor': team.color }">
-          <div class="team-role">
-            <span class="team-role-dot" aria-hidden="true" />
+          <app-team-background class="team-role">
             <app-typography
               tag="p"
               variant="text-sm"
@@ -39,11 +38,11 @@ const { data } = useFetch('/api/team', {
             >
               {{ team.role }}
             </app-typography>
-          </div>
+          </app-team-background>
           <app-typography tag="h2" variant="heading-md">
             {{ team.name }}
           </app-typography>
-          <div class="team-accent" aria-hidden="true" />
+          <!-- <div class="team-accent" aria-hidden="true" /> -->
           <app-typography
             tag="p"
             variant="text-lg"
@@ -55,18 +54,62 @@ const { data } = useFetch('/api/team', {
       </template>
       <template #body>
         <app-team-member-list>
-          <app-team-member-card
-            v-for="member in team.team_members"
-            :key="member.name"
-            :path="`/team/${member.slug}`"
-            :name="member.name"
-            :title="member.title"
-            :image="member.photo?.url"
-            :linkedin="member.linkedin"
-            :email="member.email"
-            :color="team.color"
-            title-size="heading-md"
-          />
+          <li v-for="member in team.team_members" :key="member.name">
+            <app-reveal-card
+              :to="`/team/${member.slug}`"
+              :aria-label="member.name"
+              :image="member.photo?.url"
+              :alt="member.name"
+              link-mode="overlay"
+              aspect-ratio="3/4"
+              image-sizes="(max-width: 768px) 100vw, 300px"
+              :image-hover-blur="0"
+              :image-hover-scale="1.1"
+              :container-type="true"
+              :rounded="false"
+              :outlined="false"
+              :meta-border="false"
+              :meta-fade="false"
+              details-delay="0ms"
+              :title-offset="-32"
+              meta-delay="150ms"
+              class="team-member-card"
+            >
+              <template #title>
+                <app-typography class="h3 team-member-title" variant="heading-md">
+                  {{ member.name }}
+                </app-typography>
+                <app-typography
+                  tag="p"
+                  variant="text-md"
+                  class="team-member-role text-primary-200 dark:text-primary-200"
+                >
+                  {{ member.title }}
+                </app-typography>
+              </template>
+              <template #meta>
+                <div class="team-member-actions">
+                  <app-button
+                    v-if="member.linkedin"
+                    icon="i-simple-icons-linkedin"
+                    color="white"
+                    variant="soft"
+                    :to="member.linkedin"
+                    target="_blank"
+                    aria-label="LinkedIn"
+                  />
+                  <app-button
+                    v-if="member.email"
+                    icon="i-heroicons-envelope"
+                    color="white"
+                    variant="soft"
+                    :to="`mailto:${member.email}`"
+                    aria-label="Email"
+                  />
+                </div>
+              </template>
+            </app-reveal-card>
+          </li>
         </app-team-member-list>
       </template>
     </app-section-a>
@@ -91,8 +134,8 @@ const { data } = useFetch('/api/team', {
   position: relative;
   overflow: hidden;
   display: flex;
-  padding: calc(var(--spacing) * 4);
   flex-direction: column;
+  padding-bottom: calc(var(--spacing) * 4);
   gap: calc(var(--spacing) * 3);
 }
 
@@ -102,8 +145,7 @@ const { data } = useFetch('/api/team', {
   align-items: center;
   gap: 0.55rem;
   padding: 0.4rem 0.85rem;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--teamColor) 18%, white);
+  border-left: calc(var(--spacing) * 2) solid var(--teamColor);
 }
 
 .team-role-dot {
@@ -129,6 +171,31 @@ const { data } = useFetch('/api/team', {
 .team-description {
   line-height: 1.4;
   max-width: 38ch;
+}
+
+.team-member-card {
+  :deep(.reveal-card__content) {
+    color: white;
+  }
+
+  :deep(.reveal-card__meta) {
+    justify-content: flex-start;
+  }
+}
+
+.team-member-title {
+  margin-bottom: 0.75rem;
+  text-wrap: balance;
+}
+
+.team-member-role {
+  opacity: 0.85;
+}
+
+.team-member-actions {
+  display: flex;
+  gap: 0.5rem;
+  color: #fff;
 }
 
 @media (min-width: 1024px) {

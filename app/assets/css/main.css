@@ -68,6 +68,14 @@
   --color-envision-green-900: oklch(0.254 0.086 142.495);
   --color-envision-green-950: oklch(0.154 0.052 142.495);
 
+  --color-envision-gray-300: oklch(0.8733 0.0014 286.37);
+  --color-envision-gray-400: oklch(0.7287 0.0014 286.36);
+  --color-envision-gray-500: oklch(0.5474 0.0062 297.62);
+  --color-envision-gray-600: oklch(0.407 0.0052 236.62);
+  --color-envision-gray-700: oklch(0.3298 0.0066 229.02);
+
+  --ui-border: var(--color-envision-gray-500);
+
   --text-xs: 0.64rem;
   --text-sm: 0.8rem;
   --text-base: 1rem;
@@ -92,7 +100,7 @@
   --ui-secondary: var(--color-envision-green-500);
   --ui-container: var(--container-8xl);
 
-  --ui-border: var(--ui-color-neutral-300);
+  --ui-border: var(--color-envision-gray-500);
 
   --vw: 1vw;
   --font-size-text-t1: clamp(18px, 0.0125 * calc(100 * var(--vw, 1vw)), 18px);
@@ -100,19 +108,25 @@
   --font-size-text-t3: clamp(14px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 14px);
   --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
 
-  --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 95px);
-  --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 75px);
-  --font-size-h2: clamp(35px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 65px);
+  --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 65px);
+  --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 55px);
+  --font-size-h2: clamp(35px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 45px);
   --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
   --font-size-h4: clamp(22px, 0.0152777778 * calc(100 * var(--vw, 1vw)), 22px);
 
   --border: 1px solid var(--ui-border);
 
-  --spacing: 0.3rem;
+  --spacing: 0.25rem;
 }
 
 html {
   overscroll-behavior: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 html:has(dialog[open]) {

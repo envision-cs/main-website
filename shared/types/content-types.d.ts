@@ -100,7 +100,7 @@ export type Project = {
   publishedAt: string;
   description: string;
   content: Content[];
-  beck: unknown;
+  beck: boolean;
   gallery: Photo[];
   mainImage: Photo;
   sector: Sector;
@@ -148,6 +148,7 @@ export type ContentProject = {
   sectorSlug: string;
   main_image: string;
   gallery: string[];
+  beck: boolen;
   [key: string]: unknown;
 };
 
@@ -159,4 +160,21 @@ export type ContentService = {
   image?: string;
   meta?: unknown;
   [key: string]: unknown;
+};
+
+export type APILocation = APICollectionResponse<Location>;
+
+export type Location = {
+  id: string;
+  documentId: string;
+  name: string;
+  address: string;
+  phone: string;
+  city: string;
+  email: string;
+  latitude: number;
+  longitude: number;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
 };
