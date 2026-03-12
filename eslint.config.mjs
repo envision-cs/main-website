@@ -14,7 +14,13 @@ export default withNuxt(
         semi: true,
         quotes: 'single',
       },
-      ignores: ['.pnpm-store/**', '**/migrations/*', 'GEMINI.md', 'PLAN.md'],
+      ignores: [
+        '.pnpm-store/**',
+        '**/migrations/*',
+        'GEMINI.md',
+        'PLAN.md',
+        'public/maplibre-gl.css',
+      ],
     },
     {
       rules: {

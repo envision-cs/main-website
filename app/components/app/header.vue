@@ -18,6 +18,7 @@ const props = withDefaults(defineProps<{
 });
 
 const servicesFeatureImage = 'https://www.figma.com/api/mcp/asset/056d63cb-3124-4599-8f32-c1a275374d00';
+const projectsFeatureImage = 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122';
 
 const serviceDropdownItems = [
   {
@@ -47,8 +48,53 @@ const serviceDropdownItems = [
   },
 ] as const;
 
+const projectDropdownItems = [
+  {
+    title: 'Arts and Entertainment',
+    to: '/projects/arts_and_entertainment',
+    description: 'Public-facing venues and cultural spaces delivered with experience-driven execution.',
+  },
+  {
+    title: 'Athletics',
+    to: '/projects/athletics',
+    description: 'Training, competition, and fan environments built around complex event logistics.',
+  },
+  {
+    title: 'Aviation',
+    to: '/projects/aviation',
+    description: 'Airport and airside work coordinated for safety, phasing, and uninterrupted operations.',
+  },
+  {
+    title: 'Business/Corporate',
+    to: '/projects/business_corporate',
+    description: 'Corporate interiors and workplace environments shaped around active business needs.',
+  },
+  {
+    title: 'Healthcare',
+    to: '/projects/healthcare',
+    description: 'Clinical and support environments executed with control, sequencing, and care.',
+  },
+  {
+    title: 'Industrial',
+    to: '/projects/industrial',
+    description: 'Utility and industrial projects delivered with rigorous site coordination.',
+  },
+  {
+    title: 'Religious',
+    to: '/projects/religious',
+    description: 'Worship and community spaces completed with respect for mission and schedule.',
+  },
+  {
+    title: 'Beck/Envision',
+    to: '/projects/beck-envision',
+    description: 'Integrated delivery work completed in partnership with The Beck Group.',
+  },
+] as const;
+
 const desktopMenuValue = ref('');
-const isDesktopMenuOpen = computed(() => desktopMenuValue.value === 'services');
+const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== '');
+const isServicesDesktopMenuOpen = computed(() => desktopMenuValue.value === 'services');
+const isProjectsDesktopMenuOpen = computed(() => desktopMenuValue.value === 'projects');
 const route = useRoute();
 
 watch(() => route.fullPath, () => {
@@ -59,12 +105,12 @@ function closeDesktopMenu() {
   desktopMenuValue.value = '';
 }
 
-function openDesktopMenu() {
-  desktopMenuValue.value = 'services';
+function openDesktopMenu(menu: 'services' | 'projects') {
+  desktopMenuValue.value = menu;
 }
 
-function toggleDesktopMenu() {
-  desktopMenuValue.value = isDesktopMenuOpen.value ? '' : 'services';
+function toggleDesktopMenu(menu: 'services' | 'projects') {
+  desktopMenuValue.value = desktopMenuValue.value === menu ? '' : menu;
 }
 </script>
 
@@ -75,7 +121,7 @@ function toggleDesktopMenu() {
       type="button"
       class="desktop-mega-menu-backdrop"
       data-test="desktop-mega-menu-backdrop"
-      aria-label="Close services menu"
+      aria-label="Close navigation menu"
       @click="closeDesktopMenu"
     />
 
@@ -107,9 +153,9 @@ function toggleDesktopMenu() {
                 type="button"
                 class="NavigationMenuTrigger desktop-inline-nav-link"
                 data-test="desktop-services-trigger"
-                :aria-expanded="String(isDesktopMenuOpen)"
-                @pointerenter="openDesktopMenu"
-                @click="toggleDesktopMenu"
+                :aria-expanded="String(isServicesDesktopMenuOpen)"
+                @pointerenter="openDesktopMenu('services')"
+                @click="toggleDesktopMenu('services')"
               >
                 Services
               </button>
@@ -161,12 +207,64 @@ function toggleDesktopMenu() {
             </NavigationMenuContent>
           </NavigationMenuItem>
 
-          <NavigationMenuItem>
-            <NavigationMenuLink as-child>
-              <NuxtLink class="NavigationMenuLink desktop-inline-nav-link" to="/projects">
+          <NavigationMenuItem value="projects">
+            <NavigationMenuTrigger as-child>
+              <button
+                type="button"
+                class="NavigationMenuTrigger desktop-inline-nav-link"
+                data-test="desktop-projects-trigger"
+                :aria-expanded="String(isProjectsDesktopMenuOpen)"
+                @pointerenter="openDesktopMenu('projects')"
+                @click="toggleDesktopMenu('projects')"
+              >
                 Projects
-              </NuxtLink>
-            </NavigationMenuLink>
+              </button>
+            </NavigationMenuTrigger>
+            <NavigationMenuContent class="NavigationMenuContent" data-test="desktop-projects-menu-panel">
+              <div class="mega-menu-shell">
+                <div class="mega-menu-grid">
+                  <NuxtLink
+                    class="services-feature-panel"
+                    data-test="projects-feature-panel"
+                    to="/projects"
+                  >
+                    <img
+                      :src="projectsFeatureImage"
+                      alt=""
+                      class="services-feature-panel__image"
+                    >
+                    <div class="services-feature-panel__overlay" />
+                    <div class="services-feature-panel__content">
+                      <h2 class="services-feature-panel__title">
+                        Projects
+                      </h2>
+                      <p class="services-feature-panel__copy">
+                        Selected work across commercial interiors, healthcare, sports, and complex active sites.
+                      </p>
+                      <div class="services-feature-panel__rule" />
+                      <span class="services-feature-panel__link">view all projects</span>
+                    </div>
+                  </NuxtLink>
+
+                  <div class="services-grid" data-test="projects-grid">
+                    <NuxtLink
+                      v-for="item in projectDropdownItems"
+                      :key="item.title"
+                      :to="item.to"
+                      class="services-grid-item"
+                      data-test="projects-grid-item"
+                    >
+                      <h3 class="services-grid-item__title">
+                        {{ item.title }}
+                      </h3>
+                      <p class="services-grid-item__description">
+                        {{ item.description }}
+                      </p>
+                    </NuxtLink>
+                  </div>
+                </div>
+              </div>
+            </NavigationMenuContent>
           </NavigationMenuItem>
 
           <NavigationMenuItem>
