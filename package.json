@@ -2,7 +2,9 @@
   "name": "nuxt-app",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "portless envision nuxt dev",
@@ -12,7 +14,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "vitest",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@nuxt/content": "^3.10.0",
@@ -62,7 +64,7 @@
     "jsdom": "^27.4.0",
     "lint-staged": "^16.2.7",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.16"
+    "vitest": "^3.2.0"
   },
   "lint-staged": {
     "*": "pnpm lint"
