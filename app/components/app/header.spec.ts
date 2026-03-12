@@ -134,4 +134,39 @@ describe('header navigation', () => {
 
     wrapper.unmount();
   });
+
+  it('renders the projects mega menu structure', async () => {
+    const wrapper = mount(Header, {
+      attachTo: document.body,
+      global: {
+        stubs: {
+          Icon: true,
+          NuxtLink: {
+            props: ['to'],
+            template: '<a :href="to"><slot /></a>',
+          },
+          AppMobileNavDrawer: {
+            template: '<div data-test="mobile-drawer-component" />',
+          },
+        },
+      },
+    });
+
+    expect(wrapper.find('[data-test="desktop-projects-trigger"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="projects-feature-panel"]').exists()).toBe(false);
+    expect(wrapper.find('[data-test="projects-grid"]').exists()).toBe(false);
+
+    await wrapper.find('[data-test="desktop-projects-trigger"]').trigger('pointerenter');
+    await nextTick();
+
+    expect(wrapper.find('[data-test="projects-feature-panel"]').exists()).toBe(true);
+    expect(wrapper.find('[data-test="projects-grid"]').exists()).toBe(true);
+    expect(wrapper.findAll('[data-test="projects-grid-item"]')).toHaveLength(8);
+    expect(wrapper.text()).toContain('Athletics');
+    expect(wrapper.text()).toContain('Religious');
+    expect(wrapper.text()).toContain('Beck/Envision');
+    expect(wrapper.text()).not.toContain('5000 Acline Drive Office');
+
+    wrapper.unmount();
+  });
 });
