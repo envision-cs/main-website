@@ -27,7 +27,7 @@ export default defineNuxtConfig({
     'reka-ui/nuxt',
     // 'nuxt-strapi-blocks-renderer',
     // '@nuxt/hints',
-    'nuxt-studio',
+    // 'nuxt-studio',
     'v-gsap-nuxt',
   ],
   vite: {},
