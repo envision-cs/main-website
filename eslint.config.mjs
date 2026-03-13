@@ -20,6 +20,7 @@ export default withNuxt(
         'GEMINI.md',
         'PLAN.md',
         'public/maplibre-gl.css',
+        'CLAUDE.md',
       ],
     },
     {

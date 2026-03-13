@@ -131,6 +131,7 @@ describe('header navigation', () => {
     expect(wrapper.find('[data-test="services-feature-panel"]').exists()).toBe(true);
     expect(wrapper.find('[data-test="services-grid"]').exists()).toBe(true);
     expect(wrapper.findAll('[data-test="services-grid-item"]')).toHaveLength(5);
+    expect(wrapper.find('.services-feature-panel__image').attributes('src')).not.toContain('figma.com/api/mcp/asset');
 
     wrapper.unmount();
   });

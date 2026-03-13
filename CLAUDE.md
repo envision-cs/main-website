@@ -10,12 +10,17 @@ The brand should read as loyal, trustworthy, and efficient. The emotional outcom
 
 ### Aesthetic Direction
 
-Preserve the existing light-mode system built around Envision blue, Envision green, the current gray palette, and the existing Proxima Nova-based typography. The visual direction should combine bold imagery with clean, well-paced structure, taking cues from Beck Group's strong photography and GKC's polished flow and restraint. The site should not feel cluttered, cheap, generic, or overly basic, and it should avoid the dated corporate heaviness called out in the Hensel Phelps anti-reference. Dark mode is out of scope unless explicitly requested in the future.
+Preserve the existing light-mode system built around Envision blue, Envision green, the current gray palette, and the existing Proxima Nova-based typography. The visual direction should be minimal, sharp, and exacting, with every layout decision reflecting presentation, precision, and craftsmanship. Brand expression should come from composition, proportion, typography, spacing, and restrained color use rather than decorative effects or trend-driven treatments. The site should not feel cluttered, cheap, generic, flashy, or overly basic, and it should avoid dated corporate heaviness as well as overly atmospheric or embellished UI. Dark mode is out of scope unless explicitly requested in the future.
+
+### Design Reference
+
+[`app/components/three-uniques.vue`](./app/components/three-uniques.vue) is a strong reference for the intended design sentiment. It demonstrates the preferred balance of hard edges, clean structure, large controlled type, strong negative space, and disciplined use of Envision blue and green. Future UI work should align more closely with that language than with softer, more decorative, or effect-heavy treatments.
 
 ### Design Principles
 
 1. Lead with credibility. Use clear hierarchy, disciplined spacing, and strong project imagery to make Envision feel capable, established, and dependable.
 2. Preserve the core brand system. Keep the existing blue, green, gray, and font system intact unless there is an explicit request to expand it.
-3. Balance ambition with warmth. Interfaces should feel polished and confident without becoming cold, flashy, or overly aggressive.
-4. Prefer clean structure over density. Pages should flow clearly, reduce clutter, and make important actions and proof points easy to find.
-5. Treat accessibility as a default requirement. New work should target WCAG AA contrast, clarity, focus states, and motion restraint by default.
+3. Favor minimal sharpness over embellishment. Interfaces should feel polished and confident without softening into generic luxury tropes or becoming flashy.
+4. Let craftsmanship show through restraint. Use fewer, stronger elements with clear alignment, intentional proportion, and tight visual discipline.
+5. Prefer clean structure over density. Pages should flow clearly, reduce clutter, and make important actions and proof points easy to find.
+6. Treat accessibility as a default requirement. New work should target WCAG AA contrast, clarity, focus states, and motion restraint by default.
