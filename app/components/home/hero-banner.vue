@@ -15,40 +15,11 @@ const hero = computed(() => data.value?.data ?? null);
 <template>
   <section
     v-if="hero"
-    class="hero h-dvh overflow-hidden grid"
+    class="hero overflow-hidden grid"
     aria-labelledby="hero-title"
     aria-describedby="hero-summary"
     role="region"
   >
-    <div class="content site-max">
-      <div class="title">
-        <app-typography
-          id="hero-title"
-          tag="h2"
-          variant="heading-xl"
-          class="uppercase"
-        >
-          {{ hero.title }}
-        </app-typography>
-
-        <app-typography
-          id="hero-summary"
-          tag="p"
-          variant="text-xl"
-          class="mt-2"
-        >
-          {{ hero.subtitle }}
-        </app-typography>
-        <link-button variant="secondary" to="/contact">
-          Start your project
-        </link-button>
-      </div>
-      <div class="actions mt-auto">
-        <!-- leave empty -->
-      </div>
-    </div>
-
-    <app-gradient-overlay direction="top" class="overlay" />
     <NuxtImg
       v-if="hero.image?.url"
       :src="hero.image.url"
@@ -60,6 +31,43 @@ const hero = computed(() => data.value?.data ?? null);
       loading="eager"
       class="image h-full w-full z-0 object-cover"
     />
+    <div class="hero-vignette" aria-hidden="true" />
+    <div class="hero-glow" aria-hidden="true" />
+    <div class="hero-gridline hero-gridline--top" aria-hidden="true" />
+    <div class="hero-gridline hero-gridline--side" aria-hidden="true" />
+    <app-gradient-overlay direction="top" class="overlay" />
+
+    <div class="content site-max">
+      <div class="hero-frame">
+        <p class="hero-eyebrow">
+          Envision Construction
+        </p>
+        <div class="hero-rule" aria-hidden="true" />
+        <app-typography
+          id="hero-title"
+          tag="h2"
+          variant="heading-huge"
+          class="hero-title"
+        >
+          {{ hero.title }}
+        </app-typography>
+
+        <app-typography
+          id="hero-summary"
+          tag="p"
+          variant="text-xl"
+          class="hero-summary"
+        >
+          {{ hero.subtitle }}
+        </app-typography>
+
+        <div class="hero-actions">
+          <link-button variant="secondary" to="/contact">
+            Start your project
+          </link-button>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -67,50 +75,189 @@ const hero = computed(() => data.value?.data ?? null);
 .hero {
   display: grid;
   grid-template-columns: 1rem 1fr 1rem;
-  grid-template-rows: 2rem 1fr 1fr 1fr 2rem;
+  grid-template-rows: 1fr;
   isolation: isolate;
+  min-height: 100dvh;
+  background:
+    linear-gradient(135deg, rgb(9 15 25 / 72%) 0%, rgb(9 15 25 / 14%) 45%, rgb(9 15 25 / 56%) 100%), oklch(0.2 0.03 245);
 }
 
 .content {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   grid-column: 1/-1;
   grid-row: 1/-1;
-  margin: auto;
   width: 100%;
   z-index: 3;
-  height: 100%;
+  align-items: center;
 
-  padding: calc(var(--spacing) * 4);
+  padding: clamp(1.25rem, 2vw, 2.5rem);
 
   @media (min-width: 800px) {
-    padding: calc(var(--spacing) * 8);
+    padding: clamp(2rem, 4vw, 4.5rem);
   }
 }
 
 .overlay {
   z-index: 2;
+  opacity: 0.9;
 }
 
 .image {
   grid-column: 1/-1;
   grid-row: 1/-1;
+  animation: hero-drift 18s ease-in-out infinite alternate;
+  transform: scale(1.04);
+  transform-origin: center center;
 }
 
-.title {
-  grid-area: c;
+.hero-vignette,
+.hero-glow,
+.hero-gridline {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  pointer-events: none;
+}
+
+.hero-vignette {
+  z-index: 1;
+  background:
+    radial-gradient(circle at 68% 34%, rgb(174 205 255 / 10%), transparent 34%),
+    radial-gradient(circle at 50% 72%, rgb(6 11 18 / 0%), rgb(6 11 18 / 62%) 70%, rgb(6 11 18 / 88%) 100%);
+}
+
+.hero-glow {
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgb(255 219 168 / 0%) 0%, rgb(255 219 168 / 9%) 58%, rgb(8 13 22 / 72%) 100%),
+    linear-gradient(90deg, rgb(5 10 18 / 78%) 0%, rgb(5 10 18 / 32%) 38%, rgb(5 10 18 / 0%) 68%);
+  mix-blend-mode: screen;
+  opacity: 0.78;
+}
+
+.hero-gridline {
   z-index: 2;
-  color: white;
+  opacity: 0.42;
+}
+
+.hero-gridline--top {
+  margin: clamp(1.25rem, 2vw, 2.5rem);
+  align-self: start;
+  height: 1px;
+  width: min(32vw, 24rem);
+  background: linear-gradient(90deg, rgb(245 241 233 / 0%), rgb(245 241 233 / 0.85), rgb(245 241 233 / 0%));
+}
+
+.hero-gridline--side {
+  justify-self: end;
+  margin: clamp(1.25rem, 2vw, 2.5rem);
+  width: 1px;
+  height: min(26vh, 14rem);
+  background: linear-gradient(180deg, rgb(245 241 233 / 0%), rgb(245 241 233 / 0.7), rgb(245 241 233 / 0%));
+}
+
+.hero-frame {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 1vw, 1.2rem);
+  align-self: center;
+  width: min(100%, 38rem);
+  margin-block-end: clamp(1rem, 4vh, 3rem);
+}
+
+.hero-eyebrow {
+  margin: 0;
+  color: var(--color-envision-gray-300);
+  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+  animation: hero-reveal 800ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.hero-rule {
+  width: min(8rem, 22vw);
+  height: 1px;
+  background: linear-gradient(90deg, var(--ui-secondary), rgb(255 255 255 / 0%));
+  animation: hero-reveal 920ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.hero-title {
+  color: var(--color-white);
+  text-transform: uppercase;
   text-wrap: balance;
-  font-weight: 400;
-  text-decoration: uppercase;
-  max-width: 90ch;
-  margin-top: auto;
+  letter-spacing: -0.03em;
+  max-width: 12ch;
+  font-size: clamp(3.5rem, 8vw, 4.6rem);
+  line-height: 0.92;
+  text-shadow: 0 18px 48px rgb(0 0 0 / 30%);
+  animation: hero-reveal 1040ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
-.actions {
-  grid-area: b;
-  z-index: 2;
-  margin-top: auto;
+.hero-summary {
+  margin: 0;
+  max-width: 40ch;
+  color: var(--color-envision-gray-300);
+  line-height: 1.35;
+  text-wrap: balance;
+  animation: hero-reveal 1160ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+.hero-actions {
+  padding-top: clamp(0.5rem, 1vw, 0.85rem);
+  animation: hero-reveal 1280ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: scale(1.1) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 799px) {
+  .content {
+    align-items: flex-start;
+  }
+
+  .hero-frame {
+    width: 100%;
+    margin-block-end: 0.5rem;
+  }
+
+  .hero-title {
+    max-width: 9ch;
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+  }
+
+  .hero-summary {
+    max-width: 22ch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .hero-eyebrow,
+  .hero-rule,
+  .hero-title,
+  .hero-summary,
+  .hero-actions {
+    animation: none;
+    transform: none;
+  }
 }
 </style>

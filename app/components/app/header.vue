@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{
 
 });
 
-const servicesFeatureImage = 'https://www.figma.com/api/mcp/asset/056d63cb-3124-4599-8f32-c1a275374d00';
+const servicesFeatureImage = '/design-build.jpg';
 const projectsFeatureImage = 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122';
 
 const serviceDropdownItems = [
@@ -165,7 +165,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
                   <NuxtLink
-                    class="services-feature-panel"
+                    class="services-feature-panel services-feature-panel--services"
                     data-test="services-feature-panel"
                     to="/services"
                   >
@@ -175,12 +175,15 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                       class="services-feature-panel__image"
                     >
                     <div class="services-feature-panel__overlay" />
+                    <div class="services-feature-panel__grid" />
                     <div class="services-feature-panel__content">
+                      <span class="services-feature-panel__eyebrow">Capabilities</span>
                       <h2 class="services-feature-panel__title">
                         Services
                       </h2>
                       <p class="services-feature-panel__copy">
-                        Construction Services shaped for compex projects tighter scheduales and sharper coordination
+                        Construction services shaped for complex schedules, demanding coordination, and
+                        institution-grade execution.
                       </p>
                       <div class="services-feature-panel__rule" />
                       <span class="services-feature-panel__link">view all services</span>
@@ -195,6 +198,9 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                       class="services-grid-item"
                       data-test="services-grid-item"
                     >
+                      <span class="services-grid-item__index">
+                        {{ String(serviceDropdownItems.indexOf(item) + 1).padStart(2, '0') }}
+                      </span>
                       <h3 class="services-grid-item__title">
                         {{ item.title }}
                       </h3>
@@ -225,7 +231,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
                   <NuxtLink
-                    class="services-feature-panel"
+                    class="services-feature-panel services-feature-panel--projects"
                     data-test="projects-feature-panel"
                     to="/projects"
                   >
@@ -235,7 +241,9 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                       class="services-feature-panel__image"
                     >
                     <div class="services-feature-panel__overlay" />
+                    <div class="services-feature-panel__grid" />
                     <div class="services-feature-panel__content">
+                      <span class="services-feature-panel__eyebrow">Selected Work</span>
                       <h2 class="services-feature-panel__title">
                         Projects
                       </h2>
@@ -255,6 +263,9 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                       class="services-grid-item"
                       data-test="projects-grid-item"
                     >
+                      <span class="services-grid-item__index">
+                        {{ String(projectDropdownItems.indexOf(item) + 1).padStart(2, '0') }}
+                      </span>
                       <h3 class="services-grid-item__title">
                         {{ item.title }}
                       </h3>
@@ -304,12 +315,19 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 <style>
 .main-header {
   --header-height: 4.5rem;
+  --header-shell-bg: color-mix(in oklch, white 97%, var(--color-envision-blue-50) 3%);
+  --header-shell-border: color-mix(in oklch, var(--color-envision-blue-900) 18%, white);
+  --header-shell-text: color-mix(in oklch, var(--color-envision-blue-950) 88%, var(--color-envision-green-900) 12%);
+  --header-shell-muted: color-mix(in oklch, var(--color-envision-blue-900) 58%, white);
+  --header-panel-bg: color-mix(in oklch, white 98%, var(--color-envision-blue-50) 2%);
+  --header-panel-border: color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #fff;
-  backdrop-filter: blur(25px) saturate(1.1) brightness(1.1);
+  color: var(--header-shell-text);
+  background: var(--header-shell-bg);
+  border-bottom: 1px solid var(--header-shell-border);
 
   animation: stickyNav linear forwards;
   animation-timeline: view();
@@ -319,15 +337,14 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 
 @keyframes stickyNav {
   100% {
-    background-color: rgba(255, 255, 255, 0.4);
-
-    border-bottom: 1px solid #fff;
+    background: color-mix(in oklch, white 95%, var(--color-envision-blue-50) 5%);
+    border-bottom: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 16%, white);
   }
 }
 
 .main-header.main-header--desktop-open {
-  background-color: #fff;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  background: white;
+  border-bottom-color: var(--header-shell-border);
   animation: none;
 }
 
@@ -337,9 +354,10 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   align-items: center;
   justify-content: space-between;
   margin-inline: auto;
-  padding: 0.75rem 1rem;
+  gap: 1rem;
+  padding: 0.875rem clamp(1rem, 2vw, 2rem);
   min-height: var(--header-height);
-  max-width: 1536px;
+  max-width: min(1600px, calc(100vw - 1.5rem));
   position: relative;
   z-index: 2;
 }
@@ -347,6 +365,10 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 .brand-link {
   display: inline-flex;
   align-items: center;
+  position: relative;
+  z-index: 1;
+  flex: 0 0 auto;
+  padding-right: clamp(0.6rem, 1vw, 1rem);
 }
 
 .desktop-mega-menu-backdrop {
@@ -390,12 +412,15 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     align-items: center;
     justify-content: center;
     color: inherit;
-    gap: calc(var(--spacing) * 4);
-    padding: 4px;
-    border-radius: 6px;
+    gap: clamp(1.1rem, 1.8vw, 2rem);
+    padding: 0 1.25rem 0 1.6rem;
+    min-height: 3rem;
+    border-radius: 0;
     list-style: none;
     margin: 0;
     width: 100%;
+    border-top: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 11%, white);
+    border-bottom: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 11%, white);
   }
 
   /* push last item to far right */
@@ -415,21 +440,21 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     align-items: center;
     justify-content: center;
     position: relative;
-    min-height: 2rem;
-    padding: 0.35rem 0;
+    min-height: 3rem;
+    padding: 0.4rem 0;
     border: 0;
     border-radius: 0;
     background: transparent;
-    color: inherit;
+    color: var(--header-shell-muted);
     text-decoration: none;
     white-space: nowrap;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.76rem;
+    letter-spacing: 0.16em;
+    font-size: 0.7rem;
     font-weight: 600;
     transition:
-      color 180ms ease,
-      opacity 180ms ease;
+      color 220ms ease,
+      transform 220ms ease;
   }
 
   .desktop-inline-nav-link::after {
@@ -437,17 +462,18 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: -1px;
     height: 1px;
     background: currentColor;
     transform: scaleX(0);
     transform-origin: left center;
-    transition: transform 180ms ease;
+    transition: transform 220ms ease;
   }
 
   .desktop-inline-nav-link:hover,
   .desktop-inline-nav-link:focus-visible {
-    opacity: 0.72;
+    color: var(--header-shell-text);
+    transform: translateY(-1px);
     outline: none;
   }
 
@@ -458,8 +484,46 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   }
 
   .desktop-inline-nav-link[aria-expanded='true'] {
-    opacity: 1;
+    color: var(--header-shell-text);
     outline: none;
+  }
+
+  .header-cta.header-cta--mobile-hidden {
+    position: relative;
+    padding-inline: 0 !important;
+    border-radius: 0;
+  }
+
+  .header-cta.header-cta--mobile-hidden .btn-main {
+    border: 1px solid var(--color-envision-blue-900);
+    border-radius: 0;
+    background: var(--color-envision-blue-900);
+  }
+
+  .header-cta.header-cta--mobile-hidden .btn-main--sm {
+    padding: 0.58rem 1.05rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+  }
+
+  .header-cta.header-cta--mobile-hidden .btn-text {
+    color: white;
+  }
+
+  .header-cta.header-cta--mobile-hidden:hover .btn-main,
+  .header-cta.header-cta--mobile-hidden:focus-visible .btn-main {
+    background: white;
+    border-color: var(--color-envision-blue-900);
+  }
+
+  .header-cta.header-cta--mobile-hidden:hover .btn-text,
+  .header-cta.header-cta--mobile-hidden:focus-visible .btn-text {
+    color: var(--color-envision-blue-900);
+    transform: none;
+  }
+
+  .header-cta.header-cta--mobile-hidden .btn-overlay {
+    display: none;
   }
 
   .desktop-mega-menu-backdrop {
@@ -467,15 +531,14 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     position: fixed;
     inset: var(--header-height) 0 0;
     border: 0;
-    background: rgba(11, 18, 30, 0.18);
-    backdrop-filter: blur(2px);
+    background: rgb(15 31 52 / 0.1);
     z-index: 1;
   }
 
   .NavigationMenuContent {
     width: 100%;
     animation-duration: 250ms;
-    animation-timing-function: ease;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .NavigationMenuContent[data-motion='from-start'] {
@@ -524,26 +587,22 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     transform-origin: top center;
     margin-top: 0;
     width: 100vw;
-    background-color: white;
+    background: var(--header-panel-bg);
     border-radius: 0;
     overflow: auto;
     height: var(--reka-navigation-menu-viewport-height);
     transition:
       width,
       height,
-      300ms ease;
+      340ms cubic-bezier(0.19, 1, 0.22, 1);
     pointer-events: auto;
-    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
-  }
-
-  .mega-menu-shell {
-    padding: 0;
+    border-top: 0;
   }
 
   .mega-menu-grid {
     display: grid;
-    grid-template-columns: auto repeat(auto-fit, minmax(200px, 1fr));
-    min-height: 284px;
+    grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.85fr);
+    min-height: 350px;
     margin: 0 auto;
   }
 
@@ -552,14 +611,21 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     display: flex;
     align-items: flex-end;
     overflow: hidden;
-    padding: 16px;
+    min-height: 350px;
+    padding: clamp(1.5rem, 2vw, 2rem);
     color: white;
     text-decoration: none;
     isolation: isolate;
+    background: var(--color-envision-blue-700);
+  }
+
+  .services-feature-panel--projects {
+    background: var(--color-envision-green-600);
   }
 
   .services-feature-panel__image,
-  .services-feature-panel__overlay {
+  .services-feature-panel__overlay,
+  .services-feature-panel__grid {
     position: absolute;
     inset: 0;
   }
@@ -568,85 +634,153 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.53;
+    opacity: 0.72;
+    filter: grayscale(1) contrast(0.55);
     z-index: -2;
   }
 
   .services-feature-panel__overlay {
-    background: #1d93d1;
+    background: var(--color-envision-blue-700);
     mix-blend-mode: multiply;
+    z-index: -1;
+  }
+
+  .services-feature-panel--projects .services-feature-panel__overlay {
+    background: var(--color-envision-green-600);
+  }
+
+  .services-feature-panel__grid {
+    background:
+      linear-gradient(rgb(255 255 255 / 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.12) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.2), transparent 85%);
     z-index: -1;
   }
 
   .services-feature-panel__content {
     display: grid;
-    gap: 10px;
-    width: min(264px, 100%);
+    gap: 0.9rem;
+    width: min(19rem, 100%);
     align-content: end;
+  }
+
+  .services-feature-panel__eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.74);
   }
 
   .services-feature-panel__title {
     margin: 0;
-    font-size: 64px;
-    font-weight: 400;
-    line-height: 0.95;
+    font-size: clamp(3rem, 5vw, 4.2rem);
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
   }
 
   .services-feature-panel__copy {
     margin: 0;
-    font-size: 16px;
-    line-height: 1.2;
-    color: rgba(255, 255, 255, 0.8);
+    max-width: 16rem;
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: rgb(255 255 255 / 0.82);
   }
 
   .services-feature-panel__rule {
-    width: 100%;
+    width: min(10rem, 100%);
     height: 1px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgb(255 255 255 / 0.62);
   }
 
   .services-feature-panel__link {
-    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
     font-weight: 600;
     line-height: 1.2;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .services-feature-panel__link::after {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: currentColor;
+    transition: transform 240ms ease;
+  }
+
+  .services-feature-panel:hover .services-feature-panel__link::after,
+  .services-feature-panel:focus-visible .services-feature-panel__link::after {
+    transform: translateX(0.35rem);
   }
 
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
-    min-height: 284px;
-    color: #18181b;
+    min-height: 350px;
+    color: var(--header-shell-text);
+    background: white;
   }
 
   .services-grid-item {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 15px;
-    padding: 8px 16px;
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+    padding: 1.65rem 1.5rem;
     color: inherit;
     text-decoration: none;
+    border-left: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 7%, white);
+    border-top: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 7%, white);
+    transition:
+      background-color 220ms ease,
+      transform 220ms ease;
+  }
+
+  .services-grid-item:nth-child(-n + 3) {
+    border-top: 0;
+  }
+
+  .services-grid-item__index {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: color-mix(in oklch, var(--ui-primary) 62%, white);
   }
 
   .services-grid-item__title {
     margin: 0;
-    font-size: 1.25rem;
-    font-weight: 500;
-    line-height: 1.1;
+    font-size: clamp(1.36rem, 1.65vw, 1.85rem);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
   }
 
   .services-grid-item__description {
     margin: 0;
-    font-size: 1rem;
-    color: var(--text-color-muted);
-    line-height: 1.2;
+    max-width: 22ch;
+    font-size: 0.98rem;
+    color: color-mix(in oklch, var(--header-shell-text) 72%, white);
+    line-height: 1.42;
+  }
+
+  .services-grid-item:hover,
+  .services-grid-item:focus-visible {
+    background-color: color-mix(in oklch, var(--color-envision-blue-50) 32%, white);
+    transform: none;
+    outline: none;
   }
 
   .services-grid-item:hover .services-grid-item__title,
   .services-grid-item:focus-visible .services-grid-item__title {
-    text-decoration: underline;
-    text-underline-offset: 0.18em;
+    color: var(--ui-primary);
   }
 
   .services-grid-item:nth-child(1) {
@@ -675,10 +809,17 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   }
 }
 
+@media (max-width: 767px) {
+  .header-root::before,
+  .header-root::after {
+    display: none;
+  }
+}
+
 @keyframes enterFromRight {
   from {
     opacity: 0;
-    transform: translateX(120px);
+    transform: translateX(48px);
   }
 
   to {
@@ -690,7 +831,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 @keyframes enterFromLeft {
   from {
     opacity: 0;
-    transform: translateX(-120px);
+    transform: translateX(-48px);
   }
 
   to {
@@ -707,7 +848,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 
   to {
     opacity: 0;
-    transform: translateX(120px);
+    transform: translateX(36px);
   }
 }
 
@@ -719,7 +860,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 
   to {
     opacity: 0;
-    transform: translateX(-120px);
+    transform: translateX(-36px);
   }
 }
 
@@ -741,6 +882,10 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .main-header {
+    animation: none !important;
+  }
+
   header,
   .menu,
   .sub-menu,

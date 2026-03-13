@@ -167,11 +167,16 @@ useSeoMeta({
           id="image"
           ref="imagePopoverRef"
           popover="auto"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="`${page.title} image viewer`"
         >
           <button
+            type="button"
             popovertarget="image"
             popovertargetaction="hide"
             class="close-btn"
+            :aria-label="`Close ${page.title} image viewer`"
           >
             <UIcon name="i-lucide-x" class="w-6 h-6 text-black" />
           </button>
