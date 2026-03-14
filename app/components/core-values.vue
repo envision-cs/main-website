@@ -36,7 +36,7 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
         </div>
       </div>
       <!-- Values -->
-      <div>
+      <div class="grid grid-cols-2">
         <article
           v-for="(item, index) in coreValues"
           :key="item.id || item.path || item.title"
@@ -47,7 +47,7 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
           </span>
           <app-typography
             tag="h3"
-            variant="heading-sm"
+            variant="heading-md"
             class="core-values-card__title"
           >
             {{ item.title }}
@@ -76,11 +76,10 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
 }
 
 .desktopContent {
-  height: 100vh;
   position: relative;
 
   @media (min-width: 850px) {
-    height: 300vh;
+    height: 100%;
   }
 }
 
@@ -132,6 +131,7 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
 
 .core-values-card {
   position: relative;
+  padding: calc(var(--spacing) * 4);
 }
 
 .core-values-lead {
@@ -139,66 +139,6 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
   isolation: isolate;
   display: grid;
   place-content: center;
-}
-
-.core-values-lead__inner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.core-values-lead__eyebrow,
-.core-values-card__index {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.core-values-lead__eyebrow {
-  color: var(--color-envision-blue-500);
-}
-
-.core-values-lead__title {
-  margin: 0;
-  text-transform: uppercase;
-  line-height: 0.9;
-  text-wrap: balance;
-  max-width: 7ch;
-}
-
-.core-values-lead__title :deep(span:first-of-type) {
-  color: var(--color-envision-blue-500);
-}
-
-.core-values-lead__title-accent {
-  color: var(--color-envision-green-500);
-}
-
-.core-values-lead__copy {
-  max-width: 16ch;
-  margin: 0;
-  font-size: clamp(1.45rem, 2.6vw, 2.1rem);
-  color: color-mix(in oklch, var(--color-envision-blue-900) 74%, white);
-  line-height: 1.08;
-  text-wrap: pretty;
-}
-
-.core-values-lead__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 12%, white);
-  color: color-mix(in oklch, var(--color-envision-blue-900) 54%, white);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
 }
 
 .core-values-card {
@@ -210,12 +150,15 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
   box-shadow: 0 0 0 1px color-mix(in oklch, var(--color-envision-blue-900) 7%, white);
 }
 
+.core-values-card__index {
+  color: var(--ui-primary);
+  font-weight: 600;
+}
+
 .core-values-card__title {
   margin: 0;
-  color: color-mix(in oklch, var(--color-envision-blue-950) 88%, var(--color-envision-green-900) 12%);
-  line-height: 1;
   text-wrap: balance;
-  max-width: 10ch;
+  font-weight: 600;
 }
 
 .core-values-card__body {
@@ -225,10 +168,11 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
 
 .core-values-card__body:deep(p) {
   margin: 0;
-  max-width: 24ch;
+  max-width: 60ch;
   font-size: 1.05rem;
   line-height: 1.5;
-  text-wrap: pretty;
+  font-style: italic;
+  text-wrap: balance;
 }
 
 .core-values-card__body:deep(p:first-of-type) {
@@ -236,19 +180,16 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
 }
 
 .core-values-card__body:deep(ul) {
-  margin: 1.3rem 0 0;
   padding: 0;
   list-style: none;
   display: grid;
-  gap: 0.75rem;
-  max-width: 26ch;
 }
 
 .core-values-card__body:deep(li) {
   position: relative;
   padding-left: 1rem;
   font-size: 0.92rem;
-  line-height: 1.45;
+  line-height: 1;
 }
 
 .core-values-card__body:deep(li)::before {
@@ -281,60 +222,12 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
   .core-values-card {
     min-height: 22rem;
   }
-
-  .core-values-lead {
-    grid-row: span 2;
-    min-height: calc(44rem + clamp(0.85rem, 1.8vw, 1.25rem));
-  }
-
-  .core-values-card:nth-child(4) {
-    min-height: 25rem;
-  }
-
-  .core-values-card:nth-child(5) {
-    margin-top: -2.5rem;
-    min-height: 23rem;
-    z-index: 1;
-  }
-
-  .core-values-card:nth-child(6) {
-    min-height: 19rem;
-  }
 }
 
 @media (min-width: 1100px) {
   .core-values-lead,
   .core-values-card {
     min-height: 21rem;
-  }
-
-  .core-values-lead {
-    grid-row: span 2;
-    min-height: calc(42rem + clamp(0.85rem, 1.8vw, 1.25rem));
-  }
-
-  .core-values-card:nth-child(2) {
-    min-height: 18rem;
-  }
-
-  .core-values-card:nth-child(3) {
-    min-height: 23rem;
-    margin-top: 2.5rem;
-  }
-
-  .core-values-card:nth-child(4) {
-    min-height: 18rem;
-    margin-top: -3.25rem;
-  }
-
-  .core-values-card:nth-child(5) {
-    min-height: 24rem;
-    margin-top: 0;
-  }
-
-  .core-values-card:nth-child(6) {
-    min-height: 19rem;
-    margin-top: -1.5rem;
   }
 
   .core-values-lead__copy {
