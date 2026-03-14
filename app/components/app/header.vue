@@ -71,16 +71,6 @@ const projectDropdownItems = [
     description: 'Corporate interiors and workplace environments shaped around active business needs.',
   },
   {
-    title: 'Healthcare',
-    to: '/projects/healthcare',
-    description: 'Clinical and support environments executed with control, sequencing, and care.',
-  },
-  {
-    title: 'Industrial',
-    to: '/projects/industrial',
-    description: 'Utility and industrial projects delivered with rigorous site coordination.',
-  },
-  {
     title: 'Religious',
     to: '/projects/religious',
     description: 'Worship and community spaces completed with respect for mission and schedule.',
