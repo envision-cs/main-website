@@ -20,7 +20,7 @@ const goHome = () => clearError({ redirect: '/' });
 <template>
   <UApp>
     <NuxtLayout name="default">
-      <section class="flex flex-col gap-12 md:gap-16 pb-12 md:pb-16">
+      <section class="flex flex-col gap-12 md:gap-16 pb-10 md:pb-16">
         <div class="relative min-h-[85vh] lg:min-h-[90vh] border-b border-muted overflow-clip">
           <NuxtImg
             src="/USFSPResidenceHall-Exteriors-DuskLandscapefromRamp.jpg"
