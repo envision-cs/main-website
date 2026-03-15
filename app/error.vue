@@ -8,7 +8,7 @@ const props = defineProps<{ error: NuxtError }>();
 
 const isNotFound = computed(() => props.error?.statusCode === 404 || props.error?.statusCode === 400);
 
-const title = computed(() => isNotFound.value ? 'This page is still under construction.' : 'Something went wrong.');
+const title = computed(() => isNotFound.value ? 'This page is stillunder construction.' : 'Something went wrong.');
 
 const description = computed(() => isNotFound.value
   ? 'We couldn\'t find the address you entered. Let\'s get you to a page that\'s ready for visitors.'
