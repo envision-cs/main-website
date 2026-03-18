@@ -22,6 +22,7 @@ if ($posthog) {
   <UPage class="mt-0 ">
     <div class="grid">
       <home-hero-banner />
+      <app-card-group-a :cards="featuredProjectCards" />
       <app-cta-a
         text="Building Without the Headaches"
         body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
