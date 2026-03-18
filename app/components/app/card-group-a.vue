@@ -7,21 +7,23 @@ type Card = {
   completed: string;
 };
 
-defineProps<{
+const props = defineProps<{
   cards: Card[];
   spacing?: string;
 }>();
+
+const visibleCards = computed(() => props.cards.slice(0, 3));
 </script>
 
 <template>
-  <section class="">
+  <section class="card-group-a">
     <app-reveal-card
-      v-for="(card, index) in cards"
+      v-for="(card, index) in visibleCards"
       :key="index"
       :image="card.image"
       :title="card.title"
       :to="card.link"
-      aspect-ratio="4/3"
+      aspect-ratio="3/4"
       :title-offset="-16"
       :image-hover-blur="0"
     >
@@ -45,9 +47,29 @@ section {
   position: relative;
   display: grid;
   background-color: #fff;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'a'
+    'b'
+    'c';
 
   @media (min-width: 750px) {
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      'a b b '
+      'c b b ';
   }
+}
+
+section > :nth-child(1) {
+  grid-area: a;
+}
+
+section > :nth-child(1) {
+  grid-area: c;
+}
+
+section > :nth-child(2) {
+  grid-area: b;
 }
 </style>
