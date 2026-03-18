@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "nuxt build",
-    "dev": "portless envision nuxt dev",
+    "dev": "portless envision-$(basename $PWD) nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare && cp node_modules/maplibre-gl/dist/maplibre-gl.css public/maplibre-gl.css",

@@ -1,211 +1,143 @@
 <script setup lang="ts">
-const config = useAppConfig();
-const { data: locations } = await useFetch('/api/locations');
-
-const items = config.navigationMenuItems;
-const services = items.find(item => item.label === 'Services');
+// const config = useAppConfig();
+// const { data: locations } = await useFetch('/api/locations');
+// const items = config.navigationMenuItems;
+// const services = items.find(item => item.label === 'Services');
+// const featuredServices = computed(() => services?.children?.slice(0, 4) ?? []);
 const year = new Date().getFullYear();
 </script>
 
 <template>
-  <footer class="site-footer" aria-label="Site footer">
-    <div class="site-footer__inner">
-      <div class="site-footer__top">
-        <div class="site-footer__brand">
-          <Icon
-            name="logos:envision"
-            size="32"
-            aria-hidden="true"
-          />
-          <p class="site-footer__tagline">
-            Proven Process: Listen. Plan. Execute. Cultivate.
-          </p>
-        </div>
-
-        <nav class="site-footer__nav" aria-label="Footer navigation">
-          <div>
-            <h2 class="site-footer__heading">
-              Navigate
-            </h2>
-            <ul class="site-footer__list">
-              <li v-for="item in items" :key="item.label">
-                <NuxtLink
-                  v-if="item.to"
-                  :to="item.to"
-                  class="site-footer__link"
-                >
-                  {{ item.label }}
-                </NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/contact" class="site-footer__link">
-                  Contact
-                </NuxtLink>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 class="site-footer__heading">
-              Services
-            </h2>
-            <ul class="site-footer__list">
-              <li v-for="item in services?.children" :key="item.label">
-                <NuxtLink
-                  v-if="item.to"
-                  :to="item.to"
-                  class="site-footer__link"
-                >
-                  {{ item.label }}
-                </NuxtLink>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-        <section class="site-footer__locations" aria-label="Office locations">
-          <h2 class="site-footer__heading">
-            Locations
-          </h2>
-          <ul class="site-footer__location-list">
-            <li
-              v-for="location in locations"
-              :key="location.id"
-              class="site-footer__location-item"
-            >
-              <p class="site-footer__location-name">
-                {{ location.name }}
-              </p>
-              <address>
-                <span>{{ location.address }}</span>
-                <span>{{ location.city }}</span>
-              </address>
-              <a
-                v-if="location.phone"
-                :href="`tel:${location.phone}`"
-                class="site-footer__link"
-              >
-                {{ location.phone }}
-              </a>
-              <a
-                v-if="location.email"
-                :href="`mailto:${location.email}`"
-                class="site-footer__link"
-              >
-                {{ location.email }}
-              </a>
+  <footer aria-label="Site footer">
+    <section class="site-footer">
+      <div class="navigation">
+        <nav>
+          <p>Navigate</p>
+          <ul>
+            <li>
+              <NuxtLink>Home</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink>Services</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink>Projects</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink>Meet the team</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink>About Us</NuxtLink>
             </li>
           </ul>
-        </section>
+        </nav>
+        <nav>
+          <p>Services</p>
+          <ul>
+            <li>
+              <NuxtLink>Tenant Improvement</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink>Design Build</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink>Construction Managment</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink>Enhanced Preconstruction</NuxtLink>
+            </li>
+            <li>
+              <NuxtLink>View all services</NuxtLink>
+            </li>
+          </ul>
+        </nav>
       </div>
-
-      <div class="site-footer__bottom">
-        <p>© {{ year }} Envision Construction. All rights reserved.</p>
+      <div class="location-contact">
+        <div class="locations-container">
+          <h3>Locations</h3>
+          <div class="location-wrapper">
+            <div>
+              <h4>Tampa Office</h4>
+              <p class="max-w-sm">
+                5000 Acline Drive East Tampa, FL 33619 Po Box 89098 Tampa, FL 33689
+              </p>
+              <p>(813) 997-0330</p>
+            </div>
+            <div>
+              <h4>Pasco Office</h4>
+              <p class="max-w-sm">
+                5000 Acline Drive East Tampa, FL 33619 Po Box 89098 Tampa FL 33689
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="contact">
+          <h3>Start the conversation</h3>
+          <p class="max-w-sm">
+            From preconstruction through closeout, our process stays direct: listen, plan, execute,
+            cultivate.
+          </p>
+          <NuxtLink>Contact Us</NuxtLink>
+        </div>
       </div>
-    </div>
+      <div class="date-socials">
+        <div>
+          <NuxtLink>Linkedin</NuxtLink>
+          <NuxtLink>Facebook</NuxtLink>
+        </div>
+        <p>
+          ©{{ year }}Envision Construction. All rights reserved.
+        </p>
+      </div>
+    </section>
   </footer>
 </template>
 
 <style scoped>
+footer {
+  padding: calc(var(--spacing) * 4);
+}
+
 .site-footer {
-  border-top: 1px solid var(--ui-border);
-  background: #fff;
-}
-
-.site-footer__inner {
-  max-width: var(--ui-container);
+  display: grid;
   margin-inline: auto;
-  padding: 2rem 1rem;
+  max-width: 1200px;
+  grid-template-areas:
+    'a'
+    'b'
+    'c';
 
-  @media (min-width: 800px) {
-    padding: 3rem 2rem;
+  @media (min-width: 768px) {
+    grid-template-areas:
+      'a b'
+      'c c';
+    gap: calc(var(--spacing) * 8);
   }
 }
 
-address {
-  font-style: normal;
+.navigation {
+  grid-area: a;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 4);
+}
+
+.location-contact {
+  grid-area: b;
   display: grid;
-  gap: 0.15rem;
+  gap: calc(var(--spacing) * 4);
 }
 
-.site-footer__top {
-  display: grid;
-  gap: 2rem;
-
-  @media (min-width: 960px) {
-    grid-template-columns: 1.1fr 1fr 1.2fr;
-  }
+.location-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 3);
 }
 
-.site-footer__brand {
-  display: grid;
-  align-content: start;
-  gap: 0.75rem;
-}
-
-.site-footer__tagline {
-  max-width: 30ch;
-  color: var(--ui-color-neutral-600);
-  line-height: 1.5;
-}
-
-.site-footer__nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-.site-footer__heading {
-  margin: 0 0 0.75rem 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ui-color-neutral-600);
-}
-
-.site-footer__list,
-.site-footer__location-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.5rem;
-}
-
-.site-footer__location-list {
-  gap: 1rem;
-}
-
-.site-footer__location-item {
-  display: grid;
-  gap: 0.25rem;
-}
-
-.site-footer__location-name {
-  margin: 0;
-  font-weight: 600;
-}
-
-.site-footer__link {
-  color: inherit;
-  text-decoration: none;
-  transition: color 140ms ease;
-}
-
-.site-footer__link:hover {
-  color: var(--ui-primary);
-}
-
-.site-footer__link:focus-visible {
-  outline: 2px solid var(--ui-primary);
-  outline-offset: 2px;
-}
-
-.site-footer__bottom {
-  margin-top: 1.75rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--ui-border);
-  color: var(--ui-color-neutral-600);
-  font-size: 0.9rem;
+.date-socials {
+  grid-area: c;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>
