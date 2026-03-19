@@ -1,16 +1,35 @@
-<script setup>
+<script setup lang="ts">
+type FeaturedProjectCard = {
+  title: string;
+  link: string;
+  image: string;
+  sector: string;
+  completed: string;
+};
+
+type HomepageFeaturedProjectsResponse = {
+  sectionOne: FeaturedProjectCard[];
+  sectionTwo: FeaturedProjectCard[];
+};
+
 const { $posthog } = useNuxtApp();
 
-const { data: featuredProjectCards } = await useAsyncData('homepage-featured-projects', async () => {
+const { data: featuredProjectCards } = await useAsyncData <HomepageFeaturedProjectsResponse> ('homepage-featured-projects', async () => {
   try {
     return await $fetch('/api/homepage-featured-project-section');
   }
   catch (err) {
     console.error('Failed to fetch homepage featured projects:', err);
-    return [];
+    return {
+      sectionOne: [],
+      sectionTwo: [],
+    };
   }
 }, {
-  default: () => [],
+  default: () => ({
+    sectionOne: [],
+    sectionTwo: [],
+  }),
 });
 
 if ($posthog) {
@@ -22,7 +41,7 @@ if ($posthog) {
   <UPage class="mt-0 ">
     <div class="grid">
       <home-hero-banner />
-      <app-card-group-a :cards="featuredProjectCards" />
+      <app-card-group-a :cards="featuredProjectCards.sectionOne" />
       <app-cta-a
         text="Building Without the Headaches"
         body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
@@ -32,7 +51,7 @@ if ($posthog) {
       >
         Building Without the <span>Headaches</span>
       </app-cta-a>
-      <app-card-group-a :cards="featuredProjectCards" />
+      <app-card-group-a :cards="featuredProjectCards.sectionTwo" />
       <app-cta-a
         text="Building Without the Headaches"
         body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
