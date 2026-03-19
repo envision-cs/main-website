@@ -11,8 +11,8 @@ const year = new Date().getFullYear();
   <footer aria-label="Site footer">
     <section class="site-footer">
       <div class="navigation">
-        <nav>
-          <p>Navigate</p>
+        <nav aria-label="Footer navigation">
+          <h3>Navigate</h3>
           <ul>
             <li>
               <NuxtLink>Home</NuxtLink>
@@ -32,7 +32,7 @@ const year = new Date().getFullYear();
           </ul>
         </nav>
         <nav>
-          <p>Services</p>
+          <h3>Services</h3>
           <ul>
             <li>
               <NuxtLink>Tenant Improvement</NuxtLink>
@@ -95,7 +95,9 @@ const year = new Date().getFullYear();
 
 <style scoped>
 footer {
+  background-color: var(--color-envision-blue-900);
   padding: calc(var(--spacing) * 4);
+  color: var(--color-envision-blue-50);
 }
 
 .site-footer {
@@ -115,11 +117,33 @@ footer {
   }
 }
 
+h3 {
+  font-size: var(--text-lg);
+  letter-spacing: 2%;
+  font-weight: 600;
+  margin-bottom: calc(var(--spacing) * 2);
+}
+
+a {
+  color: var(--color-envision-blue-200);
+  font-size: var(--text-base);
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+
+  :not(:first-of-type) {
+    margin-bottom: calc(var(--spacing));
+  }
+}
+
+.navigation:has(a:hover) a:not(:hover) {
+  opacity: 0.4;
+}
+
 .navigation {
   grid-area: a;
   display: flex;
   flex-wrap: wrap;
-  gap: calc(var(--spacing) * 4);
+  gap: calc(var(--spacing) * 6);
 }
 
 .location-contact {
