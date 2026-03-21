@@ -1,34 +1,3 @@
-<script setup lang="ts">// const items = [
-//   {
-//     image: '/onbudjet.png',
-//     link:
-//     {
-//       label: 'See More',
-//       to: '#',
-//       color: 'neutral',
-//     },
-//   },
-//   {
-//     image: '/community.png',
-//     link:
-//     {
-//       label: 'See More',
-//       to: '#',
-//       color: 'neutral',
-//     },
-//   },
-//   {
-//     image: '/happyClients.png',
-//     link:
-//     {
-//       label: 'See More',
-//       to: '#',
-//       color: 'neutral',
-//     },
-//   },
-// ];
-</script>
-
 <template>
   <app-banner
     title="Delivering Projects that Inspire and Engage"
@@ -40,12 +9,10 @@
       {
         img: '/happyClients.png',
         alt: 'Airport image',
-
       },
       {
         img: '/onbudjet.png',
         alt: 'Airport image',
-
       },
     ]"
   />

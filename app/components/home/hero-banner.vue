@@ -1,14 +1,13 @@
-<script setup lang="ts">const { find } = useStrapi();
-const { data } = await useAsyncData('hero', async () => {
-  try {
-    return await find('home-hero', { populate: '*' });
-  }
-  catch (err) {
-    console.error('Strapi error:', err);
-    return null;
-  }
-}, { default: () => null });
-const hero = computed(() => data.value?.data ?? null);
+<script setup lang="ts">
+interface HomeHero {
+  title?: string;
+  subtitle?: string;
+  image?: {
+    url?: string;
+  } | null;
+}
+
+const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/home-hero"));
 </script>
 
 <template>
@@ -36,36 +35,18 @@ const hero = computed(() => data.value?.data ?? null);
 
     <div class="content site-max">
       <div class="hero-frame">
-        <p class="hero-eyebrow">
-          Envision Construction
-        </p>
+        <p class="hero-eyebrow">Envision Construction</p>
         <div class="hero-rule" aria-hidden="true" />
-        <app-typography
-          id="hero-title"
-          tag="h2"
-          variant="heading-huge"
-          class="hero-title"
-        >
+        <app-typography id="hero-title" tag="h2" variant="heading-huge" class="hero-title">
           {{ hero.title }}
         </app-typography>
 
-        <app-typography
-          id="hero-summary"
-          tag="p"
-          variant="text-xl"
-          class="hero-summary"
-        >
+        <app-typography id="hero-summary" tag="p" variant="text-xl" class="hero-summary">
           {{ hero.subtitle }}
         </app-typography>
 
         <div class="hero-actions">
-          <Button
-            variant="primary"
-            size="lg"
-            to="/contact"
-          >
-            Start your project
-          </Button>
+          <Button variant="primary" size="lg" to="/contact"> Start your project </Button>
         </div>
       </div>
     </div>
@@ -80,7 +61,8 @@ const hero = computed(() => data.value?.data ?? null);
   isolation: isolate;
   min-height: 100dvh;
   background:
-    linear-gradient(135deg, rgb(9 15 25 / 72%) 0%, rgb(9 15 25 / 14%) 45%, rgb(9 15 25 / 56%) 100%), oklch(0.2 0.03 245);
+    linear-gradient(135deg, rgb(9 15 25 / 72%) 0%, rgb(9 15 25 / 14%) 45%, rgb(9 15 25 / 56%) 100%),
+    oklch(0.2 0.03 245);
 }
 
 .content {
@@ -123,13 +105,23 @@ const hero = computed(() => data.value?.data ?? null);
   z-index: 1;
   background:
     radial-gradient(circle at 68% 34%, rgb(174 205 255 / 5%), transparent 20%),
-    radial-gradient(circle at 50% 72%, rgb(6 11 18 / 0%), rgb(6 11 18 / 40%) 70%, rgb(6 11 18 / 60%) 100%);
+    radial-gradient(
+      circle at 50% 72%,
+      rgb(6 11 18 / 0%),
+      rgb(6 11 18 / 40%) 70%,
+      rgb(6 11 18 / 60%) 100%
+    );
 }
 
 .hero-glow {
   z-index: 1;
   background:
-    linear-gradient(180deg, rgb(255 219 168 / 0%) 0%, rgb(255 219 168 / 9%) 40%, rgb(8 13 22 / 60%) 100%),
+    linear-gradient(
+      180deg,
+      rgb(255 219 168 / 0%) 0%,
+      rgb(255 219 168 / 9%) 40%,
+      rgb(8 13 22 / 60%) 100%
+    ),
     linear-gradient(90deg, rgb(5 10 18 / 78%) 0%, rgb(5 10 18 / 32%) 38%, rgb(5 10 18 / 0%) 68%);
   mix-blend-mode: screen;
   opacity: 0.78;
@@ -145,7 +137,12 @@ const hero = computed(() => data.value?.data ?? null);
   align-self: start;
   height: 1px;
   width: min(32vw, 24rem);
-  background: linear-gradient(90deg, rgb(245 241 233 / 0%), rgb(245 241 233 / 0.85), rgb(245 241 233 / 0%));
+  background: linear-gradient(
+    90deg,
+    rgb(245 241 233 / 0%),
+    rgb(245 241 233 / 0.85),
+    rgb(245 241 233 / 0%)
+  );
 }
 
 .hero-gridline--side {
@@ -153,7 +150,12 @@ const hero = computed(() => data.value?.data ?? null);
   margin: clamp(1.25rem, 2vw, 2.5rem);
   width: 1px;
   height: min(26vh, 14rem);
-  background: linear-gradient(180deg, rgb(245 241 233 / 0%), rgb(245 241 233 / 0.7), rgb(245 241 233 / 0%));
+  background: linear-gradient(
+    180deg,
+    rgb(245 241 233 / 0%),
+    rgb(245 241 233 / 0.7),
+    rgb(245 241 233 / 0%)
+  );
 }
 
 .hero-frame {
@@ -220,7 +222,7 @@ const hero = computed(() => data.value?.data ?? null);
 
 @keyframes hero-reveal {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(28px);
   }
 

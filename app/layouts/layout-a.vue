@@ -1,12 +1,13 @@
-<script setup lang="ts">const route = useRoute();
+<script setup lang="ts">
+const route = useRoute();
 
 const { services } = await useServicesList();
-const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');
+const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? "");
 
 const categories = computed(() =>
   services.value
-    .filter(service => Boolean(service?.title))
-    .map(service => ({
+    .filter((service) => Boolean(service?.title))
+    .map((service) => ({
       title: service.title,
       slug: service.slug,
       image: service.image,
@@ -15,10 +16,10 @@ const categories = computed(() =>
 
 const activeCategory = computed<{ title: string; slug: string; image?: string }>(() => {
   return (
-    categories.value.find(category => category.slug === currentServiceSlug.value) ?? {
-      title: 'All Services',
-      slug: 'all',
-      image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134',
+    categories.value.find((category) => category.slug === currentServiceSlug.value) ?? {
+      title: "All Services",
+      slug: "all",
+      image: "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134",
     }
   );
 });
@@ -30,9 +31,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
     <UMain class="main-layout site-grid">
       <div class="header">
         <app-banner-b :image="activeCategory?.image">
-          <template #title>
-            Envision Services
-          </template>
+          <template #title> Envision Services </template>
           {{ activeCategory.title }}
         </app-banner-b>
       </div>
@@ -40,9 +39,7 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
       <aside class="categories p-0 py-4 md:p-4 h-full">
         <ul class="flex flex-col gap-2 sticky top-0">
           <li>
-            <ULink to="/services">
-              All Services
-            </ULink>
+            <ULink to="/services"> All Services </ULink>
           </li>
           <li v-for="category in categories" :key="category?.title">
             <ULink :to="`/services/${category.slug}`" class="text-left">
@@ -56,7 +53,6 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
         <slot />
       </section>
     </UMain>
-    <SpeedInsights />
     <app-footer />
   </div>
 </template>

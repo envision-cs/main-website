@@ -1,4 +1,5 @@
-<script setup lang="ts">interface FeaturedProjectCard {
+<script setup lang="ts">
+interface FeaturedProjectCard {
   title: string;
   link: string;
   image: string;
@@ -13,31 +14,34 @@ interface HomepageFeaturedProjectsResponse {
 
 const { $posthog } = useNuxtApp();
 
-const { data: featuredProjectCards } = await useAsyncData <HomepageFeaturedProjectsResponse> ('homepage-featured-projects', async () => {
-  try {
-    return await $fetch('/api/homepage-featured-project-section');
-  }
-  catch (err) {
-    console.error('Failed to fetch homepage featured projects:', err);
-    return {
+const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResponse>(
+  "homepage-featured-projects",
+  async () => {
+    try {
+      return await $fetch("/api/homepage-featured-project-section");
+    } catch (err) {
+      console.error("Failed to fetch homepage featured projects:", err);
+      return {
+        sectionOne: [],
+        sectionTwo: [],
+      };
+    }
+  },
+  {
+    default: () => ({
       sectionOne: [],
       sectionTwo: [],
-    };
-  }
-}, {
-  default: () => ({
-    sectionOne: [],
-    sectionTwo: [],
-  }),
-});
+    }),
+  },
+);
 
 if ($posthog) {
-  $posthog().capture('$pageview');
+  $posthog().capture("$pageview");
 }
 </script>
 
 <template>
-  <UPage class="mt-0 ">
+  <UPage class="mt-0">
     <div class="grid">
       <home-hero-banner />
       <app-card-group-a :cards="featuredProjectCards.sectionOne" />
@@ -58,8 +62,7 @@ if ($posthog) {
         flip
         content-position="bottom-left"
       >
-        Building
-        With <span>Heart</span> and <span>Precision</span>
+        Building With <span>Heart</span> and <span>Precision</span>
       </app-cta-a>
       <home-proven-process />
       <three-uniques />

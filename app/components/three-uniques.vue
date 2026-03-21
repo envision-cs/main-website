@@ -1,11 +1,7 @@
-<script setup lang="ts">import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// const { data: threeUniques } = await useAsyncData('three-uniques', () => $fetch('/api/threeUniques'), {
-//  server: true,
-//  lazy: true,
-//  default: () => [],
-// });
-let ctx;
-const gallaryRef = useTemplateRef('galleryRef');
+<script setup lang="ts">
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+let ctx: any;
+const gallaryRef = useTemplateRef("galleryRef");
 
 onBeforeMount(() => {
   useGSAP().registerPlugin(ScrollTrigger);
@@ -14,63 +10,67 @@ onBeforeMount(() => {
 const process = [
   {
     id: 1,
-    title: 'Built on Faith, Driven by Purpose',
-    description: 'Our foundation is God, our work is built on integrity, and our mission is to serve with excellence.',
-    image: 'https://ik.imagekit.io/pnixsw7lg/main-website/20250519_134053.jpg?updatedAt=1771548280364',
-    color: '--color-envision-blue-600',
+    title: "Built on Faith, Driven by Purpose",
+    description:
+      "Our foundation is God, our work is built on integrity, and our mission is to serve with excellence.",
+    image:
+      "https://ik.imagekit.io/pnixsw7lg/main-website/20250519_134053.jpg?updatedAt=1771548280364",
+    color: "--color-envision-blue-600",
   },
   {
     id: 2,
-    title: 'Impact Beyond Construction',
-    description: 'We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge. With heart, craftsmanship, and purpose, we build legacies that elevate communities for generations to come.',
-    image: 'https://ik.imagekit.io/pnixsw7lg/main-website/117812314_10158747995319553_8729798724554644994_o.jpg?updatedAt=1771547653476',
-    color: '--color-envision-green-500',
+    title: "Impact Beyond Construction",
+    description:
+      "We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge. With heart, craftsmanship, and purpose, we build legacies that elevate communities for generations to come.",
+    image:
+      "https://ik.imagekit.io/pnixsw7lg/main-website/117812314_10158747995319553_8729798724554644994_o.jpg?updatedAt=1771547653476",
+    color: "--color-envision-green-500",
   },
   {
     id: 3,
-    title: 'Versatile. Adaptive. Enhanced Approach',
-    description: 'No two projects are the same, and neither is our approach. Whether it’s a small renovation or a large-scale build, we move with precision, flexibility, and care—delivering the personal attention of a local partner with the expertise of a national leader.',
-    image: 'https://ik.imagekit.io/pnixsw7lg/main-website/USFSP%20Residence%20Hall%20-%20Dusk%20Window%20View%20to%20Locker.jpg?updatedAt=1771547653634',
-    color: '--color-envision-gray-700',
+    title: "Versatile. Adaptive. Enhanced Approach",
+    description:
+      "No two projects are the same, and neither is our approach. Whether it’s a small renovation or a large-scale build, we move with precision, flexibility, and care—delivering the personal attention of a local partner with the expertise of a national leader.",
+    image:
+      "https://ik.imagekit.io/pnixsw7lg/main-website/USFSP%20Residence%20Hall%20-%20Dusk%20Window%20View%20to%20Locker.jpg?updatedAt=1771547653634",
+    color: "--color-envision-gray-700",
   },
 ];
 
 onMounted(() => {
-  if (!gallaryRef.value)
-    return;
+  if (!gallaryRef.value) return;
 
-  ctx = useGSAP().context((self) => {
-    const gallery = self?.selector('.gallery')[0];
-    const right = self?.selector('.right')[0];
-    const images = self?.selector('.item:not(:first-child)') ?? [];
+  ctx = useGSAP().context((self: any) => {
+    const gallery = self?.selector(".gallery")[0];
+    const right = self?.selector(".right")[0];
+    const images = self?.selector(".item:not(:first-child)") ?? [];
 
-    if (!gallery || !right || !images.length)
-      return;
+    if (!gallery || !right || !images.length) return;
 
     const gsap = useGSAP();
     const mm = gsap.matchMedia();
 
     gsap.set(images, { yPercent: 100 });
 
-    mm.add('(min-width: 850px)', () => {
-      const desktopAnimation = gsap.to(images, { yPercent: 0, stagger: 0.5, ease: 'none' });
+    mm.add("(min-width: 850px)", () => {
+      const desktopAnimation = gsap.to(images, { yPercent: 0, stagger: 0.5, ease: "none" });
 
       ScrollTrigger.create({
         trigger: gallery,
-        start: 'top top',
-        end: 'bottom bottom',
+        start: "top top",
+        end: "bottom bottom",
         pin: right,
         animation: desktopAnimation,
         scrub: true,
       });
     });
 
-    mm.add('(max-width: 849px)', () => {
-      const mobileAnimation = gsap.to(images, { yPercent: 0, stagger: 0.5, ease: 'none' });
+    mm.add("(max-width: 849px)", () => {
+      const mobileAnimation = gsap.to(images, { yPercent: 0, stagger: 0.5, ease: "none" });
 
       ScrollTrigger.create({
         trigger: right,
-        start: 'top top',
+        start: "top top",
         end: () => `+=${images.length * 100}%`,
         pin: right,
         animation: mobileAnimation,
@@ -95,23 +95,21 @@ onUnmounted(() => {
         <div class="desktopContent">
           <div class="title-wrapper">
             <div class="title">
-              <app-typography
-                tag="h2"
-                variant="heading-huge"
-                bold="true"
-              >
-                Our<br><span> Three</span><br> <span class="text-envision-blue-500">Uniques</span>
+              <app-typography tag="h2" variant="heading-huge" bold="true">
+                Our<br /><span> Three</span><br />
+                <span class="text-envision-blue-500">Uniques</span>
               </app-typography>
               <app-typography
-                v-gsap.splitText.words.mask.whenVisible.reversable.from="{ opacity: 0, stagger: 0.5 }"
+                v-gsap.splitText.words.mask.whenVisible.reversable.from="{
+                  opacity: 0,
+                  stagger: 0.5,
+                }"
                 tag="p"
               >
-                At Envision, every decision we make is guided by a clear philosophy—three core principles that define
-                how
-                we work, why we work, and the impact we strive to create. These<span> “Three Uniques”</span> are more
-                than
-                values; they are the driving force behind our approach, shaping every project, partnership, and
-                interaction
+                At Envision, every decision we make is guided by a clear philosophy—three core
+                principles that define how we work, why we work, and the impact we strive to create.
+                These<span> “Three Uniques”</span> are more than values; they are the driving force
+                behind our approach, shaping every project, partnership, and interaction
               </app-typography>
             </div>
             <NuxtImg
@@ -131,20 +129,12 @@ onUnmounted(() => {
             :style="{ '--overlay-color': `var(${p.color})` }"
           >
             <div class="content">
-              <app-typography
-                tag="h3"
-                variant="heading-lg"
-                class="title"
-              >
+              <app-typography tag="h3" variant="heading-lg" class="title">
                 {{ p.title }}
               </app-typography>
               <p>{{ p.description }}</p>
             </div>
-            <NuxtImg
-              :src="p.image"
-              provider="imagekit"
-              fit="cover"
-            />
+            <NuxtImg :src="p.image" provider="imagekit" fit="cover" />
           </div>
         </div>
       </div>
@@ -199,7 +189,7 @@ onUnmounted(() => {
   display: grid;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: var(--overlay-color);
