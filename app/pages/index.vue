@@ -1,16 +1,15 @@
-<script setup lang="ts">
-type FeaturedProjectCard = {
+<script setup lang="ts">interface FeaturedProjectCard {
   title: string;
   link: string;
   image: string;
   sector: string;
   completed: string;
-};
+}
 
-type HomepageFeaturedProjectsResponse = {
+interface HomepageFeaturedProjectsResponse {
   sectionOne: FeaturedProjectCard[];
   sectionTwo: FeaturedProjectCard[];
-};
+}
 
 const { $posthog } = useNuxtApp();
 
