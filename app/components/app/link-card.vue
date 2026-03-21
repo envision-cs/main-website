@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Link } from '#shared/types/global';
+<script setup lang="ts">import type { Link } from '#shared/types/global';
 
 defineProps<{
   image?: string;

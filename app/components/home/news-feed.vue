@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const items = [
+<script setup lang="ts">const items = [
   {
     eyebrow: 'Tampa Business Journal',
     title: 'Member Spotlight: Envision Construction Services',

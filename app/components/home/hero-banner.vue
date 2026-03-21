@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const { find } = useStrapi();
+<script setup lang="ts">const { find } = useStrapi();
 const { data } = await useAsyncData('hero', async () => {
   try {
     return await find('home-hero', { populate: '*' });
@@ -33,8 +32,6 @@ const hero = computed(() => data.value?.data ?? null);
     />
     <div class="hero-vignette" aria-hidden="true" />
     <div class="hero-glow" aria-hidden="true" />
-    <div class="hero-gridline hero-gridline--top" aria-hidden="true" />
-    <div class="hero-gridline hero-gridline--side" aria-hidden="true" />
     <app-gradient-overlay direction="top" class="overlay" />
 
     <div class="content site-max">
@@ -62,9 +59,13 @@ const hero = computed(() => data.value?.data ?? null);
         </app-typography>
 
         <div class="hero-actions">
-          <link-button variant="secondary" to="/contact">
+          <Button
+            variant="primary"
+            size="lg"
+            to="/contact"
+          >
             Start your project
-          </link-button>
+          </Button>
         </div>
       </div>
     </div>
@@ -121,14 +122,14 @@ const hero = computed(() => data.value?.data ?? null);
 .hero-vignette {
   z-index: 1;
   background:
-    radial-gradient(circle at 68% 34%, rgb(174 205 255 / 10%), transparent 34%),
-    radial-gradient(circle at 50% 72%, rgb(6 11 18 / 0%), rgb(6 11 18 / 62%) 70%, rgb(6 11 18 / 88%) 100%);
+    radial-gradient(circle at 68% 34%, rgb(174 205 255 / 5%), transparent 20%),
+    radial-gradient(circle at 50% 72%, rgb(6 11 18 / 0%), rgb(6 11 18 / 40%) 70%, rgb(6 11 18 / 60%) 100%);
 }
 
 .hero-glow {
   z-index: 1;
   background:
-    linear-gradient(180deg, rgb(255 219 168 / 0%) 0%, rgb(255 219 168 / 9%) 58%, rgb(8 13 22 / 72%) 100%),
+    linear-gradient(180deg, rgb(255 219 168 / 0%) 0%, rgb(255 219 168 / 9%) 40%, rgb(8 13 22 / 60%) 100%),
     linear-gradient(90deg, rgb(5 10 18 / 78%) 0%, rgb(5 10 18 / 32%) 38%, rgb(5 10 18 / 0%) 68%);
   mix-blend-mode: screen;
   opacity: 0.78;

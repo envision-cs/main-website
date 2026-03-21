@@ -1,5 +1,4 @@
-<script setup>
-const scrollContainer = ref(null);
+<script setup>const scrollContainer = ref(null);
 const items = ref([]);
 
 const {

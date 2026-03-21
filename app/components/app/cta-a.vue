@@ -1,5 +1,4 @@
-<script setup lang="ts">
-type ContentPosition
+<script setup lang="ts">type ContentPosition
   = | 'top-left'
     | 'top-center'
     | 'top-right'

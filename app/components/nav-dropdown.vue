@@ -1,12 +1,4 @@
-<script setup lang="ts">
-import {
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuRoot,
-  NavigationMenuTrigger,
-} from 'reka-ui';
-import { ref, watch } from 'vue';
+<script setup lang="ts">import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
 const props = defineProps({

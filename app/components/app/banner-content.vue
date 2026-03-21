@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const rootEl = ref<HTMLElement | null>(null);
+<script setup lang="ts">const rootEl = ref<HTMLElement | null>(null);
 const revealNodes = ref<HTMLElement[]>([]);
 let observer: IntersectionObserver | null = null;
 

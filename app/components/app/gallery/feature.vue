@@ -1,5 +1,4 @@
-<script setup>
-import { computed } from 'vue';
+<script setup>import { computed } from 'vue';
 
 const props = defineProps({
   theme: { type: String, default: 'light', validator: v => ['light', 'dark'].includes(v) },

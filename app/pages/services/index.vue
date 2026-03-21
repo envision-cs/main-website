@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const { data } = await useServicesList();
+<script setup lang="ts">const { data } = await useServicesList();
 definePageMeta({
   layout: 'layout-a',
 });

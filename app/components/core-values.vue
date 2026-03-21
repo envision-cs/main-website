@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script setup lang="ts">// fake comment
+// oxlint-disable-next-line no-unused-vars
 const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/api/coreValues'), {
   server: true,
   lazy: false,

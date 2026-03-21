@@ -1,7 +1,4 @@
-<script setup lang="ts">
-import { domAnimation, LazyMotion, m } from 'motion-v';
-
-const { images = [] } = defineProps<{
+<script setup lang="ts">const { images = [] } = defineProps<{
   eyebrow?: string;
   title: string;
   description?: string;
@@ -12,10 +9,10 @@ const { images = [] } = defineProps<{
 
 const { gentle } = useEasings();
 
-type Images = {
+interface Images {
   img: string;
   alt: string;
-};
+}
 
 const hasImages = images && images?.length > 0;
 </script>

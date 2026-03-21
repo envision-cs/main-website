@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const props = withDefaults(defineProps<{
+<script setup lang="ts">const props = withDefaults(defineProps<{
   direction?: 'left' | 'right' | 'top' | 'bottom' | 'botom';
 }>(), {
   direction: 'bottom',

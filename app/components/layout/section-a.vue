@@ -1,5 +1,4 @@
-<script setup lang="ts">
-type Variant = 'small' | 'medium' | 'large'; ;
+<script setup lang="ts">type Variant = 'small' | 'medium' | 'large'; ;
 
 const { variant = 'medium' } = defineProps<{
   variant?: Variant;

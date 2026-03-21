@@ -1,7 +1,6 @@
-<script setup lang="ts">
-import { computed } from 'vue';
+<script setup lang="ts">import { computed } from 'vue';
 
-type Props = {
+interface Props {
   title?: string;
   description?: string;
   imageSrc?: string;
@@ -11,7 +10,7 @@ type Props = {
   overlay?: boolean;
   fullHeight?: boolean;
   containerClass?: string;
-};
+}
 
 const props = withDefaults(defineProps<Props>(), {
   title: 'You need a builder who sees the bigger picture.',

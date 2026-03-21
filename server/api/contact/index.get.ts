@@ -1,4 +1,4 @@
-import type { APILocation, APITeamMember } from '~~/shared/types/content-types';
+import type { APILocation, TeamMember } from '~~/shared/types/content-types';
 
 import { catchError } from '~~/shared/utils/catch-error';
 
@@ -12,7 +12,7 @@ export default defineEventHandler(async () => {
 
   // --- Team ---
   const [teamError, teamResponse] = await catchError(
-    $fetch<APITeamMember>(teamUrl, { method: 'GET' }),
+    $fetch<{ data: { team_members: TeamMember[] } }>(teamUrl, { method: 'GET' }),
   );
 
   if (teamError || !teamResponse) {

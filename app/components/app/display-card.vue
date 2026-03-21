@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { RouteLocationRaw } from 'vue-router';
+<script setup lang="ts">import type { RouteLocationRaw } from 'vue-router';
 
 const props = withDefaults(defineProps<{
   link?: RouteLocationRaw;

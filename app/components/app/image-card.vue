@@ -1,7 +1,4 @@
-<script setup lang="ts">
-import { motion } from 'motion-v';
-
-defineProps<{
+<script setup lang="ts">defineProps<{
   image: string;
   alt: string;
   area: string;

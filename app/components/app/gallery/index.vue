@@ -1,5 +1,4 @@
-<script setup>
-const galleryItems = ref([
+<script setup>const galleryItems = ref([
   {
     id: 1,
     label: 'Apple Trade In',

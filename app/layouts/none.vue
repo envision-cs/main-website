@@ -1,7 +1,4 @@
-<script setup lang="ts">
-import { SpeedInsights } from '@vercel/speed-insights/nuxt';
-
-const { width } = useWindowSize();
+<script setup lang="ts">const { width } = useWindowSize();
 const isClient = ref(false);
 
 onMounted(() => {

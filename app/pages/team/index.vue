@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const { data } = useFetch('/api/team', {
+<script setup lang="ts">const { data } = useFetch('/api/team', {
   key: 'team',
 });
 </script>

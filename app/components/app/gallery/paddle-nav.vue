@@ -1,5 +1,4 @@
-<script setup>
-defineProps({
+<script setup>defineProps({
   canScrollPrevious: Boolean,
   canScrollNext: Boolean,
 });

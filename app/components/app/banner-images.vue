@@ -1,5 +1,4 @@
-<script setup lang="ts">
-type ImageItem = { img: string; alt?: string };
+<script setup lang="ts">interface ImageItem { img: string; alt?: string }
 
 const { images = [] } = defineProps<{
   images?: ImageItem[];

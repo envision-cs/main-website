@@ -1,19 +1,4 @@
-<script setup lang="ts">
-import {
-  CollapsibleContent,
-  CollapsibleRoot,
-  CollapsibleTrigger,
-  DialogContent,
-  DialogDescription,
-  DialogOverlay,
-  DialogPortal,
-  DialogRoot,
-  DialogTitle,
-  DialogTrigger,
-  VisuallyHidden,
-} from 'reka-ui';
-
-const mobileDrawerOpen = ref(false);
+<script setup lang="ts">const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const menuButtonRef = ref<HTMLButtonElement | null>(null);
 const firstDrawerLinkRef = ref<HTMLElement | null>(null);
