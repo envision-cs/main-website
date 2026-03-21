@@ -10,7 +10,7 @@ export default defineNuxtPlugin(() => {
           )
           .join('\n')}
      }
-   `;
+  `;
 
   useHead({
     style: [{ innerHTML: cssContent }],

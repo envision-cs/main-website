@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
@@ -38,10 +37,10 @@ const { data: projectData } = await useAsyncData(
   { watch: [slug], default: () => null },
 );
 
-type GalleryImage = {
+interface GalleryImage {
   url: string;
   altText: string;
-};
+}
 
 const page = computed(() => {
   const entry = projectData.value;

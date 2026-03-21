@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Service } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Service } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 

@@ -1,11 +1,10 @@
-<script setup lang="ts">
-type Card = {
+<script setup lang="ts">interface Card {
   title: string;
   link: string;
   image: string;
   sector: string;
   completed: string;
-};
+}
 
 const props = defineProps<{
   cards: Card[];
@@ -48,16 +47,12 @@ section {
   display: grid;
   background-color: #fff;
   grid-template-columns: 1fr;
-  grid-template-areas:
-    'a'
-    'b'
-    'c';
+  max-height: 100vh;
+  grid-template-areas: 'a';
 
   @media (min-width: 750px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-areas:
-      'a b b '
-      'c b b ';
+    grid-template-areas: 'a b c ';
   }
 }
 

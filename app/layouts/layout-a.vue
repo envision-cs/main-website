@@ -1,7 +1,4 @@
-<script setup lang="ts">
-import { SpeedInsights } from '@vercel/speed-insights/nuxt';
-
-const route = useRoute();
+<script setup lang="ts">const route = useRoute();
 
 const { services } = await useServicesList();
 const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');

@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const { formatMonthYear } = useFormatDate();
+<script setup lang="ts">const { formatMonthYear } = useFormatDate();
 const { data } = await useAsyncData('page-data', async () => {
   try {
     const [projectRes, sectorsRes] = await Promise.all([

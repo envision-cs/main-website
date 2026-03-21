@@ -1,5 +1,4 @@
-<script setup lang="ts">
-// const items = [
+<script setup lang="ts">// const items = [
 //   {
 //     image: '/onbudjet.png',
 //     link:

@@ -1,9 +1,8 @@
-<script setup lang="ts">
-type Category = {
+<script setup lang="ts">interface Category {
   name: string;
   slug: string;
   image?: string;
-};
+}
 
 const props = defineProps<{
   categories: Category[];

@@ -1,14 +1,13 @@
-<script setup lang="ts">
-import type { Link } from '#shared/types/global';
+<script setup lang="ts">import type { Link } from '#shared/types/global';
 
-type Item = {
+interface Item {
   image?: string;
   icon?: string;
   eyebrow?: string;
   title?: string;
   description?: string;
   link?: Link;
-};
+}
 
 const items: Item[] = [
   {

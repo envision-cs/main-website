@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+<script setup lang="ts">import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
 const route = useRoute();
 

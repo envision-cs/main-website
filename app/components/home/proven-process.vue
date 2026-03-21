@@ -1,5 +1,4 @@
-<script setup lang="ts">
-// const { data: our_process, pending, error } = await useAsyncData('our-process', () => $fetch('/api/process'), {
+<script setup lang="ts">// const { data: our_process, pending, error } = await useAsyncData('our-process', () => $fetch('/api/process'), {
 //  server: true,
 //  lazy: true,
 //  default: () => [],

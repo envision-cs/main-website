@@ -1,5 +1,4 @@
-<script setup>
-import { computed, inject } from 'vue';
+<script setup>import { computed, inject } from 'vue';
 
 const props = defineProps({
   index: { type: Number, required: true },

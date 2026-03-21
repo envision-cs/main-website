@@ -1,15 +1,4 @@
-<script setup lang="ts">
-import {
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuRoot,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-} from 'reka-ui';
-
-const props = withDefaults(defineProps<{
+<script setup lang="ts">const props = withDefaults(defineProps<{
   variant?: 'a' | 'b';
   contactImage?: string;
 }>(), {
@@ -289,13 +278,14 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
       </NavigationMenuRoot>
-      <link-button
+      <Button
         to="/contact"
         size="sm"
-        class="header-cta header-cta--mobile-hidden"
+        variant="primary"
+        class=" header-cta--mobile-hidden"
       >
         Contact
-      </link-button>
+      </button>
 
       <app-mobile-nav-drawer />
     </header>

@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const props = withDefaults(defineProps<{
+<script setup lang="ts">const props = withDefaults(defineProps<{
   to?: string;
   ariaLabel?: string;
   image: string;

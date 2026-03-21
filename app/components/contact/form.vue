@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { FormSubmitEvent } from '@nuxt/ui';
+<script setup lang="ts">import type { FormSubmitEvent } from '@nuxt/ui';
 
 import * as z from 'zod/v3';
 

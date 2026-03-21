@@ -65,7 +65,7 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
     }
   }
 
-  function closeMenu() {
+  async function closeMenu() {
     const el = dialogRef.value;
     if (!el)
       return;
@@ -73,22 +73,22 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
     handleClose();
     // Run responsive animation
     if (isLaptop.value) {
-      animate(scale, 0, {
+      await animate(scale, 0, {
         duration: 0.4,
         onUpdate: latest => (el.style.transform = `scale(${latest})`),
         ease: base,
-      }).finished.then(() => {
-        el.close(); // This triggers the 'close' event listener
-      });
+      }).finished;
+
+      el.close(); // This triggers the 'close' event listener
     }
     else {
-      animate(y, direction.value === 'top' ? '-100%' : '100%', {
+      await animate(y, direction.value === 'top' ? '-100%' : '100%', {
         duration: 0.4,
         onUpdate: latest => (el.style.transform = `translateY(${latest})`),
         ease: base,
-      }).finished.then(() => {
-        el.close(); // This triggers the 'close' event listener
-      });
+      }).finished;
+
+      el.close(); // This triggers the 'close' event listener
     }
   }
 

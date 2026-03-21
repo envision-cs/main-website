@@ -1,20 +1,28 @@
-export function useTouchHandler(elementRef) {
+export function useTouchHandler(elementRef: Ref<HTMLElement | null>) {
   const startX = ref(0);
   const startY = ref(0);
   const isDragging = ref(false);
 
-  function handleTouchStart(event) {
-    startX.value = event.touches[0].clientX;
-    startY.value = event.touches[0].clientY;
+  function handleTouchStart(event: TouchEvent) {
+    const touch = event.touches[0];
+    if (!touch)
+      return;
+
+    startX.value = touch.clientX;
+    startY.value = touch.clientY;
     isDragging.value = true;
   }
 
-  function handleTouchMove(event) {
+  function handleTouchMove(event: TouchEvent) {
     if (!isDragging.value)
       return;
 
-    const deltaX = Math.abs(event.touches[0].clientX - startX.value);
-    const deltaY = Math.abs(event.touches[0].clientY - startY.value);
+    const touch = event.touches[0];
+    if (!touch)
+      return;
+
+    const deltaX = Math.abs(touch.clientX - startX.value);
+    const deltaY = Math.abs(touch.clientY - startY.value);
 
     if (deltaX > deltaY) {
       event.preventDefault();

@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+<script setup lang="ts">import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // const { data: threeUniques } = await useAsyncData('three-uniques', () => $fetch('/api/threeUniques'), {
 //  server: true,
 //  lazy: true,
