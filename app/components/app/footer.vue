@@ -134,7 +134,6 @@ footer {
   background-color: var(--color-envision-blue-900);
   padding: calc(var(--spacing) * 4);
   color: var(--color-envision-blue-50);
-  overflow: hidden;
 }
 
 .site-footer {

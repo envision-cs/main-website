@@ -399,7 +399,6 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     list-style: none;
     margin: 0;
     width: 100%;
-    border-top: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 11%, white);
   }
 
   /* push last item to far right */
