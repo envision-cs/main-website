@@ -61,6 +61,7 @@
     "eslint_d": "^14.3.0",
     "happy-dom": "^20.0.11",
     "jsdom": "^27.4.0",
+    "rolldown": "1.0.0-rc.10",
     "typescript": "^5.9.3",
     "vite-plus": "catalog:",
     "vitest": "catalog:"
