@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { defineNuxtConfig } from 'nuxt/config';
-
+import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
   devtools: {
     enabled: true,
@@ -8,108 +7,85 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [
-        { charset: 'utf-8' },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { charset: "utf-8" },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
       ],
-      link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-      ],
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
     },
   },
   modules: [
-    '@nuxt/eslint',
-    '@nuxt/ui',
-    '@vueuse/nuxt',
-    '@nuxt/image',
-    '@nuxt/content',
-    '@posthog/nuxt',
-    'motion-v/nuxt',
-    '@nuxtjs/strapi',
-    'reka-ui/nuxt',
-    // 'nuxt-strapi-blocks-renderer',
-    // '@nuxt/hints',
-    'nuxt-studio',
-    'v-gsap-nuxt',
+    "@nuxt/ui",
+    "@vueuse/nuxt",
+    "@nuxt/image",
+    "@posthog/nuxt",
+    "motion-v/nuxt",
+    "@nuxtjs/strapi",
+    "reka-ui/nuxt",
+    "@nuxt/hints",
+    "v-gsap-nuxt",
   ],
-  vite: {},
-  css: ['~/assets/css/main.css', '~/assets/css/maplibre-gl.css'],
+  vite: {
+    optimizeDeps: {
+      include: ["gsap/ScrollTrigger", "@vue/devtools-core", "@vue/devtools-kit"],
+    },
+  },
+  css: ["~/assets/css/main.css", "~/assets/css/maplibre-gl.css"],
   ui: {
     colorMode: false,
     theme: {
-      colors: ['primary', 'secondary', 'info', 'success', 'warning', 'error'],
+      colors: ["primary", "secondary", "info", "success", "warning", "error"],
     },
   },
   nitro: {
-    preset: 'vercel',
+    preset: "vercel",
   },
-  content: {
-    build: {
-      pathMeta: {},
-    },
-    experimental: {
-      nativeSqlite: true,
-    },
-    preview: {
-      api: 'https://api.nuxt.studio',
-    },
+  routeRules: {
+    "/api/home-hero": { cache: { maxAge: 60 * 10 } }, // 10 min
   },
+
   runtimeConfig: {
     public: {
-      posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
-      posthogDefaults: '2025-05-24',
+      posthogPublicKey: "phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78",
+      posthogDefaults: "2025-05-24",
       strapi: {
-        url: '',
+        url: "",
       },
     },
   },
   image: {
     imagekit: {
-      baseURL: '',
+      baseURL: "",
     },
   },
   posthogConfig: {
-    publicKey: 'phc_U861r9C5hjKh8CRlC1uGW6NW6OG3yfhZstFtFEOjCxX', // Find it in project settings https://app.posthog.com/settings/project
-    host: 'https://us.i.posthog.com', // Optional: defaults to https://us.i.posthog.com. Use https://eu.i.posthog.com for EU region
+    publicKey: "phc_U861r9C5hjKh8CRlC1uGW6NW6OG3yfhZstFtFEOjCxX", // Find it in project settings https://app.posthog.com/settings/project
+    host: "https://us.i.posthog.com", // Optional: defaults to https://us.i.posthog.com. Use https://eu.i.posthog.com for EU region
     clientConfig: {
       // Optional: PostHog client configuration options
     },
   },
   icon: {
     serverBundle: {
-      collections: ['lucide', 'simple-icons'], // Only bundle what you need
+      collections: ["lucide", "simple-icons"], // Only bundle what you need
     },
     customCollections: [
       {
-        prefix: 'logos',
-        dir: './app/assets/logos',
+        prefix: "logos",
+        dir: "./app/assets/logos",
       },
     ],
   },
-  compatibilityDate: '2025-05-15',
-  eslint: {
-    config: {
-      standalone: false,
-    },
-  },
+  compatibilityDate: "2025-05-15",
   experimental: {
     sharedPrerenderData: true,
-  },
-  studio: {
-    route: '/_studio',
-    repository: {
-      provider: 'github',
-      owner: 'envision-cs',
-      repo: 'main-website',
-      branch: 'main',
-    },
   },
   strapi: {
     url: process.env.STRAPI_URL,
     token: process.env.STRAPI_TOKEN || undefined,
-    prefix: '/api',
-    admin: '/admin',
-    version: 'v5',
+    prefix: "/api",
+    admin: "/admin",
+    version: "v5",
     cookie: {},
-    cookieName: 'strapi_jwt',
+    cookieName: "strapi_jwt",
   },
 });

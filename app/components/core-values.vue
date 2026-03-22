@@ -1,10 +1,53 @@
-<script setup lang="ts">// fake comment
-// oxlint-disable-next-line no-unused-vars
-const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/api/coreValues'), {
-  server: true,
-  lazy: false,
-  default: () => [],
-});
+<script setup lang="ts">
+const coreValues = [
+  {
+    title: "Be Humbly Confident",
+    quote:
+      "Your gifts, talents, and resources aren’t only for you or about you. Without believing in something bigger than yourself, you’ll only seek to serve yourself.",
+    points: [
+      "Always seek to give the advantage",
+      "Do it as if it were your own",
+      "Great leaders have a servant’s heart",
+    ],
+  },
+  {
+    title: "It's Bigger Than You",
+    quote:
+      "Your gifts, talents, and resources aren’t only for you or about you. Without believing in something bigger than yourself, you’ll only seek to serve yourself.",
+    points: [
+      "Always seek to give the advantage",
+      "Do it as if it were your own",
+      "Great leaders have a servant’s heart",
+    ],
+  },
+  {
+    title: "Be the Light",
+    quote:
+      "Being positive should never be based on circumstances, but based on an internal belief.",
+    points: ["Optimism", "Always assume positive intent"],
+  },
+  {
+    title: "Be the Solution",
+    quote:
+      "Our success and fulfillment depends on our willingness to always seek and help provide solutions.",
+    points: [
+      "Help first",
+      "We are the easy button",
+      "We pride ourselves on being the solution",
+      "Clarity Breeds Confidence",
+    ],
+  },
+  {
+    title: "Find a Better Way",
+    quote: "Impossible is for the unwilling.",
+    points: [
+      "Adapt to change",
+      "Impossible is never a fact, it’s a belief",
+      "“I get to” vs. “I have to” attitude",
+      "Don’t make excuses, make adjustments",
+    ],
+  },
+] as const;
 </script>
 
 <template>
@@ -13,20 +56,16 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
       <div class="desktopContent">
         <div class="title-wrapper">
           <div class="title">
-            <app-typography
-              tag="h2"
-              variant="heading-huge"
-              bold="true"
-            >
-              Our<br><span>Core</span><br><span>Values</span>
+            <app-typography tag="h2" variant="heading-huge" bold="true">
+              Our<br /><span>Core</span><br /><span>Values</span>
             </app-typography>
             <app-typography
               v-gsap.splitText.words.mask.whenVisible.reversable.from="{ opacity: 0, stagger: 0.5 }"
               tag="p"
               variant="text-md"
             >
-              The way we lead projects is the way we lead people: with clarity, discipline, humility, and a commitment
-              to leave every partnership stronger than we found it.
+              The way we lead projects is the way we lead people: with clarity, discipline,
+              humility, and a commitment to leave every partnership stronger than we found it.
             </app-typography>
           </div>
           <NuxtImg
@@ -38,22 +77,21 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
       </div>
       <!-- Values -->
       <div class="grid grid-cols-2">
-        <article
-          v-for="(item, index) in coreValues"
-          :key="item.id || item.path || item.title"
-          class="core-values-card"
-        >
+        <article v-for="(item, index) in coreValues" :key="item.title" class="core-values-card">
           <span class="core-values-card__index">
-            {{ String(index + 1).padStart(2, '0') }}
+            {{ String(index + 1).padStart(2, "0") }}
           </span>
-          <app-typography
-            tag="h3"
-            variant="heading-md"
-            class="core-values-card__title"
-          >
+          <app-typography tag="h3" variant="heading-md" class="core-values-card__title">
             {{ item.title }}
           </app-typography>
-          <ContentRenderer :value="item?.meta?.body || ''" class="core-values-card__body prose" />
+          <div class="core-values-card__body prose">
+            <p>{{ item.quote }}</p>
+            <ul>
+              <li v-for="point in item.points" :key="point">
+                {{ point }}
+              </li>
+            </ul>
+          </div>
         </article>
       </div>
     </div>
@@ -194,7 +232,7 @@ const { data: coreValues } = await useAsyncData('core-values', () => $fetch('/ap
 }
 
 .core-values-card__body:deep(li)::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0.55rem;
