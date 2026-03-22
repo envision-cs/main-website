@@ -1,14 +1,18 @@
-<script setup lang="ts">withDefaults(defineProps<{
-  type?: 'button' | 'submit' | 'reset';
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'primary' | 'secondary' | 'outline';
-  disabled?: boolean;
-}>(), {
-  type: 'button',
-  size: 'md',
-  variant: 'primary',
-  disabled: false,
-});
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    type?: "button" | "submit" | "reset";
+    size?: "sm" | "md" | "lg";
+    variant?: "primary" | "secondary" | "outline";
+    disabled?: boolean;
+  }>(),
+  {
+    type: "button",
+    size: "md",
+    variant: "primary",
+    disabled: false,
+  },
+);
 </script>
 
 <template>

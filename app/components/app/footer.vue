@@ -86,7 +86,7 @@ const servicesLinks = [
         <nav aria-label="Footer navigation">
           <h3>Navigate</h3>
           <ul>
-            <li class="footer-link" v-for="link in navLinks" :key="link.id">
+            <li v-for="link in navLinks" :key="link.id" class="footer-link">
               <NuxtLink :to="link.to">
                 {{ link.label }}
               </NuxtLink>
@@ -96,7 +96,7 @@ const servicesLinks = [
         <nav>
           <h3>Services</h3>
           <ul>
-            <li class="footer-link" v-for="link in servicesLinks" :key="link.id">
+            <li v-for="link in servicesLinks" :key="link.id" class="footer-link">
               <NuxtLink :to="link.to">
                 {{ link.label }}
               </NuxtLink>
@@ -134,8 +134,12 @@ const servicesLinks = [
       </div>
       <div class="date-socials">
         <div>
-          <NuxtLink>Linkedin</NuxtLink>
-          <NuxtLink>Facebook</NuxtLink>
+          <NuxtLink class="mr-2 mb-0" to="https://www.facebook.com/envisioncstampa">
+            <Icon name="ri:facebook-box-fill" size="32" />
+          </NuxtLink>
+          <NuxtLink class="mb-0" to="https://www.linkedin.com/company/envision-cs/">
+            <Icon name="ri:linkedin-box-fill" size="32" />
+          </NuxtLink>
         </div>
         <p>©{{ year }}Envision Construction. All rights reserved.</p>
       </div>
@@ -182,7 +186,6 @@ h3 {
   margin-bottom: calc(var(--spacing) * 2);
 }
 
-a,
 .footer-link {
   color: var(--color-envision-blue-200);
   font-size: var(--text-base);
