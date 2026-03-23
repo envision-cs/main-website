@@ -96,63 +96,32 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 
 <template>
   <div class="main-header" :class="{ 'main-header--desktop-open': isDesktopMenuOpen }">
-    <button
-      v-if="isDesktopMenuOpen"
-      type="button"
-      class="desktop-mega-menu-backdrop"
-      data-test="desktop-mega-menu-backdrop"
-      aria-label="Close navigation menu"
-      @click="closeDesktopMenu"
-    />
+    <button v-if="isDesktopMenuOpen" type="button" class="desktop-mega-menu-backdrop"
+      data-test="desktop-mega-menu-backdrop" aria-label="Close navigation menu" @click="closeDesktopMenu" />
 
     <header class="header-root">
-      <NuxtLink
-        class="brand-link"
-        to="/"
-        aria-label="Envision home"
-      >
-        <Icon
-          :name="props.variant === 'b' ? 'logos:envision' : 'logos:envision'"
-          size="30"
-          alt="envision construction logo"
-        />
+      <NuxtLink class="brand-link" to="/" aria-label="Envision home">
+        <Icon :name="props.variant === 'b' ? 'logos:envision' : 'logos:envision'" size="30"
+          alt="envision construction logo" />
       </NuxtLink>
-
-      <NavigationMenuRoot
-        v-model="desktopMenuValue"
-        class="desktop-nav NavigationMenuRoot"
-        :delay-duration="0"
-        :skip-delay-duration="0"
-        disable-click-trigger
-        aria-label="Primary"
-      >
+      Hello World
+      <NavigationMenuRoot v-model="desktopMenuValue" class="desktop-nav NavigationMenuRoot" :delay-duration="0"
+        :skip-delay-duration="0" disable-click-trigger aria-label="Primary">
         <NavigationMenuList class="desktop-nav-list NavigationMenuList">
           <NavigationMenuItem value="services">
             <NavigationMenuTrigger as-child>
-              <button
-                type="button"
-                class="NavigationMenuTrigger desktop-inline-nav-link"
-                data-test="desktop-services-trigger"
-                :aria-expanded="String(isServicesDesktopMenuOpen)"
-                @pointerenter="openDesktopMenu('services')"
-                @click="toggleDesktopMenu('services')"
-              >
+              <button type="button" class="NavigationMenuTrigger desktop-inline-nav-link"
+                data-test="desktop-services-trigger" :aria-expanded="String(isServicesDesktopMenuOpen)"
+                @pointerenter="openDesktopMenu('services')" @click="toggleDesktopMenu('services')">
                 Services
               </button>
             </NavigationMenuTrigger>
             <NavigationMenuContent class="NavigationMenuContent" data-test="desktop-mega-menu-panel">
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
-                  <NuxtLink
-                    class="services-feature-panel services-feature-panel--services"
-                    data-test="services-feature-panel"
-                    to="/services"
-                  >
-                    <img
-                      :src="servicesFeatureImage"
-                      alt=""
-                      class="services-feature-panel__image"
-                    >
+                  <NuxtLink class="services-feature-panel services-feature-panel--services"
+                    data-test="services-feature-panel" to="/services">
+                    <img :src="servicesFeatureImage" alt="" class="services-feature-panel__image">
                     <div class="services-feature-panel__overlay" />
                     <div class="services-feature-panel__grid" />
                     <div class="services-feature-panel__content">
@@ -170,13 +139,8 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                   </NuxtLink>
 
                   <div class="services-grid" data-test="services-grid">
-                    <NuxtLink
-                      v-for="item in serviceDropdownItems"
-                      :key="item.title"
-                      :to="item.to"
-                      class="services-grid-item"
-                      data-test="services-grid-item"
-                    >
+                    <NuxtLink v-for="item in serviceDropdownItems" :key="item.title" :to="item.to"
+                      class="services-grid-item" data-test="services-grid-item">
                       <span class="services-grid-item__index">
                         {{ String(serviceDropdownItems.indexOf(item) + 1).padStart(2, '0') }}
                       </span>
@@ -195,30 +159,18 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 
           <NavigationMenuItem value="projects">
             <NavigationMenuTrigger as-child>
-              <button
-                type="button"
-                class="NavigationMenuTrigger desktop-inline-nav-link"
-                data-test="desktop-projects-trigger"
-                :aria-expanded="String(isProjectsDesktopMenuOpen)"
-                @pointerenter="openDesktopMenu('projects')"
-                @click="toggleDesktopMenu('projects')"
-              >
+              <button type="button" class="NavigationMenuTrigger desktop-inline-nav-link"
+                data-test="desktop-projects-trigger" :aria-expanded="String(isProjectsDesktopMenuOpen)"
+                @pointerenter="openDesktopMenu('projects')" @click="toggleDesktopMenu('projects')">
                 Projects
               </button>
             </NavigationMenuTrigger>
             <NavigationMenuContent class="NavigationMenuContent" data-test="desktop-projects-menu-panel">
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
-                  <NuxtLink
-                    class="services-feature-panel services-feature-panel--projects"
-                    data-test="projects-feature-panel"
-                    to="/projects"
-                  >
-                    <img
-                      :src="projectsFeatureImage"
-                      alt=""
-                      class="services-feature-panel__image"
-                    >
+                  <NuxtLink class="services-feature-panel services-feature-panel--projects"
+                    data-test="projects-feature-panel" to="/projects">
+                    <img :src="projectsFeatureImage" alt="" class="services-feature-panel__image">
                     <div class="services-feature-panel__overlay" />
                     <div class="services-feature-panel__grid" />
                     <div class="services-feature-panel__content">
@@ -235,13 +187,8 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                   </NuxtLink>
 
                   <div class="services-grid" data-test="projects-grid">
-                    <NuxtLink
-                      v-for="item in projectDropdownItems"
-                      :key="item.title"
-                      :to="item.to"
-                      class="services-grid-item"
-                      data-test="projects-grid-item"
-                    >
+                    <NuxtLink v-for="item in projectDropdownItems" :key="item.title" :to="item.to"
+                      class="services-grid-item" data-test="projects-grid-item">
                       <span class="services-grid-item__index">
                         {{ String(projectDropdownItems.indexOf(item) + 1).padStart(2, '0') }}
                       </span>
@@ -278,12 +225,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
       </NavigationMenuRoot>
-      <Button
-        to="/contact"
-        size="sm"
-        variant="primary"
-        class=" header-cta--mobile-hidden"
-      >
+      <Button to="/contact" size="sm" variant="primary" class=" header-cta--mobile-hidden">
         Contact
       </button>
 
@@ -402,7 +344,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   }
 
   /* push last item to far right */
-  .NavigationMenuList > :last-child {
+  .NavigationMenuList> :last-child {
     margin-left: auto;
   }
 
@@ -788,6 +730,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 }
 
 @media (max-width: 767px) {
+
   .header-root::before,
   .header-root::after {
     display: none;
