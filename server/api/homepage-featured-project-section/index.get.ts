@@ -1,4 +1,4 @@
-import { catchError } from '~~/shared/utils/catch-error';
+import { catchError } from "~~/shared/utils/catch-error";
 
 type FeaturedProject = {
   title?: string;
@@ -33,32 +33,28 @@ type HomepageFeaturedProjectsResponse = {
 };
 
 function normalizeValue(value?: string): string {
-  if (!value)
-    return '';
+  if (!value) return "";
 
   const normalized = value.trim();
-  if (!normalized || normalized === 'null' || normalized === 'undefined')
-    return '';
+  if (!normalized || normalized === "null" || normalized === "undefined") return "";
 
   return normalized;
 }
 
 function getCompletedYear(completed?: string): string {
-  if (!completed)
-    return '';
+  if (!completed) return "";
 
   const year = new Date(completed).getFullYear();
-  return Number.isNaN(year) ? '' : String(year);
+  return Number.isNaN(year) ? "" : String(year);
 }
 
 function mapProjects(projects: FeaturedProject[]): FeaturedCard[] {
   return projects
     .map((project) => {
       const projectSlug = normalizeValue(project.slug);
-      const sectorSlug = normalizeValue(project.sector?.slug) || 'all';
+      const sectorSlug = normalizeValue(project.sector?.slug) || "all";
 
-      if (!projectSlug)
-        return null;
+      if (!projectSlug) return null;
 
       const card: FeaturedCard = {
         title: normalizeValue(project.title),
@@ -75,25 +71,25 @@ function mapProjects(projects: FeaturedProject[]): FeaturedCard[] {
 
 export default defineEventHandler(async (): Promise<HomepageFeaturedProjectsResponse> => {
   const config = useRuntimeConfig();
-  const url = `${config.strapi.url}/api/homepage-featured-project-section?populate[projects][fields][0]=title&populate[projects][fields][1]=slug&populate[projects][fields][2]=completed&populate[projects][populate][mainImage][fields][0]=url&populate[projects][populate][sector][fields][0]=name&populate[projects][populate][sector][fields][1]=slug`;
+  const url = `${config.strapi.url}/api/featured-project-section-one?populate[projects][fields][0]=title&populate[projects][fields][1]=slug&populate[projects][fields][2]=completed&populate[projects][populate][mainImage][fields][0]=url&populate[projects][populate][sector][fields][0]=name&populate[projects][populate][sector][fields][1]=slug`;
   const url2 = `${config.strapi.url}/api/featured-project-section-two?populate[projects][fields][0]=title&populate[projects][fields][1]=slug&populate[projects][fields][2]=completed&populate[projects][populate][mainImage][fields][0]=url&populate[projects][populate][sector][fields][0]=name&populate[projects][populate][sector][fields][1]=slug`;
 
   const [strapiError, responses] = await catchError(
     Promise.all([
       $fetch<HomepageFeaturedSectionResponse>(url, {
-        method: 'GET',
+        method: "GET",
       }),
       $fetch<HomepageFeaturedSectionResponse>(url2, {
-        method: 'GET',
+        method: "GET",
       }),
     ]),
   );
 
   if (strapiError) {
-    console.error('Error fetching homepage featured project section from Strapi:', strapiError);
+    console.error("Error fetching homepage featured project section from Strapi:", strapiError);
     throw createError({
       statusCode: 502,
-      statusMessage: 'Unable to fetch homepage featured projects',
+      statusMessage: "Unable to fetch homepage featured projects",
     });
   }
 

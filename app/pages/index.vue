@@ -1,4 +1,5 @@
-<script setup lang="ts">interface FeaturedProjectCard {
+<script setup lang="ts">
+interface FeaturedProjectCard {
   title: string;
   link: string;
   image: string;

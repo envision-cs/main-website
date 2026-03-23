@@ -18,31 +18,30 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     aria-describedby="hero-summary"
     role="region"
   >
-    <NuxtImg
-      v-if="hero.image?.url"
-      :src="hero.image.url"
-      alt="Exterior view of a residence hall at dusk"
-      sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
-      fit="cover"
-      preload
-      format="avif"
-      loading="eager"
-      class="image h-full w-full z-0 object-cover"
-    />
+    <div class="col-span-full row-span-full">
+      <NuxtImg
+        v-if="hero.image?.url"
+        :src="hero.image.url"
+        alt="Exterior view of a residence hall at dusk"
+        sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+        fit="cover"
+        preload
+        format="avif"
+        loading="eager"
+        class="image"
+      />
+    </div>
     <div class="hero-vignette" aria-hidden="true" />
-    <div class="hero-glow" aria-hidden="true" />
     <app-gradient-overlay direction="top" class="overlay" />
 
     <div class="content site-max">
       <div class="hero-frame">
-        <p class="hero-eyebrow">Envision Construction</p>
-        <div class="hero-rule" aria-hidden="true" />
-        <app-typography id="hero-title" tag="h2" variant="heading-huge" class="hero-title">
-          {{ hero.title }}
+        <app-typography id="hero-title" tag="h2" variant="heading-huge" bold class="hero-title">
+          Complex <span>Projects.</span> <span>Simple</span> Accountability
         </app-typography>
 
         <app-typography id="hero-summary" tag="p" variant="text-xl" class="hero-summary">
-          {{ hero.subtitle }}
+          Local responsiveness. National-level expertise. Zero guesswork on your timeline or budget.
         </app-typography>
 
         <div class="hero-actions">
@@ -57,7 +56,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 .hero {
   display: grid;
   grid-template-columns: 1rem 1fr 1rem;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   isolation: isolate;
   min-height: 100dvh;
   background:
@@ -66,7 +65,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 }
 
 .content {
-  display: grid;
+  display: flex;
   grid-column: 1/-1;
   grid-row: 1/-1;
   width: 100%;
@@ -86,11 +85,12 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 }
 
 .image {
-  grid-column: 1/-1;
-  grid-row: 1/-1;
   animation: hero-drift 18s ease-in-out infinite alternate;
   transform: scale(1.04);
   transform-origin: center center;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .hero-vignette,
@@ -113,58 +113,11 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     );
 }
 
-.hero-glow {
-  z-index: 1;
-  background:
-    linear-gradient(
-      180deg,
-      rgb(255 219 168 / 0%) 0%,
-      rgb(255 219 168 / 9%) 40%,
-      rgb(8 13 22 / 60%) 100%
-    ),
-    linear-gradient(90deg, rgb(5 10 18 / 78%) 0%, rgb(5 10 18 / 32%) 38%, rgb(5 10 18 / 0%) 68%);
-  mix-blend-mode: screen;
-  opacity: 0.78;
-}
-
-.hero-gridline {
-  z-index: 2;
-  opacity: 0.42;
-}
-
-.hero-gridline--top {
-  margin: clamp(1.25rem, 2vw, 2.5rem);
-  align-self: start;
-  height: 1px;
-  width: min(32vw, 24rem);
-  background: linear-gradient(
-    90deg,
-    rgb(245 241 233 / 0%),
-    rgb(245 241 233 / 0.85),
-    rgb(245 241 233 / 0%)
-  );
-}
-
-.hero-gridline--side {
-  justify-self: end;
-  margin: clamp(1.25rem, 2vw, 2.5rem);
-  width: 1px;
-  height: min(26vh, 14rem);
-  background: linear-gradient(
-    180deg,
-    rgb(245 241 233 / 0%),
-    rgb(245 241 233 / 0.7),
-    rgb(245 241 233 / 0%)
-  );
-}
-
 .hero-frame {
-  display: flex;
+  display: grid;
   flex-direction: column;
   gap: clamp(0.75rem, 1vw, 1.2rem);
-  align-self: center;
-  width: min(100%, 38rem);
-  margin-block-end: clamp(1rem, 4vh, 3rem);
+  align-self: end;
 }
 
 .hero-eyebrow {
@@ -177,28 +130,28 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   animation: hero-reveal 800ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
-.hero-rule {
-  width: min(8rem, 22vw);
-  height: 1px;
-  background: linear-gradient(90deg, var(--ui-secondary), rgb(255 255 255 / 0%));
-  animation: hero-reveal 920ms cubic-bezier(0.19, 1, 0.22, 1) both;
-}
-
 .hero-title {
   color: var(--color-white);
-  text-transform: uppercase;
   text-wrap: balance;
-  letter-spacing: -0.03em;
-  max-width: 12ch;
-  font-size: clamp(3.5rem, 8vw, 4.6rem);
+  letter-spacing: 1%;
   line-height: 0.92;
-  text-shadow: 0 18px 48px rgb(0 0 0 / 30%);
   animation: hero-reveal 1040ms cubic-bezier(0.19, 1, 0.22, 1) both;
+  max-width: 25ch;
+
+  span {
+    color: var(--color-envision-blue-500);
+    font-style: italic;
+  }
+
+  span:nth-of-type(2) {
+    color: var(--color-envision-green-500);
+    font-style: italic;
+  }
 }
 
 .hero-summary {
   margin: 0;
-  max-width: 40ch;
+  max-width: 60ch;
   color: var(--color-envision-gray-300);
   line-height: 1.35;
   text-wrap: balance;
@@ -243,12 +196,9 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   }
 
   .hero-title {
-    max-width: 9ch;
-    font-size: clamp(2.8rem, 12vw, 4.5rem);
   }
 
   .hero-summary {
-    max-width: 22ch;
   }
 }
 

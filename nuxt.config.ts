@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     "@nuxtjs/strapi",
     "reka-ui/nuxt",
     "@nuxt/hints",
+    "@nuxt/eslint",
     "v-gsap-nuxt",
   ],
   vite: {
