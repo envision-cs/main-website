@@ -58,7 +58,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   grid-template-columns: 1rem 1fr 1rem;
   grid-template-rows: 1fr 1fr 1fr;
   isolation: isolate;
-  height: 95dvh;
+  height: 100dvh;
   background:
     linear-gradient(135deg, rgb(9 15 25 / 72%) 0%, rgb(9 15 25 / 14%) 45%, rgb(9 15 25 / 56%) 100%),
     oklch(0.2 0.03 245);
