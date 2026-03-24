@@ -1,19 +1,19 @@
-<script setup lang="ts">withDefaults(defineProps<{
-  to: string;
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'primary' | 'secondary';
-}>(), {
-  size: 'md',
-  variant: 'primary',
-});
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    to: string;
+    size?: "sm" | "md" | "lg";
+    variant?: "primary" | "secondary";
+  }>(),
+  {
+    size: "md",
+    variant: "primary",
+  },
+);
 </script>
 
 <template>
-  <NuxtLink
-    :to="to"
-    class="btn"
-    :class="`btn--${variant}`"
-  >
+  <NuxtLink :to="to" class="btn" :class="`btn--${variant}`">
     <div class="btn-main" :class="`btn-main--${size}`">
       <span class="btn-text">
         <slot />

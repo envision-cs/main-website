@@ -1,5 +1,6 @@
-<script setup lang="ts">definePageMeta({
-  layout: 'layout-a',
+<script setup lang="ts">
+definePageMeta({
+  layout: "layout-a",
 });
 </script>
 
@@ -15,9 +16,7 @@
         <ul>
           <li>Project Kickoff and Discovery</li>
           <li>Budget & timeline goals</li>
-          <li>
-            Site and feasibility review to shape the strategy
-          </li>
+          <li>Site and feasibility review to shape the strategy</li>
         </ul>
       </template>
     </app-cta-a>
@@ -30,12 +29,8 @@
         <ul>
           <li>Budget-aligned design and enhanced estimating</li>
           <li>Early trade input, constructability review, and permitting</li>
-          <li>
-            Real-time scheduling, timeline protection, and risk prevention
-          </li>
-          <li>
-            Decision-making support with a focus on eliminating surprises
-          </li>
+          <li>Real-time scheduling, timeline protection, and risk prevention</li>
+          <li>Decision-making support with a focus on eliminating surprises</li>
         </ul>
       </template>
     </app-cta-a>
@@ -49,15 +44,9 @@
         <ul>
           <li>Clear communication with weekly updates</li>
           <li>Project execution with enhanced jobsite visibility through Procore</li>
-          <li>
-            Community engagement so there’s impact beyond the job site
-          </li>
-          <li>
-            Clear financial oversight with minimized surprises
-          </li>
-          <li>
-            Seamless finish with zero-punch and wrap-up
-          </li>
+          <li>Community engagement so there’s impact beyond the job site</li>
+          <li>Clear financial oversight with minimized surprises</li>
+          <li>Seamless finish with zero-punch and wrap-up</li>
         </ul>
       </template>
     </app-cta-a>
@@ -70,9 +59,7 @@
         <ul>
           <li>System training and facility onboarding</li>
           <li>30-60-90 day check-ins, warranty reminders, and one-year walkthrough</li>
-          <li>
-            Project legacy report, testimonials, referrals, and planning what’s next
-          </li>
+          <li>Project legacy report, testimonials, referrals, and planning what’s next</li>
         </ul>
       </template>
     </app-cta-a>

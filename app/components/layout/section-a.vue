@@ -1,13 +1,14 @@
-<script setup lang="ts">type Variant = 'small' | 'medium' | 'large'; ;
+<script setup lang="ts">
+type Variant = "small" | "medium" | "large";
 
-const { variant = 'medium' } = defineProps<{
+const { variant = "medium" } = defineProps<{
   variant?: Variant;
 }>();
 
 const VARIANT_CLASSES: Record<Variant, string> = {
-  small: 'small',
-  medium: 'medium',
-  large: 'large',
+  small: "small",
+  medium: "medium",
+  large: "large",
 };
 
 const variantClasses = computed(() => {

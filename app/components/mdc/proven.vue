@@ -1,4 +1,9 @@
-<script setup lang="ts">const { data: our_process, pending, error } = await useAsyncData('our-process', () => $fetch('/api/process'), {
+<script setup lang="ts">
+const {
+  data: our_process,
+  pending,
+  error,
+} = await useAsyncData("our-process", () => $fetch("/api/process"), {
   server: true,
   lazy: false,
   default: () => [],
@@ -11,13 +16,10 @@
       <app-typography tag="h2" variant="heading-md">
         Our <span>Proven</span> Process
       </app-typography>
-      <app-typography
-        variant="text-md"
-        tag="p"
-        class="max-w-[60ch]"
-      >
-        Our proven process brings structure and consistency to every project. We listen, plan, and execute to
-        reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency.
+      <app-typography variant="text-md" tag="p" class="max-w-[60ch]">
+        Our proven process brings structure and consistency to every project. We listen, plan, and
+        execute to reduce risk, maintain alignment, and deliver on time, on budget, and with
+        complete transparency.
       </app-typography>
     </template>
 

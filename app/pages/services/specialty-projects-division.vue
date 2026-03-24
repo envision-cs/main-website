@@ -1,4 +1,5 @@
-<script setup lang="ts">// const spd = [
+<script setup lang="ts">
+// const spd = [
 //  {
 //    title: 'New Project Request',
 //    meta: {
@@ -44,7 +45,7 @@
 // ];
 
 definePageMeta({
-  layout: 'layout-a',
+  layout: "layout-a",
 });
 </script>
 
@@ -58,8 +59,9 @@ definePageMeta({
       Specialty Projects <span>Division</span>
       <template #body>
         <p>
-          Our <b>Specialty Projects Division (SPD)</b> is built for efficiency, delivering high-quality results with a
-          streamlined process that keeps work simple, predictable, and accountable.
+          Our <b>Specialty Projects Division (SPD)</b> is built for efficiency, delivering
+          high-quality results with a streamlined process that keeps work simple, predictable, and
+          accountable.
         </p>
       </template>
     </app-cta-a>
@@ -84,9 +86,7 @@ definePageMeta({
             Proactive coordination to reduce delays and disruption.
           </li>
         </ul>
-        <p class="mt-4">
-          We move with urgency while protecting quality and attention to detail.
-        </p>
+        <p class="mt-4">We move with urgency while protecting quality and attention to detail.</p>
       </template>
     </app-cta-a>
 
@@ -126,8 +126,8 @@ definePageMeta({
         <h4>1. New Project Request</h4>
         <div>
           <p>
-            The New Project Request Form (NPRF) helps align scope, schedule, and next steps from day one. It is not
-            required, but completing it early improves speed and clarity.
+            The New Project Request Form (NPRF) helps align scope, schedule, and next steps from day
+            one. It is not required, but completing it early improves speed and clarity.
           </p>
           <ul class="service-list service-list--subtle">
             <li>
@@ -149,8 +149,8 @@ definePageMeta({
         <h4>2. Site Visit and Scope Development</h4>
         <div>
           <p>
-            We verify field conditions, measurements, and constraints. Key trade partners may join to support
-            accurate pricing and execution planning.
+            We verify field conditions, measurements, and constraints. Key trade partners may join
+            to support accurate pricing and execution planning.
           </p>
         </div>
       </li>
@@ -158,24 +158,23 @@ definePageMeta({
         <h4>3. Preconstruction and Estimation</h4>
         <div>
           <p>
-            We prepare a clear estimate and provide weekly updates. Typical turnaround is 7 business days from the
-            site visit, or 14 to 16 days for more complex scopes.
+            We prepare a clear estimate and provide weekly updates. Typical turnaround is 7 business
+            days from the site visit, or 14 to 16 days for more complex scopes.
           </p>
         </div>
       </li>
       <li>
         <h4>4. Proposal Submission and Client Approval</h4>
         <div>
-          <p>
-            We do not proceed until scope, budget, and expectations are reviewed and approved.
-          </p>
+          <p>We do not proceed until scope, budget, and expectations are reviewed and approved.</p>
         </div>
       </li>
       <li>
         <h4>5. Contract Execution and Project Kickoff</h4>
         <div>
           <p>
-            Once approved, we finalize agreements, align resources, and confirm the project start plan.
+            Once approved, we finalize agreements, align resources, and confirm the project start
+            plan.
           </p>
         </div>
       </li>
@@ -190,8 +189,8 @@ definePageMeta({
       <li>
         <h4>7. Project Completion and Closeout</h4>
         <p>
-          We complete final walkthrough and closeout documentation, including project photos, operations and
-          maintenance notes, warranty details, and key project records.
+          We complete final walkthrough and closeout documentation, including project photos,
+          operations and maintenance notes, warranty details, and key project records.
         </p>
       </li>
     </ul>

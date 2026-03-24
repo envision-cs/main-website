@@ -1,25 +1,29 @@
-<script setup lang="ts">type ContentPosition
-  = | 'top-left'
-    | 'top-center'
-    | 'top-right'
-    | 'center-left'
-    | 'center'
-    | 'center-right'
-    | 'bottom-left'
-    | 'bottom-center'
-    | 'bottom-right';
+<script setup lang="ts">
+type ContentPosition =
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "center-left"
+  | "center"
+  | "center-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
 
-const props = withDefaults(defineProps<{
-  body?: string;
-  image?: string;
-  flip?: boolean;
-  href?: string;
-  contentPosition?: ContentPosition;
-}>(), {
-  body: 'At En<slvision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all.',
-  image: 'https://placehold.co/100x75',
-  contentPosition: 'bottom-left',
-});
+const props = withDefaults(
+  defineProps<{
+    body?: string;
+    image?: string;
+    flip?: boolean;
+    href?: string;
+    contentPosition?: ContentPosition;
+  }>(),
+  {
+    body: "At En<slvision, we’ve delivered projects across Florida with a balance of technical excellence and genuine care for the people we serve. Every decision we make is rooted in purpose—ensuring results that meet the highest standards without ever losing sight of the communities and clients at the center of it all.",
+    image: "https://placehold.co/100x75",
+    contentPosition: "bottom-left",
+  },
+);
 </script>
 
 <template>
@@ -27,11 +31,7 @@ const props = withDefaults(defineProps<{
     <div class="cta-content" :class="`place-${props.contentPosition}`">
       <div class="content-wrapper">
         <div class="title">
-          <app-typography
-            tag="h2"
-            variant="heading-lg"
-            class="text"
-          >
+          <app-typography tag="h2" variant="heading-lg" class="text">
             <slot name="title">
               <slot />
             </slot>
@@ -46,13 +46,7 @@ const props = withDefaults(defineProps<{
           </div>
           <div class="actions">
             <template v-if="href">
-              <app-button
-                :to="href"
-                color="secondary"
-                variant="solid"
-              >
-                Learn More
-              </app-button>
+              <app-button :to="href" color="secondary" variant="solid"> Learn More </app-button>
             </template>
             <slot name="action" />
           </div>

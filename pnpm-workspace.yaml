@@ -1,6 +1,6 @@
 ignoredBuiltDependencies:
-  - '@parcel/watcher'
-  - '@posthog/cli'
+  - "@parcel/watcher"
+  - "@posthog/cli"
   - better-sqlite3
   - core-js
   - esbuild
@@ -13,12 +13,12 @@ catalog:
   vitest: npm:@voidzero-dev/vite-plus-test@latest
   vite-plus: latest
 overrides:
-  vite: 'catalog:'
-  vitest: 'catalog:'
+  vite: "catalog:"
+  vitest: "catalog:"
 peerDependencyRules:
   allowAny:
     - vite
     - vitest
   allowedVersions:
-    vite: '*'
-    vitest: '*'
+    vite: "*"
+    vitest: "*"

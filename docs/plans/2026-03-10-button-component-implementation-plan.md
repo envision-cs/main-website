@@ -20,15 +20,15 @@
 **Step 1: Write the failing test**
 
 ```ts
-import { mount } from '@vue/test-utils';
-import { describe, expect, it } from 'vitest';
+import { mount } from "@vue/test-utils";
+import { describe, expect, it } from "vitest";
 
-import Button from './button.vue';
+import Button from "./button.vue";
 
-describe('Button', () => {
-  it('uses primary variant by default', () => {
-    const wrapper = mount(Button, { slots: { default: 'Contact' } });
-    expect(wrapper.find('.btn').classes()).toContain('btn--primary');
+describe("Button", () => {
+  it("uses primary variant by default", () => {
+    const wrapper = mount(Button, { slots: { default: "Contact" } });
+    expect(wrapper.find(".btn").classes()).toContain("btn--primary");
   });
 });
 ```

@@ -1,57 +1,62 @@
-<script setup lang="ts">const props = withDefaults(defineProps<{
-  to?: string;
-  ariaLabel?: string;
-  image: string;
-  alt?: string;
-  imageFormat?: string;
-  imageSizes?: string;
-  imageDensities?: string;
-  imageLoading?: 'lazy' | 'eager';
-  imageWidth?: string | number;
-  imageHeight?: string | number;
-  aspectRatio?: '5/3' | '4/3' | '16/9' | '3/4' | '1/1' | '3/1';
-  linkMode?: 'wrap' | 'overlay';
-  imageObjectFit?: 'cover' | 'fill' | 'contain';
-  imageHoverBlur?: number;
-  imageHoverScale?: number;
-  overlay?: string;
-  contentPadding?: string;
-  contentGap?: string;
-  detailsDelay?: string;
-  metaDelay?: string;
-  detailsFade?: boolean;
-  metaFade?: boolean;
-  metaBorder?: boolean;
-  containerType?: boolean;
-  rounded?: boolean;
-  outlined?: boolean;
-}>(), {
-  to: '#',
-  ariaLabel: 'View details',
-  alt: '',
-  imageFormat: 'webp',
-  imageSizes: undefined,
-  imageDensities: undefined,
-  imageLoading: undefined,
-  imageWidth: undefined,
-  imageHeight: undefined,
-  aspectRatio: '16/9',
-  linkMode: 'wrap',
-  imageObjectFit: 'cover',
-  imageHoverBlur: 5,
-  imageHoverScale: 1.1,
-  overlay: 'linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0) 100%)',
-  contentPadding: '1rem',
-  contentGap: '0.75rem',
-  detailsDelay: '100ms',
-  metaDelay: '140ms',
-  detailsFade: false,
-  metaFade: true,
-  metaBorder: true,
-  containerType: false,
-  rounded: true,
-  outlined: true,
-});
+<script setup lang="ts">
+const props = withDefaults(
+  defineProps<{
+    to?: string;
+    ariaLabel?: string;
+    image: string;
+    alt?: string;
+    imageFormat?: string;
+    imageSizes?: string;
+    imageDensities?: string;
+    imageLoading?: "lazy" | "eager";
+    imageWidth?: string | number;
+    imageHeight?: string | number;
+    aspectRatio?: "5/3" | "4/3" | "16/9" | "3/4" | "1/1" | "3/1";
+    linkMode?: "wrap" | "overlay";
+    imageObjectFit?: "cover" | "fill" | "contain";
+    imageHoverBlur?: number;
+    imageHoverScale?: number;
+    overlay?: string;
+    contentPadding?: string;
+    contentGap?: string;
+    detailsDelay?: string;
+    metaDelay?: string;
+    detailsFade?: boolean;
+    metaFade?: boolean;
+    metaBorder?: boolean;
+    containerType?: boolean;
+    rounded?: boolean;
+    outlined?: boolean;
+  }>(),
+  {
+    to: "#",
+    ariaLabel: "View details",
+    alt: "",
+    imageFormat: "webp",
+    imageSizes: undefined,
+    imageDensities: undefined,
+    imageLoading: undefined,
+    imageWidth: undefined,
+    imageHeight: undefined,
+    aspectRatio: "16/9",
+    linkMode: "wrap",
+    imageObjectFit: "cover",
+    imageHoverBlur: 5,
+    imageHoverScale: 1.1,
+    overlay:
+      "linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0) 100%)",
+    contentPadding: "1rem",
+    contentGap: "0.75rem",
+    detailsDelay: "100ms",
+    metaDelay: "140ms",
+    detailsFade: false,
+    metaFade: true,
+    metaBorder: true,
+    containerType: false,
+    rounded: true,
+    outlined: true,
+  },
+);
 
 const imageAlt = computed(() => props.alt || props.ariaLabel);
 const hasDetails = computed(() => Boolean(useSlots().details));
@@ -204,7 +209,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
 
 .reveal-card {
   position: relative;
-  aspect-ratio: v-bind('props.aspectRatio');
+  aspect-ratio: v-bind("props.aspectRatio");
   overflow: hidden;
   isolation: isolate;
   color: var(--ui-text-inverted);
@@ -215,12 +220,12 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
 }
 
 .reveal-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: v-bind('props.overlay');
+  background: v-bind("props.overlay");
 }
 
 .reveal-card__overlay-link {
@@ -234,7 +239,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: v-bind('props.imageObjectFit');
+  object-fit: v-bind("props.imageObjectFit");
   z-index: 0;
   transform: scale(1);
   filter: blur(0);
@@ -249,8 +254,8 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
   inset: auto 0 0;
   z-index: 3;
   display: grid;
-  gap: v-bind('props.contentGap');
-  padding: v-bind('props.contentPadding');
+  gap: v-bind("props.contentGap");
+  padding: v-bind("props.contentPadding");
 }
 
 .reveal-card__title {
@@ -322,8 +327,8 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
 .reveal-card__wrapper:focus-visible .reveal-card__image,
 .reveal-card--overlay:hover .reveal-card__image,
 .reveal-card--overlay:focus-within .reveal-card__image {
-  filter: blur(v-bind('`${props.imageHoverBlur}px`'));
-  transform: scale(v-bind('String(props.imageHoverScale)'));
+  filter: blur(v-bind("`${props.imageHoverBlur}px`"));
+  transform: scale(v-bind("String(props.imageHoverScale)"));
 }
 
 .reveal-card__wrapper:hover .reveal-card__details,
@@ -349,10 +354,18 @@ const hasMeta = computed(() => Boolean(useSlots().meta));
   transform: translateY(0);
 }
 
-.reveal-card__wrapper:hover .reveal-card__meta:not(.reveal-card__meta--borderless) .reveal-card__meta-inner,
-.reveal-card__wrapper:focus-visible .reveal-card__meta:not(.reveal-card__meta--borderless) .reveal-card__meta-inner,
-.reveal-card--overlay:hover .reveal-card__meta:not(.reveal-card__meta--borderless) .reveal-card__meta-inner,
-.reveal-card--overlay:focus-within .reveal-card__meta:not(.reveal-card__meta--borderless) .reveal-card__meta-inner {
+.reveal-card__wrapper:hover
+  .reveal-card__meta:not(.reveal-card__meta--borderless)
+  .reveal-card__meta-inner,
+.reveal-card__wrapper:focus-visible
+  .reveal-card__meta:not(.reveal-card__meta--borderless)
+  .reveal-card__meta-inner,
+.reveal-card--overlay:hover
+  .reveal-card__meta:not(.reveal-card__meta--borderless)
+  .reveal-card__meta-inner,
+.reveal-card--overlay:focus-within
+  .reveal-card__meta:not(.reveal-card__meta--borderless)
+  .reveal-card__meta-inner {
   border-top-color: rgb(255 255 255 / 0.3);
   padding-top: 0.75rem;
 }

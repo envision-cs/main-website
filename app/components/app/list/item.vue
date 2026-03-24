@@ -1,4 +1,5 @@
-<script setup lang="ts">defineProps<{
+<script setup lang="ts">
+defineProps<{
   index?: number;
   title: string;
   text: string;
@@ -13,21 +14,14 @@ const hovered = ref(false);
 
 <template>
   <div
-    class="group site-grid relative
-    col-span-full border-t border-accented w-full
-      h-96"
+    class="group site-grid relative col-span-full border-t border-accented w-full h-96"
     :class="{ show: showNumber }"
-    @mouseenter="() => hovered = true"
-    @mouseleave="() => hovered = false"
+    @mouseenter="() => (hovered = true)"
+    @mouseleave="() => (hovered = false)"
   >
     <div
       v-if="showNumber"
-      class="
-      number
-        self-center justify-end text-left
-         text-7xl font-black text-primary-500 leading-[.9]
-      min-[700px]:text-right
-      "
+      class="number self-center justify-end text-left text-7xl font-black text-primary-500 leading-[.9] min-[700px]:text-right"
     >
       0{{ (index ?? 0) + 1 }}
     </div>
@@ -67,11 +61,7 @@ const hovered = ref(false);
         :exit="{ opacity: 0, x: '100%' }"
         class="hidden md:block h-96 overflow-hidden image"
       >
-        <NuxtImg
-          :src="image || '/community.png'"
-          class="w-full h-full object-cover"
-          fit="cover"
-        />
+        <NuxtImg :src="image || '/community.png'" class="w-full h-full object-cover" fit="cover" />
       </motion.div>
     </AnimatePresence>
   </div>
@@ -79,21 +69,21 @@ const hovered = ref(false);
 
 <style scoped>
 .site-grid {
-  grid-template-areas: 'c c c c';
+  grid-template-areas: "c c c c";
 
   &.show {
     grid-template-areas:
-      'a a a a'
-      'c c c c';
+      "a a a a"
+      "c c c c";
   }
 }
 
 @media (min-width: 700px) {
   .site-grid {
-    grid-template-areas: 'c c c c c c c c c c c c ';
+    grid-template-areas: "c c c c c c c c c c c c ";
 
     &.show {
-      grid-template-areas: 'a a a a b c c c c c c c ';
+      grid-template-areas: "a a a a b c c c c c c c ";
     }
   }
 }
@@ -101,10 +91,10 @@ const hovered = ref(false);
 @media (min-width: 1024px) {
   .site-grid {
     gap: 0;
-    grid-template-areas: 'c c c c c c c c c c c c c b i i i i i i i i i i';
+    grid-template-areas: "c c c c c c c c c c c c c b i i i i i i i i i i";
 
     &.show {
-      grid-template-areas: 'a a a c c c c c c c c c c b i i i i i i i i i i';
+      grid-template-areas: "a a a c c c c c c c c c c b i i i i i i i i i i";
     }
   }
 }

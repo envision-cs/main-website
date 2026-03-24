@@ -201,9 +201,6 @@ definePageMeta({
   gap: 0.55rem;
   padding: 0.4rem 0.85rem;
   border-left: calc(var(--spacing) * 2) solid var(--teamColor);
-  /*
-  background: color-mix(in srgb, var(--teamColor) 18%, white);
-  */
 }
 
 .team-role-dot {

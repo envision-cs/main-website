@@ -1,4 +1,5 @@
-<script setup lang="ts">interface Card {
+<script setup lang="ts">
+interface Card {
   title: string;
   link: string;
   image: string;
@@ -48,11 +49,11 @@ section {
   background-color: #fff;
   grid-template-columns: 1fr;
   max-height: 100vh;
-  grid-template-areas: 'a';
+  grid-template-areas: "a";
 
   @media (min-width: 750px) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-areas: 'a b c ';
+    grid-template-areas: "a b c ";
   }
 }
 

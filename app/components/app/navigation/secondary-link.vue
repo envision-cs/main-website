@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { RouteLocationRaw } from 'vue-router';
+<script setup lang="ts">
+import type { RouteLocationRaw } from "vue-router";
 
 defineProps<{
   to: RouteLocationRaw;
@@ -18,7 +19,7 @@ a {
 }
 
 a::after {
-  content: '';
+  content: "";
   height: 1px;
   width: 0%;
   left: 0;

@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Link } from '#shared/types/global';
+<script setup lang="ts">
+import type { Link } from "#shared/types/global";
 
 defineProps<{
   image?: string;
@@ -11,13 +12,11 @@ defineProps<{
 </script>
 
 <template>
-  <div class="color relative rounded-lg overflow-hidden bg-accented p-5 grid border border-t border-muted">
+  <div
+    class="color relative rounded-lg overflow-hidden bg-accented p-5 grid border border-t border-muted"
+  >
     <div class="relative z-10 self-start">
-      <UIcon
-        v-if="icon"
-        :name="icon"
-        class="size-10"
-      />
+      <UIcon v-if="icon" :name="icon" class="size-10" />
       <p class="text-sm md:text-base">
         {{ eyebrow }}
       </p>

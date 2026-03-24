@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = withDefaults(
+withDefaults(
   defineProps<{
     variant?: "a" | "b";
     contactImage?: string;
@@ -113,30 +113,52 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
 <template>
   <div class="main-header">
-    <button v-if="isDesktopMenuOpen" type="button" class="desktop-mega-menu-backdrop"
-      data-test="desktop-mega-menu-backdrop" aria-label="Close navigation menu" @click="closeDesktopMenu" />
+    <button
+      v-if="isDesktopMenuOpen"
+      type="button"
+      class="desktop-mega-menu-backdrop"
+      data-test="desktop-mega-menu-backdrop"
+      aria-label="Close navigation menu"
+      @click="closeDesktopMenu"
+    />
 
     <header class="header-root site-max">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
         <Icon name="logos:envision-white" size="30" alt="envision construction logo" />
       </NuxtLink>
-      Hello World
-      <NavigationMenuRoot v-model="desktopMenuValue" class="desktop-nav NavigationMenuRoot" :delay-duration="0"
-        :skip-delay-duration="0" disable-click-trigger aria-label="Primary">
+      <NavigationMenuRoot
+        v-model="desktopMenuValue"
+        class="desktop-nav NavigationMenuRoot"
+        :delay-duration="0"
+        :skip-delay-duration="0"
+        disable-click-trigger
+        aria-label="Primary"
+      >
         <NavigationMenuList class="desktop-nav-list NavigationMenuList">
           <NavigationMenuItem value="services">
             <NavigationMenuTrigger as-child>
-              <button type="button" class="NavigationMenuTrigger desktop-inline-nav-link"
-                data-test="desktop-services-trigger" :aria-expanded="String(isServicesDesktopMenuOpen)"
-                @pointerenter="openDesktopMenu('services')" @click="toggleDesktopMenu('services')">
+              <button
+                type="button"
+                class="NavigationMenuTrigger desktop-inline-nav-link"
+                data-test="desktop-services-trigger"
+                :aria-expanded="isServicesDesktopMenuOpen"
+                @pointerenter="openDesktopMenu('services')"
+                @click="toggleDesktopMenu('services')"
+              >
                 Services
               </button>
             </NavigationMenuTrigger>
-            <NavigationMenuContent class="NavigationMenuContent" data-test="desktop-mega-menu-panel">
+            <NavigationMenuContent
+              class="NavigationMenuContent"
+              data-test="desktop-mega-menu-panel"
+            >
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
-                  <NuxtLink class="services-feature-panel services-feature-panel--services"
-                    data-test="services-feature-panel" to="/services">
+                  <NuxtLink
+                    class="services-feature-panel services-feature-panel--services"
+                    data-test="services-feature-panel"
+                    to="/services"
+                  >
                     <img :src="servicesFeatureImage" alt="" class="services-feature-panel__image" />
                     <div class="services-feature-panel__overlay" />
                     <div class="services-feature-panel__grid" />
@@ -153,8 +175,13 @@ function toggleDesktopMenu(menu: "services" | "projects") {
                   </NuxtLink>
 
                   <div class="services-grid" data-test="services-grid">
-                    <NuxtLink v-for="item in serviceDropdownItems" :key="item.title" :to="item.to"
-                      class="services-grid-item" data-test="services-grid-item">
+                    <NuxtLink
+                      v-for="item in serviceDropdownItems"
+                      :key="item.title"
+                      :to="item.to"
+                      class="services-grid-item"
+                      data-test="services-grid-item"
+                    >
                       <span class="services-grid-item__index">
                         {{ String(serviceDropdownItems.indexOf(item) + 1).padStart(2, "0") }}
                       </span>
@@ -173,17 +200,28 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
           <NavigationMenuItem value="projects">
             <NavigationMenuTrigger as-child>
-              <button type="button" class="NavigationMenuTrigger desktop-inline-nav-link"
-                data-test="desktop-projects-trigger" :aria-expanded="String(isProjectsDesktopMenuOpen)"
-                @pointerenter="openDesktopMenu('projects')" @click="toggleDesktopMenu('projects')">
+              <button
+                type="button"
+                class="NavigationMenuTrigger desktop-inline-nav-link"
+                data-test="desktop-projects-trigger"
+                :aria-expanded="isProjectsDesktopMenuOpen"
+                @pointerenter="openDesktopMenu('projects')"
+                @click="toggleDesktopMenu('projects')"
+              >
                 Projects
               </button>
             </NavigationMenuTrigger>
-            <NavigationMenuContent class="NavigationMenuContent" data-test="desktop-projects-menu-panel">
+            <NavigationMenuContent
+              class="NavigationMenuContent"
+              data-test="desktop-projects-menu-panel"
+            >
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
-                  <NuxtLink class="services-feature-panel services-feature-panel--projects"
-                    data-test="projects-feature-panel" to="/projects">
+                  <NuxtLink
+                    class="services-feature-panel services-feature-panel--projects"
+                    data-test="projects-feature-panel"
+                    to="/projects"
+                  >
                     <img :src="projectsFeatureImage" alt="" class="services-feature-panel__image" />
                     <div class="services-feature-panel__overlay" />
                     <div class="services-feature-panel__grid" />
@@ -200,8 +238,13 @@ function toggleDesktopMenu(menu: "services" | "projects") {
                   </NuxtLink>
 
                   <div class="services-grid" data-test="projects-grid">
-                    <NuxtLink v-for="item in projectDropdownItems" :key="item.title" :to="item.to"
-                      class="services-grid-item" data-test="projects-grid-item">
+                    <NuxtLink
+                      v-for="item in projectDropdownItems"
+                      :key="item.title"
+                      :to="item.to"
+                      class="services-grid-item"
+                      data-test="projects-grid-item"
+                    >
                       <span class="services-grid-item__index">
                         {{ String(projectDropdownItems.indexOf(item) + 1).padStart(2, "0") }}
                       </span>
@@ -237,10 +280,11 @@ function toggleDesktopMenu(menu: "services" | "projects") {
         <div class="ViewportPosition">
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
+
+        <Button to="/contact" size="sm" variant="primary" class="header-cta--mobile-hidden">
+          Contact
+        </Button>
       </NavigationMenuRoot>
-      <Button to="/contact" size="sm" variant="primary" class="header-cta--mobile-hidden">
-        Contact
-      </Button>
 
       <app-mobile-nav-drawer />
     </header>
@@ -252,9 +296,11 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   --header-height: 3.5rem;
   --header-shell-bg: color-mix(in oklch, black 20%, var(--color-envision-blue-50) 3%);
   --header-shell-border: color-mix(in oklch, var(--color-envision-blue-900) 18%, white);
-  --header-shell-text: color-mix(in oklch,
-      var(--color-envision-blue-950) 88%,
-      var(--color-envision-green-900) 12%);
+  --header-shell-text: color-mix(
+    in oklch,
+    var(--color-envision-blue-950) 88%,
+    var(--color-envision-green-900) 12%
+  );
   --header-shell-muted: color-mix(in oklch, var(--color-envision-blue-900) 58%, white);
   --header-panel-bg: color-mix(in oklch, white 98%, var(--color-envision-blue-50) 2%);
   --header-panel-border: color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
@@ -338,7 +384,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   .NavigationMenuRoot {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     width: 100%;
     z-index: 1;
   }
@@ -358,7 +404,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   }
 
   /* push last item to far right */
-  .NavigationMenuList> :last-child {
+  .NavigationMenuList > :last-child {
     margin-left: auto;
   }
 
@@ -741,7 +787,6 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 }
 
 @media (max-width: 767px) {
-
   .header-root::before,
   .header-root::after {
     display: none;
