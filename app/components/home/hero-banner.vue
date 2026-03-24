@@ -35,18 +35,23 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     <app-gradient-overlay direction="top" class="overlay" />
 
     <div class="content site-max">
-      <div class="hero-frame">
-        <app-typography id="hero-title" tag="h2" variant="heading-huge" bold class="hero-title">
-          Complex Projects. Simple Accountability
-        </app-typography>
+      <div class="hero-layout">
+        <div class="hero-frame">
+          <app-typography id="hero-title" tag="h2" variant="heading-huge" bold class="hero-title">
+            Complex Projects. Simple Accountability
+          </app-typography>
 
-        <app-typography id="hero-summary" tag="p" variant="text-xl" class="hero-summary">
-          Local responsiveness. National-level expertise. Zero guesswork on your timeline or budget.
-        </app-typography>
+          <app-typography id="hero-summary" tag="p" variant="text-xl" class="hero-summary">
+            Local responsiveness. National-level expertise. Zero guesswork on your timeline or
+            budget.
+          </app-typography>
 
-        <div class="hero-actions">
-          <Button variant="primary" size="lg" to="/contact"> Start your project </Button>
+          <div class="hero-actions">
+            <Button variant="primary" size="lg" to="/contact"> Start your project </Button>
+          </div>
         </div>
+
+        <home-featured-projects-carousel class="hero-projects" />
       </div>
     </div>
   </section>
@@ -77,6 +82,17 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 
   @media (min-width: 800px) {
     padding: clamp(2rem, 4vw, 4.5rem);
+  }
+}
+
+.hero-layout {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  align-items: end;
+  width: 100%;
+
+  @media (min-width: 1100px) {
+    grid-template-columns: minmax(0, 1.15fr) minmax(22rem, 38rem);
   }
 }
 
@@ -116,9 +132,9 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 
 .hero-frame {
   display: grid;
-  flex-direction: column;
   gap: clamp(0.75rem, 1vw, 1.2rem);
   align-self: end;
+  max-width: 44rem;
 }
 
 .hero-eyebrow {
@@ -164,6 +180,12 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   animation: hero-reveal 1280ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
 
+.hero-projects {
+  animation: hero-reveal 1380ms cubic-bezier(0.19, 1, 0.22, 1) both;
+  justify-self: end;
+  width: 100%;
+}
+
 @keyframes hero-drift {
   from {
     transform: scale(1.04) translate3d(0, 0, 0);
@@ -191,15 +213,13 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     align-items: flex-start;
   }
 
+  .hero-layout {
+    align-items: start;
+  }
+
   .hero-frame {
     width: 100%;
     margin-block-end: 0.5rem;
-  }
-
-  .hero-title {
-  }
-
-  .hero-summary {
   }
 }
 
@@ -209,7 +229,8 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   .hero-rule,
   .hero-title,
   .hero-summary,
-  .hero-actions {
+  .hero-actions,
+  .hero-projects {
     animation: none;
     transform: none;
   }
