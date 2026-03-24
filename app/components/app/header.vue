@@ -1,101 +1,118 @@
-<script setup lang="ts">const props = withDefaults(defineProps<{
-  variant?: 'a' | 'b';
-  contactImage?: string;
-}>(), {
-  variant: 'a',
-  contactImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122',
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    variant?: "a" | "b";
+    contactImage?: string;
+  }>(),
+  {
+    variant: "a",
+    contactImage:
+      "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122",
+  },
+);
 
-});
-
-const servicesFeatureImage = '/design-build.jpg';
-const projectsFeatureImage = 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122';
+const servicesFeatureImage = "/design-build.jpg";
+const projectsFeatureImage =
+  "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122";
 
 const serviceDropdownItems = [
   {
-    title: 'Tenant Improvements',
-    to: '/services/tenant-improvements',
-    description: 'Not every project is large-scale, but every project deserves the same precision, coordination, and care.',
+    title: "Tenant Improvements",
+    to: "/services/tenant-improvements",
+    description:
+      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
   },
   {
-    title: 'Design Build',
-    to: '/services/design-build',
-    description: 'Not every project is large-scale, but every project deserves the same precision, coordination, and care.',
+    title: "Design Build",
+    to: "/services/design-build",
+    description:
+      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
   },
   {
-    title: 'Enhanced Preconstruction',
-    to: '/services/enhanced-preconstruction',
-    description: 'Not every project is large-scale, but every project deserves the same precision, coordination, and care.',
+    title: "Enhanced Preconstruction",
+    to: "/services/enhanced-preconstruction",
+    description:
+      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
   },
   {
-    title: 'Construction Management',
-    to: '/services/construction-management',
-    description: 'Not every project is large-scale, but every project deserves the same precision, coordination, and care.',
+    title: "Construction Management",
+    to: "/services/construction-management",
+    description:
+      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
   },
   {
-    title: 'Specialty Projects Division',
-    to: '/services/specialty-projects-division',
-    description: 'Not every project is large-scale, but every project deserves the same precision, coordination, and care.',
+    title: "Specialty Projects Division",
+    to: "/services/specialty-projects-division",
+    description:
+      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
   },
 ] as const;
 
 const projectDropdownItems = [
   {
-    title: 'Arts and Entertainment',
-    to: '/projects/arts_and_entertainment',
-    description: 'Public-facing venues and cultural spaces delivered with experience-driven execution.',
+    title: "Arts and Entertainment",
+    to: "/projects/arts_and_entertainment",
+    description:
+      "Public-facing venues and cultural spaces delivered with experience-driven execution.",
   },
   {
-    title: 'Athletics',
-    to: '/projects/athletics',
-    description: 'Training, competition, and fan environments built around complex event logistics.',
+    title: "Athletics",
+    to: "/projects/athletics",
+    description:
+      "Training, competition, and fan environments built around complex event logistics.",
   },
   {
-    title: 'Aviation',
-    to: '/projects/aviation',
-    description: 'Airport and airside work coordinated for safety, phasing, and uninterrupted operations.',
+    title: "Aviation",
+    to: "/projects/aviation",
+    description:
+      "Airport and airside work coordinated for safety, phasing, and uninterrupted operations.",
   },
   {
-    title: 'Business/Corporate',
-    to: '/projects/business_corporate',
-    description: 'Corporate interiors and workplace environments shaped around active business needs.',
+    title: "Business/Corporate",
+    to: "/projects/business_corporate",
+    description:
+      "Corporate interiors and workplace environments shaped around active business needs.",
   },
   {
-    title: 'Religious',
-    to: '/projects/religious',
-    description: 'Worship and community spaces completed with respect for mission and schedule.',
+    title: "Religious",
+    to: "/projects/religious",
+    description: "Worship and community spaces completed with respect for mission and schedule.",
   },
   {
-    title: 'Beck/Envision',
-    to: '/projects/beck-envision',
-    description: 'Integrated delivery work completed in partnership with The Beck Group.',
+    title: "Beck/Envision",
+    to: "/projects/beck-envision",
+    description: "Integrated delivery work completed in partnership with The Beck Group.",
   },
 ] as const;
 
-const desktopMenuValue = ref('');
-const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== '');
-const isServicesDesktopMenuOpen = computed(() => desktopMenuValue.value === 'services');
-const isProjectsDesktopMenuOpen = computed(() => desktopMenuValue.value === 'projects');
+const desktopMenuValue = ref("");
+const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== "");
+const isServicesDesktopMenuOpen = computed(() => desktopMenuValue.value === "services");
+const isProjectsDesktopMenuOpen = computed(() => desktopMenuValue.value === "projects");
 const route = useRoute();
 
-watch(() => route.fullPath, () => {
-  desktopMenuValue.value = '';
-});
+watch(
+  () => route.fullPath,
+  () => {
+    desktopMenuValue.value = "";
+  },
+);
 
 function closeDesktopMenu() {
-  desktopMenuValue.value = '';
+  desktopMenuValue.value = "";
 }
 
-function openDesktopMenu(menu: 'services' | 'projects') {
+function openDesktopMenu(menu: "services" | "projects") {
   desktopMenuValue.value = menu;
 }
 
-function toggleDesktopMenu(menu: 'services' | 'projects') {
-  desktopMenuValue.value = desktopMenuValue.value === menu ? '' : menu;
+function toggleDesktopMenu(menu: "services" | "projects") {
+  desktopMenuValue.value = desktopMenuValue.value === menu ? "" : menu;
 }
 </script>
 
 <template>
-  <div class="main-header" :class="{ 'main-header--desktop-open': isDesktopMenuOpen }">
+  <div class="main-header">
     <button
       v-if="isDesktopMenuOpen"
       type="button"
@@ -105,19 +122,10 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
       @click="closeDesktopMenu"
     />
 
-    <header class="header-root">
-      <NuxtLink
-        class="brand-link"
-        to="/"
-        aria-label="Envision home"
-      >
-        <Icon
-          :name="props.variant === 'b' ? 'logos:envision' : 'logos:envision'"
-          size="30"
-          alt="envision construction logo"
-        />
+    <header class="header-root site-max">
+      <NuxtLink class="brand-link" to="/" aria-label="Envision home">
+        <Icon name="logos:envision-white" size="30" alt="envision construction logo" />
       </NuxtLink>
-
       <NavigationMenuRoot
         v-model="desktopMenuValue"
         class="desktop-nav NavigationMenuRoot"
@@ -133,14 +141,17 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                 type="button"
                 class="NavigationMenuTrigger desktop-inline-nav-link"
                 data-test="desktop-services-trigger"
-                :aria-expanded="String(isServicesDesktopMenuOpen)"
+                :aria-expanded="isServicesDesktopMenuOpen"
                 @pointerenter="openDesktopMenu('services')"
                 @click="toggleDesktopMenu('services')"
               >
                 Services
               </button>
             </NavigationMenuTrigger>
-            <NavigationMenuContent class="NavigationMenuContent" data-test="desktop-mega-menu-panel">
+            <NavigationMenuContent
+              class="NavigationMenuContent"
+              data-test="desktop-mega-menu-panel"
+            >
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
                   <NuxtLink
@@ -148,21 +159,15 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                     data-test="services-feature-panel"
                     to="/services"
                   >
-                    <img
-                      :src="servicesFeatureImage"
-                      alt=""
-                      class="services-feature-panel__image"
-                    >
+                    <img :src="servicesFeatureImage" alt="" class="services-feature-panel__image" />
                     <div class="services-feature-panel__overlay" />
                     <div class="services-feature-panel__grid" />
                     <div class="services-feature-panel__content">
                       <span class="services-feature-panel__eyebrow">Capabilities</span>
-                      <h2 class="services-feature-panel__title">
-                        Services
-                      </h2>
+                      <h2 class="services-feature-panel__title">Services</h2>
                       <p class="services-feature-panel__copy">
-                        Construction services shaped for complex schedules, demanding coordination, and
-                        institution-grade execution.
+                        Construction services shaped for complex schedules, demanding coordination,
+                        and institution-grade execution.
                       </p>
                       <div class="services-feature-panel__rule" />
                       <span class="services-feature-panel__link">view all services</span>
@@ -178,7 +183,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                       data-test="services-grid-item"
                     >
                       <span class="services-grid-item__index">
-                        {{ String(serviceDropdownItems.indexOf(item) + 1).padStart(2, '0') }}
+                        {{ String(serviceDropdownItems.indexOf(item) + 1).padStart(2, "0") }}
                       </span>
                       <h3 class="services-grid-item__title">
                         {{ item.title }}
@@ -199,14 +204,17 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                 type="button"
                 class="NavigationMenuTrigger desktop-inline-nav-link"
                 data-test="desktop-projects-trigger"
-                :aria-expanded="String(isProjectsDesktopMenuOpen)"
+                :aria-expanded="isProjectsDesktopMenuOpen"
                 @pointerenter="openDesktopMenu('projects')"
                 @click="toggleDesktopMenu('projects')"
               >
                 Projects
               </button>
             </NavigationMenuTrigger>
-            <NavigationMenuContent class="NavigationMenuContent" data-test="desktop-projects-menu-panel">
+            <NavigationMenuContent
+              class="NavigationMenuContent"
+              data-test="desktop-projects-menu-panel"
+            >
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
                   <NuxtLink
@@ -214,20 +222,15 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                     data-test="projects-feature-panel"
                     to="/projects"
                   >
-                    <img
-                      :src="projectsFeatureImage"
-                      alt=""
-                      class="services-feature-panel__image"
-                    >
+                    <img :src="projectsFeatureImage" alt="" class="services-feature-panel__image" />
                     <div class="services-feature-panel__overlay" />
                     <div class="services-feature-panel__grid" />
                     <div class="services-feature-panel__content">
                       <span class="services-feature-panel__eyebrow">Selected Work</span>
-                      <h2 class="services-feature-panel__title">
-                        Projects
-                      </h2>
+                      <h2 class="services-feature-panel__title">Projects</h2>
                       <p class="services-feature-panel__copy">
-                        Selected work across commercial interiors, healthcare, sports, and complex active sites.
+                        Selected work across commercial interiors, healthcare, sports, and complex
+                        active sites.
                       </p>
                       <div class="services-feature-panel__rule" />
                       <span class="services-feature-panel__link">view all projects</span>
@@ -243,7 +246,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
                       data-test="projects-grid-item"
                     >
                       <span class="services-grid-item__index">
-                        {{ String(projectDropdownItems.indexOf(item) + 1).padStart(2, '0') }}
+                        {{ String(projectDropdownItems.indexOf(item) + 1).padStart(2, "0") }}
                       </span>
                       <h3 class="services-grid-item__title">
                         {{ item.title }}
@@ -277,15 +280,11 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
         <div class="ViewportPosition">
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
+
+        <Button to="/contact" size="sm" variant="primary" class="header-cta--mobile-hidden">
+          Contact
+        </Button>
       </NavigationMenuRoot>
-      <Button
-        to="/contact"
-        size="sm"
-        variant="primary"
-        class=" header-cta--mobile-hidden"
-      >
-        Contact
-      </button>
 
       <app-mobile-nav-drawer />
     </header>
@@ -294,20 +293,25 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 
 <style>
 .main-header {
-  --header-height: 4.5rem;
-  --header-shell-bg: color-mix(in oklch, white 97%, var(--color-envision-blue-50) 3%);
+  --header-height: 3.5rem;
+  --header-shell-bg: color-mix(in oklch, black 20%, var(--color-envision-blue-50) 3%);
   --header-shell-border: color-mix(in oklch, var(--color-envision-blue-900) 18%, white);
-  --header-shell-text: color-mix(in oklch, var(--color-envision-blue-950) 88%, var(--color-envision-green-900) 12%);
+  --header-shell-text: color-mix(
+    in oklch,
+    var(--color-envision-blue-950) 88%,
+    var(--color-envision-green-900) 12%
+  );
   --header-shell-muted: color-mix(in oklch, var(--color-envision-blue-900) 58%, white);
   --header-panel-bg: color-mix(in oklch, white 98%, var(--color-envision-blue-50) 2%);
   --header-panel-border: color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
+
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
   color: var(--header-shell-text);
   background: var(--header-shell-bg);
-  border-bottom: 1px solid var(--header-shell-border);
+  backdrop-filter: blur(25px);
 
   animation: stickyNav linear forwards;
   animation-timeline: view();
@@ -317,7 +321,6 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 
 @keyframes stickyNav {
   100% {
-    background: color-mix(in oklch, white 95%, var(--color-envision-blue-50) 5%);
     border-bottom: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 16%, white);
   }
 }
@@ -335,9 +338,8 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   justify-content: space-between;
   margin-inline: auto;
   gap: 1rem;
-  padding: 0.875rem clamp(1rem, 2vw, 2rem);
+  padding: 0.875rem clamp(2rem, 4vw, 4.5rem);
   min-height: var(--header-height);
-  max-width: min(1600px, calc(100vw - 1.5rem));
   position: relative;
   z-index: 2;
 }
@@ -382,7 +384,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   .NavigationMenuRoot {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     width: 100%;
     z-index: 1;
   }
@@ -423,7 +425,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     border: 0;
     border-radius: 0;
     background: transparent;
-    color: var(--header-shell-muted);
+    color: #fff;
     text-decoration: none;
     white-space: nowrap;
     text-transform: uppercase;
@@ -436,7 +438,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   }
 
   .desktop-inline-nav-link::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     right: 0;
@@ -450,19 +452,16 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
 
   .desktop-inline-nav-link:hover,
   .desktop-inline-nav-link:focus-visible {
-    color: var(--header-shell-text);
-    transform: translateY(-1px);
     outline: none;
   }
 
   .desktop-inline-nav-link:hover::after,
   .desktop-inline-nav-link:focus-visible::after,
-  .desktop-inline-nav-link[aria-expanded='true']::after {
+  .desktop-inline-nav-link[aria-expanded="true"]::after {
     transform: scaleX(1);
   }
 
-  .desktop-inline-nav-link[aria-expanded='true'] {
-    color: var(--header-shell-text);
+  .desktop-inline-nav-link[aria-expanded="true"] {
     outline: none;
   }
 
@@ -519,19 +518,19 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
     animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  .NavigationMenuContent[data-motion='from-start'] {
+  .NavigationMenuContent[data-motion="from-start"] {
     animation-name: enterFromLeft;
   }
 
-  .NavigationMenuContent[data-motion='from-end'] {
+  .NavigationMenuContent[data-motion="from-end"] {
     animation-name: enterFromRight;
   }
 
-  .NavigationMenuContent[data-motion='to-start'] {
+  .NavigationMenuContent[data-motion="to-start"] {
     animation-name: exitToLeft;
   }
 
-  .NavigationMenuContent[data-motion='to-end'] {
+  .NavigationMenuContent[data-motion="to-end"] {
     animation-name: exitToRight;
   }
 
@@ -563,7 +562,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   .NavigationMenuViewport {
     position: relative;
     transform-origin: top center;
-    margin-top: 0;
+    margin-top: 1.25rem;
     width: 100vw;
     background: var(--header-panel-bg);
     border-radius: 0;
@@ -686,7 +685,7 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   }
 
   .services-feature-panel__link::after {
-    content: '';
+    content: "";
     width: 2rem;
     height: 1px;
     background: currentColor;
@@ -791,6 +790,18 @@ function toggleDesktopMenu(menu: 'services' | 'projects') {
   .header-root::before,
   .header-root::after {
     display: none;
+  }
+}
+
+@keyframes enterFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 

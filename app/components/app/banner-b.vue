@@ -1,4 +1,5 @@
-<script setup lang="ts">defineProps<{
+<script setup lang="ts">
+defineProps<{
   image?: string;
   imageAlt?: string;
   body?: string;
@@ -22,19 +23,10 @@
         <slot />
       </app-typography>
 
-      <app-typography
-        id="banner-subtitle"
-        tag="p"
-        variant="heading-md"
-      >
+      <app-typography id="banner-subtitle" tag="p" variant="heading-md">
         <slot name="title" />
       </app-typography>
-      <app-typography
-        id="banner-body"
-        tag="p"
-        variant="text-md"
-        class="text"
-      >
+      <app-typography id="banner-body" tag="p" variant="text-md" class="text">
         {{ body }}
       </app-typography>
     </div>
@@ -133,6 +125,11 @@
   z-index: 1;
   background:
     linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0) 43.16%, rgba(0, 0, 0, 0.55) 64.7%, rgba(0, 0, 0, 0.6) 81.1%);
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 43.16%,
+      rgba(0, 0, 0, 0.55) 64.7%,
+      rgba(0, 0, 0, 0.6) 81.1%
+    );
 }
 </style>

@@ -1,4 +1,4 @@
-import type { Service } from '~~/shared/types/content-types';
+import type { Service } from "~~/shared/types/content-types";
 
 type ServiceWithSlug = Service & {
   slug?: string;
@@ -6,20 +6,18 @@ type ServiceWithSlug = Service & {
 };
 
 export async function useServicesList() {
-  const { data } = await useAsyncData(
-    'services-list',
-    () => $fetch<Service[]>('/api/services'),
-    { default: () => [] },
-  );
+  const { data } = await useAsyncData("services-list", () => $fetch<Service[]>("/api/services"), {
+    default: () => [],
+  });
 
   const services = computed<ServiceWithSlug[]>(() =>
     (data.value ?? [])
-      .filter(service => Boolean((service as any)?.slug || service?.param))
-      .map(service => ({
+      .filter((service) => Boolean((service as any)?.slug || service?.param))
+      .map((service) => ({
         ...service,
         slug: (service as any).slug ?? service.param,
         image:
-          typeof service.image === 'object' && service.image !== null
+          typeof service.image === "object" && service.image !== null
             ? service.image.url
             : undefined,
       })),

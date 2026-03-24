@@ -1,40 +1,41 @@
-@import 'tailwindcss';
-@import '@nuxt/ui';
+@import "tailwindcss";
+@import "@nuxt/ui";
 
 @font-face {
-  font-family: 'Proxima Nova';
-  src: url('/fonts/ProximaNovaLight.woff2') format('woff2');
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNovaLight.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Proxima Nova';
-  src: url('/fonts/ProximaNovaRegular.woff2') format('woff2');
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNovaRegular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Proxima Nova';
-  src: url('/fonts/ProximaNovaSemibold.woff2') format('woff2');
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNovaSemibold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Proxima Nova';
-  src: url('/fonts/ProximaNovaExtrabold.woff2') format('woff2');
+  font-family: "Proxima Nova";
+  src: url("/fonts/ProximaNovaExtrabold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  --font-sans: 'Proxima Nova', 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
+  --font-sans:
+    "Proxima Nova", "Avenir Next", "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
 
   --container-8xl: 90rem;
   --breakpoint-md: 650px;
@@ -110,7 +111,7 @@
   --font-size-text-t3: clamp(14px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 14px);
   --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
 
-  --font-size-huge: clamp(50px, 0.1041666667 * calc(100 * var(--vw, 1vw)), 65px);
+  --font-size-huge: clamp(50px, 0.081666667 * calc(100 * var(--vw, 1vw)), 86px);
   --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 55px);
   --font-size-h2: clamp(35px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 45px);
   --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
@@ -157,17 +158,17 @@ body {
   display: grid;
   /*padding-inline: 1rem;*/
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-areas: 'c c c c';
+  grid-template-areas: "c c c c";
 }
 
 @media (min-width: 700px) {
   .site-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-areas: 'a a a . b c c c c c c c ';
+    grid-template-areas: "a a a . b c c c c c c c ";
     /*padding-inline: 1rem;*/
 
     &.flip {
-      grid-template-areas: 'c c c c c c c b . a a a';
+      grid-template-areas: "c c c c c c c b . a a a";
     }
   }
 }
@@ -175,10 +176,10 @@ body {
 @media (min-width: 1024px) {
   .site-grid {
     grid-template-columns: repeat(24, minmax(0, 1fr));
-    grid-template-areas: 'a a a a . . . . . . . . . b c c c c c c c c c';
+    grid-template-areas: "a a a a . . . . . . . . . b c c c c c c c c c";
 
     &.flip {
-      grid-template-areas: 'c c c c c c c c c b . . . . . . . . . a a a a';
+      grid-template-areas: "c c c c c c c c c b . . . . . . . . . a a a a";
     }
   }
 }

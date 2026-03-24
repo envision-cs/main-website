@@ -1,4 +1,5 @@
-<script setup lang="ts">defineProps<{
+<script setup lang="ts">
+defineProps<{
   image: string;
   title: string;
   area: string;
@@ -8,7 +9,7 @@
   to: string;
 }>();
 
-const contentRef = useTemplateRef<HTMLDivElement | null>('contentRef');
+const contentRef = useTemplateRef<HTMLDivElement | null>("contentRef");
 const contentHeight = ref(0);
 
 function updateHeight() {
@@ -53,25 +54,19 @@ onMounted(() => {
     <template #details>
       <ul class="stats">
         <li v-if="location">
-          <app-typography tag="p" variant="eyebrow-md">
-            Location
-          </app-typography>
+          <app-typography tag="p" variant="eyebrow-md"> Location </app-typography>
           <app-typography tag="p">
             {{ location }}
           </app-typography>
         </li>
         <li v-if="area">
-          <app-typography tag="p" variant="eyebrow-md">
-            Area
-          </app-typography>
+          <app-typography tag="p" variant="eyebrow-md"> Area </app-typography>
           <app-typography tag="p">
             {{ area }}
           </app-typography>
         </li>
         <li v-if="completed">
-          <app-typography tag="p" variant="eyebrow-md">
-            Completed
-          </app-typography>
+          <app-typography tag="p" variant="eyebrow-md"> Completed </app-typography>
           <app-typography tag="p">
             {{ completed }}
           </app-typography>

@@ -1,35 +1,37 @@
-<script setup lang="ts">const mobileDrawerOpen = ref(false);
+<script setup lang="ts">
+const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const menuButtonRef = ref<HTMLButtonElement | null>(null);
 const firstDrawerLinkRef = ref<HTMLElement | null>(null);
 const isDrawerClosing = ref(false);
 const serviceLinks = [
-  { title: 'All Services', to: '/services/' },
-  { title: 'Specialty Projects Division', to: '/services/specialty-projects-division' },
-  { title: 'Construction Management', to: '/services/construction-management' },
-  { title: 'Enhanced Preconstruction', to: '/services/enhanced-preconstruction' },
-  { title: 'Design Build', to: '/services/design-build' },
+  { title: "All Services", to: "/services/" },
+  { title: "Specialty Projects Division", to: "/services/specialty-projects-division" },
+  { title: "Construction Management", to: "/services/construction-management" },
+  { title: "Enhanced Preconstruction", to: "/services/enhanced-preconstruction" },
+  { title: "Design Build", to: "/services/design-build" },
 ] as const;
 
 const primaryLinks = [
-  { title: 'Projects', to: '/projects' },
-  { title: 'Meet the Team', to: '/team' },
-  { title: 'About Us', to: '/about' },
-  { title: 'Contact', to: '/contact', accent: true },
+  { title: "Projects", to: "/projects" },
+  { title: "Meet the Team", to: "/team" },
+  { title: "About Us", to: "/about" },
+  { title: "Contact", to: "/contact", accent: true },
 ] as const;
 
 const route = useRoute();
 const gsap = useGSAP();
 
-watch(() => route.fullPath, async () => {
-  if (mobileDrawerOpen.value)
-    await closeDrawer();
-  mobileServicesOpen.value = false;
-});
+watch(
+  () => route.fullPath,
+  async () => {
+    if (mobileDrawerOpen.value) await closeDrawer();
+    mobileServicesOpen.value = false;
+  },
+);
 
 watch(mobileDrawerOpen, (open) => {
-  if (!open)
-    mobileServicesOpen.value = false;
+  if (!open) mobileServicesOpen.value = false;
 });
 
 function closeDrawerAndNavigate() {
@@ -38,16 +40,18 @@ function closeDrawerAndNavigate() {
 
 function getDrawerElements() {
   const content = document.body.querySelector('[data-test="mobile-drawer"]') as HTMLElement | null;
-  const overlay = document.body.querySelector('[data-test="mobile-drawer-overlay"]') as HTMLElement | null;
+  const overlay = document.body.querySelector(
+    '[data-test="mobile-drawer-overlay"]',
+  ) as HTMLElement | null;
   const navTargets = content
-    ? Array.from(content.querySelectorAll('[data-anim="mobile-nav-link"]')) as HTMLElement[]
+    ? (Array.from(content.querySelectorAll('[data-anim="mobile-nav-link"]')) as HTMLElement[])
     : [];
 
   return { content, overlay, navTargets };
 }
 
 function focusTarget(target: unknown, fallbackSelector: string) {
-  if (target && typeof (target as { focus?: () => void }).focus === 'function') {
+  if (target && typeof (target as { focus?: () => void }).focus === "function") {
     (target as { focus: () => void }).focus();
     return;
   }
@@ -58,32 +62,34 @@ function focusTarget(target: unknown, fallbackSelector: string) {
 
 function animateDrawerOpen() {
   const { content, overlay, navTargets } = getDrawerElements();
-  if (!content)
-    return;
+  if (!content) return;
 
   const targets = overlay ? [overlay, content, ...navTargets] : [content, ...navTargets];
   gsap.killTweensOf(targets);
 
   if (overlay) {
     gsap.set(overlay, { autoAlpha: 0 });
-    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: 'power2.out' });
+    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: "power2.out" });
   }
 
   gsap.set(content, { xPercent: 100 });
-  if (navTargets.length)
-    gsap.set(navTargets, { autoAlpha: 0, x: 24 });
+  if (navTargets.length) gsap.set(navTargets, { autoAlpha: 0, x: 24 });
 
   const timeline = gsap.timeline();
-  timeline.to(content, { xPercent: 0, duration: 0.4, ease: 'power3.out' }, 0);
+  timeline.to(content, { xPercent: 0, duration: 0.4, ease: "power3.out" }, 0);
 
-  if (navTargets.length)
-    timeline.to(navTargets, { autoAlpha: 1, x: 0, duration: 0.24, stagger: 0.06, ease: 'power2.out' }, 0.1);
+  if (navTargets.length) {
+    timeline.to(
+      navTargets,
+      { autoAlpha: 1, x: 0, duration: 0.24, stagger: 0.06, ease: "power2.out" },
+      0.1,
+    );
+  }
 }
 
 function animateDrawerClose() {
   const { content, overlay, navTargets } = getDrawerElements();
-  if (!content)
-    return Promise.resolve();
+  if (!content) return Promise.resolve();
 
   const targets = overlay ? [overlay, content, ...navTargets] : [content, ...navTargets];
   gsap.killTweensOf(targets);
@@ -94,26 +100,24 @@ function animateDrawerClose() {
         autoAlpha: 0,
         x: 14,
         duration: 0.14,
-        stagger: { each: 0.03, from: 'end' },
-        ease: 'power2.in',
+        stagger: { each: 0.03, from: "end" },
+        ease: "power2.in",
       });
     }
 
-    if (overlay)
-      gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: 'power2.inOut' });
+    if (overlay) gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: "power2.inOut" });
 
     gsap.to(content, {
       xPercent: 100,
       duration: 0.3,
-      ease: 'power3.in',
+      ease: "power3.in",
       onComplete: resolve,
     });
   });
 }
 
 async function closeDrawer() {
-  if (!mobileDrawerOpen.value || isDrawerClosing.value)
-    return;
+  if (!mobileDrawerOpen.value || isDrawerClosing.value) return;
 
   isDrawerClosing.value = true;
   await nextTick();
@@ -178,11 +182,7 @@ function onDrawerCloseAutoFocus(event: Event) {
           <div class="mobile-brand-block">
             <span class="mobile-brand-block__eyebrow">Navigation</span>
             <div class="mobile-brand-block__mark">
-              <Icon
-                name="logos:envision"
-                size="28"
-                alt="envision construction logo"
-              />
+              <Icon name="logos:envision" size="28" alt="envision construction logo" />
             </div>
           </div>
           <Button
@@ -198,15 +198,6 @@ function onDrawerCloseAutoFocus(event: Event) {
         </div>
 
         <nav class="mobile-nav" aria-label="Mobile primary">
-          <div class="mobile-nav-intro" data-anim="mobile-nav-link">
-            <p class="mobile-nav-intro__label">
-              Envision Construction
-            </p>
-            <p class="mobile-nav-intro__copy">
-              Presentation, precision, and craftsmanship carried through every project category and service line.
-            </p>
-          </div>
-
           <ul class="mobile-nav-list">
             <li class="mobile-nav-list__item">
               <CollapsibleRoot v-model:open="mobileServicesOpen">
@@ -218,7 +209,6 @@ function onDrawerCloseAutoFocus(event: Event) {
                     data-anim="mobile-nav-link"
                   >
                     <span class="mobile-services-toggle__label">Services</span>
-                    <span class="mobile-services-toggle__meta">{{ String(serviceLinks.length).padStart(2, '0') }}</span>
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent class="mobile-services-panel" data-test="mobile-services-panel">
@@ -235,7 +225,6 @@ function onDrawerCloseAutoFocus(event: Event) {
                         data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
-                        <span class="mobile-link__index">{{ String(index + 1).padStart(2, '0') }}</span>
                         <span class="mobile-link__label">{{ link.title }}</span>
                       </NuxtLink>
                     </li>
@@ -243,11 +232,7 @@ function onDrawerCloseAutoFocus(event: Event) {
                 </CollapsibleContent>
               </CollapsibleRoot>
             </li>
-            <li
-              v-for="(link, index) in primaryLinks"
-              :key="link.to"
-              class="mobile-nav-list__item"
-            >
+            <li v-for="(link, index) in primaryLinks" :key="link.to" class="mobile-nav-list__item">
               <NuxtLink
                 class="mobile-link"
                 :class="{ 'mobile-link--accent': link.accent }"
@@ -255,7 +240,6 @@ function onDrawerCloseAutoFocus(event: Event) {
                 data-anim="mobile-nav-link"
                 @click="closeDrawerAndNavigate"
               >
-                <span class="mobile-link__index">{{ String(index + 1).padStart(2, '0') }}</span>
                 <span class="mobile-link__label">{{ link.title }}</span>
               </NuxtLink>
             </li>
@@ -287,7 +271,11 @@ function onDrawerCloseAutoFocus(event: Event) {
   margin: 0;
   border-left: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 12%, white);
   background: color-mix(in oklch, white 98%, var(--color-envision-blue-50) 2%);
-  color: color-mix(in oklch, var(--color-envision-blue-950) 88%, var(--color-envision-green-900) 12%);
+  color: color-mix(
+    in oklch,
+    var(--color-envision-blue-950) 88%,
+    var(--color-envision-green-900) 12%
+  );
   z-index: 201;
   overflow-y: auto;
   padding: 0;
@@ -308,7 +296,6 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 .mobile-brand-block__eyebrow {
   font-size: 0.68rem;
-  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: color-mix(in oklch, var(--color-envision-blue-900) 52%, white);
@@ -358,7 +345,6 @@ function onDrawerCloseAutoFocus(event: Event) {
 .mobile-nav-intro__label {
   margin: 0;
   font-size: 0.72rem;
-  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: color-mix(in oklch, var(--color-envision-blue-900) 56%, white);
@@ -410,7 +396,6 @@ function onDrawerCloseAutoFocus(event: Event) {
 .mobile-link__index,
 .mobile-services-toggle__meta {
   font-size: 0.68rem;
-  font-weight: 600;
   letter-spacing: 0.18em;
   color: color-mix(in oklch, var(--ui-primary) 60%, white);
 }
@@ -418,7 +403,6 @@ function onDrawerCloseAutoFocus(event: Event) {
 .mobile-link__label,
 .mobile-services-toggle__label {
   font-size: 1.32rem;
-  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.03em;
   text-transform: none;
@@ -456,7 +440,11 @@ function onDrawerCloseAutoFocus(event: Event) {
 }
 
 .mobile-services-panel {
-  background: linear-gradient(180deg, color-mix(in oklch, white 93%, var(--color-envision-blue-50) 7%), white);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, white 93%, var(--color-envision-blue-50) 7%),
+    white
+  );
   border-top: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 8%, white);
 }
 

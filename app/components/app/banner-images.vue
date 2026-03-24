@@ -1,4 +1,8 @@
-<script setup lang="ts">interface ImageItem { img: string; alt?: string }
+<script setup lang="ts">
+interface ImageItem {
+  img: string;
+  alt?: string;
+}
 
 const { images = [] } = defineProps<{
   images?: ImageItem[];
@@ -19,8 +23,7 @@ const multipleImages = computed(() => images && images.length > 1);
         title="Building Without the Headaches"
         year="2025"
         direction="left"
-        class=" col-span-full row-span-3 w-full h-full pr-0
-        min-[700px]:col-start-1 min-[700px]:col-end-17 lg:pr-8"
+        class="col-span-full row-span-3 w-full h-full pr-0 min-[700px]:col-start-1 min-[700px]:col-end-17 lg:pr-8"
       />
       <app-image-card
         :image="images[1]?.img as string"
@@ -29,9 +32,7 @@ const multipleImages = computed(() => images && images.length > 1);
         direction="right"
         title="Building Without the Headaches"
         year="2025"
-        class="block col-span-full
-        min-[700px]:hidden
-        lg:block w-full h-full lg:col-start-17  lg:col-end-25"
+        class="block col-span-full min-[700px]:hidden lg:block w-full h-full lg:col-start-17 lg:col-end-25"
       />
     </template>
 
@@ -42,7 +43,7 @@ const multipleImages = computed(() => images && images.length > 1);
         :alt="images[0]?.alt"
         height="700"
         width="900"
-        class=" inset-0 w-full h-full object-cover will-change-transform"
+        class="inset-0 w-full h-full object-cover will-change-transform"
         fit="cover"
       />
     </div>

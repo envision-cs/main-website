@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { RouteLocationRaw } from 'vue-router';
+<script setup lang="ts">
+import type { RouteLocationRaw } from "vue-router";
 
 defineProps<{
   to: RouteLocationRaw;
@@ -8,16 +9,12 @@ defineProps<{
 
 <template>
   <NuxtLink :to="to" class="image-link-card">
-    <img :src="image" class="absolute h-full w-full object-cover ">
+    <img :src="image" class="absolute h-full w-full object-cover" />
     <span class="label text-lg text-white">
       <slot />
     </span>
     <div class="icon">
-      <UIcon
-        class="arrow-icon"
-        name="i-lucide-arrow-right"
-        size="32"
-      />
+      <UIcon class="arrow-icon" name="i-lucide-arrow-right" size="32" />
     </div>
   </NuxtLink>
 </template>

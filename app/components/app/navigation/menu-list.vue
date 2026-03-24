@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { NavigationMenuItem } from '@nuxt/ui';
+<script setup lang="ts">
+import type { NavigationMenuItem } from "@nuxt/ui";
 
 defineProps<{
   items: NavigationMenuItem[];
@@ -6,17 +7,17 @@ defineProps<{
 
 const emit = defineEmits<{
   /** Parent asks us to open a submenu; we bubble up children + index */
-  (e: 'open', payload: { children: NavigationMenuItem; index: number }): void;
+  (e: "open", payload: { children: NavigationMenuItem; index: number }): void;
 }>();
 
 function emitOpen(children: NavigationMenuItem[] | undefined, index: number) {
   if (!children || children.length === 0) {
     if (import.meta.client) {
-      console.warn('[MainMenuList] Tried to open, but no children provided at index:', index);
+      console.warn("[MainMenuList] Tried to open, but no children provided at index:", index);
     }
     return;
   }
-  emit('open', { children, index });
+  emit("open", { children, index });
 }
 </script>
 
@@ -32,7 +33,5 @@ function emitOpen(children: NavigationMenuItem[] | undefined, index: number) {
   </ul>
 
   <!-- Optional empty state -->
-  <div v-else class="menu-empty">
-    No items
-  </div>
+  <div v-else class="menu-empty">No items</div>
 </template>

@@ -1,12 +1,11 @@
-<script setup lang="ts">const { data: contactData, error } = await useFetch('/api/contact');
+<script setup lang="ts">
+const { data: contactData, error } = await useFetch("/api/contact");
 </script>
 
 <template>
   <UPage class="mt-0">
     <div class="grid">
-      <app-banner-b image="contact.jpg" class="col-start-1 -col-end-1">
-        Contact Us
-      </app-banner-b>
+      <app-banner-b image="contact.jpg" class="col-start-1 -col-end-1"> Contact Us </app-banner-b>
 
       <!-- Intro + Form   -->
       <app-section-a>
@@ -20,13 +19,9 @@
               Let’s <span>Build</span> Something That <span>Lasts</span>.
             </app-typography>
 
-            <app-typography
-              tag="p"
-              variant="text-md"
-              class="text-balance max-w-sm"
-            >
-              We’re ready to connect—whether you’re starting a project,
-              asking a question, or just want to talk construction.
+            <app-typography tag="p" variant="text-md" class="text-balance max-w-sm">
+              We’re ready to connect—whether you’re starting a project, asking a question, or just
+              want to talk construction.
             </app-typography>
           </div>
         </template>
@@ -42,7 +37,7 @@
           <app-typography
             tag="h2"
             variant="heading-md"
-            class="font-semibold text-balance uppercase p-8 "
+            class="font-semibold text-balance uppercase p-8"
           >
             Our <span>Locations</span>
           </app-typography>

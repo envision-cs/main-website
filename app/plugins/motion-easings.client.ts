@@ -4,11 +4,8 @@ export default defineNuxtPlugin(() => {
   const cssContent = `
      :root {
        ${Object.entries(EASINGS)
-          .map(
-            ([name, [a, b, c, d]]) =>
-              `--ease-${name}: cubic-bezier(${a}, ${b}, ${c}, ${d});`,
-          )
-          .join('\n')}
+         .map(([name, [a, b, c, d]]) => `--ease-${name}: cubic-bezier(${a}, ${b}, ${c}, ${d});`)
+         .join("\n")}
      }
   `;
 

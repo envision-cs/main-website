@@ -1,27 +1,30 @@
-<script setup lang="ts">const { formatMonthYear } = useFormatDate();
-const { data } = await useAsyncData('page-data', async () => {
-  try {
-    const [projectRes, sectorsRes] = await Promise.all([
-      $fetch('/api/projects'),
-      $fetch('/api/sectors'),
-    ]);
+<script setup lang="ts">
+const { formatMonthYear } = useFormatDate();
+const { data } = await useAsyncData(
+  "page-data",
+  async () => {
+    try {
+      const [projectRes, sectorsRes] = await Promise.all([
+        $fetch("/api/projects"),
+        $fetch("/api/sectors"),
+      ]);
 
-    return {
-      projects: projectRes,
-      sectors: sectorsRes,
-    };
-  }
-  catch (err) {
-    console.error('Strapi error:', err);
-    return null;
-  }
-}, { default: () => ({ projects: [], sectors: [] }) });
+      return {
+        projects: projectRes,
+        sectors: sectorsRes,
+      };
+    } catch (err) {
+      console.error("Strapi error:", err);
+      return null;
+    }
+  },
+  { default: () => ({ projects: [], sectors: [] }) },
+);
 
 const categories = computed<{ name: string; slug: string; image?: string }[]>(() => {
-  if (!data.value?.sectors?.length)
-    return [];
+  if (!data.value?.sectors?.length) return [];
 
-  return data.value.sectors.map(sector => ({
+  return data.value.sectors.map((sector) => ({
     name: sector.name,
     slug: sector.slug,
     image: sector.image?.url,
@@ -29,10 +32,10 @@ const categories = computed<{ name: string; slug: string; image?: string }[]>(()
 });
 
 const activeProjects = computed(() => data.value?.projects ?? []);
-const bannerImage = computed(() => 'projects-all.jpg');
+const bannerImage = computed(() => "projects-all.jpg");
 
 definePageMeta({
-  layout: 'none',
+  layout: "none",
 });
 </script>
 
@@ -40,9 +43,7 @@ definePageMeta({
   <layout-a>
     <template #header-slot>
       <app-banner-b class="header" :image="bannerImage">
-        <template #title>
-          Projects
-        </template>
+        <template #title> Projects </template>
         All
       </app-banner-b>
     </template>
@@ -69,36 +70,26 @@ definePageMeta({
             meta-delay="220ms"
           >
             <template #title>
-              <app-typography
-                tag="h3"
-                class="h3 project-card-title"
-                variant="heading-md"
-              >
+              <app-typography tag="h3" class="h3 project-card-title" variant="heading-md">
                 {{ project.title }}
               </app-typography>
             </template>
             <template #details>
               <ul class="project-card-stats">
                 <li v-if="project.location">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Location
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Location </app-typography>
                   <app-typography tag="p">
                     {{ project.location }}
                   </app-typography>
                 </li>
                 <li v-if="project.area">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Area
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Area </app-typography>
                   <app-typography tag="p">
                     {{ project.area }}
                   </app-typography>
                 </li>
                 <li v-if="project.completed">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Completed
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Completed </app-typography>
                   <app-typography tag="p">
                     {{ formatMonthYear(project.completed) }}
                   </app-typography>

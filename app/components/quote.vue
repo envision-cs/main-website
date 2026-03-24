@@ -1,4 +1,5 @@
-<script setup lang="ts">defineProps<{
+<script setup lang="ts">
+defineProps<{
   quote: string;
   name?: string;
   title?: string;
@@ -9,26 +10,13 @@
   <section class="site-grid bg-white z-10">
     <div class="divider" />
     <div class="quote">
-      <app-typography
-        variant="heading-md"
-        tag="p"
-        class="text-balance"
-      >
+      <app-typography variant="heading-md" tag="p" class="text-balance">
         {{ quote }}
       </app-typography>
-      <app-typography
-
-        variant="heading-sm"
-        tag="p"
-        class="text-balance mt-4"
-      >
+      <app-typography variant="heading-sm" tag="p" class="text-balance mt-4">
         {{ name }}
       </app-typography>
-      <app-typography
-        variant="text-md"
-        tag="p"
-        class="text-balance"
-      >
+      <app-typography variant="text-md" tag="p" class="text-balance">
         {{ title }}
       </app-typography>
     </div>

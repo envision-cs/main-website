@@ -1,6 +1,13 @@
 {
   "name": "nuxt-app",
   "private": true,
+  "workspaces": {
+    "catalog": {
+      "vite": "npm:@voidzero-dev/vite-plus-core@latest",
+      "vitest": "npm:@voidzero-dev/vite-plus-test@latest",
+      "vite-plus": "latest"
+    }
+  },
   "type": "module",
   "scripts": {
     "build": "nuxt build",
@@ -15,6 +22,7 @@
   },
   "dependencies": {
     "@nuxt/content": "^3.12.0",
+    "@nuxt/eslint-plugin": "^1.15.2",
     "@nuxt/hints": "1.0.0-alpha.3",
     "@nuxt/image": "2.0.0",
     "@nuxt/ui": "^4.3.0",
@@ -47,20 +55,25 @@
     "@antfu/eslint-config": "^5.4.1",
     "@iconify-json/lucide": "^1.2.82",
     "@iconify-json/simple-icons": "^1.2.65",
-    "@nuxt/eslint": "1.9.0",
+    "@nuxt/eslint": "",
     "@nuxt/icon": "^2.1.1",
     "@nuxt/test-utils": "^3.22.0",
     "@types/bun": "latest",
     "@vue/test-utils": "^2.4.6",
     "@vueuse/core": "^14.1.0",
     "@vueuse/nuxt": "^14.1.0",
+    "eslint": "",
     "eslint-plugin-format": "^1.2.0",
     "eslint_d": "^14.3.0",
     "happy-dom": "^20.0.11",
     "jsdom": "^27.4.0",
     "rolldown": "1.0.0-rc.10",
-    "typescript": "^5.9.3",
+    "typescript": "",
     "vite-plus": "catalog:",
+    "vitest": "catalog:"
+  },
+  "overrides": {
+    "vite": "catalog:",
     "vitest": "catalog:"
   },
   "engines": {

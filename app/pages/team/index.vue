@@ -1,5 +1,6 @@
-<script setup lang="ts">const { data } = useFetch('/api/team', {
-  key: 'team',
+<script setup lang="ts">
+const { data } = useFetch("/api/team", {
+  key: "team",
 });
 </script>
 
@@ -12,12 +13,7 @@
     >
       Meet the team
       <template #image>
-        <NuxtImg
-          src=""
-          class="h-full w-full object-cover -z-10"
-          fit="cover"
-          format="webp"
-        />
+        <NuxtImg src="" class="h-full w-full object-cover -z-10" fit="cover" format="webp" />
       </template>
     </app-banner-b>
     <app-section-a
@@ -30,11 +26,7 @@
       <template #header>
         <div class="section-head" :style="{ '--teamColor': team.color }">
           <app-team-background class="team-role">
-            <app-typography
-              tag="p"
-              variant="text-sm"
-              class="team-role-label"
-            >
+            <app-typography tag="p" variant="text-sm" class="team-role-label">
               {{ team.role }}
             </app-typography>
           </app-team-background>
@@ -42,11 +34,7 @@
             {{ team.name }}
           </app-typography>
           <!-- <div class="team-accent" aria-hidden="true" /> -->
-          <app-typography
-            tag="p"
-            variant="text-lg"
-            class="mt-auto max-w-sm team-description"
-          >
+          <app-typography tag="p" variant="text-lg" class="mt-auto max-w-sm team-description">
             {{ team.description }}
           </app-typography>
         </div>
@@ -88,23 +76,27 @@
               </template>
               <template #meta>
                 <div class="team-member-actions">
-                  <app-button
+                  <Button
                     v-if="member.linkedin"
                     icon="i-simple-icons-linkedin"
                     color="white"
-                    variant="soft"
+                    variant="secondary"
                     :to="member.linkedin"
                     target="_blank"
                     aria-label="LinkedIn"
-                  />
-                  <app-button
+                  >
+                    <Icon name="ri:linkedin-box-fill" />
+                  </Button>
+                  <Button
                     v-if="member.email"
                     icon="i-heroicons-envelope"
                     color="white"
                     variant="soft"
                     :to="`mailto:${member.email}`"
                     aria-label="Email"
-                  />
+                  >
+                    <Icon name="ri:linkedin-box-fill" />
+                  </Button>
                 </div>
               </template>
             </app-reveal-card>
@@ -120,12 +112,6 @@
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
-  background: linear-gradient(
-    140deg,
-    color-mix(in srgb, var(--teamColor) 12%, white) 0%,
-    color-mix(in srgb, var(--teamColor) 3%, white) 35%,
-    white 75%
-  );
 }
 
 .section-head {

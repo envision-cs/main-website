@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Link } from '#shared/types/global';
+<script setup lang="ts">
+import type { Link } from "#shared/types/global";
 
 defineProps<{
   image?: string;
@@ -23,23 +24,11 @@ defineProps<{
       fit="cover"
     />
     <div class="relative z-10 text-white self-end">
-      <UIcon
-        v-if="icon"
-        :name="icon"
-        class="size-14"
-      />
-      <app-typography
-        v-else
-        tag="p"
-        variant="text-md"
-      >
+      <UIcon v-if="icon" :name="icon" class="size-14" />
+      <app-typography v-else tag="p" variant="text-md">
         {{ eyebrow }}
       </app-typography>
-      <app-typography
-        tag="h3"
-        variant="heading-lg"
-        class="mt-[calc(var(--spacing-2)*2)]"
-      >
+      <app-typography tag="h3" variant="heading-lg" class="mt-[calc(var(--spacing-2)*2)]">
         {{ title }}
       </app-typography>
       <app-typography tag="p" variant="text-md">

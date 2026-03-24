@@ -1,35 +1,33 @@
-<script setup lang="ts">const items = [
+<script setup lang="ts">
+const items = [
   {
-    eyebrow: 'Tampa Business Journal',
-    title: 'Member Spotlight: Envision Construction Services',
-    icon: 'i-lucide-newspaper',
-    link:
-    {
-      label: 'Read more',
-      to: '#',
-      color: 'neutral',
+    eyebrow: "Tampa Business Journal",
+    title: "Member Spotlight: Envision Construction Services",
+    icon: "i-lucide-newspaper",
+    link: {
+      label: "Read more",
+      to: "#",
+      color: "neutral",
     },
   },
   {
-    eyebrow: 'Tampa Business Journal',
-    title: 'Meet Envision CS, a 2021 Fast 50 honoree',
-    icon: 'i-lucide-newspaper',
-    link:
-    {
-      label: 'Read more',
-      to: '#',
-      color: 'neutral',
+    eyebrow: "Tampa Business Journal",
+    title: "Meet Envision CS, a 2021 Fast 50 honoree",
+    icon: "i-lucide-newspaper",
+    link: {
+      label: "Read more",
+      to: "#",
+      color: "neutral",
     },
   },
   {
-    eyebrow: 'Tampa Business Journal',
-    title: 'Member Spotlight: Envision Construction Services',
-    icon: 'i-lucide-newspaper',
-    link:
-    {
-      label: 'Read more',
-      to: '#',
-      color: 'neutral',
+    eyebrow: "Tampa Business Journal",
+    title: "Member Spotlight: Envision Construction Services",
+    icon: "i-lucide-newspaper",
+    link: {
+      label: "Read more",
+      to: "#",
+      color: "neutral",
     },
   },
 ];
@@ -41,13 +39,10 @@
       <app-typography tag="h2" variant="heading-lg">
         Envision in the <span>News</span>
       </app-typography>
-      <app-typography
-        tag="p"
-        variant="text-md"
-        class="max-w-[60ch]"
-      >
-        Our proven process brings structure and consistency to every project. We listen, plan, and execute to
-        reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency.
+      <app-typography tag="p" variant="text-md" class="max-w-[60ch]">
+        Our proven process brings structure and consistency to every project. We listen, plan, and
+        execute to reduce risk, maintain alignment, and deliver on time, on budget, and with
+        complete transparency.
       </app-typography>
     </template>
 
