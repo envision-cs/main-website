@@ -281,7 +281,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
 
-        <Button to="/contact" size="sm" variant="primary" class="header-cta--mobile-hidden">
+        <Button to="/contact" size="sm" variant="secondary" class="header-cta--mobile-hidden">
           Contact
         </Button>
       </NavigationMenuRoot>
@@ -372,7 +372,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
 @media (min-width: 768px) {
   .header-cta.header-cta--mobile-hidden {
-    display: inline-flex !important;
+    display: block !important;
   }
 
   .desktop-nav {
@@ -387,6 +387,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     justify-content: end;
     width: 100%;
     z-index: 1;
+    align-items: center;
   }
 
   .NavigationMenuList {

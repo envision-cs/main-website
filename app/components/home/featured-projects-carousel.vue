@@ -233,8 +233,6 @@ onUnmounted(() => {
   >
     <div class="featured-projects__shell">
       <div class="featured-projects__surface" :aria-live="liveRegionMode">
-        <p id="featured-projects-title" class="featured-projects__eyebrow">Featured Projects</p>
-
         <article
           v-if="activeSlide"
           :key="activeSlide.id"
@@ -346,12 +344,12 @@ onUnmounted(() => {
   color: var(--color-envision-gray-700);
   min-height: 100%;
   box-shadow: 0 18px 40px rgb(7 15 24 / 18%);
-  padding: calc(var(--spacing)) calc(var(--spacing) * 2);
+  padding: calc(var(--spacing) * 2);
 }
 
 .featured-projects__eyebrow {
   margin: 0;
-  margin-bottom: calc(var(--spacing));
+  margin-bottom: calc(var(--spacing) * 2);
   color: var(--color-envision-gray-500);
   font-size: 0.72rem;
   font-weight: 600;
@@ -365,6 +363,7 @@ onUnmounted(() => {
   min-height: 100%;
   gap: calc(var(--spacing) * 3);
   color: inherit;
+  margin-bottom: calc(var(--spacing) * 2);
   text-decoration: none;
   overflow: hidden;
 }
@@ -464,6 +463,8 @@ onUnmounted(() => {
   background: rgb(255 255 255 / 0.94);
   color: #0b1521;
   cursor: pointer;
+  display: grid;
+  place-content: center;
   transition:
     background-color 180ms ease,
     color 180ms ease;
@@ -482,7 +483,7 @@ onUnmounted(() => {
   position: relative;
   width: 100%;
   height: calc(var(--spacing) * 2);
-  background: rgb(15 32 52 / 0.16);
+  background: rgb(15 32 52 / 0.08);
   overflow: hidden;
 }
 
