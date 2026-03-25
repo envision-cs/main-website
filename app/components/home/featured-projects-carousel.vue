@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Project } from "~~/shared/types/content-types";
 
-const AUTOSCROLL_INTERVAL_MS = 6500;
+const AUTOSCROLL_INTERVAL_MS = 8000;
 
 interface FeaturedProjectSlide {
   id: number;
@@ -87,15 +87,14 @@ const timerScale = computed(() => {
 let intervalId: ReturnType<typeof window.setInterval> | null = null;
 let motionMediaQuery: MediaQueryList | null = null;
 
-// Snaps bar to scaleX(0) instantly, then re-enables the transition
-// on the next frame so the forward fill animates normally.
 function resetTick() {
   progressTransition.value = false;
   tick.value = 0;
 
-  requestAnimationFrame(async () => {
-    await nextTick();
-    progressTransition.value = true;
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      progressTransition.value = true;
+    });
   });
 }
 function setActiveIndex(index: number) {
@@ -290,8 +289,6 @@ onUnmounted(() => {
               }"
             />
           </div>
-
-          <p class="featured-projects__count">{{ formattedIndex }} / {{ formattedCount }}</p>
         </div>
       </div>
 
@@ -335,7 +332,6 @@ onUnmounted(() => {
 
 <style scoped>
 .featured-projects {
-  width: min(100%, 38rem);
 }
 
 .featured-projects__shell {
@@ -346,15 +342,16 @@ onUnmounted(() => {
 
 .featured-projects__surface {
   position: relative;
-  border: 1px solid rgb(255 255 255 / 0.3);
   background: rgb(255 255 255 / 0.98);
   color: var(--color-envision-gray-700);
   min-height: 100%;
   box-shadow: 0 18px 40px rgb(7 15 24 / 18%);
+  padding: calc(var(--spacing)) calc(var(--spacing) * 2);
 }
 
 .featured-projects__eyebrow {
   margin: 0;
+  margin-bottom: calc(var(--spacing));
   color: var(--color-envision-gray-500);
   font-size: 0.72rem;
   font-weight: 600;
@@ -364,7 +361,7 @@ onUnmounted(() => {
 
 .featured-projects__card {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: auto 1fr;
   min-height: 100%;
   gap: calc(var(--spacing) * 3);
   color: inherit;
@@ -376,8 +373,8 @@ onUnmounted(() => {
   position: relative;
   display: block;
   overflow: hidden;
+  width: calc(var(--spacing) * 30);
   aspect-ratio: 1/1;
-  width: 100%;
   border-bottom: 1px solid rgb(24 54 87 / 0.12);
 }
 
@@ -438,6 +435,10 @@ onUnmounted(() => {
 
 .featured-projects__footer {
   display: flex;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
@@ -480,7 +481,7 @@ onUnmounted(() => {
 .featured-projects__progress {
   position: relative;
   width: 100%;
-  height: 4px;
+  height: calc(var(--spacing) * 2);
   background: rgb(15 32 52 / 0.16);
   overflow: hidden;
 }
@@ -489,7 +490,7 @@ onUnmounted(() => {
   /* Always full width — scaleX drives the visual fill from the left */
   width: 100%;
   height: 100%;
-  background: var(--color-envision-blue-500);
+  background: var(--color-envision-green-400);
   transform: scaleX(0);
   transform-origin: left center;
   /* transition is controlled inline via :style to allow instant resets */
@@ -516,17 +517,9 @@ onUnmounted(() => {
 }
 
 @media (min-width: 740px) {
-  .featured-projects__card {
-    grid-template-columns: minmax(9rem, 10.5rem) minmax(0, 1fr);
-  }
-
   .featured-projects__media {
     border-right: 1px solid rgb(24 54 87 / 0.12);
     border-bottom: 0;
-  }
-
-  .featured-projects__content {
-    padding-block: 1.2rem 1rem;
   }
 }
 

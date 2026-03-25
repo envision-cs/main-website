@@ -63,8 +63,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   grid-template-columns: 1rem 1fr 1rem;
   grid-template-rows: 1fr 1fr 1fr;
   isolation: isolate;
-  max-height: 100dvh;
-  min-height: 80dvh;
+  height: 100dvh;
   background:
     linear-gradient(135deg, rgb(9 15 25 / 72%) 0%, rgb(9 15 25 / 14%) 45%, rgb(9 15 25 / 56%) 100%),
     oklch(0.2 0.03 245);
@@ -134,8 +133,12 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 .hero-frame {
   display: grid;
   gap: clamp(0.75rem, 1vw, 1.2rem);
-  align-self: center;
+  align-self: end;
   max-width: 44rem;
+
+  @media (min-width: 799px) {
+    align-self: center;
+  }
 }
 
 .hero-eyebrow {
@@ -212,10 +215,6 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 @media (max-width: 799px) {
   .content {
     align-items: flex-start;
-  }
-
-  .hero-layout {
-    align-items: start;
   }
 
   .hero-frame {
