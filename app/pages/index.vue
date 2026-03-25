@@ -12,7 +12,44 @@ interface HomepageFeaturedProjectsResponse {
   sectionTwo: FeaturedProjectCard[];
 }
 
+interface HomepageTestimonial {
+  quote: string;
+  name: string;
+  title: string;
+  detail: string;
+}
+
 const { $posthog } = useNuxtApp();
+
+const testimonials: HomepageTestimonial[] = [
+  {
+    quote:
+      "Envision has consistently impressed us with their commitment to timely project completion.",
+    name: "Kelvin Mack",
+    title: "Maintenance Director, Hillsborough County Public Schools",
+    detail: "K-12 facilities",
+  },
+  {
+    quote: "It was a pleasure working with the Envision team.",
+    name: "John Luksas",
+    title: "Assistant Director, Operations at USF College of Nursing",
+    detail: "Higher education",
+  },
+  {
+    quote:
+      "Strong endorsement of Envision. We were very pleased with the professionalism and quality of the work.",
+    name: "Darryl Shaw",
+    title: "Co-Owner, USL Super League",
+    detail: "Sports and hospitality",
+  },
+  {
+    quote:
+      "Their dedication, expertise, and attention to detail were evident throughout the entire process, and the final result speaks for itself.",
+    name: "Paola Feliz",
+    title: "Project Manager, University of South Florida",
+    detail: "Complex institutional work",
+  },
+];
 
 const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResponse>(
   "homepage-featured-projects",
@@ -67,9 +104,9 @@ if ($posthog) {
       <home-proven-process />
       <three-uniques />
       <quote
-        quote="Envision has consistently impressed us with their commitment to timely project completion."
-        name="Kelvin Mack"
-        title="Maintenance Director of Central, HCPS"
+        :testimonials="testimonials"
+        section-title="Proof from clients who expect discipline, communication, and follow-through."
+        section-body="From campuses to public facilities, the work only matters if the people behind it stay steady under pressure. These testimonials make that standard visible."
       />
     </div>
   </UPage>

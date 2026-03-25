@@ -47,8 +47,8 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
           </app-typography>
 
           <div class="hero-actions">
-            <Button variant="outline" size="md" to="/contact">Start your project</Button>
-            <Button variant="secondary" size="md" to="/projects">Explore Our Portfolio</Button>
+            <Button variant="primary" size="md" to="/contact">Start your project</Button>
+            <Button variant="outline" size="md" to="/projects">Explore Our Portfolio</Button>
           </div>
         </div>
 
@@ -184,7 +184,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   display: flex;
   flex: wrap;
   flex-direction: column;
-  gap: calc(var(--spacing) * 2);
+  gap: calc(var(--spacing) * 4);
   padding-top: clamp(0.5rem, 1vw, 0.85rem);
   animation: hero-reveal 1280ms cubic-bezier(0.19, 1, 0.22, 1) both;
 

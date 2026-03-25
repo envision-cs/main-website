@@ -310,8 +310,8 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   width: 100%;
   z-index: 1000;
   color: var(--header-shell-text);
-  background: var(--header-shell-bg);
-  backdrop-filter: blur(25px);
+  background: transparent;
+  backdrop-filter: blur(0px);
 
   animation: stickyNav linear forwards;
   animation-timeline: view();
@@ -321,7 +321,8 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
 @keyframes stickyNav {
   100% {
-    border-bottom: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 16%, white);
+    background: var(--header-shell-bg);
+    backdrop-filter: blur(25px);
   }
 }
 

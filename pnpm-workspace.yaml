@@ -1,3 +1,7 @@
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vite-plus: ^0.1.14
+  vitest: npm:@voidzero-dev/vite-plus-test@latest
 ignoredBuiltDependencies:
   - "@parcel/watcher"
   - "@posthog/cli"
@@ -8,10 +12,6 @@ ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
   - vue-demi
-catalog:
-  vite: npm:@voidzero-dev/vite-plus-core@latest
-  vitest: npm:@voidzero-dev/vite-plus-test@latest
-  vite-plus: latest
 overrides:
   vite: "catalog:"
   vitest: "catalog:"
