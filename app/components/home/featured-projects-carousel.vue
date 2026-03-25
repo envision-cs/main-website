@@ -58,11 +58,16 @@ const isUserPaused = ref(false);
 const isInteractionPaused = ref(false);
 const prefersReducedMotion = ref(false);
 
+const tick = ref(0);
+const progressTransition = ref(true);
+
 const slideCount = computed(() => slides.value.length);
 const activeSlide = computed(() => slides.value[activeIndex.value] ?? null);
+
 const liveRegionMode = computed(() =>
   isUserPaused.value || prefersReducedMotion.value ? "polite" : "off",
 );
+
 const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, "0"));
 const formattedCount = computed(() => String(slideCount.value).padStart(2, "0"));
 const canAutoplay = computed(() => {
@@ -74,12 +79,28 @@ const canAutoplay = computed(() => {
   );
 });
 
+// Normalized 0 → 1 value used for scaleX
+const timerScale = computed(() => {
+  return tick.value / (AUTOSCROLL_INTERVAL_MS / 1000);
+});
+
 let intervalId: ReturnType<typeof window.setInterval> | null = null;
 let motionMediaQuery: MediaQueryList | null = null;
 
+// Snaps bar to scaleX(0) instantly, then re-enables the transition
+// on the next frame so the forward fill animates normally.
+function resetTick() {
+  progressTransition.value = false;
+  tick.value = 0;
+
+  requestAnimationFrame(async () => {
+    await nextTick();
+    progressTransition.value = true;
+  });
+}
 function setActiveIndex(index: number) {
   if (!slideCount.value) return;
-
+  resetTick();
   activeIndex.value = (index + slideCount.value) % slideCount.value;
 }
 
@@ -97,7 +118,6 @@ function pauseAutoplay() {
 
 function resumeAutoplay() {
   if (prefersReducedMotion.value) return;
-
   isUserPaused.value = false;
 }
 
@@ -106,13 +126,12 @@ function toggleAutoplay() {
     resumeAutoplay();
     return;
   }
-
   pauseAutoplay();
 }
 
 function stopAutoplayInterval() {
   if (!intervalId) return;
-
+  resetTick();
   window.clearInterval(intervalId);
   intervalId = null;
 }
@@ -121,9 +140,15 @@ function startAutoplayInterval() {
   if (!import.meta.client || !canAutoplay.value) return;
 
   stopAutoplayInterval();
+  resetTick();
+
   intervalId = window.setInterval(() => {
-    showNextProject();
-  }, AUTOSCROLL_INTERVAL_MS);
+    tick.value++;
+
+    if (tick.value > AUTOSCROLL_INTERVAL_MS / 1000) {
+      showNextProject();
+    }
+  }, 1000);
 }
 
 function onPointerEnter() {
@@ -163,7 +188,6 @@ watch(canAutoplay, (enabled) => {
     startAutoplayInterval();
     return;
   }
-
   stopAutoplayInterval();
 });
 
@@ -257,22 +281,17 @@ onUnmounted(() => {
         </article>
 
         <div class="featured-projects__footer">
-          <div class="featured-projects__track" aria-label="Select featured project">
-            <button
-              v-for="(slide, index) in slides"
-              :key="slide.id"
-              type="button"
-              class="featured-projects__dot"
-              :class="{ 'is-active': index === activeIndex }"
-              :aria-label="`Show project ${index + 1}: ${slide.title}`"
-              :aria-pressed="index === activeIndex"
-              @click="setActiveIndex(index)"
+          <div class="featured-projects__progress">
+            <div
+              class="featured-projects__progress-bar"
+              :style="{
+                transform: `scaleX(${timerScale})`,
+                transition: progressTransition ? 'transform 1s linear' : 'none',
+              }"
             />
           </div>
 
-          <p class="featured-projects__count" aria-live="off">
-            {{ formattedIndex }} / {{ formattedCount }}
-          </p>
+          <p class="featured-projects__count">{{ formattedIndex }} / {{ formattedCount }}</p>
         </div>
       </div>
 
@@ -343,14 +362,11 @@ onUnmounted(() => {
   text-transform: uppercase;
 }
 
-.featured-projects__slide {
-  /* min-height: 100%;*/
-}
-
 .featured-projects__card {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: 1fr 2fr;
   min-height: 100%;
+  gap: calc(var(--spacing) * 3);
   color: inherit;
   text-decoration: none;
   overflow: hidden;
@@ -382,9 +398,9 @@ onUnmounted(() => {
 }
 
 .featured-projects__content {
-  display: grid;
-  gap: 0.9rem;
-  padding: 1.1rem 1.15rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
 }
 
 .featured-projects__meta {
@@ -427,30 +443,6 @@ onUnmounted(() => {
   gap: 1rem;
 }
 
-.featured-projects__track {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-width: 0;
-  flex: 1;
-}
-
-.featured-projects__dot {
-  flex: 1;
-  min-width: 1.75rem;
-  height: 0.2rem;
-  border: 0;
-  background: rgb(15 32 52 / 0.16);
-  cursor: pointer;
-  transition:
-    background-color 180ms ease,
-    transform 180ms ease;
-}
-
-.featured-projects__dot.is-active {
-  background: var(--color-envision-blue-500);
-}
-
 .featured-projects__count {
   margin: 0;
   color: var(--color-envision-gray-400);
@@ -485,20 +477,36 @@ onUnmounted(() => {
   height: 1rem;
 }
 
+.featured-projects__progress {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: rgb(15 32 52 / 0.16);
+  overflow: hidden;
+}
+
+.featured-projects__progress-bar {
+  /* Always full width — scaleX drives the visual fill from the left */
+  width: 100%;
+  height: 100%;
+  background: var(--color-envision-blue-500);
+  transform: scaleX(0);
+  transform-origin: left center;
+  /* transition is controlled inline via :style to allow instant resets */
+}
+
 .featured-projects__card:hover .featured-projects__cta-icon,
 .featured-projects__card:focus-visible .featured-projects__cta-icon {
   transform: translateX(0.18rem);
 }
 
 .featured-projects__card:focus-visible,
-.featured-projects__control:focus-visible,
-.featured-projects__dot:focus-visible {
+.featured-projects__control:focus-visible {
   outline: 3px solid var(--color-envision-blue-500);
   outline-offset: 3px;
 }
 
-.featured-projects__control:hover:not(:disabled),
-.featured-projects__dot:hover {
+.featured-projects__control:hover:not(:disabled) {
   background: color-mix(in srgb, var(--color-envision-blue-500) 18%, white);
 }
 
@@ -545,7 +553,6 @@ onUnmounted(() => {
 
 @media (prefers-reduced-motion: reduce) {
   .featured-projects__cta-icon,
-  .featured-projects__dot,
   .featured-projects__control {
     transition: none;
   }

@@ -90,6 +90,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   gap: clamp(1.5rem, 3vw, 3rem);
   align-items: end;
   width: 100%;
+  height: 100%;
 
   @media (min-width: 1100px) {
     grid-template-columns: minmax(0, 1.15fr) minmax(22rem, 38rem);
@@ -133,7 +134,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 .hero-frame {
   display: grid;
   gap: clamp(0.75rem, 1vw, 1.2rem);
-  align-self: end;
+  align-self: center;
   max-width: 44rem;
 }
 
