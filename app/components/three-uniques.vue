@@ -95,17 +95,11 @@ onUnmounted(() => {
         <div class="desktopContent">
           <div class="title-wrapper">
             <div class="title">
-              <app-typography tag="h2" variant="heading-huge" bold="true">
+              <app-typography tag="h2" variant="heading-lg" bold="true">
                 Our<br /><span> Three</span><br />
                 <span class="text-envision-blue-500">Uniques</span>
               </app-typography>
-              <app-typography
-                v-gsap.splitText.words.mask.whenVisible.reversable.from="{
-                  opacity: 0,
-                  stagger: 0.5,
-                }"
-                tag="p"
-              >
+              <app-typography tag="p">
                 At Envision, every decision we make is guided by a clear philosophy—three core
                 principles that define how we work, why we work, and the impact we strive to create.
                 These<span> “Three Uniques”</span> are more than values; they are the driving force
@@ -129,7 +123,7 @@ onUnmounted(() => {
             :style="{ '--overlay-color': `var(${p.color})` }"
           >
             <div class="content">
-              <app-typography tag="h3" variant="heading-lg" class="title">
+              <app-typography tag="h3" variant="heading-md" class="title">
                 {{ p.title }}
               </app-typography>
               <p>{{ p.description }}</p>
@@ -217,7 +211,7 @@ onUnmounted(() => {
     text-wrap: balance;
     max-width: 60ch;
     margin-inline: auto;
-    text-align: center;
+    text-align: left;
     padding-inline: calc(var(--spacing) * 4);
 
     h3 {
@@ -266,9 +260,7 @@ onUnmounted(() => {
     }
 
     p {
-      font-size: 2rem;
-      line-height: 1.1;
-      text-wrap: wrap;
+      max-width: 50ch;
     }
   }
 }
