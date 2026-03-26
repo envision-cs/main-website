@@ -17,6 +17,7 @@ interface HomepageTestimonial {
   name: string;
   title: string;
   detail: string;
+  tone: "green" | "blue" | "charcoal";
 }
 
 const { $posthog } = useNuxtApp();
@@ -28,12 +29,14 @@ const testimonials: HomepageTestimonial[] = [
     name: "Kelvin Mack",
     title: "Maintenance Director, Hillsborough County Public Schools",
     detail: "K-12 facilities",
+    tone: "green",
   },
   {
     quote: "It was a pleasure working with the Envision team.",
     name: "John Luksas",
     title: "Assistant Director, Operations at USF College of Nursing",
     detail: "Higher education",
+    tone: "blue",
   },
   {
     quote:
@@ -41,6 +44,7 @@ const testimonials: HomepageTestimonial[] = [
     name: "Darryl Shaw",
     title: "Co-Owner, USL Super League",
     detail: "Sports and hospitality",
+    tone: "charcoal",
   },
   {
     quote:
@@ -48,6 +52,7 @@ const testimonials: HomepageTestimonial[] = [
     name: "Paola Feliz",
     title: "Project Manager, University of South Florida",
     detail: "Complex institutional work",
+    tone: "green",
   },
 ];
 
@@ -105,8 +110,8 @@ if ($posthog) {
       <three-uniques />
       <quote
         :testimonials="testimonials"
-        section-title="Proof from clients who expect discipline, communication, and follow-through."
-        section-body="From campuses to public facilities, the work only matters if the people behind it stay steady under pressure. These testimonials make that standard visible."
+        section-title="Our clients who expect discipline, communication, and follow-through."
+        section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
       />
     </div>
   </UPage>
