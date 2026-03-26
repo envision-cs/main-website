@@ -4,7 +4,14 @@ interface TestimonialItem {
   name: string;
   title: string;
   detail?: string;
+  tone?: "green" | "blue" | "charcoal";
 }
+
+const TESTIMONIAL_CARD_IMAGE =
+  "https://ik.imagekit.io/pnixsw7lg/main-website/20250519_134053.jpg?updatedAt=1771548280364";
+
+const scrollContainer = ref<HTMLElement | null>(null);
+const items = ref<HTMLElement[]>([]);
 
 const props = withDefaults(
   defineProps<{
@@ -17,64 +24,94 @@ const props = withDefaults(
     sectionBody?: string;
   }>(),
   {
-    eyebrow: "Client Trust",
-    sectionTitle: "What clients say when the work is on the line.",
-    sectionBody:
-      "The strongest proof is consistent execution. These are the clients who trusted Envision to deliver with clarity, professionalism, and follow-through.",
+    sectionTitle: "Our clients who expect discipline, communication, and follow-through.",
   },
 );
 
-const hasTestimonials = computed(() => Boolean(props.testimonials?.length));
+const normalizedTestimonials = computed(() => {
+  return (props.testimonials ?? [])
+    .filter((testimonial) => testimonial?.quote?.trim())
+    .map((testimonial) => ({
+      quote: testimonial.quote.trim(),
+      name: testimonial.name?.trim() || "Envision Client",
+      title: testimonial.title?.trim() || "Project Partner",
+      detail: testimonial.detail?.trim(),
+      tone: testimonial.tone ?? "charcoal",
+    }));
+});
+
+const hasTestimonials = computed(() => Boolean(normalizedTestimonials.value.length));
+const showRailNavigation = computed(() => normalizedTestimonials.value.length > 1);
+
+const { canScrollPrevious, canScrollNext, scrollPrevious, scrollNext, handleKeydown } =
+  useScrollGallery(scrollContainer, items);
+
+useTouchHandler(scrollContainer);
 </script>
 
 <template>
   <section v-if="hasTestimonials" class="testimonials-section">
     <div class="site-grid section-shell">
       <div class="intro">
-        <app-typography tag="p" variant="eyebrow-md" class="eyebrow">
-          {{ eyebrow }}
-        </app-typography>
         <app-typography tag="h2" variant="heading-lg" class="intro-title">
           {{ sectionTitle }}
         </app-typography>
-        <app-typography tag="p" variant="text-lg" class="intro-body">
-          {{ sectionBody }}
-        </app-typography>
+        <div class="rail-meta intro-actions">
+          <app-gallery-paddle-nav
+            v-if="showRailNavigation"
+            :can-scroll-previous="canScrollPrevious"
+            :can-scroll-next="canScrollNext"
+            @previous="scrollPrevious"
+            @next="scrollNext"
+          />
+        </div>
       </div>
 
       <div class="rail-shell">
-        <div class="rail-head">
-          <span>Selected testimonials</span>
-          <span>Scroll to explore</span>
-        </div>
-
-        <ul class="rail" role="list" aria-label="Client testimonials">
-          <li
-            v-for="(testimonial, index) in testimonials"
-            :key="`${testimonial.name}-${index}`"
-            class="card"
-            :class="{ featured: index === 0 }"
-          >
-            <app-typography tag="p" variant="heading-sm" class="card-quote">
-              "{{ testimonial.quote }}"
-            </app-typography>
-
-            <div class="card-footer">
-              <div class="identity">
-                <app-typography tag="p" variant="text-md" class="name">
-                  {{ testimonial.name }}
-                </app-typography>
-                <app-typography tag="p" variant="text-sm" class="title">
-                  {{ testimonial.title }}
-                </app-typography>
+        <div
+          ref="scrollContainer"
+          class="scroll-container"
+          :tabindex="showRailNavigation ? 0 : -1"
+          aria-label="Client testimonials"
+          @keydown="handleKeydown"
+        >
+          <ul class="rail card-set" role="list">
+            <li
+              v-for="(testimonial, index) in normalizedTestimonials"
+              :key="`${testimonial.name}-${index}`"
+              class="card gallery-item"
+              :class="`tone-${testimonial.tone ?? 'charcoal'}`"
+              :style="{ '--card-delay': `${index * 90}ms` }"
+            >
+              <div class="media" aria-hidden="true">
+                <img
+                  :src="TESTIMONIAL_CARD_IMAGE"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  class="media-image"
+                />
+                <div class="media-overlay" />
               </div>
 
-              <app-typography v-if="testimonial.detail" tag="p" variant="eyebrow-md" class="detail">
-                {{ testimonial.detail }}
+              <app-typography tag="p" variant="heading-sm" class="card-quote">
+                <span dir="auto">"{{ testimonial.quote }}"</span>
               </app-typography>
-            </div>
-          </li>
-        </ul>
+
+              <div class="card-footer">
+                <app-typography tag="p" variant="text-md" class="name">
+                  <span dir="auto">{{ testimonial.name }}</span>
+                </app-typography>
+                <app-typography tag="p" variant="text-sm" class="title">
+                  <span dir="auto">{{ testimonial.title }}</span>
+                </app-typography>
+                <app-typography v-if="testimonial.detail" tag="p" variant="text-sm" class="detail">
+                  <span dir="auto">{{ testimonial.detail }}</span>
+                </app-typography>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -83,12 +120,12 @@ const hasTestimonials = computed(() => Boolean(props.testimonials?.length));
     <div class="divider" />
     <div class="quote">
       <app-typography variant="heading-md" tag="p" class="text-balance">
-        {{ quote }}
+        {{ quote || "Clients trust Envision to communicate clearly and follow through." }}
       </app-typography>
-      <app-typography variant="heading-sm" tag="p" class="text-balance mt-4">
+      <app-typography v-if="name" variant="heading-sm" tag="p" class="text-balance mt-4">
         {{ name }}
       </app-typography>
-      <app-typography variant="text-md" tag="p" class="text-balance">
+      <app-typography v-if="title" variant="text-md" tag="p" class="text-balance">
         {{ title }}
       </app-typography>
     </div>
@@ -98,13 +135,14 @@ const hasTestimonials = computed(() => Boolean(props.testimonials?.length));
 <style scoped>
 .testimonials-section {
   border-block: 1px solid var(--ui-border);
-  background:
-    linear-gradient(180deg, rgba(3, 95, 209, 0.04) 0%, rgba(3, 95, 209, 0) 100%), var(--color-white);
+  background-color: color-mix(in srgb, var(--color-white) 96%, var(--color-envision-gray-300) 4%);
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
 }
 
 .section-shell {
-  row-gap: calc(var(--spacing) * 8);
-  padding-block: calc(var(--spacing) * 8);
+  container-type: inline-size;
+  row-gap: calc(var(--spacing) * 4);
 }
 
 .intro,
@@ -114,101 +152,239 @@ const hasTestimonials = computed(() => Boolean(props.testimonials?.length));
 
 .intro {
   display: grid;
-  gap: calc(var(--spacing) * 3);
-  padding-inline: 1rem;
-}
-
-.eyebrow {
-  color: var(--color-envision-blue-500);
-  letter-spacing: 0.08em;
+  gap: calc(var(--spacing) * 2);
+  padding-block: 0;
 }
 
 .intro-title {
   max-width: 10ch;
-}
-
-.intro-body {
-  max-width: 48ch;
-  color: var(--color-envision-gray-700);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: uppercase;
 }
 
 .rail-shell {
   min-width: 0;
 }
 
-.rail-head {
+.rail-meta {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
+  align-items: center;
   gap: calc(var(--spacing) * 3);
-  padding-inline: 1rem;
-  margin-bottom: calc(var(--spacing) * 3);
-  color: var(--color-envision-gray-700);
-  font-size: var(--font-size-text-t4);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  margin-bottom: calc(var(--spacing) * 2);
+}
+
+.intro-actions {
+  justify-content: start;
+  margin-bottom: 0;
+}
+
+.scroll-container {
+  min-width: 0;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-envision-blue-500) transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-container:focus-visible {
+  outline: 2px solid var(--color-envision-blue-500);
+  outline-offset: 4px;
 }
 
 .rail {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(18rem, 85vw);
-  gap: calc(var(--spacing) * 4);
-  overflow-x: auto;
-  padding-inline: 1rem;
-  padding-bottom: 1rem;
+  grid-auto-columns: minmax(18.5rem, 92vw);
   margin: 0;
   list-style: none;
   scroll-snap-type: x proximity;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-envision-blue-500) transparent;
 }
 
 .card {
+  --panel-color: color-mix(in srgb, var(--color-envision-gray-700) 88%, black 12%);
+  --panel-highlight: color-mix(in srgb, var(--color-white) 18%, var(--panel-color) 82%);
+  --panel-shadow: color-mix(in srgb, black 24%, var(--panel-color) 76%);
+
   scroll-snap-align: start;
+  position: relative;
   display: grid;
   align-content: space-between;
-  gap: calc(var(--spacing) * 8);
-  min-height: 24rem;
+  min-height: 21rem;
+  min-width: 0;
   padding: calc(var(--spacing) * 4);
-  border: 1px solid var(--ui-border);
-  background-color: var(--color-white);
-  border-top: 4px solid var(--color-envision-gray-700);
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--color-white);
+  background-color: var(--panel-color);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--color-white) 14%, transparent),
+    inset 0 -5rem 6rem var(--panel-shadow);
 }
 
-.featured {
-  border-top-color: var(--color-envision-blue-500);
+.media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.media-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.28;
+  filter: grayscale(1) contrast(0.7);
+}
+
+.media-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--panel-highlight) 42%, transparent) 0%,
+      transparent 36%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 22%,
+      color-mix(in srgb, var(--panel-shadow) 75%, transparent) 100%
+    ),
+    var(--panel-color);
+  mix-blend-mode: multiply;
+}
+
+.tone-green {
+  --panel-color: color-mix(in srgb, var(--color-envision-green-700) 88%, black 12%);
+  --panel-highlight: color-mix(
+    in srgb,
+    var(--color-envision-green-300) 36%,
+    var(--panel-color) 64%
+  );
+}
+
+.tone-blue {
+  --panel-color: color-mix(in srgb, var(--color-envision-blue-700) 84%, black 16%);
+  --panel-highlight: color-mix(in srgb, var(--color-envision-blue-300) 32%, var(--panel-color) 68%);
+}
+
+.tone-charcoal {
+  --panel-color: color-mix(in srgb, var(--color-envision-gray-700) 92%, black 8%);
+  --panel-highlight: color-mix(in srgb, var(--color-envision-blue-200) 18%, var(--panel-color) 82%);
 }
 
 .card-quote {
-  max-width: 18ch;
-  color: var(--color-envision-gray-800);
+  max-width: 12ch;
+  min-width: 0;
+  padding-top: 0;
+  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--color-white);
   text-wrap: balance;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .card-footer {
   display: grid;
-  gap: calc(var(--spacing) * 3);
-  padding-top: calc(var(--spacing) * 3);
-  border-top: 1px solid var(--ui-border);
+  gap: calc(var(--spacing) * 1);
+  align-self: end;
+  min-width: 0;
+  max-width: 19ch;
+  text-transform: uppercase;
+  color: var(--color-white);
 }
 
-.identity {
-  display: grid;
-  gap: calc(var(--spacing) * 1);
+.card :deep(p),
+.card :deep(span) {
+  color: var(--color-white);
+}
+
+.name,
+.title,
+.detail {
+  max-inline-size: none;
+  color: inherit;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .name {
   font-weight: var(--font-weight-bold);
 }
 
-.title {
-  max-width: 28ch;
-  color: var(--color-envision-gray-700);
+.title,
+.detail {
+  font-size: var(--font-size-text-t4);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 .detail {
-  color: var(--color-envision-green-500);
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  padding-inline: calc(var(--spacing) * 2);
+  padding-block: calc(var(--spacing) * 1);
+  margin-top: calc(var(--spacing) * 2);
+  background-color: color-mix(in srgb, var(--panel-highlight) 24%, transparent);
+}
+
+.rail-shell :deep(.paddle-nav) {
+  gap: calc(var(--spacing) * 2);
+  padding: 0;
+}
+
+.rail-shell :deep(.nav-arrow) {
+  background: color-mix(in srgb, var(--color-white) 82%, var(--color-envision-blue-100) 18%);
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    opacity 180ms ease;
+}
+
+.rail-shell :deep(.nav-arrow:focus-visible) {
+  outline: 2px solid var(--color-envision-blue-500);
+  outline-offset: 3px;
+}
+
+.rail-shell :deep(.nav-arrow:disabled) {
+  opacity: 0.4;
+}
+
+@container (width < 30rem) {
+  .rail-meta {
+    align-items: start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-container {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 699px) {
+  .rail-meta {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+
+  .rail-shell :deep(.paddle-nav) {
+    display: none;
+  }
+
+  .card {
+    min-height: 19.5rem;
+    padding: calc(var(--spacing) * 3);
+  }
+
+  .card-quote {
+    max-width: 13ch;
+  }
 }
 
 section {
@@ -246,41 +422,73 @@ section {
 }
 
 @media (min-width: 700px) {
+  .section-shell {
+    row-gap: calc(var(--spacing) * 5);
+  }
+
   .intro {
-    grid-column: 2 / 9;
+    grid-column: 2 / 8;
     padding-inline: 0;
+    max-width: 30rem;
   }
 
   .rail-shell {
     grid-column: 2 / -1;
   }
 
-  .rail-head {
+  .rail-meta {
     padding-inline: 0;
   }
 
   .rail {
-    grid-auto-columns: minmax(20rem, 28rem);
+    grid-auto-columns: minmax(24rem, 72vw);
     padding-inline: 0;
+  }
+
+  .card {
+    min-height: 22rem;
   }
 }
 
 @media (min-width: 1024px) {
   .section-shell {
-    align-items: start;
-    padding-block: calc(var(--spacing) * 12);
+    align-items: stretch;
+    column-gap: calc(var(--spacing) * 6);
   }
 
   .intro {
-    grid-column: 2 / 8;
+    grid-column: 2 / 7;
+    align-self: center;
   }
 
   .rail-shell {
-    grid-column: 9 / -1;
+    grid-column: 8 / 25;
   }
 
   .rail {
-    grid-auto-columns: minmax(22rem, 24rem);
+    grid-auto-columns: minmax(24rem, 28rem);
+  }
+
+  .card {
+    min-height: 22rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section-shell {
+    column-gap: calc(var(--spacing) * 8);
+  }
+
+  .intro {
+    grid-column: 3 / 8;
+  }
+
+  .rail-shell {
+    grid-column: 9 / 25;
+  }
+
+  .rail {
+    grid-auto-columns: minmax(25rem, 27rem);
   }
 }
 </style>
