@@ -305,7 +305,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   --header-panel-bg: color-mix(in oklch, white 98%, var(--color-envision-blue-50) 2%);
   --header-panel-border: color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
 
-  position: fixed;
+  position: absolute;
   top: 0;
   width: 100%;
   z-index: 1000;

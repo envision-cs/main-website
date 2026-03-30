@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-let ctx: any;
+let ctx: unknown;
 const gallaryRef = useTemplateRef("galleryRef");
 
 onBeforeMount(() => {
@@ -40,7 +40,7 @@ const process = [
 onMounted(() => {
   if (!gallaryRef.value) return;
 
-  ctx = useGSAP().context((self: any) => {
+  ctx = useGSAP().context((self: unknown) => {
     const gallery = self?.selector(".gallery")[0];
     const right = self?.selector(".right")[0];
     const images = self?.selector(".item:not(:first-child)") ?? [];

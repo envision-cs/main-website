@@ -41,7 +41,7 @@ const process = [
   <section>
     <div class="content">
       <div class="grid gap-4">
-        <app-typography tag="h2" variant="heading-lg" class="font-semibold">
+        <app-typography tag="h2" variant="heading-md" class="font-semibold">
           Our Proven Process
         </app-typography>
 
@@ -76,8 +76,6 @@ section {
   padding: calc(var(--spacing) * 4);
   container-type: inline-size;
   container-name: section;
-  color: #fff;
-  background-color: var(--color-envision-green-500);
 
   @media (min-width: 768px) {
     padding-inline: calc(var(--spacing) * 8);
@@ -113,23 +111,5 @@ ul {
 
 li {
   position: relative;
-}
-
-li::after {
-  counter-increment: step;
-  content: counter(step, decimal-leading-zero);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  font-weight: 900;
-  line-height: 1;
-  opacity: 0.1;
-  font-size: 20rem;
-}
-
-.number {
-  font-size: 8rem;
 }
 </style>
