@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   body?: string;
   image?: string;
   flip?: boolean;
@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <section>
-    <div class="content">
+    <div class="content" :class="{ 'is-flipped': props.flip }">
       <app-typography tag="h2" variant="heading-lg" class="cta-panel__title">
         <slot name="title">
           <slot />
@@ -28,16 +28,15 @@ defineProps<{
         <slot name="action" />
       </div>
     </div>
-    <div class="image">
+    <div class="image" :class="{ 'is-flipped': props.flip }">
       <NuxtImg
         :src="image"
         provider="imagekit"
-        :modifiers="{ focus: 'bottom', aspectRatio: '16/9' }"
+        :modifiers="{ focus: 'bottom' }"
         format="webp"
         loading="lazy"
-        sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
-        class="cta-panel__image"
-        fit="exact"
+        class="w-full h-full"
+        fit="cover"
         placeholder
       />
     </div>
@@ -60,22 +59,50 @@ section {
 
   @media (min-width: 700px) {
     grid-column: 1/6;
+
+    &.is-flipped {
+      grid-column: -7/-1;
+      grid-row: 1;
+    }
   }
 
   @media (min-width: 1024px) {
     grid-column: 1/9;
+
+    &.is-flipped {
+      grid-column: -9/-1;
+      grid-row: 1;
+    }
   }
 }
 
 .image {
   grid-column: 1/-1;
+  height: unset;
+  aspect-ratio: 16/9;
 
   @media (min-width: 700px) {
     grid-column: 6/-1;
+
+    &.is-flipped {
+      grid-column: 1/7;
+      grid-row: 1;
+    }
   }
 
   @media (min-width: 1024px) {
-    grid-column: 10/-1;
+    grid-column: 9/-1;
+
+    &.is-flipped {
+      grid-column: 1/17;
+      grid-row: 1;
+    }
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
   }
 }
 </style>

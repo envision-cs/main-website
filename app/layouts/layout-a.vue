@@ -49,18 +49,15 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
 
 .header {
   grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
 }
 
 .categories {
   grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
   padding-inline: calc(var(--spacing) * 4);
 }
 
 .projects {
   grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
   padding-bottom: calc(var(--spacing) * 4);
 }
 

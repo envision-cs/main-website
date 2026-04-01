@@ -5,8 +5,8 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <app-cta-a
+  <main class="site-grid">
+    <cta-a
       body="We begin by listening: with care, patience, and purpose. We’re not just building a project; we’re honoring your vision from the very start."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_9820.jpg"
       flip
@@ -19,8 +19,8 @@ definePageMeta({
           <li>Site and feasibility review to shape the strategy</li>
         </ul>
       </template>
-    </app-cta-a>
-    <app-cta-a
+    </cta-a>
+    <cta-a
       body="Where most projects break down, we build certainty. Our planning process locks in budget, coordination, and clarity before the first shovel hits the ground."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A2696.jpg"
     >
@@ -33,8 +33,8 @@ definePageMeta({
           <li>Decision-making support with a focus on eliminating surprises</li>
         </ul>
       </template>
-    </app-cta-a>
-    <app-cta-a
+    </cta-a>
+    <cta-a
       body="We deliver with precision, safety, and full transparency—communicating consistently, owning the outcome, and protecting your schedule from start to finish."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0400.jpg"
       flip
@@ -49,8 +49,8 @@ definePageMeta({
           <li>Seamless finish with zero-punch and wrap-up</li>
         </ul>
       </template>
-    </app-cta-a>
-    <app-cta-a
+    </cta-a>
+    <cta-a
       body="12-Month Legacy Lap: We don’t disappear at closeout. We stay engaged so your space performs, your team is supported, and your trust grows."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0570.jpg"
     >
@@ -62,13 +62,13 @@ definePageMeta({
           <li>Project legacy report, testimonials, referrals, and planning what’s next</li>
         </ul>
       </template>
-    </app-cta-a>
+    </cta-a>
     <quote
       quote="It was a pleasure working with the Envision team."
       name="John Luksas"
       title="Assistant Director, Operations USF College of Nursing"
     />
-  </div>
+  </main>
 </template>
 
 <style scoped>
