@@ -73,6 +73,7 @@ const process = [
 
 <style scoped>
 section {
+  grid-column: 1/-1;
   padding: calc(var(--spacing) * 4);
   container-type: inline-size;
   container-name: section;

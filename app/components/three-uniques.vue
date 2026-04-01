@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 let ctx: unknown;
-const gallaryRef = useTemplateRef("galleryRef");
-
-onBeforeMount(() => {
-  useGSAP().registerPlugin(ScrollTrigger);
-});
+const galleryRef = ref<HTMLElement | null>(null);
 
 const process = [
   {
@@ -36,259 +32,99 @@ const process = [
     color: "--color-envision-gray-700",
   },
 ];
-
-onMounted(() => {
-  if (!gallaryRef.value) return;
-
-  ctx = useGSAP().context((self: unknown) => {
-    const gallery = self?.selector(".gallery")[0];
-    const right = self?.selector(".right")[0];
-    const images = self?.selector(".item:not(:first-child)") ?? [];
-
-    if (!gallery || !right || !images.length) return;
-
-    const gsap = useGSAP();
-    const mm = gsap.matchMedia();
-
-    gsap.set(images, { yPercent: 100 });
-
-    mm.add("(min-width: 850px)", () => {
-      const desktopAnimation = gsap.to(images, { yPercent: 0, stagger: 0.5, ease: "none" });
-
-      ScrollTrigger.create({
-        trigger: gallery,
-        start: "top top",
-        end: "bottom bottom",
-        pin: right,
-        animation: desktopAnimation,
-        scrub: true,
-      });
-    });
-
-    mm.add("(max-width: 849px)", () => {
-      const mobileAnimation = gsap.to(images, { yPercent: 0, stagger: 0.5, ease: "none" });
-
-      ScrollTrigger.create({
-        trigger: right,
-        start: "top top",
-        end: () => `+=${images.length * 100}%`,
-        pin: right,
-        animation: mobileAnimation,
-        scrub: true,
-        anticipatePin: 1,
-        pinSpacing: true,
-        invalidateOnRefresh: true,
-      });
-    });
-  }, gallaryRef.value);
-});
-
-onUnmounted(() => {
-  ctx?.revert();
-});
 </script>
 
 <template>
-  <section ref="galleryRef">
-    <div class="gallery">
-      <div class="left">
-        <div class="desktopContent">
-          <div class="title-wrapper">
-            <div class="title">
-              <app-typography tag="h2" variant="heading-lg" bold="true">
-                Our<br /><span> Three</span><br />
-                <span class="text-envision-blue-500">Uniques</span>
-              </app-typography>
-              <app-typography tag="p">
-                At Envision, every decision we make is guided by a clear philosophy—three core
-                principles that define how we work, why we work, and the impact we strive to create.
-                These<span> “Three Uniques”</span> are more than values; they are the driving force
-                behind our approach, shaping every project, partnership, and interaction
-              </app-typography>
-            </div>
-            <NuxtImg
-              src="https://ik.imagekit.io/pnixsw7lg/main-website/EH_USFSPDavisHall_Int_21.webp?updatedAt=1771413849873"
-              alt=""
-              class="overlay-img"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="right">
-        <div class="desktopPhotos">
-          <div
-            v-for="p in process"
-            :key="p.id"
-            class="item"
-            :style="{ '--overlay-color': `var(${p.color})` }"
-          >
-            <div class="content">
-              <app-typography tag="h3" variant="heading-md" class="title">
-                {{ p.title }}
-              </app-typography>
-              <p>{{ p.description }}</p>
-            </div>
-            <NuxtImg :src="p.image" provider="imagekit" fit="cover" />
-          </div>
-        </div>
-      </div>
+  <section class="wrapper site-grid">
+    <div class="content-wrapper">
+      <app-typography tag="h2" variant="heading-lg" bold="true">
+        Our<span> Three </span><span class="text-envision-blue-500">Uniques</span>
+      </app-typography>
+      <app-typography tag="p">
+        At Envision, every decision we make is guided by a clear philosophy—three core principles
+        that define how we work, why we work, and the impact we strive to create. These<span>
+          “Three Uniques”</span
+        >
+        are more than values; they are the driving force behind our approach, shaping every project,
+        partnership, and interaction
+      </app-typography>
     </div>
+    <ul class="uniques-wrapper">
+      <li v-for="p in process" :key="p.id" class="unique">
+        <div class="content">
+          <app-typography tag="h3" variant="heading-md" class="title text-semibold">
+            {{ p.title }}
+          </app-typography>
+          <p>{{ p.description }}</p>
+        </div>
+        <NuxtImg :src="p.image" provider="imagekit" fit="cover" class="image" />
+      </li>
+    </ul>
   </section>
 </template>
 
 <style scoped>
-.gallery {
+section {
+  display: grid;
+  grid-column: 1/-1;
+  grid-template-columns: subgrid;
+  gap: calc(var(--spacing) * 8);
+  padding-inline: calc(var(--spacing) * 4);
+  padding-block: calc(var(--spacing) * 16);
+}
+
+.content-wrapper {
+  grid-column: 1/-1;
   display: flex;
   flex-direction: column;
-  min-height: 400vh;
-  overflow-x: clip;
-
-  @media (min-width: 850px) {
-    flex-direction: row;
-    min-height: auto;
-  }
+  gap: calc(var(--spacing) * 2);
 }
 
-.left {
-  width: 100%;
-}
-
-.right {
-  height: 100vh;
-  width: 100%;
-
-  @media (min-width: 850px) {
-    width: 50%;
-  }
-}
-
-.left {
-  @media (min-width: 850px) {
-    width: 50%;
-  }
-}
-
-.desktopPhotos {
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-}
-
-.item {
-  position: absolute;
-  max-height: 100vh;
-  height: 100%;
-  width: 100%;
-  isolation: isolate;
+.uniques-wrapper {
   display: grid;
+  gap: calc(var(--spacing) * 4);
+  grid-column: 1/-1;
+  grid-template-columns: subgrid;
+}
 
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--overlay-color);
-    mix-blend-mode: multiply;
-    pointer-events: none;
+.unique {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+
+  grid-column: 1/-1;
+
+  @media (min-width: 700px) {
+    grid-column: span 4;
   }
 
-  img {
-    grid-column: 1/-1;
-    grid-row: 1/-1;
-    height: 100%;
-    width: 100%;
-    filter: grayscale(1) contrast(0.4);
-    object-fit: cover;
+  @media (min-width: 1024px) {
+    grid-column: span 8;
   }
 
   .content {
-    max-height: 100vh;
-    display: grid;
-    place-content: center;
     grid-column: 1/-1;
     grid-row: 1/-1;
     z-index: 1;
     color: #fff;
-    text-wrap: balance;
-    max-width: 60ch;
-    margin-inline: auto;
-    text-align: left;
-    padding-inline: calc(var(--spacing) * 4);
 
-    h3 {
-      font-weight: 600;
-      margin-bottom: calc(var(--spacing) * 4);
-    }
-
-    p {
-      opacity: 0.7;
-    }
+    place-self: end;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--spacing) * 2);
+    padding: calc(var(--spacing) * 4);
   }
-}
 
-.desktopContent {
-  height: 100vh;
-  position: relative;
-
-  @media (min-width: 850px) {
-    height: 300vh;
+  .image {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+    height: 100%;
+    width: 100%;
+    filter: grayscale();
+    mix-blend-mode: multiply;
   }
-}
-
-.title-wrapper {
-  position: sticky;
-  top: 0;
-  overflow: hidden;
-  isolation: isolate;
-
-  .title {
-    display: grid;
-    place-content: center;
-    height: 100vh;
-    max-width: 600px;
-    margin-inline: auto;
-    padding-inline: calc(var(--spacing) * 4);
-    z-index: 5;
-
-    h2 {
-      font-weight: 600;
-      text-transform: uppercase;
-      margin-bottom: calc(var(--spacing) * 4);
-
-      span:first-of-type {
-        color: var(--color-envision-blue-500);
-      }
-    }
-
-    p {
-      max-width: 50ch;
-    }
-  }
-}
-
-li {
-  height: 100vh;
-  padding: calc(var(--spacing) * 4);
-  color: white;
-  display: grid;
-  place-content: center;
-
-  @media (min-width: 768px) {
-    padding-inline: calc(var(--spacing) * 8);
-    padding-block: calc(var(--spacing) * 20);
-  }
-}
-
-.overlay-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  mix-blend-mode: color;
-  opacity: 0.1;
-  filter: grayscale();
-  z-index: 2;
 }
 
 li:nth-child(1) {

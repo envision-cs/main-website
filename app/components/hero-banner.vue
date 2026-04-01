@@ -60,6 +60,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 
 <style scoped>
 .hero {
+  grid-column: 1/-1;
   display: grid;
   grid-template-columns: 1rem 1fr 1rem;
   grid-template-rows: 1fr 1fr 1fr;

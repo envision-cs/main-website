@@ -50,8 +50,8 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="container">
-    <app-cta-a
+  <main class="site-grid">
+    <cta-a
       body="Not every project is large-scale, but every project deserves the same precision, coordination, and care."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0570.jpg"
       flip
@@ -64,9 +64,9 @@ definePageMeta({
           accountable.
         </p>
       </template>
-    </app-cta-a>
+    </cta-a>
 
-    <app-cta-a
+    <cta-a
       body="Our approach is structured and flexible, designed to keep projects moving efficiently without unnecessary delays."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0400.jpg"
     >
@@ -88,9 +88,9 @@ definePageMeta({
         </ul>
         <p class="mt-4">We move with urgency while protecting quality and attention to detail.</p>
       </template>
-    </app-cta-a>
+    </cta-a>
 
-    <app-cta-a
+    <cta-a
       body="You can expect consistent communication, clear ownership, and practical updates from kickoff through completion."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A2696.jpg"
       flip
@@ -112,14 +112,14 @@ definePageMeta({
           </li>
         </ul>
       </template>
-    </app-cta-a>
+    </cta-a>
 
-    <app-cta-a
+    <cta-a
       body="Our SPD process is designed to reduce friction, create clarity, and keep your project moving."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A3328.jpg"
     >
       SPD <span>Process</span>
-    </app-cta-a>
+    </cta-a>
 
     <ul class="process-list">
       <li>
@@ -194,13 +194,13 @@ definePageMeta({
         </p>
       </li>
     </ul>
-  </div>
+  </main>
 </template>
 
 <style scoped>
 .container {
-  container-type: inline-size;
-  container-name: service;
+  grid-column: 1/-1;
+  grid-template-columns: subgrid;
 }
 
 .service-list {

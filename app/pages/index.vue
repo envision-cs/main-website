@@ -83,36 +83,34 @@ if ($posthog) {
 </script>
 
 <template>
-  <UPage class="mt-0">
-    <div class="grid">
-      <home-hero-banner />
-      <app-card-group-a :cards="featuredProjectCards.sectionOne" />
-      <app-cta-a
-        text="Building Without the Headaches"
-        body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
-        image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
-        flip
-        content-position="bottom-left"
-      >
-        Building Without the <span>Headaches</span>
-      </app-cta-a>
-      <app-card-group-a :cards="featuredProjectCards.sectionTwo" />
-      <app-cta-a
-        text="Building Without the Headaches"
-        body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
-        image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
-        flip
-        content-position="bottom-left"
-      >
-        Building With <span>Heart</span> and <span>Precision</span>
-      </app-cta-a>
-      <home-proven-process />
-      <three-uniques />
-      <quote
-        :testimonials="testimonials"
-        section-title="Our clients who expect discipline, communication, and follow-through."
-        section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
-      />
-    </div>
-  </UPage>
+  <div class="mx-auto site-grid">
+    <hero-banner />
+    <card-group-a :cards="featuredProjectCards.sectionOne" />
+    <cta-a
+      text="Building Without the Headaches"
+      body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
+      flip
+      content-position="bottom-left"
+    >
+      Building Without the <span>Headaches</span>
+    </cta-a>
+    <card-group-a :cards="featuredProjectCards.sectionTwo" />
+    <cta-a
+      text="Building Without the Headaches"
+      body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
+      flip
+      content-position="bottom-left"
+    >
+      Building With <span>Heart</span> and <span>Precision</span>
+    </cta-a>
+    <proven-process />
+    <three-uniques />
+    <quote
+      :testimonials="testimonials"
+      section-title="Our clients who expect discipline, communication, and follow-through."
+      section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
+    />
+  </div>
 </template>
