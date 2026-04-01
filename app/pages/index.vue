@@ -85,6 +85,7 @@ if ($posthog) {
 <template>
   <div class="mx-auto site-grid">
     <hero-banner />
+    <company-stats />
     <card-group-a :cards="featuredProjectCards.sectionOne" />
     <cta-a
       text="Building Without the Headaches"
