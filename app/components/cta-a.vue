@@ -28,7 +28,19 @@ const props = defineProps<{
         <slot name="action" />
       </div>
     </div>
-    <div class="image" :class="{ 'is-flipped': props.flip }">
+    <NuxtLink v-if="href" :to="href" class="image" :class="{ 'is-flipped': props.flip }">
+      <NuxtImg
+        :src="image"
+        provider="imagekit"
+        :modifiers="{ focus: 'bottom' }"
+        format="webp"
+        loading="lazy"
+        class="w-full h-full"
+        fit="cover"
+        placeholder
+      />
+    </NuxtLink>
+    <div v-else class="image" :class="{ 'is-flipped': props.flip }">
       <NuxtImg
         :src="image"
         provider="imagekit"

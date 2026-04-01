@@ -27,7 +27,12 @@ export default defineNuxtConfig({
   ],
   vite: {
     optimizeDeps: {
-      include: ["gsap/ScrollTrigger", "@vue/devtools-core", "@vue/devtools-kit"],
+      include: [
+        "gsap/ScrollTrigger",
+        "@vue/devtools-core",
+        "@vue/devtools-kit",
+        "embla-carousel-vue",
+      ],
     },
   },
   css: ["~/assets/css/main.css", "~/assets/css/maplibre-gl.css"],
