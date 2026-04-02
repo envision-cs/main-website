@@ -60,14 +60,13 @@ section {
   display: grid;
   grid-column: 1/-1;
   grid-template-columns: subgrid;
-  gap: calc(var(--spacing) * 8);
-  padding-inline: calc(var(--spacing) * 4);
-  padding-block: calc(var(--spacing) * 16);
+  gap: 0;
   align-items: center;
 }
 
 .content {
   grid-column: 1/-1;
+  padding: calc(var(--spacing) * 6);
 
   @media (min-width: 700px) {
     grid-column: 1/6;

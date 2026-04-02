@@ -54,7 +54,7 @@ const process = [
     <ul>
       <li v-for="item in process" :key="item.id" class="flex flex-col gap-4">
         <div class="grid gap-2">
-          <app-typography tag="h3" variant="heading-lg" class="number font-semibold">
+          <app-typography tag="h3" variant="text-lg" class="number font-semibold">
             {{ item.order }}
           </app-typography>
           <app-typography tag="h3" variant="heading-lg" class="font-semibold">
@@ -74,24 +74,38 @@ section {
   display: grid;
   grid-column: 1/-1;
   grid-template-columns: subgrid;
-  gap: calc(var(--spacing) * 8);
-  padding-inline: calc(var(--spacing) * 4);
-  padding-block: calc(var(--spacing) * 16);
 }
 
 .content {
-  grid-column: 1/-1;
+  grid-column: 1/8;
   display: flex;
   flex-direction: column;
-  gap: calc(var(--spacing) * 2);
+  place-content: center;
+  padding: calc(var(--spacing) * 8);
+  grid-column: 1/-1;
+
+  @media (min-width: 700px) {
+    grid-column: 1/6;
+  }
+
+  @media (min-width: 1024px) {
+    grid-column: 1/8;
+  }
 }
 
 ul {
   display: grid;
-  grid-column: 1/-1;
   grid-template-columns: subgrid;
+  gap: 0;
+  grid-column: 1/-1;
 
-  gap: calc(var(--spacing) * 8);
+  @media (min-width: 700px) {
+    grid-column: 7/-1;
+  }
+
+  @media (min-width: 1024px) {
+    grid-column: 9/-1;
+  }
 }
 
 li {
@@ -99,11 +113,11 @@ li {
   grid-column: span 2;
 
   @media (min-width: 700px) {
-    grid-column: span 6;
+    grid-column: span 3;
   }
 
   @media (min-width: 1024px) {
-    grid-column: span 6;
+    grid-column: span 4;
   }
 }
 

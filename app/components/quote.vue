@@ -97,30 +97,6 @@ onUnmounted(() => {
 <template>
   <section v-if="hasTestimonials" class="testimonials-stage">
     <div class="testimonials-stage__inner">
-      <header class="testimonials-stage__header">
-        <app-typography
-          v-if="eyebrow"
-          tag="p"
-          variant="eyebrow-md"
-          class="testimonials-stage__eyebrow"
-        >
-          {{ eyebrow }}
-        </app-typography>
-
-        <app-typography tag="h2" variant="heading-md" class="testimonials-stage__title">
-          {{ sectionTitle }}
-        </app-typography>
-
-        <app-typography
-          v-if="sectionBody"
-          tag="p"
-          variant="text-lg"
-          class="testimonials-stage__body"
-        >
-          {{ sectionBody }}
-        </app-typography>
-      </header>
-
       <div class="testimonials-stage__carousel">
         <button
           v-if="showRailNavigation"

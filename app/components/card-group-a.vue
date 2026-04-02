@@ -54,13 +54,10 @@ section {
 .main-wrapper {
   container-type: inline-size;
   gap: calc(var(--spacing) * 8);
-  padding-inline: calc(var(--spacing) * 4);
-  padding-block: calc(var(--spacing) * 16);
 }
 
 .wrapper {
   display: grid;
-  gap: calc(var(--spacing) * 4);
   grid-column: 1/-1;
 
   @container (inline-size < 40ch) {
