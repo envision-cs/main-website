@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@vueuse/nuxt",
     "@nuxt/image",
+    "@nuxtjs/mdc",
     "@posthog/nuxt",
     "motion-v/nuxt",
     "@nuxtjs/strapi",
