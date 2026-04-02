@@ -17,10 +17,10 @@ const mainStyle = computed(() => {
 </script>
 
 <template>
-  <div>
+  <div class="win-desktop-bg">
     <app-header />
     <div class="">
-      <UMain :style="mainStyle">
+      <UMain :style="mainStyle" class="win-main">
         <slot />
       </UMain>
     </div>
@@ -29,21 +29,12 @@ const mainStyle = computed(() => {
 </template>
 
 <style scoped>
-.divider {
-  position: relative;
+.win-desktop-bg {
+  background-color: var(--color-win-teal);
+  min-height: 100dvh;
 }
 
-.divider::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 0px;
-  height: 100%;
-  background-color: var(--ui-border);
-
-  @media (min-width: 800px) {
-    width: 1px;
-  }
+.win-main {
+  background: var(--color-win-gray-light);
 }
 </style>

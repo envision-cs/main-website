@@ -34,63 +34,83 @@
 }
 
 @theme {
-  --font-sans:
-    "Proxima Nova", "Avenir Next", "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
+  --font-sans: "Proxima Nova", "Tahoma", "MS Sans Serif", "Arial", sans-serif;
+  --font-mono: "Courier New", "Lucida Console", monospace;
 
   --container-8xl: 90rem;
   --breakpoint-md: 650px;
-  --breakpoint-md: 1025px;
+  --breakpoint-lg: 1025px;
 
-  --container-8xl: 90rem;
-  --breakpoint-md: 650px;
-  --breakpoint-md: 1025px;
+  /* Windows 2000 color palette */
+  --color-win-gray-light:   #d4d0c8;
+  --color-win-gray-mid:     #c0bdb4;
+  --color-win-gray-dark:    #808080;
+  --color-win-gray-shadow:  #404040;
+  --color-win-white:        #ffffff;
+  --color-win-black:        #000000;
+  --color-win-teal:         #008080;
+  --color-win-teal-dark:    #005f5f;
+  --color-win-navy:         #000080;
+  --color-win-titlebar:     #000080;
+  --color-win-titlebar-end: #1084d0;
+  --color-win-button-face:  #d4d0c8;
+  --color-win-button-text:  #000000;
+  --color-win-desktop:      #008080;
+  --color-win-highlight:    #0a246a;
+  --color-win-highlight-text: #ffffff;
+  --color-win-link:         #0000ee;
+  --color-win-visited:      #551a8b;
+  --color-win-red:          #c0392b;
+  --color-win-yellow:       #ffff00;
+  --color-win-green:        #008000;
 
+  /* Keep envision brand tokens for fallback */
   --color-envision-blue-50: oklch(0.978 0.011 234.814);
   --color-envision-blue-100: oklch(0.95 0.022 239.429);
   --color-envision-blue-200: oklch(0.896 0.049 234.187);
   --color-envision-blue-300: oklch(0.815 0.091 233.14);
   --color-envision-blue-400: oklch(0.733 0.128 233.733);
-  --color-envision-blue-500: oklch(0.634 0.135 238.396);
-  --color-envision-blue-600: oklch(0.56 0.132 243.136);
-  --color-envision-blue-700: oklch(0.478 0.112 243.857);
-  --color-envision-blue-800: oklch(0.427 0.093 241.472);
-  --color-envision-blue-900: oklch(0.378 0.079 242.34);
-  --color-envision-blue-950: oklch(0.284 0.059 245.802);
+  --color-envision-blue-500: #1084d0;
+  --color-envision-blue-600: #000080;
+  --color-envision-blue-700: #000080;
+  --color-envision-blue-800: #000070;
+  --color-envision-blue-900: #000060;
+  --color-envision-blue-950: #000050;
 
-  --color-envision-green-50: oklch(0.932 0.166 130.998);
-  --color-envision-green-100: oklch(0.88 0.144 140.43);
-  --color-envision-green-200: oklch(0.8 0.156 140.463);
-  --color-envision-green-300: oklch(0.72 0.164 140.459);
-  --color-envision-green-400: oklch(0.641 0.17 140.385);
-  --color-envision-green-500: oklch(0.551 0.169 140.275);
-  --color-envision-green-600: oklch(0.482 0.162 142.025);
-  --color-envision-green-700: oklch(0.405 0.138 142.495);
-  --color-envision-green-800: oklch(0.332 0.113 142.495);
-  --color-envision-green-900: oklch(0.254 0.086 142.495);
-  --color-envision-green-950: oklch(0.154 0.052 142.495);
+  --color-envision-green-50:  #e8f5e8;
+  --color-envision-green-100: #c8e6c8;
+  --color-envision-green-200: #a4d4a4;
+  --color-envision-green-300: #80c080;
+  --color-envision-green-400: #50a050;
+  --color-envision-green-500: #008000;
+  --color-envision-green-600: #006800;
+  --color-envision-green-700: #005000;
+  --color-envision-green-800: #003800;
+  --color-envision-green-900: #002000;
+  --color-envision-green-950: #001000;
 
-  --color-envision-gray-300: oklch(0.8733 0.0014 286.37);
-  --color-envision-gray-400: oklch(0.7287 0.0014 286.36);
-  --color-envision-gray-500: oklch(0.5474 0.0062 297.62);
-  --color-envision-gray-600: oklch(0.407 0.0052 236.62);
-  --color-envision-gray-700: oklch(0.3298 0.0066 229.02);
-  --color-envision-gray-900: oklch(0.2103 0.0059 285.89);
+  --color-envision-gray-300: #d4d0c8;
+  --color-envision-gray-400: #c0bdb4;
+  --color-envision-gray-500: #808080;
+  --color-envision-gray-600: #606060;
+  --color-envision-gray-700: #404040;
+  --color-envision-gray-900: #d4d0c8;
 
-  --ui-border: var(--color-envision-gray-500);
+  --ui-border: #808080;
 
   --text-xs: 0.64rem;
   --text-sm: 0.8rem;
   --text-base: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.562rem;
-  --text-2xl: 1.953rem;
-  --text-3xl: 2.441rem;
-  --text-4xl: 3.052rem;
-  --text-5xl: 3.815rem;
-  --text-6xl: 4.57rem;
-  --text-7xl: 6.25rem;
-  --text-8xl: 8rem;
-  --text-9xl: 9.25rem;
+  --text-lg: 1.15rem;
+  --text-xl: 1.35rem;
+  --text-2xl: 1.6rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.5rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+  --text-9xl: 7.5rem;
 
   --border-main: 1px solid var(--ui-border);
 }
@@ -98,39 +118,76 @@
 :root {
   interpolate-size: allow-keywords;
 
-  --ui-primary: var(--color-envision-blue-500);
-  --ui-secondary: var(--color-envision-green-500);
+  --ui-primary: var(--color-win-navy);
+  --ui-secondary: var(--color-win-teal);
   --ui-container: var(--container-8xl);
+  --ui-border: #808080;
 
-  --ui-border: var(--color-envision-gray-500);
-  --color-white: oklch(1 0 0);
-  --text-color-muted: var(--color-envision-gray-600);
+  --color-white: #ffffff;
+  --color-background: var(--color-win-gray-light);
+  --color-foreground: var(--color-win-black);
+  --text-color-muted: #606060;
+
+  /* Win2K raised/sunken border mixins */
+  --win-border-raised:
+    inset -1px -1px 0 #404040,
+    inset 1px 1px 0 #ffffff,
+    inset -2px -2px 0 #808080,
+    inset 2px 2px 0 #d4d0c8;
+  --win-border-sunken:
+    inset 1px 1px 0 #404040,
+    inset -1px -1px 0 #ffffff,
+    inset 2px 2px 0 #808080,
+    inset -2px -2px 0 #d4d0c8;
+  --win-border-button:
+    inset -1px -1px 0 #000000,
+    inset 1px 1px 0 #ffffff,
+    inset -2px -2px 0 #808080,
+    inset 2px 2px 0 #d4d0c8;
+  --win-titlebar: linear-gradient(to right, #000080, #1084d0);
 
   --vw: 1vw;
-  --font-size-text-t1: clamp(18px, 0.0125 * calc(100 * var(--vw, 1vw)), 18px);
-  --font-size-text-t2: clamp(16px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 16px);
-  --font-size-text-t3: clamp(14px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 14px);
-  --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
+  --font-size-text-t1: clamp(14px, 0.0125 * calc(100 * var(--vw, 1vw)), 16px);
+  --font-size-text-t2: clamp(12px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 14px);
+  --font-size-text-t3: clamp(11px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 13px);
+  --font-size-text-t4: clamp(10px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
 
-  --font-size-huge: clamp(50px, 0.081666667 * calc(100 * var(--vw, 1vw)), 75px);
-  --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 55px);
-  --font-size-h2: clamp(35px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 45px);
-  --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
-  --font-size-h4: clamp(22px, 0.0152777778 * calc(100 * var(--vw, 1vw)), 22px);
+  --font-size-huge: clamp(28px, 0.05 * calc(100 * var(--vw, 1vw)), 48px);
+  --font-size-h1: clamp(24px, 0.035 * calc(100 * var(--vw, 1vw)), 36px);
+  --font-size-h2: clamp(20px, 0.028 * calc(100 * var(--vw, 1vw)), 28px);
+  --font-size-h3: clamp(16px, 0.02 * calc(100 * var(--vw, 1vw)), 22px);
+  --font-size-h4: clamp(14px, 0.015 * calc(100 * var(--vw, 1vw)), 18px);
 
   --border: 1px solid var(--ui-border);
-
   --spacing: 0.25rem;
 }
 
 html {
   overscroll-behavior: none;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: auto;
+  scrollbar-width: auto;
+  scrollbar-color: #d4d0c8 #808080;
 }
 
 html::-webkit-scrollbar {
-  display: none;
+  display: block;
+  width: 16px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #d4d0c8;
+  border-left: 1px solid #808080;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #d4d0c8;
+  box-shadow: var(--win-border-raised);
+}
+
+html::-webkit-scrollbar-button {
+  background: #d4d0c8;
+  box-shadow: var(--win-border-raised);
+  height: 16px;
 }
 
 html:has(dialog[open]) {
@@ -138,11 +195,145 @@ html:has(dialog[open]) {
 }
 
 body {
-  background-color: var(--color-envision-gray-900);
-  color: oklch(1 0 0);
+  background-color: var(--color-win-gray-light);
+  color: var(--color-win-black);
+  font-family: "Tahoma", "MS Sans Serif", "Arial", sans-serif;
+  font-size: 11px;
+}
 
-  @media (min-width: 768px) {
-  }
+/* Win2K utility classes */
+.win-panel {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-raised);
+  padding: 2px;
+}
+
+.win-panel-sunken {
+  background: var(--color-win-white);
+  box-shadow: var(--win-border-sunken);
+}
+
+.win-titlebar {
+  background: var(--win-titlebar);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.win-titlebar-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.win-titlebar-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+}
+
+.win-titlebar-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
+  font-size: 9px;
+  font-weight: bold;
+  color: var(--color-win-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+}
+
+.win-button {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
+  color: var(--color-win-black);
+  font-family: "Tahoma", "MS Sans Serif", "Arial", sans-serif;
+  font-size: 11px;
+  padding: 3px 10px 4px;
+  cursor: pointer;
+  border: 0;
+  text-decoration: none;
+  display: inline-block;
+  min-width: 75px;
+  text-align: center;
+}
+
+.win-button:active {
+  box-shadow: var(--win-border-sunken);
+  padding: 4px 10px 3px;
+}
+
+.win-button-primary {
+  background: var(--color-win-gray-light);
+  outline: 1px solid var(--color-win-black);
+  outline-offset: -1px;
+}
+
+.win-link {
+  color: var(--color-win-link);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.win-link:visited {
+  color: var(--color-win-visited);
+}
+
+.win-separator-h {
+  height: 0;
+  border: 0;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #ffffff;
+  margin: 4px 0;
+}
+
+.win-separator-v {
+  width: 0;
+  border: 0;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #ffffff;
+  align-self: stretch;
+}
+
+.win-status-bar {
+  background: var(--color-win-gray-light);
+  border-top: 1px solid #808080;
+  padding: 2px 4px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.win-inset-field {
+  background: var(--color-win-white);
+  box-shadow: var(--win-border-sunken);
+  padding: 4px 6px;
+  font-family: "Tahoma", "MS Sans Serif", "Arial", sans-serif;
+  font-size: 11px;
+  color: var(--color-win-black);
+  border: 0;
+  outline: none;
+  width: 100%;
+}
+
+@keyframes win-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
 /* Utilities */
@@ -162,6 +353,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   grid-template-areas: "c c c c";
+  background: var(--color-win-gray-light);
 }
 
 @media (min-width: 700px) {

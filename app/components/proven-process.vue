@@ -1,10 +1,4 @@
 <script setup lang="ts">
-// const { data: our_process, pending, error } = await useAsyncData('our-process', () => $fetch('/api/process'), {
-//  server: true,
-//  lazy: true,
-//  default: () => [],
-// });
-
 const process = [
   {
     id: 1,
@@ -32,94 +26,265 @@ const process = [
     order: "04",
     title: "Cultivate",
     description:
-      "Our work doesn’t end at closeout. We stay engaged with system training, 30-60-90 day check-ins, and a one-year walkthrough. The goal: ensure your space performs, your team is supported, and your trust in us grows long after the build is done.",
+      "Our work doesn't end at closeout. We stay engaged with system training, 30-60-90 day check-ins, and a one-year walkthrough. The goal: ensure your space performs, your team is supported, and your trust in us grows long after the build is done.",
   },
 ];
 </script>
 
 <template>
-  <section>
-    <div class="content">
-      <app-typography tag="h2" variant="heading-lg" bold="true">
-        Our Proven Process
-      </app-typography>
-
-      <app-typography tag="h2">
-        Our proven process brings structure and consistency to every project. We listen, plan, and
-        execute to reduce risk, maintain alignment, and deliver on time, on budget, and with
-        complete transparency.
-      </app-typography>
-    </div>
-
-    <ul>
-      <li v-for="item in process" :key="item.id" class="flex flex-col gap-4">
-        <div class="grid gap-2">
-          <app-typography tag="h3" variant="heading-lg" class="number font-semibold">
-            {{ item.order }}
-          </app-typography>
-          <app-typography tag="h3" variant="heading-lg" class="font-semibold">
-            {{ item.title }}
-          </app-typography>
+  <section class="process-win-section">
+    <div class="process-win-window">
+      <!-- Window title bar -->
+      <div class="win-titlebar" role="presentation">
+        <span>Our Proven Process</span>
+        <div class="win-titlebar-buttons" aria-hidden="true">
+          <button class="win-titlebar-btn" tabindex="-1">_</button>
+          <button class="win-titlebar-btn" tabindex="-1">&#9633;</button>
+          <button class="win-titlebar-btn" tabindex="-1">&#x2715;</button>
         </div>
-        <app-typography tag="p">
-          {{ item.description }}
-        </app-typography>
-      </li>
-    </ul>
+      </div>
+
+      <!-- Description panel -->
+      <div class="process-win-desc">
+        <div class="process-win-desc-inner">
+          <p>
+            Our proven process brings structure and consistency to every project. We listen, plan, and
+            execute to reduce risk, maintain alignment, and deliver on time, on budget, and with
+            complete transparency.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tabs (decorative) -->
+      <div class="process-win-tabs" aria-hidden="true">
+        <button class="process-win-tab process-win-tab--active">Phases</button>
+        <button class="process-win-tab">Timeline</button>
+        <button class="process-win-tab">Tools</button>
+      </div>
+
+      <!-- Process steps grid -->
+      <div class="process-win-body">
+        <ul class="process-win-list">
+          <li v-for="(item, idx) in process" :key="item.id" class="process-win-item">
+            <div class="process-win-item-inner">
+              <!-- Step number as folder icon -->
+              <div class="process-win-icon">
+                <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M0 4h12l4 4h16v20H0V4z" :fill="idx === 0 ? '#1084d0' : idx === 1 ? '#008000' : idx === 2 ? '#808080' : '#404080'" />
+                  <path d="M0 2h10l2 2h-12z" :fill="idx === 0 ? '#1084d0' : idx === 1 ? '#008000' : idx === 2 ? '#808080' : '#404080'" opacity="0.7"/>
+                  <text x="16" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="white" font-family="Tahoma">{{ item.order }}</text>
+                </svg>
+              </div>
+              <h3 class="process-win-title">{{ item.title }}</h3>
+              <p class="process-win-text">{{ item.description }}</p>
+              <div class="process-win-footer">
+                <span class="process-win-badge">Step {{ item.order }}</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="win-status-bar process-win-status">
+        <span>&#9679;</span>
+        <span>4 steps</span>
+        <div class="process-sep" />
+        <span>Envision CS Methodology</span>
+      </div>
+    </div>
   </section>
 </template>
 
 <style scoped>
-section {
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
-  gap: calc(var(--spacing) * 8);
-  padding-inline: calc(var(--spacing) * 4);
-  padding-block: calc(var(--spacing) * 16);
+.process-win-section {
+  grid-column: 1 / -1;
+  background: var(--color-win-gray-light);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
 }
 
-.content {
-  grid-column: 1/-1;
+.process-win-window {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-raised);
+  width: 100%;
+  max-width: 1100px;
   display: flex;
   flex-direction: column;
-  gap: calc(var(--spacing) * 2);
 }
 
-ul {
+.win-titlebar {
+  background: var(--win-titlebar);
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  font-family: "Tahoma", sans-serif;
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.win-titlebar-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+}
+
+.win-titlebar-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
+  font-size: 9px;
+  font-weight: bold;
+  color: var(--color-win-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+
+.process-win-desc {
+  padding: 8px;
+}
+
+.process-win-desc-inner {
+  background: var(--color-win-white);
+  box-shadow: var(--win-border-sunken);
+  padding: 10px 12px;
+  font-size: 11px;
+  font-family: "Tahoma", sans-serif;
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
+}
+
+.process-win-tabs {
+  display: flex;
+  gap: 2px;
+  padding: 0 8px;
+  border-bottom: 2px solid #808080;
+}
+
+.process-win-tab {
+  background: var(--color-win-gray-light);
+  color: var(--color-win-black);
+  font-size: 11px;
+  font-family: "Tahoma", sans-serif;
+  padding: 3px 12px 4px;
+  border: 0;
+  cursor: pointer;
+  border-top: 2px solid #ffffff;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #808080;
+  margin-bottom: -2px;
+  position: relative;
+}
+
+.process-win-tab--active {
+  background: var(--color-win-gray-light);
+  border-bottom: 2px solid var(--color-win-gray-light);
+  font-weight: bold;
+  z-index: 1;
+}
+
+.process-win-body {
+  padding: 8px;
+  background: var(--color-win-gray-light);
+}
+
+.process-win-list {
   display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
-  gap: calc(var(--spacing) * 8);
-}
-
-li {
-  padding: calc(var(--spacing) * 3);
-  grid-column: span 2;
-
-  @media (min-width: 700px) {
-    grid-column: span 6;
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  @media (min-width: 1024px) {
-    grid-column: span 6;
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-li:nth-child(1) {
-  background-color: var(--color-envision-blue-600);
+.process-win-item {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-raised);
 }
 
-li:nth-child(2) {
-  background-color: var(--color-envision-green-500);
+.process-win-item-inner {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
 }
 
-li:nth-child(3) {
-  background-color: var(--color-envision-gray-700);
+.process-win-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-li:nth-child(4) {
-  background-color: #435a66;
+.process-win-title {
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-navy);
+  margin: 0;
+  text-align: center;
+}
+
+.process-win-text {
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-black);
+  line-height: 1.45;
+  margin: 0;
+  flex: 1;
+  background: var(--color-win-white);
+  box-shadow: var(--win-border-sunken);
+  padding: 8px;
+}
+
+.process-win-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.process-win-badge {
+  font-size: 9px;
+  font-family: "Tahoma", sans-serif;
+  color: #606060;
+  background: var(--color-win-white);
+  box-shadow: var(--win-border-sunken);
+  padding: 1px 6px;
+}
+
+.win-status-bar {
+  background: var(--color-win-gray-light);
+  border-top: 1px solid #808080;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.process-sep {
+  width: 1px;
+  height: 12px;
+  background: #808080;
+  box-shadow: 1px 0 0 #ffffff;
 }
 </style>

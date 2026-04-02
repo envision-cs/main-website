@@ -50,7 +50,6 @@ const canScrollNext = ref(false);
 function syncCarouselState() {
   const api = emblaApi.value;
   if (!api) return;
-
   selectedIndex.value = api.selectedScrollSnap();
   scrollSnaps.value = api.scrollSnapList();
   canScrollPrevious.value = api.canScrollPrev();
@@ -62,31 +61,18 @@ const scrollNext = () => emblaApi.value?.scrollNext();
 const scrollTo = (index: number) => emblaApi.value?.scrollTo(index);
 
 function handleKeydown(event: KeyboardEvent) {
-  if (event.key === "ArrowLeft") {
-    event.preventDefault();
-    scrollPrevious();
-  }
-
-  if (event.key === "ArrowRight") {
-    event.preventDefault();
-    scrollNext();
-  }
+  if (event.key === "ArrowLeft") { event.preventDefault(); scrollPrevious(); }
+  if (event.key === "ArrowRight") { event.preventDefault(); scrollNext(); }
 }
 
-watch(
-  emblaApi,
-  (api, previousApi) => {
-    previousApi?.off("select", syncCarouselState);
-    previousApi?.off("reInit", syncCarouselState);
-
-    if (!api) return;
-
-    syncCarouselState();
-    api.on("select", syncCarouselState);
-    api.on("reInit", syncCarouselState);
-  },
-  { immediate: true },
-);
+watch(emblaApi, (api, previousApi) => {
+  previousApi?.off("select", syncCarouselState);
+  previousApi?.off("reInit", syncCarouselState);
+  if (!api) return;
+  syncCarouselState();
+  api.on("select", syncCarouselState);
+  api.on("reInit", syncCarouselState);
+}, { immediate: true });
 
 onUnmounted(() => {
   emblaApi.value?.off("select", syncCarouselState);
@@ -95,216 +81,239 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section v-if="hasTestimonials" class="testimonials-stage">
-    <div class="testimonials-stage__inner">
-      <header class="testimonials-stage__header">
-        <app-typography
-          v-if="eyebrow"
-          tag="p"
-          variant="eyebrow-md"
-          class="testimonials-stage__eyebrow"
-        >
-          {{ eyebrow }}
-        </app-typography>
+  <section class="quotes-win-section">
+    <div class="quotes-win-window" v-if="hasTestimonials">
+      <!-- Title bar -->
+      <div class="win-titlebar" role="presentation">
+        <span>{{ eyebrow }}</span>
+        <div class="win-titlebar-buttons" aria-hidden="true">
+          <button class="win-titlebar-btn" tabindex="-1">_</button>
+          <button class="win-titlebar-btn" tabindex="-1">&#9633;</button>
+          <button class="win-titlebar-btn" tabindex="-1">&#x2715;</button>
+        </div>
+      </div>
 
-        <app-typography tag="h2" variant="heading-md" class="testimonials-stage__title">
-          {{ sectionTitle }}
-        </app-typography>
+      <!-- Header text -->
+      <div class="quotes-win-header">
+        <div class="quotes-win-header-inner">
+          <p class="quotes-win-title">{{ sectionTitle }}</p>
+          <p v-if="sectionBody" class="quotes-win-body">{{ sectionBody }}</p>
+        </div>
+      </div>
 
-        <app-typography
-          v-if="sectionBody"
-          tag="p"
-          variant="text-lg"
-          class="testimonials-stage__body"
-        >
-          {{ sectionBody }}
-        </app-typography>
-      </header>
-
-      <div class="testimonials-stage__carousel">
-        <button
-          v-if="showRailNavigation"
-          type="button"
-          class="testimonials-stage__arrow testimonials-stage__arrow--previous"
-          :disabled="!canScrollPrevious"
-          aria-label="Previous testimonial"
-          @click="scrollPrevious"
-        >
-          <span aria-hidden="true">←</span>
-        </button>
+      <!-- Scrolling notepad area -->
+      <div class="quotes-win-notepad">
+        <div class="quotes-notepad-lines" aria-hidden="true">
+          <div v-for="i in 16" :key="i" class="quotes-notepad-line" />
+        </div>
 
         <div
           ref="emblaRef"
-          class="testimonials-stage__viewport"
+          class="quotes-win-viewport"
           :tabindex="showRailNavigation ? 0 : -1"
           aria-label="Client testimonials"
           @keydown="handleKeydown"
         >
-          <ul class="testimonials-stage__rail" role="list">
+          <ul class="quotes-win-rail" role="list">
             <li
               v-for="(testimonial, index) in normalizedTestimonials"
               :key="`${testimonial.name}-${index}`"
-              class="testimonials-stage__slide"
+              class="quotes-win-slide"
             >
-              <article class="testimonial">
-                <app-typography tag="p" variant="heading-sm" class="testimonial__quote">
-                  <span class="testimonial__mark" aria-hidden="true">“</span>
+              <article class="testimonial-win">
+                <p class="testimonial-win-quote">
+                  <span aria-hidden="true" class="testimonial-win-mark">"</span>
                   <span dir="auto">{{ testimonial.quote }}</span>
-                  <span class="testimonial__mark" aria-hidden="true">”</span>
-                </app-typography>
-
-                <div class="testimonial__meta">
-                  <app-typography tag="p" variant="text-md" class="testimonial__name">
-                    <span dir="auto">{{ testimonial.name }}</span>
-                  </app-typography>
-
-                  <app-typography tag="p" variant="text-sm" class="testimonial__title">
-                    <span dir="auto">{{ testimonial.title }}</span>
-                  </app-typography>
-
-                  <app-typography
-                    v-if="testimonial.detail"
-                    tag="p"
-                    variant="eyebrow-sm"
-                    class="testimonial__detail"
-                  >
-                    <span dir="auto">{{ testimonial.detail }}</span>
-                  </app-typography>
+                  <span aria-hidden="true" class="testimonial-win-mark">"</span>
+                </p>
+                <div class="testimonial-win-divider" />
+                <div class="testimonial-win-meta">
+                  <p class="testimonial-win-name">{{ testimonial.name }}</p>
+                  <p class="testimonial-win-title">{{ testimonial.title }}</p>
+                  <p v-if="testimonial.detail" class="testimonial-win-detail">
+                    {{ testimonial.detail }}
+                  </p>
                 </div>
               </article>
             </li>
           </ul>
         </div>
-
-        <button
-          v-if="showRailNavigation"
-          type="button"
-          class="testimonials-stage__arrow testimonials-stage__arrow--next"
-          :disabled="!canScrollNext"
-          aria-label="Next testimonial"
-          @click="scrollNext"
-        >
-          <span aria-hidden="true">→</span>
-        </button>
       </div>
 
-      <ul v-if="showRailNavigation" class="testimonials-stage__dots" aria-label="Testimonial pages">
-        <li v-for="(_, index) in scrollSnaps" :key="index" class="testimonials-stage__dot-item">
+      <!-- Navigation row -->
+      <div v-if="showRailNavigation" class="quotes-win-nav">
+        <button
+          class="win-button"
+          :disabled="!canScrollPrevious"
+          aria-label="Previous testimonial"
+          @click="scrollPrevious"
+        >&#9664; Prev</button>
+
+        <div class="quotes-win-dots" aria-label="Testimonial pages">
           <button
-            type="button"
-            class="testimonials-stage__dot"
+            v-for="(_, index) in scrollSnaps"
+            :key="index"
+            class="quotes-win-dot"
             :class="{ 'is-active': index === selectedIndex }"
             :aria-label="`Show testimonial ${index + 1}`"
             :aria-pressed="index === selectedIndex"
             @click="scrollTo(index)"
           />
-        </li>
-      </ul>
-    </div>
-  </section>
+        </div>
 
-  <section v-else class="quote-fallback">
-    <div class="quote-fallback__inner">
-      <app-typography
-        v-if="eyebrow"
-        tag="p"
-        variant="eyebrow-md"
-        class="testimonials-stage__eyebrow"
-      >
-        {{ eyebrow }}
-      </app-typography>
-      <app-typography variant="heading-sm" tag="p" class="quote-fallback__quote">
-        {{ quote || "Clients trust Envision to communicate clearly and follow through." }}
-      </app-typography>
-      <app-typography v-if="name" variant="text-lg" tag="p" class="quote-fallback__name">
-        {{ name }}
-      </app-typography>
-      <app-typography v-if="title" variant="text-md" tag="p" class="quote-fallback__title">
-        {{ title }}
-      </app-typography>
+        <button
+          class="win-button"
+          :disabled="!canScrollNext"
+          aria-label="Next testimonial"
+          @click="scrollNext"
+        >Next &#9654;</button>
+      </div>
+
+      <div class="win-status-bar quotes-win-status">
+        <span>&#9679;</span>
+        <span>{{ normalizedTestimonials.length }} testimonial(s)</span>
+        <div class="quotes-sep" />
+        <span>Showing {{ selectedIndex + 1 }} of {{ normalizedTestimonials.length }}</span>
+      </div>
+    </div>
+
+    <!-- Fallback -->
+    <div v-else class="quotes-win-window">
+      <div class="win-titlebar" role="presentation">
+        <span>{{ eyebrow }}</span>
+      </div>
+      <div class="quotes-win-notepad">
+        <p class="quotes-win-fallback-text">
+          "{{ quote || 'Clients trust Envision to communicate clearly and follow through.' }}"
+        </p>
+        <p v-if="name" class="quotes-win-name">{{ name }}</p>
+        <p v-if="title" class="quotes-win-attribution">{{ title }}</p>
+      </div>
     </div>
   </section>
 </template>
 
 <style scoped>
-.testimonials-stage,
-.quote-fallback {
+.quotes-win-section {
   grid-column: 1 / -1;
-  padding-inline: calc(var(--spacing) * 4);
-  padding-block: calc(var(--spacing) * 10);
-  color: var(--color-white);
+  background: var(--color-win-gray-light);
+  padding: 16px;
+  display: flex;
+  justify-content: center;
 }
 
-.testimonials-stage__inner,
-.quote-fallback__inner {
-  display: grid;
-  gap: calc(var(--spacing) * 8);
-  width: min(100%, 78rem);
-  margin-inline: auto;
+.quotes-win-window {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-raised);
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
 }
 
-.testimonials-stage__header {
-  display: grid;
-  justify-items: center;
-  gap: calc(var(--spacing) * 3);
-  text-align: center;
-}
-
-.testimonials-stage__eyebrow {
-  opacity: 0.72;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.testimonials-stage__title,
-.testimonials-stage__body,
-.testimonial__quote,
-.testimonial__name,
-.testimonial__title,
-.testimonial__detail,
-.quote-fallback__quote,
-.quote-fallback__name,
-.quote-fallback__title {
-  max-width: none;
-  color: var(--color-white);
-}
-
-.testimonials-stage :deep(p),
-.testimonials-stage :deep(span),
-.testimonials-stage :deep(h2),
-.quote-fallback :deep(p),
-.quote-fallback :deep(span) {
-  color: var(--color-white);
-}
-
-.testimonials-stage__title {
-  width: min(100%, 36rem);
-  text-align: center;
-  text-wrap: balance;
-}
-
-.testimonials-stage__body {
-  width: min(100%, 30rem);
-  opacity: 0.82;
-  line-height: 1.5;
-}
-
-.testimonials-stage__carousel {
-  position: relative;
-  display: grid;
+.win-titlebar {
+  background: var(--win-titlebar);
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  font-family: "Tahoma", sans-serif;
+  padding: 3px 4px 3px 6px;
+  display: flex;
   align-items: center;
+  gap: 4px;
+  user-select: none;
 }
 
-.testimonials-stage__viewport {
+.win-titlebar-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+}
+
+.win-titlebar-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
+  font-size: 9px;
+  font-weight: bold;
+  color: var(--color-win-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+
+.quotes-win-header {
+  padding: 8px;
+}
+
+.quotes-win-header-inner {
+  background: var(--color-win-white);
+  box-shadow: var(--win-border-sunken);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quotes-win-title {
+  font-size: 13px;
+  font-weight: bold;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-navy);
+  margin: 0;
+  line-height: 1.35;
+}
+
+.quotes-win-body {
+  font-size: 11px;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-black);
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Notepad area */
+.quotes-win-notepad {
+  position: relative;
+  margin: 8px;
+  background: #fffef5;
+  box-shadow: var(--win-border-sunken);
   overflow: hidden;
+  border-left: 4px solid #ffaaaa;
 }
 
-.testimonials-stage__viewport:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
+.quotes-notepad-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px 0;
 }
 
-.testimonials-stage__rail {
+.quotes-notepad-line {
+  height: 1px;
+  background: #add8e6;
+  opacity: 0.5;
+}
+
+.quotes-win-viewport {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.quotes-win-viewport:focus-visible {
+  outline: 1px dotted #000;
+  outline-offset: 2px;
+}
+
+.quotes-win-rail {
   display: flex;
   margin: 0;
   padding: 0;
@@ -312,186 +321,169 @@ onUnmounted(() => {
   touch-action: pan-y pinch-zoom;
 }
 
-.testimonials-stage__slide {
+.quotes-win-slide {
   flex: 0 0 100%;
   min-width: 0;
-  display: flex;
-  justify-content: center;
 }
 
-.testimonial {
-  display: grid;
-  justify-items: center;
-  gap: calc(var(--spacing) * 5);
-  width: min(100%, 44rem);
+.testimonial-win {
+  padding: 24px 20px 20px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.testimonial-win-quote {
+  font-size: 14px;
+  font-family: "Times New Roman", serif;
+  font-style: italic;
+  color: var(--color-win-black);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.testimonial-win-mark {
+  font-size: 18px;
+  color: #808080;
+  font-style: normal;
+}
+
+.testimonial-win-divider {
+  height: 0;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #ffffff;
+}
+
+.testimonial-win-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.testimonial-win-name {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.testimonial-win-title {
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  color: #404040;
+  margin: 0;
+}
+
+.testimonial-win-detail {
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-black);
+  margin: 0;
+  padding: 2px 6px;
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-raised);
+  display: inline-block;
+  align-self: flex-start;
+}
+
+/* Nav row */
+.quotes-win-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  gap: 8px;
+  border-top: 2px solid #808080;
+  box-shadow: inset 0 2px 0 #ffffff;
+}
+
+.win-button {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
+  color: var(--color-win-black);
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  padding: 3px 12px 4px;
+  cursor: pointer;
+  border: 0;
+  min-width: 70px;
   text-align: center;
 }
 
-.testimonial__quote {
-  width: min(100%, 42rem);
-  font-style: italic;
-  line-height: 1.55;
-  text-wrap: balance;
+.win-button:active {
+  box-shadow: var(--win-border-sunken);
+  padding: 4px 12px 3px;
 }
 
-.testimonial__mark {
-  opacity: 0.92;
+.win-button:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
-.testimonial__meta {
-  display: grid;
-  justify-items: center;
-  gap: calc(var(--spacing) * 1.5);
-}
-
-.testimonial__name {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-
-.testimonial__title {
-  opacity: 0.7;
-}
-
-.testimonial__detail {
-  padding-inline: calc(var(--spacing) * 3);
-  padding-block: calc(var(--spacing) * 1);
-  border: 1px solid currentColor;
-  opacity: 0.9;
-}
-
-.testimonials-stage__arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 1;
-  display: inline-flex;
+.quotes-win-dots {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  background: transparent;
-  color: inherit;
-  transform: translateY(-50%);
-  opacity: 0.45;
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
+  gap: 4px;
 }
 
-.testimonials-stage__arrow:hover:not(:disabled),
-.testimonials-stage__arrow:focus-visible {
-  opacity: 1;
-}
-
-.testimonials-stage__arrow:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 3px;
-}
-
-.testimonials-stage__arrow:disabled {
-  opacity: 0.18;
-}
-
-.testimonials-stage__arrow--previous {
-  left: 0;
-}
-
-.testimonials-stage__arrow--next {
-  right: 0;
-}
-
-.testimonials-stage__dots {
-  display: flex;
-  justify-content: center;
-  gap: calc(var(--spacing) * 1.5);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.testimonials-stage__dot-item {
-  display: flex;
-}
-
-.testimonials-stage__dot {
-  width: 0.375rem;
-  height: 0.375rem;
+.quotes-win-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
   border: 0;
-  border-radius: 999px;
-  background: currentColor;
-  opacity: 0.22;
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
+  cursor: pointer;
+  padding: 0;
 }
 
-.testimonials-stage__dot:hover,
-.testimonials-stage__dot:focus-visible,
-.testimonials-stage__dot.is-active {
-  opacity: 1;
+.quotes-win-dot.is-active {
+  background: var(--color-win-navy);
+  box-shadow: var(--win-border-sunken);
 }
 
-.testimonials-stage__dot.is-active {
-  transform: scale(1.15);
+.win-status-bar {
+  background: var(--color-win-gray-light);
+  border-top: 1px solid #808080;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.testimonials-stage__dot:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 3px;
+.quotes-sep {
+  width: 1px;
+  height: 12px;
+  background: #808080;
+  box-shadow: 1px 0 0 #ffffff;
 }
 
-.quote-fallback__inner {
-  justify-items: center;
-  text-align: center;
+.quotes-win-fallback-text {
+  font-size: 14px;
+  font-family: "Times New Roman", serif;
+  font-style: italic;
+  padding: 20px;
+  margin: 0;
 }
 
-.quote-fallback__quote {
-  width: min(100%, 42rem);
-  text-wrap: balance;
+.quotes-win-name {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Tahoma", sans-serif;
+  padding: 0 20px;
+  margin: 0;
 }
 
-.quote-fallback__title {
-  opacity: 0.72;
-}
-
-@media (max-width: 767px) {
-  .testimonials-stage,
-  .quote-fallback {
-    padding-block: calc(var(--spacing) * 8);
-  }
-
-  .testimonials-stage__inner,
-  .quote-fallback__inner {
-    gap: calc(var(--spacing) * 6);
-  }
-
-  .testimonial {
-    width: min(100%, 32rem);
-  }
-
-  .testimonials-stage__arrow {
-    position: static;
-    transform: none;
-    margin-top: calc(var(--spacing) * 2);
-  }
-
-  .testimonials-stage__carousel {
-    gap: calc(var(--spacing) * 4);
-    justify-items: center;
-  }
-
-  .testimonials-stage__arrow--previous,
-  .testimonials-stage__arrow--next {
-    inset: auto;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .testimonials-stage__arrow,
-  .testimonials-stage__dot {
-    transition: none;
-  }
+.quotes-win-attribution {
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  padding: 0 20px 16px;
+  margin: 0;
+  color: #404040;
 }
 </style>

@@ -19,209 +19,365 @@ const servicesLinks = [
 </script>
 
 <template>
-  <footer class="relative" aria-label="Site footer">
-    <svg
-      class="absolute w-dvw -bottom-1/6 mix-blend-overlay opacity-10"
-      viewBox="0 0 301 53"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g clip-path="url(#clip0_1378_1054)">
-        <path
-          d="M71.0386 36.6707C71.3253 37.0288 71.6121 37.3153 71.8271 37.5302C71.6837 28.3622 71.4687 19.1941 71.3253 9.88281H77.5618V43.1886H70.7519C62.2215 33.8773 52.5442 25.2823 44.5156 15.0398V43.1886H38.6376V9.95444C41.0031 9.95444 43.3687 9.95444 45.7342 9.95444C45.9493 9.95444 46.1643 10.1693 46.3077 10.3126"
-          fill="#FAFAFA"
-        />
-        <path
-          d="M241.287 26.5721C241.287 30.9412 240.069 34.9522 236.986 38.1754C231.61 43.6905 224.012 43.1175 219.352 36.9577C215.123 31.2277 215.051 22.2029 219.281 16.4729C221.503 13.4646 224.298 11.4591 228.098 11.3159C232.829 11.101 236.27 13.5363 238.707 17.3324C240.499 20.1258 241.359 23.2773 241.287 26.6437"
-          fill="#FAFAFA"
-        />
-        <path
-          d="M261.215 38.3184V43.3322C260.212 43.9052 259.208 44.4782 258.205 44.9796C251.61 48.4892 244.728 51.211 237.273 52.2138C229.245 53.2165 221.861 51.6408 215.051 47.2716C208.671 43.1173 205.446 37.0292 204.8 29.5801C204.227 23.5636 205.23 17.762 207.094 12.1036C207.166 11.8887 207.309 11.6738 207.453 11.3873C212.04 9.38179 216.843 7.87766 221.933 7.51953C210.248 13.6793 208.17 31.0127 216.126 41.2551C219.782 45.9824 224.872 47.8446 230.678 47.9879C241.431 48.2027 250.893 45.0512 259.997 39.1063"
-          fill="#FAFAFA"
-        />
-        <path
-          d="M196.7 14.8966V9.59627C199.209 8.30702 201.861 6.87451 204.657 5.65688C211.395 2.64861 218.349 0.49985 225.875 0.786352C234.047 1.14448 241.359 3.79462 247.022 9.9544C250.463 13.6789 252.112 18.1913 252.685 23.2051C253.402 29.2933 252.327 35.2382 250.463 41.0398C250.32 41.4696 250.033 41.9709 249.674 42.1142C245.445 44.0481 241.001 45.2657 236.413 45.8387C236.27 45.8387 236.198 45.8387 235.839 45.7671C238.635 44.1913 240.786 42.1858 242.434 39.6789C248.456 30.6541 247.094 16.9737 239.424 10.026C236.126 7.01776 232.112 5.7285 227.811 5.51363C218.707 5.08388 210.248 7.37589 202.291 11.745C200.499 12.7478 198.779 13.8222 196.844 15.0398"
-          fill="#FAFAFA"
-        />
-        <path
-          d="M0.286736 9.88281H28.2434V13.3208H7.025V24.1363H27.0248V27.5743H7.025V39.7506H29.462V43.2602H0.286736V9.88281Z"
-          fill="#FAFAFA"
-        />
-        <path
-          d="M84.0133 9.9541H91.3251C95.9129 19.5519 100.501 29.2213 105.017 38.5326C109.891 29.2213 114.837 19.6235 119.855 10.0257H127.024C120.787 21.1993 114.694 32.2296 108.529 43.3315H101.074C95.4827 32.3012 89.8197 21.2709 84.085 10.0257"
-          fill="#FAFAFA"
-        />
-        <path d="M139.497 9.9541H132.973V43.2599H139.497V9.9541Z" fill="#FAFAFA" />
-        <path
-          d="M196.198 9.88281C193.904 10.9572 194.478 10.4558 192.112 11.9599C190.32 13.2492 190.75 12.8911 189.675 13.7506C184.227 18.1197 173.761 26.4283 173.761 26.4283L190.894 40.6101L202.722 46.7698C203.868 47.3428 205.087 47.7726 206.306 48.274C202.937 45.9103 199.639 43.69 196.127 41.3979C196.127 30.869 196.127 20.3401 196.127 9.88281M189.747 35.9544C187.166 33.161 185.016 30.5109 183.654 26.858C185.159 24.4227 187.883 21.9159 189.818 20.1252L189.675 35.9544H189.747Z"
-          fill="#FAFAFA"
-        />
-        <path
-          d="M172.543 26.0702C170.679 25.5688 167.095 24.4944 164.944 23.8498C162.794 23.1335 160.643 22.4889 158.708 21.3429C155.912 19.7671 155.84 16.6872 158.493 14.7534C160.285 13.3925 162.507 12.9627 164.658 12.8911C168.6 12.6762 172.543 12.8911 176.342 14.3236C176.987 13.1776 177.489 12.1032 178.134 10.9572C177.847 10.8856 177.776 10.814 177.632 10.7423C172.399 9.23822 167.023 8.88009 161.647 9.66797C158.063 10.241 154.622 11.2437 151.898 13.8939C149.389 16.3291 149.317 20.1969 151.826 22.6322C154.192 24.9958 157.274 25.9985 160.357 27.0013C163.439 27.9324 166.593 28.7203 169.604 29.7947C171.539 30.4393 173.26 31.6569 173.546 33.949C173.833 36.3126 172.614 38.0316 170.034 39.106C166.02 40.7534 161.79 40.6817 157.633 40.0371C155.267 39.679 152.973 39.0344 150.536 38.4613C150.034 39.4641 149.532 40.5385 148.959 41.6845C149.174 41.7561 149.246 41.8994 149.389 41.8994C152.4 42.4724 155.339 43.3319 158.349 43.6184C163.869 44.1914 169.317 43.9765 174.478 41.6129C177.919 40.0371 180.5 37.7451 180.213 33.5192C180.213 33.4476 179.855 28.7203 172.543 26.0702Z"
-          fill="#FAFAFA"
-        />
-        <path d="M196.27 9.88281H189.675V43.4035H196.27V9.88281Z" fill="#FAFAFA" />
-        <path
-          d="M273.402 15.1113C272.47 14.6099 261.932 9.66773 260.929 9.23798C257.631 7.73385 254.334 6.22972 251.036 4.72559C251.18 4.86884 251.251 5.01209 251.395 5.08371C254.549 7.16085 258.778 10.0259 261.932 12.1746C262.434 12.5327 263.653 15.3261 264.083 16.0424C267.739 22.4887 268.527 26.1416 265.803 32.946C264.8 35.3812 261.789 40.6099 261.789 43.1884H268.025V39.3206C272.398 35.9542 276.556 32.7311 280.785 29.5079L273.473 15.1113H273.402ZM267.954 32.8027V17.7614C270.534 20.3399 272.685 23.1333 274.047 26.5713C272.04 28.5768 270.176 30.5107 267.954 32.8027Z"
-          fill="#FAFAFA"
-        />
-        <path
-          d="M294.19 36.742C294.477 37.1001 294.763 37.3866 294.978 37.6015C294.835 28.4334 294.62 19.2654 294.477 9.9541C296.699 9.9541 298.849 9.9541 300.928 9.9541C300.928 21.056 300.928 32.0863 300.928 43.2599C298.706 43.2599 296.269 43.2599 293.831 43.2599C285.301 33.9486 275.911 25.3536 267.882 15.0395C267.882 24.4224 267.882 33.7337 267.882 43.1883C266.018 43.1883 263.724 43.1883 261.646 43.1883V9.9541C264.011 9.9541 266.377 9.9541 268.742 9.9541C268.957 9.9541 269.172 10.169 269.316 10.3122"
-          fill="#FAFAFA"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_1378_1054">
-          <rect width="301" height="52" fill="white" transform="translate(0 0.5)" />
-        </clipPath>
-      </defs>
-    </svg>
-    <div class="footer-head">
-      <NuxtLink class="brand-link" to="/" aria-label="Envision home">
-        <Icon name="logos:envision" size="30" alt="envision construction logo" />
-      </NuxtLink>
-    </div>
-    <section class="site-footer">
-      <div class="navigation">
-        <nav aria-label="Footer navigation">
-          <h3>Navigate</h3>
-          <ul>
-            <li v-for="link in navLinks" :key="link.id" class="footer-link">
-              <NuxtLink :to="link.to">
-                {{ link.label }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </nav>
-        <nav>
-          <h3>Services</h3>
-          <ul>
-            <li v-for="link in servicesLinks" :key="link.id" class="footer-link">
-              <NuxtLink :to="link.to">
-                {{ link.label }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </nav>
+  <footer class="footer-win" aria-label="Site footer">
+    <!-- Footer window -->
+    <div class="footer-win-window">
+      <!-- Title bar -->
+      <div class="win-titlebar" role="presentation">
+        <span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" style="display:inline-block;vertical-align:middle;margin-right:4px">
+            <rect width="14" height="14" fill="#1084d0"/>
+            <text x="2" y="11" font-size="9" fill="white" font-weight="bold">E</text>
+          </svg>
+          Envision Construction Services
+        </span>
+        <div class="win-titlebar-buttons" aria-hidden="true">
+          <button class="win-titlebar-btn" tabindex="-1">_</button>
+          <button class="win-titlebar-btn" tabindex="-1">&#9633;</button>
+          <button class="win-titlebar-btn" tabindex="-1">&#x2715;</button>
+        </div>
       </div>
-      <div class="location-contact">
-        <div class="locations-container">
-          <h3>Locations</h3>
-          <div class="location-wrapper">
-            <div>
-              <h4>Tampa Office</h4>
-              <p class="max-w-sm">
-                5000 Acline Drive East Tampa, FL 33619 Po Box 89098 Tampa, FL 33689
-              </p>
-              <p>(813) 997-0330</p>
+
+      <!-- Footer body -->
+      <div class="footer-win-body">
+        <!-- Navigation panel -->
+        <div class="footer-win-panel footer-nav-panel">
+          <div class="footer-panel-title">Navigate</div>
+          <div class="footer-panel-body">
+            <nav aria-label="Footer navigation">
+              <ul class="footer-win-links">
+                <li v-for="link in navLinks" :key="link.id">
+                  <NuxtLink :to="link.to" class="footer-win-link">
+                    <span aria-hidden="true">&#128196;</span> {{ link.label }}
+                  </NuxtLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Services panel -->
+        <div class="footer-win-panel footer-services-panel">
+          <div class="footer-panel-title">Services</div>
+          <div class="footer-panel-body">
+            <nav>
+              <ul class="footer-win-links">
+                <li v-for="link in servicesLinks" :key="link.id">
+                  <NuxtLink :to="link.to" class="footer-win-link">
+                    <span aria-hidden="true">&#128196;</span> {{ link.label }}
+                  </NuxtLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Locations panel -->
+        <div class="footer-win-panel footer-locations-panel">
+          <div class="footer-panel-title">Locations</div>
+          <div class="footer-panel-body footer-locations-body">
+            <div class="footer-location">
+              <div class="footer-location-title">
+                <span aria-hidden="true">&#127968;</span> Tampa Office
+              </div>
+              <p class="footer-location-addr">5000 Acline Drive East<br>Tampa, FL 33619<br>Po Box 89098 Tampa, FL 33689</p>
+              <p class="footer-location-phone">(813) 997-0330</p>
             </div>
-            <div>
-              <h4>Pasco Office</h4>
-              <p class="max-w-sm">
-                5000 Acline Drive East Tampa, FL 33619 Po Box 89098 Tampa FL 33689
-              </p>
+            <hr class="footer-divider">
+            <div class="footer-location">
+              <div class="footer-location-title">
+                <span aria-hidden="true">&#127968;</span> Pasco Office
+              </div>
+              <p class="footer-location-addr">5000 Acline Drive East<br>Tampa, FL 33619<br>Po Box 89098 Tampa FL 33689</p>
             </div>
           </div>
         </div>
-        <div class="contact">
-          <h3>Start the conversation</h3>
-          <p class="max-w-sm">
-            From preconstruction through closeout, our process stays direct: listen, plan, execute,
-            cultivate.
-          </p>
-          <NuxtLink>Contact Us</NuxtLink>
+
+        <!-- Contact panel -->
+        <div class="footer-win-panel footer-contact-panel">
+          <div class="footer-panel-title">Start the Conversation</div>
+          <div class="footer-panel-body">
+            <p class="footer-contact-text">
+              From preconstruction through closeout, our process stays direct: listen, plan, execute, cultivate.
+            </p>
+            <div class="footer-win-sep" />
+            <NuxtLink to="/contact" class="win-button win-button-primary">Contact Us</NuxtLink>
+            <div class="footer-win-sep" />
+            <div class="footer-social-row">
+              <NuxtLink to="https://www.facebook.com/envisioncstampa" class="footer-social-btn" aria-label="Facebook">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </NuxtLink>
+              <NuxtLink to="https://www.linkedin.com/company/envision-cs/" class="footer-social-btn" aria-label="LinkedIn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </NuxtLink>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="date-socials">
-        <div>
-          <NuxtLink class="mr-2 mb-0" to="https://www.facebook.com/envisioncstampa">
-            <Icon name="ri:facebook-box-fill" size="32" />
-          </NuxtLink>
-          <NuxtLink class="mb-0" to="https://www.linkedin.com/company/envision-cs/">
-            <Icon name="ri:linkedin-box-fill" size="32" />
-          </NuxtLink>
+
+      <!-- Bottom status bar -->
+      <div class="footer-win-bottom">
+        <div class="win-status-bar">
+          <span>&#9679;</span>
+          <span>&copy;{{ year }} Envision Construction Services. All rights reserved.</span>
+          <div class="footer-bottom-sep" />
+          <span>Tampa, FL</span>
+          <div class="footer-bottom-sep" />
+          <a href="/privacy" class="footer-bottom-link">Privacy Policy</a>
         </div>
-        <p>©{{ year }}Envision Construction. All rights reserved.</p>
       </div>
-    </section>
+    </div>
   </footer>
 </template>
 
 <style scoped>
-footer {
-  background-color: var(--color-envision-blue-900);
-  padding: calc(var(--spacing) * 4);
-  color: var(--color-envision-blue-50);
-  overflow: hidden;
+.footer-win {
+  background: var(--color-win-gray-light);
+  padding: 16px 16px 8px;
+  border-top: 2px solid #808080;
+  box-shadow: inset 0 2px 0 #ffffff;
 }
 
-.footer-head {
-  margin-inline: auto;
-  max-width: 1200px;
-  margin-top: calc(var(--spacing));
-  margin-bottom: calc(var(--spacing) * 4);
+.footer-win-window {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-raised);
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.site-footer {
+.win-titlebar {
+  background: var(--win-titlebar);
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  font-family: "Tahoma", sans-serif;
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
+}
+
+.win-titlebar-buttons {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+}
+
+.win-titlebar-btn {
+  width: 16px;
+  height: 14px;
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
+  font-size: 9px;
+  font-weight: bold;
+  color: var(--color-win-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+}
+
+.footer-win-body {
   display: grid;
-  margin-inline: auto;
-  max-width: 1200px;
-  grid-template-areas:
-    "a"
-    "b"
-    "c";
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 8px;
 
-  @media (min-width: 768px) {
-    grid-template-areas:
-      "a b"
-      "c c";
-    gap: calc(var(--spacing) * 8);
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1000px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-h3 {
-  font-size: var(--text-lg);
-  letter-spacing: 2%;
-  font-weight: 600;
-  margin-bottom: calc(var(--spacing) * 2);
+.footer-win-panel {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-raised);
+  display: flex;
+  flex-direction: column;
 }
 
-.footer-link {
-  color: var(--color-envision-blue-200);
-  font-size: var(--text-base);
-  opacity: 1;
-  transition: opacity 300ms ease-in-out;
+.footer-panel-title {
+  background: linear-gradient(to right, #000080 0%, #404080 100%);
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: "Tahoma", sans-serif;
+  padding: 3px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-panel-body {
+  padding: 8px;
+  flex: 1;
+}
+
+.footer-win-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.footer-win-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-link);
+  text-decoration: underline;
+  padding: 1px 2px;
+}
+
+.footer-win-link:hover {
+  background: var(--color-win-highlight);
+  color: var(--color-win-highlight-text);
+  text-decoration: none;
+}
+
+.footer-locations-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-location {}
+
+.footer-location-title {
+  font-size: 11px;
+  font-weight: bold;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-navy);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-location-addr {
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-black);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.footer-location-phone {
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-black);
+  margin: 2px 0 0;
+}
+
+.footer-divider {
+  height: 0;
+  border: 0;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #ffffff;
+  margin: 4px 0;
+}
+
+.footer-contact-text {
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+  color: var(--color-win-black);
+  line-height: 1.45;
+  margin: 0 0 8px;
+}
+
+.footer-win-sep {
+  height: 0;
+  border-top: 1px solid #808080;
+  border-bottom: 1px solid #ffffff;
+  margin: 8px 0;
+}
+
+.win-button {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
+  color: var(--color-win-black);
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  padding: 3px 14px 4px;
   cursor: pointer;
-  margin-bottom: calc(var(--spacing));
+  border: 0;
+  text-decoration: none;
+  display: inline-block;
+  min-width: 75px;
+  text-align: center;
 }
 
-.navigation:has(a:hover) a:not(:hover) {
-  opacity: 0.4;
+.win-button:active {
+  box-shadow: var(--win-border-sunken);
+  padding: 4px 14px 3px;
 }
 
-.navigation {
-  grid-area: a;
+.win-button-primary {
+  outline: 1px solid #000;
+  outline-offset: -1px;
+}
+
+.footer-social-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--spacing) * 6);
+  gap: 4px;
 }
 
-.location-contact {
-  grid-area: b;
-  display: grid;
-  gap: calc(var(--spacing) * 4);
-}
-
-.location-wrapper {
+.footer-social-btn {
+  background: var(--color-win-gray-light);
+  box-shadow: var(--win-border-button);
+  color: var(--color-win-black);
+  width: 28px;
+  height: 26px;
   display: flex;
-  flex-wrap: wrap;
-  gap: calc(var(--spacing) * 3);
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
-.date-socials {
-  grid-area: c;
+.footer-social-btn:active {
+  box-shadow: var(--win-border-sunken);
+}
+
+.footer-win-bottom {
+  border-top: 2px solid #808080;
+  box-shadow: inset 0 2px 0 #ffffff;
+}
+
+.win-status-bar {
+  background: var(--color-win-gray-light);
+  padding: 2px 8px;
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
   display: flex;
+  align-items: center;
+  gap: 6px;
   flex-wrap: wrap;
-  justify-content: space-between;
+}
+
+.footer-bottom-sep {
+  width: 1px;
+  height: 12px;
+  background: #808080;
+  box-shadow: 1px 0 0 #ffffff;
+}
+
+.footer-bottom-link {
+  color: var(--color-win-link);
+  text-decoration: underline;
+  font-size: 10px;
+  font-family: "Tahoma", sans-serif;
+}
+
+.footer-bottom-link:hover {
+  color: var(--color-win-navy);
 }
 </style>
