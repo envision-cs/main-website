@@ -65,8 +65,14 @@ section {
 }
 
 .content {
+  z-index: 1;
   grid-column: 1/-1;
+  grid-row: 1/-1;
   padding: calc(var(--spacing) * 6);
+  height: 100%;
+  place-content: center;
+  backdrop-filter: contrast(30%) grayscale() blur(5px);
+  background: rgb(0 0 0 / 60%);
 
   @media (min-width: 700px) {
     grid-column: 1/6;
@@ -89,23 +95,18 @@ section {
 
 .image {
   grid-column: 1/-1;
+  grid-row: 1/-1;
   height: unset;
   aspect-ratio: 16/9;
 
   @media (min-width: 700px) {
-    grid-column: 6/-1;
-
     &.is-flipped {
-      grid-column: 1/7;
       grid-row: 1;
     }
   }
 
   @media (min-width: 1024px) {
-    grid-column: 9/-1;
-
     &.is-flipped {
-      grid-column: 1/17;
       grid-row: 1;
     }
   }
