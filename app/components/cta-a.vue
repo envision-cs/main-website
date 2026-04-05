@@ -1,33 +1,79 @@
 <script setup lang="ts">
+import { motion, useReducedMotion } from "motion-v";
 const props = defineProps<{
   body?: string;
   image?: string;
   flip?: boolean;
   href?: string;
 }>();
+
+const { base } = useEasings();
+const shouldReduceMotion = useReducedMotion();
+
+const contentOffset = computed(() => {
+  if (shouldReduceMotion.value) {
+    return 0;
+  }
+
+  return props.flip ? "100%" : "-100%";
+});
+
+const textOffset = computed(() => {
+  if (shouldReduceMotion.value) {
+    return 0;
+  }
+
+  return props.flip ? "100%" : "-100%";
+});
+
+const contentTransition = computed(() => ({
+  duration: shouldReduceMotion.value ? 0.2 : 0.7,
+  easing: base,
+}));
+
+const textTransition = computed(() => ({
+  duration: shouldReduceMotion.value ? 0.2 : 0.55,
+  delay: shouldReduceMotion.value ? 0 : 0.18,
+  easing: base,
+}));
 </script>
 
 <template>
   <section>
-    <div class="content" :class="{ 'is-flipped': props.flip }">
-      <app-typography tag="h2" variant="heading-lg" class="cta-panel__title">
-        <slot name="title">
-          <slot />
-        </slot>
-      </app-typography>
+    <motion.div
+      class="content"
+      :class="{ 'is-flipped': props.flip }"
+      :initial="{ opacity: 1, x: contentOffset }"
+      :while-in-view="{ x: 0 }"
+      :transition="contentTransition"
+      :viewport="{ once: true, amount: 0.35 }"
+    >
+      <motion.div
+        class="content-inner"
+        :initial="{ opacity: 0, x: textOffset }"
+        :while-in-view="{ opacity: 1, x: 0 }"
+        :transition="textTransition"
+        :viewport="{ once: true, amount: 0.35, delay: 0.2 }"
+      >
+        <app-typography tag="h2" variant="heading-lg" class="cta-panel__title">
+          <slot name="title">
+            <slot />
+          </slot>
+        </app-typography>
 
-      <app-typography tag="p" variant="text-xl" class="cta-panel__body">
-        {{ body }}
-        <slot name="body" />
-      </app-typography>
+        <app-typography tag="p" variant="text-xl" class="cta-panel__body">
+          {{ body }}
+          <slot name="body" />
+        </app-typography>
 
-      <div class="cta-panel__actions">
-        <template v-if="href">
-          <app-button :to="href" color="secondary" variant="solid">Learn More</app-button>
-        </template>
-        <slot name="action" />
-      </div>
-    </div>
+        <div class="cta-panel__actions">
+          <template v-if="href">
+            <app-button :to="href" color="secondary" variant="solid">Learn More</app-button>
+          </template>
+          <slot name="action" />
+        </div>
+      </motion.div>
+    </motion.div>
     <NuxtLink v-if="href" :to="href" class="image" :class="{ 'is-flipped': props.flip }">
       <NuxtImg
         :src="image"
@@ -68,11 +114,20 @@ section {
   z-index: 1;
   grid-column: 1/-1;
   grid-row: 1/-1;
-  padding: calc(var(--spacing) * 6);
   height: 100%;
   place-content: center;
   backdrop-filter: contrast(30%) grayscale() blur(5px);
   background: rgb(0 0 0 / 60%);
+  will-change: transform, opacity;
+
+  .content-inner {
+    display: grid;
+    gap: calc(var(--spacing) * 3);
+    padding: calc(var(--spacing) * 6);
+    height: 100%;
+    align-content: center;
+    will-change: transform, opacity;
+  }
 
   @media (min-width: 700px) {
     grid-column: 1/6;
@@ -95,7 +150,7 @@ section {
 
 .image {
   grid-column: 1/-1;
-  grid-row: 1/-1;
+  grid-row: 2;
   height: unset;
   aspect-ratio: 16/9;
 
