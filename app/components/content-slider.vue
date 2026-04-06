@@ -70,6 +70,9 @@ function initializeScrollAnimation() {
   }) as VoidFunction;
 }
 
+const vhPerSlide = 120; // tweak this number
+const shellHeight = computed(() => `${totalSlides.value * vhPerSlide}vh`);
+
 watch([totalSlides, shouldReduceMotion], async () => {
   await nextTick();
   initializeScrollAnimation();
@@ -85,7 +88,10 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="content-slider wrapper site-grid">
+  <section
+    class="content-slider wrapper site-grid"
+    :style="{ '--content-slider-shell-height': shellHeight }"
+  >
     <div class="content-slider__gallery">
       <div ref="containerRef" class="content-slider__shell l-slider-shell">
         <div class="content-slider__frame l-slider-frame">
