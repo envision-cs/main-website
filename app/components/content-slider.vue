@@ -107,10 +107,10 @@ onUnmounted(() => {
           <ul ref="trackRef" class="content-slider__track l-slider-track">
             <li class="content-slider__slide content-slider__slide--intro l-slider-slide">
               <div class="content-slider__intro">
-                <app-typography tag="h2" variant="heading-huge" class="content-slider__intro-title">
+                <app-typography tag="h2" variant="heading-huge">
                   {{ title }}
                 </app-typography>
-                <app-typography tag="p" class="content-slider__intro-body">
+                <app-typography tag="p" variant="text-lg">
                   {{ body }}
                 </app-typography>
               </div>
