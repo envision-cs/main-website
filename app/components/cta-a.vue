@@ -9,13 +9,14 @@ const props = defineProps<{
 
 const { base } = useEasings();
 const shouldReduceMotion = useReducedMotion();
+const isFlipped = computed(() => Boolean(props.flip));
 
 const contentOffset = computed(() => {
   if (shouldReduceMotion.value) {
     return 0;
   }
 
-  return props.flip ? "100%" : "-100%";
+  return isFlipped.value ? "100%" : "-100%";
 });
 
 const textOffset = computed(() => {
@@ -23,7 +24,7 @@ const textOffset = computed(() => {
     return 0;
   }
 
-  return props.flip ? "100%" : "-100%";
+  return isFlipped.value ? "100%" : "-100%";
 });
 
 const contentTransition = computed(() => ({
@@ -42,7 +43,7 @@ const textTransition = computed(() => ({
   <section>
     <motion.div
       class="content"
-      :class="{ 'is-flipped': props.flip }"
+      :class="{ 'is-flipped': isFlipped }"
       :initial="{ opacity: 1, x: contentOffset }"
       :while-in-view="{ x: 0 }"
       :transition="contentTransition"
@@ -74,7 +75,7 @@ const textTransition = computed(() => ({
         </div>
       </motion.div>
     </motion.div>
-    <NuxtLink v-if="href" :to="href" class="image" :class="{ 'is-flipped': props.flip }">
+    <NuxtLink v-if="href" :to="href" class="image" :class="{ 'is-flipped': isFlipped }">
       <NuxtImg
         :src="image"
         provider="imagekit"
@@ -86,7 +87,7 @@ const textTransition = computed(() => ({
         placeholder
       />
     </NuxtLink>
-    <div v-else class="image" :class="{ 'is-flipped': props.flip }">
+    <div v-else class="image" :class="{ 'is-flipped': isFlipped }">
       <NuxtImg
         :src="image"
         provider="imagekit"
@@ -104,7 +105,7 @@ const textTransition = computed(() => ({
 <style scoped>
 section {
   display: grid;
-  grid-column: 1/-1;
+  grid-column: 1 / -1;
   grid-template-columns: subgrid;
   gap: 0;
   align-items: center;
@@ -112,8 +113,8 @@ section {
 
 .content {
   z-index: 1;
-  grid-column: 1/-1;
-  grid-row: 1/-1;
+  grid-column: 1 / -1;
+  grid-row: 1;
   height: 100%;
   place-content: center;
   backdrop-filter: contrast(30%) grayscale() blur(5px);
@@ -130,40 +131,36 @@ section {
   }
 
   @media (min-width: 700px) {
-    grid-column: 1/6;
+    grid-column: 1 / 7;
 
     &.is-flipped {
-      grid-column: -7/-1;
+      grid-column: -7 / -1;
       grid-row: 1;
     }
   }
 
   @media (min-width: 1024px) {
-    grid-column: 1/9;
+    grid-column: 1 / 9;
 
     &.is-flipped {
-      grid-column: -9/-1;
+      grid-column: -9 / -1;
       grid-row: 1;
     }
   }
 }
 
 .image {
-  grid-column: 1/-1;
+  grid-column: 1 / -1;
   grid-row: 2;
   height: unset;
   aspect-ratio: 16/9;
 
   @media (min-width: 700px) {
-    &.is-flipped {
-      grid-row: 1;
-    }
+    grid-row: 1;
   }
 
   @media (min-width: 1024px) {
-    &.is-flipped {
-      grid-row: 1;
-    }
+    grid-row: 1;
   }
 
   img {

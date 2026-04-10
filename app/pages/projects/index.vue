@@ -47,11 +47,11 @@ definePageMeta({
         All
       </app-banner-b>
     </template>
-    <template #aside-slot>
-      <projects-categories-nav :categories="categories" />
-    </template>
     <template #main-slot>
       <div class="projects">
+        <div class="projects-toolbar">
+          <projects-categories-nav :categories="categories" />
+        </div>
         <div class="projects-grid">
           <app-reveal-card
             v-for="project in activeProjects"
@@ -113,6 +113,16 @@ definePageMeta({
 .projects {
   container-type: inline-size;
   container-name: projects;
+  position: relative;
+  padding: calc(var(--spacing) * 4);
+}
+
+.projects-toolbar {
+  width: fit-content;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  margin-bottom: calc(var(--spacing) * 4);
 }
 
 .projects-grid {
@@ -120,21 +130,25 @@ definePageMeta({
   grid-template-columns: 1fr;
   container: projects;
 }
+
 @container projects (width > 550px) {
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@container projects (width > 1000px ) {
+
+@container projects (width > 1000px) {
   .projects-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
 @container projects (width > 1400px) {
   .projects-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
 .project-card-title {
   margin-bottom: 0.5rem;
   text-wrap: balance;

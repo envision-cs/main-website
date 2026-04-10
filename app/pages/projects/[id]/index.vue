@@ -66,11 +66,11 @@ definePageMeta({
         {{ activeCategory?.name || "All" }}
       </app-banner-b>
     </template>
-    <template #aside-slot>
-      <projects-categories-nav :categories="categories" />
-    </template>
     <template #main-slot>
       <div class="projects">
+        <div class="projects-toolbar">
+          <projects-categories-nav :categories="categories" />
+        </div>
         <div class="projects-grid">
           <app-reveal-card
             v-for="project in activeProjects"
@@ -132,6 +132,13 @@ definePageMeta({
 .projects {
   container-type: inline-size;
   container-name: projects;
+  position: relative;
+  padding: calc(var(--spacing) * 4);
+}
+
+.projects-toolbar {
+  width: fit-content;
+  margin-bottom: calc(var(--spacing) * 4);
 }
 
 .projects-grid {

@@ -66,7 +66,7 @@ const classes = computed(() => [
    COMPOSITION
 ========================= */
 .btn {
-  display: inline-flex;
+  display: inline-block;
   align-items: center;
   justify-content: center;
   gap: var(--btn-gap, 0.5rem);
@@ -181,12 +181,32 @@ const classes = computed(() => [
   display: inline-flex;
 }
 
+.btn__icon :deep(svg),
+.btn__icon svg {
+  display: block;
+}
+
 .btn__label {
   white-space: nowrap;
 }
 
 .btn--icon-only {
   padding: 0.5rem;
+}
+
+.btn--sm.btn--icon-only {
+  inline-size: 2rem;
+  block-size: 2rem;
+}
+
+.btn--md.btn--icon-only {
+  inline-size: 2.5rem;
+  block-size: 2.5rem;
+}
+
+.btn--lg.btn--icon-only {
+  inline-size: 3rem;
+  block-size: 3rem;
 }
 
 /* =========================

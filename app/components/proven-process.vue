@@ -1,15 +1,5 @@
 <script setup lang="ts">
-import useEmblaCarousel from "embla-carousel-vue";
-
-interface ProvenProcessSlide {
-  id: number;
-  eyebrow: string;
-  title: string;
-  description: string;
-  tone: string;
-}
-
-const slides: ProvenProcessSlide[] = [
+const slides = [
   {
     id: 1,
     eyebrow: "01",
@@ -43,140 +33,13 @@ const slides: ProvenProcessSlide[] = [
     tone: "--color-envision-blue-800",
   },
 ];
-
-const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
-const goToPrev = () => emblaApi.value?.scrollPrev();
-const goToNext = () => emblaApi.value?.scrollNext();
-
-function resolveTone(tone?: string) {
-  return tone ? `var(${tone})` : "var(--color-envision-blue-600)";
-}
 </script>
 
 <template>
-  <section>
-    <header class="content">
-      <app-typography tag="h2" variant="heading-huge"> Our Proven Process </app-typography>
-      <app-typography tag="p" variant="text-lg">
-        Our proven process brings structure and consistency to every project. We listen, plan, and
-        execute to reduce risk, maintain alignment, and deliver on time, on budget, and with
-        complete transparency.
-      </app-typography>
-    </header>
-
-    <div class="embla">
-      <div ref="emblaRef" class="embla__viewport">
-        <ul class="embla__container">
-          <li
-            v-for="slide in slides"
-            :key="slide.id"
-            class="embla__slide"
-            :style="{ '--content-slider-tone': resolveTone(slide.tone) }"
-          >
-            <div>
-              <app-typography
-                v-if="slide.eyebrow"
-                tag="p"
-                variant="eyebrow-md"
-                class="content-slider__eyebrow"
-              >
-                {{ slide.eyebrow }}
-              </app-typography>
-              <app-typography
-                tag="h3"
-                variant="heading-lg"
-                class="content-slider__slide-title text-semibold"
-              >
-                {{ slide.title }}
-              </app-typography>
-              <app-typography tag="p" variant="text-lg" class="content-slider__slide-body">
-                {{ slide.description }}
-              </app-typography>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="controls">
-        <Button variant="outline" size="sm" @click="goToPrev">
-          <Icon name="lucide:chevron-left" />
-        </Button>
-        <Button variant="outline" size="sm" @click="goToNext">
-          <Icon name="lucide:chevron-right" />
-        </Button>
-      </div>
-    </div>
-  </section>
+  <process-slider
+    title="Our Proven Process"
+    body="Our proven process brings structure and consistency to every project. We listen, plan, and execute to reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency."
+    background-image="https://ik.imagekit.io/pnixsw7lg/main-website/UT%20MPB%20-%20Pods%20-%20Angle.webp?updatedAt=1771410372115"
+    :slides="slides"
+  />
 </template>
-
-<style scoped>
-section {
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
-  gap: 0;
-  height: 70vh;
-  align-items: center;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.content {
-  z-index: 1;
-  grid-column: 1/-1;
-  gap: calc(var(--spacing) * 8);
-
-  @media (min-width: 700px) {
-    grid-column: 1/7;
-  }
-}
-
-.embla {
-  --slide-height: 20rem;
-  --slide-spacing: 2rem;
-  --slide-size: 300px;
-
-  grid-column: 1/-1;
-
-  @media (min-width: 700px) {
-    --slide-height: 25rem;
-    --slide-size: 350px;
-    grid-column: 7/-1;
-  }
-
-  @media (min-width: 1024px) {
-    --slide-height: 30rem;
-    --slide-size: 500px;
-    grid-column: -17/-1;
-  }
-}
-
-.embla__viewport {
-  overflow: hidden;
-}
-
-.embla__container {
-  display: flex;
-  gap: 1rem;
-  touch-action: pan-y pinch-zoom;
-  margin-left: calc(var(--spacing) * 4);
-}
-
-.embla__slide {
-  display: flex;
-  flex: 0 0 var(--slide-size);
-  min-width: 0;
-  height: var(--slide-height);
-  background-color: var(--content-slider-tone);
-  padding: calc(var(--spacing) * 4);
-
-  align-items: end;
-}
-
-.controls {
-  padding: calc(var(--spacing) * 4);
-  display: flex;
-  gap: calc(var(--spacing) * 4);
-}
-</style>

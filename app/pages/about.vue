@@ -1,9 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>
+  <div class="mx-auto site-grid">
     <app-banner-b image="about/about03.jpg"> About Us </app-banner-b>
-    <app-section-a flip>
+    <app-section-a class="col-span-full" flip>
       <template #header>
         <app-typography variant="heading-md" tag="h2" class="">
           Our<span> History</span>
@@ -35,7 +35,7 @@
     </app-section-a>
 
     <three-uniques />
-    <app-parallax image="/about/about01.jpg" />
+    <app-parallax image="/about/about01.jpg" class="col-span-full" />
     <core-values />
   </div>
 </template>
