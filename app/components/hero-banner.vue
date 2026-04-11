@@ -47,8 +47,8 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
           </app-typography>
 
           <div class="hero-actions">
-            <Button variant="primary" size="md" to="/contact">Start your project</Button>
-            <Button variant="outline" size="md" to="/projects">Explore Our Portfolio</Button>
+            <my-button variant="primary" size="md" to="/contact">Start your project</my-button>
+            <my-button variant="outline" size="md" to="/projects">Explore Our Portfolio</my-button>
           </div>
         </div>
 

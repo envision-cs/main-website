@@ -112,7 +112,13 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 </script>
 
 <template>
-  <div class="main-header">
+  <div
+    ref="header"
+    class="main-header"
+    :class="{
+      'main-header-dark': isDesktopMenuOpen,
+    }"
+  >
     <button
       v-if="isDesktopMenuOpen"
       type="button"
@@ -137,16 +143,16 @@ function toggleDesktopMenu(menu: "services" | "projects") {
         <NavigationMenuList class="desktop-nav-list NavigationMenuList">
           <NavigationMenuItem value="services">
             <NavigationMenuTrigger as-child>
-              <button
+              <my-button
                 type="button"
-                class="NavigationMenuTrigger desktop-inline-nav-link"
+                class="NavigationMenuTrigger desktop-inline-nav-link submenu"
                 data-test="desktop-services-trigger"
                 :aria-expanded="isServicesDesktopMenuOpen"
                 @pointerenter="openDesktopMenu('services')"
                 @click="toggleDesktopMenu('services')"
               >
                 Services
-              </button>
+              </my-button>
             </NavigationMenuTrigger>
             <NavigationMenuContent
               class="NavigationMenuContent"
@@ -200,16 +206,16 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
           <NavigationMenuItem value="projects">
             <NavigationMenuTrigger as-child>
-              <button
+              <my-button
                 type="button"
-                class="NavigationMenuTrigger desktop-inline-nav-link"
+                class="NavigationMenuTrigger desktop-inline-nav-link submenu"
                 data-test="desktop-projects-trigger"
                 :aria-expanded="isProjectsDesktopMenuOpen"
                 @pointerenter="openDesktopMenu('projects')"
                 @click="toggleDesktopMenu('projects')"
               >
                 Projects
-              </button>
+              </my-button>
             </NavigationMenuTrigger>
             <NavigationMenuContent
               class="NavigationMenuContent"
@@ -281,9 +287,9 @@ function toggleDesktopMenu(menu: "services" | "projects") {
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
 
-        <Button to="/contact" size="sm" variant="secondary" class="header-cta--mobile-hidden">
+        <my-button to="/contact" size="sm" variant="secondary" class="header-cta--mobile-hidden">
           Contact
-        </Button>
+        </my-button>
       </NavigationMenuRoot>
 
       <app-mobile-nav-drawer />
@@ -302,7 +308,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     var(--color-envision-green-900) 12%
   );
   --header-shell-muted: color-mix(in oklch, var(--color-envision-blue-900) 58%, white);
-  --header-panel-bg: color-mix(in oklch, white 98%, var(--color-envision-blue-50) 2%);
+  --header-panel-bg: var(--color-envision-gray-900);
   --header-panel-border: color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
 
   position: absolute;
@@ -319,11 +325,8 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   animation-range-end: 120vh;
 }
 
-@keyframes stickyNav {
-  100% {
-    background: var(--header-shell-bg);
-    backdrop-filter: blur(25px);
-  }
+.main-header-dark {
+  background: var(--header-panel-bg);
 }
 
 .main-header.main-header--desktop-open {
@@ -432,7 +435,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     white-space: nowrap;
     text-transform: uppercase;
     letter-spacing: 0.16em;
-    font-size: 0.7rem;
+    font-size: 0.85rem;
     font-weight: 600;
     transition:
       color 220ms ease,
@@ -704,8 +707,8 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
     min-height: 350px;
-    color: var(--header-shell-text);
-    background: white;
+    color: #fff;
+    background: var(--color-envision-gray-900);
   }
 
   .services-grid-item {
@@ -715,8 +718,6 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     padding: 1.65rem 1.5rem;
     color: inherit;
     text-decoration: none;
-    border-left: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 7%, white);
-    border-top: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 7%, white);
     transition:
       background-color 220ms ease,
       transform 220ms ease;
@@ -746,13 +747,13 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     margin: 0;
     max-width: 22ch;
     font-size: 0.98rem;
-    color: color-mix(in oklch, var(--header-shell-text) 72%, white);
+    color: #fff;
     line-height: 1.42;
   }
 
   .services-grid-item:hover,
   .services-grid-item:focus-visible {
-    background-color: color-mix(in oklch, var(--color-envision-blue-50) 32%, white);
+    background-color: var(--color-envision-gray-700);
     transform: none;
     outline: none;
   }

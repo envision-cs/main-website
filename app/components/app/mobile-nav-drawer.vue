@@ -152,7 +152,7 @@ function onDrawerCloseAutoFocus(event: Event) {
 <template>
   <DialogRoot :open="mobileDrawerOpen" @update:open="onDrawerOpenChange">
     <DialogTrigger class="mobile-trigger" as-child>
-      <Button
+      <my-button
         ref="menuButtonRef"
         size="sm"
         data-test="mobile-menu-trigger"
@@ -161,7 +161,7 @@ function onDrawerCloseAutoFocus(event: Event) {
         :aria-expanded="String(mobileDrawerOpen)"
       >
         Menu
-      </Button>
+      </my-button>
     </DialogTrigger>
 
     <DialogPortal>
@@ -185,7 +185,7 @@ function onDrawerCloseAutoFocus(event: Event) {
               <Icon name="logos:envision" size="28" alt="envision construction logo" />
             </div>
           </div>
-          <Button
+          <my-button
             size="sm"
             type="button"
             class="mobile-nav-close"
@@ -194,7 +194,7 @@ function onDrawerCloseAutoFocus(event: Event) {
             @click="closeDrawerAndNavigate"
           >
             Close
-          </Button>
+          </my-button>
         </div>
 
         <nav class="mobile-nav" aria-label="Mobile primary">

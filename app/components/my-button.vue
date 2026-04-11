@@ -1,22 +1,22 @@
 <script setup lang="ts">
 defineOptions({ inheritAttrs: false });
-
 const props = withDefaults(
   defineProps<{
-    to: string;
+    to?: string;
     type?: "button" | "submit" | "reset";
     variant?: "primary" | "secondary" | "outline";
     size?: "sm" | "md" | "lg";
     disabled?: boolean;
     loading?: boolean;
     iconOnly?: boolean;
-    target: "_self" | "_blank";
-    rel: string;
+    target?: "_self" | "_blank";
+    rel?: string;
   }>(),
   {
     type: "button",
     variant: "primary",
     size: "md",
+    target: "_self",
     disabled: false,
     loading: false,
     iconOnly: false,
@@ -25,8 +25,7 @@ const props = withDefaults(
 
 const attrs = useAttrs();
 
-const { componentTag, componentProps, isDisabled, hasIcon, hasLabel, isIconOnly } =
-  useButton(props);
+const { componentProps, isDisabled, hasIcon, hasLabel, isIconOnly } = useButton(props);
 
 const classes = computed(() => [
   "btn",
@@ -40,25 +39,30 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <component
-    :is="componentTag"
+  <NuxtLink
+    v-if="props.to"
     v-bind="{ ...attrs, ...componentProps }"
     :class="classes"
     :data-variant="variant"
   >
-    <!-- loading -->
     <span v-if="loading" class="btn__loader" aria-hidden="true" />
-
-    <!-- icon -->
     <span v-if="hasIcon" class="btn__icon">
       <slot name="icon" />
     </span>
-
-    <!-- label -->
     <span v-if="hasLabel" class="btn__label">
       <slot />
     </span>
-  </component>
+  </NuxtLink>
+
+  <button v-else v-bind="{ ...attrs, ...componentProps }" :class="classes" :data-variant="variant">
+    <span v-if="loading" class="btn__loader" aria-hidden="true" />
+    <span v-if="hasIcon" class="btn__icon">
+      <slot name="icon" />
+    </span>
+    <span v-if="hasLabel" class="btn__label">
+      <slot />
+    </span>
+  </button>
 </template>
 
 <style>

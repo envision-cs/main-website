@@ -93,6 +93,8 @@ if ($posthog) {
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
       flip
       content-position="bottom-left"
+      href="about"
+      label="Learn more about us"
     >
       Building Without the <span>Headaches</span>
     </cta-a>

@@ -14,13 +14,8 @@ export function useButton(props: ButtonProps) {
   const isLink = computed(() => !!props.to);
   const isDisabled = computed(() => props.disabled || props.loading);
 
-  const componentTag = computed(() => {
-    if (isLink.value) return "NuxtLink";
-    return "button";
-  });
-
   const componentProps = computed(() => {
-    if (componentTag.value === "NuxtLink") {
+    if (isLink.value) {
       return {
         to: isDisabled.value ? undefined : props.to,
         "aria-disabled": isDisabled.value ? "true" : undefined,
@@ -48,7 +43,6 @@ export function useButton(props: ButtonProps) {
   const isIconOnly = computed(() => props.iconOnly || (hasIcon.value && !hasLabel.value));
 
   return {
-    componentTag,
     componentProps,
     isDisabled,
     hasIcon,

@@ -5,6 +5,7 @@ const props = defineProps<{
   image?: string;
   flip?: boolean;
   href?: string;
+  label?: string;
 }>();
 
 const { base } = useEasings();
@@ -67,11 +68,8 @@ const textTransition = computed(() => ({
           <slot name="body" />
         </app-typography>
 
-        <div class="cta-panel__actions">
-          <template v-if="href">
-            <app-button :to="href" color="secondary" variant="solid">Learn More</app-button>
-          </template>
-          <slot name="action" />
+        <div v-if="label" class="cta-panel__actions">
+          <my-button variant="primary" size="md" :to="href">{{ label }}</my-button>
         </div>
       </motion.div>
     </motion.div>
@@ -168,5 +166,9 @@ section {
     width: 100%;
     object-fit: cover;
   }
+}
+
+.cta-panel__body {
+  text-wrap: balance;
 }
 </style>
