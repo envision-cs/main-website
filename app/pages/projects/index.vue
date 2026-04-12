@@ -1,38 +1,23 @@
 <script setup lang="ts">
+import type { Project } from "~~/shared/types/content-types";
+
 const { formatMonthYear } = useFormatDate();
-const { data } = await useAsyncData(
-  "page-data",
+const { sectors: categories } = await useSectors();
+const { data } = await useAsyncData<Project[]>(
+  "projects-page-data",
   async () => {
     try {
-      const [projectRes, sectorsRes] = await Promise.all([
-        $fetch("/api/projects"),
-        $fetch("/api/sectors"),
-      ]);
-
-      return {
-        projects: projectRes,
-        sectors: sectorsRes,
-      };
+      return await $fetch<Project[]>("/api/projects");
     } catch (err) {
       console.error("Strapi error:", err);
-      return null;
+      return [];
     }
   },
-  { default: () => ({ projects: [], sectors: [] }) },
+  { default: () => [] },
 );
-
-const categories = computed<{ name: string; slug: string; image?: string }[]>(() => {
-  if (!data.value?.sectors?.length) return [];
-
-  return data.value.sectors.map((sector) => ({
-    name: sector.name,
-    slug: sector.slug,
-    image: sector.image?.url,
-  }));
-});
-
-const activeProjects = computed(() => data.value?.projects ?? []);
+const activeProjects = computed(() => data.value ?? []);
 const bannerImage = computed(() => "projects-all.jpg");
+const bannerBody = computed(() => "");
 
 definePageMeta({
   layout: "none",
@@ -42,7 +27,7 @@ definePageMeta({
 <template>
   <layout-a>
     <template #header-slot>
-      <app-banner-b class="header" :image="bannerImage">
+      <app-banner-b class="header" :image="bannerImage" :body="bannerBody">
         <template #title> Projects </template>
         All
       </app-banner-b>

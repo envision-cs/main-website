@@ -14,76 +14,12 @@ withDefaults(
 const servicesFeatureImage = "/design-build.jpg";
 const projectsFeatureImage =
   "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122";
-
-const serviceDropdownItems = [
-  {
-    title: "Tenant Improvements",
-    to: "/services/tenant-improvements",
-    description:
-      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
-  },
-  {
-    title: "Design Build",
-    to: "/services/design-build",
-    description:
-      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
-  },
-  {
-    title: "Enhanced Preconstruction",
-    to: "/services/enhanced-preconstruction",
-    description:
-      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
-  },
-  {
-    title: "Construction Management",
-    to: "/services/construction-management",
-    description:
-      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
-  },
-  {
-    title: "Specialty Projects Division",
-    to: "/services/specialty-projects-division",
-    description:
-      "Not every project is large-scale, but every project deserves the same precision, coordination, and care.",
-  },
-] as const;
-
-const projectDropdownItems = [
-  {
-    title: "Arts and Entertainment",
-    to: "/projects/arts_and_entertainment",
-    description:
-      "Public-facing venues and cultural spaces delivered with experience-driven execution.",
-  },
-  {
-    title: "Athletics",
-    to: "/projects/athletics",
-    description:
-      "Training, competition, and fan environments built around complex event logistics.",
-  },
-  {
-    title: "Aviation",
-    to: "/projects/aviation",
-    description:
-      "Airport and airside work coordinated for safety, phasing, and uninterrupted operations.",
-  },
-  {
-    title: "Business/Corporate",
-    to: "/projects/business_corporate",
-    description:
-      "Corporate interiors and workplace environments shaped around active business needs.",
-  },
-  {
-    title: "Religious",
-    to: "/projects/religious",
-    description: "Worship and community spaces completed with respect for mission and schedule.",
-  },
-  {
-    title: "Beck/Envision",
-    to: "/projects/beck-envision",
-    description: "Integrated delivery work completed in partnership with The Beck Group.",
-  },
-] as const;
+const servicesDropdownDescription =
+  "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.";
+const projectDropdownDescription =
+  "Institutional and commercial projects delivered with disciplined coordination and high-trust execution.";
+const { services: serviceDropdownItems } = await useServicesList();
+const { sectors: projectDropdownItems } = await useSectors();
 
 const desktopMenuValue = ref("");
 const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== "");
@@ -182,20 +118,20 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
                   <div class="services-grid" data-test="services-grid">
                     <NuxtLink
-                      v-for="item in serviceDropdownItems"
-                      :key="item.title"
+                      v-for="(item, index) in serviceDropdownItems"
+                      :key="item.slug"
                       :to="item.to"
                       class="services-grid-item"
                       data-test="services-grid-item"
                     >
                       <span class="services-grid-item__index">
-                        {{ String(serviceDropdownItems.indexOf(item) + 1).padStart(2, "0") }}
+                        {{ String(index + 1).padStart(2, "0") }}
                       </span>
                       <h3 class="services-grid-item__title">
                         {{ item.title }}
                       </h3>
                       <p class="services-grid-item__description">
-                        {{ item.description }}
+                        {{ item.description || servicesDropdownDescription }}
                       </p>
                     </NuxtLink>
                   </div>
@@ -245,20 +181,20 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
                   <div class="services-grid" data-test="projects-grid">
                     <NuxtLink
-                      v-for="item in projectDropdownItems"
-                      :key="item.title"
+                      v-for="(item, index) in projectDropdownItems"
+                      :key="item.slug"
                       :to="item.to"
                       class="services-grid-item"
                       data-test="projects-grid-item"
                     >
                       <span class="services-grid-item__index">
-                        {{ String(projectDropdownItems.indexOf(item) + 1).padStart(2, "0") }}
+                        {{ String(index + 1).padStart(2, "0") }}
                       </span>
                       <h3 class="services-grid-item__title">
-                        {{ item.title }}
+                        {{ item.name }}
                       </h3>
                       <p class="services-grid-item__description">
-                        {{ item.description }}
+                        {{ projectDropdownDescription }}
                       </p>
                     </NuxtLink>
                   </div>

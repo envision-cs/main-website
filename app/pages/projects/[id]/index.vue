@@ -1,57 +1,42 @@
 <script setup lang="ts">
-const { formatMonthYear } = useFormatDate();
+import type { Project } from "~~/shared/types/content-types";
 
-const { data } = await useAsyncData(
-  "page-data",
+const { formatMonthYear } = useFormatDate();
+const { sectors: categories } = await useSectors();
+
+const { data } = await useAsyncData<Project[]>(
+  "projects-by-sector-page-data",
   async () => {
     try {
-      const [projects, sectors] = await Promise.all([
-        $fetch("/api/projects"),
-        $fetch("/api/sectors"),
-      ]);
-
-      return { projects, sectors };
+      return await $fetch<Project[]>("/api/projects");
     } catch (err) {
       console.error("API error:", err);
-      return null;
+      return [];
     }
   },
-  { default: () => ({ projects: null, sectors: null }) },
+  { default: () => [] },
 );
 
 const route = useRoute();
 
-const categories = computed<{ name: string; slug: string; image?: string }[]>(() => {
-  const set = new Map<string, { name: string; slug: string; image?: string }>();
-
-  if (!data.value?.sectors?.length) return Array.from(set.values());
-
-  for (const sector of data.value.sectors) {
-    set.set(sector.slug, { name: sector.name, slug: sector.slug, image: sector.image?.url });
-  }
-
-  return Array.from(set.values());
-});
-
-const activeCategory = computed<{ name: string; slug: string; image?: string } | undefined>(() => {
+const activeCategory = computed(() => {
   return categories.value.find((category) => category.slug === route.params.id);
 });
 
 const activeProjects = computed(() => {
-  if (!data.value?.projects) {
+  if (!data.value?.length) {
     return [];
   }
 
   if (!activeCategory.value?.slug) {
-    return data.value.projects;
+    return data.value;
   }
 
-  return data.value.projects.filter(
-    (project) => project.sector?.slug === activeCategory.value?.slug,
-  );
+  return data.value.filter((project) => project.sector?.slug === activeCategory.value?.slug);
 });
 
 const bannerImage = computed(() => activeCategory.value?.image || "projects-all.jpg");
+const bannerBody = computed(() => activeCategory.value?.description || "");
 
 definePageMeta({
   layout: "none",
@@ -61,7 +46,7 @@ definePageMeta({
 <template>
   <layout-a>
     <template #header-slot>
-      <app-banner-b class="header" :image="bannerImage">
+      <app-banner-b class="header" :image="bannerImage" :body="bannerBody">
         <template #title> Projects </template>
         {{ activeCategory?.name || "All" }}
       </app-banner-b>
