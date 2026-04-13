@@ -79,7 +79,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
         <NavigationMenuList class="desktop-nav-list NavigationMenuList">
           <NavigationMenuItem value="services">
             <NavigationMenuTrigger as-child>
-              <my-button
+              <button
                 type="button"
                 class="NavigationMenuTrigger desktop-inline-nav-link submenu"
                 data-test="desktop-services-trigger"
@@ -88,7 +88,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
                 @click="toggleDesktopMenu('services')"
               >
                 Services
-              </my-button>
+              </button>
             </NavigationMenuTrigger>
             <NavigationMenuContent
               class="NavigationMenuContent"
@@ -142,7 +142,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
           <NavigationMenuItem value="projects">
             <NavigationMenuTrigger as-child>
-              <my-button
+              <button
                 type="button"
                 class="NavigationMenuTrigger desktop-inline-nav-link submenu"
                 data-test="desktop-projects-trigger"
@@ -151,7 +151,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
                 @click="toggleDesktopMenu('projects')"
               >
                 Projects
-              </my-button>
+              </button>
             </NavigationMenuTrigger>
             <NavigationMenuContent
               class="NavigationMenuContent"
