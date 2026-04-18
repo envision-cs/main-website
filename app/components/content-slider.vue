@@ -215,10 +215,12 @@ onUnmounted(() => {
 
 .l-slider-slide {
   display: grid;
-  width: 100vw;
+  width: 90vw;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   overflow: hidden;
+
+  margin-right: calc(var(--spacing) * 8);
 }
 
 .content-slider__background {

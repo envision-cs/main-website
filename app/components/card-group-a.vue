@@ -7,26 +7,17 @@ interface Card {
   completed: string;
 }
 
-const props = defineProps<{
+defineProps<{
   cards: Card[];
   spacing?: string;
 }>();
-
-const visibleCards = computed(() => props.cards.slice(0, 3));
-
-const portfolioCta = {
-  quote:
-    "Envision has consistently impressed us with their commitment to timely project completion.",
-  label: "Explore Our Portfolio",
-  image: "/projects-all.jpg",
-};
 </script>
 
 <template>
   <section class="card-group-a">
     <div class="main-wrapper site-grid">
       <ul class="wrapper">
-        <li v-for="(card, index) in visibleCards" :key="index">
+        <li v-for="(card, index) in cards" :key="index">
           <app-reveal-card
             :image="card.image"
             :title="card.title"
@@ -48,25 +39,6 @@ const portfolioCta = {
             </template>
           </app-reveal-card>
         </li>
-        <li>
-          <NuxtLink to="/projects" class="image-link" aria-label="Explore our portfolio">
-            <NuxtImg
-              :src="portfolioCta.image"
-              class="image-link__image"
-              alt=""
-              sizes="100vw sm:50vw lg:25vw"
-              fit="cover"
-            />
-            <div class="image-link__overlay" aria-hidden="true" />
-            <div class="image-link__content">
-              <app-typography tag="p" variant="text-lg">
-                "{{ portfolioCta.quote }}"
-              </app-typography>
-
-              <my-button to="/projects" variant="outline">Explore our work</my-button>
-            </div>
-          </NuxtLink>
-        </li>
       </ul>
     </div>
   </section>
@@ -86,21 +58,34 @@ section {
   display: grid;
   grid-column: 1/-1;
 
-  @container (inline-size < 40ch) {
+  @container (inline-size < 30ch) {
     grid-template-columns: repeat(1, 1fr);
   }
 
-  @container (inline-size > calc(35ch * 2 + 1rem)) {
+  @container (inline-size > calc(30ch * 2 + 1rem)) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @container (inline-size > calc(40ch * 3 + 1rem)) {
-    grid-template-columns: repeat(4, 1fr);
+  @container (inline-size > calc(30ch * 3 + 1rem)) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .wrapper > li {
   display: grid;
+}
+
+.wrapper > li:last-of-type {
+  grid-column: 1;
+
+  @container (inline-size > calc(30ch * 2 + 1rem)) {
+    grid-column: 1/-1;
+  }
+
+  @container (inline-size > calc(30ch * 3 + 1rem)) {
+    grid-column: unset;
+  }
 }
 
 .image-link {

@@ -11,52 +11,12 @@ const props = defineProps<{
 const { base } = useEasings();
 const shouldReduceMotion = useReducedMotion();
 const isFlipped = computed(() => Boolean(props.flip));
-
-const contentOffset = computed(() => {
-  if (shouldReduceMotion.value) {
-    return 0;
-  }
-
-  return isFlipped.value ? "100%" : "-100%";
-});
-
-const textOffset = computed(() => {
-  if (shouldReduceMotion.value) {
-    return 0;
-  }
-
-  return isFlipped.value ? "100%" : "-100%";
-});
-
-const contentTransition = computed(() => ({
-  duration: shouldReduceMotion.value ? 0.2 : 0.7,
-  easing: base,
-}));
-
-const textTransition = computed(() => ({
-  duration: shouldReduceMotion.value ? 0.2 : 0.55,
-  delay: shouldReduceMotion.value ? 0 : 0.18,
-  easing: base,
-}));
 </script>
 
 <template>
   <section>
-    <motion.div
-      class="content"
-      :class="{ 'is-flipped': isFlipped }"
-      :initial="{ opacity: 1, x: contentOffset }"
-      :while-in-view="{ x: 0 }"
-      :transition="contentTransition"
-      :viewport="{ once: true, amount: 0.35 }"
-    >
-      <motion.div
-        class="content-inner"
-        :initial="{ opacity: 0, x: textOffset }"
-        :while-in-view="{ opacity: 1, x: 0 }"
-        :transition="textTransition"
-        :viewport="{ once: true, amount: 0.35, delay: 0.2 }"
-      >
+    <div class="content" :class="{ 'is-flipped': isFlipped }">
+      <div class="content-inner">
         <app-typography tag="h2" variant="heading-lg" class="cta-panel__title">
           <slot name="title">
             <slot />
@@ -71,8 +31,8 @@ const textTransition = computed(() => ({
         <div v-if="label" class="cta-panel__actions">
           <my-button variant="primary" size="md" :to="href">{{ label }}</my-button>
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
     <NuxtLink v-if="href" :to="href" class="image" :class="{ 'is-flipped': isFlipped }">
       <NuxtImg
         :src="image"
@@ -107,6 +67,7 @@ section {
   grid-template-columns: subgrid;
   gap: 0;
   align-items: center;
+  overflow: clip;
 }
 
 .content {
@@ -115,34 +76,60 @@ section {
   grid-row: 1;
   height: 100%;
   place-content: center;
-  backdrop-filter: contrast(30%) grayscale() blur(5px);
-  background: rgb(0 0 0 / 60%);
   will-change: transform, opacity;
+  opacity: 1;
+  padding-bottom: 0;
 
   .content-inner {
     display: grid;
     gap: calc(var(--spacing) * 3);
     padding: calc(var(--spacing) * 6);
     height: 100%;
-    align-content: center;
+    align-content: end;
+    opacity: 1;
     will-change: transform, opacity;
   }
 
   @media (min-width: 700px) {
+    padding-bottom: calc(var(--spacing) * 12);
     grid-column: 1 / 7;
+    background: linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 52%,
+      rgba(0, 0, 0, 0) 99%
+    );
 
     &.is-flipped {
       grid-column: -7 / -1;
       grid-row: 1;
+      background: linear-gradient(
+        -45deg,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0) 52%,
+        rgba(0, 0, 0, 0) 99%
+      );
     }
   }
 
   @media (min-width: 1024px) {
-    grid-column: 1 / 9;
+    grid-column: 1 / -1;
+    background: linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 52%,
+      rgba(0, 0, 0, 0) 99%
+    );
 
     &.is-flipped {
-      grid-column: -9 / -1;
+      grid-column: 1 / -1;
       grid-row: 1;
+      background: linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 0) 52%,
+        rgba(0, 0, 0, 0) 99%
+      );
     }
   }
 }
@@ -151,6 +138,7 @@ section {
   grid-column: 1 / -1;
   grid-row: 2;
   height: unset;
+  overflow: hidden;
   aspect-ratio: 16/9;
 
   @media (min-width: 700px) {
@@ -170,5 +158,10 @@ section {
 
 .cta-panel__body {
   text-wrap: balance;
+  max-width: 50ch;
+}
+
+.cta-panel__title {
+  max-width: 20ch;
 }
 </style>
