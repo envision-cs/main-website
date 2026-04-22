@@ -128,7 +128,7 @@ function resolveTone(tone?: string) {
   grid-column: 1 / -1;
   grid-template-columns: subgrid;
   gap: 0;
-  min-height: 100vh;
+  min-height: 80vh;
   align-items: center;
   position: relative;
 }

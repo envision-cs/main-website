@@ -1,78 +1,41 @@
-<script lang="ts" setup>
-const stats = [
-  { id: 1, value: "2009", label: "Established" },
-  { id: 2, value: "$180M+", label: "Project Delivery" },
-  { id: 3, value: "90%", label: "Repeat Clients" },
-  { id: 4, value: "Greater Tampa bay + Central Florida", label: "Regional Coverage" },
+<script setup lang="ts">
+const slides = [
+  {
+    id: 1,
+    eyebrow: "01",
+    title: "2009",
+    description: "Established",
+    tone: "--color-envision-blue-600",
+  },
+  {
+    id: 2,
+    eyebrow: "02",
+    title: "$180M+",
+    description: "Project Delivery",
+    tone: "--color-envision-green-500",
+  },
+  {
+    id: 3,
+    eyebrow: "03",
+    title: "90%",
+    description: "Repeat Clients",
+    tone: "--color-envision-gray-700",
+  },
+  {
+    id: 4,
+    eyebrow: "04",
+    title: "Greater Tampa Bay + Central Florida",
+    description: "Regional Coverage",
+    tone: "--color-envision-blue-800",
+  },
 ];
 </script>
+
 <template>
-  <section>
-    <ul>
-      <li v-for="stat in stats" :key="stat.id">
-        <div class="stat">
-          <app-typography tag="h4" variant="heading-lg" bold>
-            {{ stat.value }}
-          </app-typography>
-          <app-typography tag="p" variant="text-lg">
-            {{ stat.label }}
-          </app-typography>
-        </div>
-      </li>
-    </ul>
-  </section>
+  <process-slider
+    title="Envision by the Numbers"
+    body="The company has grown through repeat trust, disciplined delivery, and consistent work across Florida. These numbers give a quick picture of our history, scale, and regional footprint."
+    background-image="https://ik.imagekit.io/pnixsw7lg/main-website/UT%20MPB%20-%20Pods%20-%20Angle.webp?updatedAt=1771410372115"
+    :slides="slides"
+  />
 </template>
-<style scoped>
-section {
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
-}
-
-ul {
-  display: grid;
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
-  align-items: center;
-}
-
-li {
-  grid-column: 1/-1;
-
-  &:nth-child(4) {
-    grid-column: 1/-1;
-  }
-
-  @media (min-width: 700px) {
-    grid-column: span 4;
-  }
-
-  @media (min-width: 1024px) {
-    grid-column: span 8;
-  }
-}
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: calc(var(--spacing) * 4);
-}
-
-li:nth-child(1) {
-  background-color: var(--color-envision-blue-600);
-}
-
-li:nth-child(2) {
-  background-color: var(--color-envision-green-500);
-}
-
-li:nth-child(3) {
-  background-color: var(--color-envision-gray-700);
-}
-
-li:nth-child(4) {
-  background-color: #435a66;
-}
-</style>
