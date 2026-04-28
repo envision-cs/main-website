@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+import { parseMarkdown } from "@nuxtjs/mdc/runtime";
 
 const route = useRoute();
 const id = computed(() => route.params.id as string);
@@ -10,9 +10,7 @@ const { data } = await useAsyncData(
   asyncDataKey,
   async () => {
     const response = await $fetch(`/api/team/${id.value}`);
-    const ast = response?.teamMember?.bio
-      ? await parseMarkdown(response.teamMember.bio)
-      : null;
+    const ast = response?.teamMember?.bio ? await parseMarkdown(response.teamMember.bio) : null;
 
     return {
       ...response,
@@ -26,7 +24,7 @@ const { data } = await useAsyncData(
 const relatedTeam = computed(() => data.value?.team || []);
 
 function teamOverlay(color?: string) {
-  const teamColor = color || '#0c2c45';
+  const teamColor = color || "#0c2c45";
   return `linear-gradient(
     to top,
     color-mix(in srgb, ${teamColor} 75%, transparent) 0%,
@@ -43,7 +41,7 @@ useSeoMeta({
 });
 
 definePageMeta({
-  layout: 'layout-b',
+  layout: "layout-b",
 });
 </script>
 
@@ -101,11 +99,7 @@ definePageMeta({
       <template #header>
         <div class="section-head" :style="{ '--teamColor': data.teamMember.team.color }">
           <div class="team-role">
-            <app-typography
-              tag="p"
-              variant="text-sm"
-              class="team-role-label"
-            >
+            <app-typography tag="p" variant="text-sm" class="team-role-label">
               {{ data.teamMember.team.role }}
             </app-typography>
           </div>
@@ -113,18 +107,14 @@ definePageMeta({
             {{ data.teamMember.team.name }}
           </app-typography>
           <!-- <div class="team-accent" aria-hidden="true" /> -->
-          <app-typography
-            tag="p"
-            variant="text-lg"
-            class="mt-auto max-w-sm team-description"
-          >
+          <app-typography tag="p" variant="text-lg" class="mt-auto max-w-sm team-description">
             {{ data.teamMember.team.description }}
           </app-typography>
         </div>
       </template>
       <template #body>
         <app-team-member-list>
-          <li v-for="member in relatedTeam.filter(m => m.slug !== id)" :key="member.id">
+          <li v-for="member in relatedTeam.filter((m) => m.slug !== id)" :key="member.id">
             <app-reveal-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
@@ -184,9 +174,7 @@ definePageMeta({
       </template>
     </app-section-a>
   </UPage>
-  <div v-else>
-    Nothing Here
-  </div>
+  <div v-else>Nothing Here</div>
 </template>
 
 <style scoped>
@@ -194,14 +182,6 @@ definePageMeta({
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
-  /*
-  background: linear-gradient(
-    140deg,
-    color-mix(in srgb, var(--teamColor) 12%, white) 0%,
-    color-mix(in srgb, var(--teamColor) 3%, white) 35%,
-    white 75%
-  );
-    */
 }
 
 .section-head {
@@ -221,9 +201,6 @@ definePageMeta({
   gap: 0.55rem;
   padding: 0.4rem 0.85rem;
   border-left: calc(var(--spacing) * 2) solid var(--teamColor);
-  /*
-  background: color-mix(in srgb, var(--teamColor) 18%, white);
-  */
 }
 
 .team-role-dot {

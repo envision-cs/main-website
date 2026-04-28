@@ -1,18 +1,12 @@
 <template>
   <section class="site-grid section">
     <div class="content">
-      <app-typography tag="h1" variant="heading-huge">
-        MEET THE TEAM
-      </app-typography>
+      <app-typography tag="h1" variant="heading-huge"> MEET THE TEAM </app-typography>
 
-      <app-typography
-        tag="p"
-        variant="text-xl"
-        class="text-muted"
-      >
-        How we chose to empower our team members is by recognizing their strengths, discovering where they best fit into
-        the daily operations and developing a title that best illustrates the value that the team member adds to the
-        company. Meet the Envision team.
+      <app-typography tag="p" variant="text-xl" class="text-muted">
+        How we chose to empower our team members is by recognizing their strengths, discovering
+        where they best fit into the daily operations and developing a title that best illustrates
+        the value that the team member adds to the company. Meet the Envision team.
       </app-typography>
     </div>
     <div class="image">

@@ -1,29 +1,26 @@
 <script setup lang="ts">
-import {
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuList,
-  NavigationMenuRoot,
-  NavigationMenuTrigger,
-} from 'reka-ui';
-import { ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 const props = defineProps({
   buttonText: String,
   image: {
     type: String,
-    default: 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122',
+    default:
+      "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122",
   },
 });
 
 const route = useRoute();
-const menuValue = 'services';
-const openMenu = ref('');
+const menuValue = "services";
+const openMenu = ref("");
 
-watch(() => route.fullPath, () => {
-  openMenu.value = '';
-});
+watch(
+  () => route.fullPath,
+  () => {
+    openMenu.value = "";
+  },
+);
 </script>
 
 <template>
@@ -37,23 +34,14 @@ watch(() => route.fullPath, () => {
     <NavigationMenuList>
       <NavigationMenuItem :value="menuValue">
         <NavigationMenuTrigger as-child>
-          <button
-            type="button"
-            class="anchor-button"
-            aria-haspopup="menu"
-          >
+          <button type="button" class="anchor-button" aria-haspopup="menu">
             {{ props.buttonText }}
           </button>
         </NavigationMenuTrigger>
 
         <NavigationMenuContent class="styled-popover">
           <div class="popover-image-wrapper">
-            <NuxtImg
-              v-if="props.image"
-              :src="props.image"
-              alt=""
-              class="popover-image"
-            />
+            <NuxtImg v-if="props.image" :src="props.image" alt="" class="popover-image" />
           </div>
           <div class="popover-content">
             <slot />

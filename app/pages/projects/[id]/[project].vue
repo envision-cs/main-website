@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Project } from '~~/shared/types/content-types';
+import type { Project } from "~~/shared/types/content-types";
 
-import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+import { parseMarkdown } from "@nuxtjs/mdc/runtime";
 
 const { formatMonthYear } = useFormatDate();
 
@@ -10,12 +10,10 @@ const route = useRoute();
 const slug = computed(() => {
   const param = route.params.project;
 
-  if (typeof param !== 'string')
-    return '';
+  if (typeof param !== "string") return "";
 
   const normalized = param.trim();
-  if (!normalized || normalized === 'null' || normalized === 'undefined')
-    return '';
+  if (!normalized || normalized === "null" || normalized === "undefined") return "";
 
   return normalized;
 });
@@ -24,13 +22,11 @@ const asyncDataKey = computed(() => `project-page-${slug.value}`);
 const { data: projectData } = await useAsyncData(
   asyncDataKey,
   async () => {
-    if (!slug.value)
-      return null;
+    if (!slug.value) return null;
 
     try {
       return await $fetch<Project>(`/api/projects/${encodeURIComponent(slug.value)}`);
-    }
-    catch (err) {
+    } catch (err) {
       console.error(`Error fetching project "${slug.value}":`, err);
       return null;
     }
@@ -38,10 +34,10 @@ const { data: projectData } = await useAsyncData(
   { watch: [slug], default: () => null },
 );
 
-type GalleryImage = {
+interface GalleryImage {
   url: string;
   altText: string;
-};
+}
 
 const page = computed(() => {
   const entry = projectData.value;
@@ -53,7 +49,7 @@ const page = computed(() => {
   const gallery: GalleryImage[] = (entry.gallery || []).map((image) => {
     return {
       url: image.url,
-      altText: typeof image.alternativeText === 'string' ? image.alternativeText : '',
+      altText: typeof image.alternativeText === "string" ? image.alternativeText : "",
     };
   });
 
@@ -75,7 +71,7 @@ const page = computed(() => {
 const title = computed(() => page.value?.title);
 
 const activeImage = ref<string | null>(null);
-const imagePopoverRef = useTemplateRef<HTMLElement | null>('imagePopoverRef');
+const imagePopoverRef = useTemplateRef<HTMLElement | null>("imagePopoverRef");
 
 const isLoading = ref(false);
 
@@ -86,7 +82,7 @@ function handleImageClick(image: GalleryImage) {
   }
 
   const popover = imagePopoverRef.value;
-  if (popover && !popover.matches(':popover-open')) {
+  if (popover && !popover.matches(":popover-open")) {
     popover.showPopover();
   }
 }
@@ -95,12 +91,16 @@ function onLoad() {
   isLoading.value = false;
 }
 
-const { data: ast } = await useAsyncData('markdown', async () => {
-  if (!page.value?.description) {
-    return null;
-  }
-  return parseMarkdown(page.value.description);
-}, { watch: [page] });
+const { data: ast } = await useAsyncData(
+  "markdown",
+  async () => {
+    if (!page.value?.description) {
+      return null;
+    }
+    return parseMarkdown(page.value.description);
+  },
+  { watch: [page] },
+);
 
 useSeoMeta({
   title,
@@ -109,24 +109,16 @@ useSeoMeta({
 
 <template>
   <div>
-    <app-banner-b :image="page?.main_image">
+    <banner-b :image="page?.main_image">
       {{ page?.title }}
-    </app-banner-b>
-    <app-section-a
-      v-if="page"
-      no-padding
-      class="grid grid-cols-1 min-[800px]:grid-cols-2 "
-    >
+    </banner-b>
+    <app-section-a v-if="page" no-padding class="grid grid-cols-1 min-[800px]:grid-cols-2">
       <template #header>
         <article>
           <div class="">
             <div class="info">
               <projects-info title="Location" :data="page.location" />
-              <projects-info
-                v-if="page.area"
-                title="Area"
-                :data="page.area"
-              />
+              <projects-info v-if="page.area" title="Area" :data="page.area" />
               <projects-info title="Completed" :data="formatMonthYear(page.completed)" />
             </div>
             <div v-if="ast?.body" class="max-w-[75ch]">
@@ -167,16 +159,24 @@ useSeoMeta({
           id="image"
           ref="imagePopoverRef"
           popover="auto"
+          role="dialog"
+          aria-modal="true"
+          :aria-label="`${page.title} image viewer`"
         >
           <button
+            type="button"
             popovertarget="image"
             popovertargetaction="hide"
             class="close-btn"
+            :aria-label="`Close ${page.title} image viewer`"
           >
             <UIcon name="i-lucide-x" class="w-6 h-6 text-black" />
           </button>
           <figure>
-            <div v-if="isLoading" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div
+              v-if="isLoading"
+              class="absolute inset-0 flex items-center justify-center pointer-events-none"
+            >
               <UIcon name="i-lucide-loader-2" class="w-10 h-10 text-white animate-spin" />
             </div>
             <NuxtImg
@@ -191,17 +191,13 @@ useSeoMeta({
               @error="onLoad"
             />
             <div v-else>
-              <AppTypography tag="p">
-                Image failed to load
-              </AppTypography>
+              <AppTypography tag="p"> Image failed to load </AppTypography>
             </div>
           </figure>
         </aside>
       </template>
     </app-section-a>
-    <div v-else>
-      Oh no! Page not found.
-    </div>
+    <div v-else>Oh no! Page not found.</div>
   </div>
 </template>
 

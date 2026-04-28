@@ -9,11 +9,7 @@ defineProps<{
 <template>
   <NuxtLink :to="to" class="nav-panel-link">
     <span class="nav-panel-link__title">{{ title }}</span>
-    <app-typography
-      v-if="description"
-      class="nav-panel-link__description"
-      variant="text-sm"
-    >
+    <app-typography v-if="description" class="nav-panel-link__description" variant="text-sm">
       {{ description }}
     </app-typography>
   </NuxtLink>
@@ -34,7 +30,7 @@ defineProps<{
 }
 
 .nav-panel-link:hover::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -1rem;

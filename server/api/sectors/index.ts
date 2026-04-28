@@ -14,8 +14,8 @@ export default defineEventHandler(async () => {
   if (strapiError) {
     console.error('Error fetching projects from Strapi:', strapiError);
     throw createError({
-      statusCode: strapiError?.status,
-      statusMessage: strapiError?.statusText,
+      statusCode: 500,
+      statusMessage: strapiError?.message,
     });
   }
   return response?.data ?? [];

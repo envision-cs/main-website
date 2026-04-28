@@ -1,57 +1,42 @@
 <script setup lang="ts">
+import type { Project } from "~~/shared/types/content-types";
+
 const { formatMonthYear } = useFormatDate();
-const { data } = await useAsyncData('page-data', async () => {
-  try {
-    const [projectRes, sectorsRes] = await Promise.all([
-      $fetch('/api/projects'),
-      $fetch('/api/sectors'),
-    ]);
-
-    return {
-      projects: projectRes,
-      sectors: sectorsRes,
-    };
-  }
-  catch (err) {
-    console.error('Strapi error:', err);
-    return null;
-  }
-}, { default: () => ({ projects: [], sectors: [] }) });
-
-const categories = computed<{ name: string; slug: string; image?: string }[]>(() => {
-  if (!data.value?.sectors?.length)
-    return [];
-
-  return data.value.sectors.map(sector => ({
-    name: sector.name,
-    slug: sector.slug,
-    image: sector.image?.url,
-  }));
-});
-
-const activeProjects = computed(() => data.value?.projects ?? []);
-const bannerImage = computed(() => 'projects-all.jpg');
+const { sectors: categories } = await useSectors();
+const { data } = await useAsyncData<Project[]>(
+  "projects-page-data",
+  async () => {
+    try {
+      return await $fetch<Project[]>("/api/projects");
+    } catch (err) {
+      console.error("Strapi error:", err);
+      return [];
+    }
+  },
+  { default: () => [] },
+);
+const activeProjects = computed(() => data.value ?? []);
+const bannerImage = computed(() => "projects-all.jpg");
+const bannerBody = computed(() => "");
 
 definePageMeta({
-  layout: 'none',
+  layout: "none",
 });
 </script>
 
 <template>
   <layout-a>
     <template #header-slot>
-      <app-banner-b class="header" :image="bannerImage">
-        <template #title>
-          Projects
-        </template>
+      <banner-b class="header" :image="bannerImage" :body="bannerBody">
+        <template #title> Projects </template>
         All
-      </app-banner-b>
-    </template>
-    <template #aside-slot>
-      <projects-categories-nav :categories="categories" />
+      </banner-b>
     </template>
     <template #main-slot>
       <div class="projects">
+        <div class="projects-toolbar">
+          <projects-categories-nav :categories="categories" />
+        </div>
         <div class="projects-grid">
           <app-reveal-card
             v-for="project in activeProjects"
@@ -70,36 +55,26 @@ definePageMeta({
             meta-delay="220ms"
           >
             <template #title>
-              <app-typography
-                tag="h3"
-                class="h3 project-card-title"
-                variant="heading-md"
-              >
+              <app-typography tag="h3" class="h3 project-card-title" variant="heading-md">
                 {{ project.title }}
               </app-typography>
             </template>
             <template #details>
               <ul class="project-card-stats">
                 <li v-if="project.location">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Location
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Location </app-typography>
                   <app-typography tag="p">
                     {{ project.location }}
                   </app-typography>
                 </li>
                 <li v-if="project.area">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Area
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Area </app-typography>
                   <app-typography tag="p">
                     {{ project.area }}
                   </app-typography>
                 </li>
                 <li v-if="project.completed">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Completed
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Completed </app-typography>
                   <app-typography tag="p">
                     {{ formatMonthYear(project.completed) }}
                   </app-typography>
@@ -123,6 +98,16 @@ definePageMeta({
 .projects {
   container-type: inline-size;
   container-name: projects;
+  position: relative;
+  padding: calc(var(--spacing) * 4);
+}
+
+.projects-toolbar {
+  width: fit-content;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  margin-bottom: calc(var(--spacing) * 4);
 }
 
 .projects-grid {
@@ -130,21 +115,25 @@ definePageMeta({
   grid-template-columns: 1fr;
   container: projects;
 }
+
 @container projects (width > 550px) {
   .projects-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@container projects (width > 1000px ) {
+
+@container projects (width > 1000px) {
   .projects-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
 @container projects (width > 1400px) {
   .projects-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
 .project-card-title {
   margin-bottom: 0.5rem;
   text-wrap: balance;

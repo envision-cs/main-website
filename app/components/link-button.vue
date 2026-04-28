@@ -1,20 +1,19 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-  to: string;
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'primary' | 'secondary';
-}>(), {
-  size: 'md',
-  variant: 'primary',
-});
+withDefaults(
+  defineProps<{
+    to: string;
+    size?: "sm" | "md" | "lg";
+    variant?: "primary" | "secondary";
+  }>(),
+  {
+    size: "md",
+    variant: "primary",
+  },
+);
 </script>
 
 <template>
-  <NuxtLink
-    :to="to"
-    class="btn"
-    :class="`btn--${variant}`"
-  >
+  <NuxtLink :to="to" class="btn" :class="`btn--${variant}`">
     <div class="btn-main" :class="`btn-main--${size}`">
       <span class="btn-text">
         <slot />
@@ -43,7 +42,10 @@ withDefaults(defineProps<{
   border-radius: 0.2em;
   text-transform: uppercase;
   background-color: var(--color);
-  transition: all 0.4s var(--ease-base);
+  transition:
+    background-color 0.4s var(--ease-base),
+    border-color 0.4s var(--ease-base),
+    backdrop-filter 0.4s var(--ease-base);
 }
 
 .btn-main--sm {
@@ -88,44 +90,47 @@ withDefaults(defineProps<{
 
 .btn-overlay {
   position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1em;
+  height: 1em;
   background-color: var(--color);
   border-radius: 0.2em;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: all 0.4s var(--ease-base);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(0.5em, -50%) scale(0.7);
+  transition:
+    opacity 0.4s var(--ease-base),
+    transform 0.4s var(--ease-base),
+    background-color 0.4s var(--ease-base);
   transition-delay: 10ms;
 }
 
 .btn:hover .btn-overlay {
   background-color: var(--color);
-  width: 1em;
-  top: 50%;
-  height: 1em;
-  transform: translate(0.5em, -0.5em);
+  opacity: 1;
+  transform: translate(0.5em, -50%) scale(1);
   z-index: 1;
 }
 
 .btn--secondary:hover .btn-overlay {
   background-color: var(--ui-secondary);
-  width: 1em;
-  top: 50%;
-  height: 1em;
-  transform: translate(0.5em, -0.5em);
+  opacity: 1;
+  transform: translate(0.5em, -50%) scale(1);
   z-index: 1;
 }
 
 .btn-text {
-  padding-left: 0;
-  transition: all 0.4s var(--ease-base);
+  transition:
+    transform 0.4s var(--ease-base),
+    color 0.4s var(--ease-base);
   font-weight: 600;
   color: #fff;
   z-index: 2;
 }
 
 .btn:hover .btn-text {
-  padding-left: 1.25em;
+  transform: translateX(1.25em);
   color: var(--color-envision-green-950);
 }
 

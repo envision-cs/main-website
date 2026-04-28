@@ -2,25 +2,15 @@
 const scrollContainer = ref(null);
 const items = ref([]);
 
-const {
-  canScrollPrevious,
-  canScrollNext,
-  scrollPrevious,
-  scrollNext,
-  handleKeydown,
-} = useScrollGallery(scrollContainer, items);
+const { canScrollPrevious, canScrollNext, scrollPrevious, scrollNext, handleKeydown } =
+  useScrollGallery(scrollContainer, items);
 
 useTouchHandler(scrollContainer);
 </script>
 
 <template>
   <section class="gallery grid gap-4 py-16">
-    <div
-      ref="scrollContainer"
-      class="scroll-container"
-      tabindex="-1"
-      @keydown="handleKeydown"
-    >
+    <div ref="scrollContainer" class="scroll-container" tabindex="-1" @keydown="handleKeydown">
       <ul class="card-set flex gap-5 px-5 list-none">
         <slot />
       </ul>

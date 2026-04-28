@@ -20,7 +20,7 @@
 **Step 1: Write failing test for mobile menu trigger semantics**
 
 ```ts
-it('exposes mobile menu trigger semantics', () => {
+it("exposes mobile menu trigger semantics", () => {
   // mount header
   // assert trigger exists and has aria-haspopup="dialog"
   // assert aria-expanded reflects closed state initially
@@ -35,7 +35,7 @@ Expected: FAIL because test file/behavior does not yet exist.
 **Step 3: Write failing test for services disclosure semantics in drawer**
 
 ```ts
-it('toggles services disclosure aria-expanded and controlled region state', async () => {
+it("toggles services disclosure aria-expanded and controlled region state", async () => {
   // open drawer
   // click services toggle
   // assert aria-expanded true then false on second click
@@ -50,7 +50,7 @@ Expected: FAIL because disclosure behavior not implemented yet.
 **Step 5: Write failing test for focus restoration after close**
 
 ```ts
-it('restores focus to menu trigger when dialog closes', async () => {
+it("restores focus to menu trigger when dialog closes", async () => {
   // open drawer, close drawer
   // assert document.activeElement is trigger
 });

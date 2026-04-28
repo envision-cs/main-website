@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui';
+import type { NavigationMenuItem } from "@nuxt/ui";
 
 defineProps<{
   item: NavigationMenuItem;
@@ -8,17 +8,17 @@ defineProps<{
 
 const emit = defineEmits<{
   /** Parent asks us to open a submenu; we bubble up children + index */
-  (e: 'open', payload: { children: NavigationMenuItem[]; index: number }): void;
+  (e: "open", payload: { children: NavigationMenuItem[]; index: number }): void;
 }>();
 
 function emitOpen(children: NavigationMenuItem[], index: number) {
   if (!children || children.length === 0) {
     if (import.meta.client) {
-      console.warn('[MainMenuList] Tried to open, but no children provided at index:', index);
+      console.warn("[MainMenuList] Tried to open, but no children provided at index:", index);
     }
     return;
   }
-  emit('open', { children, index });
+  emit("open", { children, index });
 }
 </script>
 
@@ -38,27 +38,13 @@ function emitOpen(children: NavigationMenuItem[], index: number) {
     </button>
 
     <!-- Branch: Leaf link -->
-    <NuxtLink
-      v-else
-      :to="item.to"
-      role="menuitem"
-      class="menuitem"
-    >
+    <NuxtLink v-else :to="item.to" role="menuitem" class="menuitem">
       {{ item.label }}
     </NuxtLink>
 
     <!-- Decor: Arrow indicator, only for parents -->
-    <div
-      v-if="item.children?.length"
-      :id="`arrow-${idx}`"
-      class="arrow"
-      aria-hidden="true"
-    >
-      <UIcon
-        class="arrow-icon"
-        name="i-lucide-arrow-left"
-        size="32"
-      />
+    <div v-if="item.children?.length" :id="`arrow-${idx}`" class="arrow" aria-hidden="true">
+      <UIcon class="arrow-icon" name="i-lucide-arrow-left" size="32" />
     </div>
   </li>
 </template>

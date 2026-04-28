@@ -13,27 +13,14 @@ defineProps<{
 <template>
   <article>
     <div class="card-content">
-      <AppTypography
-        tag="h3"
-        variant="heading-sm"
-        class="text-trim"
-      >
+      <AppTypography tag="h3" variant="heading-sm" class="text-trim">
         {{ title }}
       </AppTypography>
       <div class="address">
-        <AppTypography
-          v-if="address"
-          tag="p"
-          variant="text-lg"
-          class="text-trim"
-        >
+        <AppTypography v-if="address" tag="p" variant="text-lg" class="text-trim">
           {{ address }}
         </AppTypography>
-        <AppTypography
-          tag="p"
-          variant="text-lg"
-          class="text-trim"
-        >
+        <AppTypography tag="p" variant="text-lg" class="text-trim">
           {{ city }}
         </AppTypography>
       </div>

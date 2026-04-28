@@ -111,6 +111,7 @@ export type Sector = {
   documentId: string;
   name: string;
   slug: string;
+  description?: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
@@ -133,6 +134,10 @@ export type Service = {
   image?: string | Photo;
   meta?: unknown;
   content?: unknown;
+  headline?: string;
+  cta?: string;
+  link?: string;
+  order?: number;
 };
 
 export type APIServices = APICollectionResponse<Service>;

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { MglMap, MglMarker } from '@indoorequal/vue-maplibre-gl';
-
-const style = 'https://tiles.openfreemap.org/styles/positron';
+const style = "https://tiles.openfreemap.org/styles/positron";
 const zoom = 9;
 </script>
 
@@ -20,11 +18,7 @@ const zoom = 9;
     >
       <MglMarker :coordinates="[-82.4, 27.95]">
         <template #marker>
-          <Icon
-            name="lucide:map-pin"
-            size="55"
-            class="icon"
-          />
+          <Icon name="lucide:map-pin" size="55" class="icon" />
         </template>
       </MglMarker>
     </MglMap>

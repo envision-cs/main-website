@@ -1,12 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'layout-a',
+  layout: "layout-a",
 });
 </script>
 
 <template>
-  <div>
-    <app-cta-a
+  <main class="site-grid">
+    <cta-a
       body="We begin by listening: with care, patience, and purpose. We’re not just building a project; we’re honoring your vision from the very start."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_9820.jpg"
       flip
@@ -16,13 +16,11 @@ definePageMeta({
         <ul>
           <li>Project Kickoff and Discovery</li>
           <li>Budget & timeline goals</li>
-          <li>
-            Site and feasibility review to shape the strategy
-          </li>
+          <li>Site and feasibility review to shape the strategy</li>
         </ul>
       </template>
-    </app-cta-a>
-    <app-cta-a
+    </cta-a>
+    <cta-a
       body="Where most projects break down, we build certainty. Our planning process locks in budget, coordination, and clarity before the first shovel hits the ground."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A2696.jpg"
     >
@@ -31,16 +29,12 @@ definePageMeta({
         <ul>
           <li>Budget-aligned design and enhanced estimating</li>
           <li>Early trade input, constructability review, and permitting</li>
-          <li>
-            Real-time scheduling, timeline protection, and risk prevention
-          </li>
-          <li>
-            Decision-making support with a focus on eliminating surprises
-          </li>
+          <li>Real-time scheduling, timeline protection, and risk prevention</li>
+          <li>Decision-making support with a focus on eliminating surprises</li>
         </ul>
       </template>
-    </app-cta-a>
-    <app-cta-a
+    </cta-a>
+    <cta-a
       body="We deliver with precision, safety, and full transparency—communicating consistently, owning the outcome, and protecting your schedule from start to finish."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0400.jpg"
       flip
@@ -50,19 +44,13 @@ definePageMeta({
         <ul>
           <li>Clear communication with weekly updates</li>
           <li>Project execution with enhanced jobsite visibility through Procore</li>
-          <li>
-            Community engagement so there’s impact beyond the job site
-          </li>
-          <li>
-            Clear financial oversight with minimized surprises
-          </li>
-          <li>
-            Seamless finish with zero-punch and wrap-up
-          </li>
+          <li>Community engagement so there’s impact beyond the job site</li>
+          <li>Clear financial oversight with minimized surprises</li>
+          <li>Seamless finish with zero-punch and wrap-up</li>
         </ul>
       </template>
-    </app-cta-a>
-    <app-cta-a
+    </cta-a>
+    <cta-a
       body="12-Month Legacy Lap: We don’t disappear at closeout. We stay engaged so your space performs, your team is supported, and your trust grows."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0570.jpg"
     >
@@ -71,18 +59,16 @@ definePageMeta({
         <ul>
           <li>System training and facility onboarding</li>
           <li>30-60-90 day check-ins, warranty reminders, and one-year walkthrough</li>
-          <li>
-            Project legacy report, testimonials, referrals, and planning what’s next
-          </li>
+          <li>Project legacy report, testimonials, referrals, and planning what’s next</li>
         </ul>
       </template>
-    </app-cta-a>
+    </cta-a>
     <quote
       quote="It was a pleasure working with the Envision team."
       name="John Luksas"
       title="Assistant Director, Operations USF College of Nursing"
     />
-  </div>
+  </main>
 </template>
 
 <style scoped>

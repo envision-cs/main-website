@@ -1,62 +1,43 @@
 <script setup lang="ts">
+import type { Project } from "~~/shared/types/content-types";
+
 const { formatMonthYear } = useFormatDate();
+const { sectors: categories } = await useSectors();
 
-const { data } = await useAsyncData('page-data', async () => {
-  try {
-    const [projectRes, sectorsRes] = await Promise.all([
-      $fetch('/api/projects'),
-      $fetch('/api/sectors'),
-    ]);
-
-    return {
-      projects: projectRes,
-      sectors: sectorsRes,
-    };
-  }
-  catch (err) {
-    console.error('Strapi error:', err);
-    return null;
-  }
-}, { default: () => ({ projects: [], sectors: [] }) });
-
-const categories = computed<{ name: string; slug: string; image?: string }[]>(() => {
-  if (!data.value?.sectors?.length)
-    return [];
-
-  return data.value.sectors.map(sector => ({
-    name: sector.name,
-    slug: sector.slug,
-    image: sector.image?.url,
-  }));
-});
-
-const activeProjects = computed(() => data.value?.projects.filter(p => p.beck === true));
-const bannerImage = computed(() => 'projects-all.jpg');
+const { data } = await useAsyncData<Project[]>(
+  "beck-envision-page-data",
+  async () => {
+    try {
+      return await $fetch<Project[]>("/api/projects");
+    } catch (err) {
+      console.error("Strapi error:", err);
+      return [];
+    }
+  },
+  { default: () => [] },
+);
+const activeProjects = computed(() => data.value.filter((p) => p.beck === true));
+const bannerImage = computed(() => "projects-all.jpg");
+const bannerBody = computed(() => "");
 
 definePageMeta({
-  layout: 'none',
+  layout: "none",
 });
 </script>
 
 <template>
   <layout-a>
     <template #header-slot>
-      <app-banner-b
-        class="header"
-        :image="bannerImage"
-        body=""
-      >
-        <template #title>
-          Projects
-        </template>
+      <banner-b class="header" :image="bannerImage" :body="bannerBody">
+        <template #title> Projects </template>
         Beck/Envision
-      </app-banner-b>
-    </template>
-    <template #aside-slot>
-      <projects-categories-nav :categories="categories" />
+      </banner-b>
     </template>
     <template #main-slot>
       <div class="projects">
+        <div class="projects-toolbar">
+          <projects-categories-nav :categories="categories" />
+        </div>
         <div class="projects-grid">
           <app-reveal-card
             v-for="project in activeProjects"
@@ -82,25 +63,19 @@ definePageMeta({
             <template #details>
               <ul class="project-card-stats">
                 <li v-if="project.location">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Location
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Location </app-typography>
                   <app-typography tag="p">
                     {{ project.location }}
                   </app-typography>
                 </li>
                 <li v-if="project.area">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Area
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Area </app-typography>
                   <app-typography tag="p">
                     {{ project.area }}
                   </app-typography>
                 </li>
                 <li v-if="project.completed">
-                  <app-typography tag="p" variant="eyebrow-md">
-                    Completed
-                  </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Completed </app-typography>
                   <app-typography tag="p">
                     {{ formatMonthYear(project.completed) }}
                   </app-typography>
@@ -124,6 +99,13 @@ definePageMeta({
 .projects {
   container-type: inline-size;
   container-name: projects;
+  position: relative;
+  padding: calc(var(--spacing) * 4);
+}
+
+.projects-toolbar {
+  width: fit-content;
+  margin-bottom: calc(var(--spacing) * 4);
 }
 
 .projects-grid {

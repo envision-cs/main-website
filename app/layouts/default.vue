@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { SpeedInsights } from '@vercel/speed-insights/nuxt';
-
 const { width } = useWindowSize();
 const isClient = ref(false);
 
@@ -9,12 +7,11 @@ onMounted(() => {
 });
 
 const mainStyle = computed(() => {
-  if (!isClient.value)
-    return {};
+  if (!isClient.value) return {};
 
   const w = width.value ?? 400;
   return {
-    '--vw': `${w * 0.15}px`,
+    "--vw": `${w * 0.15}px`,
   };
 });
 </script>
@@ -28,7 +25,6 @@ const mainStyle = computed(() => {
       </UMain>
     </div>
     <app-footer />
-    <SpeedInsights />
   </div>
 </template>
 
@@ -38,7 +34,7 @@ const mainStyle = computed(() => {
 }
 
 .divider::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;

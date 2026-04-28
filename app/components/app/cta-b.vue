@@ -12,23 +12,12 @@ defineProps<{
     :to="`/services/${path}`"
     class="p-4 flex flex-wrap gap-4 items-center border-t border-muted"
   >
-    <NuxtPicture
-      v-if="image"
-      :src="image"
-      class="img"
-      format="webp"
-      height="300"
-      width="300"
-    />
+    <NuxtPicture v-if="image" :src="image" class="img" format="webp" height="300" width="300" />
     <div>
       <app-typography tag="h3" variant="heading-md">
         {{ title }}
       </app-typography>
-      <app-typography
-        tag="p"
-        variant="text-md"
-        class="text-muted"
-      >
+      <app-typography tag="p" variant="text-md" class="text-muted">
         {{ description }}
       </app-typography>
     </div>

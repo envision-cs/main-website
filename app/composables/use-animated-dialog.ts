@@ -1,36 +1,35 @@
-import { useBreakpoints, useMutationObserver } from '@vueuse/core';
-import { animate, motionValue } from 'motion';
+import { useBreakpoints, useMutationObserver } from "@vueuse/core";
+import { animate, motionValue } from "motion";
 
 export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
   // --- State and Dependencies ---
   const { base } = useEasings();
   const route = useRoute();
   const isOpen = ref(false);
-  const direction = ref<'top' | 'bottom'>('top');
+  const direction = ref<"top" | "bottom">("top");
 
   function handleOpen() {
     isOpen.value = true;
-  };
+  }
   function handleClose() {
     isOpen.value = false;
-  };
+  }
 
   // --- Breakpoints ---
   const breakpoints = useBreakpoints({
     laptop: 1024,
   });
-  const isLaptop = breakpoints.greater('laptop');
+  const isLaptop = breakpoints.greater("laptop");
 
   // --- Motion Values ---
-  const y = motionValue(direction.value === 'top' ? '-100%' : '100%');
+  const y = motionValue(direction.value === "top" ? "-100%" : "100%");
   const scale = motionValue(0);
   const opacity = motionValue(0);
 
   // --- Core Functions ---
   function openMenu() {
     const el = dialogRef.value;
-    if (!el || el.open)
-      return; // Don't re-open if already open
+    if (!el || el.open) return; // Don't re-open if already open
 
     handleOpen();
 
@@ -40,7 +39,7 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
     opacity.set(0);
     animate(opacity, 1, {
       duration: 0.15,
-      onUpdate: latest => (el.style.opacity = `${latest}`),
+      onUpdate: (latest) => (el.style.opacity = `${latest}`),
       ease: base,
     });
 
@@ -50,52 +49,53 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
       scale.set(0);
       animate(scale, 1, {
         duration: 0.4,
-        onUpdate: latest => (el.style.transform = `scale(${latest})`),
+        onUpdate: (latest) => (el.style.transform = `scale(${latest})`),
         ease: base,
       });
-    }
-    else {
+    } else {
       el.showModal();
-      y.set(direction.value === 'top' ? '-100%' : '100%');
-      animate(y, '0%', {
+      y.set(direction.value === "top" ? "-100%" : "100%");
+      animate(y, "0%", {
         duration: 0.4,
-        onUpdate: latest => (el.style.transform = `translateY(${latest})`),
+        onUpdate: (latest) => (el.style.transform = `translateY(${latest})`),
         ease: base,
       });
     }
   }
 
-  function closeMenu() {
+  async function closeMenu() {
     const el = dialogRef.value;
-    if (!el)
-      return;
+    if (!el) return;
 
     handleClose();
     // Run responsive animation
     if (isLaptop.value) {
-      animate(scale, 0, {
+      await animate(scale, 0, {
         duration: 0.4,
-        onUpdate: latest => (el.style.transform = `scale(${latest})`),
+        onUpdate: (latest) => (el.style.transform = `scale(${latest})`),
         ease: base,
-      }).finished.then(() => {
-        el.close(); // This triggers the 'close' event listener
-      });
-    }
-    else {
-      animate(y, direction.value === 'top' ? '-100%' : '100%', {
+      }).finished;
+
+      el.close(); // This triggers the 'close' event listener
+    } else {
+      await animate(y, direction.value === "top" ? "-100%" : "100%", {
         duration: 0.4,
-        onUpdate: latest => (el.style.transform = `translateY(${latest})`),
+        onUpdate: (latest) => (el.style.transform = `translateY(${latest})`),
         ease: base,
-      }).finished.then(() => {
-        el.close(); // This triggers the 'close' event listener
-      });
+      }).finished;
+
+      el.close(); // This triggers the 'close' event listener
     }
   }
 
   // --- Watchers and Listeners ---
-  useMutationObserver(dialogRef, () => {
-    isOpen.value = !!dialogRef.value?.open;
-  }, { attributes: true, attributeFilter: ['open'] });
+  useMutationObserver(
+    dialogRef,
+    () => {
+      isOpen.value = !!dialogRef.value?.open;
+    },
+    { attributes: true, attributeFilter: ["open"] },
+  );
 
   // Close menu on route change
   watch(() => route.path, closeMenu, { immediate: true });
@@ -105,12 +105,12 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
     () => dialogRef.value,
     (newEl, oldEl) => {
       if (oldEl) {
-        oldEl.removeEventListener('open', handleOpen);
-        oldEl.removeEventListener('close', handleClose);
+        oldEl.removeEventListener("open", handleOpen);
+        oldEl.removeEventListener("close", handleClose);
       }
       if (newEl) {
-        newEl.addEventListener('open', handleOpen);
-        newEl.addEventListener('close', handleClose);
+        newEl.addEventListener("open", handleOpen);
+        newEl.addEventListener("close", handleClose);
         // Sync initial state
         isOpen.value = newEl.open;
       }

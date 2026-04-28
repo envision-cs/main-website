@@ -1,47 +1,42 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
-type Props = {
+interface Props {
   title?: string;
   description?: string;
   imageSrc?: string;
   imageAlt?: string;
   headingTag?: string;
-  align?: 'top' | 'center' | 'bottom';
+  align?: "top" | "center" | "bottom";
   overlay?: boolean;
   fullHeight?: boolean;
   containerClass?: string;
-};
+}
 
 const props = withDefaults(defineProps<Props>(), {
-  title: 'You need a builder who sees the bigger picture.',
-  imageSrc: '/hero-small.png',
-  imageAlt: 'Construction site hero image',
-  headingTag: 'h1',
-  align: 'bottom',
+  title: "You need a builder who sees the bigger picture.",
+  imageSrc: "/hero-small.png",
+  imageAlt: "Construction site hero image",
+  headingTag: "h1",
+  align: "bottom",
   overlay: true,
   fullHeight: true,
 });
 
 const alignClasses = computed(() => {
   switch (props.align) {
-    case 'top':
-      return 'items-start';
-    case 'center':
-      return 'items-center';
+    case "top":
+      return "items-start";
+    case "center":
+      return "items-center";
     default:
-      return 'items-end';
+      return "items-end";
   }
 });
 </script>
 
 <template>
-  <section
-    id="hero"
-    role="region"
-    aria-label="Hero"
-    class="relative overflow-hidden"
-  >
+  <section id="hero" role="region" aria-label="Hero" class="relative overflow-hidden">
     <NuxtImg
       :src="props.imageSrc"
       :alt="props.imageAlt"
@@ -52,12 +47,19 @@ const alignClasses = computed(() => {
       preload
     />
 
-    <div v-if="props.overlay" class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/60 to-black/0" />
+    <div
+      v-if="props.overlay"
+      class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/60 to-black/0"
+    />
 
     <div class="absolute inset-0">
       <UContainer
         class="h-full flex px-4 md:px-6"
-        :class="[alignClasses, props.fullHeight ? 'pb-10 md:pb-20' : 'py-10 md:py-16', props.containerClass]"
+        :class="[
+          alignClasses,
+          props.fullHeight ? 'pb-10 md:pb-20' : 'py-10 md:py-16',
+          props.containerClass,
+        ]"
       >
         <div class="text-white max-w-6xl">
           <slot name="title">

@@ -1,4 +1,6 @@
-<script setup  lang="ts">
+<script setup lang="ts">
+const slots = useSlots();
+const hasAsideSlot = computed(() => Boolean(slots["aside-slot"]));
 </script>
 
 <template>
@@ -6,10 +8,10 @@
     <header class="header">
       <slot name="header-slot" />
     </header>
-    <aside class="catagories">
+    <aside v-if="hasAsideSlot" class="catagories">
       <slot name="aside-slot" />
     </aside>
-    <main class="main">
+    <main class="main" :class="{ 'main--full': !hasAsideSlot }">
       <slot name="main-slot" />
     </main>
   </div>
@@ -38,6 +40,10 @@
   padding-bottom: calc(var(--spacing) * 4);
 }
 
+.main--full {
+  grid-column: 1/-1;
+}
+
 @media (min-width: 700px) {
   .main-layout {
     grid-template-rows: min-content auto;
@@ -51,6 +57,10 @@
   .main {
     grid-column: 4/-1;
   }
+
+  .main--full {
+    grid-column: 1/-1;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -60,6 +70,10 @@
 
   .main {
     grid-column: 6/-1;
+  }
+
+  .main--full {
+    grid-column: 1/-1;
   }
 }
 </style>

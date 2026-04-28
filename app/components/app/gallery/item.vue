@@ -1,20 +1,16 @@
 <script setup>
-import { computed, inject } from 'vue';
+import { computed, inject } from "vue";
 
 const props = defineProps({
   index: { type: Number, required: true },
 });
 
-const currentIndex = inject('currentIndex', ref(0));
+const currentIndex = inject("currentIndex", ref(0));
 const isCurrent = computed(() => props.index === currentIndex.value);
 </script>
 
 <template>
-  <li
-    class="gallery-item snap-start shrink-0"
-    :class="{ current: isCurrent }"
-    role="listitem"
-  >
+  <li class="gallery-item snap-start shrink-0" :class="{ current: isCurrent }" role="listitem">
     <slot />
   </li>
 </template>

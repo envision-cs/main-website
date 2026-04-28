@@ -1,20 +1,26 @@
 <script setup lang="ts">
-import type { NuxtError } from '#app';
+import type { NuxtError } from "#app";
 
-import { clearError } from '#app';
-import { computed } from 'vue';
+import { clearError } from "#app";
+import { computed } from "vue";
 
 const props = defineProps<{ error: NuxtError }>();
 
-const isNotFound = computed(() => props.error?.statusCode === 404 || props.error?.statusCode === 400);
+const isNotFound = computed(
+  () => props.error?.statusCode === 404 || props.error?.statusCode === 400,
+);
 
-const title = computed(() => isNotFound.value ? 'This page is stillunder construction.' : 'Something went wrong.');
+const title = computed(() =>
+  isNotFound.value ? "This page is still under construction." : "Something went wrong.",
+);
 
-const description = computed(() => isNotFound.value
-  ? 'We couldn\'t find the address you entered. Let\'s get you to a page that\'s ready for visitors.'
-  : 'An unexpected error occurred. Please try again or head back to a safe spot.');
+const description = computed(() =>
+  isNotFound.value
+    ? "We couldn't find the address you entered. Let's get you to a page that's ready for visitors."
+    : "An unexpected error occurred. Please try again or head back to a safe spot.",
+);
 
-const goHome = () => clearError({ redirect: '/' });
+const goHome = () => clearError({ redirect: "/" });
 </script>
 
 <template>
@@ -31,41 +37,31 @@ const goHome = () => clearError({ redirect: '/' });
             preload
           />
           <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-          <div class="absolute inset-0 site-grid grid items-end px-6 py-12 md:px-16 md:py-20 lg:py-24 gap-6">
+          <div
+            class="absolute inset-0 site-grid grid items-end px-6 py-12 md:px-16 md:py-20 lg:py-24 gap-6"
+          >
             <div class="col-span-full flex flex-wrap gap-2 md:gap-3 md:col-span-6 lg:col-span-10">
               <span
                 class="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-white/10 text-white uppercase tracking-[0.08em] text-sm"
               >
-                {{ isNotFound ? '404' : props.error?.statusCode }}
+                {{ isNotFound ? "404" : props.error?.statusCode }}
               </span>
               <span
                 class="inline-flex items-center gap-1.5 px-3 py-2 rounded-md bg-white/10 border border-white/40 text-white uppercase tracking-[0.08em] text-sm"
               >
-                {{ isNotFound ? 'Page not found' : 'Unexpected error' }}
+                {{ isNotFound ? "Page not found" : "Unexpected error" }}
               </span>
             </div>
             <div class="col-span-full flex flex-col gap-4 text-white md:col-span-10 lg:col-span-12">
-              <app-typography
-                tag="h1"
-                variant="heading-lg"
-                class="text-white"
-              >
+              <app-typography tag="h1" variant="heading-lg" class="text-white">
                 {{ title }}
               </app-typography>
-              <app-typography
-                tag="p"
-                variant="text-lg"
-                class="text-white/85 max-w-[36ch]"
-              >
+              <app-typography tag="p" variant="text-lg" class="text-white/85 max-w-[36ch]">
                 {{ description }}
               </app-typography>
               <div class="flex flex-wrap items-center gap-3">
-                <app-button color="primary" href="/">
-                  Back to home
-                </app-button>
-                <app-button color="white" href="/contact">
-                  Talk with our team
-                </app-button>
+                <app-button color="primary" href="/"> Back to home </app-button>
+                <app-button color="white" href="/contact"> Talk with our team </app-button>
                 <app-button
                   variant="ghost"
                   color="neutral"
@@ -83,9 +79,7 @@ const goHome = () => clearError({ redirect: '/' });
           <div
             class="col-span-full md:col-span-12 lg:col-span-11 border border-muted rounded-lg p-6 md:p-10 bg-white shadow-xl"
           >
-            <app-typography tag="h2" variant="heading-sm">
-              Quick paths
-            </app-typography>
+            <app-typography tag="h2" variant="heading-sm"> Quick paths </app-typography>
             <ul class="mt-4 grid gap-2">
               <li>
                 <NuxtLink
@@ -133,20 +127,12 @@ const goHome = () => clearError({ redirect: '/' });
           <div
             class="col-span-full md:col-span-12 lg:col-span-11 border border-muted rounded-lg p-6 md:p-10 bg-gradient-to-br from-primary/5 to-secondary/5 shadow-xl"
           >
-            <app-typography
-              tag="h3"
-              variant="heading-sm"
-              class="uppercase"
-            >
+            <app-typography tag="h3" variant="heading-sm" class="uppercase">
               Need a hand?
             </app-typography>
-            <app-typography
-              tag="p"
-              variant="text-md"
-              class="text-neutral-600"
-            >
-              If you typed the address manually, double-check the spelling. Otherwise, use the links here or return home
-              and we\'ll guide you.
+            <app-typography tag="p" variant="text-md" class="text-neutral-600">
+              If you typed the address manually, double-check the spelling. Otherwise, use the links
+              here or return home and we\'ll guide you.
             </app-typography>
             <div class="flex flex-wrap gap-3 mt-4">
               <app-button

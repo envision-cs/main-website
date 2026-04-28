@@ -5,25 +5,26 @@ let observer: IntersectionObserver | null = null;
 
 onMounted(() => {
   revealNodes.value = rootEl.value
-    ? Array.from(rootEl.value.querySelectorAll('[data-reveal]'))
+    ? Array.from(rootEl.value.querySelectorAll("[data-reveal]"))
     : [];
 
-  observer = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting)
-        continue;
+  observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
 
-      entry.target.classList.add('is-visible');
-      observer?.unobserve(entry.target);
-    }
-  }, {
-    root: null,
-    rootMargin: '0px 0px -25% 0px',
-    threshold: 0.01,
-  });
+        entry.target.classList.add("is-visible");
+        observer?.unobserve(entry.target);
+      }
+    },
+    {
+      root: null,
+      rootMargin: "0px 0px -25% 0px",
+      threshold: 0.01,
+    },
+  );
 
-  for (const node of revealNodes.value)
-    observer.observe(node);
+  for (const node of revealNodes.value) observer.observe(node);
 });
 
 onBeforeUnmount(() => {
@@ -35,11 +36,7 @@ onBeforeUnmount(() => {
 <template>
   <div ref="rootEl" class="content-wrapper">
     <div data-reveal class="reveal title mt-[calc(var(--spacing) * 8)]">
-      <app-typography
-        tag="h2"
-        variant="heading-md"
-        class="text"
-      >
+      <app-typography tag="h2" variant="heading-md" class="text">
         <slot name="title" />
       </app-typography>
     </div>

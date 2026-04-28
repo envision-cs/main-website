@@ -1,22 +1,32 @@
 <script setup lang="ts">
-type Variant = 'heading-huge' | 'heading-xl' | 'heading-lg' | 'heading-md' | 'heading-sm' | 'text-xl' | 'text-lg' | 'text-md' | 'text-sm' | 'eyebrow-md';
+type Variant =
+  | "heading-huge"
+  | "heading-xl"
+  | "heading-lg"
+  | "heading-md"
+  | "heading-sm"
+  | "text-xl"
+  | "text-lg"
+  | "text-md"
+  | "text-sm"
+  | "eyebrow-md";
 
-const { tag = 'p', variant = 'text-md' } = defineProps<{
-  tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
+const { tag = "p", variant = "text-md" } = defineProps<{
+  tag?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span";
   variant?: Variant;
 }>();
 
 const VARIANT_CLASSES: Record<Variant, string> = {
-  'heading-huge': 'heading-huge',
-  'heading-xl': 'heading-xl',
-  'heading-lg': 'heading-lg',
-  'heading-md': 'heading-md',
-  'heading-sm': 'heading-sm',
-  'text-xl': 'text-xl',
-  'text-lg': 'text-lg',
-  'text-md': 'text-md',
-  'text-sm': 'text-sm',
-  'eyebrow-md': 'eyebrow-md',
+  "heading-huge": "heading-huge",
+  "heading-xl": "heading-xl",
+  "heading-lg": "heading-lg",
+  "heading-md": "heading-md",
+  "heading-sm": "heading-sm",
+  "text-xl": "text-xl",
+  "text-lg": "text-lg",
+  "text-md": "text-md",
+  "text-sm": "text-sm",
+  "eyebrow-md": "eyebrow-md",
 };
 
 const variantClasses = computed(() => {
@@ -25,11 +35,7 @@ const variantClasses = computed(() => {
 </script>
 
 <template>
-  <component
-    :is="tag"
-    class="base"
-    :class="variantClasses"
-  >
+  <component :is="tag" class="base" :class="variantClasses">
     <slot />
   </component>
 </template>

@@ -1,211 +1,171 @@
 <script setup lang="ts">
-const config = useAppConfig();
-const { data: locations } = await useFetch('/api/locations');
-
-const items = config.navigationMenuItems;
-const services = items.find(item => item.label === 'Services');
 const year = new Date().getFullYear();
+
+const navLinks = [
+  { id: 1, to: "/", label: "Home" },
+  { id: 2, to: "/services", label: "Services" },
+  { id: 3, to: "/projects", label: "Projects" },
+  { id: 4, to: "/team", label: "Meet the team" },
+  { id: 5, to: "/about", label: "About Us" },
+];
+const { services: servicesLinks } = await useServicesList();
+// const servicesLinks = [
+//  { id: 1, to: "/services/tenant-improvement", label: "Tenant Improvement" },
+//  { id: 2, to: "/services/design-build", label: "Design Build" },
+//  { id: 3, to: "/services/construction-management", label: "Construction Management" },
+//  { id: 4, to: "/services/enhanced-preconstruction", label: "Enhanced Preconstruction" },
+//  { id: 5, to: "/services", label: "View all services" },
+// ];
 </script>
 
 <template>
-  <footer class="site-footer" aria-label="Site footer">
-    <div class="site-footer__inner">
-      <div class="site-footer__top">
-        <div class="site-footer__brand">
-          <Icon
-            name="logos:envision"
-            size="32"
-            aria-hidden="true"
-          />
-          <p class="site-footer__tagline">
-            Proven Process: Listen. Plan. Execute. Cultivate.
-          </p>
-        </div>
-
-        <nav class="site-footer__nav" aria-label="Footer navigation">
-          <div>
-            <h2 class="site-footer__heading">
-              Navigate
-            </h2>
-            <ul class="site-footer__list">
-              <li v-for="item in items" :key="item.label">
-                <NuxtLink
-                  v-if="item.to"
-                  :to="item.to"
-                  class="site-footer__link"
-                >
-                  {{ item.label }}
-                </NuxtLink>
-              </li>
-              <li>
-                <NuxtLink to="/contact" class="site-footer__link">
-                  Contact
-                </NuxtLink>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h2 class="site-footer__heading">
-              Services
-            </h2>
-            <ul class="site-footer__list">
-              <li v-for="item in services?.children" :key="item.label">
-                <NuxtLink
-                  v-if="item.to"
-                  :to="item.to"
-                  class="site-footer__link"
-                >
-                  {{ item.label }}
-                </NuxtLink>
-              </li>
-            </ul>
-          </div>
-        </nav>
-
-        <section class="site-footer__locations" aria-label="Office locations">
-          <h2 class="site-footer__heading">
-            Locations
-          </h2>
-          <ul class="site-footer__location-list">
-            <li
-              v-for="location in locations"
-              :key="location.id"
-              class="site-footer__location-item"
-            >
-              <p class="site-footer__location-name">
-                {{ location.name }}
-              </p>
-              <address>
-                <span>{{ location.address }}</span>
-                <span>{{ location.city }}</span>
-              </address>
-              <a
-                v-if="location.phone"
-                :href="`tel:${location.phone}`"
-                class="site-footer__link"
-              >
-                {{ location.phone }}
-              </a>
-              <a
-                v-if="location.email"
-                :href="`mailto:${location.email}`"
-                class="site-footer__link"
-              >
-                {{ location.email }}
-              </a>
+  <footer class="relative" aria-label="Site footer">
+    <div class="footer-head">
+      <NuxtLink class="brand-link" to="/" aria-label="Envision home">
+        <Icon name="logos:envision" size="30" alt="envision construction logo" />
+      </NuxtLink>
+    </div>
+    <section class="site-footer">
+      <div class="navigation">
+        <nav aria-label="Footer navigation">
+          <h3>Navigate</h3>
+          <ul>
+            <li v-for="link in navLinks" :key="link.id" class="footer-link">
+              <NuxtLink :to="link.to">
+                {{ link.label }}
+              </NuxtLink>
             </li>
           </ul>
-        </section>
+        </nav>
+        <nav>
+          <h3>Services</h3>
+          <ul>
+            <li v-for="link in servicesLinks" :key="link.id" class="footer-link">
+              <NuxtLink :to="link.to">
+                {{ link.title }}
+              </NuxtLink>
+            </li>
+          </ul>
+        </nav>
       </div>
-
-      <div class="site-footer__bottom">
-        <p>© {{ year }} Envision Construction. All rights reserved.</p>
+      <div class="location-contact">
+        <div class="locations-container">
+          <h3>Locations</h3>
+          <div class="location-wrapper">
+            <div>
+              <h4>Tampa Office</h4>
+              <p class="max-w-sm text-envision-gray-300">
+                5000 Acline Drive East Tampa, FL 33619 Po Box 89098 Tampa, FL 33689
+              </p>
+              <p class="text-envision-gray-300">(813) 997-0330</p>
+            </div>
+            <div>
+              <h4>Pasco Office</h4>
+              <p class="max-w-sm text-envision-gray-300">
+                5000 Acline Drive East Tampa, FL 33619 Po Box 89098 Tampa FL 33689
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="contact">
+          <h3>Start the conversation</h3>
+          <p class="max-w-sm mb-3 text-envision-gray-300">
+            From preconstruction through closeout, our process stays direct: listen, plan, execute,
+            cultivate.
+          </p>
+          <my-button to="/contact" size="sm" variant="outline">Contact Us</my-button>
+        </div>
       </div>
-    </div>
+      <div class="date-socials">
+        <div>
+          <NuxtLink class="mr-2 mb-0" to="https://www.facebook.com/envisioncstampa">
+            <Icon name="ri:facebook-box-fill" size="32" />
+          </NuxtLink>
+          <NuxtLink class="mb-0" to="https://www.linkedin.com/company/envision-cs/">
+            <Icon name="ri:linkedin-box-fill" size="32" />
+          </NuxtLink>
+        </div>
+        <p>©{{ year }}Envision Construction. All rights reserved.</p>
+      </div>
+    </section>
   </footer>
 </template>
 
 <style scoped>
-.site-footer {
-  border-top: 1px solid var(--ui-border);
-  background: #fff;
+footer {
+  background-color: var(--color-envision-gray-800);
+  padding: calc(var(--spacing) * 4);
+  color: var(--color-envision-blue-50);
+  overflow: hidden;
 }
 
-.site-footer__inner {
-  max-width: var(--ui-container);
+.footer-head {
   margin-inline: auto;
-  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin-top: calc(var(--spacing));
+  margin-bottom: calc(var(--spacing) * 4);
+}
 
-  @media (min-width: 800px) {
-    padding: 3rem 2rem;
+.site-footer {
+  display: grid;
+  margin-inline: auto;
+  max-width: 1200px;
+  grid-template-areas:
+    "a"
+    "b"
+    "c";
+
+  @media (min-width: 768px) {
+    grid-template-areas:
+      "a b"
+      "c c";
+    gap: calc(var(--spacing) * 8);
   }
 }
 
-address {
-  font-style: normal;
-  display: grid;
-  gap: 0.15rem;
-}
-
-.site-footer__top {
-  display: grid;
-  gap: 2rem;
-
-  @media (min-width: 960px) {
-    grid-template-columns: 1.1fr 1fr 1.2fr;
-  }
-}
-
-.site-footer__brand {
-  display: grid;
-  align-content: start;
-  gap: 0.75rem;
-}
-
-.site-footer__tagline {
-  max-width: 30ch;
-  color: var(--ui-color-neutral-600);
-  line-height: 1.5;
-}
-
-.site-footer__nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-.site-footer__heading {
-  margin: 0 0 0.75rem 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ui-color-neutral-600);
-}
-
-.site-footer__list,
-.site-footer__location-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  gap: 0.5rem;
-}
-
-.site-footer__location-list {
-  gap: 1rem;
-}
-
-.site-footer__location-item {
-  display: grid;
-  gap: 0.25rem;
-}
-
-.site-footer__location-name {
-  margin: 0;
+h3 {
+  font-size: var(--text-lg);
+  letter-spacing: 2%;
   font-weight: 600;
+  margin-bottom: calc(var(--spacing) * 2);
 }
 
-.site-footer__link {
-  color: inherit;
-  text-decoration: none;
-  transition: color 140ms ease;
+.footer-link {
+  color: var(--color-envision-gray-300);
+  font-size: var(--text-base);
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+  cursor: pointer;
+  margin-bottom: calc(var(--spacing) * 2);
 }
 
-.site-footer__link:hover {
-  color: var(--ui-primary);
+.navigation:has(a:hover) a:not(:hover) {
+  opacity: 0.4;
 }
 
-.site-footer__link:focus-visible {
-  outline: 2px solid var(--ui-primary);
-  outline-offset: 2px;
+.navigation {
+  grid-area: a;
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 6);
 }
 
-.site-footer__bottom {
-  margin-top: 1.75rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--ui-border);
-  color: var(--ui-color-neutral-600);
-  font-size: 0.9rem;
+.location-contact {
+  grid-area: b;
+  display: grid;
+  gap: calc(var(--spacing) * 4);
+}
+
+.location-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 3);
+}
+
+.date-socials {
+  grid-area: c;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>

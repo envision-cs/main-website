@@ -1,27 +1,42 @@
 <script setup lang="ts">
-import { SpeedInsights } from '@vercel/speed-insights/nuxt';
-
 const route = useRoute();
 
 const { services } = await useServicesList();
-const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');
+const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? "");
 
 const categories = computed(() =>
   services.value
-    .filter(service => Boolean(service?.title))
-    .map(service => ({
+    .filter((service) => Boolean(service?.title))
+    .map((service) => ({
+      headline: service.headline,
+      description: service.description,
       title: service.title,
       slug: service.slug,
       image: service.image,
+      cta: service.cta,
+      link: service.link,
     })),
 );
 
-const activeCategory = computed<{ title: string; slug: string; image?: string }>(() => {
+const activeCategory = computed<{
+  title: string;
+  slug: string;
+  image?: string;
+  headline: string;
+  description: string;
+  cta: string;
+  link: string;
+}>(() => {
   return (
-    categories.value.find(category => category.slug === currentServiceSlug.value) ?? {
-      title: 'All Services',
-      slug: 'all',
-      image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134',
+    categories.value.find((category) => category.slug === currentServiceSlug.value) ?? {
+      headline: "Our team is ready for Whatever you need",
+      description:
+        "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.",
+      title: "Envision Services",
+      cta: "Lets get to work",
+      link: "/contact",
+      slug: "all",
+      image: "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134",
     }
   );
 });
@@ -30,36 +45,26 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
 <template>
   <div>
     <app-header />
-    <UMain class="main-layout site-grid">
-      <div class="header">
-        <app-banner-b :image="activeCategory?.image">
-          <template #title>
-            Envision Services
-          </template>
+    <div class="header">
+      <banner-b
+        :image="activeCategory?.image"
+        :cta="activeCategory.cta"
+        :cta-to="activeCategory.link"
+      >
+        <template #eyebrow>
           {{ activeCategory.title }}
-        </app-banner-b>
-      </div>
+        </template>
 
-      <aside class="categories p-0 py-4 md:p-4 h-full">
-        <ul class="flex flex-col gap-2 sticky top-0">
-          <li>
-            <ULink to="/services">
-              All Services
-            </ULink>
-          </li>
-          <li v-for="category in categories" :key="category?.title">
-            <ULink :to="`/services/${category.slug}`" class="text-left">
-              {{ category.title }}
-            </ULink>
-          </li>
-        </ul>
-      </aside>
+        {{ activeCategory.headline }}
 
-      <section class="projects">
-        <slot />
-      </section>
-    </UMain>
-    <SpeedInsights />
+        <template #body>
+          {{ activeCategory.description }}
+        </template>
+      </banner-b>
+    </div>
+    <main>
+      <slot />
+    </main>
     <app-footer />
   </div>
 </template>
@@ -68,23 +73,19 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
 .main-layout {
   margin-top: 0;
   min-height: 100dvb;
-  grid-template-rows: min-content min-content auto;
 }
 
 .header {
   grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
 }
 
 .categories {
   grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
   padding-inline: calc(var(--spacing) * 4);
 }
 
 .projects {
   grid-column: 1/-1;
-  border-bottom: 1px solid var(--ui-border);
   padding-bottom: calc(var(--spacing) * 4);
 }
 

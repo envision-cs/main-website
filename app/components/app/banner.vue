@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { domAnimation, LazyMotion, m } from 'motion-v';
-
 const { images = [] } = defineProps<{
   eyebrow?: string;
   title: string;
@@ -12,10 +10,10 @@ const { images = [] } = defineProps<{
 
 const { gentle } = useEasings();
 
-type Images = {
+interface Images {
   img: string;
   alt: string;
-};
+}
 
 const hasImages = images && images?.length > 0;
 </script>
@@ -42,16 +40,15 @@ const hasImages = images && images?.length > 0;
         v-if="images.length > 1"
         src="/community.jpg"
         :alt="images[1]?.alt"
-        class="hidden min-[700px]:block  self-end pb-8 image"
+        class="hidden min-[700px]:block self-end pb-8 image"
       />
       <LazyMotion>
         <m.div class="divider">
-          <USeparator orientation="vertical" class="hidden items-end min-[700px]:flex " />
+          <USeparator orientation="vertical" class="hidden items-end min-[700px]:flex" />
         </m.div>
       </LazyMotion>
       <div
-        class="content flex flex-col justify-normal
-        min-[700px]:justify-between h-full"
+        class="content flex flex-col justify-normal min-[700px]:justify-between h-full"
         :class="{
           'pl-0 min-[700px]:pl-8': !flip,
         }"
@@ -78,7 +75,7 @@ const hasImages = images && images?.length > 0;
               ease: gentle,
             }"
             :viewport="{ margin: '0px 0px -25% 0px' }"
-            class=" description pb-8 max-w-3xl"
+            class="description pb-8 max-w-3xl"
           >
             <app-typography tag="p" variant="text-lg">
               {{ description }}
@@ -87,7 +84,10 @@ const hasImages = images && images?.length > 0;
         </LazyMotion>
       </div>
 
-      <div v-if="links && links?.length > 3" class="flex flex-col sm:flex-row mt-2 gap-2 justify-start">
+      <div
+        v-if="links && links?.length > 3"
+        class="flex flex-col sm:flex-row mt-2 gap-2 justify-start"
+      >
         <app-button
           v-for="link in links"
           :key="link.label"

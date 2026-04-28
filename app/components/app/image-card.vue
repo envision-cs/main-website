@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { motion } from 'motion-v';
-
 defineProps<{
   image: string;
   alt: string;
   area: string;
   title: string;
   year: string;
-  direction?: 'left' | 'right';
+  direction?: "left" | "right";
 }>();
 
 const { base } = useEasings();
@@ -34,11 +32,7 @@ const { base } = useEasings();
         <app-typography tag="p" variant="text-md">
           {{ area }}
         </app-typography>
-        <app-typography
-          tag="h4"
-          variant="heading-sm"
-          class="max-w-[20ch]"
-        >
+        <app-typography tag="h4" variant="heading-sm" class="max-w-[20ch]">
           {{ title }}
         </app-typography>
       </div>

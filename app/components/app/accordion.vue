@@ -7,23 +7,12 @@ defineProps<{
 
 <template>
   <div class="accordion">
-    <details
-      v-for="(item, idx) in (data || [])"
-      :id="`acc-${name}-${idx}`"
-      :key="idx"
-      open
-    >
+    <details v-for="(item, idx) in data || []" :id="`acc-${name}-${idx}`" :key="idx" open>
       <summary :id="`acc-${name}-${idx}-summary`" :aria-controls="`acc-panel-${name}-${idx}`">
         <app-typography variant="heading-sm" tag="h3">
           {{ item?.title }}
         </app-typography>
-        <UIcon
-          class="icon"
-          name="i-lucide-plus"
-          aria-hidden="true"
-          focusable="false"
-          size="32"
-        />
+        <UIcon class="icon" name="i-lucide-plus" aria-hidden="true" focusable="false" size="32" />
       </summary>
       <div
         :id="`acc-panel-${name}-${idx}`"
@@ -32,7 +21,10 @@ defineProps<{
         class="panel"
       >
         <div class="panel__inner">
-          <ContentRenderer :value="item?.meta.body || ''" class=" prose [&_p]:max-w-[60ch] [&_p]:text-balance" />
+          <ContentRenderer
+            :value="item?.meta.body || ''"
+            class="prose [&_p]:max-w-[60ch] [&_p]:text-balance"
+          />
         </div>
       </div>
     </details>
