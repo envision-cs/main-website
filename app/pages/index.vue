@@ -88,7 +88,7 @@ if ($posthog) {
     <company-stats />
     <card-group-a :cards="featuredProjectCards.sectionOne" />
     <cta-a
-      text="Building Without the Headaches"
+      title="Building Without the Headaches"
       body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
       flip
@@ -100,20 +100,15 @@ if ($posthog) {
     </cta-a>
     <card-group-a :cards="featuredProjectCards.sectionTwo" />
     <cta-a
-      text="Building Without the Headaches"
       body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
+      title="Building With Heart and Precision"
       image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
-      flip
-      content-position="bottom-left"
-    >
-      Building With <span>Heart</span> and <span>Precision</span>
-    </cta-a>
+    />
     <proven-process />
     <three-uniques />
-    <quote
-      :testimonials="testimonials"
+    <!--  <quote
+:testimonials="testimonials"
       section-title="Our clients who expect discipline, communication, and follow-through."
-      section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
-    />
+      section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes." />-->
   </div>
 </template>

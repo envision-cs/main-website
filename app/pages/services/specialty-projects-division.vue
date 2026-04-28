@@ -97,8 +97,8 @@ definePageMeta({
     <cta-a
       body="Our approach is structured and flexible, designed to keep projects moving efficiently without unnecessary delays."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0400.jpg"
+      title="How It Works"
     >
-      How It <span>Works</span>
       <template #body>
         <ul class="service-list">
           <li>

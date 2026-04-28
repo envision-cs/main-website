@@ -3,6 +3,8 @@ defineProps<{
   image?: string;
   imageAlt?: string;
   body?: string;
+  cta?: string;
+  ctaTo?: string;
 }>();
 </script>
 
@@ -14,21 +16,27 @@ defineProps<{
     role="region"
   >
     <div class="header my-auto">
+      <app-typography variant="heading-sm" tag="h1">
+        <slot name="eyebrow" />
+      </app-typography>
+
       <app-typography
         id="banner-title"
-        tag="h1"
+        tag="h2"
         variant="heading-huge"
         class="max-w-full md:max-w-[60vw] text-balance"
       >
         <slot />
       </app-typography>
 
-      <app-typography id="banner-subtitle" tag="p" variant="heading-md">
-        <slot name="title" />
+      <app-typography id="banner-body" tag="p" variant="text-xl" class="text">
+        <slot name="body" />
       </app-typography>
-      <app-typography id="banner-body" tag="p" variant="text-md" class="text">
-        {{ body }}
-      </app-typography>
+      <div>
+        <my-button :to="ctaTo">
+          {{ cta }}
+        </my-button>
+      </div>
     </div>
 
     <div class="content site-grid" />

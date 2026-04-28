@@ -1,4 +1,5 @@
-<script setup lang="ts">import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+<script setup lang="ts">
+import { parseMarkdown } from "@nuxtjs/mdc/runtime";
 
 const route = useRoute();
 
@@ -16,18 +17,17 @@ const { data } = await useAsyncData(
 
 const serviceData = computed(() => data.value);
 const content = computedAsync(async () => {
-  if (!serviceData.value?.description)
-    return null;
+  if (!serviceData.value?.description) return null;
   return parseMarkdown(serviceData.value.description);
 }, null);
 
 definePageMeta({
-  layout: 'layout-a',
+  layout: "layout-a",
 });
 
 useSeoMeta(() => ({
-  title: serviceData.value?.title || 'Service',
-  description: serviceData.value?.description || 'Service Description',
+  title: serviceData.value?.title || "Service",
+  description: serviceData.value?.description || "Service Description",
 }));
 </script>
 

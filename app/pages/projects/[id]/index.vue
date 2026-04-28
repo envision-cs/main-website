@@ -46,10 +46,13 @@ definePageMeta({
 <template>
   <layout-a>
     <template #header-slot>
-      <app-banner-b class="header" :image="bannerImage" :body="bannerBody">
+      <banner-b class="header" :image="bannerImage" :body="bannerBody">
         <template #title> Projects </template>
         {{ activeCategory?.name || "All" }}
-      </app-banner-b>
+        <template #body>
+          {{ activeCategory?.description }}
+        </template>
+      </banner-b>
     </template>
     <template #main-slot>
       <div class="projects">

@@ -109,9 +109,9 @@ useSeoMeta({
 
 <template>
   <div>
-    <app-banner-b :image="page?.main_image">
+    <banner-b :image="page?.main_image">
       {{ page?.title }}
-    </app-banner-b>
+    </banner-b>
     <app-section-a v-if="page" no-padding class="grid grid-cols-1 min-[800px]:grid-cols-2">
       <template #header>
         <article>

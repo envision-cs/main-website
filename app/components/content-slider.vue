@@ -129,6 +129,7 @@ section {
   grid-template-columns: subgrid;
   gap: calc(var(--spacing) * 8);
   position: relative;
+  overflow: hidden;
 }
 
 .scroller {

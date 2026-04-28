@@ -8,16 +8,33 @@ const categories = computed(() =>
   services.value
     .filter((service) => Boolean(service?.title))
     .map((service) => ({
+      headline: service.headline,
+      description: service.description,
       title: service.title,
       slug: service.slug,
       image: service.image,
+      cta: service.cta,
+      link: service.link,
     })),
 );
 
-const activeCategory = computed<{ title: string; slug: string; image?: string }>(() => {
+const activeCategory = computed<{
+  title: string;
+  slug: string;
+  image?: string;
+  headline: string;
+  description: string;
+  cta: string;
+  link: string;
+}>(() => {
   return (
     categories.value.find((category) => category.slug === currentServiceSlug.value) ?? {
-      title: "All Services",
+      headline: "Our team is ready for Whatever you need",
+      description:
+        "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.",
+      title: "Envision Services",
+      cta: "Lets get to work",
+      link: "/contact",
       slug: "all",
       image: "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134",
     }
@@ -29,10 +46,21 @@ const activeCategory = computed<{ title: string; slug: string; image?: string }>
   <div>
     <app-header />
     <div class="header">
-      <app-banner-b :image="activeCategory?.image">
-        <template #title> Envision Services </template>
-        {{ activeCategory.title }}
-      </app-banner-b>
+      <banner-b
+        :image="activeCategory?.image"
+        :cta="activeCategory.cta"
+        :cta-to="activeCategory.link"
+      >
+        <template #eyebrow>
+          {{ activeCategory.title }}
+        </template>
+
+        {{ activeCategory.headline }}
+
+        <template #body>
+          {{ activeCategory.description }}
+        </template>
+      </banner-b>
     </div>
     <main>
       <slot />

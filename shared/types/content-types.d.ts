@@ -134,6 +134,10 @@ export type Service = {
   image?: string | Photo;
   meta?: unknown;
   content?: unknown;
+  headline?: string;
+  cta?: string;
+  link?: string;
+  order?: number;
 };
 
 export type APIServices = APICollectionResponse<Service>;

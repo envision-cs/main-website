@@ -28,10 +28,10 @@ definePageMeta({
 <template>
   <layout-a>
     <template #header-slot>
-      <app-banner-b class="header" :image="bannerImage" :body="bannerBody">
+      <banner-b class="header" :image="bannerImage" :body="bannerBody">
         <template #title> Projects </template>
         Beck/Envision
-      </app-banner-b>
+      </banner-b>
     </template>
     <template #main-slot>
       <div class="projects">

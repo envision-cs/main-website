@@ -15,7 +15,7 @@ interface ProcessSliderSlide {
   points?: ProcessSliderPoint[];
 }
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     title: string;
     body: string;
@@ -121,7 +121,6 @@ function resolveTone(tone?: string) {
 <style scoped>
 .process-slider {
   --process-slider-tone: var(--color-envision-blue-600);
-  --process-slider-slide-height: 20rem;
   --process-slider-slide-size: 18.75rem;
 
   display: grid;
