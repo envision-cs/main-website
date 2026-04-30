@@ -45,14 +45,15 @@ defineProps<{
 }
 
 .section-header {
-  color: #fff;
   margin: calc(var(--spacing) * 4);
-  max-width: 60ch;
+  max-width: 80ch;
 }
 
-.eyebrow,
-.body {
-  color: #fff;
+.eyebrow {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 6%;
+  color: var(--color-envision-blue-500);
   line-height: 1.5;
 }
 
@@ -62,7 +63,7 @@ defineProps<{
 }
 
 .body {
-  color: #fff;
+  color: var(--text-color-dimmed);
   text-wrap: balance;
 }
 

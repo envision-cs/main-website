@@ -34,7 +34,6 @@ defineProps<{
 
 <style scoped>
 section {
-  max-width: 1800px;
   margin-inline: auto;
   display: grid;
   grid-column: 1 / -1;
@@ -51,7 +50,6 @@ section {
 .content {
   z-index: 1;
   height: 100%;
-  color: #fff;
   padding-block: calc(var(--spacing) * 12);
   display: flex;
   align-items: center;
@@ -68,13 +66,15 @@ section {
   overflow: hidden;
   width: 100%;
   min-height: 500px;
-  max-height: 800px;
+  max-height: 300px;
   object-fit: cover;
 
   @media (min-width: 700px) {
+    max-height: 600px;
   }
 
   @media (min-width: 1024px) {
+    max-height: 800px;
   }
 
   img {

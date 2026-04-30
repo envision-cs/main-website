@@ -140,8 +140,8 @@ html:has(dialog[open]) {
 }
 
 body {
-  background-color: var(--color-envision-gray-900);
-  color: oklch(1 0 0);
+  background-color: var(--color-envision-gray-100);
+  color: var(--color-envision-gray-900);
 
   @media (min-width: 768px) {
   }

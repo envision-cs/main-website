@@ -28,7 +28,6 @@ defineProps<{
 section {
   display: grid;
   max-width: 1800px;
-  margin-inline: auto;
   grid-column: 1 / -1;
   grid-template-columns: 1fr;
   margin-block: calc(var(--spacing) * 12);

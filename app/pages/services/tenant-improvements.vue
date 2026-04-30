@@ -109,8 +109,6 @@ const tenantSectors = [
 
 <style scoped>
 .tenant-improvement {
-  background-color: var(--color-envision-gray-900);
-  color: var(--color-white);
 }
 
 .tenant-section-tag {

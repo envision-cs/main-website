@@ -58,15 +58,11 @@ section {
   display: grid;
   grid-column: 1/-1;
 
-  @container (inline-size < 25ch) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  @container (inline-size > calc(25ch * 2)) {
+  @container (width > calc(25ch * 2)) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @container (inline-size > calc(25ch * 4)) {
+  @container (width > calc(25ch * 4)) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }
