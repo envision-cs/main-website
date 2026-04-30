@@ -187,3 +187,12 @@ body {
     }
   }
 }
+
+.section {
+  padding-block: calc(var(--spacing) * 8);
+  padding-inline: calc(var(--spacing) * 0);
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  gap: 0;
+}

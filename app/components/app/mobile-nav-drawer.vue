@@ -465,7 +465,7 @@ function onDrawerCloseAutoFocus(event: Event) {
   color: color-mix(in oklch, var(--color-envision-green-600) 58%, white);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1100px) {
   .mobile-trigger,
   .mobile-overlay,
   .mobile-content {

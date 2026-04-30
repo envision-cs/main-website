@@ -6,290 +6,104 @@ useSeoMeta({
   description:
     "Tenant improvement construction for active offices, healthcare facilities, faith-based spaces, education facilities, hospitality, and retail environments.",
 });
+
+const operations = [
+  {
+    id: 1,
+    title: "Phased construction sequencing",
+    description:
+      "Work is planned around your schedule — not ours. We sequence around your peak hours, events, and operational needs from day one.",
+  },
+  {
+    id: 2,
+    title: "Negative air and dust containment",
+    description:
+      "In sensitive environments — healthcare, hospitality, occupied offices — we implement full dust barriers and negative air pressure where required.",
+  },
+  {
+    id: 3,
+    title: "After-hours and weekend work",
+    description:
+      "When operations can't pause, we work around them. After-hours and weekend scheduling is standard practice, not an exception.",
+  },
+  {
+    id: 4,
+    title: "Daily communication",
+    description:
+      "Every day you know exactly what's happening — access points, noise windows, site conditions, and what to expect the next day. No surprises.",
+  },
+];
+
+const tenantSectors = [
+  {
+    id: 1,
+    label: "Corporate offices",
+    icon: "i-lucide-briefcase-business",
+  },
+  {
+    id: 2,
+    label: "Healthcare facilities",
+    icon: "i-lucide-activity",
+  },
+  {
+    id: 3,
+    label: "Faith-based spaces",
+    icon: "i-lucide-church",
+  },
+  {
+    id: 4,
+    label: "Educational facilities",
+    icon: "i-lucide-shield-check",
+  },
+  {
+    id: 5,
+    label: "Hospitality and retail",
+    icon: "i-lucide-heart",
+  },
+];
 </script>
 
 <template>
   <main class="tenant-improvement">
-    <section class="tenant-hero" aria-labelledby="tenant-hero-title">
-      <NuxtImg
-        src="/TPA_ASC_Restrooms_Hero.jpg"
-        alt="Completed tenant improvement restroom interior"
-        class="tenant-hero__image"
-        fit="cover"
-        format="webp"
-        sizes="100vw"
-        width="1920"
-        height="1080"
-        preload
-      />
-      <div class="tenant-hero__overlay" aria-hidden="true" />
+    <cta-a
+      eyebrow="Built Around You"
+      title="Not every contractor can work in a live environment. We've been doing it for over a decade."
+      body=""
+      image="/florida-aquarium-restroom-renovation-03.jpg"
+    >
+      <template #body>
+        <app-typography>
+          Envision has delivered tenant improvements across active campuses, occupied offices,
+          operating healthcare facilities, and live hospitality environments. We understand the
+          nuances of working in your space while you are still using it.
+        </app-typography>
+        <app-typography>
+          The standard is not just completing the scope. It is protecting your people, your guests,
+          and your operations throughout every phase of construction while delivering the space you
+          envisioned.
+        </app-typography>
+      </template>
+    </cta-a>
 
-      <div class="tenant-hero__content">
-        <app-typography tag="p" variant="eyebrow-md" class="tenant-section-tag">
-          Tenant Improvements
-        </app-typography>
-        <app-typography
-          id="tenant-hero-title"
-          tag="h1"
-          variant="heading-huge"
-          class="tenant-hero__title"
-        >
-          Your operations continue. <span>Your space transforms.</span>
-        </app-typography>
-        <app-typography tag="p" variant="text-xl" class="tenant-hero__body">
-          When we complete a tenant improvement, we are walking into your home. We treat it that
-          way, from the first conversation to the final walkthrough.
-        </app-typography>
-        <app-button to="/contact" icon="i-lucide-arrow-right">Tell us about your space</app-button>
-      </div>
-    </section>
+    <section-b
+      eyebrow="Active operations protection"
+      title="How we keep your world running while we build."
+      body=""
+    >
+      <template #body> Every TI scope is planned around your schedule — not ours. </template>
+      <list-a :items="operations" />
+    </section-b>
 
-    <section class="tenant-split tenant-split--light" aria-labelledby="tenant-respect-title">
-      <div class="tenant-split__copy">
-        <app-typography tag="p" variant="eyebrow-md" class="tenant-section-tag">
-          Built Around You
-        </app-typography>
-        <app-typography id="tenant-respect-title" tag="h2" variant="heading-lg">
-          Not every contractor can work in a live environment. We've been doing it for over a
-          decade.
-        </app-typography>
-        <div class="tenant-copy-stack">
-          <app-typography tag="p" variant="text-lg">
-            Envision has delivered tenant improvements across active campuses, occupied offices,
-            operating healthcare facilities, and live hospitality environments. We understand the
-            nuances of working in your space while you are still using it.
-          </app-typography>
-          <app-typography tag="p" variant="text-lg">
-            The standard is not just completing the scope. It is protecting your people, your
-            guests, and your operations throughout every phase of construction while delivering the
-            space you envisioned.
-          </app-typography>
-        </div>
-      </div>
-
-      <figure class="tenant-split__media">
-        <NuxtImg
-          src="/MaternityBathroom_Vanity.jpg"
-          alt="Finished tenant improvement interior with updated fixtures and finishes"
-          fit="cover"
-          format="webp"
-          sizes="sm:100vw md:42vw"
-          width="900"
-          height="1200"
-          loading="lazy"
-        />
-      </figure>
-    </section>
-
-    <section class="tenant-operations" aria-labelledby="tenant-operations-title">
-      <div class="tenant-section-heading">
-        <app-typography tag="p" variant="eyebrow-md" class="tenant-section-tag">
-          Active Operations Protection
-        </app-typography>
-        <app-typography id="tenant-operations-title" tag="h2" variant="heading-lg">
-          How we keep your world running while we build.
-        </app-typography>
-        <app-typography tag="p" variant="text-lg" class="tenant-section-heading__body">
-          Every tenant improvement scope is planned around your schedule, not ours.
-        </app-typography>
-      </div>
-
-      <div class="tenant-operations__grid">
-        <article class="tenant-operations__item">
-          <app-typography tag="h3" variant="heading-sm" class="tenant-operations__title">
-            Phased Construction Sequencing
-          </app-typography>
-          <app-typography tag="p" variant="text-md" class="tenant-operations__body">
-            Work is planned around your schedule, not ours. We sequence around your peak hours,
-            events, and operational needs from day one.
-          </app-typography>
-        </article>
-        <article class="tenant-operations__item">
-          <app-typography tag="h3" variant="heading-sm" class="tenant-operations__title">
-            Negative Air And Dust Containment
-          </app-typography>
-          <app-typography tag="p" variant="text-md" class="tenant-operations__body">
-            In sensitive environments like healthcare, hospitality, and occupied offices, we
-            implement full dust barriers and negative air pressure where required.
-          </app-typography>
-        </article>
-        <article class="tenant-operations__item">
-          <app-typography tag="h3" variant="heading-sm" class="tenant-operations__title">
-            After-Hours And Weekend Work
-          </app-typography>
-          <app-typography tag="p" variant="text-md" class="tenant-operations__body">
-            When operations cannot pause, we work around them. After-hours and weekend scheduling is
-            standard practice, not an exception.
-          </app-typography>
-        </article>
-        <article class="tenant-operations__item">
-          <app-typography tag="h3" variant="heading-sm" class="tenant-operations__title">
-            Daily Communication
-          </app-typography>
-          <app-typography tag="p" variant="text-md" class="tenant-operations__body">
-            Every day you know what is happening: access points, noise windows, site conditions, and
-            what to expect next.
-          </app-typography>
-        </article>
-      </div>
-    </section>
-
-    <section class="tenant-sectors" aria-labelledby="tenant-sectors-title">
-      <div class="tenant-section-heading">
-        <app-typography tag="p" variant="eyebrow-md" class="tenant-section-tag">
-          Where We Work
-        </app-typography>
-        <app-typography id="tenant-sectors-title" tag="h2" variant="heading-lg">
-          Environments we know well.
-        </app-typography>
-        <app-typography tag="p" variant="text-lg" class="tenant-sectors__sub">
-          Each one requires a different approach. We've built in all of them.
-        </app-typography>
-      </div>
-
-      <ul class="tenant-sectors__grid" role="list">
-        <li class="tenant-sectors__item">
-          <span class="tenant-sectors__icon">
-            <UIcon name="i-lucide-briefcase-business" aria-hidden="true" />
-          </span>
-          <app-typography tag="p" variant="text-md" class="tenant-sectors__label">
-            Corporate offices
-          </app-typography>
-        </li>
-        <li class="tenant-sectors__item">
-          <span class="tenant-sectors__icon">
-            <UIcon name="i-lucide-activity" aria-hidden="true" />
-          </span>
-          <app-typography tag="p" variant="text-md" class="tenant-sectors__label">
-            Healthcare facilities
-          </app-typography>
-        </li>
-        <li class="tenant-sectors__item">
-          <span class="tenant-sectors__icon">
-            <UIcon name="i-lucide-church" aria-hidden="true" />
-          </span>
-          <app-typography tag="p" variant="text-md" class="tenant-sectors__label">
-            Faith-based spaces
-          </app-typography>
-        </li>
-        <li class="tenant-sectors__item">
-          <span class="tenant-sectors__icon">
-            <UIcon name="i-lucide-shield-check" aria-hidden="true" />
-          </span>
-          <app-typography tag="p" variant="text-md" class="tenant-sectors__label">
-            Educational facilities
-          </app-typography>
-        </li>
-        <li class="tenant-sectors__item">
-          <span class="tenant-sectors__icon">
-            <UIcon name="i-lucide-heart" aria-hidden="true" />
-          </span>
-          <app-typography tag="p" variant="text-md" class="tenant-sectors__label">
-            Hospitality and retail
-          </app-typography>
+    <section-a eyebrow="Where We Work" title="Environments we know well." body="">
+      <template #body>
+        Each one requires a different approach. We've built in all of them.
+      </template>
+      <ul>
+        <li v-for="sector in tenantSectors" :key="sector.id">
+          <icon-card :icon="sector.icon" :label="sector.label" />
         </li>
       </ul>
-    </section>
-
-    <section class="tenant-split tenant-split--dark" aria-labelledby="tenant-scopes-title">
-      <div class="tenant-split__copy">
-        <app-typography tag="p" variant="eyebrow-md" class="tenant-section-tag">
-          Typical Scopes
-        </app-typography>
-        <app-typography id="tenant-scopes-title" tag="h2" variant="heading-lg">
-          What we deliver.
-        </app-typography>
-        <ul class="tenant-scopes" role="list">
-          <li>Corporate office build-outs and interior renovations</li>
-          <li>Healthcare facility renovations</li>
-          <li>Educational facility upgrades</li>
-          <li>Faith-based interior renovations</li>
-          <li>Hospitality and retail fit-outs</li>
-          <li>Shell-to-finish build-outs</li>
-        </ul>
-      </div>
-
-      <figure class="tenant-split__media">
-        <NuxtImg
-          src="/greater-tampa-realtors-03.jpg"
-          alt="Tenant improvement construction progress inside an active office"
-          fit="cover"
-          format="webp"
-          sizes="sm:100vw md:42vw"
-          width="900"
-          height="1000"
-          loading="lazy"
-        />
-      </figure>
-    </section>
-
-    <section class="tenant-proof" aria-labelledby="tenant-proof-title">
-      <div class="tenant-proof__copy">
-        <app-typography tag="p" variant="eyebrow-md" class="tenant-section-tag">
-          Featured Project
-        </app-typography>
-        <app-typography id="tenant-proof-title" tag="h2" variant="heading-lg">
-          Greater Tampa Realtors: 17,000 SF Interior Office Renovation
-        </app-typography>
-        <div class="tenant-copy-stack">
-          <app-typography tag="p" variant="text-lg">
-            GTAR's office had not been renovated in approximately 15 years. The scope came with a
-            fixed budget, scope uncertainties from the age of the building, and missing details in
-            the design documents, all while staff remained fully operational throughout
-            construction.
-          </app-typography>
-          <app-typography tag="p" variant="text-lg">
-            Envision worked collaboratively with the design team to find solutions that fit the
-            environment, budget, and schedule. We sourced comparable products, adjusted design where
-            needed, and set up hard barriers to protect staff safety and maintain air quality
-            throughout every phase.
-          </app-typography>
-        </div>
-        <ul class="tenant-proof__highlights" role="list">
-          <li>17,000 SF active office renovation with staff remaining operational</li>
-          <li>Hard barriers and air quality controls maintained throughout construction</li>
-          <li>
-            Budget constraints navigated through product substitution and design collaboration
-          </li>
-          <li>Delivered within the client's fixed budget without scope reduction</li>
-          <li>
-            Modernized layout and finishes the client was excited to share with their team and
-            clients
-          </li>
-        </ul>
-      </div>
-
-      <figure class="tenant-proof__media">
-        <NuxtImg
-          src="/greater-tampa-realtors-01.jpg"
-          alt="Completed Greater Tampa Realtors tenant improvement office renovation"
-          fit="cover"
-          format="webp"
-          sizes="sm:100vw md:42vw"
-          width="900"
-          height="1000"
-          loading="lazy"
-        />
-      </figure>
-    </section>
-
-    <section class="tenant-cta" aria-labelledby="tenant-cta-title">
-      <app-typography id="tenant-cta-title" tag="h2" variant="heading-lg">
-        Ready to transform your space?
-      </app-typography>
-      <app-typography tag="p" variant="text-lg" class="tenant-cta__body">
-        Tell us about your environment, your timeline, and what you are trying to achieve. We'll
-        tell you exactly how we would approach it.
-      </app-typography>
-      <app-button to="/contact" variant="outline" fill="secondary" icon="i-lucide-arrow-right">
-        Tell us about your space
-      </app-button>
-    </section>
-
-    <section class="tenant-promise" aria-label="Envision promise">
-      <span>Envision's promise</span>
-      <strong>Total Transparency. Or We Make It Right.</strong>
-    </section>
+    </section-a>
   </main>
 </template>
 

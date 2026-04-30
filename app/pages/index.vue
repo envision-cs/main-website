@@ -85,30 +85,24 @@ if ($posthog) {
 <template>
   <div class="mx-auto site-grid">
     <hero-banner />
+    <service-list />
+    <services-section />
     <company-stats />
     <card-group-a :cards="featuredProjectCards.sectionOne" />
     <cta-a
-      title="Building Without the Headaches"
-      body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
+      title="Listen. Plan. Execute. Cultivate."
+      body="Great projects start with the right partner"
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
       flip
       content-position="bottom-left"
       href="about"
       label="Learn more about us"
-    >
-      Building Without the <span>Headaches</span>
-    </cta-a>
-    <card-group-a :cards="featuredProjectCards.sectionTwo" />
-    <cta-a
-      body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
-      title="Building With Heart and Precision"
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
     />
-    <proven-process />
-    <three-uniques />
-    <!--  <quote
-:testimonials="testimonials"
+    <card-group-a :cards="featuredProjectCards.sectionTwo" />
+    <quote
+      :testimonials="testimonials"
       section-title="Our clients who expect discipline, communication, and follow-through."
-      section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes." />-->
+      section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
+    />
   </div>
 </template>

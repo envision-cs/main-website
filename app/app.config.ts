@@ -3,6 +3,10 @@ import type { NavigationMenuItem } from "@nuxt/ui";
 export default defineAppConfig({
   navigationMenuItems: [
     {
+      label: "Home",
+      to: "/",
+    },
+    {
       label: "Services",
       children: [
         {
@@ -49,6 +53,10 @@ export default defineAppConfig({
     {
       label: "About Us",
       to: "/about",
+    },
+    {
+      label: "Contact",
+      to: "/contact",
     },
   ] as NavigationMenuItem[],
   ui: {

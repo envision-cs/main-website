@@ -6,13 +6,18 @@ defineProps<{
   href?: string;
   label?: string;
   title: string;
+  eyebrow?: string;
 }>();
 </script>
 
 <template>
   <section>
     <div class="content">
-      <section-header-a :title="title" :body :button-to="href" :button-label="label" />
+      <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label">
+        <template #body>
+          <slot name="body" />
+        </template>
+      </section-header-a>
     </div>
     <NuxtImg
       :src="image"
@@ -29,6 +34,8 @@ defineProps<{
 
 <style scoped>
 section {
+  max-width: 1800px;
+  margin-inline: auto;
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: 1fr;
@@ -59,6 +66,10 @@ section {
 .image {
   height: unset;
   overflow: hidden;
+  width: 100%;
+  min-height: 500px;
+  max-height: 800px;
+  object-fit: cover;
 
   @media (min-width: 700px) {
   }
@@ -69,7 +80,7 @@ section {
   img {
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    max-inline-size: 100%;
   }
 }
 </style>

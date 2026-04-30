@@ -19,6 +19,8 @@ defineProps<{
       {{ title }}
     </app-typography>
 
+    <slot name="body" />
+
     <app-typography v-if="body" tag="p" variant="text-lg" class="body">
       {{ body }}
     </app-typography>

@@ -38,12 +38,11 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
       <div class="hero-layout">
         <div class="hero-frame">
           <app-typography id="hero-title" tag="h2" variant="heading-huge" bold class="hero-title">
-            Complex Projects. Simple Accountability
+            {{ hero.title }}
           </app-typography>
 
           <app-typography id="hero-summary" tag="p" variant="text-xl" class="hero-summary">
-            Local responsiveness. National-level expertise. Zero guesswork on your timeline or
-            budget.
+            {{ hero.subtitle }}
           </app-typography>
 
           <div class="hero-actions">

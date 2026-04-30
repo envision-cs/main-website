@@ -77,6 +77,12 @@ function toggleDesktopMenu(menu: "services" | "projects") {
         aria-label="Primary"
       >
         <NavigationMenuList class="desktop-nav-list NavigationMenuList">
+          <NavigationMenuItem>
+            <NavigationMenuLink as-child>
+              <NuxtLink class="NavigationMenuLink desktop-inline-nav-link" to="/"> Home </NuxtLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
           <NavigationMenuItem value="services">
             <NavigationMenuTrigger as-child>
               <button
@@ -218,13 +224,20 @@ function toggleDesktopMenu(menu: "services" | "projects") {
               </NuxtLink>
             </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink as-child>
+              <NuxtLink class="NavigationMenuLink desktop-inline-nav-link" to="/contact">
+                Contact
+              </NuxtLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
         <div class="ViewportPosition">
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
 
         <my-button to="/contact" size="sm" variant="secondary" class="header-cta--mobile-hidden">
-          Contact
+          Trade Partner Program
         </my-button>
       </NavigationMenuRoot>
 
@@ -310,7 +323,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   display: none !important;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1100px) {
   .header-cta.header-cta--mobile-hidden {
     display: block !important;
   }
