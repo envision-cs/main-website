@@ -3,9 +3,14 @@
 <template>
   <div class="mx-auto site-grid">
     <banner-b image="about/about03.jpg"> About Us </banner-b>
+    <big-quote
+      eyebrow="Our Mission"
+      title="Building Legacy & Serving Others Through Construction."
+    />
     <three-uniques />
     <app-parallax image="/about/about01.jpg" class="col-span-full" />
     <core-values />
+    <proven-process />
   </div>
 </template>
 

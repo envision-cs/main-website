@@ -36,10 +36,14 @@ const slides = [
 </script>
 
 <template>
-  <process-slider
-    title="Our Proven Process"
-    body="Our proven process brings structure and consistency to every project. We listen, plan, and execute to reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency."
-    background-image="https://ik.imagekit.io/pnixsw7lg/main-website/UT%20MPB%20-%20Pods%20-%20Angle.webp?updatedAt=1771410372115"
-    :slides="slides"
-  />
+  <section-a title="Our Proven Process" bgcolor="light">
+    <template #body>
+      <app-typography>
+        Our proven process brings structure and consistency to every project. We listen, plan, and
+        execute to reduce risk, maintain alignment, and deliver on time, on budget, and with
+        complete transparency.
+      </app-typography>
+    </template>
+    <list-a :items="slides" />
+  </section-a>
 </template>
