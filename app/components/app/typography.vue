@@ -42,7 +42,7 @@ const variantClasses = computed(() => {
 
 <style scoped>
 .base {
-  max-inline-size: 65ch;
+  max-inline-size: 80ch;
 }
 
 :deep(span) {

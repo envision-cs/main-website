@@ -4,11 +4,12 @@ withDefaults(
     body?: string;
     image?: string;
     flip?: boolean;
+    center?: boolean;
     href?: string;
     label?: string;
     title: string;
     eyebrow?: string;
-    bgcolor?: "light" | "dark";
+    bgcolor?: "light" | "dark" | "blue";
   }>(),
   {
     bgcolor: "light",
@@ -17,7 +18,15 @@ withDefaults(
 </script>
 
 <template>
-  <section :class="{ dark: bgcolor === 'dark', light: bgcolor === 'light', flip: flip }">
+  <section
+    :class="{
+      blue: bgcolor === 'blue',
+      dark: bgcolor === 'dark',
+      light: bgcolor === 'light',
+      flip: flip,
+      center: center,
+    }"
+  >
     <div class="content">
       <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label">
         <template #body>
@@ -25,16 +34,6 @@ withDefaults(
         </template>
       </section-header-a>
     </div>
-    <NuxtImg
-      :src="image"
-      provider="imagekit"
-      :modifiers="{ focus: 'bottom' }"
-      format="webp"
-      loading="lazy"
-      class="image"
-      fit="cover"
-      placeholder
-    />
   </section>
 </template>
 
@@ -49,6 +48,23 @@ withDefaults(
   --section-color: var(--color-white);
 }
 
+.blue {
+  --section-bg: var(--color-envision-blue-900);
+  --section-color: var(--color-white);
+}
+
+.center {
+  text-align: center;
+
+  :deep(.l-stack) {
+    align-items: center;
+  }
+
+  :deep(.action) {
+    margin-inline: auto;
+  }
+}
+
 section {
   margin-inline: auto;
   display: grid;
@@ -59,10 +75,6 @@ section {
   overflow: clip;
   background-color: var(--section-bg);
   color: var(--section-color);
-
-  @media (width > 120ch) {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 .flip {
@@ -75,6 +87,8 @@ section {
   padding-block: calc(var(--spacing) * 12);
   display: grid;
   align-items: center;
+  justify-content: center;
+  text-align: center;
   direction: ltr;
 
   @media (min-width: 700px) {

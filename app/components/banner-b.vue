@@ -32,7 +32,7 @@ defineProps<{
       <app-typography id="banner-body" tag="p" variant="text-xl" class="text">
         <slot name="body" />
       </app-typography>
-      <div>
+      <div v-if="ctaTo">
         <my-button :to="ctaTo">
           {{ cta }}
         </my-button>
@@ -63,7 +63,7 @@ defineProps<{
   position: relative;
   flex-direction: column;
   gap: calc(var(--spacing) * 4);
-  min-height: 350px;
+  height: 600px;
   grid-column: 1 / -1;
   padding-top: calc(var(--spacing) * 24);
   padding-inline: calc(var(--spacing) * 4);
@@ -73,7 +73,7 @@ defineProps<{
 
   @media (min-width: 700px) {
     padding-inline: calc(var(--spacing) * 8);
-    min-height: calc(var(--spacing) * 150);
+    height: 700px;
   }
 }
 
@@ -132,12 +132,12 @@ defineProps<{
   inset: 0;
   z-index: 1;
   background:
-    linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0) 43.16%,
-      rgba(0, 0, 0, 0.55) 64.7%,
-      rgba(0, 0, 0, 0.6) 81.1%
+      rgba(0, 0, 0, 0) 23.16%,
+      rgba(0, 0, 0, 0.1) 64.7%,
+      rgba(0, 0, 0, 0.2) 81.1%
     );
 }
 </style>

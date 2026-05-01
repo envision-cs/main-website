@@ -28,9 +28,6 @@ defineProps<{
     <div v-if="buttonTo" class="action">
       <my-button :to="buttonTo" variant="outline" size="md">
         {{ buttonLabel }}
-        <template #icon>
-          <UIcon name="i-lucide-circle-play" aria-hidden="true" />
-        </template>
       </my-button>
     </div>
   </div>

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 interface Item {
   id: number;
-  title: string;
-  description: string;
+  label: string;
 }
 defineProps<{
   items: Item[];
@@ -12,7 +11,7 @@ defineProps<{
 <template>
   <ul>
     <li v-for="(item, idx) in items" :key="item.id">
-      <card-a :item :idx />
+      <card-d :id="item.id" :label="item.label" :idx />
     </li>
   </ul>
 </template>
@@ -20,15 +19,12 @@ defineProps<{
 <style scoped>
 ul {
   display: grid;
+  gap: calc(var(--spacing) * 4);
   grid-template-columns: 1fr;
-  gap: calc(var(--spacing) * 8);
+  width: 100%;
 
-  @media (min-width: 700px) {
+  @media (min-width: 500px) {
     grid-template-columns: 1fr 1fr;
   }
-}
-
-li {
-  height: 100%;
 }
 </style>

@@ -8,9 +8,9 @@ const { services } = await useServicesList();
     title="Our services"
     body="Construction services shaped for complex schedules, demanding coordination, and institution-grade execution."
   >
-    <ul>
+    <ul v-if="services">
       <li v-for="(service, idx) in services" :key="service.id">
-        <card-b :idx="idx" :title="service.title" />
+        <chip-link :idx="idx" :title="service.title" :slug="service.link" />
       </li>
     </ul>
   </section-a>

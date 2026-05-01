@@ -5,7 +5,7 @@ const { data: contactData, error } = await useFetch("/api/contact");
 <template>
   <UPage class="mt-0">
     <div class="grid">
-      <app-banner-b image="contact.jpg" class="col-start-1 -col-end-1"> Contact Us </app-banner-b>
+      <banner-b image="contact.jpg" class="col-start-1 -col-end-1"> Contact Us </banner-b>
 
       <!-- Intro + Form   -->
       <app-section-a>

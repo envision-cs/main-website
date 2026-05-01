@@ -44,10 +44,13 @@ const slides = [
 </script>
 
 <template>
-  <process-slider
-    title="Our Core Values"
-    body="The way we lead projects is the way we lead people: with clarity, discipline, humility, and a commitment to leave every partnership stronger than we found it."
-    background-image="https://ik.imagekit.io/pnixsw7lg/main-website/UT%20MPB%20-%20Pods%20-%20Angle.webp?updatedAt=1771410372115"
-    :slides="slides"
-  />
+  <section-a title="Our Core Values" bgcolor="dark">
+    <template #body>
+      <app-typography>
+        The way we lead projects is the way we lead people: with clarity, discipline, humility, and
+        a commitment to leave every partnership stronger than we found it.
+      </app-typography>
+    </template>
+    <list-a :items="slides" />
+  </section-a>
 </template>

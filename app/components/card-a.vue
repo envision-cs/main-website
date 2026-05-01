@@ -27,11 +27,14 @@ defineProps<{
 .card {
   display: grid;
   gap: calc(var(--spacing) * 2);
-  border: 1px solid var(--color-envision-gray-700);
+  border-left: 4px solid var(--color-envision-blue-500);
   padding: calc(var(--spacing) * 4);
+  height: 100%;
+  align-content: start;
 }
 
 .number {
-  font-weight: semibold;
+  color: var(--color-envision-blue-500);
+  font-weight: bold;
 }
 </style>
