@@ -85,8 +85,6 @@ if ($posthog) {
 <template>
   <div class="mx-auto site-grid">
     <hero-banner />
-    <service-list />
-    <services-section />
     <company-stats />
     <card-group-a :cards="featuredProjectCards.sectionOne" />
     <cta-a

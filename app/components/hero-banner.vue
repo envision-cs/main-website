@@ -18,7 +18,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     aria-describedby="hero-summary"
     role="region"
   >
-    <div class="col-span-full row-span-full">
+    <div class="col-span-full row-span-full overflow-hidden">
       <NuxtImg
         v-if="hero.image?.url"
         :src="hero.image.url"
@@ -28,7 +28,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
         preload
         format="avif"
         loading="eager"
-        class="image"
+        class="image h-full w-full"
       />
     </div>
     <div class="hero-vignette" aria-hidden="true" />
@@ -54,6 +54,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
         <home-featured-projects-carousel class="hero-projects" />
       </div>
     </div>
+    <service-list class="services" />
   </section>
 </template>
 
@@ -62,37 +63,50 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   grid-column: 1/-1;
   display: grid;
   grid-template-columns: 1rem 1fr 1rem;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr auto auto;
   isolation: isolate;
-  height: 100dvh;
-  background:
-    linear-gradient(135deg, rgb(9 15 25 / 72%) 0%, rgb(9 15 25 / 14%) 45%, rgb(9 15 25 / 56%) 100%),
-    oklch(0.2 0.03 245);
+  min-height: 100dvh;
+  height: auto;
+
+  @media (min-width: 700px) {
+    min-height: 800px;
+    height: 100dvh;
+  }
+}
+
+.services {
+  grid-row: 4;
+  z-index: 10;
+  place-self: end;
 }
 
 .content {
   display: flex;
   grid-column: 1/-1;
-  grid-row: 1/-1;
+  grid-row: 1/4;
   width: 100%;
   z-index: 3;
   align-items: center;
+  margin-top: 4rem;
 
   padding: clamp(1.25rem, 2vw, 2.5rem);
 
   @media (min-width: 800px) {
+    margin-top: 0;
+    height: unset;
     padding: clamp(2rem, 4vw, 4.5rem);
   }
 }
 
 .hero-layout {
-  display: grid;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
   align-items: end;
   width: 100%;
   height: 100%;
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1200px) {
     grid-template-columns: minmax(0, 1.15fr) minmax(22rem, 38rem);
   }
 }
@@ -135,7 +149,6 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   display: grid;
   gap: clamp(0.75rem, 1vw, 1.2rem);
   align-self: end;
-  max-width: 44rem;
 
   @media (min-width: 799px) {
     align-self: center;
@@ -158,7 +171,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   letter-spacing: 1%;
   line-height: 0.92;
   animation: hero-reveal 1040ms cubic-bezier(0.19, 1, 0.22, 1) both;
-  max-width: 25ch;
+  max-width: 40ch !important;
 
   span {
     color: var(--color-envision-blue-500);

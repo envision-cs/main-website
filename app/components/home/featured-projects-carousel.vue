@@ -330,6 +330,15 @@ onUnmounted(() => {
 
 <style scoped>
 .featured-projects {
+  width: 100%;
+  align-self: end;
+  margin-left: 0;
+  color: #fff;
+
+  @media (min-width: 600px) {
+    max-width: 50ch;
+    margin-left: auto;
+  }
 }
 
 .featured-projects__shell {
@@ -340,17 +349,17 @@ onUnmounted(() => {
 
 .featured-projects__surface {
   position: relative;
-  background: rgb(255 255 255 / 0.98);
-  color: var(--color-envision-gray-700);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: var(--color-envision-gray-100);
   min-height: 100%;
   box-shadow: 0 18px 40px rgb(7 15 24 / 18%);
-  padding: calc(var(--spacing) * 2);
 }
 
 .featured-projects__eyebrow {
   margin: 0;
   margin-bottom: calc(var(--spacing) * 2);
-  color: var(--color-envision-gray-500);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.18em;
@@ -374,28 +383,25 @@ onUnmounted(() => {
   overflow: hidden;
   width: calc(var(--spacing) * 30);
   aspect-ratio: 1/1;
-  border-bottom: 1px solid rgb(24 54 87 / 0.12);
+  border-right: 1px solid rgb(255 255 255 / 0.25);
 }
 
 .featured-projects__media::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(180deg, rgb(6 15 26 / 0.08) 0%, rgb(6 15 26 / 0.26) 100%),
-    linear-gradient(135deg, rgb(18 76 149 / 0.12) 0%, rgb(28 127 72 / 0.1) 100%);
 }
 
 .featured-projects__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(0.14) contrast(1.02);
 }
 
 .featured-projects__content {
   display: flex;
   flex-direction: column;
+  margin-top: calc(var(--spacing));
   gap: calc(var(--spacing) * 2);
 }
 
@@ -403,7 +409,6 @@ onUnmounted(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
-  color: var(--color-envision-gray-500);
   font-size: 0.76rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -413,8 +418,8 @@ onUnmounted(() => {
 
 .featured-projects__title {
   margin: 0;
-  color: #0b1521;
   line-height: 1.05;
+  font-size: 1.25rem !important;
   text-wrap: balance;
 }
 
@@ -422,7 +427,6 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  color: var(--color-envision-gray-700);
   font-size: 1rem;
   line-height: 1;
 }
@@ -441,23 +445,22 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .featured-projects__count {
   margin: 0;
-  color: var(--color-envision-gray-400);
   font-size: 0.82rem;
   font-variant-numeric: tabular-nums;
 }
 
 .featured-projects__controls {
-  display: flex;
+  display: grid;
   flex-direction: column;
 }
 
 .featured-projects__control {
   width: 3.35rem;
-  min-height: 3.35rem;
   border: 1px solid rgb(255 255 255 / 0.3);
   border-left: 0;
   background: rgb(255 255 255 / 0.94);
@@ -491,7 +494,7 @@ onUnmounted(() => {
   /* Always full width — scaleX drives the visual fill from the left */
   width: 100%;
   height: 100%;
-  background: var(--color-envision-green-400);
+  background: var(--color-envision-blue-500);
   transform: scaleX(0);
   transform-origin: left center;
   /* transition is controlled inline via :style to allow instant resets */
@@ -519,7 +522,6 @@ onUnmounted(() => {
 
 @media (min-width: 740px) {
   .featured-projects__media {
-    border-right: 1px solid rgb(24 54 87 / 0.12);
     border-bottom: 0;
   }
 }
