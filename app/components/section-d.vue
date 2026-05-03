@@ -6,7 +6,7 @@ withDefaults(
     flip?: boolean;
     href?: string;
     label?: string;
-    title?: string;
+    title: string;
     eyebrow?: string;
     bgcolor?: "light" | "dark" | "blue";
   }>(),
@@ -56,20 +56,28 @@ withDefaults(
 
 section {
   display: grid;
+  margin-inline: auto;
   grid-column: 1 / -1;
-  place-content: center;
   grid-template-columns: 1fr;
   padding-block: calc(var(--spacing) * 12);
   gap: calc(var(--spacing) * 10);
-  align-items: center;
+  align-items: start;
   background-color: var(--section-bg);
   color: var(--section-color);
 }
 
 .content-wrapper {
+  display: grid;
+  gap: calc(var(--spacing) * 8);
   margin-inline: auto;
   width: 100%;
   max-width: 1300px;
+  grid-template-columns: 1fr;
+  align-items: center;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .header {
@@ -80,6 +88,7 @@ section {
 .content {
   position: relative;
   width: 100%;
+  margin: calc(var(--spacing) * 4);
   margin-inline: auto;
   padding-inline: calc(var(--spacing) * 4);
   container-type: inline-size;

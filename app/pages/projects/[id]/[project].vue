@@ -102,6 +102,28 @@ const { data: ast } = await useAsyncData(
   { watch: [page] },
 );
 
+const stats = computed(() => {
+  return [
+    {
+      id: 1,
+      title: page.value?.location,
+      description: "Loctaion",
+    },
+
+    {
+      id: 2,
+      title: page.value?.completed,
+      description: "Completed",
+    },
+
+    {
+      id: 3,
+      title: page.value?.area,
+      description: "Area",
+    },
+  ];
+});
+
 useSeoMeta({
   title,
 });
@@ -117,9 +139,7 @@ useSeoMeta({
         <article>
           <div class="">
             <div class="info">
-              <projects-info title="Location" :data="page.location" />
-              <projects-info v-if="page.area" title="Area" :data="page.area" />
-              <projects-info title="Completed" :data="formatMonthYear(page.completed)" />
+              <list-a :items="stats" />
             </div>
             <div v-if="ast?.body" class="max-w-[75ch]">
               <MDCRenderer :body="ast.body" :data="ast.data" />

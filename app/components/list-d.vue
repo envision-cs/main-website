@@ -18,8 +18,7 @@ defineProps<{
 
 <style scoped>
 ul {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   gap: calc(var(--spacing) * 4);
   grid-template-columns: 1fr;
   width: 100%;

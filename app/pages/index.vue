@@ -77,15 +77,27 @@ const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResp
   },
 );
 
+const stats = [
+  { id: 1, title: "2009", description: "Established" },
+  { id: 2, title: "$180M+", description: "Projects Delivery" },
+  { id: 2, title: "90%", description: "Repeat Clients" },
+];
+
 if ($posthog) {
   $posthog().capture("$pageview");
 }
 </script>
 
 <template>
-  <div class="mx-auto site-grid">
+  <main>
     <hero-banner />
-    <company-stats />
+    <section-d
+      bgcolor="blue"
+      eyebrow="Regional Coverage"
+      title="Greater Tampa Bay + Central Florida"
+    >
+      <list-e :items="stats" />
+    </section-d>
     <card-group-a :cards="featuredProjectCards.sectionOne" />
     <cta-a
       title="Listen. Plan. Execute. Cultivate."
@@ -102,5 +114,5 @@ if ($posthog) {
       section-title="Our clients who expect discipline, communication, and follow-through."
       section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
     />
-  </div>
+  </main>
 </template>

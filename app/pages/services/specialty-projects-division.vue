@@ -1,75 +1,79 @@
 <script setup lang="ts">
-const spdSlides = [
+const targetAudience = [
+  { id: 1, label: "Facilities directors" },
+  { id: 2, label: "Maintenance teams" },
+  { id: 3, label: "Operations managers" },
+  { id: 4, label: "Multi-site programs" },
+  { id: 5, label: "Annual contract holders" },
+  { id: 6, label: "Healthcare operators" },
+];
+
+const process = [
   {
     id: 1,
-    eyebrow: "01",
-    title: "New Project Request",
+    title: "Scope it",
     description:
-      "The New Project Request Form (NPRF) helps align scope, schedule, and next steps from day one. It is not required, but completing it early improves speed and clarity.",
-    tone: "--color-envision-blue-600",
-    points: [
-      {
-        icon: "i-lucide-scan-search",
-        text: "Clarifies project scope and goals.",
-      },
-      {
-        icon: "i-lucide-calendar-range",
-        text: "Improves schedule planning and sequencing.",
-      },
-      {
-        icon: "i-lucide-arrow-up-right",
-        text: "Speeds up handoff and mobilization.",
-      },
-    ],
+      "Fast response. We assess the scope, ask the right questions, and get you a clear picture of what the work involves before anything starts.",
   },
   {
     id: 2,
-    eyebrow: "02",
-    title: "Site Visit and Scope Development",
+    step: "02",
+    title: "Price it",
     description:
-      "We verify field conditions, measurements, and constraints. Key trade partners may join to support accurate pricing and execution planning.",
-    tone: "--color-envision-green-500",
+      "Transparent pricing with no surprises. You know the cost before we mobilize — and we stick to it.",
   },
   {
     id: 3,
-    eyebrow: "03",
-    title: "Preconstruction and Estimation",
+    title: "Execute it",
     description:
-      "We prepare a clear estimate and provide weekly updates. Typical turnaround is 7 business days from the site visit, or 14 to 16 days for more complex scopes.",
-    tone: "--color-envision-gray-700",
+      "Work begins on your schedule — including weekends, overnight, and 72-hour turnarounds. Our team shows up, works around the clock when needed, and delivers clean work ready for operations on Monday morning.",
   },
   {
     id: 4,
-    eyebrow: "04",
-    title: "Proposal Submission and Client Approval",
+    title: "Document it",
     description:
-      "We do not proceed until scope, budget, and expectations are reviewed and approved.",
-    tone: "--color-envision-blue-800",
+      "Every scope is fully documented in CompanyCam — photos before, during, and after. You always know exactly what was done.",
+  },
+];
+
+const serviceOfferings = [
+  {
+    id: 1,
+    title: "Annual small-project and permit-holder contracts",
+    description:
+      "One reliable partner for all your ongoing small-scope work — no re-bidding every job.",
   },
   {
-    id: 5,
-    eyebrow: "05",
-    title: "Contract Execution and Project Kickoff",
+    id: 2,
+    title: "High-volume maintenance and facilities work",
     description:
-      "Once approved, we finalize agreements, align resources, and confirm the project start plan.",
-    tone: "--color-envision-blue-600",
+      "Built to handle volume without sacrificing responsiveness or quality on any single scope.",
   },
   {
-    id: 6,
-    eyebrow: "06",
-    title: "Project Execution",
+    id: 3,
+    title: "Fast-turnaround renovations and repairs",
     description:
-      "Construction proceeds with transparent communication and consistent progress tracking.",
-    tone: "--color-envision-green-500",
+      "When something needs to move fast, SPD is structured to mobilize quickly without cutting corners.",
   },
   {
-    id: 7,
-    eyebrow: "07",
-    title: "Project Completion and Closeout",
+    id: 4,
+    title: "Multi-site program delivery",
     description:
-      "We complete final walkthrough and closeout documentation, including project photos, operations and maintenance notes, warranty details, and key project records.",
-    tone: "--color-envision-gray-700",
+      "Consistent execution across multiple locations — same standard, same documentation, every time.",
   },
+];
+
+const projectHighlights = [
+  { id: 1, label: "Active cancer center — patient safety and care never compromised" },
+  { id: 2, label: "72-hour weekend turnarounds — clinics cleaned and operational every Monday" },
+  { id: 3, label: "Negative air scrubbers used to control bacteria and dust levels throughout" },
+  { id: 4, label: "Daily owner reports maintained full transparency at every phase" },
+  { id: 5, label: "Multiple repeat scopes — Moffitt keeps calling us back" },
+];
+
+const stats = [
+  { id: 1, title: "13+", description: "USF projects completed" },
+  { id: 2, title: "$7.5M", description: "Contract ceiling" },
 ];
 
 definePageMeta({
@@ -78,106 +82,110 @@ definePageMeta({
 </script>
 
 <template>
-  <main class="site-grid">
+  <main>
+    <section-c bgcolor="blue" title="Built For">
+      <list-c :items="targetAudience" />
+    </section-c>
+
     <cta-a
-      body="Not every project is large-scale, but every project deserves the same precision, coordination, and care."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0570.jpg"
-      flip
+      eyebrow="What SPD is"
+      title="A dedicated division built for speed, volume, and your facilities team.
+"
+      body=""
+      image="/florida-aquarium-restroom-renovation-03.jpg"
     >
-      Specialty Projects <span>Division</span>
       <template #body>
-        <p>
-          Our <b>Specialty Projects Division (SPD)</b> is built for efficiency, delivering
-          high-quality results with a streamlined process that keeps work simple, predictable, and
-          accountable.
-        </p>
+        <app-typography>
+          SPD is not a side function of our larger business. It is a dedicated team with its own
+          process, its own tools, and its own performance standard — built specifically for
+          facilities directors and operations managers who need a contractor that responds fast,
+          communicates clearly, documents everything, and gets it done right the first time.
+        </app-typography>
+        <app-typography>
+          Most contractors treat small projects like an afterthought. SPD was built because they
+          shouldn't be.
+        </app-typography>
       </template>
     </cta-a>
 
+    <section-a bgcolor="dark" eyebrow="How SPD works" title="Fast. Documented. Done right." body="">
+      <template #body>
+        <app-typography>
+          Every SPD scope follows the same simple process — no matter the size.
+        </app-typography>
+      </template>
+      <list-a :items="process" />
+    </section-a>
+
+    <section-a
+      bgcolor="blue"
+      title="SPD. Documented on every scope."
+      body="Every SPD project is captured in CompanyCam — organized by project and date, visible to you instantly. Before, during, and after. No ambiguity on what was done, how it looked, and when it was completed"
+    />
+
+    <section-a
+      bgcolor="light"
+      eyebrow="What SPD is built for"
+      title="The work your facilities team needs done — now."
+      body="High volume, fast turnaround, zero compromises on quality."
+    >
+      <list-a :items="serviceOfferings" />
+    </section-a>
     <cta-a
-      body="Our approach is structured and flexible, designed to keep projects moving efficiently without unnecessary delays."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0400.jpg"
-      title="How It Works"
+      flip="true"
+      eyebrow="Featured Project"
+      title="Moffitt Cancer Center — Multiple Scopes"
+      body=""
+      image="/florida-aquarium-restroom-renovation-03.jpg"
+      bgcolor="light"
     >
       <template #body>
-        <ul class="service-list">
-          <li>
-            <UIcon name="i-lucide-messages-square" />
-            Clear communication so you always know what is next.
-          </li>
-          <li>
-            <UIcon name="i-lucide-timer-reset" />
-            Efficient execution from preconstruction through closeout.
-          </li>
-          <li>
-            <UIcon name="i-lucide-route" />
-            Proactive coordination to reduce delays and disruption.
+        <app-typography>
+          When the environment is a cancer center, the standard for how you work changes entirely.
+          Envision has completed multiple scopes at Moffitt — including domestic hot water upgrades
+          and clinic build-outs — working nights, weekends, and 72-hour turnarounds so patient care
+          was never interrupted.
+        </app-typography>
+        <app-typography>
+          For the clinic build-outs, smaller clinics were completed over a single weekend. Larger
+          clinics were delivered in 72-hour intervals across three weekends — with a multi-phased
+          schedule ensuring every clinic was fully operational when patients returned Monday
+          morning. Negative air scrubber machines controlled bacteria and dust levels throughout.
+          Daily reports to the owner kept all parties informed at every step.
+        </app-typography>
+        <ul class="list">
+          <li v-for="item in projectHighlights" :key="item.id">
+            <app-typography class="text-balance">
+              {{ item.label }}
+            </app-typography>
           </li>
         </ul>
-        <p class="mt-4">We move with urgency while protecting quality and attention to detail.</p>
       </template>
     </cta-a>
 
-    <cta-a
-      body="You can expect consistent communication, clear ownership, and practical updates from kickoff through completion."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A2696.jpg"
-      flip
+    <section-d
+      bgcolor="blue"
+      eyebrow="Also worth noting"
+      title="University of South Florida — Continuing Services"
+      body="Envision has served USF under a General Contracting Continuing Services contract since 2024 — approximately 13 projects and counting across active campus environments. Lab improvements, interior renovations, building upgrades, permit-driven scopes. Multiple projects running concurrently. This is what a reliable SPD partner looks like at volume."
     >
-      Communication <span>Expectations</span>
-      <template #body>
-        <ul class="service-list">
-          <li>
-            <UIcon name="i-lucide-user-round" />
-            A single point of contact for streamlined decisions.
-          </li>
-          <li>
-            <UIcon name="i-lucide-calendar-clock" />
-            Weekly updates during preconstruction.
-          </li>
-          <li>
-            <UIcon name="i-lucide-phone-call" />
-            Project updates by email, phone, or scheduled check-ins.
-          </li>
-        </ul>
-      </template>
-    </cta-a>
+      <list-e :items="stats" />
+    </section-d>
 
-    <process-slider
-      title="SPD Process"
-      body="Our SPD process is designed to reduce friction, create clarity, and keep your project moving."
-      background-image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A3328.jpg"
-      :slides="spdSlides"
+    <cta-c
+      title="Have a scope? Let's get it done."
+      center
+      body="Tell us what you need. We'll respond fast, price it clearly, and get to work on your schedule."
+      label="Get a scope started"
+      href="/contact"
+      bgcolor="dark"
     />
   </main>
 </template>
 
 <style scoped>
-.container {
-  grid-column: 1/-1;
-  grid-template-columns: subgrid;
-}
-
-.service-list {
-  margin-top: calc(var(--spacing) * 3);
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: calc(var(--spacing) * 2);
-}
-
-.service-list li {
-  display: flex;
-  gap: 0.65rem;
-  align-items: flex-start;
-}
-
-.service-list li :deep(svg) {
-  color: var(--ui-primary);
-  margin-top: 0.15rem;
-  flex-shrink: 0;
-}
-
-.service-list--subtle li :deep(svg) {
-  color: var(--ui-secondary);
+.list {
+  list-style: disc outside;
+  padding-left: 1.25rem;
 }
 </style>
