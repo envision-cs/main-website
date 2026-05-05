@@ -2,27 +2,24 @@
 defineProps<{
   item: Item;
   idx?: number;
-  small?: boolean;
 }>();
 </script>
 <template>
-  <div v-if="item.label" class="card">
+  <div class="card">
     <app-typography v-if="idx != null" variant="text-xl" class="number">
       0{{ idx + 1 }}
     </app-typography>
-    <app-typography
-      v-if="item.label"
-      variant="heading-lg"
-      class="font-semibold"
-      :class="{
-        small: small,
-      }"
-    >
+    <app-typography v-if="item.label" variant="heading-md" class="font-semibold">
       {{ item.label }}
     </app-typography>
     <app-typography v-if="item.description" variant="text-lg" class="text-balance">
       {{ item.description }}
     </app-typography>
+    <ul>
+      <li v-for="i in item.items" :key="i">
+        {{ i }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -30,19 +27,18 @@ defineProps<{
 .card {
   display: grid;
   gap: calc(var(--spacing) * 2);
-  border-left: 4px solid var(--color-envision-blue-500);
-  padding: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 6);
   height: 100%;
   align-content: start;
-
-  .small {
-    font-size: 1.5rem;
-    line-height: 1;
-  }
 }
 
 .number {
   color: var(--color-envision-blue-500);
   font-weight: bold;
+}
+
+ul {
+  list-style: disc outside;
+  padding-left: 1.25rem;
 }
 </style>

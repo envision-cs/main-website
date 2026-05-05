@@ -11,26 +11,26 @@ const targetAudience = [
 const process = [
   {
     id: 1,
-    title: "Scope it",
+    label: "Scope it",
     description:
       "Fast response. We assess the scope, ask the right questions, and get you a clear picture of what the work involves before anything starts.",
   },
   {
     id: 2,
     step: "02",
-    title: "Price it",
+    label: "Price it",
     description:
       "Transparent pricing with no surprises. You know the cost before we mobilize — and we stick to it.",
   },
   {
     id: 3,
-    title: "Execute it",
+    label: "Execute it",
     description:
       "Work begins on your schedule — including weekends, overnight, and 72-hour turnarounds. Our team shows up, works around the clock when needed, and delivers clean work ready for operations on Monday morning.",
   },
   {
     id: 4,
-    title: "Document it",
+    label: "Document it",
     description:
       "Every scope is fully documented in CompanyCam — photos before, during, and after. You always know exactly what was done.",
   },
@@ -39,25 +39,25 @@ const process = [
 const serviceOfferings = [
   {
     id: 1,
-    title: "Annual small-project and permit-holder contracts",
+    label: "Annual small-project and permit-holder contracts",
     description:
       "One reliable partner for all your ongoing small-scope work — no re-bidding every job.",
   },
   {
     id: 2,
-    title: "High-volume maintenance and facilities work",
+    label: "High-volume maintenance and facilities work",
     description:
       "Built to handle volume without sacrificing responsiveness or quality on any single scope.",
   },
   {
     id: 3,
-    title: "Fast-turnaround renovations and repairs",
+    label: "Fast-turnaround renovations and repairs",
     description:
       "When something needs to move fast, SPD is structured to mobilize quickly without cutting corners.",
   },
   {
     id: 4,
-    title: "Multi-site program delivery",
+    label: "Multi-site program delivery",
     description:
       "Consistent execution across multiple locations — same standard, same documentation, every time.",
   },
@@ -72,8 +72,8 @@ const projectHighlights = [
 ];
 
 const stats = [
-  { id: 1, title: "13+", description: "USF projects completed" },
-  { id: 2, title: "$7.5M", description: "Contract ceiling" },
+  { id: 1, label: "13+", description: "USF projects completed" },
+  { id: 2, label: "$7.5M", description: "Contract ceiling" },
 ];
 
 definePageMeta({
@@ -114,7 +114,7 @@ definePageMeta({
           Every SPD scope follows the same simple process — no matter the size.
         </app-typography>
       </template>
-      <list-a :items="process" />
+      <list-f :items="process" />
     </section-a>
 
     <section-a

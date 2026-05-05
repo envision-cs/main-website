@@ -1,8 +1,4 @@
 <script setup lang="ts">
-interface Item {
-  id: number;
-  label: string;
-}
 defineProps<{
   items: Item[];
 }>();
@@ -11,7 +7,7 @@ defineProps<{
 <template>
   <ul>
     <li v-for="(item, idx) in items" :key="item.id">
-      <card-c :id="item.id" :label="item.label" :idx />
+      <card-c :item :idx />
     </li>
   </ul>
 </template>

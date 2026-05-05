@@ -1,7 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  id: number;
-  label: string;
+  item: Item;
   idx: number;
 }>();
 </script>
@@ -10,7 +9,7 @@ defineProps<{
     <div class="number">
       {{ (idx + 1).toString().padStart(2, "0") }}
     </div>
-    {{ label }}
+    {{ item.label }}
   </div>
 </template>
 

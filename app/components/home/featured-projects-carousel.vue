@@ -334,8 +334,11 @@ onUnmounted(() => {
   align-self: end;
   margin-left: 0;
   color: #fff;
+  display: none;
+  place-self: end;
 
   @media (min-width: 600px) {
+    display: block;
     max-width: 50ch;
     margin-left: auto;
   }

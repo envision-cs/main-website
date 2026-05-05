@@ -1,18 +1,14 @@
 <script setup lang="ts">
-interface Item {
-  id: number;
-  title: string;
-  description: string;
-}
 defineProps<{
   items: Item[];
+  small?: boolean;
 }>();
 </script>
 
 <template>
   <ul>
     <li v-for="item in items" :key="item.id">
-      <card-e :id="item.id" :item="item" />
+      <card-e :small :item />
     </li>
   </ul>
 </template>

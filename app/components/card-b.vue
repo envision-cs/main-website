@@ -1,8 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  id: number;
-  title: string;
-  description: string;
+  item: Item;
   image?: string;
   idx?: number;
 }>();
@@ -17,10 +15,10 @@ defineProps<{
         0{{ idx + 1 }}
       </app-typography>
       <app-typography variant="heading-sm" class="font-semibold mb-2">
-        {{ title }}
+        {{ item.label }}
       </app-typography>
       <app-typography variant="text-sm" class="text-balance">
-        {{ description }}
+        {{ item.description }}
       </app-typography>
     </div>
   </div>

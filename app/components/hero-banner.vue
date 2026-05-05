@@ -86,10 +86,15 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   grid-row: 1/4;
   width: 100%;
   z-index: 3;
-  align-items: center;
+  align-items: end;
   margin-top: 4rem;
+  min-height: 85vh;
 
   padding: clamp(1.25rem, 2vw, 2.5rem);
+
+  @media (min-width: 600px) {
+    min-height: unset;
+  }
 
   @media (min-width: 800px) {
     margin-top: 0;
@@ -102,7 +107,6 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  align-items: end;
   width: 100%;
   height: 100%;
 

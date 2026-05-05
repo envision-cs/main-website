@@ -59,6 +59,7 @@ const page = computed(() => {
     slug: entry.slug,
     main_image: entry.mainImage?.url,
     location: entry.location,
+    sector: entry.sector.name,
     area: entry.area,
     completed: entry.completed,
     gallery,
@@ -136,10 +137,11 @@ useSeoMeta({
     </banner-b>
     <app-section-a v-if="page" no-padding class="grid grid-cols-1 min-[800px]:grid-cols-2">
       <template #header>
+        <section-header-a :eyebrow="page.sector" :title="page.title" />
         <article>
           <div class="">
             <div class="info">
-              <list-a :items="stats" />
+              <list-e small :items="stats" />
             </div>
             <div v-if="ast?.body" class="max-w-[75ch]">
               <MDCRenderer :body="ast.body" :data="ast.data" />

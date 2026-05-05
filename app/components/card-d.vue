@@ -1,14 +1,13 @@
 <script setup lang="ts">
 defineProps<{
-  id: number;
-  label: string;
+  item: Item;
   idx: number;
 }>();
 </script>
 <template>
   <div class="card">
     <app-typography>
-      {{ label }}
+      {{ item.label }}
     </app-typography>
   </div>
 </template>

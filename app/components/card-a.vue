@@ -1,9 +1,4 @@
 <script setup lang="ts">
-interface Item {
-  id: number;
-  title: string;
-  description: string;
-}
 defineProps<{
   item: Item;
   idx?: number;
@@ -15,7 +10,7 @@ defineProps<{
       0{{ idx + 1 }}
     </app-typography>
     <app-typography variant="heading-sm" class="font-semibold">
-      {{ item.title }}
+      {{ item.label }}
     </app-typography>
     <app-typography variant="text-lg" class="text-balance">
       {{ item.description }}

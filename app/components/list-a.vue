@@ -1,9 +1,4 @@
 <script setup lang="ts">
-interface Item {
-  id: number;
-  title: string;
-  description: string;
-}
 defineProps<{
   items: Item[];
 }>();
@@ -21,6 +16,7 @@ defineProps<{
 ul {
   display: grid;
   grid-template-columns: 1fr;
+  width: 100%;
   gap: calc(var(--spacing) * 8);
 
   @media (min-width: 700px) {

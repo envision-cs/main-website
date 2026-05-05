@@ -12,7 +12,7 @@ defineProps<{
     <div class="title">
       {{ title }}
     </div>
-    <div>Learn More</div>
+    <div class="learn">Learn More</div>
   </NuxtLink>
 </template>
 
@@ -24,13 +24,13 @@ defineProps<{
   color: #fff;
   gap: 0.4px;
   height: 100%;
-  font-size: 12px;
+  font-size: 1rem;
   position: relative;
 
   padding: calc(var(--spacing) * 4);
 
   @media (min-width: 1200px) {
-    font-size: 14px;
+    font-size: 1rem;
   }
 }
 
@@ -65,5 +65,10 @@ defineProps<{
   color: var(--color-envision-blue-500);
   font-weight: 600;
   font-size: 1.2em;
+}
+
+.learn {
+  font-size: 0.8em;
+  text-transform: uppercase;
 }
 </style>

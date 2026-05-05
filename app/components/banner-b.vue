@@ -134,10 +134,10 @@ defineProps<{
   background:
     linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
     linear-gradient(
-      180deg,
+      -90deg,
       rgba(0, 0, 0, 0) 23.16%,
-      rgba(0, 0, 0, 0.1) 64.7%,
-      rgba(0, 0, 0, 0.2) 81.1%
+      rgba(0, 0, 0, 0.2) 64.7%,
+      rgba(0, 0, 0, 0.4) 81.1%
     );
 }
 </style>

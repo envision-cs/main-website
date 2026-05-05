@@ -6,25 +6,25 @@ definePageMeta({
 const differentiators = [
   {
     id: 1,
-    title: "Target Value Design",
+    label: "Target Value Design",
     description:
       "We design to a budget — not the other way around. Trade partners provide cost input at every design phase so there are no surprises when construction documents are finalized.",
   },
   {
     id: 2,
-    title: "Constructability input early",
+    label: "Constructability input early",
     description:
       "Our team reviews design during schematic and design development — before decisions lock in and become expensive to reverse.",
   },
   {
     id: 3,
-    title: "Real-cost feedback in real time",
+    label: "Real-cost feedback in real time",
     description:
       "No pricing surprises at construction documents. We flag cost implications as design evolves — when there are still options to act, not after you're locked in.",
   },
   {
     id: 4,
-    title: "Single-source accountability",
+    label: "Single-source accountability",
     description:
       "One team. One contract. Full accountability from concept through closeout — no gaps, no finger-pointing, no redesign cycles.",
   },
@@ -91,12 +91,12 @@ const projectOutcomes = [
 
     <cta-a eyebrow="Typical scopes" title="What we're built for." image="/IMG_1915.jpg">
       <template #body>
-        <list-c :items="deliveryMethods" />
+        <list-d :items="deliveryMethods" />
       </template>
     </cta-a>
 
     <cta-a
-      flip="true"
+      flip
       eyebrow="Featured Project"
       title="Hillsborough County Public Schools — Liberty Middle School Play Court Cover"
       body=""
