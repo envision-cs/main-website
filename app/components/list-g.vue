@@ -19,8 +19,9 @@ ul {
   display: grid;
   grid-template-columns: 1fr;
   width: 100%;
+  gap: calc(var(--spacing) * 4);
 
-  @media (min-width: 400px) {
+  @media (min-width: 600px) {
     grid-template-columns: 1fr 1fr;
 
     li:nth-last-of-type(odd) {
@@ -32,7 +33,7 @@ ul {
     }
   }
 
-  @media (min-width: 880px) {
+  @media (min-width: 1200px) {
     grid-template-columns: repeat(4, 1fr);
 
     li:not(:first-of-type) {
@@ -47,5 +48,25 @@ ul {
 
 li {
   height: 100%;
+}
+
+li:nth-child(4n + 1) {
+  background-color: var(--color-envision-blue-400);
+  color: var(--color-gray-950);
+}
+
+li:nth-child(4n + 2) {
+  background-color: var(--color-envision-blue-900);
+  color: #fff;
+}
+
+li:nth-child(4n + 3) {
+  background-color: var(--color-envision-gray-900);
+  color: #fff;
+}
+
+li:nth-child(4n + 4) {
+  background-color: var(--color-envision-gray-300);
+  color: var(--color-gray-950);
 }
 </style>

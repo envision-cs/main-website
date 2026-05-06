@@ -2,74 +2,147 @@
 definePageMeta({
   layout: "layout-a",
 });
+
+const stats = [
+  { id: 1, label: "$180M+", description: "Largest project delivered" },
+  { id: 2, label: "16 yrs", description: "Tampa Bay experience" },
+  { id: 3, label: "90%", description: "Repeat client rate" },
+];
+
+const capabilities = [
+  { id: 1, label: "Model-based and real-time estimating" },
+  { id: 2, label: "3D quantity surveying and trending analysis" },
+  { id: 3, label: "Target Value Design workshops" },
+  { id: 4, label: "Revit, 3D coordination, and laser scanning" },
+  { id: 5, label: "Pull planning and Lean scheduling (P6 Primavera)" },
+  { id: 6, label: "Constructability review" },
+  { id: 7, label: "Supply chain and long-lead item monitoring" },
+  { id: 8, label: "Targeted trade partner bidding — 5 to 8 qualified firms per scope" },
+  { id: 9, label: "Weekly bid participation reports for full client visibility" },
+  { id: 10, label: "Feasibility analysis and early budget development" },
+  { id: 11, label: "Risk identification and mitigation planning" },
+  { id: 12, label: "Diverse and local trade partner engagement" },
+];
+
+const protections = [
+  {
+    id: 1,
+    label: "Your budget",
+    description:
+      "We design to a budget — not the other way around. Target Value Design and real-time estimating surface cost pressure while options are still open, not after you're locked in.",
+  },
+  {
+    id: 2,
+    label: "Your schedule",
+    description:
+      "Pull planning, P6 Primavera scheduling, and long-lead item identification protect your milestones before they're at risk — with weekly look-ahead meetings to keep every trade aligned.",
+  },
+  {
+    id: 3,
+    label: "Your design",
+    description:
+      "3D coordination, Revit modeling, and laser scanning reduce the risk of trade clashes and costly redesign — especially on projects with complex or custom fabricated scopes.",
+  },
+  {
+    id: 4,
+    label: "Your trade partners",
+    description:
+      "We identify 5 to 8 qualified local firms per trade, track bid participation weekly, and engage diverse partners early — so you get the right teams at the right price before the market moves.",
+  },
+];
+const projectHighlights = [
+  { id: 1, label: "Final construction cost: $3,230,866 against an initial estimate of $3,440,228" },
+  { id: 2, label: "$209,362 returned to the owner — without reducing a single line of scope" },
+  { id: 3, label: "Early material flagging prevented delays during construction" },
+  { id: 4, label: "Trade partners engaged at every design phase for real-time cost input" },
+  { id: 5, label: "Delivered on schedule within an active school zone" },
+];
 </script>
 
 <template>
-  <main class="site-grid">
+  <main>
+    <section-d
+      bgcolor="blue"
+      title="1 hr = 10 hrs"
+      body="One hour of preconstruction planning saves ten hours of construction. Early investment in planning is the most efficient spend on any project — and the one most often skipped."
+    >
+      <list-e :items="stats" />
+    </section-d>
     <cta-a
-      text="Building Without the Headaches"
-      body="Great projects begin with excellence in preconstruction. Our diligence in the feasibility and preconstruction process is what ultimately leads to a successful, timely, and cost effective project---because your budget and timeline is our top priority."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1988.jpg"
+      eyebrow="The problem with waiting"
+      title="Hard-bid selection feels safe. Until it isn't."
+      body=""
+      image="/florida-aquarium-restroom-renovation-03.jpg"
+      bgcolor="light"
+    >
+      <template #body>
+        <app-typography>
+          Hard-bid or low-price selection can feel like the safest path. But commercial construction
+          is a coordination-intensive process with real constraints — and uncertainty surfaces on
+          every project.
+        </app-typography>
+        <app-typography>
+          When decisions are driven primarily by price, important protections get deferred. Unknowns
+          that could have been surfaced in preconstruction become change orders, schedule slippage,
+          and forced trade-offs later — when options are limited and costs are high.
+        </app-typography>
+        <app-typography>
+          Envision offers preconstruction as a standalone engagement. We come in early, establish
+          cost and schedule realism, and build the alignment that protects your outcome before you
+          commit to full construction.
+        </app-typography>
+      </template>
+    </cta-a>
+
+    <section-a
+      bgcolor="dark"
+      eyebrow="What owners actually need"
+      title='"Owners do not just need a builder. They need certainty."'
+    >
+      <list-d :items="capabilities" />
+    </section-a>
+
+    <section-a
+      bgcolor="light"
+      eyebrow="What standalone preconstruction protects"
+      title="Certainty before you commit."
+      body="The decisions you make before groundbreaking determine whether your project succeeds."
+    >
+      <list-h :items="protections" />
+    </section-a>
+
+    <cta-a
       flip
+      eyebrow="Featured project"
+      title="Hillsborough County Public Schools — Liberty Middle School"
+      body=""
+      image="/florida-aquarium-restroom-renovation-03.jpg"
+      bgcolor="dark"
     >
-      Preconstruction <span>Approach</span>
+      <template #body>
+        <app-typography>
+          Target Value Design in action. From the start, Envision aligned with HCPS and the design
+          team on a target budget — with trade partners providing real-time cost input at every
+          design phase. When the proposed lighting package was flagged as a risk to both budget and
+          availability, Envision worked with the design team to reduce fixtures from 98 to 48 —
+          saving cost and eliminating a lead time problem before it became a construction issue.
+        </app-typography>
+        <ul class="list">
+          <li v-for="item in projectHighlights" :key="item.id">
+            <app-typography class="text-balance">
+              {{ item.label }}
+            </app-typography>
+          </li>
+        </ul>
+      </template>
     </cta-a>
-    <cta-a
-      text="Building Without the Headaches"
-      body="We believe that constant communication and collaboration is the key to success. Our preconstruction process has created an atmosphere where open, effective communication is our culture, allowing our cost-control methods to be exceptional."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A3328.jpg"
-    >
-      Open <span>Communication</span>
-    </cta-a>
-    <cta-a
-      text="Building Without the Headaches"
-      body="We use the design team’s building information model (BIM) weekly to get real-time quantities and design direction. This approach allows us to proactively manage the project budget in the design and preconstruction phases by utilizing “real-time estimating” feedback and input without compromising the project or important design Elements."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMAGE%2015%20(1).PNG"
-      flip
-    >
-      Model-Based and Real-Time <span>Estimating</span>
-    </cta-a>
-    <cta-a
-      text="Building Without the Headaches"
-      body="Envision’s preconstruction model utilizes the architect’s REVIT Model to capture 3D modeling surveying and identifies the project scope in greater detail prior to obtaining a formal deliverable. We produce real-time construction progress using Assemble software, allowing us to enhance our schedule of values and payment to our subcontractors."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_4100%20(2).jpg"
-    >
-      3D Quantity Surveying &<span>rending Analysis</span>
-    </cta-a>
-    <cta-a
-      text="Building Without the Headaches"
-      body="We treat our trade partners with the utmost respect, viewing them as trusted partners. Having built a strong trade partner database in the Tampa Bay Area, we ensure that cost estimates that are both reliable and as competitive as we can offer."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A5390%20(1).jpg"
-      flip
-    >
-      Trusted Partner <span>Database</span>
-    </cta-a>
-    <cta-a
-      text="Building Without the Headaches"
-      body="While the conventional design process involves estimating a design and redesigning if there are budget overruns, we instead help design to a budget using the target value design approach. This approach is an effective method of maximizing the program requirements of a building and adding value."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A5388.jpg"
-    >
-      Target Value <span>Design</span>
-    </cta-a>
-    <cta-a
-      text="Building Without the Headaches"
-      body="Leveraging our relationships with our trade partners and their suppliers, we develop supply chain management reports by studying and identifying heavy lead times and any material or labor increases organized per bid package. These studies allow us to remain in the know of the constantly evolving market we are facing within the construction industry."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/no%20beck%20logo%20on%20AJ's%20hat%202%20.png"
-      flip
-    >
-      Supply Chain <span>Management</span>
-    </cta-a>
-    <cta-a
-      text="Building Without the Headaches"
-      body="We go above and beyond in our due diligence period to identify issues early, alleviate potential budget and schedule surprises down the road. Our preconstruction, project management, and field teams collaborate to build the project schedule—identifying critical path activities, key milestones, and long-lead items in coordination with our trade partners."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg"
-    >
-      Enhanced Project <span>Schedule</span>
-    </cta-a>
-    <quote
-      quote="Strong endorsement of Envison. We were very pleased with the prodessionalism and quality of the work!"
-      name="Darryl Shaw"
-      title="Co-Owner, USL Super League"
+    <cta-c
+      title="The best projects start with the best conversations."
+      center
+      body="Engage Envision before you commit to full construction. We'll tell you exactly where your project stands — and what it will take to protect it."
+      label="Engage Us Early"
+      href="/contact"
+      bgcolor="blue"
     />
   </main>
 </template>

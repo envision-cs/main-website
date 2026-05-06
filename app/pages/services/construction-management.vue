@@ -86,10 +86,50 @@ const projectHighlights = [
   },
   { id: 5, label: "Delivered on schedule — Tampa Bay Sun FC's inaugural season started on time" },
 ];
+
+const commitments = [
+  {
+    id: 1,
+    label: "Your budget",
+    description:
+      "Target Value Design and real-time cost control keep your financials visible and decisions informed from day one.",
+  },
+  {
+    id: 2,
+    label: "Your schedule",
+    description:
+      "Proactive sequencing, long-lead identification, and early trade coordination protect your move-in date before it's at risk.",
+  },
+  {
+    id: 3,
+    label: "Your stakeholders",
+    description:
+      "Weekly updates and full Procore access mean everyone stays aligned — without you playing middleman.",
+  },
+  {
+    id: 4,
+    label: "Your outcome",
+    description:
+      "Every project is backed by our Total Transparency guarantee — clear communication and consistent follow-through, kickoff to closeout.",
+  },
+];
+
+const stats = [
+  { id: 1, label: "90%", description: "Repeat client rate — earned one project at a time" },
+  { id: 2, label: "$180M+", description: "Largest project delivered in Tampa Bay" },
+  { id: 3, label: "16 yrs", description: "Building Greater Tampa Bay" },
+];
 </script>
 
 <template>
   <main>
+    <section-d
+      bgcolor="blue"
+      eyebrow="Our track record"
+      title="A reputation built one project at a time"
+    >
+      <list-e :items="stats" />
+    </section-d>
     <section-a
       bgcolor="dark"
       eyebrow="What owners actually need"
@@ -106,6 +146,20 @@ const projectHighlights = [
     >
       <list-g :items="phases" />
     </section-a>
+
+    <cta-a
+      eyebrow="Featured Project"
+      title="Four things every owner deserves."
+      image="/florida-aquarium-restroom-renovation-03.jpg"
+      bgcolor="dark"
+      flip
+    >
+      <template #body>
+        On every project. No exceptions.
+        <list-a :items="commitments" />
+      </template>
+    </cta-a>
+
     <cta-a
       eyebrow="Featured Project"
       title="Tampa Bay USL Super League — Stadium Improvements at Blake High School"
@@ -134,6 +188,15 @@ const projectHighlights = [
         </ul>
       </template>
     </cta-a>
+    <cta-c
+      title="Total Transparency.
+Or We Make It Right."
+      center
+      body="Transparency is not a courtesy — it is a covenant. We do not believe in half-answers, delayed updates, or vague timelines. You deserve to know what is happening, what it means, and what comes next — at every stage. Because while not everything in construction is in our control — communication always is."
+      label="Start the conversation"
+      href="/contact"
+      bgcolor="blue"
+    />
   </main>
 </template>
 

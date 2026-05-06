@@ -236,7 +236,12 @@ function toggleDesktopMenu(menu: "services" | "projects") {
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
 
-        <my-button to="/contact" size="sm" variant="secondary" class="header-cta--mobile-hidden">
+        <my-button
+          to="/trade-partners"
+          size="sm"
+          variant="secondary"
+          class="header-cta--mobile-hidden"
+        >
           Trade Partner Program
         </my-button>
       </NavigationMenuRoot>

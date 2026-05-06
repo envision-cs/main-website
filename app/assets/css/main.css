@@ -196,3 +196,9 @@ body {
   grid-template-columns: subgrid;
   gap: 0;
 }
+
+.list {
+  list-style: disc outside;
+  padding-left: 1.25rem;
+  margin-top: 1rem;
+}

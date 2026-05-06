@@ -1,18 +1,12 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    stat: string;
-    description?: string;
-    color?: string;
-  }>(),
-  {
-    color: "--color-envision-blue-600",
-  },
-);
+defineProps<{
+  stat: string;
+  description: string;
+}>();
 </script>
 
 <template>
-  <div class="stat-card" :style="{ '--card-bg': `var(${color})` }">
+  <div class="stat-card">
     <p class="stat">
       {{ stat }}
     </p>

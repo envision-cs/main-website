@@ -1,8 +1,4 @@
 <script setup lang="ts">
-interface Item {
-  id: number;
-  label: string;
-}
 defineProps<{
   items: Item[];
 }>();
@@ -11,7 +7,7 @@ defineProps<{
 <template>
   <ul>
     <li v-for="(item, idx) in items" :key="item.id">
-      <chip-b :id="item.id" :label="item.label" :idx />
+      <card-h :item :idx />
     </li>
   </ul>
 </template>
@@ -19,16 +15,16 @@ defineProps<{
 <style scoped>
 ul {
   display: grid;
-  gap: calc(var(--spacing) * 4);
   grid-template-columns: 1fr;
   width: 100%;
+  gap: calc(var(--spacing) * 8);
 
-  @container (min-width: 500px) {
+  @media (min-width: 700px) {
     grid-template-columns: 1fr 1fr;
   }
+}
 
-  @container (min-width: 900px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+li {
+  height: 100%;
 }
 </style>

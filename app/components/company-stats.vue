@@ -1,30 +1,7 @@
 <script setup lang="ts">
-// {
-//   id: 1,
-//   title: "Greater Tampa Bay + Central Florida",
-//   description: "Regional Coverage",
-//   tone: "--color-envision-blue-800",
-// },
-const slides = [
-  {
-    id: 2,
-    title: "2009",
-    description: "Established",
-    tone: "--color-envision-blue-600",
-  },
-  {
-    id: 3,
-    title: "$180M+",
-    description: "Project Delivery",
-    tone: "--color-envision-green-500",
-  },
-  {
-    id: 4,
-    title: "90%",
-    description: "Repeat Clients",
-    tone: "--color-envision-gray-700",
-  },
-];
+defineProps<{
+  items: Item[];
+}>();
 </script>
 
 <template>
@@ -38,7 +15,7 @@ const slides = [
       <div class="stats-wrapper">
         <ul>
           <li v-for="(stat, idx) in slides" :key="idx">
-            <stats-card :stat="stat.title" :color="stat.tone" :description="stat.description" />
+            <stats-card :stat="stat.label" :color="stat.tone" :description="stat.description" />
           </li>
         </ul>
       </div>

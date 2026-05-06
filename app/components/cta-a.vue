@@ -21,7 +21,9 @@ withDefaults(
     <div class="content">
       <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label">
         <template #body>
-          <slot name="body" />
+          <div class="body">
+            <slot name="body" />
+          </div>
         </template>
       </section-header-a>
     </div>
@@ -54,7 +56,7 @@ section {
   display: grid;
   grid-column: 1 / -1;
   grid-template-columns: 1fr;
-  gap: 0;
+  gap: calc(var(--spacing) * 8);
   align-items: center;
   overflow: clip;
   background-color: var(--section-bg);
@@ -76,25 +78,20 @@ section {
   display: grid;
   align-items: center;
   direction: ltr;
+}
 
-  @media (min-width: 700px) {
-  }
-
-  @media (min-width: 1024px) {
-  }
+.body {
+  container-type: inline-size;
+  width: 100%;
 }
 
 .image {
   height: unset;
   overflow: hidden;
   width: 100%;
+  height: 100%;
   min-height: 500px;
-  max-height: 300px;
   object-fit: cover;
-
-  @media (min-width: 700px) {
-    max-height: 600px;
-  }
 
   @media (min-width: 1024px) {
     max-height: 800px;
