@@ -16,8 +16,8 @@ const projectsFeatureImage =
   "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122";
 const servicesDropdownDescription =
   "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.";
-const projectDropdownDescription =
-  "Institutional and commercial projects delivered with disciplined coordination and high-trust execution.";
+const projectsDropdownDescription =
+  "Selected work across commercial interiors, healthcare, sports, and complex active sites.";
 const { services: serviceDropdownItems } = await useServicesList();
 const { sectors: projectDropdownItems } = await useSectors();
 
@@ -102,43 +102,25 @@ function toggleDesktopMenu(menu: "services" | "projects") {
             >
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
-                  <NuxtLink
-                    class="services-feature-panel services-feature-panel--services"
+                  <app-navigation-services-feature-panel
                     data-test="services-feature-panel"
                     to="/services"
-                  >
-                    <img :src="servicesFeatureImage" alt="" class="services-feature-panel__image" />
-                    <div class="services-feature-panel__overlay" />
-                    <div class="services-feature-panel__grid" />
-                    <div class="services-feature-panel__content">
-                      <span class="services-feature-panel__eyebrow">Capabilities</span>
-                      <h2 class="services-feature-panel__title">Services</h2>
-                      <p class="services-feature-panel__copy">
-                        Construction services shaped for complex schedules, demanding coordination,
-                        and institution-grade execution.
-                      </p>
-                      <div class="services-feature-panel__rule" />
-                      <span class="services-feature-panel__link">view all services</span>
-                    </div>
-                  </NuxtLink>
+                    :image="servicesFeatureImage"
+                    eyebrow="Capabilities"
+                    title="Services"
+                    :copy="servicesDropdownDescription"
+                    link-label="view all services"
+                  />
 
                   <div class="services-grid" data-test="services-grid">
                     <NuxtLink
-                      v-for="(item, index) in serviceDropdownItems"
+                      v-for="(item, idx) in serviceDropdownItems"
                       :key="item.slug"
                       :to="item.to"
                       class="services-grid-item"
                       data-test="services-grid-item"
                     >
-                      <span class="services-grid-item__index">
-                        {{ String(index + 1).padStart(2, "0") }}
-                      </span>
-                      <h3 class="services-grid-item__title">
-                        {{ item.title }}
-                      </h3>
-                      <p class="services-grid-item__description">
-                        {{ item.description || servicesDropdownDescription }}
-                      </p>
+                      <card-f :idx :item="{ label: item.title, description: item.description }" />
                     </NuxtLink>
                   </div>
                 </div>
@@ -165,43 +147,26 @@ function toggleDesktopMenu(menu: "services" | "projects") {
             >
               <div class="mega-menu-shell">
                 <div class="mega-menu-grid">
-                  <NuxtLink
-                    class="services-feature-panel services-feature-panel--projects"
+                  <app-navigation-services-feature-panel
                     data-test="projects-feature-panel"
                     to="/projects"
-                  >
-                    <img :src="projectsFeatureImage" alt="" class="services-feature-panel__image" />
-                    <div class="services-feature-panel__overlay" />
-                    <div class="services-feature-panel__grid" />
-                    <div class="services-feature-panel__content">
-                      <span class="services-feature-panel__eyebrow">Selected Work</span>
-                      <h2 class="services-feature-panel__title">Projects</h2>
-                      <p class="services-feature-panel__copy">
-                        Selected work across commercial interiors, healthcare, sports, and complex
-                        active sites.
-                      </p>
-                      <div class="services-feature-panel__rule" />
-                      <span class="services-feature-panel__link">view all projects</span>
-                    </div>
-                  </NuxtLink>
+                    :image="projectsFeatureImage"
+                    eyebrow="Selected Work"
+                    title="Projects"
+                    :copy="projectsDropdownDescription"
+                    link-label="view all projects"
+                    tone="projects"
+                  />
 
                   <div class="services-grid" data-test="projects-grid">
                     <NuxtLink
-                      v-for="(item, index) in projectDropdownItems"
+                      v-for="(item, idx) in projectDropdownItems"
                       :key="item.slug"
                       :to="item.to"
                       class="services-grid-item"
                       data-test="projects-grid-item"
                     >
-                      <span class="services-grid-item__index">
-                        {{ String(index + 1).padStart(2, "0") }}
-                      </span>
-                      <h3 class="services-grid-item__title">
-                        {{ item.name }}
-                      </h3>
-                      <p class="services-grid-item__description">
-                        {{ projectDropdownDescription }}
-                      </p>
+                      <card-f :idx :item="{ label: item.name, description: item.description }" />
                     </NuxtLink>
                   </div>
                 </div>
@@ -538,129 +503,13 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   .mega-menu-grid {
     display: grid;
     grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.85fr);
-    min-height: 350px;
     margin: 0 auto;
-  }
-
-  .services-feature-panel {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-    min-height: 350px;
-    padding: clamp(1.5rem, 2vw, 2rem);
-    color: white;
-    text-decoration: none;
-    isolation: isolate;
-    background: var(--color-envision-blue-700);
-  }
-
-  .services-feature-panel--projects {
-    background: var(--color-envision-green-600);
-  }
-
-  .services-feature-panel__image,
-  .services-feature-panel__overlay,
-  .services-feature-panel__grid {
-    position: absolute;
-    inset: 0;
-  }
-
-  .services-feature-panel__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.72;
-    filter: grayscale(1) contrast(0.55);
-    z-index: -2;
-  }
-
-  .services-feature-panel__overlay {
-    background: var(--color-envision-blue-700);
-    mix-blend-mode: multiply;
-    z-index: -1;
-  }
-
-  .services-feature-panel--projects .services-feature-panel__overlay {
-    background: var(--color-envision-green-600);
-  }
-
-  .services-feature-panel__grid {
-    background:
-      linear-gradient(rgb(255 255 255 / 0.12) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.12) 1px, transparent 1px);
-    background-size: 3rem 3rem;
-    mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.2), transparent 85%);
-    z-index: -1;
-  }
-
-  .services-feature-panel__content {
-    display: grid;
-    gap: 0.9rem;
-    width: min(19rem, 100%);
-    align-content: end;
-  }
-
-  .services-feature-panel__eyebrow {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgb(255 255 255 / 0.74);
-  }
-
-  .services-feature-panel__title {
-    margin: 0;
-    font-size: clamp(3rem, 5vw, 4.2rem);
-    font-weight: 600;
-    line-height: 0.9;
-    letter-spacing: -0.045em;
-    text-transform: uppercase;
-  }
-
-  .services-feature-panel__copy {
-    margin: 0;
-    max-width: 16rem;
-    font-size: 0.98rem;
-    line-height: 1.45;
-    color: rgb(255 255 255 / 0.82);
-  }
-
-  .services-feature-panel__rule {
-    width: min(10rem, 100%);
-    height: 1px;
-    background: rgb(255 255 255 / 0.62);
-  }
-
-  .services-feature-panel__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.88rem;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .services-feature-panel__link::after {
-    content: "";
-    width: 2rem;
-    height: 1px;
-    background: currentColor;
-    transition: transform 240ms ease;
-  }
-
-  .services-feature-panel:hover .services-feature-panel__link::after,
-  .services-feature-panel:focus-visible .services-feature-panel__link::after {
-    transform: translateX(0.35rem);
   }
 
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
-    min-height: 350px;
     color: #fff;
     background: var(--color-envision-gray-900);
   }
@@ -669,7 +518,6 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     display: grid;
     align-content: start;
     gap: 0.8rem;
-    padding: 1.65rem 1.5rem;
     color: inherit;
     text-decoration: none;
     transition:
