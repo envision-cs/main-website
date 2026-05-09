@@ -115,7 +115,7 @@ definePageMeta({
       <template #body>
         <app-team-member-list>
           <li v-for="member in relatedTeam.filter((m) => m.slug !== id)" :key="member.id">
-            <app-reveal-card
+            <project-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
               :image="member.photo?.url"
@@ -123,16 +123,9 @@ definePageMeta({
               link-mode="overlay"
               aspect-ratio="3/4"
               image-sizes="(max-width: 768px) 100vw, 300px"
-              :image-hover-blur="0"
               :image-hover-scale="1.1"
-              :overlay="teamOverlay(data.teamMember.team.color)"
-              :container-type="true"
-              :rounded="false"
               :outlined="false"
               :meta-border="false"
-              :meta-fade="false"
-              details-delay="0ms"
-              meta-delay="150ms"
               class="team-member-card"
             >
               <template #title>
@@ -149,16 +142,19 @@ definePageMeta({
               </template>
               <template #meta>
                 <div class="team-member-actions">
-                  <app-button
+                  <NuxtLink
                     v-if="member.linkedin"
                     icon="i-simple-icons-linkedin"
                     color="white"
-                    variant="ghost"
+                    variant="outline"
                     :to="member.linkedin"
                     target="_blank"
                     aria-label="LinkedIn"
-                  />
-                  <app-button
+                    icon-only
+                  >
+                    <UIcon name="i-simple-icons-linkedin" />
+                  </NuxtLink>
+                  <my-button
                     v-if="member.email"
                     icon="i-heroicons-envelope"
                     color="white"
@@ -168,7 +164,7 @@ definePageMeta({
                   />
                 </div>
               </template>
-            </app-reveal-card>
+            </project-card>
           </li>
         </app-team-member-list>
       </template>

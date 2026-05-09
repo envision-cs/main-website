@@ -31,7 +31,7 @@ const overlay = computed(() => {
 
 <template>
   <li>
-    <app-reveal-card
+    <project-card
       :to="path"
       :aria-label="name"
       :image="image"
@@ -39,16 +39,10 @@ const overlay = computed(() => {
       link-mode="overlay"
       aspect-ratio="3/4"
       image-sizes="(max-width: 768px) 100vw, 300px"
-      :image-hover-blur="0"
       :image-hover-scale="1.1"
       :overlay="overlay"
-      :container-type="true"
-      :rounded="false"
       :outlined="false"
       :meta-border="false"
-      :meta-fade="false"
-      details-delay="0ms"
-      meta-delay="150ms"
       class="team-wrapper team-card"
     >
       <template #title>
@@ -84,7 +78,7 @@ const overlay = computed(() => {
           />
         </div>
       </template>
-    </app-reveal-card>
+    </project-card>
   </li>
 </template>
 

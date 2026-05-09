@@ -42,7 +42,7 @@ const { data } = useFetch("/api/team", {
       <template #body>
         <app-team-member-list>
           <li v-for="member in team.team_members" :key="member.name">
-            <app-reveal-card
+            <project-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
               :image="member.photo?.url"
@@ -50,16 +50,9 @@ const { data } = useFetch("/api/team", {
               link-mode="overlay"
               aspect-ratio="3/4"
               image-sizes="(max-width: 768px) 100vw, 300px"
-              :image-hover-blur="0"
               :image-hover-scale="1.1"
-              :container-type="true"
-              :rounded="false"
               :outlined="false"
               :meta-border="false"
-              :meta-fade="false"
-              details-delay="0ms"
-              :title-offset="-32"
-              meta-delay="150ms"
               class="team-member-card"
             >
               <template #title>
@@ -99,7 +92,7 @@ const { data } = useFetch("/api/team", {
                   </Button>
                 </div>
               </template>
-            </app-reveal-card>
+            </project-card>
           </li>
         </app-team-member-list>
       </template>

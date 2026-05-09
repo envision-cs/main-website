@@ -155,24 +155,18 @@ useSeoMeta({
       <template #body>
         <ul class="gallery">
           <li v-for="image in page.gallery" :key="image.url">
-            <app-reveal-card
+            <project-card
               to="#"
               :aria-label="`Open ${page.title} gallery image`"
               :image="image.url"
               :alt="image.altText || page.title"
               aspect-ratio="1/1"
               overlay="linear-gradient(to top, rgb(0 0 0 / 0.2) 0%, rgb(0 0 0 / 0) 100%)"
-              :image-hover-blur="0"
               :image-hover-scale="1.03"
               :meta-border="false"
-              :meta-fade="false"
-              :rounded="false"
               :outlined="false"
               content-padding="0"
               content-gap="0"
-              :title-offset="0"
-              details-delay="0ms"
-              meta-delay="0ms"
               @click.prevent="handleImageClick(image)"
             />
           </li>

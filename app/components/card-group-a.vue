@@ -18,14 +18,7 @@ defineProps<{
     <div class="main-wrapper site-grid">
       <ul class="wrapper">
         <li v-for="(card, index) in cards" :key="index">
-          <app-reveal-card
-            :image="card.image"
-            :title="card.title"
-            :to="card.link"
-            aspect-ratio="3/4"
-            :title-offset="-16"
-            :image-hover-blur="0"
-          >
+          <project-card :image="card.image" :title="card.title" :to="card.link" aspect-ratio="3/4">
             <template #title>
               <app-typography class="title" variant="heading-md">
                 {{ card.title }}
@@ -37,7 +30,7 @@ defineProps<{
                 <UIcon name="i-lucide-arrow-right" />
               </div>
             </template>
-          </app-reveal-card>
+          </project-card>
         </li>
       </ul>
     </div>
