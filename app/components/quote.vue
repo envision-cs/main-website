@@ -153,119 +153,77 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section v-if="hasTestimonials" class="testimonials-stage">
-    <div class="testimonials-stage__inner">
-      <header class="testimonials-stage__header">
-        <app-typography
-          v-if="eyebrow"
-          tag="p"
-          variant="eyebrow-md"
-          class="testimonials-stage__eyebrow"
-        >
-          {{ eyebrow }}
-        </app-typography>
-
-        <app-typography tag="h2" variant="heading-lg" class="testimonials-stage__title">
-          {{ sectionTitle }}
-        </app-typography>
-
-        <app-typography
-          v-if="sectionBody"
-          tag="p"
-          variant="text-lg"
-          class="testimonials-stage__body"
-        >
-          {{ sectionBody }}
-        </app-typography>
-      </header>
+  <section-a v-if="hasTestimonials" :eyebrow :title="sectionTitle" :body="sectionBody">
+    <div
+      class="testimonials-stage__carousel"
+      @mouseenter="pauseAutoscroll"
+      @mouseleave="resumeAutoscroll"
+      @focusin="pauseAutoscroll"
+      @focusout="resumeAutoscroll"
+    >
+      <button
+        v-if="showRailNavigation"
+        type="button"
+        class="testimonials-stage__arrow testimonials-stage__arrow--previous"
+        :disabled="!canScrollPrevious"
+        aria-label="Previous testimonial"
+        @click="scrollPrevious"
+      >
+        <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
+      </button>
 
       <div
-        class="testimonials-stage__carousel"
-        @mouseenter="pauseAutoscroll"
-        @mouseleave="resumeAutoscroll"
-        @focusin="pauseAutoscroll"
-        @focusout="resumeAutoscroll"
+        ref="emblaRef"
+        class="testimonials-stage__viewport"
+        :tabindex="showRailNavigation ? 0 : -1"
+        aria-label="Client testimonials"
+        @keydown="handleKeydown"
       >
-        <button
-          v-if="showRailNavigation"
-          type="button"
-          class="testimonials-stage__arrow testimonials-stage__arrow--previous"
-          :disabled="!canScrollPrevious"
-          aria-label="Previous testimonial"
-          @click="scrollPrevious"
-        >
-          <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
-        </button>
-
-        <div
-          ref="emblaRef"
-          class="testimonials-stage__viewport"
-          :tabindex="showRailNavigation ? 0 : -1"
-          aria-label="Client testimonials"
-          @keydown="handleKeydown"
-        >
-          <ul class="testimonials-stage__rail" role="list">
-            <li
-              v-for="(testimonial, index) in normalizedTestimonials"
-              :key="`${testimonial.name}-${index}`"
-              class="testimonials-stage__slide"
-            >
-              <article class="testimonial">
-                <app-typography tag="p" variant="heading-sm" class="testimonial__quote">
-                  <span class="testimonial__mark" aria-hidden="true">“</span>
-                  <span dir="auto">{{ testimonial.quote }}</span>
-                  <span class="testimonial__mark" aria-hidden="true">”</span>
-                </app-typography>
-
-                <div class="testimonial__meta">
-                  <app-typography tag="p" variant="text-md" class="testimonial__name">
-                    <span dir="auto">{{ testimonial.name }}</span>
-                  </app-typography>
-
-                  <app-typography tag="p" variant="text-sm" class="testimonial__title">
-                    <span dir="auto">{{ testimonial.title }}</span>
-                  </app-typography>
-
-                  <app-typography
-                    v-if="testimonial.detail"
-                    tag="p"
-                    variant="eyebrow-md"
-                    class="testimonial__detail"
-                  >
-                    <span dir="auto">{{ testimonial.detail }}</span>
-                  </app-typography>
-                </div>
-              </article>
-            </li>
-          </ul>
-        </div>
-
-        <button
-          v-if="showRailNavigation"
-          type="button"
-          class="testimonials-stage__arrow testimonials-stage__arrow--next"
-          :disabled="!canScrollNext"
-          aria-label="Next testimonial"
-          @click="scrollNext"
-        >
-          <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-        </button>
+        <ul class="testimonials-stage__rail" role="list">
+          <li
+            v-for="(testimonial, index) in normalizedTestimonials"
+            :key="`${testimonial.name}-${index}`"
+            class="testimonials-stage__slide"
+          >
+            <article class="testimonial">
+              <app-typography tag="p" variant="heading-md">
+                <span class="testimonial__mark" aria-hidden="true">“</span>
+                <span dir="auto">{{ testimonial.quote }}</span>
+                <span class="testimonial__mark" aria-hidden="true">”</span>
+              </app-typography>
+              <div>
+                <card-f :item="{ label: testimonial.name, description: testimonial.title }" />
+              </div>
+            </article>
+          </li>
+        </ul>
       </div>
 
-      <ul v-if="showRailNavigation" class="testimonials-stage__dots" aria-label="Testimonial pages">
-        <li v-for="(_, index) in scrollSnaps" :key="index" class="testimonials-stage__dot-item">
-          <button
-            type="button"
-            class="testimonials-stage__dot"
-            :class="{ 'is-active': index === selectedIndex }"
-            :aria-label="`Show testimonial ${index + 1}`"
-            :aria-pressed="index === selectedIndex"
-            @click="scrollTo(index)"
-          />
-        </li>
-      </ul>
+      <button
+        v-if="showRailNavigation"
+        type="button"
+        class="testimonials-stage__arrow testimonials-stage__arrow--next"
+        :disabled="!canScrollNext"
+        aria-label="Next testimonial"
+        @click="scrollNext"
+      >
+        <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+      </button>
     </div>
-  </section>
+
+    <ul v-if="showRailNavigation" class="testimonials-stage__dots" aria-label="Testimonial pages">
+      <li v-for="(_, index) in scrollSnaps" :key="index" class="testimonials-stage__dot-item">
+        <button
+          type="button"
+          class="testimonials-stage__dot"
+          :class="{ 'is-active': index === selectedIndex }"
+          :aria-label="`Show testimonial ${index + 1}`"
+          :aria-pressed="index === selectedIndex"
+          @click="scrollTo(index)"
+        />
+      </li>
+    </ul>
+  </section-a>
 
   <section v-else class="quote-fallback">
     <div class="quote-fallback__inner">
@@ -356,7 +314,6 @@ onUnmounted(() => {
   display: grid;
   align-items: center;
   padding-block: calc(var(--spacing) * 2);
-  border-block: var(--border);
 }
 
 .testimonials-stage__viewport {
@@ -405,36 +362,6 @@ onUnmounted(() => {
 .testimonial__mark {
   color: var(--color-envision-green-600);
   font-weight: 600;
-}
-
-.testimonial__meta {
-  display: grid;
-  gap: calc(var(--spacing) * 1.5);
-  padding-inline-start: calc(var(--spacing) * 4);
-  border-inline-start: 3px solid var(--color-envision-green-500);
-}
-
-.testimonial__name {
-  color: var(--color-envision-gray-900);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.testimonial__title {
-  color: var(--text-color-muted);
-}
-
-.testimonial__detail {
-  width: fit-content;
-  margin-block-start: calc(var(--spacing) * 2);
-  padding-inline: calc(var(--spacing) * 3);
-  padding-block: calc(var(--spacing) * 1);
-  border: 1px solid var(--color-envision-gray-300);
-  color: var(--color-envision-blue-700);
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .testimonials-stage__arrow {

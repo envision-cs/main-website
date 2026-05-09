@@ -18,13 +18,65 @@ const servicesDropdownDescription =
   "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.";
 const projectsDropdownDescription =
   "Selected work across commercial interiors, healthcare, sports, and complex active sites.";
-const { services: serviceDropdownItems } = await useServicesList();
-const { sectors: projectDropdownItems } = await useSectors();
+type DesktopDropdownValue = "services" | "projects";
 
-const desktopMenuValue = ref("");
+const { services } = await useServicesList();
+const { sectors } = await useSectors();
+
+const desktopDropdowns = computed(() => [
+  {
+    value: "services",
+    label: "Services",
+    triggerDataTest: "desktop-services-trigger",
+    panelDataTest: "desktop-mega-menu-panel",
+    gridDataTest: "services-grid",
+    itemDataTest: "services-grid-item",
+    featurePanel: {
+      dataTest: "services-feature-panel",
+      to: "/services",
+      image: servicesFeatureImage,
+      eyebrow: "Capabilities",
+      title: "Services",
+      copy: servicesDropdownDescription,
+      linkLabel: "view all services",
+    },
+    items: services.value.map((item, index) => ({
+      id: index,
+      slug: item.slug,
+      to: item.to,
+      label: item.title,
+      description: item.description,
+    })),
+  },
+  {
+    value: "projects",
+    label: "Projects",
+    triggerDataTest: "desktop-projects-trigger",
+    panelDataTest: "desktop-projects-menu-panel",
+    gridDataTest: "projects-grid",
+    itemDataTest: "projects-grid-item",
+    featurePanel: {
+      dataTest: "projects-feature-panel",
+      to: "/projects",
+      image: projectsFeatureImage,
+      eyebrow: "Selected Work",
+      title: "Projects",
+      copy: projectsDropdownDescription,
+      linkLabel: "view all projects",
+      tone: "projects" as const,
+    },
+    items: sectors.value.map((item, index) => ({
+      id: index,
+      slug: item.slug,
+      to: item.to,
+      label: item.name,
+      description: item.description,
+    })),
+  },
+]);
+
+const desktopMenuValue = ref<"" | DesktopDropdownValue>("");
 const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== "");
-const isServicesDesktopMenuOpen = computed(() => desktopMenuValue.value === "services");
-const isProjectsDesktopMenuOpen = computed(() => desktopMenuValue.value === "projects");
 const route = useRoute();
 
 watch(
@@ -38,11 +90,15 @@ function closeDesktopMenu() {
   desktopMenuValue.value = "";
 }
 
-function openDesktopMenu(menu: "services" | "projects") {
+function openDesktopMenu(menu: string) {
+  if (menu !== "services" && menu !== "projects") return;
+
   desktopMenuValue.value = menu;
 }
 
-function toggleDesktopMenu(menu: "services" | "projects") {
+function toggleDesktopMenu(menu: string) {
+  if (menu !== "services" && menu !== "projects") return;
+
   desktopMenuValue.value = desktopMenuValue.value === menu ? "" : menu;
 }
 </script>
@@ -83,96 +139,21 @@ function toggleDesktopMenu(menu: "services" | "projects") {
             </NavigationMenuLink>
           </NavigationMenuItem>
 
-          <NavigationMenuItem value="services">
-            <NavigationMenuTrigger as-child>
-              <button
-                type="button"
-                class="NavigationMenuTrigger desktop-inline-nav-link submenu"
-                data-test="desktop-services-trigger"
-                :aria-expanded="isServicesDesktopMenuOpen"
-                @pointerenter="openDesktopMenu('services')"
-                @click="toggleDesktopMenu('services')"
-              >
-                Services
-              </button>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent
-              class="NavigationMenuContent"
-              data-test="desktop-mega-menu-panel"
-            >
-              <div class="mega-menu-shell">
-                <div class="mega-menu-grid">
-                  <app-navigation-services-feature-panel
-                    data-test="services-feature-panel"
-                    to="/services"
-                    :image="servicesFeatureImage"
-                    eyebrow="Capabilities"
-                    title="Services"
-                    :copy="servicesDropdownDescription"
-                    link-label="view all services"
-                  />
-
-                  <div class="services-grid" data-test="services-grid">
-                    <NuxtLink
-                      v-for="(item, idx) in serviceDropdownItems"
-                      :key="item.slug"
-                      :to="item.to"
-                      class="services-grid-item"
-                      data-test="services-grid-item"
-                    >
-                      <card-f :idx :item="{ label: item.title, description: item.description }" />
-                    </NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-
-          <NavigationMenuItem value="projects">
-            <NavigationMenuTrigger as-child>
-              <button
-                type="button"
-                class="NavigationMenuTrigger desktop-inline-nav-link submenu"
-                data-test="desktop-projects-trigger"
-                :aria-expanded="isProjectsDesktopMenuOpen"
-                @pointerenter="openDesktopMenu('projects')"
-                @click="toggleDesktopMenu('projects')"
-              >
-                Projects
-              </button>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent
-              class="NavigationMenuContent"
-              data-test="desktop-projects-menu-panel"
-            >
-              <div class="mega-menu-shell">
-                <div class="mega-menu-grid">
-                  <app-navigation-services-feature-panel
-                    data-test="projects-feature-panel"
-                    to="/projects"
-                    :image="projectsFeatureImage"
-                    eyebrow="Selected Work"
-                    title="Projects"
-                    :copy="projectsDropdownDescription"
-                    link-label="view all projects"
-                    tone="projects"
-                  />
-
-                  <div class="services-grid" data-test="projects-grid">
-                    <NuxtLink
-                      v-for="(item, idx) in projectDropdownItems"
-                      :key="item.slug"
-                      :to="item.to"
-                      class="services-grid-item"
-                      data-test="projects-grid-item"
-                    >
-                      <card-f :idx :item="{ label: item.name, description: item.description }" />
-                    </NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <app-navigation-dropdown-menu
+            v-for="dropdown in desktopDropdowns"
+            :key="dropdown.value"
+            :value="dropdown.value"
+            :label="dropdown.label"
+            :is-open="desktopMenuValue === dropdown.value"
+            :feature-panel="dropdown.featurePanel"
+            :items="dropdown.items"
+            :trigger-data-test="dropdown.triggerDataTest"
+            :panel-data-test="dropdown.panelDataTest"
+            :grid-data-test="dropdown.gridDataTest"
+            :item-data-test="dropdown.itemDataTest"
+            @open="openDesktopMenu"
+            @toggle="toggleDesktopMenu"
+          />
 
           <NavigationMenuItem>
             <NavigationMenuLink as-child>
@@ -227,7 +208,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     var(--color-envision-green-900) 12%
   );
   --header-shell-muted: color-mix(in oklch, var(--color-envision-blue-900) 58%, white);
-  --header-panel-bg: var(--color-envision-gray-900);
+  --header-panel-bg: transparent;
   --header-panel-border: color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
 
   position: absolute;
@@ -510,8 +491,8 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
-    color: #fff;
-    background: var(--color-envision-gray-900);
+    color: var(--color-envision-gray-900);
+    background: #fff;
   }
 
   .services-grid-item {
@@ -555,7 +536,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
   .services-grid-item:hover,
   .services-grid-item:focus-visible {
-    background-color: var(--color-envision-gray-700);
+    background-color: var(--color-envision-blue-50);
     transform: none;
     outline: none;
   }
