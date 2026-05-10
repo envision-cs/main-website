@@ -8,7 +8,7 @@ const { data: contactData, error } = await useFetch("/api/contact");
       <banner-b image="contact.jpg" class="col-start-1 -col-end-1"> Contact Us </banner-b>
 
       <!-- Intro + Form   -->
-      <app-section-a>
+      <section-e>
         <template #header>
           <div class="content">
             <app-typography
@@ -29,10 +29,10 @@ const { data: contactData, error } = await useFetch("/api/contact");
         <template #body>
           <contact-form />
         </template>
-      </app-section-a>
+      </section-e>
 
       <!-- Locations    -->
-      <app-section-a no-padding-main no-padding>
+      <section-e no-padding-main no-padding>
         <template #header>
           <app-typography
             tag="h2"
@@ -60,10 +60,10 @@ const { data: contactData, error } = await useFetch("/api/contact");
             <app-location-map class="min-h-[500px]" />
           </Client-only>
         </template>
-      </app-section-a>
+      </section-e>
 
       <!-- Team header -->
-      <app-section-a v-if="contactData.team.length && !error" no-padding>
+      <section-e v-if="contactData.team.length && !error" no-padding>
         <template #header>
           <div class="section-head">
             <div class="team-role">
@@ -93,7 +93,7 @@ const { data: contactData, error } = await useFetch("/api/contact");
             />
           </app-team-member-list>
         </template>
-      </app-section-a>
+      </section-e>
       <section v-else>
         {{ error?.message }}
       </section>

@@ -135,7 +135,7 @@ useSeoMeta({
     <banner-b :image="page?.main_image">
       {{ page?.title }}
     </banner-b>
-    <app-section-a v-if="page" no-padding class="grid grid-cols-1 min-[800px]:grid-cols-2">
+    <section-e v-if="page" no-padding class="grid grid-cols-1 min-[800px]:grid-cols-2">
       <template #header>
         <section-header-a :eyebrow="page.sector" :title="page.title" />
         <article>
@@ -212,7 +212,7 @@ useSeoMeta({
           </figure>
         </aside>
       </template>
-    </app-section-a>
+    </section-e>
     <div v-else>Oh no! Page not found.</div>
   </div>
 </template>

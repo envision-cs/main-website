@@ -6,11 +6,17 @@ defineProps<{
   buttonLabel?: string;
   buttonTo?: string;
   showBody?: boolean;
+  neutral?: boolean;
 }>();
 </script>
 
 <template>
-  <div class="section-header l-stack">
+  <div
+    class="section-header l-stack"
+    :style="{
+      '--_color': neutral ? 'var(--color-envision-gray-900)' : 'var(--color-envision-blue-500)',
+    }"
+  >
     <app-typography v-if="eyebrow" tag="p" variant="text-lg" class="eyebrow">
       {{ eyebrow }}
     </app-typography>
@@ -50,7 +56,7 @@ defineProps<{
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 6%;
-  color: var(--color-envision-blue-500);
+  color: var(--_color);
   line-height: 1.5;
 }
 

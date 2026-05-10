@@ -16,27 +16,21 @@ const { data } = useFetch("/api/team", {
         <NuxtImg src="" class="h-full w-full object-cover -z-10" fit="cover" format="webp" />
       </template>
     </banner-b>
-    <app-section-a
+    <section-e
       v-for="team in data"
       :key="team.name"
       class="team-section"
       no-padding
-      :style="{ '--teamColor': '#000' }"
+      :style="{ '--teamColor': team.color }"
     >
       <template #header>
-        <div class="section-head" :style="{ '--teamColor': team.color }">
-          <app-team-background class="team-role">
-            <app-typography tag="p" variant="text-sm" class="team-role-label">
-              {{ team.role }}
-            </app-typography>
-          </app-team-background>
-          <app-typography tag="h2" variant="heading-md">
-            {{ team.name }}
-          </app-typography>
-          <!-- <div class="team-accent" aria-hidden="true" /> -->
-          <app-typography tag="p" variant="text-lg" class="mt-auto max-w-sm team-description">
-            {{ team.description }}
-          </app-typography>
+        <div class="team-color" :class="{ '--border': team.color }">
+          <section-header-a
+            neutral
+            :eyebrow="team.role"
+            :title="team.name"
+            :body="team.description"
+          />
         </div>
       </template>
       <template #body>
@@ -67,40 +61,19 @@ const { data } = useFetch("/api/team", {
                   {{ member.title }}
                 </app-typography>
               </template>
-              <template #meta>
-                <div class="team-member-actions">
-                  <Button
-                    v-if="member.linkedin"
-                    icon="i-simple-icons-linkedin"
-                    color="white"
-                    variant="secondary"
-                    :to="member.linkedin"
-                    target="_blank"
-                    aria-label="LinkedIn"
-                  >
-                    <Icon name="ri:linkedin-box-fill" />
-                  </Button>
-                  <Button
-                    v-if="member.email"
-                    icon="i-heroicons-envelope"
-                    color="white"
-                    variant="soft"
-                    :to="`mailto:${member.email}`"
-                    aria-label="Email"
-                  >
-                    <Icon name="ri:linkedin-box-fill" />
-                  </Button>
-                </div>
-              </template>
             </project-card>
           </li>
         </app-team-member-list>
       </template>
-    </app-section-a>
+    </section-e>
   </div>
 </template>
 
 <style scoped>
+.team-color {
+  border-left: 8px solid var(--teamColor);
+}
+
 .team-section {
   display: grid;
   grid-column: 1/-1;

@@ -47,7 +47,7 @@ definePageMeta({
 
 <template>
   <UPage v-if="data?.teamMember" class="">
-    <app-section-a no-padding-main>
+    <section-e no-padding-main>
       <template #header>
         <NuxtImg
           :src="data.teamMember?.photo?.url"
@@ -86,10 +86,10 @@ definePageMeta({
           </div>
         </div>
       </template>
-    </app-section-a>
+    </section-e>
     <div class="site-grid" />
 
-    <app-section-a
+    <section-e
       v-if="data.teamMember?.team"
       :key="data.teamMember.team.name"
       no-padding
@@ -97,19 +97,13 @@ definePageMeta({
       :style="{ '--teamColor': data.teamMember.team.color }"
     >
       <template #header>
-        <div class="section-head" :style="{ '--teamColor': data.teamMember.team.color }">
-          <div class="team-role">
-            <app-typography tag="p" variant="text-sm" class="team-role-label">
-              {{ data.teamMember.team.role }}
-            </app-typography>
-          </div>
-          <app-typography tag="h2" variant="heading-md">
-            {{ data.teamMember.team.name }}
-          </app-typography>
-          <!-- <div class="team-accent" aria-hidden="true" /> -->
-          <app-typography tag="p" variant="text-lg" class="mt-auto max-w-sm team-description">
-            {{ data.teamMember.team.description }}
-          </app-typography>
+        <div class="team-color">
+          <section-header-a
+            neutral
+            :eyebrow="data.teamMember.team.role"
+            :title="data.teamMember.team.name"
+            :body="data.teamMember.team.description"
+          />
         </div>
       </template>
       <template #body>
@@ -140,35 +134,11 @@ definePageMeta({
                   {{ member.title }}
                 </app-typography>
               </template>
-              <template #meta>
-                <div class="team-member-actions">
-                  <NuxtLink
-                    v-if="member.linkedin"
-                    icon="i-simple-icons-linkedin"
-                    color="white"
-                    variant="outline"
-                    :to="member.linkedin"
-                    target="_blank"
-                    aria-label="LinkedIn"
-                    icon-only
-                  >
-                    <UIcon name="i-simple-icons-linkedin" />
-                  </NuxtLink>
-                  <my-button
-                    v-if="member.email"
-                    icon="i-heroicons-envelope"
-                    color="white"
-                    variant="ghost"
-                    :to="`mailto:${member.email}`"
-                    aria-label="Email"
-                  />
-                </div>
-              </template>
             </project-card>
           </li>
         </app-team-member-list>
       </template>
-    </app-section-a>
+    </section-e>
   </UPage>
   <div v-else>Nothing Here</div>
 </template>
@@ -274,5 +244,9 @@ definePageMeta({
 .content {
   align-self: end;
   grid-column: span 12;
+}
+
+.team-color {
+  border-left: 8px solid var(--teamColor);
 }
 </style>
