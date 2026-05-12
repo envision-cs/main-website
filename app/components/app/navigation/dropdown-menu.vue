@@ -50,7 +50,7 @@ const emit = defineEmits<{
         {{ label }}
       </button>
     </NavigationMenuTrigger>
-    <NavigationMenuContent class="NavigationMenuContent" :data-test="panelDataTest">
+    <NavigationMenuContent class="NavigationMenuContent dark" :data-test="panelDataTest">
       <div class="mega-menu-shell">
         <div class="mega-menu-grid">
           <app-navigation-services-feature-panel

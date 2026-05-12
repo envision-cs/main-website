@@ -1,37 +1,57 @@
 <script setup lang="ts">
 const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
+const mobileProjectsOpen = ref(false);
 const menuButtonRef = ref<HTMLButtonElement | null>(null);
 const firstDrawerLinkRef = ref<HTMLElement | null>(null);
 const isDrawerClosing = ref(false);
-const serviceLinks = [
-  { title: "All Services", to: "/services/" },
-  { title: "Specialty Projects Division", to: "/services/specialty-projects-division" },
-  { title: "Construction Management", to: "/services/construction-management" },
-  { title: "Enhanced Preconstruction", to: "/services/enhanced-preconstruction" },
-  { title: "Design Build", to: "/services/design-build" },
-] as const;
+
+const { services } = await useServicesList();
+const { sectors } = await useSectors();
+
+const serviceLinks = computed(() => [
+  { title: "All Services", to: "/services" },
+  ...services.value.map((service) => ({
+    title: service.title,
+    to: service.to,
+  })),
+]);
+
+const projectLinks = computed(() => [
+  { title: "All Projects", to: "/projects" },
+  ...sectors.value.map((sector) => ({
+    title: sector.name,
+    to: sector.to,
+  })),
+]);
 
 const primaryLinks = [
-  { title: "Projects", to: "/projects" },
   { title: "Meet the Team", to: "/team" },
   { title: "About Us", to: "/about" },
-  { title: "Contact", to: "/contact", accent: true },
+  { title: "Contact", to: "/contact" },
+  { title: "Trade Partner Program", to: "/trade-partners", accent: true },
 ] as const;
 
 const route = useRoute();
 const gsap = useGSAP();
 
+type FocusableRef = HTMLElement | { $el?: Element } | null | undefined;
+
 watch(
   () => route.fullPath,
   async () => {
     if (mobileDrawerOpen.value) await closeDrawer();
+
     mobileServicesOpen.value = false;
+    mobileProjectsOpen.value = false;
   },
 );
 
 watch(mobileDrawerOpen, (open) => {
-  if (!open) mobileServicesOpen.value = false;
+  if (!open) {
+    mobileServicesOpen.value = false;
+    mobileProjectsOpen.value = false;
+  }
 });
 
 function closeDrawerAndNavigate() {
@@ -50,14 +70,26 @@ function getDrawerElements() {
   return { content, overlay, navTargets };
 }
 
-function focusTarget(target: unknown, fallbackSelector: string) {
-  if (target && typeof (target as { focus?: () => void }).focus === "function") {
-    (target as { focus: () => void }).focus();
-    return;
-  }
+function resolveFocusable(target: FocusableRef, fallbackSelector: string) {
+  if (target instanceof HTMLElement) return target;
 
-  const fallback = document.body.querySelector(fallbackSelector) as HTMLElement | null;
-  fallback?.focus();
+  if (target?.$el instanceof HTMLElement) return target.$el;
+
+  return document.body.querySelector(fallbackSelector) as HTMLElement | null;
+}
+
+function focusTarget(target: FocusableRef, fallbackSelector: string) {
+  resolveFocusable(target, fallbackSelector)?.focus();
+}
+
+function focusFirstDrawerLink() {
+  focusTarget(firstDrawerLinkRef.value, '[data-test="mobile-home-link"]');
+}
+
+function queueFirstDrawerLinkFocus() {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(focusFirstDrawerLink);
+  });
 }
 
 function animateDrawerOpen() {
@@ -73,7 +105,7 @@ function animateDrawerOpen() {
   }
 
   gsap.set(content, { xPercent: 100 });
-  if (navTargets.length) gsap.set(navTargets, { autoAlpha: 0, x: 24 });
+  if (navTargets.length) gsap.set(navTargets, { opacity: 0, x: 24 });
 
   const timeline = gsap.timeline();
   timeline.to(content, { xPercent: 0, duration: 0.4, ease: "power3.out" }, 0);
@@ -81,7 +113,7 @@ function animateDrawerOpen() {
   if (navTargets.length) {
     timeline.to(
       navTargets,
-      { autoAlpha: 1, x: 0, duration: 0.24, stagger: 0.06, ease: "power2.out" },
+      { opacity: 1, x: 0, duration: 0.24, stagger: 0.06, ease: "power2.out" },
       0.1,
     );
   }
@@ -97,7 +129,7 @@ function animateDrawerClose() {
   return new Promise<void>((resolve) => {
     if (navTargets.length) {
       gsap.to(navTargets, {
-        autoAlpha: 0,
+        opacity: 0,
         x: 14,
         duration: 0.14,
         stagger: { each: 0.03, from: "end" },
@@ -124,6 +156,7 @@ async function closeDrawer() {
   await animateDrawerClose();
   mobileDrawerOpen.value = false;
   mobileServicesOpen.value = false;
+  mobileProjectsOpen.value = false;
   isDrawerClosing.value = false;
 }
 
@@ -132,6 +165,7 @@ async function onDrawerOpenChange(nextOpen: boolean) {
     mobileDrawerOpen.value = true;
     await nextTick();
     animateDrawerOpen();
+    queueFirstDrawerLinkFocus();
     return;
   }
 
@@ -140,7 +174,7 @@ async function onDrawerOpenChange(nextOpen: boolean) {
 
 function onDrawerOpenAutoFocus(event: Event) {
   event.preventDefault();
-  focusTarget(firstDrawerLinkRef.value, '[data-test="mobile-services-toggle"]');
+  queueFirstDrawerLinkFocus();
 }
 
 function onDrawerCloseAutoFocus(event: Event) {
@@ -200,6 +234,18 @@ function onDrawerCloseAutoFocus(event: Event) {
         <nav class="mobile-nav" aria-label="Mobile primary">
           <ul class="mobile-nav-list">
             <li class="mobile-nav-list__item">
+              <NuxtLink
+                ref="firstDrawerLinkRef"
+                class="mobile-link"
+                to="/"
+                data-test="mobile-home-link"
+                data-anim="mobile-nav-link"
+                @click="closeDrawerAndNavigate"
+              >
+                <span class="mobile-link__label">Home</span>
+              </NuxtLink>
+            </li>
+            <li class="mobile-nav-list__item">
               <CollapsibleRoot v-model:open="mobileServicesOpen">
                 <CollapsibleTrigger as-child>
                   <button
@@ -214,12 +260,11 @@ function onDrawerCloseAutoFocus(event: Event) {
                 <CollapsibleContent class="mobile-services-panel" data-test="mobile-services-panel">
                   <ul class="mobile-services-list">
                     <li
-                      v-for="(link, index) in serviceLinks"
+                      v-for="link in serviceLinks"
                       :key="link.to"
                       class="mobile-services-list__item"
                     >
                       <NuxtLink
-                        :ref="index === 0 ? firstDrawerLinkRef : undefined"
                         class="mobile-link"
                         :to="link.to"
                         data-anim="mobile-nav-link"
@@ -232,7 +277,39 @@ function onDrawerCloseAutoFocus(event: Event) {
                 </CollapsibleContent>
               </CollapsibleRoot>
             </li>
-            <li v-for="(link, index) in primaryLinks" :key="link.to" class="mobile-nav-list__item">
+            <li class="mobile-nav-list__item">
+              <CollapsibleRoot v-model:open="mobileProjectsOpen">
+                <CollapsibleTrigger as-child>
+                  <button
+                    class="mobile-services-toggle"
+                    type="button"
+                    data-test="mobile-projects-toggle"
+                    data-anim="mobile-nav-link"
+                  >
+                    <span class="mobile-services-toggle__label">Projects</span>
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent class="mobile-services-panel" data-test="mobile-projects-panel">
+                  <ul class="mobile-services-list">
+                    <li
+                      v-for="link in projectLinks"
+                      :key="link.to"
+                      class="mobile-services-list__item"
+                    >
+                      <NuxtLink
+                        class="mobile-link"
+                        :to="link.to"
+                        data-anim="mobile-nav-link"
+                        @click="closeDrawerAndNavigate"
+                      >
+                        <span class="mobile-link__label">{{ link.title }}</span>
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                </CollapsibleContent>
+              </CollapsibleRoot>
+            </li>
+            <li v-for="link in primaryLinks" :key="link.to" class="mobile-nav-list__item">
               <NuxtLink
                 class="mobile-link"
                 :class="{ 'mobile-link--accent': link.accent }"
@@ -427,11 +504,16 @@ function onDrawerCloseAutoFocus(event: Event) {
 }
 
 .mobile-link:hover,
-.mobile-link:focus-visible,
-.mobile-services-toggle:hover,
-.mobile-services-toggle:focus-visible {
+.mobile-services-toggle:hover {
   background: color-mix(in oklch, var(--color-envision-blue-50) 34%, white);
   outline: none;
+}
+
+.mobile-link:focus-visible,
+.mobile-services-toggle:focus-visible {
+  background: color-mix(in oklch, var(--color-envision-blue-50) 34%, white);
+  outline: 2px solid var(--color-envision-blue-900);
+  outline-offset: -2px;
 }
 
 .mobile-link--accent:hover,

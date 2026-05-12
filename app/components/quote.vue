@@ -18,10 +18,12 @@ const props = withDefaults(
     eyebrow?: string;
     sectionTitle?: string;
     sectionBody?: string;
+    bgcolor?: "light" | "dark" | "blue";
   }>(),
   {
     eyebrow: "Client Testimonials",
     sectionTitle: "Our clients who expect discipline, communication, and follow-through.",
+    bgcolor: "light",
   },
 );
 
@@ -153,7 +155,15 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section-a v-if="hasTestimonials" :eyebrow :title="sectionTitle" :body="sectionBody">
+  <section-a
+    v-if="hasTestimonials"
+    class="testimonials-stage"
+    :class="{ dark: bgcolor === 'dark', light: bgcolor === 'light', blue: bgcolor === 'blue' }"
+    :bgcolor
+    :eyebrow
+    :title="sectionTitle"
+    :body="sectionBody"
+  >
     <div
       class="testimonials-stage__carousel"
       @mouseenter="pauseAutoscroll"
@@ -225,7 +235,11 @@ onUnmounted(() => {
     </ul>
   </section-a>
 
-  <section v-else class="quote-fallback">
+  <section
+    v-else
+    class="quote-fallback"
+    :class="{ dark: bgcolor === 'dark', light: bgcolor === 'light', blue: bgcolor === 'blue' }"
+  >
     <div class="quote-fallback__inner">
       <app-typography
         v-if="eyebrow"
@@ -254,8 +268,47 @@ onUnmounted(() => {
   grid-column: 1 / -1;
   padding-inline: calc(var(--spacing) * 4);
   padding-block: calc(var(--spacing) * 14);
-  background: var(--color-white);
-  color: var(--color-envision-gray-900);
+  background: var(--section-bg);
+  color: var(--section-color);
+}
+
+.light {
+  --section-bg: var(--color-white);
+  --section-color: var(--color-envision-gray-900);
+  --quote-heading-color: var(--color-envision-blue-950);
+  --quote-muted-color: var(--text-color-muted);
+  --quote-accent-color: var(--color-envision-green-600);
+  --quote-control-bg: var(--color-white);
+  --quote-control-border: var(--color-envision-gray-300);
+  --quote-control-color: var(--color-envision-blue-950);
+  --quote-control-focus: var(--color-envision-blue-900);
+  --quote-dot-color: var(--color-envision-gray-300);
+}
+
+.dark {
+  --section-bg: var(--color-envision-gray-900);
+  --section-color: var(--color-white);
+  --quote-heading-color: var(--color-white);
+  --quote-muted-color: var(--color-envision-gray-200);
+  --quote-accent-color: var(--color-envision-green-500);
+  --quote-control-bg: transparent;
+  --quote-control-border: color-mix(in oklab, var(--color-white) 30%, transparent);
+  --quote-control-color: var(--color-white);
+  --quote-control-focus: var(--color-envision-green-500);
+  --quote-dot-color: color-mix(in oklab, var(--color-white) 28%, transparent);
+}
+
+.blue {
+  --section-bg: var(--color-envision-blue-950);
+  --section-color: var(--color-white);
+  --quote-heading-color: var(--color-white);
+  --quote-muted-color: var(--color-envision-gray-100);
+  --quote-accent-color: var(--color-envision-green-500);
+  --quote-control-bg: transparent;
+  --quote-control-border: color-mix(in oklab, var(--color-white) 30%, transparent);
+  --quote-control-color: var(--color-white);
+  --quote-control-focus: var(--color-envision-green-500);
+  --quote-dot-color: color-mix(in oklab, var(--color-white) 28%, transparent);
 }
 
 .testimonials-stage__inner,
@@ -273,7 +326,7 @@ onUnmounted(() => {
 }
 
 .testimonials-stage__eyebrow {
-  color: var(--color-envision-blue-600);
+  color: var(--quote-accent-color);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -292,37 +345,42 @@ onUnmounted(() => {
   color: inherit;
 }
 
-.testimonials-stage :deep(span),
+.testimonials-stage :deep(span:not(.testimonial__mark)),
 .quote-fallback :deep(span) {
   color: inherit;
 }
 
 .testimonials-stage__title {
   width: min(100%, 42rem);
-  color: var(--color-envision-blue-950);
+  color: var(--quote-heading-color);
   text-wrap: balance;
 }
 
 .testimonials-stage__body {
   width: min(100%, 36rem);
-  color: var(--text-color-muted);
+  color: var(--quote-muted-color);
   line-height: 1.5;
 }
 
 .testimonials-stage__carousel {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
+  width: 100%;
+  min-width: 0;
   padding-block: calc(var(--spacing) * 2);
 }
 
 .testimonials-stage__viewport {
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
   min-width: 0;
 }
 
 .testimonials-stage__viewport:focus-visible {
-  outline: 2px solid var(--color-envision-blue-600);
+  outline: 2px solid var(--quote-control-focus);
   outline-offset: 4px;
 }
 
@@ -353,14 +411,14 @@ onUnmounted(() => {
 .testimonial__quote {
   position: relative;
   width: min(100%, 56rem);
-  color: var(--color-envision-blue-950);
+  color: var(--quote-heading-color);
   font-weight: 300;
   line-height: 1.18;
   text-wrap: balance;
 }
 
 .testimonial__mark {
-  color: var(--color-envision-green-600);
+  color: var(--quote-accent-color);
   font-weight: 600;
 }
 
@@ -373,10 +431,10 @@ onUnmounted(() => {
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
-  border: 1px solid var(--color-envision-gray-300);
+  border: 1px solid var(--quote-control-border);
   border-radius: 0;
-  background: var(--color-white);
-  color: var(--color-envision-blue-950);
+  background: var(--quote-control-bg);
+  color: var(--quote-control-color);
   transform: translateY(-50%);
   cursor: pointer;
   transition:
@@ -394,13 +452,18 @@ onUnmounted(() => {
 }
 
 .testimonials-stage__arrow:focus-visible {
-  outline: 2px solid var(--color-envision-blue-900);
+  outline: 2px solid var(--quote-control-focus);
   outline-offset: 3px;
 }
 
 .testimonials-stage__arrow:disabled {
   opacity: 0.35;
   cursor: default;
+}
+
+.dark .testimonial__mark,
+.blue .testimonial__mark {
+  color: var(--quote-accent-color);
 }
 
 .testimonials-stage__arrow--previous {
@@ -429,7 +492,7 @@ onUnmounted(() => {
   height: 0.1875rem;
   border: 0;
   border-radius: 0;
-  background: var(--color-envision-gray-300);
+  background: var(--quote-dot-color);
   cursor: pointer;
   transition:
     background-color 180ms ease,
@@ -447,7 +510,7 @@ onUnmounted(() => {
 }
 
 .testimonials-stage__dot:focus-visible {
-  outline: 2px solid var(--color-envision-blue-900);
+  outline: 2px solid var(--quote-control-focus);
   outline-offset: 3px;
 }
 
@@ -460,19 +523,19 @@ onUnmounted(() => {
 
 .quote-fallback__quote {
   width: min(100%, 42rem);
-  color: var(--color-envision-blue-950);
+  color: var(--quote-heading-color);
   text-wrap: balance;
 }
 
 .quote-fallback__name {
-  color: var(--color-envision-gray-900);
+  color: var(--section-color);
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .quote-fallback__title {
-  color: var(--text-color-muted);
+  color: var(--quote-muted-color);
 }
 
 @media (max-width: 767px) {

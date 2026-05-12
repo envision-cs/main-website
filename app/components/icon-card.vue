@@ -23,6 +23,7 @@ defineProps<{
   place-content: center;
   padding: calc(var(--spacing) * 4);
   min-height: 11rem;
-  border: 1px solid var(--ui-border);
+  border: var(--card-border);
+  background: var(--card-bg);
 }
 </style>

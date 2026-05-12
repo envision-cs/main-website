@@ -108,7 +108,7 @@ function toggleDesktopMenu(menu: string) {
     ref="header"
     class="main-header"
     :class="{
-      'main-header-dark': isDesktopMenuOpen,
+      'main-header--desktop-open': isDesktopMenuOpen,
     }"
   >
     <button
@@ -122,7 +122,7 @@ function toggleDesktopMenu(menu: string) {
 
     <header class="header-root site-max">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
-        <Icon name="logos:envision-white" size="30" alt="envision construction logo" />
+        <Icon name="logos:envision-white" size="30" aria-hidden="true" />
       </NuxtLink>
       <NavigationMenuRoot
         v-model="desktopMenuValue"
@@ -215,8 +215,9 @@ function toggleDesktopMenu(menu: string) {
   top: 0;
   width: 100%;
   z-index: 1000;
-  color: var(--header-shell-text);
+  color: var(--section-color);
   background: transparent;
+  border-bottom: 1px solid transparent;
   backdrop-filter: blur(0px);
 
   animation: stickyNav linear forwards;
@@ -225,13 +226,9 @@ function toggleDesktopMenu(menu: string) {
   animation-range-end: 120vh;
 }
 
-.main-header-dark {
-  background: var(--header-panel-bg);
-}
-
 .main-header.main-header--desktop-open {
-  background: white;
-  border-bottom-color: var(--header-shell-border);
+  background: var(--header-panel-bg);
+  border-bottom-color: transparent;
   animation: none;
 }
 
@@ -355,9 +352,13 @@ function toggleDesktopMenu(menu: string) {
     transition: transform 220ms ease;
   }
 
-  .desktop-inline-nav-link:hover,
-  .desktop-inline-nav-link:focus-visible {
+  .desktop-inline-nav-link:hover {
     outline: none;
+  }
+
+  .desktop-inline-nav-link:focus-visible {
+    outline: 2px solid var(--color-envision-green-500);
+    outline-offset: 0.35rem;
   }
 
   .desktop-inline-nav-link:hover::after,
@@ -366,7 +367,7 @@ function toggleDesktopMenu(menu: string) {
     transform: scaleX(1);
   }
 
-  .desktop-inline-nav-link[aria-expanded="true"] {
+  .desktop-inline-nav-link[aria-expanded="true"]:not(:focus-visible) {
     outline: none;
   }
 
@@ -459,9 +460,7 @@ function toggleDesktopMenu(menu: string) {
     top: 100%;
     overflow: hidden;
     z-index: 1;
-    transition:
-      width,
-      transform 250ms ease;
+    transition: transform 250ms ease;
   }
 
   .NavigationMenuViewport {
@@ -473,10 +472,6 @@ function toggleDesktopMenu(menu: string) {
     border-radius: 0;
     overflow: auto;
     height: var(--reka-navigation-menu-viewport-height);
-    transition:
-      width,
-      height,
-      340ms cubic-bezier(0.19, 1, 0.22, 1);
     pointer-events: auto;
     border-top: 0;
   }
@@ -491,8 +486,8 @@ function toggleDesktopMenu(menu: string) {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
-    color: var(--color-envision-gray-900);
-    background: #fff;
+    color: var(--section-color);
+    background: var(--section-bg);
   }
 
   .services-grid-item {
@@ -534,16 +529,22 @@ function toggleDesktopMenu(menu: string) {
     line-height: 1.42;
   }
 
-  .services-grid-item:hover,
-  .services-grid-item:focus-visible {
-    background-color: var(--color-envision-blue-50);
+  .services-grid-item:hover {
+    background-color: color-mix(in oklch, var(--section-color) 10%, var(--section-bg));
     transform: none;
     outline: none;
   }
 
+  .services-grid-item:focus-visible {
+    background-color: color-mix(in oklch, var(--section-color) 10%, var(--section-bg));
+    transform: none;
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+  }
+
   .services-grid-item:hover .services-grid-item__title,
   .services-grid-item:focus-visible .services-grid-item__title {
-    color: var(--ui-primary);
+    color: var(--accent-color);
   }
 
   .services-grid-item:nth-child(1) {
@@ -639,6 +640,20 @@ function toggleDesktopMenu(menu: string) {
   }
 }
 
+@keyframes stickyNav {
+  from {
+    background: transparent;
+    border-bottom-color: transparent;
+    backdrop-filter: blur(0px);
+  }
+
+  to {
+    background: var(--header-shell-bg);
+    border-bottom-color: var(--header-shell-border);
+    backdrop-filter: blur(16px);
+  }
+}
+
 .submenu-label {
   display: inline-block;
   margin-top: 0.5rem;
@@ -666,7 +681,10 @@ function toggleDesktopMenu(menu: string) {
   .sub-menu,
   .menu-toggle,
   .close-btn,
-  .mobileClose {
+  .mobileClose,
+  .NavigationMenuContent,
+  .NavigationMenuIndicator,
+  .NavigationMenuViewport {
     transition: none !important;
     animation: none !important;
   }

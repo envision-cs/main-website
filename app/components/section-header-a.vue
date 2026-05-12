@@ -44,7 +44,7 @@ defineProps<{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(var(--spacing) * 4);
+  gap: calc(var(--spacing) * 2);
 }
 
 .section-header {
@@ -56,13 +56,13 @@ defineProps<{
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 6%;
-  color: var(--_color);
+  color: var(--accent-color);
   line-height: 1.5;
 }
 
 .title {
   color: inherit;
-  line-height: 1;
+  line-height: 0.8;
 }
 
 .body {
@@ -72,7 +72,6 @@ defineProps<{
 
 .action {
   --color-primary: var(--color-envision-blue-500);
-
   margin-block-start: 0;
 }
 </style>

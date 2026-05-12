@@ -55,7 +55,7 @@
   --color-envision-blue-700: oklch(0.478 0.112 243.857);
   --color-envision-blue-800: oklch(0.427 0.093 241.472);
   --color-envision-blue-900: oklch(0.378 0.079 242.34);
-  --color-envision-blue-950: oklch(0.284 0.059 245.802);
+  --color-envision-blue-950: oklch(0.3 0.04 245.802);
 
   --color-envision-green-50: oklch(0.932 0.166 130.998);
   --color-envision-green-100: oklch(0.88 0.144 140.43);
@@ -201,4 +201,24 @@ body {
   list-style: disc outside;
   padding-left: 1.25rem;
   margin-top: 1rem;
+}
+
+.light {
+  --section-bg: color-mix(in oklab, var(--color-envision-gray-900) 2%, white);
+  --section-color: var(--color-envision-gray-900);
+  --accent-color: var(--color-envision-blue-500);
+  --card-bg: var(--color-white);
+  --card-border: 1px solid color-mix(in oklch, var(--section-bg) 90%, var(--section-color));
+}
+
+.dark {
+  --section-bg: var(--color-envision-gray-900);
+  --section-color: var(--color-white);
+  --accent-color: var(--color-envision-green-500);
+}
+
+.blue {
+  --section-bg: var(--color-envision-blue-950);
+  --section-color: var(--color-white);
+  --accent-color: var(--color-envision-blue-500);
 }

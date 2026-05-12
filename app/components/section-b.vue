@@ -1,16 +1,28 @@
 <script setup lang="ts">
-defineProps<{
-  body?: string;
-  image?: string;
-  flip?: boolean;
-  href?: string;
-  label?: string;
-  title: string;
-  eyebrow?: string;
-}>();
+withDefaults(
+  defineProps<{
+    body?: string;
+    image?: string;
+    flip?: boolean;
+    href?: string;
+    label?: string;
+    title: string;
+    eyebrow?: string;
+    bgcolor?: "light" | "dark" | "blue";
+  }>(),
+  {
+    bgcolor: "light",
+  },
+);
 </script>
 <template>
-  <section>
+  <section
+    :class="{
+      dark: bgcolor === 'dark',
+      light: bgcolor === 'light',
+      blue: bgcolor === 'blue',
+    }"
+  >
     <div class="header">
       <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label">
         <template #body>

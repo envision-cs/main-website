@@ -29,7 +29,7 @@ defineProps<{
   display: grid;
   gap: calc(var(--spacing) * 4);
   grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--color-envision-gray-700);
+  border: 1px solid var(--accent-color);
 }
 
 .content {
@@ -39,5 +39,6 @@ defineProps<{
 
 .number {
   font-weight: semibold;
+  color: var(--accent-color);
 }
 </style>

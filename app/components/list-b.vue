@@ -17,5 +17,6 @@ ul {
   display: grid;
   gap: calc(var(--spacing) * 4);
   width: 100%;
+  min-width: 600px;
 }
 </style>

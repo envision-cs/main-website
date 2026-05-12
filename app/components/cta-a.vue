@@ -19,13 +19,10 @@ withDefaults(
 <template>
   <section :class="{ dark: bgcolor === 'dark', light: bgcolor === 'light', flip: flip }">
     <div class="content">
-      <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label">
-        <template #body>
-          <div class="body">
-            <slot name="body" />
-          </div>
-        </template>
-      </section-header-a>
+      <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label" />
+      <div class="body">
+        <slot name="body" />
+      </div>
     </div>
     <NuxtImg
       :src="image"
@@ -41,16 +38,6 @@ withDefaults(
 </template>
 
 <style scoped>
-.light {
-  --section-bg: var(--color-white);
-  --section-color: var(--color-envision-gray-900);
-}
-
-.dark {
-  --section-bg: var(--color-envision-gray-900);
-  --section-color: var(--color-white);
-}
-
 section {
   margin-inline: auto;
   display: grid;
@@ -61,6 +48,8 @@ section {
   overflow: clip;
   background-color: var(--section-bg);
   color: var(--section-color);
+  max-height: auto;
+  min-width: 600px;
 
   @media (width > 120ch) {
     grid-template-columns: 1fr 1fr;
@@ -76,13 +65,18 @@ section {
   height: 100%;
   padding-block: calc(var(--spacing) * 12);
   display: grid;
-  align-items: center;
+  align-content: center;
   direction: ltr;
+  gap: calc(var(--spacing) * 4);
+  max-width: 700px;
+  width: 100%;
+  margin: auto;
 }
 
 .body {
   container-type: inline-size;
   width: 100%;
+  padding-inline: calc(var(--spacing) * 4);
 }
 
 .image {

@@ -35,7 +35,7 @@ const varient = computed(() => (props.small ? "text-sm" : "text-lg"));
 }
 
 .number {
-  color: var(--color-envision-blue-500);
+  color: var(--accent-color);
   font-weight: bold;
 }
 </style>

@@ -110,7 +110,7 @@ const projectHighlights = [
     </cta-a>
 
     <section-a
-      bgcolor="dark"
+      bgcolor="blue"
       eyebrow="Active operations protection"
       title="How we keep your world running while we build."
       body=""
@@ -119,7 +119,7 @@ const projectHighlights = [
       <list-a :items="operations" />
     </section-a>
 
-    <section-a eyebrow="Where We Work" title="Environments we know well." bgcolor="light" body="">
+    <section-a bgcolor="light" eyebrow="Where We Work" title="Environments we know well." body="">
       <template #body>
         Each one requires a different approach. We've built in all of them.
       </template>
@@ -189,10 +189,12 @@ const projectHighlights = [
   gap: calc(var(--spacing) * 4);
 
   @media (min-width: 600px) {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
   }
 
   @media (min-width: 1000px) {
+    display: grid;
     grid-template-columns: repeat(5, 1fr);
   }
 }

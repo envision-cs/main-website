@@ -19,7 +19,8 @@ ul {
   width: 100%;
   gap: calc(var(--spacing) * 8);
 
-  @media (min-width: 700px) {
+  @media (width > 120ch) {
+    display: grid;
     grid-template-columns: 1fr 1fr;
   }
 }

@@ -23,6 +23,7 @@ ul {
   gap: calc(var(--spacing) * 4);
   grid-template-columns: 1fr;
   width: 100%;
+  min-width: 600px;
 
   @media (min-width: 500px) {
     grid-template-columns: 1fr 1fr;

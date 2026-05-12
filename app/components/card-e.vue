@@ -42,7 +42,7 @@ defineProps<{
 }
 
 .number {
-  color: var(--color-envision-blue-500);
+  color: var(--accent-color);
   font-weight: bold;
 }
 </style>
