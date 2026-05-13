@@ -8,11 +8,9 @@ defineProps<{
 </script>
 <template>
   <NuxtLink :to="`services${slug}`" class="link">
-    <div class="order">0{{ order }}</div>
     <div class="title">
       {{ title }}
     </div>
-    <div class="learn">Learn More</div>
   </NuxtLink>
 </template>
 

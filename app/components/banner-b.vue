@@ -1,36 +1,45 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   image?: string;
   imageAlt?: string;
   body?: string;
   cta?: string;
   ctaTo?: string;
 }>();
+
+const slots = useSlots();
+
+const hasEyebrow = computed(() => Boolean(slots.eyebrow || slots.title));
+const hasBody = computed(() => Boolean(slots.body || props.body));
 </script>
 
 <template>
   <section
     class="banner"
     aria-labelledby="banner-title"
-    aria-describedby="banner-subtitle banner-body"
+    :aria-describedby="hasBody ? 'banner-body' : undefined"
     role="region"
   >
     <div class="header my-auto">
-      <app-typography variant="heading-sm" tag="h1">
-        <slot name="eyebrow" />
+      <app-typography v-if="hasEyebrow" variant="heading-sm" tag="p" class="eyebrow">
+        <slot name="eyebrow">
+          <slot name="title" />
+        </slot>
       </app-typography>
 
       <app-typography
         id="banner-title"
-        tag="h2"
+        tag="h1"
         variant="heading-huge"
         class="max-w-full md:max-w-[60vw] text-balance"
       >
         <slot />
       </app-typography>
 
-      <app-typography id="banner-body" tag="p" variant="text-xl" class="text">
-        <slot name="body" />
+      <app-typography v-if="hasBody" id="banner-body" tag="p" variant="text-xl" class="text">
+        <slot name="body">
+          {{ body }}
+        </slot>
       </app-typography>
       <div v-if="ctaTo">
         <my-button :to="ctaTo">
@@ -81,6 +90,11 @@ defineProps<{
   margin-top: auto;
   position: relative;
   z-index: 2;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .content {

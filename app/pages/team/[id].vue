@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { parseMarkdown } from "@nuxtjs/mdc/runtime";
 
+definePageMeta({
+  layout: "default",
+});
+
 const route = useRoute();
 const id = computed(() => route.params.id as string);
 
@@ -39,10 +43,6 @@ const title = computed(() => data.value?.teamMember?.name);
 useSeoMeta({
   title: title.value,
 });
-
-definePageMeta({
-  layout: "layout-b",
-});
 </script>
 
 <template>
@@ -51,6 +51,7 @@ definePageMeta({
       <template #header>
         <NuxtImg
           :src="data.teamMember?.photo?.url"
+          :alt="`${data.teamMember.name}, ${data.teamMember.title}`"
           class="image"
           fetch-priority="high"
           sizes="100vw sm:500px md:770px"
@@ -233,7 +234,7 @@ definePageMeta({
 .image {
   width: 100%;
   height: 100%;
-  object-fit: covor;
+  object-fit: cover;
   grid-column: span 12;
 
   @media (min-width: 1024px) {

@@ -128,10 +128,10 @@ async function handleValueChange(value: string | undefined) {
   justify-content: space-between;
   gap: 0.5rem;
   padding-inline: 0.875rem 0.625rem;
-  border: 1px solid rgb(255 255 255 / 0.28);
+  border: 1px solid var(--ui-border);
   border-radius: 0.25rem;
-  background: var(--color-envision-gray-900);
-  color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-envision-gray-900);
   text-align: left;
   transition:
     border-color 160ms var(--ease-gentle),
@@ -141,12 +141,12 @@ async function handleValueChange(value: string | undefined) {
 
 .project-category-picker__trigger:hover,
 .project-category-picker__trigger[data-state="open"] {
-  border-color: rgb(255 255 255 / 0.48);
-  background: color-mix(in srgb, var(--color-envision-gray-900) 88%, white);
+  border-color: var(--ui-primary);
+  background: color-mix(in oklch, var(--color-envision-blue-50) 42%, var(--color-white));
 }
 
 .project-category-picker__trigger:focus-visible {
-  outline: 2px solid var(--color-envision-green-300);
+  outline: 2px solid var(--ui-secondary);
   outline-offset: 2px;
 }
 
@@ -158,17 +158,17 @@ async function handleValueChange(value: string | undefined) {
 
 .project-category-picker__icon {
   flex-shrink: 0;
-  color: rgb(255 255 255 / 0.82);
+  color: var(--color-envision-blue-700);
 }
 
 .project-category-picker__content {
   min-width: var(--reka-select-trigger-width);
   margin-top: 0.5rem;
-  border: 1px solid rgb(255 255 255 / 0.16);
+  border: 1px solid var(--ui-border);
   border-radius: 0.25rem;
-  background: color-mix(in srgb, var(--color-envision-gray-900) 96%, black);
-  color: var(--color-white);
-  box-shadow: 0 12px 28px rgb(0 0 0 / 0.28);
+  background: var(--color-white);
+  color: var(--color-envision-gray-900);
+  box-shadow: 0 12px 28px color-mix(in oklch, var(--color-envision-gray-900) 18%, transparent);
   overflow: hidden;
 }
 
@@ -188,11 +188,12 @@ async function handleValueChange(value: string | undefined) {
 
 .project-category-picker__item[data-highlighted] {
   outline: none;
-  background-color: color-mix(in srgb, var(--color-envision-blue-800) 82%, white);
+  background-color: color-mix(in oklch, var(--color-envision-blue-50) 58%, var(--color-white));
 }
 
 .project-category-picker__item[data-state="checked"] {
   font-weight: 500;
-  background-color: color-mix(in srgb, var(--color-envision-blue-700) 78%, black);
+  color: var(--color-envision-blue-900);
+  background-color: var(--color-envision-blue-50);
 }
 </style>

@@ -246,7 +246,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
   object-fit: v-bind("props.imageObjectFit");
   z-index: 0;
   transform: scale(1);
-  will-change: transform;
   transition: transform 0.5s var(--ease-base);
 }
 
@@ -318,6 +317,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
 .reveal-card--overlay:hover .reveal-card__image,
 .reveal-card--overlay:focus-within .reveal-card__image {
   transform: scale(v-bind("String(props.imageHoverScale)"));
+  will-change: transform;
 }
 
 .reveal-card__wrapper:focus-visible,

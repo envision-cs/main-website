@@ -23,7 +23,7 @@ const props = withDefaults(
   {
     eyebrow: "Client Testimonials",
     sectionTitle: "Our clients who expect discipline, communication, and follow-through.",
-    bgcolor: "light",
+    bgcolor: "dark",
   },
 );
 
@@ -282,7 +282,11 @@ onUnmounted(() => {
   --quote-control-border: var(--color-envision-gray-300);
   --quote-control-color: var(--color-envision-blue-950);
   --quote-control-focus: var(--color-envision-blue-900);
+  --quote-control-active-bg: var(--color-envision-blue-600);
+  --quote-control-active-border: var(--color-envision-blue-600);
+  --quote-control-active-color: var(--color-white);
   --quote-dot-color: var(--color-envision-gray-300);
+  --quote-dot-active-color: var(--color-envision-blue-600);
 }
 
 .dark {
@@ -295,7 +299,11 @@ onUnmounted(() => {
   --quote-control-border: color-mix(in oklab, var(--color-white) 30%, transparent);
   --quote-control-color: var(--color-white);
   --quote-control-focus: var(--color-envision-green-500);
+  --quote-control-active-bg: var(--color-envision-green-500);
+  --quote-control-active-border: var(--color-envision-green-500);
+  --quote-control-active-color: var(--color-envision-blue-950);
   --quote-dot-color: color-mix(in oklab, var(--color-white) 28%, transparent);
+  --quote-dot-active-color: var(--color-envision-green-500);
 }
 
 .blue {
@@ -308,7 +316,11 @@ onUnmounted(() => {
   --quote-control-border: color-mix(in oklab, var(--color-white) 30%, transparent);
   --quote-control-color: var(--color-white);
   --quote-control-focus: var(--color-envision-green-500);
+  --quote-control-active-bg: var(--color-envision-green-500);
+  --quote-control-active-border: var(--color-envision-green-500);
+  --quote-control-active-color: var(--color-envision-blue-950);
   --quote-dot-color: color-mix(in oklab, var(--color-white) 28%, transparent);
+  --quote-dot-active-color: var(--color-envision-green-500);
 }
 
 .testimonials-stage__inner,
@@ -446,9 +458,9 @@ onUnmounted(() => {
 
 .testimonials-stage__arrow:hover:not(:disabled),
 .testimonials-stage__arrow:focus-visible {
-  border-color: var(--color-envision-blue-600);
-  background: var(--color-envision-blue-600);
-  color: var(--color-white);
+  border-color: var(--quote-control-active-border);
+  background: var(--quote-control-active-bg);
+  color: var(--quote-control-active-color);
 }
 
 .testimonials-stage__arrow:focus-visible {
@@ -502,7 +514,7 @@ onUnmounted(() => {
 .testimonials-stage__dot:hover,
 .testimonials-stage__dot:focus-visible,
 .testimonials-stage__dot.is-active {
-  background: var(--color-envision-blue-600);
+  background: var(--quote-dot-active-color);
 }
 
 .testimonials-stage__dot.is-active {

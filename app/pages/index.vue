@@ -111,7 +111,6 @@ if ($posthog) {
     <card-group-a :cards="featuredProjectCards.sectionTwo" />
     <quote
       :testimonials="testimonials"
-      section-title="Our clients who expect discipline, communication, and follow-through."
       section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
     />
   </main>

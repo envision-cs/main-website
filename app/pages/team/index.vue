@@ -1,4 +1,10 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: "Meet the Team",
+  description:
+    "Meet the Envision team and learn how each group collaborates to deliver organized, high-quality construction work.",
+});
+
 const { data } = useFetch("/api/team", {
   key: "team",
 });
@@ -19,6 +25,7 @@ const { data } = useFetch("/api/team", {
     <section-e
       v-for="team in data"
       :key="team.name"
+      bgcolor="dark"
       class="team-section"
       no-padding
       :style="{ '--teamColor': team.color }"
@@ -34,7 +41,7 @@ const { data } = useFetch("/api/team", {
         </div>
       </template>
       <template #body>
-        <app-team-member-list>
+        <app-team-member-list class="light">
           <li v-for="member in team.team_members" :key="member.name">
             <project-card
               :to="`/team/${member.slug}`"
@@ -75,9 +82,12 @@ const { data } = useFetch("/api/team", {
 }
 
 .team-section {
+  --accent-color: #fff;
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
+  color: var(--section-color);
+  background: var(--section-bg);
 }
 
 .section-head {

@@ -1,13 +1,26 @@
 <script setup lang="ts">
-defineProps<{
-  noPadding?: boolean;
-  noPaddingMain?: boolean;
-  fill?: boolean;
-}>();
+withDefaults(
+  defineProps<{
+    noPadding?: boolean;
+    noPaddingMain?: boolean;
+    fill?: boolean;
+    bgcolor?: "light" | "dark" | "blue";
+  }>(),
+  {
+    bgcolor: "light",
+  },
+);
 </script>
 
 <template>
-  <section class="section-a site-max">
+  <section
+    class="section-a site-max"
+    :class="{
+      dark: bgcolor === 'dark',
+      light: bgcolor === 'light',
+      blue: bgcolor === 'blue',
+    }"
+  >
     <div :class="{ 'h-full': fill }">
       <div
         class="sticky"

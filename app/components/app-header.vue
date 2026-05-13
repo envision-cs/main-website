@@ -1,16 +1,4 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    variant?: "a" | "b";
-    contactImage?: string;
-  }>(),
-  {
-    variant: "a",
-    contactImage:
-      "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122",
-  },
-);
-
 const servicesFeatureImage = "/design-build.jpg";
 const projectsFeatureImage =
   "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122";
@@ -185,7 +173,7 @@ function toggleDesktopMenu(menu: string) {
         <my-button
           to="/trade-partners"
           size="sm"
-          variant="secondary"
+          variant="primary"
           class="header-cta--mobile-hidden"
         >
           Trade Partner Program
@@ -202,34 +190,19 @@ function toggleDesktopMenu(menu: string) {
   --header-height: 3.5rem;
   --header-shell-bg: color-mix(in oklch, black 20%, var(--color-envision-blue-50) 3%);
   --header-shell-border: color-mix(in oklch, var(--color-envision-blue-900) 18%, white);
-  --header-shell-text: color-mix(
-    in oklch,
-    var(--color-envision-blue-950) 88%,
-    var(--color-envision-green-900) 12%
-  );
-  --header-shell-muted: color-mix(in oklch, var(--color-envision-blue-900) 58%, white);
-  --header-panel-bg: transparent;
-  --header-panel-border: color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
+  --header-panel-bg: var(--header-shell-bg);
 
-  position: absolute;
-  top: 0;
+  position: relative;
   width: 100%;
   z-index: 1000;
   color: var(--section-color);
-  background: transparent;
-  border-bottom: 1px solid transparent;
-  backdrop-filter: blur(0px);
-
-  animation: stickyNav linear forwards;
-  animation-timeline: view();
-  animation-range-start: 100vh;
-  animation-range-end: 120vh;
+  background: var(--color-envision-gray-800);
 }
 
 .main-header.main-header--desktop-open {
-  background: var(--header-panel-bg);
+  background: var(--color-envision-gray-800);
   border-bottom-color: transparent;
-  animation: none;
+  backdrop-filter: blur(16px);
 }
 
 .header-root {
@@ -474,6 +447,15 @@ function toggleDesktopMenu(menu: string) {
     height: var(--reka-navigation-menu-viewport-height);
     pointer-events: auto;
     border-top: 0;
+    transition: height 200ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .NavigationMenuViewport[data-state="open"] {
+    animation: viewportSlideIn 250ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .NavigationMenuViewport[data-state="closed"] {
+    animation: viewportSlideOut 200ms cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .mega-menu-grid {
@@ -530,13 +512,11 @@ function toggleDesktopMenu(menu: string) {
   }
 
   .services-grid-item:hover {
-    background-color: color-mix(in oklch, var(--section-color) 10%, var(--section-bg));
     transform: none;
     outline: none;
   }
 
   .services-grid-item:focus-visible {
-    background-color: color-mix(in oklch, var(--section-color) 10%, var(--section-bg));
     transform: none;
     outline: 2px solid var(--accent-color);
     outline-offset: -2px;
@@ -580,15 +560,27 @@ function toggleDesktopMenu(menu: string) {
   }
 }
 
-@keyframes enterFromTop {
+@keyframes viewportSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(-6px);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes viewportSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
   }
 }
 
@@ -637,20 +629,6 @@ function toggleDesktopMenu(menu: string) {
   to {
     opacity: 0;
     transform: translateX(-36px);
-  }
-}
-
-@keyframes stickyNav {
-  from {
-    background: transparent;
-    border-bottom-color: transparent;
-    backdrop-filter: blur(0px);
-  }
-
-  to {
-    background: var(--header-shell-bg);
-    border-bottom-color: var(--header-shell-border);
-    backdrop-filter: blur(16px);
   }
 }
 

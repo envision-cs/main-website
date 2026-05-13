@@ -1,42 +1,89 @@
 <script setup lang="ts">
 import type { Project } from "~~/shared/types/content-types";
 
+interface ProjectCardItem {
+  id: Project["id"];
+  image: string;
+  title: string;
+  to: string;
+  location?: string;
+  completed?: string;
+  sector?: string;
+}
+
 const { formatMonthYear } = useFormatDate();
 const { sectors: categories } = await useSectors();
+const route = useRoute();
 
-const { data } = await useAsyncData<Project[]>(
+const categorySlug = computed(() => {
+  const param = route.params.id;
+
+  if (typeof param !== "string") {
+    return "";
+  }
+
+  return param.trim();
+});
+
+const activeCategory = computed(() => {
+  return categories.value.find((category) => category.slug === categorySlug.value);
+});
+
+if (!categorySlug.value || !activeCategory.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Project category not found",
+  });
+}
+
+const {
+  data,
+  error: projectsError,
+  refresh: refreshProjects,
+  status: projectsStatus,
+} = await useAsyncData<Project[]>(
   "projects-by-sector-page-data",
-  async () => {
-    try {
-      return await $fetch<Project[]>("/api/projects");
-    } catch (err) {
-      console.error("API error:", err);
-      return [];
-    }
-  },
+  () => $fetch<Project[]>("/api/projects"),
   { default: () => [] },
 );
 
-const route = useRoute();
-
-const activeCategory = computed(() => {
-  return categories.value.find((category) => category.slug === route.params.id);
-});
+const hasProjectsError = computed(() => Boolean(projectsError.value));
+const isProjectsRefreshing = computed(() => projectsStatus.value === "pending");
 
 const activeProjects = computed(() => {
   if (!data.value?.length) {
     return [];
   }
 
-  if (!activeCategory.value?.slug) {
-    return data.value;
-  }
-
   return data.value.filter((project) => project.sector?.slug === activeCategory.value?.slug);
 });
 
+const projectCards = computed<ProjectCardItem[]>(() =>
+  activeProjects.value.flatMap((project) => {
+    const image = project.mainImage?.url;
+    const sectorSlug = project.sector?.slug;
+
+    if (!image || !sectorSlug || !project.slug) {
+      return [];
+    }
+
+    return [
+      {
+        id: project.id,
+        image,
+        title: project.title,
+        to: `${sectorSlug}/${project.slug}`,
+        location: project.location,
+        completed: project.completed ? formatMonthYear(project.completed) : undefined,
+        sector: project.sector?.name,
+      },
+    ];
+  }),
+);
+
 const bannerImage = computed(() => activeCategory.value?.image || "projects-all.jpg");
 const bannerBody = computed(() => activeCategory.value?.description || "");
+const projectListTitle = computed(() => `${activeCategory.value?.name || "Project"} projects`);
 
 definePageMeta({
   layout: "none",
@@ -59,23 +106,57 @@ definePageMeta({
         <div class="projects-toolbar">
           <projects-categories-nav :categories="categories" />
         </div>
-        <div class="projects-grid">
-          <project-card
-            v-for="project in activeProjects"
-            :key="project.id"
-            :image="project.mainImage.url"
-            :alt="project.title"
-            :aria-label="project.title"
-            :to="`${project.sector.slug}/${project.slug}`"
-            aspect-ratio="3/4"
-            image-densities="x1 x2"
-            :outlined="false"
-            :title="project.title"
-            :location="project.location"
-            :completed="project.completed ? formatMonthYear(project.completed) : undefined"
-            :sector="project.sector?.name"
-          />
-        </div>
+        <section
+          v-if="hasProjectsError"
+          class="projects-error"
+          role="alert"
+          aria-live="polite"
+          aria-labelledby="projects-error-title"
+        >
+          <app-typography id="projects-error-title" tag="h2" variant="heading-sm">
+            Projects could not load
+          </app-typography>
+          <app-typography tag="p" variant="text-md" class="projects-error__body">
+            This project category is available, but the project list is temporarily unavailable.
+            Please try again.
+          </app-typography>
+          <app-button
+            type="button"
+            variant="outline"
+            icon="i-lucide-refresh-cw"
+            :disabled="isProjectsRefreshing"
+            @click="refreshProjects"
+          >
+            {{ isProjectsRefreshing ? "Retrying" : "Try again" }}
+          </app-button>
+        </section>
+        <section v-else class="projects-list" aria-labelledby="projects-list-title">
+          <app-typography
+            id="projects-list-title"
+            tag="h2"
+            variant="heading-sm"
+            class="u-visually-hidden"
+          >
+            {{ projectListTitle }}
+          </app-typography>
+          <div class="projects-grid">
+            <project-card
+              v-for="project in projectCards"
+              :key="project.id"
+              :image="project.image"
+              :alt="project.title"
+              :aria-label="project.title"
+              :to="project.to"
+              aspect-ratio="3/4"
+              image-densities="x1 x2"
+              :outlined="false"
+              :title="project.title"
+              :location="project.location"
+              :completed="project.completed"
+              :sector="project.sector"
+            />
+          </div>
+        </section>
       </div>
     </template>
   </layout-a>
@@ -91,6 +172,18 @@ definePageMeta({
 .projects-toolbar {
   width: fit-content;
   margin-bottom: calc(var(--spacing) * 4);
+}
+
+.projects-error {
+  display: grid;
+  gap: calc(var(--spacing) * 4);
+  max-width: 42rem;
+  padding-block: calc(var(--spacing) * 8);
+  color: var(--ui-text);
+}
+
+.projects-error__body {
+  color: var(--text-color-muted);
 }
 
 .projects-grid {
