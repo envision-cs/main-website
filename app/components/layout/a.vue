@@ -37,7 +37,6 @@ const hasAsideSlot = computed(() => Boolean(slots["aside-slot"]));
 .main {
   grid-column: 1/-1;
   border-bottom: 1px solid var(--ui-border);
-  padding-bottom: calc(var(--spacing) * 4);
 }
 
 .main--full {

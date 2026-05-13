@@ -469,7 +469,7 @@ function toggleDesktopMenu(menu: string) {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
     color: var(--section-color);
-    background: var(--section-bg);
+    background: var(--color-envision-gray-800);
   }
 
   .services-grid-item {

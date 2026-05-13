@@ -3,6 +3,10 @@ import type { Project } from "~~/shared/types/content-types";
 
 const { formatMonthYear } = useFormatDate();
 const { sectors: categories } = await useSectors();
+const navCategories = computed(() => [
+  ...categories.value,
+  { name: "Beck/Envision", slug: "beck-envision" },
+]);
 const { data } = await useAsyncData<Project[]>(
   "projects-page-data",
   async () => {
@@ -35,7 +39,7 @@ definePageMeta({
     <template #main-slot>
       <div class="projects">
         <div class="projects-toolbar">
-          <projects-categories-nav :categories="categories" />
+          <projects-categories-nav :categories="navCategories" />
         </div>
         <div class="projects-grid">
           <project-card
@@ -64,20 +68,18 @@ definePageMeta({
   container-type: inline-size;
   container-name: projects;
   position: relative;
+  background: var(--color-envision-gray-800);
 }
 
 .projects-toolbar {
-  width: fit-content;
-  position: absolute;
-  top: 0;
-  z-index: 1;
-  margin-bottom: calc(var(--spacing) * 4);
+  width: 100%;
 }
 
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr;
   container: projects;
+  background: var(--color-envision-gray-800);
 }
 
 @container projects (width > 550px) {

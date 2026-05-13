@@ -100,6 +100,7 @@ if ($posthog) {
     </section-d>
     <card-group-a :cards="featuredProjectCards.sectionOne" />
     <cta-a
+      bgcolor="dark"
       title="Listen. Plan. Execute. Cultivate."
       body="Great projects start with the right partner"
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"

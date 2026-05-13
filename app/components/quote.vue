@@ -161,7 +161,6 @@ onUnmounted(() => {
     :class="{ dark: bgcolor === 'dark', light: bgcolor === 'light', blue: bgcolor === 'blue' }"
     :bgcolor
     :eyebrow
-    :title="sectionTitle"
     :body="sectionBody"
   >
     <div
@@ -171,17 +170,6 @@ onUnmounted(() => {
       @focusin="pauseAutoscroll"
       @focusout="resumeAutoscroll"
     >
-      <button
-        v-if="showRailNavigation"
-        type="button"
-        class="testimonials-stage__arrow testimonials-stage__arrow--previous"
-        :disabled="!canScrollPrevious"
-        aria-label="Previous testimonial"
-        @click="scrollPrevious"
-      >
-        <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
-      </button>
-
       <div
         ref="emblaRef"
         class="testimonials-stage__viewport"
@@ -196,10 +184,10 @@ onUnmounted(() => {
             class="testimonials-stage__slide"
           >
             <article class="testimonial">
-              <app-typography tag="p" variant="heading-md">
-                <span class="testimonial__mark" aria-hidden="true">“</span>
+              <app-typography tag="p" variant="heading-lg">
+                <span class="testimonial__mark" aria-hidden="true">"</span>
                 <span dir="auto">{{ testimonial.quote }}</span>
-                <span class="testimonial__mark" aria-hidden="true">”</span>
+                <span class="testimonial__mark" aria-hidden="true">"</span>
               </app-typography>
               <div>
                 <card-f :item="{ label: testimonial.name, description: testimonial.title }" />
@@ -209,16 +197,26 @@ onUnmounted(() => {
         </ul>
       </div>
 
-      <button
-        v-if="showRailNavigation"
-        type="button"
-        class="testimonials-stage__arrow testimonials-stage__arrow--next"
-        :disabled="!canScrollNext"
-        aria-label="Next testimonial"
-        @click="scrollNext"
-      >
-        <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-      </button>
+      <div v-if="showRailNavigation" class="testimonials-stage__controls">
+        <button
+          type="button"
+          class="testimonials-stage__arrow testimonials-stage__arrow--previous"
+          :disabled="!canScrollPrevious"
+          aria-label="Previous testimonial"
+          @click="scrollPrevious"
+        >
+          <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
+        </button>
+        <button
+          type="button"
+          class="testimonials-stage__arrow testimonials-stage__arrow--next"
+          :disabled="!canScrollNext"
+          aria-label="Next testimonial"
+          @click="scrollNext"
+        >
+          <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+        </button>
+      </div>
     </div>
 
     <ul v-if="showRailNavigation" class="testimonials-stage__dots" aria-label="Testimonial pages">
@@ -375,13 +373,17 @@ onUnmounted(() => {
 }
 
 .testimonials-stage__carousel {
-  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  align-items: center;
   width: 100%;
   min-width: 0;
   padding-block: calc(var(--spacing) * 2);
+}
+
+.testimonials-stage__controls {
+  display: flex;
+  gap: calc(var(--spacing) * 2);
+  padding-top: calc(var(--spacing) * 4);
 }
 
 .testimonials-stage__viewport {
@@ -415,7 +417,6 @@ onUnmounted(() => {
   display: grid;
   gap: calc(var(--spacing) * 8);
   width: min(100%, 62rem);
-  min-height: 24rem;
   padding-block: calc(var(--spacing) * 10);
   padding-inline: calc(var(--spacing) * 1);
 }
@@ -435,9 +436,6 @@ onUnmounted(() => {
 }
 
 .testimonials-stage__arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -447,13 +445,11 @@ onUnmounted(() => {
   border-radius: 0;
   background: var(--quote-control-bg);
   color: var(--quote-control-color);
-  transform: translateY(-50%);
   cursor: pointer;
   transition:
     background-color 180ms ease,
     border-color 180ms ease,
-    color 180ms ease,
-    transform 180ms ease;
+    color 180ms ease;
 }
 
 .testimonials-stage__arrow:hover:not(:disabled),
@@ -476,14 +472,6 @@ onUnmounted(() => {
 .dark .testimonial__mark,
 .blue .testimonial__mark {
   color: var(--quote-accent-color);
-}
-
-.testimonials-stage__arrow--previous {
-  left: calc(var(--spacing) * -2);
-}
-
-.testimonials-stage__arrow--next {
-  right: calc(var(--spacing) * -2);
 }
 
 .testimonials-stage__dots {
@@ -563,25 +551,13 @@ onUnmounted(() => {
 
   .testimonial {
     width: min(100%, 32rem);
-    min-height: 22rem;
     gap: calc(var(--spacing) * 6);
     padding-block: calc(var(--spacing) * 8);
-  }
-
-  .testimonials-stage__arrow {
-    position: static;
-    transform: none;
-    margin-top: calc(var(--spacing) * 2);
   }
 
   .testimonials-stage__carousel {
     gap: calc(var(--spacing) * 4);
     justify-items: center;
-  }
-
-  .testimonials-stage__arrow--previous,
-  .testimonials-stage__arrow--next {
-    inset: auto;
   }
 }
 

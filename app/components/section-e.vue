@@ -42,6 +42,8 @@ withDefaults(
   display: grid;
   gap: 1px;
   border-top: 1px solid var(--ui-border);
+  background-color: var(--section-bg);
+  color: var(--section-color);
 
   div:first-child {
     /*border-right: 1px solid var(--ui-border);*/

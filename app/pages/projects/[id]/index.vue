@@ -13,6 +13,10 @@ interface ProjectCardItem {
 
 const { formatMonthYear } = useFormatDate();
 const { sectors: categories } = await useSectors();
+const navCategories = computed(() => [
+  ...categories.value,
+  { name: "Beck/Envision", slug: "beck-envision" },
+]);
 const route = useRoute();
 
 const categorySlug = computed(() => {
@@ -104,7 +108,7 @@ definePageMeta({
     <template #main-slot>
       <div class="projects">
         <div class="projects-toolbar">
-          <projects-categories-nav :categories="categories" />
+          <projects-categories-nav :categories="navCategories" />
         </div>
         <section
           v-if="hasProjectsError"
@@ -170,8 +174,7 @@ definePageMeta({
 }
 
 .projects-toolbar {
-  width: fit-content;
-  margin-bottom: calc(var(--spacing) * 4);
+  width: 100%;
 }
 
 .projects-error {
@@ -190,6 +193,7 @@ definePageMeta({
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   container: projects;
+  background-color: var(--color-envision-gray-800);
 }
 
 @container projects (width > 750px) {

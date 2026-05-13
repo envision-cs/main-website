@@ -26,7 +26,7 @@ defineProps<{
   grid-template-rows: 10rem auto;
   overflow: hidden;
   color: var(--section-color);
-  background-color: var(--section-bg);
+  background-color: var(--color-envision-gray-800);
   text-decoration: none;
   isolation: isolate;
 }
