@@ -147,7 +147,7 @@ const projectHighlights = [
       eyebrow="Featured Project"
       title="Greater Tampa Realtors: 17,000 SF Interior Office Renovation"
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/2024-04-09%20(1).jpg"
       bgcolor="light"
     >
       <template #body>

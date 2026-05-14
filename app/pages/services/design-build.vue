@@ -100,7 +100,7 @@ const projectOutcomes = [
       eyebrow="Featured Project"
       title="Hillsborough County Public Schools — Liberty Middle School Play Court Cover"
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/20230801_072634.webp"
       bgcolor="dark"
     >
       <template #body>

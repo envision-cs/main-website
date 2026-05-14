@@ -42,7 +42,6 @@ section {
 
   @media (width > 120ch) {
     grid-template-columns: 1fr 1fr;
-    max-height: 600px;
   }
 }
 </style>

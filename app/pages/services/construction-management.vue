@@ -148,7 +148,6 @@ const stats = [
     </section-a>
 
     <cta-a
-      eyebrow="Featured Project"
       title="Four things every owner deserves."
       image="/florida-aquarium-restroom-renovation-03.jpg"
       bgcolor="dark"
@@ -164,7 +163,7 @@ const stats = [
       eyebrow="Featured Project"
       title="Tampa Bay USL Super League — Stadium Improvements at Blake High School"
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/usl_super_league_01_f11cef9b44.jpg?updatedAt=1776161739685"
       bgcolor="light"
     >
       <template #body>
@@ -186,6 +185,13 @@ const stats = [
             </app-typography>
           </li>
         </ul>
+        <my-button
+          label="View Project"
+          to="/projects/athletics/usl-super-league-stadium"
+          bgcolor="blue"
+        >
+          View Project
+        </my-button>
       </template>
     </cta-a>
     <cta-c
