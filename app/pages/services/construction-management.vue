@@ -201,7 +201,7 @@ Or We Make It Right."
       body="Transparency is not a courtesy — it is a covenant. We do not believe in half-answers, delayed updates, or vague timelines. You deserve to know what is happening, what it means, and what comes next — at every stage. Because while not everything in construction is in our control — communication always is."
       label="Start the conversation"
       href="/contact"
-      bgcolor="blue"
+      bgcolor="dark"
     />
   </main>
 </template>

@@ -64,30 +64,56 @@ const desktopDropdowns = computed(() => [
 ]);
 
 const desktopMenuValue = ref<"" | DesktopDropdownValue>("");
+const suppressDesktopMenuOpenUntil = ref(0);
+const desktopMenuModel = computed({
+  get: () => desktopMenuValue.value,
+  set: (value: string) => {
+    if (Date.now() < suppressDesktopMenuOpenUntil.value) {
+      desktopMenuValue.value = "";
+      return;
+    }
+
+    desktopMenuValue.value = value === "services" || value === "projects" ? value : "";
+  },
+});
 const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== "");
 const route = useRoute();
+const router = useRouter();
+let removeDesktopMenuRouteHook: (() => void) | undefined;
 
 watch(
   () => route.fullPath,
   () => {
-    desktopMenuValue.value = "";
+    closeDesktopMenu(800);
   },
 );
 
-function closeDesktopMenu() {
+if (import.meta.client) {
+  removeDesktopMenuRouteHook = router.afterEach(() => {
+    closeDesktopMenu(1000);
+  });
+}
+
+onBeforeUnmount(() => {
+  removeDesktopMenuRouteHook?.();
+});
+
+function closeDesktopMenu(suppressMs = 350) {
+  suppressDesktopMenuOpenUntil.value = Date.now() + suppressMs;
   desktopMenuValue.value = "";
+
+  if (import.meta.client) {
+    window.setTimeout(() => {
+      desktopMenuValue.value = "";
+    }, 0);
+  }
 }
 
 function openDesktopMenu(menu: string) {
   if (menu !== "services" && menu !== "projects") return;
+  if (Date.now() < suppressDesktopMenuOpenUntil.value) return;
 
   desktopMenuValue.value = menu;
-}
-
-function toggleDesktopMenu(menu: string) {
-  if (menu !== "services" && menu !== "projects") return;
-
-  desktopMenuValue.value = desktopMenuValue.value === menu ? "" : menu;
 }
 </script>
 
@@ -113,7 +139,7 @@ function toggleDesktopMenu(menu: string) {
         <Icon name="logos:envision-white" size="30" aria-hidden="true" />
       </NuxtLink>
       <NavigationMenuRoot
-        v-model="desktopMenuValue"
+        v-model="desktopMenuModel"
         class="desktop-nav NavigationMenuRoot"
         :delay-duration="0"
         :skip-delay-duration="0"
@@ -139,8 +165,8 @@ function toggleDesktopMenu(menu: string) {
             :panel-data-test="dropdown.panelDataTest"
             :grid-data-test="dropdown.gridDataTest"
             :item-data-test="dropdown.itemDataTest"
+            :close-menu="closeDesktopMenu"
             @open="openDesktopMenu"
-            @toggle="toggleDesktopMenu"
           />
 
           <NavigationMenuItem>
@@ -290,6 +316,55 @@ function toggleDesktopMenu(menu: string) {
     z-index: 3;
   }
 
+  .desktop-dropdown-trigger-group {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .desktop-dropdown-open-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset-inline-start: calc(100% + 0.3rem);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid color-mix(in oklch, var(--color-white) 28%, transparent);
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-white);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .desktop-dropdown-open-button:focus,
+  .desktop-dropdown-open-button:focus-visible {
+    opacity: 1;
+  }
+
+  .desktop-dropdown-open-button:focus-visible {
+    outline: 2px solid var(--color-envision-green-500);
+    outline-offset: 0.2rem;
+  }
+
+  .desktop-dropdown-open-button:focus[aria-expanded="true"],
+  .desktop-dropdown-open-button:focus-visible[aria-expanded="true"] {
+    border-color: var(--color-envision-green-500);
+    background: color-mix(in oklch, var(--color-envision-green-500) 16%, transparent);
+  }
+
+  .desktop-dropdown-open-button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
   .desktop-inline-nav-link {
     display: inline-flex;
     align-items: center;
@@ -336,6 +411,7 @@ function toggleDesktopMenu(menu: string) {
 
   .desktop-inline-nav-link:hover::after,
   .desktop-inline-nav-link:focus-visible::after,
+  .desktop-inline-nav-link[data-menu-open="true"]::after,
   .desktop-inline-nav-link[aria-expanded="true"]::after {
     transform: scaleX(1);
   }

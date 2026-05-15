@@ -107,11 +107,11 @@
   --color-white: oklch(1 0 0);
   --text-color-muted: var(--color-envision-gray-600);
 
-  --vw: 1vw;
-  --font-size-text-t1: clamp(18px, 0.0125 * calc(100 * var(--vw, 1vw)), 18px);
-  --font-size-text-t2: clamp(16px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 16px);
-  --font-size-text-t3: clamp(14px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 14px);
-  --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
+  --vw: 1.5vw;
+  --font-size-text-t1: clamp(20px, 0.0125 * calc(100 * var(--vw, 1vw)), 22px);
+  --font-size-text-t2: clamp(18px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 20px);
+  --font-size-text-t3: clamp(16px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 18px);
+  --font-size-text-t4: clamp(14px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 16px);
 
   --font-size-huge: clamp(35px, 0.081666667 * calc(100 * var(--vw, 1vw)), 75px);
   --font-size-h1: clamp(32px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 55px);

@@ -194,7 +194,7 @@ const stats = computed<Item[]>(() => {
 
     {
       id: 3,
-      label: page.value.area || "Area unavailable",
+      label: page.value.area,
       description: "Area",
     },
   ];

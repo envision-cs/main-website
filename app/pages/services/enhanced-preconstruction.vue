@@ -142,7 +142,7 @@ const projectHighlights = [
       body="Engage Envision before you commit to full construction. We'll tell you exactly where your project stands — and what it will take to protect it."
       label="Engage Us Early"
       href="/contact"
-      bgcolor="blue"
+      bgcolor="dark"
     />
   </main>
 </template>

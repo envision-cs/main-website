@@ -8,7 +8,7 @@ defineProps<{
 <template>
   <ul>
     <li v-for="item in items" :key="item.id">
-      <card-e :small :item />
+      <card-e v-if="item.label" :small :item />
     </li>
   </ul>
 </template>

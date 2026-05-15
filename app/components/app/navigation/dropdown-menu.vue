@@ -28,28 +28,48 @@ const props = defineProps<{
   panelDataTest: string;
   gridDataTest: string;
   itemDataTest: string;
+  closeMenu: (suppressMs?: number) => void;
 }>();
 
 const emit = defineEmits<{
   open: [value: string];
-  toggle: [value: string];
 }>();
+
+function closeOnNavigation() {
+  props.closeMenu(1500);
+
+  window.setTimeout(() => {
+    props.closeMenu(1500);
+  }, 0);
+}
 </script>
 
 <template>
   <NavigationMenuItem :value="props.value">
-    <NavigationMenuTrigger as-child>
+    <div class="desktop-dropdown-trigger-group">
+      <NuxtLink v-slot="{ href }" :to="featurePanel.to" custom>
+        <a
+          :href="href"
+          class="NavigationMenuTrigger desktop-inline-nav-link submenu"
+          :data-test="triggerDataTest"
+          :data-menu-open="isOpen ? 'true' : undefined"
+          @pointerenter="emit('open', props.value)"
+          @click="closeOnNavigation"
+        >
+          {{ label }}
+        </a>
+      </NuxtLink>
       <button
         type="button"
-        class="NavigationMenuTrigger desktop-inline-nav-link submenu"
-        :data-test="triggerDataTest"
+        class="desktop-dropdown-open-button"
+        :aria-label="`Open ${label} menu`"
         :aria-expanded="isOpen"
-        @pointerenter="emit('open', props.value)"
-        @click="emit('toggle', props.value)"
+        tabindex="0"
+        @focus="emit('open', props.value)"
       >
-        {{ label }}
+        <UIcon name="i-lucide-chevron-down" aria-hidden="true" />
       </button>
-    </NavigationMenuTrigger>
+    </div>
     <NavigationMenuContent class="NavigationMenuContent dark" :data-test="panelDataTest">
       <div class="mega-menu-shell">
         <div class="mega-menu-grid">
@@ -62,6 +82,7 @@ const emit = defineEmits<{
             :copy="featurePanel.copy"
             :link-label="featurePanel.linkLabel"
             :tone="featurePanel.tone"
+            @click="closeOnNavigation"
           />
 
           <div class="services-grid" :data-test="gridDataTest">
@@ -71,6 +92,7 @@ const emit = defineEmits<{
               :to="item.to"
               class="services-grid-item"
               :data-test="itemDataTest"
+              @click="closeOnNavigation"
             >
               <card-f
                 :idx
