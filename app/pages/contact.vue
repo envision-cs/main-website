@@ -7,32 +7,62 @@ const { data: contactData, error } = await useFetch("/api/contact");
     <div class="grid">
       <banner-b image="contact.jpg" class="col-start-1 -col-end-1"> Contact Us </banner-b>
 
-      <!-- Intro + Form   -->
-      <section-e>
+      <!-- Team header -->
+      <section-e v-if="contactData.team.length && !error" bgcolor="dark" no-padding>
         <template #header>
-          <div class="content">
-            <app-typography
-              tag="h2"
-              variant="heading-md"
-              class="font-semibold text-balance uppercase"
-            >
-              Let’s <span>Build</span> Something That <span>Lasts</span>.
-            </app-typography>
-
-            <app-typography tag="p" variant="text-md" class="text-balance max-w-sm">
-              We’re ready to connect—whether you’re starting a project, asking a question, or just
-              want to talk construction.
-            </app-typography>
+          <div class="section-head">
+            <div class="team-role">
+              <app-typography
+                tag="h2"
+                variant="heading-md"
+                class="font-semibold text-balance uppercase pb-8"
+              >
+                Speak with our <span>team</span>
+              </app-typography>
+              <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
+            </div>
           </div>
         </template>
 
         <template #body>
-          <contact-form />
+          <app-team-member-list class="light">
+            <li v-for="member in contactData.team" :key="member.name">
+              <project-card
+                :to="`/team/${member.slug}`"
+                :aria-label="member.name"
+                :image="member.photo?.url"
+                :alt="member.name"
+                link-mode="overlay"
+                aspect-ratio="3/4"
+                image-sizes="(max-width: 768px) 100vw, 300px"
+                :image-hover-scale="1.1"
+                :outlined="false"
+                :meta-border="false"
+                class="team-member-card"
+              >
+                <template #title>
+                  <app-typography class="h3 team-member-title" variant="heading-md">
+                    {{ member.name }}
+                  </app-typography>
+                  <app-typography
+                    tag="p"
+                    variant="text-md"
+                    class="team-member-role text-primary-200 dark:text-primary-200"
+                  >
+                    {{ member.title }}
+                  </app-typography>
+                </template>
+              </project-card>
+            </li>
+          </app-team-member-list>
         </template>
       </section-e>
+      <section v-else>
+        {{ error?.message }}
+      </section>
 
       <!-- Locations    -->
-      <section-e no-padding-main no-padding>
+      <section-e bgcolor="dark" no-padding-main no-padding>
         <template #header>
           <app-typography
             tag="h2"
@@ -61,42 +91,6 @@ const { data: contactData, error } = await useFetch("/api/contact");
           </Client-only>
         </template>
       </section-e>
-
-      <!-- Team header -->
-      <section-e v-if="contactData.team.length && !error" no-padding>
-        <template #header>
-          <div class="section-head">
-            <div class="team-role">
-              <app-typography
-                tag="h2"
-                variant="heading-md"
-                class="font-semibold text-balance uppercase pb-8"
-              >
-                Speak with our <span>team</span>
-              </app-typography>
-            </div>
-          </div>
-        </template>
-
-        <template #body>
-          <app-team-member-list>
-            <app-team-member-card
-              v-for="member in contactData.team"
-              :key="member.id"
-              :path="`/team/${member.slug}`"
-              :name="member.name"
-              :title="member.title"
-              :image="member.photo?.url"
-              :linkedin="member.linkedin"
-              :email="member.email"
-              title-size="heading-md"
-            />
-          </app-team-member-list>
-        </template>
-      </section-e>
-      <section v-else>
-        {{ error?.message }}
-      </section>
     </div>
   </UPage>
 </template>

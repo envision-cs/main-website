@@ -50,7 +50,7 @@ ul {
   }
 
   @media (min-width: 1200px) {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     /**
     li:not(:first-of-type) a {
       border-left: 1px solid var(--border-color-default)

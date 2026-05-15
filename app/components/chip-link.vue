@@ -20,6 +20,7 @@ defineProps<{
   justify-content: end;
   flex-direction: column;
   color: #fff;
+  text-align: center;
   gap: 0.4px;
   height: 100%;
   font-size: 1rem;

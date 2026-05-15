@@ -30,7 +30,7 @@ defineProps<{
 .card {
   display: grid;
   gap: calc(var(--spacing) * 2);
-  border-left: 4px solid var(--color-envision-blue-500);
+  border-left: 4px solid var(--accent-color);
   padding: calc(var(--spacing) * 4);
   height: 100%;
   align-content: start;

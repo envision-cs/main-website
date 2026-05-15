@@ -37,6 +37,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     <div class="content site-max">
       <div class="hero-layout">
         <div class="hero-frame">
+          <Icon name="logos:envision" size="30" aria-hidden="true" />
           <app-typography id="hero-title" tag="h2" variant="heading-huge" bold class="hero-title">
             {{ hero.title }}
           </app-typography>

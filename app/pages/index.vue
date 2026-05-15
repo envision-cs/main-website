@@ -96,7 +96,9 @@ if ($posthog) {
       eyebrow="Regional Coverage"
       title="Greater Tampa Bay + Central Florida"
     >
-      <list-e :items="stats" />
+      <div :style="{ '--accent-color': 'var(--color-envision-green-500)' }">
+        <list-e :items="stats" />
+      </div>
     </section-d>
     <card-group-a :cards="featuredProjectCards.sectionOne" />
     <cta-a
