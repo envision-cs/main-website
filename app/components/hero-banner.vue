@@ -50,12 +50,12 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
             <my-button variant="primary" size="md" to="/contact">Start your project</my-button>
             <my-button variant="outline" size="md" to="/projects">Explore Our Portfolio</my-button>
           </div>
-        </div>
 
+          <service-list class="services" />
+        </div>
         <home-featured-projects-carousel class="hero-projects" />
       </div>
     </div>
-    <service-list class="services" />
   </section>
 </template>
 
@@ -76,9 +76,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 }
 
 .services {
-  grid-row: 4;
-  z-index: 10;
-  place-self: end;
+  width: 100%;
 }
 
 .content {
@@ -118,7 +116,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 
 .overlay {
   z-index: 2;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .image {
@@ -145,8 +143,8 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     radial-gradient(
       circle at 50% 72%,
       rgb(6 11 18 / 0%),
-      rgb(6 11 18 / 40%) 70%,
-      rgb(6 11 18 / 60%) 100%
+      rgb(6 11 18 / 55%) 70%,
+      rgb(6 11 18 / 80%) 100%
     );
 }
 

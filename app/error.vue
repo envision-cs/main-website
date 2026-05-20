@@ -20,6 +20,20 @@ const description = computed(() =>
     : "An unexpected error occurred. Please try again or head back to a safe spot.",
 );
 
+const pageTitle = computed(() =>
+  isNotFound.value ? "Page Not Found | Envision Construction" : "Error | Envision Construction",
+);
+
+useHead(() => ({
+  title: pageTitle.value,
+  meta: [
+    {
+      name: "description",
+      content: description.value,
+    },
+  ],
+}));
+
 const goHome = () => clearError({ redirect: "/" });
 </script>
 
@@ -31,7 +45,7 @@ const goHome = () => clearError({ redirect: "/" });
           <NuxtImg
             src="/USFSPResidenceHall-Exteriors-DuskLandscapefromRamp.jpg"
             alt="Envision project exterior"
-            class="w-full h-full object-cover saturate-105"
+            class="absolute inset-0 w-full h-full object-cover saturate-105"
             sizes="sm:100vw md:100vw lg:100vw"
             densities="x1 x2"
             preload

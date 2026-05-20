@@ -29,6 +29,10 @@ withDefaults(
   >
     <div class="content">
       <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label">
+        <template #title>
+          <slot name="title" />
+        </template>
+
         <template #body>
           <slot name="body" />
         </template>

@@ -1,73 +1,54 @@
 <script setup lang="ts">
 defineProps<{
-  idx: number;
   title: string;
-  slug: string;
-  order: number;
+  to: string;
 }>();
 </script>
 <template>
-  <NuxtLink :to="`services${slug}`" class="link">
-    <div class="title">
+  <NuxtLink :to="to" class="chip-link">
+    <app-typography tag="span" variant="text-sm" class="chip-link__label">
       {{ title }}
-    </div>
+    </app-typography>
   </NuxtLink>
 </template>
 
 <style scoped>
-.link {
+.chip-link {
   display: flex;
-  justify-content: end;
-  flex-direction: column;
-  color: #fff;
-  text-align: center;
-  gap: 0.4px;
-  height: 100%;
-  font-size: 1rem;
-  position: relative;
-
-  padding: calc(var(--spacing) * 4);
-
-  @media (min-width: 1200px) {
-    font-size: 1rem;
-  }
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing) * 2);
+  padding-inline: calc(var(--spacing) * 3);
+  padding-block: calc(var(--spacing) * 1.5);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  border-radius: 999em;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-white);
+  color: var(--color-envision-gray-900);
+  text-decoration: none;
+  transition: all 200ms ease-in-out;
+  cursor: pointer;
 }
 
-.link::after {
-  content: "";
-  position: absolute;
-  height: 8px;
-  border: 1px solid var(--color-envision-blue-500);
-  background-color: var(--color-envision-blue-500);
-  transform: scaleX(0);
-  transform-origin: center left;
-  width: 100%;
-  bottom: 0;
-  left: 0;
-
-  transition: all 400ms ease;
+.chip-link :deep(.chip-link__label.text-sm) {
+  max-inline-size: none;
+  font-size: inherit;
+  line-height: 1.2;
 }
 
-.link:hover::after {
-  content: "";
-  position: absolute;
-  transform: scaleX(1);
-  height: 8px;
-  border: 1px solid var(--color-envision-blue-500);
-  background-color: var(--color-envision-blue-500);
-  width: 100%;
-  bottom: 0;
-  left: 0;
+.chip-link:hover {
+  background-color: var(--color-envision-gray-100);
+  border-color: var(--color-envision-gray-100);
 }
 
-.order {
-  color: var(--color-envision-blue-500);
-  font-weight: 600;
-  font-size: 1.2em;
+.chip-link:active {
+  transform: scale(0.98);
+  background-color: var(--color-envision-gray-200);
 }
 
-.learn {
-  font-size: 0.8em;
-  text-transform: uppercase;
+.chip-link:focus-visible {
+  outline: 2px solid var(--color-envision-blue-500);
+  outline-offset: 2px;
 }
 </style>

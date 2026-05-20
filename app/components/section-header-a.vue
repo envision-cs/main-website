@@ -21,9 +21,11 @@ defineProps<{
       {{ eyebrow }}
     </app-typography>
 
-    <app-typography tag="h2" variant="heading-lg" class="title">
-      {{ title }}
-    </app-typography>
+    <slot name="title">
+      <app-typography tag="h2" variant="heading-lg" class="title">
+        {{ title }}
+      </app-typography>
+    </slot>
 
     <slot name="body" />
 

@@ -21,20 +21,22 @@ const hasBody = computed(() => Boolean(slots.body || props.body));
     role="region"
   >
     <div class="header my-auto">
-      <app-typography v-if="hasEyebrow" variant="heading-sm" tag="p" class="eyebrow">
-        <slot name="eyebrow">
-          <slot name="title" />
-        </slot>
-      </app-typography>
+      <div>
+        <app-typography v-if="hasEyebrow" variant="heading-sm" tag="p" class="eyebrow mb-3">
+          <slot name="eyebrow">
+            <slot name="title" />
+          </slot>
+        </app-typography>
 
-      <app-typography
-        id="banner-title"
-        tag="h1"
-        variant="heading-huge"
-        class="max-w-full md:max-w-[60vw] text-balance"
-      >
-        <slot />
-      </app-typography>
+        <app-typography
+          id="banner-title"
+          tag="h1"
+          variant="heading-huge"
+          class="max-w-full md:max-w-[60vw] text-balance"
+        >
+          <slot />
+        </app-typography>
+      </div>
 
       <app-typography v-if="hasBody" id="banner-body" tag="p" variant="text-xl" class="text">
         <slot name="body">
@@ -87,9 +89,12 @@ const hasBody = computed(() => Boolean(slots.body || props.body));
 }
 
 .header {
+  display: flex;
+  flex-direction: column;
   margin-top: auto;
   position: relative;
   z-index: 2;
+  gap: calc(var(--spacing) * 6);
 }
 
 .eyebrow {
@@ -106,7 +111,6 @@ const hasBody = computed(() => Boolean(slots.body || props.body));
 }
 
 .text {
-  margin-top: calc(var(--spacing) * 4);
   grid-column: 1 / -1;
 }
 

@@ -69,7 +69,7 @@ export type TeamMember = {
   slug: string;
   bio: string;
   photo: Photo;
-  team: Team;
+  team: Team | null;
   order?: number;
 };
 

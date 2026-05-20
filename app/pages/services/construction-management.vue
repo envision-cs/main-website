@@ -139,7 +139,7 @@ const stats = [
     </section-a>
     <section-a
       bgcolor="light"
-      eyebrow="The Envision way"
+      eyebrow="Our Proven Process"
       title="One process. Every project. No exceptions.
 "
       body="Applied consistently regardless of size, sector, or complexity."
@@ -195,6 +195,7 @@ const stats = [
       </template>
     </cta-a>
     <cta-c
+      eyebrow="Our Guarantee"
       title="Total Transparency.
 Or We Make It Right."
       center
@@ -202,7 +203,20 @@ Or We Make It Right."
       label="Start the conversation"
       href="/contact"
       bgcolor="dark"
-    />
+    >
+      <template #title>
+        <app-typography
+          tag="h2"
+          variant="heading-lg"
+          class="title text-envision-blue-500 font-semibold"
+        >
+          Total Transparency.
+        </app-typography>
+        <app-typography tag="p" variant="heading-lg" class="subtitle">
+          Or We Make It Right.
+        </app-typography>
+      </template>
+    </cta-c>
   </main>
 </template>
 

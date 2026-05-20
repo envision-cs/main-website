@@ -27,16 +27,6 @@ const { data } = await useAsyncData(
 // 3) Related groups - optimized logic
 const relatedTeam = computed(() => data.value?.team || []);
 
-function teamOverlay(color?: string) {
-  const teamColor = color || "#0c2c45";
-  return `linear-gradient(
-    to top,
-    color-mix(in srgb, ${teamColor} 75%, transparent) 0%,
-    color-mix(in srgb, ${teamColor} 45%, transparent) 10%,
-    transparent 30%
-  )`;
-}
-
 // 4) Page metadata
 const title = computed(() => data.value?.teamMember?.name);
 
@@ -94,6 +84,7 @@ useSeoMeta({
       v-if="data.teamMember?.team"
       :key="data.teamMember.team.name"
       no-padding
+      bgcolor="dark"
       class="team-section border-t border-muted"
       :style="{ '--teamColor': data.teamMember.team.color }"
     >
@@ -108,7 +99,7 @@ useSeoMeta({
         </div>
       </template>
       <template #body>
-        <app-team-member-list>
+        <app-team-member-list class="light">
           <li v-for="member in relatedTeam.filter((m) => m.slug !== id)" :key="member.id">
             <project-card
               :to="`/team/${member.slug}`"
@@ -146,9 +137,12 @@ useSeoMeta({
 
 <style scoped>
 .team-section {
+  --accent-color: #fff;
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
+  color: var(--section-color);
+  background: var(--section-bg);
 }
 
 .section-head {

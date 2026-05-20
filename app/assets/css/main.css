@@ -69,6 +69,8 @@
   --color-envision-green-900: oklch(0.254 0.086 142.495);
   --color-envision-green-950: oklch(0.154 0.052 142.495);
 
+  --color-envision-gray-100: oklch(0.97 0.0014 286.37);
+  --color-envision-gray-200: oklch(0.93 0.0014 286.37);
   --color-envision-gray-300: oklch(0.8733 0.0014 286.37);
   --color-envision-gray-400: oklch(0.7287 0.0014 286.36);
   --color-envision-gray-500: oklch(0.5474 0.0062 297.62);
