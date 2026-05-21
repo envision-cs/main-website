@@ -36,7 +36,7 @@ withDefaults(
 .content-wrapper {
   margin-inline: auto;
   width: 100%;
-  max-width: 1300px;
+  max-width: 1500px;
   display: grid;
   gap: calc(var(--spacing) * 4);
   grid-column: 1 / -1;

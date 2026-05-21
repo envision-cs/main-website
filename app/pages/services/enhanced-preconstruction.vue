@@ -137,12 +137,25 @@ const projectHighlights = [
       </template>
     </cta-a>
     <cta-c
-      title="The best projects start with the best conversations."
+      title=" "
       center
       body="Engage Envision before you commit to full construction. We'll tell you exactly where your project stands — and what it will take to protect it."
       label="Engage Us Early"
       href="/contact"
       bgcolor="dark"
-    />
+    >
+      <template #title>
+        <app-typography
+          tag="h2"
+          variant="heading-lg"
+          class="title text-envision-blue-500 font-semibold"
+        >
+          The best projects start
+        </app-typography>
+        <app-typography tag="p" variant="heading-lg" class="subtitle">
+          with the best conversations.
+        </app-typography>
+      </template>
+    </cta-c>
   </main>
 </template>

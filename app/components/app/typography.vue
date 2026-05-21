@@ -57,18 +57,18 @@ const variantClasses = computed(() => {
 
 .heading-xl {
   font-size: var(--font-size-h1);
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .heading-lg {
   font-size: var(--font-size-h2);
-  line-height: 1;
+  line-height: 1.1;
   text-wrap: balance;
 }
 
 .heading-md {
   font-size: var(--font-size-h3);
-  line-height: 1;
+  line-height: 1.1;
 }
 
 .heading-sm {

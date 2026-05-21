@@ -14,7 +14,7 @@ defineProps<{
       <app-typography v-if="idx != null" variant="text-xl" class="number">
         0{{ idx + 1 }}
       </app-typography>
-      <app-typography variant="heading-sm" class="font-semibold mb-2">
+      <app-typography variant="heading-md" class="font-semibold mb-2">
         {{ item.label }}
       </app-typography>
       <app-typography variant="text-sm" class="text-balance">

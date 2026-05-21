@@ -163,23 +163,46 @@ definePageMeta({
       </template>
     </cta-a>
 
-    <section-d
+    <cta-a
+      eyebrow="Featured Project"
       bgcolor="blue"
-      eyebrow="Also worth noting"
       title="University of South Florida — Continuing Services"
-      body="Envision has served USF under a General Contracting Continuing Services contract since 2024 — approximately 13 projects and counting across active campus environments. Lab improvements, interior renovations, building upgrades, permit-driven scopes. Multiple projects running concurrently. This is what a reliable SPD partner looks like at volume."
+      body=""
+      image="/florida-aquarium-restroom-renovation-03.jpg"
     >
-      <list-e :items="stats" />
-    </section-d>
+      <template #body>
+        <app-typography>
+          Envision has served USF under a General Contracting Continuing Services contract since
+          2024 — approximately 13 projects and counting across active campus environments. Lab
+          improvements, interior renovations, building upgrades, permit-driven scopes. Multiple
+          projects running concurrently. This is what a reliable SPD partner looks like at volume.
+        </app-typography>
+
+        <list-e :items="stats" />
+      </template>
+    </cta-a>
 
     <cta-c
-      title="Have a scope? Let's get it done."
+      title=" "
       center
       body="Tell us what you need. We'll respond fast, price it clearly, and get to work on your schedule."
       label="Get a scope started"
       href="/contact"
       bgcolor="dark"
-    />
+    >
+      <template #title>
+        <app-typography
+          tag="h2"
+          variant="heading-lg"
+          class="title text-envision-blue-500 font-semibold"
+        >
+          Have a scope?
+        </app-typography>
+        <app-typography tag="p" variant="heading-lg" class="subtitle">
+          Let's get it done.
+        </app-typography>
+      </template>
+    </cta-c>
   </main>
 </template>
 

@@ -125,13 +125,26 @@ const projectOutcomes = [
       </template>
     </cta-a>
     <cta-c
-      title="Building something? Let's talk early."
+      title=" "
       center
       body="The earlier we're in the conversation, the more value we can protect. Tell us about your project."
       label="Start the conversation"
       href="/contact"
       bgcolor="dark"
-    />
+    >
+      <template #title>
+        <app-typography
+          tag="h2"
+          variant="heading-lg"
+          class="title text-envision-blue-500 font-semibold"
+        >
+          Building something?
+        </app-typography>
+        <app-typography tag="p" variant="heading-lg" class="subtitle">
+          Let's talk early.
+        </app-typography>
+      </template>
+    </cta-c>
   </main>
 </template>
 

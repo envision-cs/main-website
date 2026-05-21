@@ -59,12 +59,10 @@ defineProps<{
   font-weight: bold;
   letter-spacing: 6%;
   color: var(--accent-color);
-  line-height: 1.5;
 }
 
 .title {
   color: inherit;
-  line-height: 0.8;
 }
 
 .body {

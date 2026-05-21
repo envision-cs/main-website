@@ -9,7 +9,7 @@ defineProps<{
 <template>
   <div class="chip">
     <span class="chip__dot" aria-hidden="true" />
-    <app-typography>
+    <app-typography variant="text-lg" class="text-balance">
       {{ label }}
     </app-typography>
   </div>

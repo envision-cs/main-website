@@ -172,13 +172,26 @@ const projectHighlights = [
       </template>
     </cta-a>
     <cta-c
-      title="Ready to transform your space?"
+      title=""
       center
       body="Tell us about your environment, your timeline, and what you're trying to achieve. We'll tell you exactly how we'd approach it."
       label="Tell us about your space"
       href="/contact"
       bgcolor="dark"
-    />
+    >
+      <template #title>
+        <app-typography
+          tag="h2"
+          variant="heading-lg"
+          class="title text-envision-blue-500 font-semibold"
+        >
+          Are you ready
+        </app-typography>
+        <app-typography tag="p" variant="heading-lg" class="subtitle">
+          to transform your space?
+        </app-typography>
+      </template>
+    </cta-c>
   </main>
 </template>
 

@@ -8,7 +8,7 @@ withDefaults(
     label?: string;
     title: string;
     eyebrow?: string;
-    bgcolor?: "light" | "dark";
+    bgcolor?: "light" | "dark" | "blue";
   }>(),
   {
     bgcolor: "light",
@@ -17,7 +17,14 @@ withDefaults(
 </script>
 
 <template>
-  <section :class="{ dark: bgcolor === 'dark', light: bgcolor === 'light', flip: flip }">
+  <section
+    :class="{
+      blue: bgcolor === 'blue',
+      dark: bgcolor === 'dark',
+      light: bgcolor === 'light',
+      flip: flip,
+    }"
+  >
     <div class="content">
       <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label" />
       <div class="body">
