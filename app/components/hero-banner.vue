@@ -13,12 +13,12 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 <template>
   <section
     v-if="hero"
-    class="hero overflow-hidden grid"
+    class="hero"
     aria-labelledby="hero-title"
     aria-describedby="hero-summary"
     role="region"
   >
-    <div class="col-span-full row-span-full overflow-hidden">
+    <div class="hero__media">
       <NuxtImg
         v-if="hero.image?.url"
         :src="hero.image.url"
@@ -26,146 +26,127 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
         sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
         fit="cover"
         preload
-        format="avif"
+        format="avif,webp"
         loading="eager"
-        class="image h-full w-full"
+        class="hero__image"
       />
     </div>
-    <div class="hero-vignette" aria-hidden="true" />
-    <app-gradient-overlay direction="top" class="overlay" />
 
-    <div class="content site-max">
-      <div class="hero-layout">
-        <div class="hero-frame">
-          <Icon name="logos:envision" size="30" aria-hidden="true" />
-          <app-typography id="hero-title" tag="h2" variant="heading-huge" bold class="hero-title">
-            {{ hero.title }}
-          </app-typography>
+    <div class="hero__overlay" aria-hidden="true" />
 
-          <app-typography id="hero-summary" tag="p" variant="text-xl" class="hero-summary">
-            {{ hero.subtitle }}
-          </app-typography>
+    <div class="hero__inner site-grid">
+      <div class="hero__copy">
+        <Icon name="logos:envision" size="30" aria-hidden="true" />
 
-          <div class="hero-actions">
-            <my-button variant="primary" size="md" to="/contact">Start your project</my-button>
-            <my-button variant="outline" size="md" to="/projects">Explore Our Portfolio</my-button>
-          </div>
+        <app-typography id="hero-title" tag="h2" variant="heading-huge" bold class="hero-title">
+          {{ hero.title }}
+        </app-typography>
 
-          <service-list class="services" />
+        <app-typography id="hero-summary" tag="p" variant="text-xl" class="hero-summary">
+          {{ hero.subtitle }}
+        </app-typography>
+
+        <div class="hero-actions">
+          <my-button variant="primary" size="md" to="/contact">Start your project</my-button>
+          <my-button variant="outline" size="md" to="/projects">Explore Our Portfolio</my-button>
         </div>
-        <home-featured-projects-carousel class="hero-projects" />
+
+        <service-list class="services" />
       </div>
+
+      <aside class="hero__rail" aria-label="Featured projects">
+        <home-featured-projects-carousel />
+      </aside>
     </div>
   </section>
 </template>
 
 <style scoped>
 .hero {
-  grid-column: 1/-1;
+  --section-bg: var(--color-envision-gray-900);
+  --section-color: var(--color-white);
+  --header-height: 3.5rem;
+
   display: grid;
-  grid-template-columns: 1rem 1fr 1rem;
-  grid-template-rows: 1fr 1fr auto auto;
   isolation: isolate;
-  min-height: 100dvh;
-  height: auto;
+  position: relative;
+  height: calc(100dvh - var(--header-height));
+  min-height: 620px;
+  max-height: min(calc(100dvh - var(--header-height)), 850px);
+  grid-column: 1 / -1;
+  color: var(--section-color);
+  background: var(--section-bg);
+  overflow: hidden;
 
   @media (min-width: 700px) {
-    min-height: 800px;
-    height: 100dvh;
+    min-height: 750px;
+    max-height: min(calc(100dvh - var(--header-height)), 1000px);
   }
 }
 
-.services {
-  width: 100%;
+.hero__media,
+.hero__overlay {
+  position: absolute;
+  inset: 0;
 }
 
-.content {
-  display: flex;
-  grid-column: 1/-1;
-  grid-row: 1/4;
-  width: 100%;
-  z-index: 3;
-  align-items: end;
-  margin-top: 4rem;
-  min-height: 85vh;
-
-  padding: clamp(1.25rem, 2vw, 2.5rem);
-
-  @media (min-width: 600px) {
-    min-height: unset;
-  }
-
-  @media (min-width: 800px) {
-    margin-top: 0;
-    height: unset;
-    padding: clamp(2rem, 4vw, 4.5rem);
-  }
+.hero__media {
+  z-index: 0;
+  overflow: hidden;
 }
 
-.hero-layout {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+.hero__image {
   width: 100%;
   height: 100%;
-
-  @media (min-width: 1200px) {
-    grid-template-columns: minmax(0, 1.15fr) minmax(22rem, 38rem);
-  }
-}
-
-.overlay {
-  z-index: 2;
-  opacity: 1;
-}
-
-.image {
+  object-fit: cover;
   animation: hero-drift 18s ease-in-out infinite alternate;
   transform: scale(1.04);
   transform-origin: center center;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
 }
 
-.hero-vignette,
-.hero-glow,
-.hero-gridline {
-  grid-column: 1/-1;
-  grid-row: 1/-1;
-  pointer-events: none;
-}
-
-.hero-vignette {
+.hero__overlay {
   z-index: 1;
-  background:
-    radial-gradient(circle at 68% 34%, rgb(174 205 255 / 5%), transparent 20%),
-    radial-gradient(
-      circle at 50% 72%,
-      rgb(6 11 18 / 0%),
-      rgb(6 11 18 / 55%) 70%,
-      rgb(6 11 18 / 80%) 100%
-    );
+  background: 
+    /* Subtle text backing overlay coming from the bottom-left */
+    linear-gradient(
+      to top right,
+      rgba(6, 11, 18, 0.85) 0%,
+      rgba(6, 11, 18, 0.4) 35%,
+      rgba(6, 11, 18, 0) 70%
+    ),
+    /* Main bottom-to-top cinematic fade */
+    linear-gradient(
+        to top,
+        rgba(6, 11, 18, 0.75) 0%,
+        rgba(6, 11, 18, 0.3) 45%,
+        rgba(6, 11, 18, 0) 80%
+      );
 }
 
-.hero-frame {
-  display: grid;
-  gap: clamp(0.75rem, 1vw, 1.2rem);
+.hero__inner {
+  z-index: 3;
+  position: relative;
+  width: 100%;
   align-self: end;
-
-  @media (min-width: 799px) {
-    align-self: center;
-  }
+  gap: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 16) calc(var(--spacing) * 4) calc(var(--spacing) * 12);
 }
 
-.hero-eyebrow {
-  margin: 0;
-  color: var(--color-envision-gray-300);
-  font-size: clamp(0.72rem, 0.9vw, 0.82rem);
-  letter-spacing: 0.22em;
-  line-height: 1;
-  text-transform: uppercase;
-  animation: hero-reveal 800ms cubic-bezier(0.19, 1, 0.22, 1) both;
+.hero__copy {
+  display: grid;
+  grid-column: 1 / -1;
+  align-content: end;
+  gap: calc(var(--spacing) * 5);
+  z-index: 2;
+  max-width: 60rem;
+}
+
+.hero__rail {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: calc(var(--spacing) * 4);
+  align-self: end;
+  min-width: 0;
 }
 
 .hero-title {
@@ -190,7 +171,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 .hero-summary {
   margin: 0;
   max-width: 60ch;
-  color: var(--color-envision-gray-300);
+  color: color-mix(in srgb, var(--color-white) 84%, transparent);
   line-height: 1.35;
   text-wrap: balance;
   animation: hero-reveal 1160ms cubic-bezier(0.19, 1, 0.22, 1) both;
@@ -198,21 +179,61 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 
 .hero-actions {
   display: flex;
-  flex: wrap;
-  flex-direction: column;
-  gap: calc(var(--spacing) * 4);
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 3);
+  align-items: center;
   padding-top: clamp(0.5rem, 1vw, 0.85rem);
   animation: hero-reveal 1280ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
 
-  @media (min-width: 600px) {
-    flex-direction: row;
+.hero-actions :deep(.app-btn) {
+  border-radius: 4px;
+  text-transform: none;
+}
+
+.services {
+  width: 100%;
+  animation: hero-reveal 1380ms cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+@media (min-width: 700px) {
+  .hero__inner {
+    padding-top: calc(var(--spacing) * 28);
+    padding-inline: calc(var(--spacing) * 8);
+    padding-bottom: calc(var(--spacing) * 16);
+  }
+
+  .hero__copy {
+    grid-column: 1 / 8;
+  }
+
+  .hero__rail {
+    grid-column: 9 / -1;
   }
 }
 
-.hero-projects {
-  animation: hero-reveal 1380ms cubic-bezier(0.19, 1, 0.22, 1) both;
-  justify-self: end;
-  width: 100%;
+@media (min-width: 1024px) {
+  .hero__inner {
+    align-items: end;
+  }
+
+  .hero__copy {
+    grid-column: 1 / 15;
+  }
+
+  .hero__rail {
+    grid-column: 17 / -1;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero__copy {
+    grid-column: 1 / 14;
+  }
+
+  .hero__rail {
+    grid-column: 16 / -1;
+  }
 }
 
 @keyframes hero-drift {
@@ -237,25 +258,12 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   }
 }
 
-@media (max-width: 799px) {
-  .content {
-    align-items: flex-start;
-  }
-
-  .hero-frame {
-    width: 100%;
-    margin-block-end: 0.5rem;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .image,
-  .hero-eyebrow,
-  .hero-rule,
+  .hero__image,
   .hero-title,
   .hero-summary,
   .hero-actions,
-  .hero-projects {
+  .services {
     animation: none;
     transform: none;
   }

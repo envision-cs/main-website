@@ -214,9 +214,11 @@ function onDrawerCloseAutoFocus(event: Event) {
 
         <div class="mobile-content-header">
           <div class="mobile-brand-block">
-            <span class="mobile-brand-block__eyebrow">Navigation</span>
+            <app-typography tag="span" variant="eyebrow-md" class="mobile-brand-block__eyebrow">
+              Navigation
+            </app-typography>
             <div class="mobile-brand-block__mark">
-              <Icon name="logos:envision" size="28" alt="envision construction logo" />
+              <Icon name="logos:envision-white" size="28" alt="envision construction logo" />
             </div>
           </div>
           <my-button
@@ -242,7 +244,10 @@ function onDrawerCloseAutoFocus(event: Event) {
                 data-anim="mobile-nav-link"
                 @click="closeDrawerAndNavigate"
               >
-                <span class="mobile-link__label">Home</span>
+                <app-typography tag="span" variant="heading-sm" class="mobile-link__label">
+                  Home
+                </app-typography>
+                <UIcon name="i-lucide-arrow-right" class="mobile-link__icon" aria-hidden="true" />
               </NuxtLink>
             </li>
             <li class="mobile-nav-list__item">
@@ -253,8 +258,20 @@ function onDrawerCloseAutoFocus(event: Event) {
                     type="button"
                     data-test="mobile-services-toggle"
                     data-anim="mobile-nav-link"
+                    :aria-expanded="String(mobileServicesOpen)"
                   >
-                    <span class="mobile-services-toggle__label">Services</span>
+                    <app-typography
+                      tag="span"
+                      variant="heading-sm"
+                      class="mobile-services-toggle__label"
+                    >
+                      Services
+                    </app-typography>
+                    <UIcon
+                      name="i-lucide-chevron-down"
+                      class="mobile-services-toggle__icon"
+                      aria-hidden="true"
+                    />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent class="mobile-services-panel" data-test="mobile-services-panel">
@@ -270,7 +287,14 @@ function onDrawerCloseAutoFocus(event: Event) {
                         data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
-                        <span class="mobile-link__label">{{ link.title }}</span>
+                        <app-typography tag="span" variant="text-md" class="mobile-link__label">
+                          {{ link.title }}
+                        </app-typography>
+                        <UIcon
+                          name="i-lucide-arrow-right"
+                          class="mobile-link__icon"
+                          aria-hidden="true"
+                        />
                       </NuxtLink>
                     </li>
                   </ul>
@@ -285,8 +309,20 @@ function onDrawerCloseAutoFocus(event: Event) {
                     type="button"
                     data-test="mobile-projects-toggle"
                     data-anim="mobile-nav-link"
+                    :aria-expanded="String(mobileProjectsOpen)"
                   >
-                    <span class="mobile-services-toggle__label">Projects</span>
+                    <app-typography
+                      tag="span"
+                      variant="heading-sm"
+                      class="mobile-services-toggle__label"
+                    >
+                      Projects
+                    </app-typography>
+                    <UIcon
+                      name="i-lucide-chevron-down"
+                      class="mobile-services-toggle__icon"
+                      aria-hidden="true"
+                    />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent class="mobile-services-panel" data-test="mobile-projects-panel">
@@ -302,7 +338,14 @@ function onDrawerCloseAutoFocus(event: Event) {
                         data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
-                        <span class="mobile-link__label">{{ link.title }}</span>
+                        <app-typography tag="span" variant="text-md" class="mobile-link__label">
+                          {{ link.title }}
+                        </app-typography>
+                        <UIcon
+                          name="i-lucide-arrow-right"
+                          class="mobile-link__icon"
+                          aria-hidden="true"
+                        />
                       </NuxtLink>
                     </li>
                   </ul>
@@ -317,7 +360,10 @@ function onDrawerCloseAutoFocus(event: Event) {
                 data-anim="mobile-nav-link"
                 @click="closeDrawerAndNavigate"
               >
-                <span class="mobile-link__label">{{ link.title }}</span>
+                <app-typography tag="span" variant="heading-sm" class="mobile-link__label">
+                  {{ link.title }}
+                </app-typography>
+                <UIcon name="i-lucide-arrow-right" class="mobile-link__icon" aria-hidden="true" />
               </NuxtLink>
             </li>
           </ul>
@@ -329,109 +375,110 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 <style scoped>
 .mobile-trigger {
-  display: block;
+  display: inline-flex;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.mobile-trigger:deep(.btn),
+.mobile-trigger {
+  border-radius: 0;
 }
 
 .mobile-overlay {
   position: fixed;
   inset: 0;
-  background: rgb(15 31 52 / 14%);
+  background: color-mix(in oklch, var(--color-envision-gray-900) 72%, transparent);
   z-index: 200;
 }
 
 .mobile-content {
+  --drawer-bg: var(--color-envision-gray-800);
+  --drawer-bg-deep: var(--color-envision-gray-900);
+  --drawer-text: var(--color-white);
+  --drawer-muted: color-mix(in oklch, var(--color-white) 62%, var(--color-envision-blue-300));
+  --drawer-border: color-mix(in oklch, var(--color-white) 13%, transparent);
+  --drawer-accent: var(--color-envision-green-500);
+  --drawer-blue: var(--color-envision-blue-500);
+
   position: fixed;
   top: 0;
   right: 0;
   height: 100dvh;
-  width: min(28rem, 92vw);
+  width: min(31rem, 94vw);
   margin: 0;
-  border-left: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 12%, white);
-  background: color-mix(in oklch, white 98%, var(--color-envision-blue-50) 2%);
-  color: color-mix(
-    in oklch,
-    var(--color-envision-blue-950) 88%,
-    var(--color-envision-green-900) 12%
-  );
+  border-left: 1px solid var(--drawer-border);
+  background: var(--drawer-bg);
+  color: var(--drawer-text);
   z-index: 201;
   overflow-y: auto;
   padding: 0;
+  outline: none;
 }
 
 .mobile-content-header {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1rem 0;
+  gap: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 5) calc(var(--spacing) * 4) calc(var(--spacing) * 6);
+  border-bottom: 1px solid var(--drawer-border);
+  background: var(--drawer-bg-deep);
 }
 
 .mobile-brand-block {
   display: grid;
-  gap: 0.45rem;
+  gap: calc(var(--spacing) * 2);
+  min-width: 0;
 }
 
 .mobile-brand-block__eyebrow {
-  font-size: 0.68rem;
+  color: var(--drawer-blue);
   letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: color-mix(in oklch, var(--color-envision-blue-900) 52%, white);
+  line-height: 1;
 }
 
 .mobile-brand-block__mark {
   display: inline-flex;
   align-items: center;
+  color: var(--drawer-text);
+  width: fit-content;
+  min-height: 2rem;
 }
 
 .mobile-nav-close {
   flex: 0 0 auto;
-}
-
-.mobile-nav-close :deep(.btn-main) {
-  border: 1px solid var(--color-envision-blue-900);
   border-radius: 0;
-  background: white;
 }
 
-.mobile-nav-close :deep(.btn-main--sm) {
-  padding: 0.58rem 0.92rem;
-  font-size: 0.74rem;
+.mobile-nav-close:deep(.btn) {
+  border: 1px solid var(--drawer-border);
+  border-radius: 0;
+  background: transparent;
+  color: var(--drawer-text);
+  outline-color: var(--drawer-border);
+  text-transform: uppercase;
   letter-spacing: 0.14em;
 }
 
-.mobile-nav-close :deep(.btn-text) {
-  color: var(--color-envision-blue-900);
+.mobile-nav-close:deep(.btn--sm) {
+  padding: 0.6rem 0.85rem;
+  font-size: 0.74rem;
 }
 
-.mobile-nav-close :deep(.btn-overlay) {
-  display: none;
+.mobile-nav-close:deep(.btn:hover),
+.mobile-nav-close:deep(.btn:focus-visible) {
+  color: var(--drawer-bg-deep);
+  background: var(--drawer-text);
+  outline-color: var(--drawer-accent);
 }
 
 .mobile-nav {
-  padding: 0.75rem 1rem 1rem;
-}
-
-.mobile-nav-intro {
-  display: grid;
-  gap: 0.55rem;
-  padding: 0 0 1rem;
-  border-bottom: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
-  margin-bottom: 0.2rem;
-}
-
-.mobile-nav-intro__label {
-  margin: 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: color-mix(in oklch, var(--color-envision-blue-900) 56%, white);
-}
-
-.mobile-nav-intro__copy {
-  margin: 0;
-  max-width: 25ch;
-  font-size: 1rem;
-  line-height: 1.35;
+  padding: 0;
 }
 
 .mobile-nav-list,
@@ -443,108 +490,158 @@ function onDrawerCloseAutoFocus(event: Event) {
   gap: 0;
 }
 
-.mobile-nav-list__item,
+.mobile-nav-list {
+  counter-reset: mobile-nav;
+}
+
+.mobile-nav-list__item {
+  counter-increment: mobile-nav;
+  border-bottom: 1px solid var(--drawer-border);
+}
+
 .mobile-services-list__item {
-  border-bottom: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 9%, white);
+  border-top: 1px solid color-mix(in oklch, var(--color-white) 8%, transparent);
 }
 
 .mobile-link,
 .mobile-services-toggle {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: 0.85rem;
+  column-gap: calc(var(--spacing) * 4);
   width: 100%;
-  min-height: 4.25rem;
+  min-height: 5rem;
   text-transform: uppercase;
-  font-size: 0.92rem;
   text-decoration: none;
-  color: inherit;
+  color: var(--drawer-text);
   background: transparent;
+  border: 0;
   transition:
     background-color 180ms ease,
-    color 180ms ease;
+    color 180ms ease,
+    padding-inline 180ms ease;
+}
+
+.mobile-link::before,
+.mobile-services-toggle::before {
+  content: counter(mobile-nav, decimal-leading-zero);
+  align-self: start;
+  padding-top: 0.18rem;
+  color: var(--drawer-accent);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
 }
 
 .mobile-link {
-  padding: 0.95rem 0;
-}
-
-.mobile-link__index,
-.mobile-services-toggle__meta {
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  color: color-mix(in oklch, var(--ui-primary) 60%, white);
+  padding: calc(var(--spacing) * 4);
 }
 
 .mobile-link__label,
 .mobile-services-toggle__label {
-  font-size: 1.32rem;
-  line-height: 1;
-  letter-spacing: -0.03em;
+  max-inline-size: none;
+  color: inherit;
+  line-height: 0.98;
   text-transform: none;
+  letter-spacing: -0.025em;
+}
+
+.mobile-link__icon,
+.mobile-services-toggle__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--drawer-muted);
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 .mobile-link--accent {
-  background: var(--color-envision-blue-900);
-  color: white;
-  padding-inline: 1rem;
+  color: var(--drawer-text);
+  background: color-mix(in oklch, var(--drawer-blue) 22%, transparent);
+  box-shadow: inset 4px 0 0 var(--drawer-blue);
 }
 
-.mobile-link--accent .mobile-link__index {
-  color: rgb(255 255 255 / 0.66);
+.mobile-link--accent::before {
+  color: var(--drawer-text);
 }
 
 .mobile-services-toggle {
-  width: 100%;
-  border: 0;
-  background: transparent;
-  padding: 0.95rem 0;
+  padding: calc(var(--spacing) * 4);
   text-align: left;
+  cursor: pointer;
 }
 
 .mobile-link:hover,
 .mobile-services-toggle:hover {
-  background: color-mix(in oklch, var(--color-envision-blue-50) 34%, white);
+  color: var(--drawer-text);
+  background: color-mix(in oklch, var(--color-white) 6%, transparent);
   outline: none;
+}
+
+.mobile-link:hover .mobile-link__icon,
+.mobile-link:focus-visible .mobile-link__icon {
+  color: var(--drawer-accent);
+  transform: translateX(0.25rem);
+}
+
+.mobile-services-toggle:hover .mobile-services-toggle__icon,
+.mobile-services-toggle:focus-visible .mobile-services-toggle__icon {
+  color: var(--drawer-accent);
+}
+
+.mobile-services-toggle[aria-expanded="true"] .mobile-services-toggle__icon {
+  color: var(--drawer-accent);
+  transform: rotate(180deg);
 }
 
 .mobile-link:focus-visible,
 .mobile-services-toggle:focus-visible {
-  background: color-mix(in oklch, var(--color-envision-blue-50) 34%, white);
-  outline: 2px solid var(--color-envision-blue-900);
+  background: color-mix(in oklch, var(--color-white) 6%, transparent);
+  outline: 2px solid var(--drawer-accent);
   outline-offset: -2px;
 }
 
 .mobile-link--accent:hover,
 .mobile-link--accent:focus-visible {
-  background: color-mix(in oklch, var(--color-envision-blue-900) 92%, white);
+  background: color-mix(in oklch, var(--drawer-blue) 34%, transparent);
 }
 
 .mobile-services-panel {
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklch, white 93%, var(--color-envision-blue-50) 7%),
-    white
-  );
-  border-top: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 8%, white);
+  background: var(--drawer-bg-deep);
+  border-top: 1px solid var(--drawer-border);
 }
 
 .mobile-services-list {
-  padding-left: 0.9rem;
+  padding-block: calc(var(--spacing) * 1);
 }
 
 .mobile-services-list .mobile-link {
-  min-height: 3.5rem;
+  grid-template-columns: 1.35rem minmax(0, 1fr) auto;
+  min-height: 3.65rem;
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  color: var(--drawer-muted);
+}
+
+.mobile-services-list .mobile-link::before {
+  content: "";
+  display: block;
+  width: 0.75rem;
+  height: 1px;
+  padding: 0;
+  margin-top: 0.72rem;
+  background: var(--drawer-accent);
 }
 
 .mobile-services-list .mobile-link__label {
-  font-size: 1rem;
-  line-height: 1.1;
+  line-height: 1.15;
+  letter-spacing: 0;
 }
 
-.mobile-services-list .mobile-link__index {
-  color: color-mix(in oklch, var(--color-envision-green-600) 58%, white);
+.mobile-services-list .mobile-link:hover,
+.mobile-services-list .mobile-link:focus-visible {
+  color: var(--drawer-text);
 }
 
 @media (min-width: 1100px) {

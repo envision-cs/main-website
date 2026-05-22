@@ -1,16 +1,46 @@
 <script setup lang="ts">
+interface BannerStat {
+  id?: number;
+  label: string;
+  description?: string;
+}
+
 const props = defineProps<{
   image?: string;
   imageAlt?: string;
   body?: string;
   cta?: string;
   ctaTo?: string;
+  featureImage?: string;
+  featureImageAlt?: string;
+  featureTitle?: string;
+  featureEyebrow?: string;
+  featureTo?: string;
+  featureCta?: string;
+  stats?: BannerStat[];
 }>();
 
 const slots = useSlots();
 
 const hasEyebrow = computed(() => Boolean(slots.eyebrow || slots.title));
 const hasBody = computed(() => Boolean(slots.body || props.body));
+const hasMedia = computed(() => Boolean(slots.image || props.image));
+const hasActions = computed(() => Boolean(slots.actions || props.ctaTo));
+const featureImage = computed(() => props.featureImage || props.image);
+const featureTo = computed(() => props.featureTo || props.ctaTo);
+const featureCta = computed(() => props.featureCta || props.cta || "Read more");
+const hasFeatureCard = computed(() =>
+  Boolean(slots.card || (featureImage.value && featureTo.value && featureCta.value)),
+);
+const statItems = computed<Item[]>(() =>
+  (props.stats ?? []).map((stat, index) => ({
+    id: stat.id ?? index,
+    label: stat.label,
+    description: stat.description,
+  })),
+);
+const hasStats = computed(() => Boolean(slots.stats || statItems.value.length));
+const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 </script>
 
 <template>
@@ -20,8 +50,26 @@ const hasBody = computed(() => Boolean(slots.body || props.body));
     :aria-describedby="hasBody ? 'banner-body' : undefined"
     role="region"
   >
-    <div class="header my-auto">
-      <div>
+    <div v-if="hasMedia" class="banner__media">
+      <slot name="image">
+        <NuxtImg
+          v-if="image"
+          :src="image"
+          :alt="imageAlt || ''"
+          sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+          fit="cover"
+          format="avif"
+          preload
+          loading="eager"
+          class="banner__image"
+        />
+      </slot>
+    </div>
+
+    <div class="banner__overlay" aria-hidden="true" />
+
+    <div class="banner__inner site-grid">
+      <div class="banner__copy">
         <app-typography v-if="hasEyebrow" variant="heading-sm" tag="p" class="eyebrow mb-3">
           <slot name="eyebrow">
             <slot name="title" />
@@ -36,126 +84,215 @@ const hasBody = computed(() => Boolean(slots.body || props.body));
         >
           <slot />
         </app-typography>
+
+        <app-typography v-if="hasBody" id="banner-body" tag="p" variant="text-xl" class="text">
+          <slot name="body">
+            {{ body }}
+          </slot>
+        </app-typography>
+
+        <div v-if="hasActions" class="banner__actions">
+          <slot name="actions">
+            <my-button
+              v-if="ctaTo"
+              variant="outline"
+              size="md"
+              :to="ctaTo"
+              icon="i-lucide-arrow-right"
+            >
+              {{ cta || "Start your project" }}
+            </my-button>
+          </slot>
+        </div>
       </div>
 
-      <app-typography v-if="hasBody" id="banner-body" tag="p" variant="text-xl" class="text">
-        <slot name="body">
-          {{ body }}
+      <aside v-if="hasRail" class="banner__rail" aria-label="Featured banner details">
+        <slot name="stats">
+          <ul v-if="statItems.length" class="banner__stats">
+            <li v-for="item in statItems" :key="item.id">
+              <card-e :item="item" small />
+            </li>
+          </ul>
         </slot>
-      </app-typography>
-      <div v-if="ctaTo">
-        <my-button :to="ctaTo">
-          {{ cta }}
-        </my-button>
-      </div>
+      </aside>
     </div>
-
-    <div class="content site-grid" />
-
-    <div class="overlay" aria-hidden="true" />
-    <NuxtImg
-      v-if="image"
-      :src="image"
-      :alt="imageAlt || ''"
-      sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
-      fit="cover"
-      format="avif"
-      preload
-      loading="eager"
-      class="image h-full w-full z-0 object-cover"
-    />
   </section>
 </template>
 
 <style scoped>
 .banner {
-  display: flex;
+  --banner-edge: color-mix(in srgb, var(--color-white) 18%, transparent);
+  --accent-color: var(--color-envision-green-500);
+  --section-bg: var(--color-envision-gray-900);
+  --section-color: var(--color-white);
+
+  display: grid;
   isolation: isolate;
   position: relative;
-  flex-direction: column;
-  gap: calc(var(--spacing) * 4);
-  height: 600px;
+  min-height: clamp(600px, 78svh, 820px);
   grid-column: 1 / -1;
-  padding-top: calc(var(--spacing) * 24);
-  padding-inline: calc(var(--spacing) * 4);
-  padding-bottom: calc(var(--spacing) * 4);
-  color: var(--ui-text-inverted);
+  color: var(--color-white);
+  background: var(--color-envision-gray-900);
   overflow: hidden;
-
-  @media (min-width: 700px) {
-    padding-inline: calc(var(--spacing) * 8);
-    height: 700px;
-  }
 }
 
-.header {
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
-  position: relative;
+.banner__media,
+.banner__overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.banner__media {
+  z-index: 0;
+  overflow: hidden;
+}
+
+.banner__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner__overlay {
+  z-index: 1;
+  background: 
+    /* Subtle text backing overlay coming from the bottom-left */
+    linear-gradient(
+      to top right,
+      rgba(6, 11, 18, 0.85) 0%,
+      rgba(6, 11, 18, 0.4) 35%,
+      rgba(6, 11, 18, 0) 70%
+    ),
+    /* Main bottom-to-top cinematic fade */
+    linear-gradient(
+        to top,
+        rgba(6, 11, 18, 0.75) 0%,
+        rgba(6, 11, 18, 0.3) 45%,
+        rgba(6, 11, 18, 0) 80%
+      );
+}
+
+.banner__inner {
   z-index: 2;
-  gap: calc(var(--spacing) * 6);
+  position: relative;
+  width: 100%;
+  align-self: end;
+  gap: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 28) calc(var(--spacing) * 4) calc(var(--spacing) * 12);
+}
+
+.banner__copy {
+  display: grid;
+  grid-column: 1 / -1;
+  align-content: end;
+  gap: calc(var(--spacing) * 5);
+  z-index: 2;
+  max-width: 60rem;
 }
 
 .eyebrow {
   text-transform: uppercase;
   font-weight: 600;
-}
-
-.content {
-  display: grid;
-  padding: 0;
-  gap: calc(var(--spacing) * 4);
-  position: relative;
-  z-index: 2;
+  letter-spacing: 0.08em;
+  color: var(--ui-primary);
 }
 
 .text {
-  grid-column: 1 / -1;
+  color: color-mix(in srgb, var(--color-white) 84%, transparent);
+  max-width: 44rem;
 }
 
-@media (min-width: 483px) {
-  .text {
-    grid-column: span 3;
-  }
+.banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 3);
+  align-items: center;
+}
+
+.banner__actions :deep(.app-btn) {
+  border-radius: 4px;
+  text-transform: none;
+}
+
+.banner__rail {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: calc(var(--spacing) * 4);
+  align-self: end;
+  min-width: 0;
+}
+
+.banner__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: calc(var(--spacing) * 3);
+  color: var(--color-white);
+}
+
+.banner__stats :deep(.card) {
+  border-left-color: var(--accent-color);
+  background: rgb(255 255 255 / 0.04);
+}
+
+.banner__feature-card {
+  outline: 1px solid var(--banner-edge);
+}
+
+.banner__feature-eyebrow {
+  margin-bottom: calc(var(--spacing) * 1);
+  color: color-mix(in srgb, var(--color-white) 82%, transparent);
+  letter-spacing: 0.08em;
+}
+
+.banner__feature-title {
+  max-width: 18rem;
+  text-wrap: balance;
+}
+
+.banner__feature-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 3);
+  width: 100%;
 }
 
 @media (min-width: 700px) {
-  .text {
+  .banner__inner {
+    padding-inline: calc(var(--spacing) * 8);
+    padding-bottom: calc(var(--spacing) * 16);
+  }
+
+  .banner__copy {
+    grid-column: 1 / 10;
+  }
+
+  .banner__rail {
     grid-column: 8 / -1;
   }
 }
 
 @media (min-width: 1024px) {
-  .text {
-    grid-column: 18 / -1;
+  .banner__inner {
+    align-items: end;
+  }
+
+  .banner__copy {
+    grid-column: 1 / 15;
+  }
+
+  .banner__rail {
+    grid-column: 17 / -1;
   }
 }
 
-.image-container {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 0;
-}
+@media (min-width: 1280px) {
+  .banner__copy {
+    grid-column: 1 / 14;
+  }
 
-.image {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
-    linear-gradient(
-      -90deg,
-      rgba(0, 0, 0, 0) 23.16%,
-      rgba(0, 0, 0, 0.2) 64.7%,
-      rgba(0, 0, 0, 0.4) 81.1%
-    );
+  .banner__rail {
+    grid-column: 16 / -1;
+  }
 }
 </style>
