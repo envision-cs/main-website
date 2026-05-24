@@ -115,6 +115,17 @@ function openDesktopMenu(menu: string) {
 
   desktopMenuValue.value = menu;
 }
+
+function onHeaderFocusout(event: FocusEvent) {
+  const nextTarget = event.relatedTarget;
+  const currentTarget = event.currentTarget;
+
+  if (!(currentTarget instanceof HTMLElement)) return;
+
+  if (nextTarget instanceof Node && currentTarget.contains(nextTarget)) return;
+
+  closeDesktopMenu(0);
+}
 </script>
 
 <template>
@@ -124,6 +135,8 @@ function openDesktopMenu(menu: string) {
     :class="{
       'main-header--desktop-open': isDesktopMenuOpen,
     }"
+    @focusout="onHeaderFocusout"
+    @keydown.esc="closeDesktopMenu(0)"
   >
     <button
       v-if="isDesktopMenuOpen"
@@ -136,8 +149,9 @@ function openDesktopMenu(menu: string) {
 
     <header class="header-root site-max">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
-        <Icon name="logos:envision-white" size="30" aria-hidden="true" />
+        <Icon name="logos:envision-white" class="brand-link__mark" aria-hidden="true" />
       </NuxtLink>
+
       <NavigationMenuRoot
         v-model="desktopMenuModel"
         class="desktop-nav NavigationMenuRoot"
@@ -149,7 +163,7 @@ function openDesktopMenu(menu: string) {
         <NavigationMenuList class="desktop-nav-list NavigationMenuList">
           <NavigationMenuItem>
             <NavigationMenuLink as-child>
-              <NuxtLink class="NavigationMenuLink desktop-inline-nav-link" to="/"> Home </NuxtLink>
+              <NuxtLink class="NavigationMenuLink desktop-inline-nav-link" to="/">Home</NuxtLink>
             </NavigationMenuLink>
           </NavigationMenuItem>
 
@@ -196,14 +210,14 @@ function openDesktopMenu(menu: string) {
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
 
-        <my-button
+        <NuxtLink
+          class="desktop-nav-action"
           to="/trade-partners"
-          size="sm"
-          variant="primary"
-          class="header-cta--mobile-hidden"
+          aria-label="Trade Partner Program"
         >
-          Trade Partner Program
-        </my-button>
+          Trade Partners
+          <UIcon name="i-lucide-arrow-up-right" aria-hidden="true" />
+        </NuxtLink>
       </NavigationMenuRoot>
 
       <app-mobile-nav-drawer />
@@ -723,6 +737,217 @@ function openDesktopMenu(menu: string) {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Screenshot-aligned overlay header */
+.main-header {
+  --header-height: 5.5rem;
+  --header-pill-bg: color-mix(in oklch, var(--color-envision-gray-900) 74%, transparent);
+  --header-pill-border: color-mix(in oklch, var(--color-white) 10%, transparent);
+
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1000;
+  background: transparent;
+  color: var(--color-white);
+  pointer-events: none;
+}
+
+.main-header.main-header--desktop-open {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+
+.header-root {
+  width: 100vw;
+  max-width: none;
+  margin-inline: 0;
+  box-sizing: border-box;
+  min-height: var(--header-height);
+  padding: calc(var(--spacing) * 9) calc(var(--spacing) * 3) 0;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.header-root > * {
+  pointer-events: auto;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  color: var(--color-white);
+}
+
+.brand-link__mark {
+  display: block;
+  width: clamp(5.75rem, 22vw, 8rem);
+  height: clamp(1.05rem, 4vw, 1.45rem);
+}
+
+.brand-link:focus-visible {
+  outline: 2px solid var(--color-envision-green-500);
+  outline-offset: 3px;
+}
+
+.desktop-nav-action {
+  display: none;
+}
+
+@media (max-width: 1099px) {
+  .header-root {
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1100px) {
+  .header-root {
+    align-items: flex-start;
+    padding: calc(var(--spacing) * 9) clamp(2rem, 3vw, 3rem) 0;
+  }
+
+  .brand-link {
+    display: inline-flex;
+    margin-top: 0.1rem;
+  }
+
+  .desktop-nav {
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    margin-left: auto;
+  }
+
+  .NavigationMenuRoot {
+    width: auto;
+    gap: calc(var(--spacing) * 1.5);
+  }
+
+  .NavigationMenuList {
+    width: auto;
+    min-height: 2.85rem;
+    gap: 0;
+    margin: 0;
+    padding: 0.22rem;
+    border: 1px solid var(--header-pill-border);
+    border-radius: 14px;
+    background: var(--header-pill-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 18px 44px rgb(0 0 0 / 16%);
+  }
+
+  .NavigationMenuList > :last-child {
+    margin-left: 0;
+  }
+
+  .desktop-dropdown-trigger-group {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .desktop-dropdown-open-button {
+    display: none;
+  }
+
+  .desktop-inline-nav-link {
+    min-height: 2.35rem;
+    padding: 0 calc(var(--spacing) * 5);
+    border-radius: 11px;
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: none;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .desktop-inline-nav-link::after {
+    display: none;
+  }
+
+  .desktop-inline-nav-link:hover,
+  .desktop-inline-nav-link:focus-visible,
+  .desktop-inline-nav-link[data-menu-open="true"],
+  .desktop-inline-nav-link[aria-expanded="true"] {
+    background: color-mix(in oklch, var(--color-white) 9%, transparent);
+    color: var(--color-white);
+  }
+
+  .desktop-inline-nav-link:focus-visible,
+  .desktop-nav-action:focus-visible,
+  .brand-link:focus-visible {
+    outline: 2px solid var(--color-envision-green-500);
+    outline-offset: 3px;
+  }
+
+  .desktop-nav-action {
+    display: inline-flex;
+    min-height: 2.85rem;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing) * 1.5);
+    padding: 0 calc(var(--spacing) * 5);
+    border: 1px solid var(--header-pill-border);
+    border-radius: 14px;
+    background: var(--header-pill-bg);
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .desktop-nav-action:hover {
+    background: color-mix(in oklch, var(--color-white) 12%, var(--header-pill-bg));
+  }
+
+  .desktop-nav-action svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .desktop-mega-menu-backdrop {
+    inset: 0;
+    background: transparent;
+    pointer-events: auto;
+  }
+
+  .ViewportPosition {
+    position: fixed;
+    top: calc(var(--spacing) * 22);
+    right: clamp(2rem, 3vw, 3rem);
+    left: auto;
+    justify-content: flex-end;
+    width: min(52rem, calc(100vw - 4rem));
+    pointer-events: none;
+  }
+
+  .NavigationMenuViewport {
+    width: 100%;
+    margin-top: 0;
+    border: 0;
+    border-radius: 18px;
+    background: transparent;
+    overflow: visible;
+    pointer-events: auto;
+  }
+
+  .NavigationMenuContent {
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,6 +2,7 @@
 const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const mobileProjectsOpen = ref(false);
+const mobileCompanyOpen = ref(false);
 const menuButtonRef = ref<HTMLButtonElement | null>(null);
 const firstDrawerLinkRef = ref<HTMLElement | null>(null);
 const isDrawerClosing = ref(false);
@@ -25,11 +26,34 @@ const projectLinks = computed(() => [
   })),
 ]);
 
-const primaryLinks = [
+const companyLinks = [
   { title: "Meet the Team", to: "/team" },
   { title: "About Us", to: "/about" },
+] as const;
+
+const primaryLinks = [
   { title: "Contact", to: "/contact" },
   { title: "Trade Partner Program", to: "/trade-partners", accent: true },
+] as const;
+
+const footerLinkGroups = [
+  {
+    title: "Envision",
+    links: [
+      { title: "Home", to: "/" },
+      { title: "Services", to: "/services" },
+      { title: "Projects", to: "/projects" },
+      { title: "Company", to: "/about" },
+    ],
+  },
+  {
+    title: "Connect",
+    links: [
+      { title: "Contact", to: "/contact" },
+      { title: "Meet the Team", to: "/team" },
+      { title: "Trade Partners", to: "/trade-partners" },
+    ],
+  },
 ] as const;
 
 const route = useRoute();
@@ -44,6 +68,7 @@ watch(
 
     mobileServicesOpen.value = false;
     mobileProjectsOpen.value = false;
+    mobileCompanyOpen.value = false;
   },
 );
 
@@ -51,6 +76,7 @@ watch(mobileDrawerOpen, (open) => {
   if (!open) {
     mobileServicesOpen.value = false;
     mobileProjectsOpen.value = false;
+    mobileCompanyOpen.value = false;
   }
 });
 
@@ -83,7 +109,7 @@ function focusTarget(target: FocusableRef, fallbackSelector: string) {
 }
 
 function focusFirstDrawerLink() {
-  focusTarget(firstDrawerLinkRef.value, '[data-test="mobile-home-link"]');
+  focusTarget(firstDrawerLinkRef.value, '[data-test="mobile-services-toggle"]');
 }
 
 function queueFirstDrawerLinkFocus() {
@@ -157,12 +183,16 @@ async function closeDrawer() {
   mobileDrawerOpen.value = false;
   mobileServicesOpen.value = false;
   mobileProjectsOpen.value = false;
+  mobileCompanyOpen.value = false;
   isDrawerClosing.value = false;
 }
 
 async function onDrawerOpenChange(nextOpen: boolean) {
   if (nextOpen) {
     mobileDrawerOpen.value = true;
+    mobileServicesOpen.value = true;
+    mobileProjectsOpen.value = false;
+    mobileCompanyOpen.value = false;
     await nextTick();
     animateDrawerOpen();
     queueFirstDrawerLinkFocus();
@@ -185,18 +215,21 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 <template>
   <DialogRoot :open="mobileDrawerOpen" @update:open="onDrawerOpenChange">
-    <DialogTrigger class="mobile-trigger" as-child>
-      <my-button
-        ref="menuButtonRef"
-        size="sm"
-        data-test="mobile-menu-trigger"
-        aria-label="Open main menu"
-        aria-haspopup="dialog"
-        :aria-expanded="String(mobileDrawerOpen)"
-      >
-        Menu
-      </my-button>
-    </DialogTrigger>
+    <button
+      ref="menuButtonRef"
+      type="button"
+      class="mobile-trigger mobile-menu-button"
+      data-test="mobile-menu-trigger"
+      aria-label="Open main menu"
+      aria-haspopup="dialog"
+      :aria-expanded="String(mobileDrawerOpen)"
+      @click="onDrawerOpenChange(true)"
+      @keydown.enter.prevent="onDrawerOpenChange(true)"
+      @keydown.space.prevent="onDrawerOpenChange(true)"
+    >
+      <UIcon name="i-lucide-grip" aria-hidden="true" />
+      Menu
+    </button>
 
     <DialogPortal>
       <DialogOverlay class="mobile-overlay" data-test="mobile-drawer-overlay" />
@@ -213,47 +246,25 @@ function onDrawerCloseAutoFocus(event: Event) {
         </VisuallyHidden>
 
         <div class="mobile-content-header">
-          <div class="mobile-brand-block">
-            <app-typography tag="span" variant="eyebrow-md" class="mobile-brand-block__eyebrow">
-              Navigation
-            </app-typography>
-            <div class="mobile-brand-block__mark">
-              <Icon name="logos:envision-white" size="28" alt="envision construction logo" />
-            </div>
-          </div>
-          <my-button
-            size="sm"
+          <button
             type="button"
-            class="mobile-nav-close"
+            class="mobile-menu-button mobile-menu-button--inside"
             data-test="mobile-menu-close"
             aria-label="Close main menu"
             @click="closeDrawerAndNavigate"
           >
-            Close
-          </my-button>
+            <UIcon name="i-lucide-grip" aria-hidden="true" />
+            Menu
+          </button>
         </div>
 
         <nav class="mobile-nav" aria-label="Mobile primary">
           <ul class="mobile-nav-list">
             <li class="mobile-nav-list__item">
-              <NuxtLink
-                ref="firstDrawerLinkRef"
-                class="mobile-link"
-                to="/"
-                data-test="mobile-home-link"
-                data-anim="mobile-nav-link"
-                @click="closeDrawerAndNavigate"
-              >
-                <app-typography tag="span" variant="heading-sm" class="mobile-link__label">
-                  Home
-                </app-typography>
-                <UIcon name="i-lucide-arrow-right" class="mobile-link__icon" aria-hidden="true" />
-              </NuxtLink>
-            </li>
-            <li class="mobile-nav-list__item">
               <CollapsibleRoot v-model:open="mobileServicesOpen">
                 <CollapsibleTrigger as-child>
                   <button
+                    ref="firstDrawerLinkRef"
                     class="mobile-services-toggle"
                     type="button"
                     data-test="mobile-services-toggle"
@@ -282,25 +293,19 @@ function onDrawerCloseAutoFocus(event: Event) {
                       class="mobile-services-list__item"
                     >
                       <NuxtLink
-                        class="mobile-link"
+                        class="mobile-sub-link"
                         :to="link.to"
                         data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
-                        <app-typography tag="span" variant="text-md" class="mobile-link__label">
-                          {{ link.title }}
-                        </app-typography>
-                        <UIcon
-                          name="i-lucide-arrow-right"
-                          class="mobile-link__icon"
-                          aria-hidden="true"
-                        />
+                        {{ link.title }}
                       </NuxtLink>
                     </li>
                   </ul>
                 </CollapsibleContent>
               </CollapsibleRoot>
             </li>
+
             <li class="mobile-nav-list__item">
               <CollapsibleRoot v-model:open="mobileProjectsOpen">
                 <CollapsibleTrigger as-child>
@@ -333,25 +338,64 @@ function onDrawerCloseAutoFocus(event: Event) {
                       class="mobile-services-list__item"
                     >
                       <NuxtLink
-                        class="mobile-link"
+                        class="mobile-sub-link"
                         :to="link.to"
                         data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
-                        <app-typography tag="span" variant="text-md" class="mobile-link__label">
-                          {{ link.title }}
-                        </app-typography>
-                        <UIcon
-                          name="i-lucide-arrow-right"
-                          class="mobile-link__icon"
-                          aria-hidden="true"
-                        />
+                        {{ link.title }}
                       </NuxtLink>
                     </li>
                   </ul>
                 </CollapsibleContent>
               </CollapsibleRoot>
             </li>
+
+            <li class="mobile-nav-list__item">
+              <CollapsibleRoot v-model:open="mobileCompanyOpen">
+                <CollapsibleTrigger as-child>
+                  <button
+                    class="mobile-services-toggle"
+                    type="button"
+                    data-test="mobile-company-toggle"
+                    data-anim="mobile-nav-link"
+                    :aria-expanded="String(mobileCompanyOpen)"
+                  >
+                    <app-typography
+                      tag="span"
+                      variant="heading-sm"
+                      class="mobile-services-toggle__label"
+                    >
+                      Company
+                    </app-typography>
+                    <UIcon
+                      name="i-lucide-chevron-down"
+                      class="mobile-services-toggle__icon"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent class="mobile-services-panel" data-test="mobile-company-panel">
+                  <ul class="mobile-services-list">
+                    <li
+                      v-for="link in companyLinks"
+                      :key="link.to"
+                      class="mobile-services-list__item"
+                    >
+                      <NuxtLink
+                        class="mobile-sub-link"
+                        :to="link.to"
+                        data-anim="mobile-nav-link"
+                        @click="closeDrawerAndNavigate"
+                      >
+                        {{ link.title }}
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                </CollapsibleContent>
+              </CollapsibleRoot>
+            </li>
+
             <li v-for="link in primaryLinks" :key="link.to" class="mobile-nav-list__item">
               <NuxtLink
                 class="mobile-link"
@@ -363,11 +407,53 @@ function onDrawerCloseAutoFocus(event: Event) {
                 <app-typography tag="span" variant="heading-sm" class="mobile-link__label">
                   {{ link.title }}
                 </app-typography>
-                <UIcon name="i-lucide-arrow-right" class="mobile-link__icon" aria-hidden="true" />
+                <UIcon
+                  name="i-lucide-arrow-up-right"
+                  class="mobile-link__icon"
+                  aria-hidden="true"
+                />
               </NuxtLink>
             </li>
           </ul>
+
+          <div class="mobile-actions" aria-label="Primary actions">
+            <NuxtLink
+              class="mobile-action mobile-action--primary"
+              to="/contact"
+              data-anim="mobile-nav-link"
+              @click="closeDrawerAndNavigate"
+            >
+              Start your project
+              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+            </NuxtLink>
+            <NuxtLink
+              class="mobile-action"
+              to="/trade-partners"
+              data-anim="mobile-nav-link"
+              @click="closeDrawerAndNavigate"
+            >
+              Trade Partner Program
+              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+            </NuxtLink>
+          </div>
         </nav>
+
+        <footer class="mobile-footer" aria-label="Secondary navigation">
+          <div v-for="group in footerLinkGroups" :key="group.title" class="mobile-footer__group">
+            <p class="mobile-footer__title">{{ group.title }}</p>
+            <NuxtLink
+              v-for="link in group.links"
+              :key="link.to"
+              class="mobile-footer__link"
+              :to="link.to"
+              :data-test="link.to === '/' ? 'mobile-home-link' : undefined"
+              data-anim="mobile-nav-link"
+              @click="closeDrawerAndNavigate"
+            >
+              {{ link.title }}
+            </NuxtLink>
+          </div>
+        </footer>
       </DialogContent>
     </DialogPortal>
   </DialogRoot>
@@ -642,6 +728,267 @@ function onDrawerCloseAutoFocus(event: Event) {
 .mobile-services-list .mobile-link:hover,
 .mobile-services-list .mobile-link:focus-visible {
   color: var(--drawer-text);
+}
+
+/* Screenshot-aligned full-screen drawer */
+.mobile-trigger {
+  display: inline-flex;
+  pointer-events: auto;
+}
+
+.mobile-menu-button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing) * 2);
+  padding: 0 calc(var(--spacing) * 4);
+  border: 1px solid color-mix(in oklch, var(--color-white) 10%, transparent);
+  border-radius: 14px;
+  background: color-mix(in oklch, var(--color-envision-gray-900) 66%, transparent);
+  color: var(--color-white);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+  box-shadow: 0 18px 44px rgb(0 0 0 / 16%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.mobile-menu-button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.mobile-menu-button:focus-visible {
+  outline: 2px solid var(--color-envision-green-500);
+  outline-offset: 3px;
+}
+
+.mobile-overlay {
+  background: color-mix(in oklch, var(--color-envision-gray-900) 72%, transparent);
+}
+
+.mobile-content {
+  --drawer-bg: color-mix(in oklch, var(--color-envision-gray-900) 96%, black);
+  --drawer-bg-deep: color-mix(in oklch, var(--color-envision-gray-900) 88%, black);
+  --drawer-text: var(--color-white);
+  --drawer-muted: color-mix(in oklch, var(--color-white) 62%, transparent);
+  --drawer-border: color-mix(in oklch, var(--color-white) 8%, transparent);
+  --drawer-accent: var(--color-envision-green-500);
+
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  border-left: 0;
+  background: var(--drawer-bg);
+  overflow-y: auto;
+}
+
+.mobile-content-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: calc(var(--spacing) * 9) calc(var(--spacing) * 3) calc(var(--spacing) * 8);
+  border-bottom: 0;
+  background: transparent;
+}
+
+.mobile-menu-button--inside {
+  background: color-mix(in oklch, var(--color-envision-gray-800) 66%, black);
+}
+
+.mobile-nav {
+  display: grid;
+  gap: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 8) calc(var(--spacing) * 3) calc(var(--spacing) * 10);
+}
+
+.mobile-nav-list {
+  gap: calc(var(--spacing) * 6);
+  counter-reset: none;
+}
+
+.mobile-nav-list__item {
+  border-bottom: 0;
+}
+
+.mobile-link,
+.mobile-services-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: auto;
+  column-gap: calc(var(--spacing) * 3);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--drawer-text);
+  text-transform: none;
+}
+
+.mobile-link::before,
+.mobile-services-toggle::before {
+  display: none;
+}
+
+.mobile-link__label,
+.mobile-services-toggle__label {
+  color: inherit;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.mobile-link__icon,
+.mobile-services-toggle__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: color-mix(in oklch, var(--color-white) 48%, transparent);
+}
+
+.mobile-services-toggle {
+  text-align: left;
+}
+
+.mobile-services-toggle[aria-expanded="true"] .mobile-services-toggle__icon {
+  transform: rotate(180deg);
+}
+
+.mobile-link:hover,
+.mobile-services-toggle:hover,
+.mobile-link:focus-visible,
+.mobile-services-toggle:focus-visible {
+  background: transparent;
+  color: var(--drawer-text);
+  outline: none;
+}
+
+.mobile-link:focus-visible,
+.mobile-services-toggle:focus-visible,
+.mobile-sub-link:focus-visible,
+.mobile-action:focus-visible,
+.mobile-footer__link:focus-visible {
+  outline: 2px solid var(--drawer-accent);
+  outline-offset: 4px;
+}
+
+.mobile-services-panel {
+  margin-top: calc(var(--spacing) * 3);
+  border-top: 0;
+  background: transparent;
+}
+
+.mobile-services-list {
+  display: grid;
+  gap: calc(var(--spacing) * 3);
+  padding: 0;
+}
+
+.mobile-services-list__item {
+  border-top: 0;
+}
+
+.mobile-sub-link {
+  display: inline-flex;
+  width: fit-content;
+  color: color-mix(in oklch, var(--color-white) 67%, transparent);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.mobile-sub-link:hover {
+  color: var(--drawer-text);
+}
+
+.mobile-link--accent {
+  box-shadow: none;
+  background: transparent;
+}
+
+.mobile-actions {
+  display: grid;
+  gap: calc(var(--spacing) * 2);
+  padding-top: calc(var(--spacing) * 4);
+}
+
+.mobile-action {
+  display: inline-flex;
+  min-height: 4rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 4);
+  padding: 0 calc(var(--spacing) * 6);
+  border-radius: 16px;
+  background: color-mix(in oklch, var(--color-white) 7%, transparent);
+  color: var(--drawer-text);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.mobile-action--primary {
+  background: color-mix(in oklch, var(--color-white) 86%, var(--color-envision-gray-300));
+  color: var(--color-envision-gray-900);
+}
+
+.mobile-action svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.mobile-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 12) calc(var(--spacing) * 3) calc(var(--spacing) * 8);
+}
+
+.mobile-footer__group {
+  display: grid;
+  align-content: start;
+  gap: calc(var(--spacing) * 3);
+}
+
+.mobile-footer__title {
+  margin: 0 0 calc(var(--spacing) * 1);
+  color: color-mix(in oklch, var(--color-white) 58%, transparent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mobile-footer__link {
+  width: fit-content;
+  color: var(--drawer-text);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.mobile-footer__link:hover {
+  color: color-mix(in oklch, var(--color-white) 74%, var(--drawer-accent));
+}
+
+@media (min-width: 480px) {
+  .mobile-link__label,
+  .mobile-services-toggle__label {
+    font-size: 1.65rem;
+  }
 }
 
 @media (min-width: 1100px) {
