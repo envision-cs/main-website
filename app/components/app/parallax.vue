@@ -1,4 +1,5 @@
-<script setup lang="ts">defineProps<{
+<script setup lang="ts">
+defineProps<{
   mobileImage?: string;
   image: string;
 }>();
@@ -70,11 +71,11 @@ section.hero {
 
 @keyframes parallax {
   from {
-    background-position: center 0%;
+    background-position: center 25%;
   }
 
   to {
-    background-position: center 50%;
+    background-position: center 100%;
   }
 }
 

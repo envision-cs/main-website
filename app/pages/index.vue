@@ -112,8 +112,6 @@ if ($posthog) {
       label="Learn more about us"
     />
     <card-group-a :cards="featuredProjectCards.sectionTwo" />
-    <proven-process />
-    <three-uniques />
     <quote
       :testimonials="testimonials"
       section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."

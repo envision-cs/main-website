@@ -1,4 +1,5 @@
-<script setup lang="ts">const props = defineProps<{
+<script setup lang="ts">
+const props = defineProps<{
   /** When true, use a denser, auto-fitting grid */
   dense?: boolean;
 }>();
@@ -15,6 +16,7 @@
   display: grid;
   grid-column: 1/-1;
   grid-template-columns: 1fr;
+  background: var(--color-envision-gray-800);
 
   @media (min-width: 450px) {
     grid-template-columns: 1fr 1fr;

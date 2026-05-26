@@ -47,11 +47,12 @@ const currentPath = computed(() => route.path.replace(/\/$/, "") || "/");
   top: 0;
   z-index: 100;
   width: 100%;
-  background: var(--color-white);
+  color: var(--color-white);
   border: 1px solid var(--ui-border);
   border-inline: 0;
   overflow-x: auto;
   scrollbar-width: none;
+  background: var(--color-envision-gray-800);
 }
 
 .category-nav::-webkit-scrollbar {
@@ -81,7 +82,7 @@ const currentPath = computed(() => route.path.replace(/\/$/, "") || "/");
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--color-envision-gray-900);
+  color: #fff;
   border-bottom: 3px solid transparent;
   white-space: nowrap;
   transition:
@@ -94,14 +95,14 @@ const currentPath = computed(() => route.path.replace(/\/$/, "") || "/");
 }
 
 .category-nav__link.is-active {
-  color: var(--color-envision-gray-900);
+  color: #fff;
   border-bottom-color: var(--ui-secondary);
 }
 
 .category-nav__link:focus-visible {
   outline: 2px solid var(--ui-secondary);
   outline-offset: -2px;
-  color: var(--color-envision-gray-900);
+  color: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {

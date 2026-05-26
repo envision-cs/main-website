@@ -73,6 +73,8 @@ definePageMeta({
 
 .projects-toolbar {
   width: 100%;
+
+  background: var(--color-envision-gray-800);
 }
 
 .projects-grid {
