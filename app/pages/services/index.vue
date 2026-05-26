@@ -8,7 +8,7 @@ definePageMeta({
 <template>
   <app-team-member-list dense>
     <li v-for="service in services" :key="service.slug">
-      <app-reveal-card
+      <project-card
         :to="service.to"
         :aria-label="service.title"
         :image="service.image"
@@ -26,7 +26,7 @@ definePageMeta({
             <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
           </span>
         </template>
-      </app-reveal-card>
+      </project-card>
     </li>
   </app-team-member-list>
 </template>

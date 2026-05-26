@@ -18,16 +18,9 @@ defineProps<{
     <div class="main-wrapper site-grid">
       <ul class="wrapper">
         <li v-for="(card, index) in cards" :key="index">
-          <app-reveal-card
-            :image="card.image"
-            :title="card.title"
-            :to="card.link"
-            aspect-ratio="3/4"
-            :title-offset="-16"
-            :image-hover-blur="0"
-          >
+          <project-card :image="card.image" :title="card.title" :to="card.link" aspect-ratio="3/4">
             <template #title>
-              <app-typography class="" variant="heading-md">
+              <app-typography class="title" variant="heading-md">
                 {{ card.title }}
               </app-typography>
             </template>
@@ -37,7 +30,7 @@ defineProps<{
                 <UIcon name="i-lucide-arrow-right" />
               </div>
             </template>
-          </app-reveal-card>
+          </project-card>
         </li>
       </ul>
     </div>
@@ -58,34 +51,18 @@ section {
   display: grid;
   grid-column: 1/-1;
 
-  @container (inline-size < 30ch) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  @container (inline-size > calc(30ch * 2 + 1rem)) {
+  @container (width > calc(25ch * 2)) {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @container (inline-size > calc(30ch * 3 + 1rem)) {
+  @container (width > calc(25ch * 4)) {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 .wrapper > li {
   display: grid;
-}
-
-.wrapper > li:last-of-type {
-  grid-column: 1;
-
-  @container (inline-size > calc(30ch * 2 + 1rem)) {
-    grid-column: 1/-1;
-  }
-
-  @container (inline-size > calc(30ch * 3 + 1rem)) {
-    grid-column: unset;
-  }
 }
 
 .image-link {
@@ -186,5 +163,9 @@ section {
 .image-link:focus-visible {
   outline: 2px solid var(--ui-secondary);
   outline-offset: 4px;
+}
+
+.title {
+  font-size: clamp(1.5rem, 6cqi, 4.5rem);
 }
 </style>

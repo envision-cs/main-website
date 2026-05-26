@@ -1,4 +1,10 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: "Meet the Team",
+  description:
+    "Meet the Envision team and learn how each group collaborates to deliver organized, high-quality construction work.",
+});
+
 const { data } = useFetch("/api/team", {
   key: "team",
 });
@@ -6,7 +12,7 @@ const { data } = useFetch("/api/team", {
 
 <template>
   <div class="">
-    <app-banner-b
+    <banner-b
       class="col-start-1 -col-end-1"
       image="https://ik.imagekit.io/pnixsw7lg/main-website/2K6A1792.jpg"
       body="Collaborating with Colors (CWC) is how we define teams within our team and their function in relation to Envision. Our six teams—the Orange Team, Gray Team, COL Team, Red Team, Blue Team, and Green Team—collaborate to deliver high-quality projects on time and within budget. We chose to empower our team members by recognizing their strengths, discovering where they best fit into daily operations, and developing a title that best illustrates the value that the team member adds to the company. Meet the Envision team"
@@ -15,34 +21,29 @@ const { data } = useFetch("/api/team", {
       <template #image>
         <NuxtImg src="" class="h-full w-full object-cover -z-10" fit="cover" format="webp" />
       </template>
-    </app-banner-b>
-    <app-section-a
+    </banner-b>
+    <section-e
       v-for="team in data"
       :key="team.name"
+      bgcolor="dark"
       class="team-section"
       no-padding
-      :style="{ '--teamColor': '#000' }"
+      :style="{ '--teamColor': team.color }"
     >
       <template #header>
-        <div class="section-head" :style="{ '--teamColor': team.color }">
-          <app-team-background class="team-role">
-            <app-typography tag="p" variant="text-sm" class="team-role-label">
-              {{ team.role }}
-            </app-typography>
-          </app-team-background>
-          <app-typography tag="h2" variant="heading-md">
-            {{ team.name }}
-          </app-typography>
-          <!-- <div class="team-accent" aria-hidden="true" /> -->
-          <app-typography tag="p" variant="text-lg" class="mt-auto max-w-sm team-description">
-            {{ team.description }}
-          </app-typography>
+        <div class="team-color" :class="{ '--border': team.color }">
+          <section-header-a
+            neutral
+            :eyebrow="team.role"
+            :title="team.name"
+            :body="team.description"
+          />
         </div>
       </template>
       <template #body>
-        <app-team-member-list>
+        <app-team-member-list class="light">
           <li v-for="member in team.team_members" :key="member.name">
-            <app-reveal-card
+            <project-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
               :image="member.photo?.url"
@@ -50,16 +51,9 @@ const { data } = useFetch("/api/team", {
               link-mode="overlay"
               aspect-ratio="3/4"
               image-sizes="(max-width: 768px) 100vw, 300px"
-              :image-hover-blur="0"
               :image-hover-scale="1.1"
-              :container-type="true"
-              :rounded="false"
               :outlined="false"
               :meta-border="false"
-              :meta-fade="false"
-              details-delay="0ms"
-              :title-offset="-32"
-              meta-delay="150ms"
               class="team-member-card"
             >
               <template #title>
@@ -74,44 +68,26 @@ const { data } = useFetch("/api/team", {
                   {{ member.title }}
                 </app-typography>
               </template>
-              <template #meta>
-                <div class="team-member-actions">
-                  <Button
-                    v-if="member.linkedin"
-                    icon="i-simple-icons-linkedin"
-                    color="white"
-                    variant="secondary"
-                    :to="member.linkedin"
-                    target="_blank"
-                    aria-label="LinkedIn"
-                  >
-                    <Icon name="ri:linkedin-box-fill" />
-                  </Button>
-                  <Button
-                    v-if="member.email"
-                    icon="i-heroicons-envelope"
-                    color="white"
-                    variant="soft"
-                    :to="`mailto:${member.email}`"
-                    aria-label="Email"
-                  >
-                    <Icon name="ri:linkedin-box-fill" />
-                  </Button>
-                </div>
-              </template>
-            </app-reveal-card>
+            </project-card>
           </li>
         </app-team-member-list>
       </template>
-    </app-section-a>
+    </section-e>
   </div>
 </template>
 
 <style scoped>
+.team-color {
+  border-left: 8px solid var(--teamColor);
+}
+
 .team-section {
+  --accent-color: #fff;
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
+  color: var(--section-color);
+  background: var(--section-bg);
 }
 
 .section-head {

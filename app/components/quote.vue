@@ -7,6 +7,8 @@ interface TestimonialItem {
   detail?: string;
 }
 
+const AUTOSCROLL_INTERVAL_MS = 6500;
+
 const props = withDefaults(
   defineProps<{
     quote?: string;
@@ -16,10 +18,12 @@ const props = withDefaults(
     eyebrow?: string;
     sectionTitle?: string;
     sectionBody?: string;
+    bgcolor?: "light" | "dark" | "blue";
   }>(),
   {
     eyebrow: "Client Testimonials",
     sectionTitle: "Our clients who expect discipline, communication, and follow-through.",
+    bgcolor: "dark",
   },
 );
 
@@ -39,13 +43,17 @@ const showRailNavigation = computed(() => normalizedTestimonials.value.length > 
 
 const [emblaRef, emblaApi] = useEmblaCarousel({
   align: "center",
-  loop: false,
+  loop: true,
 });
 
 const selectedIndex = ref(0);
 const scrollSnaps = ref<number[]>([]);
 const canScrollPrevious = ref(false);
 const canScrollNext = ref(false);
+const shouldPauseAutoscroll = ref(false);
+
+let autoscrollTimer: ReturnType<typeof setInterval> | null = null;
+let reducedMotionQuery: MediaQueryList | null = null;
 
 function syncCarouselState() {
   const api = emblaApi.value;
@@ -57,9 +65,52 @@ function syncCarouselState() {
   canScrollNext.value = api.canScrollNext();
 }
 
-const scrollPrevious = () => emblaApi.value?.scrollPrev();
-const scrollNext = () => emblaApi.value?.scrollNext();
-const scrollTo = (index: number) => emblaApi.value?.scrollTo(index);
+function stopAutoscroll() {
+  if (!import.meta.client) return;
+  if (!autoscrollTimer) return;
+
+  window.clearInterval(autoscrollTimer);
+  autoscrollTimer = null;
+}
+
+function startAutoscroll() {
+  if (!import.meta.client) return;
+
+  stopAutoscroll();
+
+  if (!showRailNavigation.value || shouldPauseAutoscroll.value || reducedMotionQuery?.matches) {
+    return;
+  }
+
+  autoscrollTimer = window.setInterval(() => {
+    emblaApi.value?.scrollNext();
+  }, AUTOSCROLL_INTERVAL_MS);
+}
+
+function pauseAutoscroll() {
+  shouldPauseAutoscroll.value = true;
+  stopAutoscroll();
+}
+
+function resumeAutoscroll() {
+  shouldPauseAutoscroll.value = false;
+  startAutoscroll();
+}
+
+function scrollPrevious() {
+  emblaApi.value?.scrollPrev();
+  startAutoscroll();
+}
+
+function scrollNext() {
+  emblaApi.value?.scrollNext();
+  startAutoscroll();
+}
+
+function scrollTo(index: number) {
+  emblaApi.value?.scrollTo(index);
+  startAutoscroll();
+}
 
 function handleKeydown(event: KeyboardEvent) {
   if (event.key === "ArrowLeft") {
@@ -82,104 +133,111 @@ watch(
     if (!api) return;
 
     syncCarouselState();
+    startAutoscroll();
     api.on("select", syncCarouselState);
     api.on("reInit", syncCarouselState);
   },
   { immediate: true },
 );
 
+onMounted(() => {
+  reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  reducedMotionQuery.addEventListener("change", startAutoscroll);
+  startAutoscroll();
+});
+
 onUnmounted(() => {
+  stopAutoscroll();
+  reducedMotionQuery?.removeEventListener("change", startAutoscroll);
   emblaApi.value?.off("select", syncCarouselState);
   emblaApi.value?.off("reInit", syncCarouselState);
 });
 </script>
 
 <template>
-  <section v-if="hasTestimonials" class="testimonials-stage">
-    <div class="testimonials-stage__inner">
-      <div class="testimonials-stage__carousel">
+  <section-a
+    v-if="hasTestimonials"
+    class="testimonials-stage"
+    :class="{ dark: bgcolor === 'dark', light: bgcolor === 'light', blue: bgcolor === 'blue' }"
+    :bgcolor
+    :eyebrow
+    :body="sectionBody"
+  >
+    <div
+      class="testimonials-stage__carousel"
+      @mouseenter="pauseAutoscroll"
+      @mouseleave="resumeAutoscroll"
+      @focusin="pauseAutoscroll"
+      @focusout="resumeAutoscroll"
+    >
+      <div
+        ref="emblaRef"
+        class="testimonials-stage__viewport"
+        :tabindex="showRailNavigation ? 0 : -1"
+        aria-label="Client testimonials"
+        @keydown="handleKeydown"
+      >
+        <ul class="testimonials-stage__rail" role="list">
+          <li
+            v-for="(testimonial, index) in normalizedTestimonials"
+            :key="`${testimonial.name}-${index}`"
+            class="testimonials-stage__slide"
+          >
+            <article class="testimonial">
+              <app-typography tag="p" variant="heading-lg">
+                <span class="testimonial__mark" aria-hidden="true">"</span>
+                <span dir="auto">{{ testimonial.quote }}</span>
+                <span class="testimonial__mark" aria-hidden="true">"</span>
+              </app-typography>
+              <div>
+                <card-f :item="{ label: testimonial.name, description: testimonial.title }" />
+              </div>
+            </article>
+          </li>
+        </ul>
+      </div>
+
+      <div v-if="showRailNavigation" class="testimonials-stage__controls">
         <button
-          v-if="showRailNavigation"
           type="button"
           class="testimonials-stage__arrow testimonials-stage__arrow--previous"
           :disabled="!canScrollPrevious"
           aria-label="Previous testimonial"
           @click="scrollPrevious"
         >
-          <span aria-hidden="true">←</span>
+          <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
         </button>
-
-        <div
-          ref="emblaRef"
-          class="testimonials-stage__viewport"
-          :tabindex="showRailNavigation ? 0 : -1"
-          aria-label="Client testimonials"
-          @keydown="handleKeydown"
-        >
-          <ul class="testimonials-stage__rail" role="list">
-            <li
-              v-for="(testimonial, index) in normalizedTestimonials"
-              :key="`${testimonial.name}-${index}`"
-              class="testimonials-stage__slide"
-            >
-              <article class="testimonial">
-                <app-typography tag="p" variant="heading-sm" class="testimonial__quote">
-                  <span class="testimonial__mark" aria-hidden="true">“</span>
-                  <span dir="auto">{{ testimonial.quote }}</span>
-                  <span class="testimonial__mark" aria-hidden="true">”</span>
-                </app-typography>
-
-                <div class="testimonial__meta">
-                  <app-typography tag="p" variant="text-md" class="testimonial__name">
-                    <span dir="auto">{{ testimonial.name }}</span>
-                  </app-typography>
-
-                  <app-typography tag="p" variant="text-sm" class="testimonial__title">
-                    <span dir="auto">{{ testimonial.title }}</span>
-                  </app-typography>
-
-                  <app-typography
-                    v-if="testimonial.detail"
-                    tag="p"
-                    variant="eyebrow-sm"
-                    class="testimonial__detail"
-                  >
-                    <span dir="auto">{{ testimonial.detail }}</span>
-                  </app-typography>
-                </div>
-              </article>
-            </li>
-          </ul>
-        </div>
-
         <button
-          v-if="showRailNavigation"
           type="button"
           class="testimonials-stage__arrow testimonials-stage__arrow--next"
           :disabled="!canScrollNext"
           aria-label="Next testimonial"
           @click="scrollNext"
         >
-          <span aria-hidden="true">→</span>
+          <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
         </button>
       </div>
-
-      <ul v-if="showRailNavigation" class="testimonials-stage__dots" aria-label="Testimonial pages">
-        <li v-for="(_, index) in scrollSnaps" :key="index" class="testimonials-stage__dot-item">
-          <button
-            type="button"
-            class="testimonials-stage__dot"
-            :class="{ 'is-active': index === selectedIndex }"
-            :aria-label="`Show testimonial ${index + 1}`"
-            :aria-pressed="index === selectedIndex"
-            @click="scrollTo(index)"
-          />
-        </li>
-      </ul>
     </div>
-  </section>
 
-  <section v-else class="quote-fallback">
+    <ul v-if="showRailNavigation" class="testimonials-stage__dots" aria-label="Testimonial pages">
+      <li v-for="(_, index) in scrollSnaps" :key="index" class="testimonials-stage__dot-item">
+        <button
+          type="button"
+          class="testimonials-stage__dot"
+          :class="{ 'is-active': index === selectedIndex }"
+          :aria-label="`Show testimonial ${index + 1}`"
+          :aria-pressed="index === selectedIndex"
+          @click="scrollTo(index)"
+        />
+      </li>
+    </ul>
+  </section-a>
+
+  <section
+    v-else
+    class="quote-fallback"
+    :class="{ dark: bgcolor === 'dark', light: bgcolor === 'light', blue: bgcolor === 'blue' }"
+  >
     <div class="quote-fallback__inner">
       <app-typography
         v-if="eyebrow"
@@ -207,28 +265,80 @@ onUnmounted(() => {
 .quote-fallback {
   grid-column: 1 / -1;
   padding-inline: calc(var(--spacing) * 4);
-  padding-block: calc(var(--spacing) * 10);
-  color: var(--color-white);
+  padding-block: calc(var(--spacing) * 14);
+  background: var(--section-bg);
+  color: var(--section-color);
+}
+
+.light {
+  --section-bg: var(--color-white);
+  --section-color: var(--color-envision-gray-900);
+  --quote-heading-color: var(--color-envision-blue-950);
+  --quote-muted-color: var(--text-color-muted);
+  --quote-accent-color: var(--color-envision-green-600);
+  --quote-control-bg: var(--color-white);
+  --quote-control-border: var(--color-envision-gray-300);
+  --quote-control-color: var(--color-envision-blue-950);
+  --quote-control-focus: var(--color-envision-blue-900);
+  --quote-control-active-bg: var(--color-envision-blue-600);
+  --quote-control-active-border: var(--color-envision-blue-600);
+  --quote-control-active-color: var(--color-white);
+  --quote-dot-color: var(--color-envision-gray-300);
+  --quote-dot-active-color: var(--color-envision-blue-600);
+}
+
+.dark {
+  --section-bg: var(--color-envision-gray-900);
+  --section-color: var(--color-white);
+  --quote-heading-color: var(--color-white);
+  --quote-muted-color: var(--color-envision-gray-200);
+  --quote-accent-color: var(--color-envision-green-500);
+  --quote-control-bg: transparent;
+  --quote-control-border: color-mix(in oklab, var(--color-white) 30%, transparent);
+  --quote-control-color: var(--color-white);
+  --quote-control-focus: var(--color-envision-green-500);
+  --quote-control-active-bg: var(--color-envision-green-500);
+  --quote-control-active-border: var(--color-envision-green-500);
+  --quote-control-active-color: var(--color-envision-blue-950);
+  --quote-dot-color: color-mix(in oklab, var(--color-white) 28%, transparent);
+  --quote-dot-active-color: var(--color-envision-green-500);
+}
+
+.blue {
+  --section-bg: var(--color-envision-blue-950);
+  --section-color: var(--color-white);
+  --quote-heading-color: var(--color-white);
+  --quote-muted-color: var(--color-envision-gray-100);
+  --quote-accent-color: var(--color-envision-green-500);
+  --quote-control-bg: transparent;
+  --quote-control-border: color-mix(in oklab, var(--color-white) 30%, transparent);
+  --quote-control-color: var(--color-white);
+  --quote-control-focus: var(--color-envision-green-500);
+  --quote-control-active-bg: var(--color-envision-green-500);
+  --quote-control-active-border: var(--color-envision-green-500);
+  --quote-control-active-color: var(--color-envision-blue-950);
+  --quote-dot-color: color-mix(in oklab, var(--color-white) 28%, transparent);
+  --quote-dot-active-color: var(--color-envision-green-500);
 }
 
 .testimonials-stage__inner,
 .quote-fallback__inner {
   display: grid;
-  gap: calc(var(--spacing) * 8);
-  width: min(100%, 78rem);
+  gap: calc(var(--spacing) * 10);
+  width: min(100%, var(--ui-container));
   margin-inline: auto;
 }
 
 .testimonials-stage__header {
   display: grid;
-  justify-items: center;
-  gap: calc(var(--spacing) * 3);
-  text-align: center;
+  gap: calc(var(--spacing) * 4);
+  max-width: 48rem;
 }
 
 .testimonials-stage__eyebrow {
-  opacity: 0.72;
-  letter-spacing: 0.12em;
+  color: var(--quote-accent-color);
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
@@ -242,41 +352,49 @@ onUnmounted(() => {
 .quote-fallback__name,
 .quote-fallback__title {
   max-width: none;
-  color: var(--color-white);
+  color: inherit;
 }
 
-.testimonials-stage :deep(p),
-.testimonials-stage :deep(span),
-.testimonials-stage :deep(h2),
-.quote-fallback :deep(p),
+.testimonials-stage :deep(span:not(.testimonial__mark)),
 .quote-fallback :deep(span) {
-  color: var(--color-white);
+  color: inherit;
 }
 
 .testimonials-stage__title {
-  width: min(100%, 36rem);
-  text-align: center;
+  width: min(100%, 42rem);
+  color: var(--quote-heading-color);
   text-wrap: balance;
 }
 
 .testimonials-stage__body {
-  width: min(100%, 30rem);
-  opacity: 0.82;
+  width: min(100%, 36rem);
+  color: var(--quote-muted-color);
   line-height: 1.5;
 }
 
 .testimonials-stage__carousel {
-  position: relative;
   display: grid;
-  align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  min-width: 0;
+  padding-block: calc(var(--spacing) * 2);
+}
+
+.testimonials-stage__controls {
+  display: flex;
+  gap: calc(var(--spacing) * 2);
+  padding-top: calc(var(--spacing) * 4);
 }
 
 .testimonials-stage__viewport {
   overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .testimonials-stage__viewport:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--quote-control-focus);
   outline-offset: 4px;
 }
 
@@ -297,85 +415,63 @@ onUnmounted(() => {
 
 .testimonial {
   display: grid;
-  justify-items: center;
-  gap: calc(var(--spacing) * 5);
-  width: min(100%, 44rem);
-  text-align: center;
+  gap: calc(var(--spacing) * 8);
+  width: min(100%, 62rem);
+  padding-block: calc(var(--spacing) * 10);
+  padding-inline: calc(var(--spacing) * 1);
 }
 
 .testimonial__quote {
-  width: min(100%, 42rem);
-  font-style: italic;
-  line-height: 1.55;
+  position: relative;
+  width: min(100%, 56rem);
+  color: var(--quote-heading-color);
+  font-weight: 300;
+  line-height: 1.18;
   text-wrap: balance;
 }
 
 .testimonial__mark {
-  opacity: 0.92;
-}
-
-.testimonial__meta {
-  display: grid;
-  justify-items: center;
-  gap: calc(var(--spacing) * 1.5);
-}
-
-.testimonial__name {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-}
-
-.testimonial__title {
-  opacity: 0.7;
-}
-
-.testimonial__detail {
-  padding-inline: calc(var(--spacing) * 3);
-  padding-block: calc(var(--spacing) * 1);
-  border: 1px solid currentColor;
-  opacity: 0.9;
+  color: var(--quote-accent-color);
+  font-weight: 600;
 }
 
 .testimonials-stage__arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  background: transparent;
-  color: inherit;
-  transform: translateY(-50%);
-  opacity: 0.45;
+  border: 1px solid var(--quote-control-border);
+  border-radius: 0;
+  background: var(--quote-control-bg);
+  color: var(--quote-control-color);
+  cursor: pointer;
   transition:
-    opacity 180ms ease,
-    transform 180ms ease;
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
 }
 
 .testimonials-stage__arrow:hover:not(:disabled),
 .testimonials-stage__arrow:focus-visible {
-  opacity: 1;
+  border-color: var(--quote-control-active-border);
+  background: var(--quote-control-active-bg);
+  color: var(--quote-control-active-color);
 }
 
 .testimonials-stage__arrow:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--quote-control-focus);
   outline-offset: 3px;
 }
 
 .testimonials-stage__arrow:disabled {
-  opacity: 0.18;
+  opacity: 0.35;
+  cursor: default;
 }
 
-.testimonials-stage__arrow--previous {
-  left: 0;
-}
-
-.testimonials-stage__arrow--next {
-  right: 0;
+.dark .testimonial__mark,
+.blue .testimonial__mark {
+  color: var(--quote-accent-color);
 }
 
 .testimonials-stage__dots {
@@ -392,50 +488,60 @@ onUnmounted(() => {
 }
 
 .testimonials-stage__dot {
-  width: 0.375rem;
-  height: 0.375rem;
+  width: calc(var(--spacing) * 8);
+  height: 0.1875rem;
   border: 0;
-  border-radius: 999px;
-  background: currentColor;
-  opacity: 0.22;
+  border-radius: 0;
+  background: var(--quote-dot-color);
+  cursor: pointer;
   transition:
-    opacity 180ms ease,
+    background-color 180ms ease,
     transform 180ms ease;
 }
 
 .testimonials-stage__dot:hover,
 .testimonials-stage__dot:focus-visible,
 .testimonials-stage__dot.is-active {
-  opacity: 1;
+  background: var(--quote-dot-active-color);
 }
 
 .testimonials-stage__dot.is-active {
-  transform: scale(1.15);
+  transform: scaleY(1.4);
 }
 
 .testimonials-stage__dot:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--quote-control-focus);
   outline-offset: 3px;
 }
 
 .quote-fallback__inner {
   justify-items: center;
   text-align: center;
+  padding-block: calc(var(--spacing) * 10);
+  border-block: var(--border);
 }
 
 .quote-fallback__quote {
   width: min(100%, 42rem);
+  color: var(--quote-heading-color);
   text-wrap: balance;
 }
 
+.quote-fallback__name {
+  color: var(--section-color);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .quote-fallback__title {
-  opacity: 0.72;
+  color: var(--quote-muted-color);
 }
 
 @media (max-width: 767px) {
   .testimonials-stage,
   .quote-fallback {
-    padding-block: calc(var(--spacing) * 8);
+    padding-block: calc(var(--spacing) * 10);
   }
 
   .testimonials-stage__inner,
@@ -445,22 +551,29 @@ onUnmounted(() => {
 
   .testimonial {
     width: min(100%, 32rem);
-  }
-
-  .testimonials-stage__arrow {
-    position: static;
-    transform: none;
-    margin-top: calc(var(--spacing) * 2);
+    gap: calc(var(--spacing) * 6);
+    padding-block: calc(var(--spacing) * 8);
   }
 
   .testimonials-stage__carousel {
     gap: calc(var(--spacing) * 4);
     justify-items: center;
   }
+}
 
-  .testimonials-stage__arrow--previous,
-  .testimonials-stage__arrow--next {
-    inset: auto;
+@media (min-width: 900px) {
+  .testimonials-stage__inner {
+    grid-template-columns: minmax(0, 0.45fr) minmax(0, 0.55fr);
+    align-items: start;
+  }
+
+  .testimonials-stage__carousel,
+  .testimonials-stage__dots {
+    grid-column: 2;
+  }
+
+  .testimonials-stage__dots {
+    justify-content: flex-start;
   }
 }
 

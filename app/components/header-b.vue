@@ -1,0 +1,3 @@
+<template>
+  <app-header />
+</template>

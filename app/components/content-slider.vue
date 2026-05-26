@@ -13,37 +13,34 @@ interface ContentSliderItem {
   tone?: string;
 }
 
-const props = withDefaults(
-  defineProps<{
-    title: string;
-    body: string;
-    backgroundImage?: string;
-    backgroundImageAlt?: string;
-    slides: ContentSliderItem[];
-  }>(),
-  {
-    backgroundImage: "",
-    backgroundImageAlt: "",
-  },
-);
+defineProps<{
+  title: string;
+  body: string;
+  backgroundImage?: string;
+  backgroundImageAlt?: string;
+  slides: ContentSliderItem[];
+}>();
 
 function resolveTone(tone?: string) {
   return tone ? `var(${tone})` : "var(--color-envision-blue-600)";
 }
 
-const trackRef = ref<HTMLElement | null>(null);
-const targetRef = ref<HTMLElement | null>(null);
+const trackRef = useTemplateRef("trackRef");
+const targetRef = useTemplateRef("targetRef");
+
+let scrollTriggerInstance: ScrollTrigger | null = null;
 
 onMounted(() => {
   useGSAP().registerPlugin(ScrollTrigger);
   if (!trackRef.value) return;
+
   const tween = useGSAP().to(trackRef.value, {
     x: getScrollAmount,
     duration: 3,
     ease: "none",
   });
 
-  ScrollTrigger.create({
+  scrollTriggerInstance = ScrollTrigger.create({
     trigger: targetRef.value,
     start: "top top",
     end: () => `+=${getScrollAmount() * -1}`,
@@ -54,9 +51,14 @@ onMounted(() => {
   });
 
   function getScrollAmount() {
-    const sw = trackRef.value?.scrollWidth;
+    const sw = trackRef.value?.scrollWidth ?? window.innerWidth;
     return -(sw - window.innerWidth);
   }
+});
+
+onUnmounted(() => {
+  scrollTriggerInstance?.kill();
+  scrollTriggerInstance = null;
 });
 </script>
 
@@ -113,9 +115,6 @@ onMounted(() => {
               {{ slide.quote }}
             </app-typography>
           </div>
-          <!-- <NuxtImg
-v-if="slide.image" :src="slide.image" :alt="slide.imageAlt ?? ''" provider="imagekit" fit="cover"
-            class="slider-image" loading="lazy" />-->
         </li>
       </ul>
     </div>

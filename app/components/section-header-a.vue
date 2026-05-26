@@ -6,18 +6,28 @@ defineProps<{
   buttonLabel?: string;
   buttonTo?: string;
   showBody?: boolean;
+  neutral?: boolean;
 }>();
 </script>
 
 <template>
-  <div class="section-header l-stack">
+  <div
+    class="section-header l-stack"
+    :style="{
+      '--_color': neutral ? 'var(--color-envision-gray-900)' : 'var(--color-envision-blue-500)',
+    }"
+  >
     <app-typography v-if="eyebrow" tag="p" variant="text-lg" class="eyebrow">
       {{ eyebrow }}
     </app-typography>
 
-    <app-typography tag="h2" variant="heading-lg" class="title">
-      {{ title }}
-    </app-typography>
+    <slot name="title">
+      <app-typography tag="h2" variant="heading-lg" class="title">
+        {{ title }}
+      </app-typography>
+    </slot>
+
+    <slot name="body" />
 
     <app-typography v-if="body" tag="p" variant="text-lg" class="body">
       {{ body }}
@@ -26,9 +36,6 @@ defineProps<{
     <div v-if="buttonTo" class="action">
       <my-button :to="buttonTo" variant="outline" size="md">
         {{ buttonLabel }}
-        <template #icon>
-          <UIcon name="i-lucide-circle-play" aria-hidden="true" />
-        </template>
       </my-button>
     </div>
   </div>
@@ -39,34 +46,32 @@ defineProps<{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: calc(var(--spacing) * 4);
+  gap: calc(var(--spacing) * 2);
 }
 
 .section-header {
-  color: #fff;
   margin: calc(var(--spacing) * 4);
-  max-width: 60ch;
+  max-width: 80ch;
 }
 
-.eyebrow,
-.body {
-  color: #fff;
-  line-height: 1.5;
+.eyebrow {
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 6%;
+  color: var(--accent-color);
 }
 
 .title {
   color: inherit;
-  line-height: 1;
 }
 
 .body {
-  color: #fff;
+  color: var(--text-color-dimmed);
   text-wrap: balance;
 }
 
 .action {
   --color-primary: var(--color-envision-blue-500);
-
   margin-block-start: 0;
 }
 </style>

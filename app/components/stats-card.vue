@@ -2,7 +2,7 @@
 withDefaults(
   defineProps<{
     stat: string;
-    description?: string;
+    description: string;
     color?: string;
   }>(),
   {
@@ -13,28 +13,32 @@ withDefaults(
 
 <template>
   <div class="stat-card" :style="{ '--card-bg': `var(${color})` }">
-    <app-typography tag="p" variant="heading-lg" class="stat">
+    <p class="stat">
       {{ stat }}
-    </app-typography>
+    </p>
     <app-typography tag="p" class="description">
       {{ description }}
     </app-typography>
   </div>
 </template>
 
-<style>
+<style scoped>
 .stat-card {
   display: grid;
   gap: calc(var(--spacing));
-  padding: 2cqi;
+  padding: calc(var(--spacing) * 4);
+  background: var(--card-bg);
+  color: var(--color-white);
 }
 
 .stat {
   font-weight: 600;
-  font-size: 7cqi !important;
+  font-size: clamp(1.5rem, 7cqi, 3rem);
+  line-height: 1;
+  text-wrap: balance;
 }
 
 .description {
-  font-size: 2cqi !important;
+  font-size: clamp(1rem, 2cqi, 1.5rem);
 }
 </style>

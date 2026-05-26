@@ -1,8 +1,9 @@
-<script setup>defineProps({
+<script setup>
+defineProps({
   canScrollPrevious: Boolean,
   canScrollNext: Boolean,
 });
-defineEmits(['previous', 'next']);
+defineEmits(["previous", "next"]);
 </script>
 
 <template>

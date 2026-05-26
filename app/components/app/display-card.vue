@@ -25,7 +25,7 @@ const imageAlt = computed(() => props.alt || props.title || "Display card image"
 </script>
 
 <template>
-  <app-reveal-card
+  <project-card
     :to="linkTo"
     :aria-label="props.title || 'View details'"
     :image="props.image || ''"
@@ -33,11 +33,6 @@ const imageAlt = computed(() => props.alt || props.title || "Display card image"
     image-loading="lazy"
     image-sizes="100vw sm:640px md:768px lg:1024px xl:1400px"
     :aspect-ratio="props.aspectRatio"
-    :title-offset="12"
-    details-delay="100ms"
-    meta-delay="140ms"
-    :details-fade="true"
-    :meta-fade="true"
     class="display-card"
   >
     <template #details>
@@ -61,7 +56,7 @@ const imageAlt = computed(() => props.alt || props.title || "Display card image"
         <UIcon name="i-lucide-arrow-right" size="20" aria-hidden="true" />
       </span>
     </template>
-  </app-reveal-card>
+  </project-card>
 </template>
 
 <style scoped>

@@ -1,49 +1,130 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    variant?: "a" | "b";
-    contactImage?: string;
-  }>(),
-  {
-    variant: "a",
-    contactImage:
-      "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122",
-  },
-);
-
 const servicesFeatureImage = "/design-build.jpg";
 const projectsFeatureImage =
   "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122";
 const servicesDropdownDescription =
   "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.";
-const projectDropdownDescription =
-  "Institutional and commercial projects delivered with disciplined coordination and high-trust execution.";
-const { services: serviceDropdownItems } = await useServicesList();
-const { sectors: projectDropdownItems } = await useSectors();
+const projectsDropdownDescription =
+  "Selected work across commercial interiors, healthcare, sports, and complex active sites.";
+type DesktopDropdownValue = "services" | "projects";
 
-const desktopMenuValue = ref("");
+const { services } = await useServicesList();
+const { sectors } = await useSectors();
+
+const desktopDropdowns = computed(() => [
+  {
+    value: "services",
+    label: "Services",
+    triggerDataTest: "desktop-services-trigger",
+    panelDataTest: "desktop-mega-menu-panel",
+    gridDataTest: "services-grid",
+    itemDataTest: "services-grid-item",
+    featurePanel: {
+      dataTest: "services-feature-panel",
+      to: "/services",
+      image: servicesFeatureImage,
+      eyebrow: "Capabilities",
+      title: "Services",
+      copy: servicesDropdownDescription,
+      linkLabel: "view all services",
+    },
+    items: services.value.map((item, index) => ({
+      id: index,
+      slug: item.slug,
+      to: item.to,
+      label: item.title,
+      description: item.description,
+    })),
+  },
+  {
+    value: "projects",
+    label: "Projects",
+    triggerDataTest: "desktop-projects-trigger",
+    panelDataTest: "desktop-projects-menu-panel",
+    gridDataTest: "projects-grid",
+    itemDataTest: "projects-grid-item",
+    featurePanel: {
+      dataTest: "projects-feature-panel",
+      to: "/projects",
+      image: projectsFeatureImage,
+      eyebrow: "Selected Work",
+      title: "Projects",
+      copy: projectsDropdownDescription,
+      linkLabel: "view all projects",
+      tone: "projects" as const,
+    },
+    items: sectors.value.map((item, index) => ({
+      id: index,
+      slug: item.slug,
+      to: item.to,
+      label: item.name,
+      description: item.description,
+    })),
+  },
+]);
+
+const desktopMenuValue = ref<"" | DesktopDropdownValue>("");
+const suppressDesktopMenuOpenUntil = ref(0);
+const desktopMenuModel = computed({
+  get: () => desktopMenuValue.value,
+  set: (value: string) => {
+    if (Date.now() < suppressDesktopMenuOpenUntil.value) {
+      desktopMenuValue.value = "";
+      return;
+    }
+
+    desktopMenuValue.value = value === "services" || value === "projects" ? value : "";
+  },
+});
 const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== "");
-const isServicesDesktopMenuOpen = computed(() => desktopMenuValue.value === "services");
-const isProjectsDesktopMenuOpen = computed(() => desktopMenuValue.value === "projects");
 const route = useRoute();
+const router = useRouter();
+let removeDesktopMenuRouteHook: (() => void) | undefined;
 
 watch(
   () => route.fullPath,
   () => {
-    desktopMenuValue.value = "";
+    closeDesktopMenu(800);
   },
 );
 
-function closeDesktopMenu() {
-  desktopMenuValue.value = "";
+if (import.meta.client) {
+  removeDesktopMenuRouteHook = router.afterEach(() => {
+    closeDesktopMenu(1000);
+  });
 }
 
-function openDesktopMenu(menu: "services" | "projects") {
+onBeforeUnmount(() => {
+  removeDesktopMenuRouteHook?.();
+});
+
+function closeDesktopMenu(suppressMs = 350) {
+  suppressDesktopMenuOpenUntil.value = Date.now() + suppressMs;
+  desktopMenuValue.value = "";
+
+  if (import.meta.client) {
+    window.setTimeout(() => {
+      desktopMenuValue.value = "";
+    }, 0);
+  }
+}
+
+function openDesktopMenu(menu: string) {
+  if (menu !== "services" && menu !== "projects") return;
+  if (Date.now() < suppressDesktopMenuOpenUntil.value) return;
+
   desktopMenuValue.value = menu;
 }
 
-function toggleDesktopMenu(menu: "services" | "projects") {
-  desktopMenuValue.value = desktopMenuValue.value === menu ? "" : menu;
+function onHeaderFocusout(event: FocusEvent) {
+  const nextTarget = event.relatedTarget;
+  const currentTarget = event.currentTarget;
+
+  if (!(currentTarget instanceof HTMLElement)) return;
+
+  if (nextTarget instanceof Node && currentTarget.contains(nextTarget)) return;
+
+  closeDesktopMenu(0);
 }
 </script>
 
@@ -52,8 +133,10 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     ref="header"
     class="main-header"
     :class="{
-      'main-header-dark': isDesktopMenuOpen,
+      'main-header--desktop-open': isDesktopMenuOpen,
     }"
+    @focusout="onHeaderFocusout"
+    @keydown.esc="closeDesktopMenu(0)"
   >
     <button
       v-if="isDesktopMenuOpen"
@@ -66,10 +149,11 @@ function toggleDesktopMenu(menu: "services" | "projects") {
 
     <header class="header-root site-max">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
-        <Icon name="logos:envision-white" size="30" alt="envision construction logo" />
+        <Icon name="logos:envision-white" class="brand-link__mark" aria-hidden="true" />
       </NuxtLink>
+
       <NavigationMenuRoot
-        v-model="desktopMenuValue"
+        v-model="desktopMenuModel"
         class="desktop-nav NavigationMenuRoot"
         :delay-duration="0"
         :skip-delay-duration="0"
@@ -77,131 +161,27 @@ function toggleDesktopMenu(menu: "services" | "projects") {
         aria-label="Primary"
       >
         <NavigationMenuList class="desktop-nav-list NavigationMenuList">
-          <NavigationMenuItem value="services">
-            <NavigationMenuTrigger as-child>
-              <button
-                type="button"
-                class="NavigationMenuTrigger desktop-inline-nav-link submenu"
-                data-test="desktop-services-trigger"
-                :aria-expanded="isServicesDesktopMenuOpen"
-                @pointerenter="openDesktopMenu('services')"
-                @click="toggleDesktopMenu('services')"
-              >
-                Services
-              </button>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent
-              class="NavigationMenuContent"
-              data-test="desktop-mega-menu-panel"
-            >
-              <div class="mega-menu-shell">
-                <div class="mega-menu-grid">
-                  <NuxtLink
-                    class="services-feature-panel services-feature-panel--services"
-                    data-test="services-feature-panel"
-                    to="/services"
-                  >
-                    <img :src="servicesFeatureImage" alt="" class="services-feature-panel__image" />
-                    <div class="services-feature-panel__overlay" />
-                    <div class="services-feature-panel__grid" />
-                    <div class="services-feature-panel__content">
-                      <span class="services-feature-panel__eyebrow">Capabilities</span>
-                      <h2 class="services-feature-panel__title">Services</h2>
-                      <p class="services-feature-panel__copy">
-                        Construction services shaped for complex schedules, demanding coordination,
-                        and institution-grade execution.
-                      </p>
-                      <div class="services-feature-panel__rule" />
-                      <span class="services-feature-panel__link">view all services</span>
-                    </div>
-                  </NuxtLink>
-
-                  <div class="services-grid" data-test="services-grid">
-                    <NuxtLink
-                      v-for="(item, index) in serviceDropdownItems"
-                      :key="item.slug"
-                      :to="item.to"
-                      class="services-grid-item"
-                      data-test="services-grid-item"
-                    >
-                      <span class="services-grid-item__index">
-                        {{ String(index + 1).padStart(2, "0") }}
-                      </span>
-                      <h3 class="services-grid-item__title">
-                        {{ item.title }}
-                      </h3>
-                      <p class="services-grid-item__description">
-                        {{ item.description || servicesDropdownDescription }}
-                      </p>
-                    </NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </NavigationMenuContent>
+          <NavigationMenuItem>
+            <NavigationMenuLink as-child>
+              <NuxtLink class="NavigationMenuLink desktop-inline-nav-link" to="/">Home</NuxtLink>
+            </NavigationMenuLink>
           </NavigationMenuItem>
 
-          <NavigationMenuItem value="projects">
-            <NavigationMenuTrigger as-child>
-              <button
-                type="button"
-                class="NavigationMenuTrigger desktop-inline-nav-link submenu"
-                data-test="desktop-projects-trigger"
-                :aria-expanded="isProjectsDesktopMenuOpen"
-                @pointerenter="openDesktopMenu('projects')"
-                @click="toggleDesktopMenu('projects')"
-              >
-                Projects
-              </button>
-            </NavigationMenuTrigger>
-            <NavigationMenuContent
-              class="NavigationMenuContent"
-              data-test="desktop-projects-menu-panel"
-            >
-              <div class="mega-menu-shell">
-                <div class="mega-menu-grid">
-                  <NuxtLink
-                    class="services-feature-panel services-feature-panel--projects"
-                    data-test="projects-feature-panel"
-                    to="/projects"
-                  >
-                    <img :src="projectsFeatureImage" alt="" class="services-feature-panel__image" />
-                    <div class="services-feature-panel__overlay" />
-                    <div class="services-feature-panel__grid" />
-                    <div class="services-feature-panel__content">
-                      <span class="services-feature-panel__eyebrow">Selected Work</span>
-                      <h2 class="services-feature-panel__title">Projects</h2>
-                      <p class="services-feature-panel__copy">
-                        Selected work across commercial interiors, healthcare, sports, and complex
-                        active sites.
-                      </p>
-                      <div class="services-feature-panel__rule" />
-                      <span class="services-feature-panel__link">view all projects</span>
-                    </div>
-                  </NuxtLink>
-
-                  <div class="services-grid" data-test="projects-grid">
-                    <NuxtLink
-                      v-for="(item, index) in projectDropdownItems"
-                      :key="item.slug"
-                      :to="item.to"
-                      class="services-grid-item"
-                      data-test="projects-grid-item"
-                    >
-                      <span class="services-grid-item__index">
-                        {{ String(index + 1).padStart(2, "0") }}
-                      </span>
-                      <h3 class="services-grid-item__title">
-                        {{ item.name }}
-                      </h3>
-                      <p class="services-grid-item__description">
-                        {{ projectDropdownDescription }}
-                      </p>
-                    </NuxtLink>
-                  </div>
-                </div>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+          <app-navigation-dropdown-menu
+            v-for="dropdown in desktopDropdowns"
+            :key="dropdown.value"
+            :value="dropdown.value"
+            :label="dropdown.label"
+            :is-open="desktopMenuValue === dropdown.value"
+            :feature-panel="dropdown.featurePanel"
+            :items="dropdown.items"
+            :trigger-data-test="dropdown.triggerDataTest"
+            :panel-data-test="dropdown.panelDataTest"
+            :grid-data-test="dropdown.gridDataTest"
+            :item-data-test="dropdown.itemDataTest"
+            :close-menu="closeDesktopMenu"
+            @open="openDesktopMenu"
+          />
 
           <NavigationMenuItem>
             <NavigationMenuLink as-child>
@@ -218,14 +198,26 @@ function toggleDesktopMenu(menu: "services" | "projects") {
               </NuxtLink>
             </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink as-child>
+              <NuxtLink class="NavigationMenuLink desktop-inline-nav-link" to="/contact">
+                Contact
+              </NuxtLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
         <div class="ViewportPosition">
           <NavigationMenuViewport class="NavigationMenuViewport" />
         </div>
 
-        <my-button to="/contact" size="sm" variant="secondary" class="header-cta--mobile-hidden">
-          Contact
-        </my-button>
+        <NuxtLink
+          class="desktop-nav-action"
+          to="/trade-partners"
+          aria-label="Trade Partner Program"
+        >
+          Trade Partners
+          <UIcon name="i-lucide-arrow-up-right" aria-hidden="true" />
+        </NuxtLink>
       </NavigationMenuRoot>
 
       <app-mobile-nav-drawer />
@@ -238,37 +230,19 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   --header-height: 3.5rem;
   --header-shell-bg: color-mix(in oklch, black 20%, var(--color-envision-blue-50) 3%);
   --header-shell-border: color-mix(in oklch, var(--color-envision-blue-900) 18%, white);
-  --header-shell-text: color-mix(
-    in oklch,
-    var(--color-envision-blue-950) 88%,
-    var(--color-envision-green-900) 12%
-  );
-  --header-shell-muted: color-mix(in oklch, var(--color-envision-blue-900) 58%, white);
-  --header-panel-bg: var(--color-envision-gray-900);
-  --header-panel-border: color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
+  --header-panel-bg: var(--header-shell-bg);
 
-  position: absolute;
-  top: 0;
+  position: relative;
   width: 100%;
   z-index: 1000;
-  color: var(--header-shell-text);
-  background: transparent;
-  backdrop-filter: blur(0px);
-
-  animation: stickyNav linear forwards;
-  animation-timeline: view();
-  animation-range-start: 100vh;
-  animation-range-end: 120vh;
-}
-
-.main-header-dark {
-  background: var(--header-panel-bg);
+  color: var(--section-color);
+  background: var(--color-envision-gray-800);
 }
 
 .main-header.main-header--desktop-open {
-  background: white;
-  border-bottom-color: var(--header-shell-border);
-  animation: none;
+  background: var(--color-envision-gray-800);
+  border-bottom-color: transparent;
+  backdrop-filter: blur(16px);
 }
 
 .header-root {
@@ -310,7 +284,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   display: none !important;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1100px) {
   .header-cta.header-cta--mobile-hidden {
     display: block !important;
   }
@@ -356,6 +330,55 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     z-index: 3;
   }
 
+  .desktop-dropdown-trigger-group {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .desktop-dropdown-open-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    inset-inline-start: calc(100% + 0.3rem);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.75rem;
+    height: 1.75rem;
+    border: 1px solid color-mix(in oklch, var(--color-white) 28%, transparent);
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-white);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .desktop-dropdown-open-button:focus,
+  .desktop-dropdown-open-button:focus-visible {
+    opacity: 1;
+  }
+
+  .desktop-dropdown-open-button:focus-visible {
+    outline: 2px solid var(--color-envision-green-500);
+    outline-offset: 0.2rem;
+  }
+
+  .desktop-dropdown-open-button:focus[aria-expanded="true"],
+  .desktop-dropdown-open-button:focus-visible[aria-expanded="true"] {
+    border-color: var(--color-envision-green-500);
+    background: color-mix(in oklch, var(--color-envision-green-500) 16%, transparent);
+  }
+
+  .desktop-dropdown-open-button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
   .desktop-inline-nav-link {
     display: inline-flex;
     align-items: center;
@@ -391,18 +414,23 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     transition: transform 220ms ease;
   }
 
-  .desktop-inline-nav-link:hover,
-  .desktop-inline-nav-link:focus-visible {
+  .desktop-inline-nav-link:hover {
     outline: none;
+  }
+
+  .desktop-inline-nav-link:focus-visible {
+    outline: 2px solid var(--color-envision-green-500);
+    outline-offset: 0.35rem;
   }
 
   .desktop-inline-nav-link:hover::after,
   .desktop-inline-nav-link:focus-visible::after,
+  .desktop-inline-nav-link[data-menu-open="true"]::after,
   .desktop-inline-nav-link[aria-expanded="true"]::after {
     transform: scaleX(1);
   }
 
-  .desktop-inline-nav-link[aria-expanded="true"] {
+  .desktop-inline-nav-link[aria-expanded="true"]:not(:focus-visible) {
     outline: none;
   }
 
@@ -495,9 +523,7 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     top: 100%;
     overflow: hidden;
     z-index: 1;
-    transition:
-      width,
-      transform 250ms ease;
+    transition: transform 250ms ease;
   }
 
   .NavigationMenuViewport {
@@ -509,149 +535,37 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     border-radius: 0;
     overflow: auto;
     height: var(--reka-navigation-menu-viewport-height);
-    transition:
-      width,
-      height,
-      340ms cubic-bezier(0.19, 1, 0.22, 1);
     pointer-events: auto;
     border-top: 0;
+    transition: height 200ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .NavigationMenuViewport[data-state="open"] {
+    animation: viewportSlideIn 250ms cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .NavigationMenuViewport[data-state="closed"] {
+    animation: viewportSlideOut 200ms cubic-bezier(0.19, 1, 0.22, 1);
   }
 
   .mega-menu-grid {
     display: grid;
     grid-template-columns: minmax(320px, 0.85fr) minmax(0, 1.85fr);
-    min-height: 350px;
     margin: 0 auto;
-  }
-
-  .services-feature-panel {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-    min-height: 350px;
-    padding: clamp(1.5rem, 2vw, 2rem);
-    color: white;
-    text-decoration: none;
-    isolation: isolate;
-    background: var(--color-envision-blue-700);
-  }
-
-  .services-feature-panel--projects {
-    background: var(--color-envision-green-600);
-  }
-
-  .services-feature-panel__image,
-  .services-feature-panel__overlay,
-  .services-feature-panel__grid {
-    position: absolute;
-    inset: 0;
-  }
-
-  .services-feature-panel__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.72;
-    filter: grayscale(1) contrast(0.55);
-    z-index: -2;
-  }
-
-  .services-feature-panel__overlay {
-    background: var(--color-envision-blue-700);
-    mix-blend-mode: multiply;
-    z-index: -1;
-  }
-
-  .services-feature-panel--projects .services-feature-panel__overlay {
-    background: var(--color-envision-green-600);
-  }
-
-  .services-feature-panel__grid {
-    background:
-      linear-gradient(rgb(255 255 255 / 0.12) 1px, transparent 1px),
-      linear-gradient(90deg, rgb(255 255 255 / 0.12) 1px, transparent 1px);
-    background-size: 3rem 3rem;
-    mask-image: linear-gradient(180deg, rgb(0 0 0 / 0.2), transparent 85%);
-    z-index: -1;
-  }
-
-  .services-feature-panel__content {
-    display: grid;
-    gap: 0.9rem;
-    width: min(19rem, 100%);
-    align-content: end;
-  }
-
-  .services-feature-panel__eyebrow {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgb(255 255 255 / 0.74);
-  }
-
-  .services-feature-panel__title {
-    margin: 0;
-    font-size: clamp(3rem, 5vw, 4.2rem);
-    font-weight: 600;
-    line-height: 0.9;
-    letter-spacing: -0.045em;
-    text-transform: uppercase;
-  }
-
-  .services-feature-panel__copy {
-    margin: 0;
-    max-width: 16rem;
-    font-size: 0.98rem;
-    line-height: 1.45;
-    color: rgb(255 255 255 / 0.82);
-  }
-
-  .services-feature-panel__rule {
-    width: min(10rem, 100%);
-    height: 1px;
-    background: rgb(255 255 255 / 0.62);
-  }
-
-  .services-feature-panel__link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.88rem;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .services-feature-panel__link::after {
-    content: "";
-    width: 2rem;
-    height: 1px;
-    background: currentColor;
-    transition: transform 240ms ease;
-  }
-
-  .services-feature-panel:hover .services-feature-panel__link::after,
-  .services-feature-panel:focus-visible .services-feature-panel__link::after {
-    transform: translateX(0.35rem);
   }
 
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
-    min-height: 350px;
-    color: #fff;
-    background: var(--color-envision-gray-900);
+    color: var(--section-color);
+    background: var(--color-envision-gray-800);
   }
 
   .services-grid-item {
     display: grid;
     align-content: start;
     gap: 0.8rem;
-    padding: 1.65rem 1.5rem;
     color: inherit;
     text-decoration: none;
     transition:
@@ -687,16 +601,20 @@ function toggleDesktopMenu(menu: "services" | "projects") {
     line-height: 1.42;
   }
 
-  .services-grid-item:hover,
-  .services-grid-item:focus-visible {
-    background-color: var(--color-envision-gray-700);
+  .services-grid-item:hover {
     transform: none;
     outline: none;
   }
 
+  .services-grid-item:focus-visible {
+    transform: none;
+    outline: 2px solid var(--accent-color);
+    outline-offset: -2px;
+  }
+
   .services-grid-item:hover .services-grid-item__title,
   .services-grid-item:focus-visible .services-grid-item__title {
-    color: var(--ui-primary);
+    color: var(--accent-color);
   }
 
   .services-grid-item:nth-child(1) {
@@ -732,15 +650,27 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   }
 }
 
-@keyframes enterFromTop {
+@keyframes viewportSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-100%);
+    transform: translateY(-6px);
   }
 
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes viewportSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-4px);
   }
 }
 
@@ -809,6 +739,217 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   border: 0;
 }
 
+/* Screenshot-aligned overlay header */
+.main-header {
+  --header-height: 5.5rem;
+  --header-pill-bg: color-mix(in oklch, var(--color-envision-gray-900) 74%, transparent);
+  --header-pill-border: color-mix(in oklch, var(--color-white) 10%, transparent);
+
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1000;
+  background: transparent;
+  color: var(--color-white);
+  pointer-events: none;
+}
+
+.main-header.main-header--desktop-open {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+
+.header-root {
+  width: 100vw;
+  max-width: none;
+  margin-inline: 0;
+  box-sizing: border-box;
+  min-height: var(--header-height);
+  padding: calc(var(--spacing) * 9) calc(var(--spacing) * 3) 0;
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.header-root > * {
+  pointer-events: auto;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  color: var(--color-white);
+}
+
+.brand-link__mark {
+  display: block;
+  width: clamp(5.75rem, 22vw, 8rem);
+  height: clamp(1.05rem, 4vw, 1.45rem);
+}
+
+.brand-link:focus-visible {
+  outline: 2px solid var(--color-envision-green-500);
+  outline-offset: 3px;
+}
+
+.desktop-nav-action {
+  display: none;
+}
+
+@media (max-width: 1099px) {
+  .header-root {
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 1100px) {
+  .header-root {
+    align-items: flex-start;
+    padding: calc(var(--spacing) * 9) clamp(2rem, 3vw, 3rem) 0;
+  }
+
+  .brand-link {
+    display: inline-flex;
+    margin-top: 0.1rem;
+  }
+
+  .desktop-nav {
+    display: flex;
+    justify-content: flex-end;
+    width: auto;
+    margin-left: auto;
+  }
+
+  .NavigationMenuRoot {
+    width: auto;
+    gap: calc(var(--spacing) * 1.5);
+  }
+
+  .NavigationMenuList {
+    width: auto;
+    min-height: 2.85rem;
+    gap: 0;
+    margin: 0;
+    padding: 0.22rem;
+    border: 1px solid var(--header-pill-border);
+    border-radius: 14px;
+    background: var(--header-pill-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 18px 44px rgb(0 0 0 / 16%);
+  }
+
+  .NavigationMenuList > :last-child {
+    margin-left: 0;
+  }
+
+  .desktop-dropdown-trigger-group {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .desktop-dropdown-open-button {
+    display: none;
+  }
+
+  .desktop-inline-nav-link {
+    min-height: 2.35rem;
+    padding: 0 calc(var(--spacing) * 5);
+    border-radius: 11px;
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0;
+    text-transform: none;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .desktop-inline-nav-link::after {
+    display: none;
+  }
+
+  .desktop-inline-nav-link:hover,
+  .desktop-inline-nav-link:focus-visible,
+  .desktop-inline-nav-link[data-menu-open="true"],
+  .desktop-inline-nav-link[aria-expanded="true"] {
+    background: color-mix(in oklch, var(--color-white) 9%, transparent);
+    color: var(--color-white);
+  }
+
+  .desktop-inline-nav-link:focus-visible,
+  .desktop-nav-action:focus-visible,
+  .brand-link:focus-visible {
+    outline: 2px solid var(--color-envision-green-500);
+    outline-offset: 3px;
+  }
+
+  .desktop-nav-action {
+    display: inline-flex;
+    min-height: 2.85rem;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--spacing) * 1.5);
+    padding: 0 calc(var(--spacing) * 5);
+    border: 1px solid var(--header-pill-border);
+    border-radius: 14px;
+    background: var(--header-pill-bg);
+    color: var(--color-white);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition:
+      background-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .desktop-nav-action:hover {
+    background: color-mix(in oklch, var(--color-white) 12%, var(--header-pill-bg));
+  }
+
+  .desktop-nav-action svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .desktop-mega-menu-backdrop {
+    inset: 0;
+    background: transparent;
+    pointer-events: auto;
+  }
+
+  .ViewportPosition {
+    position: fixed;
+    top: calc(var(--spacing) * 22);
+    right: clamp(2rem, 3vw, 3rem);
+    left: auto;
+    justify-content: flex-end;
+    width: min(52rem, calc(100vw - 4rem));
+    pointer-events: none;
+  }
+
+  .NavigationMenuViewport {
+    width: 100%;
+    margin-top: 0;
+    border: 0;
+    border-radius: 18px;
+    background: transparent;
+    overflow: visible;
+    pointer-events: auto;
+  }
+
+  .NavigationMenuContent {
+    width: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .main-header {
     animation: none !important;
@@ -819,7 +960,10 @@ function toggleDesktopMenu(menu: "services" | "projects") {
   .sub-menu,
   .menu-toggle,
   .close-btn,
-  .mobileClose {
+  .mobileClose,
+  .NavigationMenuContent,
+  .NavigationMenuIndicator,
+  .NavigationMenuViewport {
     transition: none !important;
     animation: none !important;
   }

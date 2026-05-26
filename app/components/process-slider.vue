@@ -47,12 +47,11 @@ function resolveTone(tone?: string) {
 <template>
   <section class="process-slider l-process-slider">
     <header class="process-slider__intro">
-      <app-typography tag="h2" variant="heading-huge">
-        {{ title }}
-      </app-typography>
-      <app-typography tag="p" variant="text-lg">
-        {{ body }}
-      </app-typography>
+      <section-header-a :title="title">
+        <template #body>
+          {{ body }}
+        </template>
+      </section-header-a>
     </header>
 
     <NuxtImg

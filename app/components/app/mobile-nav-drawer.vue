@@ -1,37 +1,83 @@
 <script setup lang="ts">
 const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
+const mobileProjectsOpen = ref(false);
+const mobileCompanyOpen = ref(false);
 const menuButtonRef = ref<HTMLButtonElement | null>(null);
 const firstDrawerLinkRef = ref<HTMLElement | null>(null);
 const isDrawerClosing = ref(false);
-const serviceLinks = [
-  { title: "All Services", to: "/services/" },
-  { title: "Specialty Projects Division", to: "/services/specialty-projects-division" },
-  { title: "Construction Management", to: "/services/construction-management" },
-  { title: "Enhanced Preconstruction", to: "/services/enhanced-preconstruction" },
-  { title: "Design Build", to: "/services/design-build" },
+
+const { services } = await useServicesList();
+const { sectors } = await useSectors();
+
+const serviceLinks = computed(() => [
+  { title: "All Services", to: "/services" },
+  ...services.value.map((service) => ({
+    title: service.title,
+    to: service.to,
+  })),
+]);
+
+const projectLinks = computed(() => [
+  { title: "All Projects", to: "/projects" },
+  ...sectors.value.map((sector) => ({
+    title: sector.name,
+    to: sector.to,
+  })),
+]);
+
+const companyLinks = [
+  { title: "Meet the Team", to: "/team" },
+  { title: "About Us", to: "/about" },
 ] as const;
 
 const primaryLinks = [
-  { title: "Projects", to: "/projects" },
-  { title: "Meet the Team", to: "/team" },
-  { title: "About Us", to: "/about" },
-  { title: "Contact", to: "/contact", accent: true },
+  { title: "Contact", to: "/contact" },
+  { title: "Trade Partner Program", to: "/trade-partners", accent: true },
+] as const;
+
+const footerLinkGroups = [
+  {
+    title: "Envision",
+    links: [
+      { title: "Home", to: "/" },
+      { title: "Services", to: "/services" },
+      { title: "Projects", to: "/projects" },
+      { title: "Company", to: "/about" },
+    ],
+  },
+  {
+    title: "Connect",
+    links: [
+      { title: "Contact", to: "/contact" },
+      { title: "Meet the Team", to: "/team" },
+      { title: "Trade Partners", to: "/trade-partners" },
+    ],
+  },
 ] as const;
 
 const route = useRoute();
 const gsap = useGSAP();
 
+type FocusableRef = HTMLElement | { $el?: Element } | null | undefined;
+
 watch(
   () => route.fullPath,
   async () => {
     if (mobileDrawerOpen.value) await closeDrawer();
+
     mobileServicesOpen.value = false;
+    mobileProjectsOpen.value = false;
+    mobileCompanyOpen.value = false;
   },
 );
 
 watch(mobileDrawerOpen, (open) => {
-  if (!open) mobileServicesOpen.value = false;
+  if (!open) {
+    mobileServicesOpen.value = false;
+    mobileProjectsOpen.value = false;
+    mobileCompanyOpen.value = false;
+  }
 });
 
 function closeDrawerAndNavigate() {
@@ -50,14 +96,26 @@ function getDrawerElements() {
   return { content, overlay, navTargets };
 }
 
-function focusTarget(target: unknown, fallbackSelector: string) {
-  if (target && typeof (target as { focus?: () => void }).focus === "function") {
-    (target as { focus: () => void }).focus();
-    return;
-  }
+function resolveFocusable(target: FocusableRef, fallbackSelector: string) {
+  if (target instanceof HTMLElement) return target;
 
-  const fallback = document.body.querySelector(fallbackSelector) as HTMLElement | null;
-  fallback?.focus();
+  if (target?.$el instanceof HTMLElement) return target.$el;
+
+  return document.body.querySelector(fallbackSelector) as HTMLElement | null;
+}
+
+function focusTarget(target: FocusableRef, fallbackSelector: string) {
+  resolveFocusable(target, fallbackSelector)?.focus();
+}
+
+function focusFirstDrawerLink() {
+  focusTarget(firstDrawerLinkRef.value, '[data-test="mobile-services-toggle"]');
+}
+
+function queueFirstDrawerLinkFocus() {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(focusFirstDrawerLink);
+  });
 }
 
 function animateDrawerOpen() {
@@ -73,7 +131,7 @@ function animateDrawerOpen() {
   }
 
   gsap.set(content, { xPercent: 100 });
-  if (navTargets.length) gsap.set(navTargets, { autoAlpha: 0, x: 24 });
+  if (navTargets.length) gsap.set(navTargets, { opacity: 0, x: 24 });
 
   const timeline = gsap.timeline();
   timeline.to(content, { xPercent: 0, duration: 0.4, ease: "power3.out" }, 0);
@@ -81,7 +139,7 @@ function animateDrawerOpen() {
   if (navTargets.length) {
     timeline.to(
       navTargets,
-      { autoAlpha: 1, x: 0, duration: 0.24, stagger: 0.06, ease: "power2.out" },
+      { opacity: 1, x: 0, duration: 0.24, stagger: 0.06, ease: "power2.out" },
       0.1,
     );
   }
@@ -97,7 +155,7 @@ function animateDrawerClose() {
   return new Promise<void>((resolve) => {
     if (navTargets.length) {
       gsap.to(navTargets, {
-        autoAlpha: 0,
+        opacity: 0,
         x: 14,
         duration: 0.14,
         stagger: { each: 0.03, from: "end" },
@@ -124,14 +182,20 @@ async function closeDrawer() {
   await animateDrawerClose();
   mobileDrawerOpen.value = false;
   mobileServicesOpen.value = false;
+  mobileProjectsOpen.value = false;
+  mobileCompanyOpen.value = false;
   isDrawerClosing.value = false;
 }
 
 async function onDrawerOpenChange(nextOpen: boolean) {
   if (nextOpen) {
     mobileDrawerOpen.value = true;
+    mobileServicesOpen.value = true;
+    mobileProjectsOpen.value = false;
+    mobileCompanyOpen.value = false;
     await nextTick();
     animateDrawerOpen();
+    queueFirstDrawerLinkFocus();
     return;
   }
 
@@ -140,7 +204,7 @@ async function onDrawerOpenChange(nextOpen: boolean) {
 
 function onDrawerOpenAutoFocus(event: Event) {
   event.preventDefault();
-  focusTarget(firstDrawerLinkRef.value, '[data-test="mobile-services-toggle"]');
+  queueFirstDrawerLinkFocus();
 }
 
 function onDrawerCloseAutoFocus(event: Event) {
@@ -151,18 +215,21 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 <template>
   <DialogRoot :open="mobileDrawerOpen" @update:open="onDrawerOpenChange">
-    <DialogTrigger class="mobile-trigger" as-child>
-      <my-button
-        ref="menuButtonRef"
-        size="sm"
-        data-test="mobile-menu-trigger"
-        aria-label="Open main menu"
-        aria-haspopup="dialog"
-        :aria-expanded="String(mobileDrawerOpen)"
-      >
-        Menu
-      </my-button>
-    </DialogTrigger>
+    <button
+      ref="menuButtonRef"
+      type="button"
+      class="mobile-trigger mobile-menu-button"
+      data-test="mobile-menu-trigger"
+      aria-label="Open main menu"
+      aria-haspopup="dialog"
+      :aria-expanded="String(mobileDrawerOpen)"
+      @click="onDrawerOpenChange(true)"
+      @keydown.enter.prevent="onDrawerOpenChange(true)"
+      @keydown.space.prevent="onDrawerOpenChange(true)"
+    >
+      <UIcon name="i-lucide-grip" aria-hidden="true" />
+      Menu
+    </button>
 
     <DialogPortal>
       <DialogOverlay class="mobile-overlay" data-test="mobile-drawer-overlay" />
@@ -179,22 +246,16 @@ function onDrawerCloseAutoFocus(event: Event) {
         </VisuallyHidden>
 
         <div class="mobile-content-header">
-          <div class="mobile-brand-block">
-            <span class="mobile-brand-block__eyebrow">Navigation</span>
-            <div class="mobile-brand-block__mark">
-              <Icon name="logos:envision" size="28" alt="envision construction logo" />
-            </div>
-          </div>
-          <my-button
-            size="sm"
+          <button
             type="button"
-            class="mobile-nav-close"
+            class="mobile-menu-button mobile-menu-button--inside"
             data-test="mobile-menu-close"
             aria-label="Close main menu"
             @click="closeDrawerAndNavigate"
           >
-            Close
-          </my-button>
+            <UIcon name="i-lucide-grip" aria-hidden="true" />
+            Menu
+          </button>
         </div>
 
         <nav class="mobile-nav" aria-label="Mobile primary">
@@ -203,36 +264,139 @@ function onDrawerCloseAutoFocus(event: Event) {
               <CollapsibleRoot v-model:open="mobileServicesOpen">
                 <CollapsibleTrigger as-child>
                   <button
+                    ref="firstDrawerLinkRef"
                     class="mobile-services-toggle"
                     type="button"
                     data-test="mobile-services-toggle"
                     data-anim="mobile-nav-link"
+                    :aria-expanded="String(mobileServicesOpen)"
                   >
-                    <span class="mobile-services-toggle__label">Services</span>
+                    <app-typography
+                      tag="span"
+                      variant="heading-sm"
+                      class="mobile-services-toggle__label"
+                    >
+                      Services
+                    </app-typography>
+                    <UIcon
+                      name="i-lucide-chevron-down"
+                      class="mobile-services-toggle__icon"
+                      aria-hidden="true"
+                    />
                   </button>
                 </CollapsibleTrigger>
                 <CollapsibleContent class="mobile-services-panel" data-test="mobile-services-panel">
                   <ul class="mobile-services-list">
                     <li
-                      v-for="(link, index) in serviceLinks"
+                      v-for="link in serviceLinks"
                       :key="link.to"
                       class="mobile-services-list__item"
                     >
                       <NuxtLink
-                        :ref="index === 0 ? firstDrawerLinkRef : undefined"
-                        class="mobile-link"
+                        class="mobile-sub-link"
                         :to="link.to"
                         data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
-                        <span class="mobile-link__label">{{ link.title }}</span>
+                        {{ link.title }}
                       </NuxtLink>
                     </li>
                   </ul>
                 </CollapsibleContent>
               </CollapsibleRoot>
             </li>
-            <li v-for="(link, index) in primaryLinks" :key="link.to" class="mobile-nav-list__item">
+
+            <li class="mobile-nav-list__item">
+              <CollapsibleRoot v-model:open="mobileProjectsOpen">
+                <CollapsibleTrigger as-child>
+                  <button
+                    class="mobile-services-toggle"
+                    type="button"
+                    data-test="mobile-projects-toggle"
+                    data-anim="mobile-nav-link"
+                    :aria-expanded="String(mobileProjectsOpen)"
+                  >
+                    <app-typography
+                      tag="span"
+                      variant="heading-sm"
+                      class="mobile-services-toggle__label"
+                    >
+                      Projects
+                    </app-typography>
+                    <UIcon
+                      name="i-lucide-chevron-down"
+                      class="mobile-services-toggle__icon"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent class="mobile-services-panel" data-test="mobile-projects-panel">
+                  <ul class="mobile-services-list">
+                    <li
+                      v-for="link in projectLinks"
+                      :key="link.to"
+                      class="mobile-services-list__item"
+                    >
+                      <NuxtLink
+                        class="mobile-sub-link"
+                        :to="link.to"
+                        data-anim="mobile-nav-link"
+                        @click="closeDrawerAndNavigate"
+                      >
+                        {{ link.title }}
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                </CollapsibleContent>
+              </CollapsibleRoot>
+            </li>
+
+            <li class="mobile-nav-list__item">
+              <CollapsibleRoot v-model:open="mobileCompanyOpen">
+                <CollapsibleTrigger as-child>
+                  <button
+                    class="mobile-services-toggle"
+                    type="button"
+                    data-test="mobile-company-toggle"
+                    data-anim="mobile-nav-link"
+                    :aria-expanded="String(mobileCompanyOpen)"
+                  >
+                    <app-typography
+                      tag="span"
+                      variant="heading-sm"
+                      class="mobile-services-toggle__label"
+                    >
+                      Company
+                    </app-typography>
+                    <UIcon
+                      name="i-lucide-chevron-down"
+                      class="mobile-services-toggle__icon"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent class="mobile-services-panel" data-test="mobile-company-panel">
+                  <ul class="mobile-services-list">
+                    <li
+                      v-for="link in companyLinks"
+                      :key="link.to"
+                      class="mobile-services-list__item"
+                    >
+                      <NuxtLink
+                        class="mobile-sub-link"
+                        :to="link.to"
+                        data-anim="mobile-nav-link"
+                        @click="closeDrawerAndNavigate"
+                      >
+                        {{ link.title }}
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                </CollapsibleContent>
+              </CollapsibleRoot>
+            </li>
+
+            <li v-for="link in primaryLinks" :key="link.to" class="mobile-nav-list__item">
               <NuxtLink
                 class="mobile-link"
                 :class="{ 'mobile-link--accent': link.accent }"
@@ -240,11 +404,56 @@ function onDrawerCloseAutoFocus(event: Event) {
                 data-anim="mobile-nav-link"
                 @click="closeDrawerAndNavigate"
               >
-                <span class="mobile-link__label">{{ link.title }}</span>
+                <app-typography tag="span" variant="heading-sm" class="mobile-link__label">
+                  {{ link.title }}
+                </app-typography>
+                <UIcon
+                  name="i-lucide-arrow-up-right"
+                  class="mobile-link__icon"
+                  aria-hidden="true"
+                />
               </NuxtLink>
             </li>
           </ul>
+
+          <div class="mobile-actions" aria-label="Primary actions">
+            <NuxtLink
+              class="mobile-action mobile-action--primary"
+              to="/contact"
+              data-anim="mobile-nav-link"
+              @click="closeDrawerAndNavigate"
+            >
+              Start your project
+              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+            </NuxtLink>
+            <NuxtLink
+              class="mobile-action"
+              to="/trade-partners"
+              data-anim="mobile-nav-link"
+              @click="closeDrawerAndNavigate"
+            >
+              Trade Partner Program
+              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+            </NuxtLink>
+          </div>
         </nav>
+
+        <footer class="mobile-footer" aria-label="Secondary navigation">
+          <div v-for="group in footerLinkGroups" :key="group.title" class="mobile-footer__group">
+            <p class="mobile-footer__title">{{ group.title }}</p>
+            <NuxtLink
+              v-for="link in group.links"
+              :key="link.to"
+              class="mobile-footer__link"
+              :to="link.to"
+              :data-test="link.to === '/' ? 'mobile-home-link' : undefined"
+              data-anim="mobile-nav-link"
+              @click="closeDrawerAndNavigate"
+            >
+              {{ link.title }}
+            </NuxtLink>
+          </div>
+        </footer>
       </DialogContent>
     </DialogPortal>
   </DialogRoot>
@@ -252,109 +461,110 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 <style scoped>
 .mobile-trigger {
-  display: block;
+  display: inline-flex;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.mobile-trigger:deep(.btn),
+.mobile-trigger {
+  border-radius: 0;
 }
 
 .mobile-overlay {
   position: fixed;
   inset: 0;
-  background: rgb(15 31 52 / 14%);
+  background: color-mix(in oklch, var(--color-envision-gray-900) 72%, transparent);
   z-index: 200;
 }
 
 .mobile-content {
+  --drawer-bg: var(--color-envision-gray-800);
+  --drawer-bg-deep: var(--color-envision-gray-900);
+  --drawer-text: var(--color-white);
+  --drawer-muted: color-mix(in oklch, var(--color-white) 62%, var(--color-envision-blue-300));
+  --drawer-border: color-mix(in oklch, var(--color-white) 13%, transparent);
+  --drawer-accent: var(--color-envision-green-500);
+  --drawer-blue: var(--color-envision-blue-500);
+
   position: fixed;
   top: 0;
   right: 0;
   height: 100dvh;
-  width: min(28rem, 92vw);
+  width: min(31rem, 94vw);
   margin: 0;
-  border-left: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 12%, white);
-  background: color-mix(in oklch, white 98%, var(--color-envision-blue-50) 2%);
-  color: color-mix(
-    in oklch,
-    var(--color-envision-blue-950) 88%,
-    var(--color-envision-green-900) 12%
-  );
+  border-left: 1px solid var(--drawer-border);
+  background: var(--drawer-bg);
+  color: var(--drawer-text);
   z-index: 201;
   overflow-y: auto;
   padding: 0;
+  outline: none;
 }
 
 .mobile-content-header {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1rem 0;
+  gap: calc(var(--spacing) * 4);
+  padding: calc(var(--spacing) * 5) calc(var(--spacing) * 4) calc(var(--spacing) * 6);
+  border-bottom: 1px solid var(--drawer-border);
+  background: var(--drawer-bg-deep);
 }
 
 .mobile-brand-block {
   display: grid;
-  gap: 0.45rem;
+  gap: calc(var(--spacing) * 2);
+  min-width: 0;
 }
 
 .mobile-brand-block__eyebrow {
-  font-size: 0.68rem;
+  color: var(--drawer-blue);
   letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: color-mix(in oklch, var(--color-envision-blue-900) 52%, white);
+  line-height: 1;
 }
 
 .mobile-brand-block__mark {
   display: inline-flex;
   align-items: center;
+  color: var(--drawer-text);
+  width: fit-content;
+  min-height: 2rem;
 }
 
 .mobile-nav-close {
   flex: 0 0 auto;
-}
-
-.mobile-nav-close :deep(.btn-main) {
-  border: 1px solid var(--color-envision-blue-900);
   border-radius: 0;
-  background: white;
 }
 
-.mobile-nav-close :deep(.btn-main--sm) {
-  padding: 0.58rem 0.92rem;
-  font-size: 0.74rem;
+.mobile-nav-close:deep(.btn) {
+  border: 1px solid var(--drawer-border);
+  border-radius: 0;
+  background: transparent;
+  color: var(--drawer-text);
+  outline-color: var(--drawer-border);
+  text-transform: uppercase;
   letter-spacing: 0.14em;
 }
 
-.mobile-nav-close :deep(.btn-text) {
-  color: var(--color-envision-blue-900);
+.mobile-nav-close:deep(.btn--sm) {
+  padding: 0.6rem 0.85rem;
+  font-size: 0.74rem;
 }
 
-.mobile-nav-close :deep(.btn-overlay) {
-  display: none;
+.mobile-nav-close:deep(.btn:hover),
+.mobile-nav-close:deep(.btn:focus-visible) {
+  color: var(--drawer-bg-deep);
+  background: var(--drawer-text);
+  outline-color: var(--drawer-accent);
 }
 
 .mobile-nav {
-  padding: 0.75rem 1rem 1rem;
-}
-
-.mobile-nav-intro {
-  display: grid;
-  gap: 0.55rem;
-  padding: 0 0 1rem;
-  border-bottom: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 10%, white);
-  margin-bottom: 0.2rem;
-}
-
-.mobile-nav-intro__label {
-  margin: 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: color-mix(in oklch, var(--color-envision-blue-900) 56%, white);
-}
-
-.mobile-nav-intro__copy {
-  margin: 0;
-  max-width: 25ch;
-  font-size: 1rem;
-  line-height: 1.35;
+  padding: 0;
 }
 
 .mobile-nav-list,
@@ -366,106 +576,422 @@ function onDrawerCloseAutoFocus(event: Event) {
   gap: 0;
 }
 
-.mobile-nav-list__item,
+.mobile-nav-list {
+  counter-reset: mobile-nav;
+}
+
+.mobile-nav-list__item {
+  counter-increment: mobile-nav;
+  border-bottom: 1px solid var(--drawer-border);
+}
+
 .mobile-services-list__item {
-  border-bottom: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 9%, white);
+  border-top: 1px solid color-mix(in oklch, var(--color-white) 8%, transparent);
 }
 
 .mobile-link,
 .mobile-services-toggle {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 3rem minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: 0.85rem;
+  column-gap: calc(var(--spacing) * 4);
   width: 100%;
-  min-height: 4.25rem;
+  min-height: 5rem;
   text-transform: uppercase;
-  font-size: 0.92rem;
   text-decoration: none;
-  color: inherit;
+  color: var(--drawer-text);
   background: transparent;
+  border: 0;
   transition:
     background-color 180ms ease,
-    color 180ms ease;
+    color 180ms ease,
+    padding-inline 180ms ease;
+}
+
+.mobile-link::before,
+.mobile-services-toggle::before {
+  content: counter(mobile-nav, decimal-leading-zero);
+  align-self: start;
+  padding-top: 0.18rem;
+  color: var(--drawer-accent);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1;
 }
 
 .mobile-link {
-  padding: 0.95rem 0;
-}
-
-.mobile-link__index,
-.mobile-services-toggle__meta {
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  color: color-mix(in oklch, var(--ui-primary) 60%, white);
+  padding: calc(var(--spacing) * 4);
 }
 
 .mobile-link__label,
 .mobile-services-toggle__label {
-  font-size: 1.32rem;
-  line-height: 1;
-  letter-spacing: -0.03em;
+  max-inline-size: none;
+  color: inherit;
+  line-height: 0.98;
   text-transform: none;
+  letter-spacing: -0.025em;
+}
+
+.mobile-link__icon,
+.mobile-services-toggle__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--drawer-muted);
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
 }
 
 .mobile-link--accent {
-  background: var(--color-envision-blue-900);
-  color: white;
-  padding-inline: 1rem;
+  color: var(--drawer-text);
+  background: color-mix(in oklch, var(--drawer-blue) 22%, transparent);
+  box-shadow: inset 4px 0 0 var(--drawer-blue);
 }
 
-.mobile-link--accent .mobile-link__index {
-  color: rgb(255 255 255 / 0.66);
+.mobile-link--accent::before {
+  color: var(--drawer-text);
 }
 
 .mobile-services-toggle {
-  width: 100%;
-  border: 0;
-  background: transparent;
-  padding: 0.95rem 0;
+  padding: calc(var(--spacing) * 4);
   text-align: left;
+  cursor: pointer;
 }
 
 .mobile-link:hover,
-.mobile-link:focus-visible,
-.mobile-services-toggle:hover,
-.mobile-services-toggle:focus-visible {
-  background: color-mix(in oklch, var(--color-envision-blue-50) 34%, white);
+.mobile-services-toggle:hover {
+  color: var(--drawer-text);
+  background: color-mix(in oklch, var(--color-white) 6%, transparent);
   outline: none;
+}
+
+.mobile-link:hover .mobile-link__icon,
+.mobile-link:focus-visible .mobile-link__icon {
+  color: var(--drawer-accent);
+  transform: translateX(0.25rem);
+}
+
+.mobile-services-toggle:hover .mobile-services-toggle__icon,
+.mobile-services-toggle:focus-visible .mobile-services-toggle__icon {
+  color: var(--drawer-accent);
+}
+
+.mobile-services-toggle[aria-expanded="true"] .mobile-services-toggle__icon {
+  color: var(--drawer-accent);
+  transform: rotate(180deg);
+}
+
+.mobile-link:focus-visible,
+.mobile-services-toggle:focus-visible {
+  background: color-mix(in oklch, var(--color-white) 6%, transparent);
+  outline: 2px solid var(--drawer-accent);
+  outline-offset: -2px;
 }
 
 .mobile-link--accent:hover,
 .mobile-link--accent:focus-visible {
-  background: color-mix(in oklch, var(--color-envision-blue-900) 92%, white);
+  background: color-mix(in oklch, var(--drawer-blue) 34%, transparent);
 }
 
 .mobile-services-panel {
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklch, white 93%, var(--color-envision-blue-50) 7%),
-    white
-  );
-  border-top: 1px solid color-mix(in oklch, var(--color-envision-blue-900) 8%, white);
+  background: var(--drawer-bg-deep);
+  border-top: 1px solid var(--drawer-border);
 }
 
 .mobile-services-list {
-  padding-left: 0.9rem;
+  padding-block: calc(var(--spacing) * 1);
 }
 
 .mobile-services-list .mobile-link {
-  min-height: 3.5rem;
+  grid-template-columns: 1.35rem minmax(0, 1fr) auto;
+  min-height: 3.65rem;
+  padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
+  color: var(--drawer-muted);
+}
+
+.mobile-services-list .mobile-link::before {
+  content: "";
+  display: block;
+  width: 0.75rem;
+  height: 1px;
+  padding: 0;
+  margin-top: 0.72rem;
+  background: var(--drawer-accent);
 }
 
 .mobile-services-list .mobile-link__label {
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.mobile-services-list .mobile-link:hover,
+.mobile-services-list .mobile-link:focus-visible {
+  color: var(--drawer-text);
+}
+
+/* Screenshot-aligned full-screen drawer */
+.mobile-trigger {
+  display: inline-flex;
+  pointer-events: auto;
+}
+
+.mobile-menu-button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--spacing) * 2);
+  padding: 0 calc(var(--spacing) * 4);
+  border: 1px solid color-mix(in oklch, var(--color-white) 10%, transparent);
+  border-radius: 14px;
+  background: color-mix(in oklch, var(--color-envision-gray-900) 66%, transparent);
+  color: var(--color-white);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+  box-shadow: 0 18px 44px rgb(0 0 0 / 16%);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.mobile-menu-button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.mobile-menu-button:focus-visible {
+  outline: 2px solid var(--color-envision-green-500);
+  outline-offset: 3px;
+}
+
+.mobile-overlay {
+  background: color-mix(in oklch, var(--color-envision-gray-900) 72%, transparent);
+}
+
+.mobile-content {
+  --drawer-bg: color-mix(in oklch, var(--color-envision-gray-900) 96%, black);
+  --drawer-bg-deep: color-mix(in oklch, var(--color-envision-gray-900) 88%, black);
+  --drawer-text: var(--color-white);
+  --drawer-muted: color-mix(in oklch, var(--color-white) 62%, transparent);
+  --drawer-border: color-mix(in oklch, var(--color-white) 8%, transparent);
+  --drawer-accent: var(--color-envision-green-500);
+
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  border-left: 0;
+  background: var(--drawer-bg);
+  overflow-y: auto;
+}
+
+.mobile-content-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: calc(var(--spacing) * 9) calc(var(--spacing) * 3) calc(var(--spacing) * 8);
+  border-bottom: 0;
+  background: transparent;
+}
+
+.mobile-menu-button--inside {
+  background: color-mix(in oklch, var(--color-envision-gray-800) 66%, black);
+}
+
+.mobile-nav {
+  display: grid;
+  gap: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 8) calc(var(--spacing) * 3) calc(var(--spacing) * 10);
+}
+
+.mobile-nav-list {
+  gap: calc(var(--spacing) * 6);
+  counter-reset: none;
+}
+
+.mobile-nav-list__item {
+  border-bottom: 0;
+}
+
+.mobile-link,
+.mobile-services-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: auto;
+  column-gap: calc(var(--spacing) * 3);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--drawer-text);
+  text-transform: none;
+}
+
+.mobile-link::before,
+.mobile-services-toggle::before {
+  display: none;
+}
+
+.mobile-link__label,
+.mobile-services-toggle__label {
+  color: inherit;
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.mobile-link__icon,
+.mobile-services-toggle__icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: color-mix(in oklch, var(--color-white) 48%, transparent);
+}
+
+.mobile-services-toggle {
+  text-align: left;
+}
+
+.mobile-services-toggle[aria-expanded="true"] .mobile-services-toggle__icon {
+  transform: rotate(180deg);
+}
+
+.mobile-link:hover,
+.mobile-services-toggle:hover,
+.mobile-link:focus-visible,
+.mobile-services-toggle:focus-visible {
+  background: transparent;
+  color: var(--drawer-text);
+  outline: none;
+}
+
+.mobile-link:focus-visible,
+.mobile-services-toggle:focus-visible,
+.mobile-sub-link:focus-visible,
+.mobile-action:focus-visible,
+.mobile-footer__link:focus-visible {
+  outline: 2px solid var(--drawer-accent);
+  outline-offset: 4px;
+}
+
+.mobile-services-panel {
+  margin-top: calc(var(--spacing) * 3);
+  border-top: 0;
+  background: transparent;
+}
+
+.mobile-services-list {
+  display: grid;
+  gap: calc(var(--spacing) * 3);
+  padding: 0;
+}
+
+.mobile-services-list__item {
+  border-top: 0;
+}
+
+.mobile-sub-link {
+  display: inline-flex;
+  width: fit-content;
+  color: color-mix(in oklch, var(--color-white) 67%, transparent);
   font-size: 1rem;
-  line-height: 1.1;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
 }
 
-.mobile-services-list .mobile-link__index {
-  color: color-mix(in oklch, var(--color-envision-green-600) 58%, white);
+.mobile-sub-link:hover {
+  color: var(--drawer-text);
 }
 
-@media (min-width: 768px) {
+.mobile-link--accent {
+  box-shadow: none;
+  background: transparent;
+}
+
+.mobile-actions {
+  display: grid;
+  gap: calc(var(--spacing) * 2);
+  padding-top: calc(var(--spacing) * 4);
+}
+
+.mobile-action {
+  display: inline-flex;
+  min-height: 4rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 4);
+  padding: 0 calc(var(--spacing) * 6);
+  border-radius: 16px;
+  background: color-mix(in oklch, var(--color-white) 7%, transparent);
+  color: var(--drawer-text);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.mobile-action--primary {
+  background: color-mix(in oklch, var(--color-white) 86%, var(--color-envision-gray-300));
+  color: var(--color-envision-gray-900);
+}
+
+.mobile-action svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.mobile-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(var(--spacing) * 8);
+  padding: calc(var(--spacing) * 12) calc(var(--spacing) * 3) calc(var(--spacing) * 8);
+}
+
+.mobile-footer__group {
+  display: grid;
+  align-content: start;
+  gap: calc(var(--spacing) * 3);
+}
+
+.mobile-footer__title {
+  margin: 0 0 calc(var(--spacing) * 1);
+  color: color-mix(in oklch, var(--color-white) 58%, transparent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mobile-footer__link {
+  width: fit-content;
+  color: var(--drawer-text);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.mobile-footer__link:hover {
+  color: color-mix(in oklch, var(--color-white) 74%, var(--drawer-accent));
+}
+
+@media (min-width: 480px) {
+  .mobile-link__label,
+  .mobile-services-toggle__label {
+    font-size: 1.65rem;
+  }
+}
+
+@media (min-width: 1100px) {
   .mobile-trigger,
   .mobile-overlay,
   .mobile-content {

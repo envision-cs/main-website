@@ -24,7 +24,10 @@ export async function useServicesList() {
             ? service.image.url
             : undefined,
         to: `/services/${String((service as ServiceListItem).slug ?? service.param)}`,
-      })),
+      }))
+      .sort((a, b) => {
+        return (a.order ?? 0) - (b.order ?? 0);
+      }),
   );
 
   return {

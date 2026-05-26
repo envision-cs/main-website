@@ -77,38 +77,46 @@ const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResp
   },
 );
 
+const stats = [
+  { id: 1, label: "2009", description: "Established" },
+  { id: 2, label: "$180M+", description: "Projects Delivery" },
+  { id: 3, label: "90%", description: "Repeat Clients" },
+];
+
 if ($posthog) {
   $posthog().capture("$pageview");
 }
 </script>
 
 <template>
-  <div class="mx-auto site-grid">
+  <main>
     <hero-banner />
-    <company-stats />
+    <section-d
+      bgcolor="blue"
+      eyebrow="Regional Coverage"
+      title="Greater Tampa Bay + Central Florida"
+    >
+      <div :style="{ '--accent-color': 'var(--color-envision-green-500)' }">
+        <list-e :items="stats" />
+      </div>
+    </section-d>
     <card-group-a :cards="featuredProjectCards.sectionOne" />
     <cta-a
-      title="Building Without the Headaches"
-      body="Construction shouldn’t be frustrating. Missed deadlines, cold communication, and unclear leadership make it harder than it should be."
+      bgcolor="dark"
+      title="Listen. Plan. Execute. Cultivate."
+      body="Great projects start with the right partner"
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
       flip
       content-position="bottom-left"
       href="about"
       label="Learn more about us"
-    >
-      Building Without the <span>Headaches</span>
-    </cta-a>
-    <card-group-a :cards="featuredProjectCards.sectionTwo" />
-    <cta-a
-      body="At Envision, we’ve led projects across Florida with heart, precision, and purpose. Our team knows what it takes to deliver results—without losing sight of people."
-      title="Building With Heart and Precision"
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/rtm-auditorium.jpg"
     />
+    <card-group-a :cards="featuredProjectCards.sectionTwo" />
     <proven-process />
     <three-uniques />
-    <!--  <quote
-:testimonials="testimonials"
-      section-title="Our clients who expect discipline, communication, and follow-through."
-      section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes." />-->
-  </div>
+    <quote
+      :testimonials="testimonials"
+      section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
+    />
+  </main>
 </template>

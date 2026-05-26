@@ -39,11 +39,7 @@
 
   --container-8xl: 90rem;
   --breakpoint-md: 650px;
-  --breakpoint-md: 1025px;
-
-  --container-8xl: 90rem;
-  --breakpoint-md: 650px;
-  --breakpoint-md: 1025px;
+  --breakpoint-lg: 1025px;
 
   --color-envision-blue-50: oklch(0.978 0.011 234.814);
   --color-envision-blue-100: oklch(0.95 0.022 239.429);
@@ -55,7 +51,7 @@
   --color-envision-blue-700: oklch(0.478 0.112 243.857);
   --color-envision-blue-800: oklch(0.427 0.093 241.472);
   --color-envision-blue-900: oklch(0.378 0.079 242.34);
-  --color-envision-blue-950: oklch(0.284 0.059 245.802);
+  --color-envision-blue-950: oklch(0.3 0.04 245.802);
 
   --color-envision-green-50: oklch(0.932 0.166 130.998);
   --color-envision-green-100: oklch(0.88 0.144 140.43);
@@ -69,6 +65,8 @@
   --color-envision-green-900: oklch(0.254 0.086 142.495);
   --color-envision-green-950: oklch(0.154 0.052 142.495);
 
+  --color-envision-gray-100: oklch(0.97 0.0014 286.37);
+  --color-envision-gray-200: oklch(0.93 0.0014 286.37);
   --color-envision-gray-300: oklch(0.8733 0.0014 286.37);
   --color-envision-gray-400: oklch(0.7287 0.0014 286.36);
   --color-envision-gray-500: oklch(0.5474 0.0062 297.62);
@@ -104,20 +102,20 @@
   --ui-container: var(--container-8xl);
 
   --ui-border: var(--color-envision-gray-500);
-  --color-white: oklch(1 0 0);
+  --color-white: #fff;
   --text-color-muted: var(--color-envision-gray-600);
 
-  --vw: 1vw;
-  --font-size-text-t1: clamp(18px, 0.0125 * calc(100 * var(--vw, 1vw)), 18px);
-  --font-size-text-t2: clamp(16px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 16px);
-  --font-size-text-t3: clamp(14px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 14px);
-  --font-size-text-t4: clamp(12px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 12px);
+  --vw: 1.5vw;
+  --font-size-text-t1: clamp(20px, 0.0125 * calc(100 * var(--vw, 1vw)), 22px);
+  --font-size-text-t2: clamp(18px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 20px);
+  --font-size-text-t3: clamp(16px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 18px);
+  --font-size-text-t4: clamp(14px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 16px);
 
-  --font-size-huge: clamp(50px, 0.081666667 * calc(100 * var(--vw, 1vw)), 75px);
-  --font-size-h1: clamp(50px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 55px);
-  --font-size-h2: clamp(35px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 45px);
-  --font-size-h3: clamp(30px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
-  --font-size-h4: clamp(22px, 0.0152777778 * calc(100 * var(--vw, 1vw)), 22px);
+  --font-size-huge: clamp(35px, 0.081666667 * calc(100 * var(--vw, 1vw)), 75px);
+  --font-size-h1: clamp(32px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 55px);
+  --font-size-h2: clamp(30px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 45px);
+  --font-size-h3: clamp(25px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
+  --font-size-h4: clamp(20px, 0.0152777778 * calc(100 * var(--vw, 1vw)), 22px);
 
   --border: 1px solid var(--ui-border);
 
@@ -140,8 +138,8 @@ html:has(dialog[open]) {
 }
 
 body {
-  background-color: var(--color-envision-gray-900);
-  color: oklch(1 0 0);
+  background-color: var(--color-envision-gray-100);
+  color: var(--color-envision-gray-900);
 
   @media (min-width: 768px) {
   }
@@ -186,4 +184,39 @@ body {
       grid-template-areas: "c c c c c c c c c b . . . . . . . . . a a a a";
     }
   }
+}
+
+.section {
+  padding-block: calc(var(--spacing) * 8);
+  padding-inline: calc(var(--spacing) * 0);
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  gap: 0;
+}
+
+.list {
+  list-style: disc outside;
+  padding-left: 1.25rem;
+  margin-top: 1rem;
+}
+
+.light {
+  --section-bg: color-mix(in oklab, var(--color-envision-gray-900) 2%, white);
+  --section-color: var(--color-envision-gray-900);
+  --accent-color: var(--color-envision-blue-500);
+  --card-bg: var(--color-white);
+  --card-border: 1px solid color-mix(in oklch, var(--section-bg) 90%, var(--section-color));
+}
+
+.dark {
+  --section-bg: var(--color-envision-gray-900);
+  --section-color: var(--color-white);
+  --accent-color: var(--color-envision-green-500);
+}
+
+.blue {
+  --section-bg: var(--color-envision-blue-950);
+  --section-color: var(--color-white);
+  --accent-color: var(--color-envision-blue-500);
 }
