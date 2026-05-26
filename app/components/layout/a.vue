@@ -43,6 +43,10 @@ const hasAsideSlot = computed(() => Boolean(slots["aside-slot"]));
   grid-column: 1/-1;
 }
 
+.main--full {
+  grid-column: 1/-1;
+}
+
 @media (min-width: 700px) {
   .main-layout {
     grid-template-rows: min-content auto;

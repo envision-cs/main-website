@@ -1,7 +1,30 @@
 <script setup lang="ts">
-defineProps<{
-  items: Item[];
-}>();
+const slides = [
+  {
+    id: 1,
+    label: "2009",
+    description: "Established",
+    tone: "--color-envision-blue-600",
+  },
+  {
+    id: 2,
+    label: "$180M+",
+    description: "Project Delivery",
+    tone: "--color-envision-green-500",
+  },
+  {
+    id: 3,
+    label: "90%",
+    description: "Repeat Clients",
+    tone: "--color-envision-gray-700",
+  },
+  {
+    id: 4,
+    label: "16yrs",
+    description: "Tampa Bay Experience",
+    tone: "--color-envision-blue-800",
+  },
+];
 </script>
 
 <template>

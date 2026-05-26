@@ -39,11 +39,7 @@
 
   --container-8xl: 90rem;
   --breakpoint-md: 650px;
-  --breakpoint-md: 1025px;
-
-  --container-8xl: 90rem;
-  --breakpoint-md: 650px;
-  --breakpoint-md: 1025px;
+  --breakpoint-lg: 1025px;
 
   --color-envision-blue-50: oklch(0.978 0.011 234.814);
   --color-envision-blue-100: oklch(0.95 0.022 239.429);
@@ -106,7 +102,7 @@
   --ui-container: var(--container-8xl);
 
   --ui-border: var(--color-envision-gray-500);
-  --color-white: oklch(1 0 0);
+  --color-white: #fff;
   --text-color-muted: var(--color-envision-gray-600);
 
   --vw: 1.5vw;

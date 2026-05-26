@@ -51,7 +51,7 @@ onMounted(() => {
   });
 
   function getScrollAmount() {
-    const sw = trackRef.value?.scrollWidth;
+    const sw = trackRef.value?.scrollWidth ?? window.innerWidth;
     return -(sw - window.innerWidth);
   }
 });

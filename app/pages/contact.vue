@@ -19,6 +19,10 @@ const { data: contactData, error } = await useFetch("/api/contact");
               >
                 Speak with our <span>team</span>
               </app-typography>
+              <app-typography tag="p" variant="text-md" class="section-copy">
+                We're ready to connect, whether you're starting a project, asking a question, or
+                looking for the right construction partner.
+              </app-typography>
               <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
             </div>
           </div>
@@ -136,5 +140,31 @@ const { data: contactData, error } = await useFetch("/api/contact");
       grid-column: 15 / -1;
     }
   }
+}
+
+.section-head {
+  padding: calc(var(--spacing) * 8);
+}
+
+.team-role {
+  display: grid;
+  gap: calc(var(--spacing) * 4);
+}
+
+.section-copy {
+  max-width: 42ch;
+  color: var(--color-envision-gray-300);
+}
+
+.team-role a {
+  width: fit-content;
+  color: var(--ui-secondary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.team-role a:focus-visible {
+  outline: 2px solid var(--ui-secondary);
+  outline-offset: 4px;
 }
 </style>

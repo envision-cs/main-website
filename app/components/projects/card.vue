@@ -2,9 +2,9 @@
 defineProps<{
   image: string;
   title: string;
-  sector: string;
-  location: string;
-  completed: string;
+  sector?: string;
+  location?: string;
+  completed?: string;
   to: string;
 }>();
 </script>

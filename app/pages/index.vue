@@ -80,7 +80,7 @@ const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResp
 const stats = [
   { id: 1, label: "2009", description: "Established" },
   { id: 2, label: "$180M+", description: "Projects Delivery" },
-  { id: 2, label: "90%", description: "Repeat Clients" },
+  { id: 3, label: "90%", description: "Repeat Clients" },
 ];
 
 if ($posthog) {
@@ -112,6 +112,8 @@ if ($posthog) {
       label="Learn more about us"
     />
     <card-group-a :cards="featuredProjectCards.sectionTwo" />
+    <proven-process />
+    <three-uniques />
     <quote
       :testimonials="testimonials"
       section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."

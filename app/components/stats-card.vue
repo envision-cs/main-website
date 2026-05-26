@@ -1,12 +1,18 @@
 <script setup lang="ts">
-defineProps<{
-  stat: string;
-  description: string;
-}>();
+withDefaults(
+  defineProps<{
+    stat: string;
+    description: string;
+    color?: string;
+  }>(),
+  {
+    color: "--color-envision-blue-600",
+  },
+);
 </script>
 
 <template>
-  <div class="stat-card">
+  <div class="stat-card" :style="{ '--card-bg': `var(${color})` }">
     <p class="stat">
       {{ stat }}
     </p>
@@ -21,6 +27,8 @@ defineProps<{
   display: grid;
   gap: calc(var(--spacing));
   padding: calc(var(--spacing) * 4);
+  background: var(--card-bg);
+  color: var(--color-white);
 }
 
 .stat {
