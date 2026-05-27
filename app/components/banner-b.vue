@@ -155,21 +155,9 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 
 .banner__overlay {
   z-index: 1;
-  background: 
-    /* Subtle text backing overlay coming from the bottom-left */
-    linear-gradient(
-      to top right,
-      rgba(6, 11, 18, 0.85) 0%,
-      rgba(6, 11, 18, 0.4) 35%,
-      rgba(6, 11, 18, 0) 70%
-    ),
-    /* Main bottom-to-top cinematic fade */
-    linear-gradient(
-        to top,
-        rgba(6, 11, 18, 0.75) 0%,
-        rgba(6, 11, 18, 0.3) 45%,
-        rgba(6, 11, 18, 0) 80%
-      );
+  background:
+    radial-gradient(ellipse at bottom left, rgba(6, 11, 18, 0.7) 0%, rgba(6, 11, 18, 0) 50%),
+    radial-gradient(ellipse at top left, rgba(6, 11, 18, 0.6) 0%, rgba(6, 11, 18, 0) 25%);
 }
 
 .banner__inner {

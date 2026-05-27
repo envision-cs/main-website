@@ -92,7 +92,7 @@ if ($posthog) {
   <main>
     <hero-banner />
     <section-d
-      bgcolor="blue"
+      bgcolor="dark"
       eyebrow="Regional Coverage"
       title="Greater Tampa Bay + Central Florida"
     >

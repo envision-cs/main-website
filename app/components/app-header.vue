@@ -149,7 +149,7 @@ function onHeaderFocusout(event: FocusEvent) {
 
     <header class="header-root site-max">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
-        <Icon name="logos:envision-white" class="brand-link__mark" aria-hidden="true" />
+        <Icon name="logos:envision" class="brand-link__mark" aria-hidden="true" />
       </NuxtLink>
 
       <NavigationMenuRoot
@@ -232,7 +232,6 @@ function onHeaderFocusout(event: FocusEvent) {
   --header-shell-border: color-mix(in oklch, var(--color-envision-blue-900) 18%, white);
   --header-panel-bg: var(--header-shell-bg);
 
-  position: relative;
   width: 100%;
   z-index: 1000;
   color: var(--section-color);
@@ -745,7 +744,7 @@ function onHeaderFocusout(event: FocusEvent) {
   --header-pill-bg: color-mix(in oklch, var(--color-envision-gray-900) 74%, transparent);
   --header-pill-border: color-mix(in oklch, var(--color-white) 10%, transparent);
 
-  position: fixed;
+  position: absolute;
   inset: 0 0 auto;
   z-index: 1000;
   background: transparent;
