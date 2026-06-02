@@ -54,16 +54,8 @@ const { services: servicesLinks } = await useServicesList();
           <div class="location-wrapper">
             <div>
               <h4>Tampa Office</h4>
-              <p class="max-w-sm text-envision-gray-300">
-                5000 Acline Drive East Tampa, FL 33619 Po Box 89098 Tampa, FL 33689
-              </p>
+              <p class="max-w-sm text-envision-gray-300">5000 Acline Drive East Tampa, FL 33619</p>
               <p class="text-envision-gray-300">(813) 997-0330</p>
-            </div>
-            <div>
-              <h4>Pasco Office</h4>
-              <p class="max-w-sm text-envision-gray-300">
-                5000 Acline Drive East Tampa, FL 33619 Po Box 89098 Tampa FL 33689
-              </p>
             </div>
           </div>
         </div>

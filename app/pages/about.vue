@@ -2,14 +2,19 @@
 
 <template>
   <div class="mx-auto site-grid">
-    <banner-b image="about/about03.jpg"> About Us </banner-b>
+    <banner-b image="https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg">
+      About Us
+    </banner-b>
     <big-quote
       bgcolor="dark"
       eyebrow="Our Mission"
       title="Building Legacy & Serving Others Through Construction."
     />
     <three-uniques />
-    <app-parallax image="/about/about01.jpg" class="col-span-full" />
+    <app-parallax
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_5432.jpg?tr=c-maintain_ratio,w-1920,h-800"
+      class="col-span-full"
+    />
     <core-values />
     <proven-process />
   </div>

@@ -46,11 +46,7 @@ const activeCategory = computed<{
   <div>
     <app-header />
     <div class="header">
-      <banner-b
-        :image="activeCategory?.image"
-        :cta="activeCategory.cta"
-        :cta-to="activeCategory.link"
-      >
+      <banner-b :image="activeCategory?.image" :cta="activeCategory.cta" cta-to="/contact">
         <template #eyebrow>
           {{ activeCategory.title }}
         </template>
