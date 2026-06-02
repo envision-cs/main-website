@@ -116,7 +116,7 @@ const commitments = [
 
 const stats = [
   { id: 1, label: "90%", description: "Repeat client rate — earned one project at a time" },
-  { id: 2, label: "$180M+", description: "Largest project delivered in Tampa Bay" },
+  { id: 2, label: "$200M+", description: "Projects Delivered. On Time & On Budget." },
   { id: 3, label: "16 yrs", description: "Building Greater Tampa Bay" },
 ];
 </script>

@@ -79,7 +79,7 @@ const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResp
 
 const stats = [
   { id: 1, label: "2009", description: "Established" },
-  { id: 2, label: "$180M+", description: "Projects Delivery" },
+  { id: 2, label: "$200M+", description: "Projects Delivered. On Time & On Budget." },
   { id: 3, label: "90%", description: "Repeat Clients" },
 ];
 

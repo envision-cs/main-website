@@ -4,9 +4,8 @@ definePageMeta({
 });
 
 const stats = [
-  { id: 1, label: "$180M+", description: "Largest project delivered" },
-  { id: 2, label: "16 yrs", description: "Tampa Bay experience" },
-  { id: 3, label: "90%", description: "Repeat client rate" },
+  { id: 1, label: "16 yrs", description: "Tampa Bay experience" },
+  { id: 2, label: "90%", description: "Repeat client rate" },
 ];
 
 const capabilities = [
