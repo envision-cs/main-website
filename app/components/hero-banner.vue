@@ -37,8 +37,6 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     <div class="hero__inner site-max mx-auto">
       <!-- <service-list class="services mb-auto" /> -->
       <div class="hero__copy mt-auto">
-        <Icon name="logos:envision-white" class="hero-logo" aria-hidden="true" />
-
         <app-typography id="hero-title" tag="h1" variant="heading-huge" bold class="">
           {{ hero.title }}
         </app-typography>
