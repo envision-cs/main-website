@@ -149,7 +149,7 @@ const stats = [
 
     <cta-a
       title="Four things every owner deserves."
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428"
       bgcolor="dark"
       flip
     >

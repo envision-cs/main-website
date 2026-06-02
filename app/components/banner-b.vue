@@ -18,6 +18,7 @@ const props = defineProps<{
   featureTo?: string;
   featureCta?: string;
   stats?: BannerStat[];
+  position: string;
 }>();
 
 const slots = useSlots();
@@ -50,7 +51,13 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
     :aria-describedby="hasBody ? 'banner-body' : undefined"
     role="region"
   >
-    <div v-if="hasMedia" class="banner__media">
+    <div
+      v-if="hasMedia"
+      class="banner__media"
+      :style="{
+        '--image-position': position ?? 'center',
+      }"
+    >
       <slot name="image">
         <NuxtImg
           v-if="image"
@@ -151,6 +158,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--image-position, center);
 }
 
 .banner__overlay {
