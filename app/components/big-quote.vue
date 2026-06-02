@@ -24,11 +24,8 @@ withDefaults(
         {{ eyebrow }}
       </app-typography>
 
-      <app-typography variant="heading-lg" class="title">
+      <app-typography variant="heading-huge">
         {{ title }}
-      </app-typography>
-      <app-typography class="body">
-        {{ body }}
       </app-typography>
     </div>
   </section>
@@ -53,7 +50,6 @@ section {
   padding-block: calc(var(--spacing) * 12);
   gap: calc(var(--spacing) * 10);
   align-items: center;
-  text-align: center;
   background-color: var(--section-bg);
   color: var(--section-color);
 }
@@ -62,27 +58,10 @@ section {
   margin-inline: auto;
   width: 100%;
   max-width: 1300px;
-  display: grid;
-  justify-content: center;
   padding: calc(var(--spacing) * 6);
 }
 
-.title {
-  max-width: 25ch;
-  line-height: 1.2;
-  text-wrap: balance;
-}
-
-.body {
-  max-width: 60ch;
-  margin-inline: auto;
-  margin-top: calc(var(--spacing) * 4);
-  text-wrap: balance;
-}
-
 .eyebrow {
-  margin-bottom: calc(var(--spacing) * 4);
-  margin-inline: auto;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 6%;

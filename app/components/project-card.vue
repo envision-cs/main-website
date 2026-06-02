@@ -96,13 +96,13 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
             <slot name="details">
               <ul class="reveal-card__stats">
                 <li v-if="location">
-                  <app-typography tag="p" variant="text-sm" bold> Location </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Location </app-typography>
                   <app-typography tag="p">
                     {{ location }}
                   </app-typography>
                 </li>
                 <li v-if="completed">
-                  <app-typography tag="p" variant="text-sm" bold> Completion </app-typography>
+                  <app-typography tag="p" variant="eyebrow-md"> Completed </app-typography>
                   <app-typography tag="p">
                     {{ completed }}
                   </app-typography>
@@ -168,13 +168,13 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
           <slot name="details">
             <ul class="reveal-card__stats">
               <li v-if="location">
-                <app-typography tag="p" variant="text-sm" bold> Location </app-typography>
+                <app-typography tag="p" variant="eyebrow-md"> Location </app-typography>
                 <app-typography tag="p">
                   {{ location }}
                 </app-typography>
               </li>
               <li v-if="completed">
-                <app-typography tag="p" variant="text-sm"> Completion </app-typography>
+                <app-typography tag="p" variant="eyebrow-md"> Completed </app-typography>
                 <app-typography tag="p">
                   {{ completed }}
                 </app-typography>

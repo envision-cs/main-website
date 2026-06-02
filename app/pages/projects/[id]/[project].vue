@@ -189,7 +189,7 @@ const stats = computed<Item[]>(() => {
     {
       id: 2,
       label: page.value.completed ? formatMonthYear(page.value.completed) : "Current project",
-      description: "Completion",
+      description: "Completed",
     },
 
     {

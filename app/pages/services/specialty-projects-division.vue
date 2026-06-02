@@ -210,6 +210,5 @@ definePageMeta({
 .list {
   list-style: disc outside;
   padding-left: 1.25rem;
-  background-color: var;
 }
 </style>

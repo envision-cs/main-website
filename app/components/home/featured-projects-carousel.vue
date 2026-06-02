@@ -553,8 +553,10 @@ onUnmounted(() => {
 /* Compact hero case-study card */
 .featured-projects {
   display: block;
+  width: min(100%, 22rem);
+  max-width: none;
   margin-left: 0;
-  color: var(--color-envision-gray-900);
+  color: var(--color-white);
 }
 
 .featured-projects__shell {
@@ -568,7 +570,7 @@ onUnmounted(() => {
   overflow: hidden;
   border: 1px solid color-mix(in oklch, var(--color-white) 9%, transparent);
   border-radius: 16px;
-  background: color-mix(in oklch, var(--color-envision-gray-900) 50%, transparent);
+  background: color-mix(in oklch, var(--color-envision-gray-900) 78%, transparent);
   box-shadow: 0 22px 55px rgb(0 0 0 / 18%);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -697,6 +699,9 @@ onUnmounted(() => {
 }
 
 @media (min-width: 740px) {
+  .featured-projects {
+    width: min(28vw, 22rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,20 +2,19 @@
 
 <template>
   <div class="">
-    <banner-b image="/about/about01.jpg">
+    <banner-b image="about/about03.jpg">
       <template #eyebrow> Trade Partners Program </template>
 
       Build on the right partnerships
     </banner-b>
     <main>
-      <big-quote
-        eyebrow="Our Commitment"
-        bgcolor="dark"
+      <section-a
+        bgcolor="blue"
         title="Partners who show up and follow through"
         body="We work with trade partners who show up, communicate, and take pride in the work. Clear scope. Organized sites. A team that keeps you in the loop. If that's how you operate, we want to hear from you."
       />
-      <app-parallax image="about/about03.jpg" class="col-span-full" />
-      <cta-c
+      <app-parallax image="/about/about01.jpg" class="col-span-full" />
+      <cta-a
         bgcolor="dark"
         flip
         eyebrow="Featured project"

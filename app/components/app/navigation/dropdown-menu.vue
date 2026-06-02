@@ -164,7 +164,7 @@ function onTriggerKeydown(event: KeyboardEvent) {
   padding: calc(var(--spacing) * 6);
   border: 1px solid color-mix(in oklch, var(--color-white) 10%, transparent);
   border-radius: 14px;
-  background: color-mix(in oklch, var(--color-envision-gray-800) 80%, transparent);
+  background: color-mix(in oklch, var(--color-envision-gray-800) 64%, transparent);
   color: var(--color-white);
   box-shadow: 0 28px 70px rgb(0 0 0 / 18%);
   backdrop-filter: blur(22px);
@@ -198,7 +198,7 @@ function onTriggerKeydown(event: KeyboardEvent) {
   width: 100%;
   max-width: 100%;
   padding: 0;
-  color: color-mix(in oklch, var(--color-white) 80%, transparent);
+  color: color-mix(in oklch, var(--color-white) 68%, transparent);
   transition:
     color 180ms ease,
     opacity 180ms ease;
@@ -241,7 +241,7 @@ function onTriggerKeydown(event: KeyboardEvent) {
   gap: calc(var(--spacing) * 3);
   padding: 0 calc(var(--spacing) * 4);
   border-radius: 13px;
-  background: color-mix(in oklch, var(--color-envision-gray-900) 80%, transparent);
+  background: color-mix(in oklch, var(--color-envision-gray-900) 24%, transparent);
   color: var(--color-white);
   font-size: 0.78rem;
   font-weight: 800;

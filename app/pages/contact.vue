@@ -5,12 +5,7 @@ const { data: contactData, error } = await useFetch("/api/contact");
 <template>
   <UPage class="mt-0">
     <div class="grid">
-      <banner-b
-        image="https://ik.imagekit.io/pnixsw7lg/main-website/contact-image"
-        class="col-start-1 -col-end-1"
-      >
-        Contact Us
-      </banner-b>
+      <banner-b image="contact.jpg" class="col-start-1 -col-end-1"> Contact Us </banner-b>
 
       <!-- Team header -->
       <section-e v-if="contactData.team.length && !error" bgcolor="dark" no-padding>

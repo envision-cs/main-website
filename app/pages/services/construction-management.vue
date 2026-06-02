@@ -189,7 +189,6 @@ const stats = [
           label="View Project"
           to="/projects/athletics/usl-super-league-stadium"
           bgcolor="blue"
-          class="mt-6"
         >
           View Project
         </my-button>
