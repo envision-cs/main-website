@@ -63,6 +63,16 @@ const serviceOfferings = [
   },
 ];
 
+const activeProjects = [
+  { id: 1, label: "Active Operations: Patient safety and care never compromised" },
+  {
+    id: 2,
+    label: "Cleanliness Maintained: Negative air scrubbers controlled bacteria and dust levels",
+  },
+  { id: 3, label: "Full Transparency: Daily owner reports at every phase" },
+  { id: 4, label: "Multiple Repeat Scopes: Moffitt keeps calling us back" },
+];
+
 const projectHighlights = [
   { id: 1, label: "Active cancer center — patient safety and care never compromised" },
   { id: 2, label: "72-hour weekend turnarounds — clinics cleaned and operational every Monday" },
@@ -134,25 +144,35 @@ definePageMeta({
     <cta-a
       flip="true"
       eyebrow="Featured Project"
-      title="Moffitt Cancer Center — Multiple Scopes"
+      title="Moffitt Cancer Center: Multiple Facility Maintenance Projects"
       body=""
       image="/florida-aquarium-restroom-renovation-03.jpg"
       bgcolor="light"
     >
       <template #body>
         <app-typography>
-          When the environment is a cancer center, the standard for how you work changes entirely.
-          Envision has completed multiple scopes at Moffitt — including domestic hot water upgrades
-          and clinic build-outs — working nights, weekends, and 72-hour turnarounds so patient care
-          was never interrupted.
+          In highly sensitive healthcare environments, safety and swift coordination are
+          nonnegotiable. As a trusted extension to the facilities maintenance team at Moffitt Cancer
+          Center, our team understands the level of care that hospitals and clinics require—working
+          nights, weekends, and 72-hour turnarounds to ensure patient care is never interrupted.
         </app-typography>
         <app-typography>
-          For the clinic build-outs, smaller clinics were completed over a single weekend. Larger
-          clinics were delivered in 72-hour intervals across three weekends — with a multi-phased
-          schedule ensuring every clinic was fully operational when patients returned Monday
-          morning. Negative air scrubber machines controlled bacteria and dust levels throughout.
-          Daily reports to the owner kept all parties informed at every step.
+          Envision has performed a range of facilities maintenance projects for Moffitt Cancer
+          Center across active healthcare and campus environments. These scopes have included
+          interior and exterior renovation, repair, and improvement work such as flooring
+          replacements, painting, drywall repairs, doors and hardware, stair and railing repairs,
+          lighting upgrades, drainage-related work, parking lot improvements, and other critical
+          maintenance needs. Through SPD, this work is supported with the responsiveness,
+          coordination, and clean execution required to keep fast-moving projects on track while
+          minimizing disruption to ongoing operations.
         </app-typography>
+        <ul class="list">
+          <li v-for="item in activeProjects" :key="item.id">
+            <app-typography class="text-balance">
+              {{ item.label }}
+            </app-typography>
+          </li>
+        </ul>
         <ul class="list">
           <li v-for="item in projectHighlights" :key="item.id">
             <app-typography class="text-balance">
@@ -166,16 +186,19 @@ definePageMeta({
     <cta-a
       eyebrow="Featured Project"
       bgcolor="blue"
-      title="University of South Florida — Continuing Services"
+      title="University of South Florida: GC Continuing Services Partner Since 2024"
       body=""
       image="/florida-aquarium-restroom-renovation-03.jpg"
     >
       <template #body>
-        <app-typography>
-          Envision has served USF under a General Contracting Continuing Services contract since
-          2024 — approximately 13 projects and counting across active campus environments. Lab
-          improvements, interior renovations, building upgrades, permit-driven scopes. Multiple
-          projects running concurrently. This is what a reliable SPD partner looks like at volume.
+        <app-typography class="mb-8">
+          Envision has served the University of South Florida under a General Contracting Continuing
+          Services contract since 2024, supporting small projects and general construction work up
+          to $7.5 million. Since that time, our team has been engaged on approximately 15 projects
+          and counting across campus, including lab improvements, interior renovations, building
+          upgrades, and other focused scopes of work. This is what a reliable construction partner
+          looks like at volume: responsive service, strong coordination, and reliable execution
+          across a wide range of active campus projects.
         </app-typography>
 
         <list-e :items="stats" />

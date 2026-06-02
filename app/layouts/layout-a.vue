@@ -13,6 +13,7 @@ const categories = computed(() =>
       title: service.title,
       slug: service.slug,
       image: service.image,
+      position: service.imageposition,
       cta: service.cta,
       link: service.link,
     })),
@@ -46,7 +47,12 @@ const activeCategory = computed<{
   <div>
     <app-header />
     <div class="header">
-      <banner-b :image="activeCategory?.image" :cta="activeCategory.cta" cta-to="/contact">
+      <banner-b
+        :position="activeCategory.position"
+        :image="activeCategory?.image"
+        :cta="activeCategory.cta"
+        cta-to="/contact"
+      >
         <template #eyebrow>
           {{ activeCategory.title }}
         </template>

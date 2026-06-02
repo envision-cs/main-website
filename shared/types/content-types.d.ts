@@ -130,6 +130,7 @@ export type Service = {
   publishedAt: string;
   title: string;
   param: string;
+  imageposition?: string;
   description?: string;
   image?: string | Photo;
   meta?: unknown;

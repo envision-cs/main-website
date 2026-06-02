@@ -52,7 +52,7 @@ const projectOutcomes = [
     <cta-a
       eyebrow="The difference"
       title="Most contractors wait for plans. We help shape them."
-      image="/IMG_1915.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270"
     >
       <template #body>
         <app-typography>
@@ -95,37 +95,8 @@ const projectOutcomes = [
       </template>
     </cta-a>
 
-    <cta-a
-      flip
-      eyebrow="Featured Project"
-      title="Hillsborough County Public Schools — Liberty Middle School Play Court Cover"
-      body=""
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/20230801_072634.webp"
-      bgcolor="dark"
-    >
-      <template #body>
-        <app-typography>
-          Target Value Design in action. Envision aligned with HCPS and the design team from day one
-          — budgeting to a target rather than estimating after design was complete. Every phase was
-          reviewed in real time, with trade partners providing budgetary input throughout design
-          development.
-        </app-typography>
-        <app-typography>
-          When design and construction speak the same language from the start, the numbers reflect
-          it. No scope cuts. No redesign cycles. Just a better outcome for the
-          owner.</app-typography
-        >
-        <ul class="list">
-          <li v-for="item in projectOutcomes" :key="item.id">
-            <app-typography class="text-balance">
-              {{ item.label }}
-            </app-typography>
-          </li>
-        </ul>
-      </template>
-    </cta-a>
     <cta-c
-      title=" "
+      title=""
       center
       body="The earlier we're in the conversation, the more value we can protect. Tell us about your project."
       label="Start the conversation"
