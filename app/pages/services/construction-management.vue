@@ -14,7 +14,7 @@ const benefits = [
     id: 2,
     label: "Risk reduction",
     description:
-      "Unknowns surfaced in preconstruction while options are still open. Fewer surprises, fewer forced trade-offs.",
+      "Early risk detection in preconstruction while options are still open. Fewer surprises, fewer forced trade-offs.",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const benefits = [
     id: 4,
     label: "Value before construction",
     description:
-      "Preconstruction as stewardship, not overhead — protecting every dollar that follows.",
+      "Preconstruction as stewardship, not overhead—protecting every dollar that follows",
   },
 ];
 
@@ -55,7 +55,7 @@ const phases = [
     id: 3,
     label: "Execute",
     items: [
-      "Weekly updates — clear and documented",
+      "Clear and documented weekly updates",
       "Full jobsite visibility via Procore",
       "Community engagement every project",
       "Clean, documented closeout",
@@ -68,7 +68,7 @@ const phases = [
       "12-month legacy lap post-closeout",
       "30-60-90 day check-ins",
       "One-year walkthrough",
-      "Planning what's next — together",
+      "Planning what's next together",
     ],
   },
 ];
@@ -79,12 +79,12 @@ const projectHighlights = [
     id: 2,
     label: "Construction sequenced around student schedules, safety protocols, and city operations",
   },
-  { id: 3, label: "Weekend shifts and extended hours implemented strategically — not reactively" },
+  { id: 3, label: "Weekend shifts and extended hours implemented strategically, not reactively" },
   {
     id: 4,
     label: "Scopes resequenced in real time to maintain progress without compromising quality",
   },
-  { id: 5, label: "Delivered on schedule — Tampa Bay Sun FC's inaugural season started on time" },
+  { id: 5, label: "Delivered on schedule—Tampa Bay Sun FC's inaugural season started on time" },
 ];
 
 const commitments = [
@@ -104,18 +104,18 @@ const commitments = [
     id: 3,
     label: "Your stakeholders",
     description:
-      "Weekly updates and full Procore access mean everyone stays aligned — without you playing middleman.",
+      "Weekly updates and full Procore access mean everyone stays aligned—without you playing middleman.",
   },
   {
     id: 4,
     label: "Your outcome",
     description:
-      "Every project is backed by our Total Transparency guarantee — clear communication and consistent follow-through, kickoff to closeout.",
+      "Every project is backed by our Total Transparency guarantee: clear communication and consistent follow-through from kickoff to closeout.",
   },
 ];
 
 const stats = [
-  { id: 1, label: "90%", description: "Repeat client rate — earned one project at a time" },
+  { id: 1, label: "90%", description: "Repeat client rate earned one project at a time" },
   { id: 2, label: "$200M+", description: "Projects Delivered. On Time & On Budget." },
   { id: 3, label: "16 yrs", description: "Building Greater Tampa Bay" },
 ];
@@ -140,8 +140,7 @@ const stats = [
     <section-a
       bgcolor="light"
       eyebrow="Our Proven Process"
-      title="One process. Every project. No exceptions.
-"
+      title="One Process on every Project. No exceptions."
       body="Applied consistently regardless of size, sector, or complexity."
     >
       <list-g :items="phases" />
@@ -154,14 +153,13 @@ const stats = [
       flip
     >
       <template #body>
-        On every project. No exceptions.
         <list-a :items="commitments" />
       </template>
     </cta-a>
 
     <cta-a
       eyebrow="Featured Project"
-      title="Tampa Bay USL Super League — Stadium Improvements at Blake High School"
+      title="Tampa Bay USL Super League – Stadium Improvements at Blake High School"
       body=""
       image="https://ik.imagekit.io/pnixsw7lg/main-website/usl_super_league_01_f11cef9b44.jpg?updatedAt=1776161739685"
       bgcolor="light"
@@ -170,14 +168,10 @@ const stats = [
         <app-typography>
           With Tampa Bay Sun FC's inaugural season on the line, there was no room for delay. A
           compressed preconstruction period, evolving project decisions, and unforeseen site
-          conditions made this one of the most demanding CM engagements Envision has delivered — and
-          we hit the August deadline without cutting a single corner.
+          conditions made this one of the most demanding CM engagements Envision has delivered—and
+          we hit the August deadline without cutting corners.
         </app-typography>
-        <app-typography>
-          We built a 5,000-seat professional sports stadium within an active school zone —
-          coordinating every phase around student schedules, safety protocols, and city operations.
-          This is what construction management actually looks like.
-        </app-typography>
+
         <ul class="list">
           <li v-for="item in projectHighlights" :key="item.id">
             <app-typography class="text-balance">
@@ -200,7 +194,7 @@ const stats = [
       title="Total Transparency.
 Or We Make It Right."
       center
-      body="Transparency is not a courtesy — it is a covenant. We do not believe in half-answers, delayed updates, or vague timelines. You deserve to know what is happening, what it means, and what comes next — at every stage. Because while not everything in construction is in our control — communication always is."
+      body="Transparency is not a courtesy—it is a covenant. We do not believe in half-answers, delayed updates, or vague timelines. At every stage, you deserve to know what is happening, what it means, and what comes next. Because while not everything in construction is in our control, communication always is."
       label="Start the conversation"
       href="/contact"
       bgcolor="dark"
