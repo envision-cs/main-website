@@ -12,13 +12,13 @@ const operations = [
     id: 1,
     title: "Phased construction sequencing",
     description:
-      "Work is planned around your schedule — not ours. We sequence around your peak hours, events, and operational needs from day one.",
+      "Work is planned around your schedule—not ours. We sequence around your peak hours, events, and operational needs from day one.",
   },
   {
     id: 2,
     title: "Negative air and dust containment",
     description:
-      "In sensitive environments — healthcare, hospitality, occupied offices — we implement full dust barriers and negative air pressure where required.",
+      "In sensitive environments like healthcare, hospitality, occupied offices, we implement full dust barriers and negative air pressure where required.",
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const operations = [
     id: 4,
     title: "Daily communication",
     description:
-      "Every day you know exactly what's happening — access points, noise windows, site conditions, and what to expect the next day. No surprises.",
+      "Every day you know exactly what's happening: access points, noise windows, site conditions, and what to expect the next day. No surprises.",
   },
 ];
 
@@ -72,13 +72,13 @@ const scopes = [
 ];
 
 const projectHighlights = [
-  { id: 1, label: "17,000 SF active office renovation — staff never stopped working" },
+  { id: 1, label: "17,000 SF active office renovation—staff never stopped working" },
   { id: 2, label: "Hard barriers and air quality controls maintained throughout construction" },
   {
     id: 3,
     label: "Budget constraints navigated through product substitution and design collaboration",
   },
-  { id: 4, label: "Delivered within the client's fixed budget — no scope reduction" },
+  { id: 4, label: "Delivered within the client's fixed budget without scope reduction" },
   {
     id: 5,
     label:
@@ -101,7 +101,7 @@ const projectHighlights = [
           operating healthcare facilities, and live hospitality environments. We understand the
           nuances of working in your space while you are still using it.
         </app-typography>
-        <app-typography>
+        <app-typography class="mt-6">
           The standard is not just completing the scope. It is protecting your people, your guests,
           and your operations throughout every phase of construction while delivering the space you
           envisioned.
@@ -115,7 +115,7 @@ const projectHighlights = [
       title="How we keep your world running while we build."
       body=""
     >
-      <template #body> Every TI scope is planned around your schedule — not ours. </template>
+      <template #body> Every TI scope is planned around your schedule, not ours. </template>
       <list-a :items="operations" />
     </section-a>
 
@@ -145,7 +145,7 @@ const projectHighlights = [
     <cta-a
       flip="true"
       eyebrow="Featured Project"
-      title="Greater Tampa Realtors: 17,000 SF Interior Office Renovation"
+      title="Greater Tampa Realtors: Interior Office Renovation"
       body=""
       image="https://ik.imagekit.io/pnixsw7lg/main-website/2024-04-09%20(1).jpg"
       bgcolor="light"
