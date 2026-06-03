@@ -39,12 +39,12 @@ const deliveryMethods = [
   { id: 6, label: "Design professional + builder" },
 ];
 
-const projectOutcomes = [
-  { id: 1, label: "Final construction cost: $3,230,866 against an initial estimate of $3,440,228" },
-  { id: 2, label: "$209,362 returned to the owner — without reducing a single line of scope" },
-  { id: 3, label: "Trade partners engaged at every design phase for real-time cost input" },
-  { id: 4, label: "Delivered on an active school campus with zero disruption to operations" },
-];
+// const projectOutcomes = [
+//   { id: 1, label: "Final construction cost: $3,230,866 against an initial estimate of $3,440,228" },
+//   { id: 2, label: "$209,362 returned to the owner — without reducing a single line of scope" },
+//   { id: 3, label: "Trade partners engaged at every design phase for real-time cost input" },
+//   { id: 4, label: "Delivered on an active school campus with zero disruption to operations" },
+// ];
 </script>
 
 <template>
