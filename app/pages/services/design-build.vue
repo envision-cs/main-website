@@ -8,25 +8,25 @@ const differentiators = [
     id: 1,
     label: "Target Value Design",
     description:
-      "We design to a budget — not the other way around. Trade partners provide cost input at every design phase so there are no surprises when construction documents are finalized.",
+      " We design to a budget, not the other way around. Trade partners provide cost input at every design phase so there are no surprises when construction documents are finalized.",
   },
   {
     id: 2,
     label: "Constructability input early",
     description:
-      "Our team reviews design during schematic and design development — before decisions lock in and become expensive to reverse.",
+      "Our team reviews design during schematic and design development before decisions lock in and become expensive to reverse.",
   },
   {
     id: 3,
     label: "Real-cost feedback in real time",
     description:
-      "No pricing surprises at construction documents. We flag cost implications as design evolves — when there are still options to act, not after you're locked in.",
+      "No pricing surprises at construction documents. We flag cost implications as design evolves—when there are still options to act, not after you're locked in.",
   },
   {
     id: 4,
     label: "Single-source accountability",
     description:
-      "One team. One contract. Full accountability from concept through closeout — no gaps, no finger-pointing, no redesign cycles.",
+      "One team. One contract. Full accountability from concept through closeout—no gaps, no finger-pointing, no redesign cycles.",
   },
 ];
 
@@ -55,27 +55,18 @@ const projectOutcomes = [
       image="https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270"
     >
       <template #body>
-        <app-typography>
+        <app-typography variant="text-md">
           Envision's design-build capability means construction knowledge enters the process before
           decisions become expensive to change. We provide constructability input, flag real-world
-          cost implications early, and help design teams move faster — reducing redesign cycles and
+          cost implications early, and help design teams move faster—reducing redesign cycles and
           protecting budget before the first shovel hits the ground.
         </app-typography>
 
-        <blockquote>
-          We budget known but undocumented cost items — what we call conversational knowledge —
-          rather than simply sticking to plans and specs.
-        </blockquote>
-
-        <app-typography>
+        <app-typography variant="text-md" class="mt-6">
           When Envision serves as both design professional and builder, the owner gets one point of
-          accountability — from concept through closeout. No gaps. No finger-pointing. No surprises
-          at construction documents.
-        </app-typography>
-
-        <app-typography>
-          We've delivered design-build scopes in active, occupied environments at every scale. We're
-          built for bigger — and we bring the same standard regardless of project size.
+          accountability from concept through closeout. No gaps or surprises. We deliver
+          design-build scopes in active, occupied environments at every scale, bringing the same
+          standard to every project regardless of size.
         </app-typography>
       </template>
     </cta-a>
@@ -84,7 +75,7 @@ const projectOutcomes = [
       bgcolor="dark"
       eyebrow="What this means for you"
       title="Design-build with Envision means:"
-      body="Single-source accountability. Fewer handoffs. Better outcomes."
+      body="Single-source accountability, fewer handoffs, and better outcomes."
     >
       <list-a :items="differentiators" />
     </section-a>
