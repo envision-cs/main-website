@@ -13,26 +13,26 @@ const process = [
     id: 1,
     label: "Scope it",
     description:
-      "Fast response. We assess the scope, ask the right questions, and get you a clear picture of what the work involves before anything starts.",
+      "We assess the scope, ask the right questions, and get you a clear picture of what the work involves before anything starts.",
   },
   {
     id: 2,
     step: "02",
     label: "Price it",
     description:
-      "Transparent pricing with no surprises. You know the cost before we mobilize — and we stick to it.",
+      "Transparent pricing with no surprises. You know the cost before we mobilize, and we stick to it.",
   },
   {
     id: 3,
     label: "Execute it",
     description:
-      "Work begins on your schedule — including weekends, overnight, and 72-hour turnarounds. Our team shows up, works around the clock when needed, and delivers clean work ready for operations on Monday morning.",
+      "Work begins on your schedule—including weekends, overnight, and 72-hour turnarounds.Our team shows up, works around the clock when needed, and delivers clean work ready for operations on Monday morning.",
   },
   {
     id: 4,
     label: "Document it",
     description:
-      "Every scope is fully documented in CompanyCam — photos before, during, and after. You always know exactly what was done.",
+      "Every scope is fully documented in CompanyCam with before, during, and after photos. You’ll always know exactly what was completed.",
   },
 ];
 
@@ -41,7 +41,7 @@ const serviceOfferings = [
     id: 1,
     label: "Annual small-project and permit-holder contracts",
     description:
-      "One reliable partner for all your ongoing small-scope work — no re-bidding every job.",
+      "One reliable partner for all your ongoing small-scope work means no re-bidding every job.",
   },
   {
     id: 2,
@@ -59,7 +59,7 @@ const serviceOfferings = [
     id: 4,
     label: "Multi-site program delivery",
     description:
-      "Consistent execution across multiple locations — same standard, same documentation, every time.",
+      "Consistent execution across multiple locations—same standard, same documentation, every time.",
   },
 ];
 
@@ -107,11 +107,11 @@ definePageMeta({
       <template #body>
         <app-typography>
           SPD is not a side function of our larger business. It is a dedicated team with its own
-          process, its own tools, and its own performance standard — built specifically for
-          facilities directors and operations managers who need a contractor that responds fast,
-          communicates clearly, documents everything, and gets it done right the first time.
+          process, its own tools, and its own performance standard—built specifically for facilities
+          directors and operations managers who need a contractor that responds fast, communicates
+          clearly, documents everything, and gets it done right the first time.
         </app-typography>
-        <app-typography>
+        <app-typography class="mt-6">
           Most contractors treat small projects like an afterthought. SPD was built because they
           shouldn't be.
         </app-typography>
@@ -119,23 +119,12 @@ definePageMeta({
     </cta-a>
 
     <section-a bgcolor="dark" eyebrow="How SPD works" title="Fast. Documented. Done right." body="">
-      <template #body>
-        <app-typography>
-          Every SPD scope follows the same simple process — no matter the size.
-        </app-typography>
-      </template>
       <list-f :items="process" />
     </section-a>
 
     <section-a
-      bgcolor="blue"
-      title="SPD. Documented on every scope."
-      body="Every SPD project is captured in CompanyCam — organized by project and date, visible to you instantly. Before, during, and after. No ambiguity on what was done, how it looked, and when it was completed"
-    />
-
-    <section-a
       bgcolor="light"
-      eyebrow="What SPD is built for"
+      eyebrow="The work your facilities team needs done right now."
       title="The work your facilities team needs done — now."
       body="High volume, fast turnaround, zero compromises on quality."
     >
