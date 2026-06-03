@@ -2,7 +2,9 @@
 
 <template>
   <div class="">
-    <banner-b image="/about/about01.jpg">
+    <banner-b
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350"
+    >
       <template #eyebrow> Trade Partners Program </template>
 
       Build on the right partnerships

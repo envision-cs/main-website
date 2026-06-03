@@ -135,7 +135,7 @@ definePageMeta({
       eyebrow="Featured Project"
       title="Moffitt Cancer Center: Multiple Facility Maintenance Projects"
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/Moffitt_SPD_77a989a8a3.png?updatedAt=1780449600305"
       bgcolor="light"
     >
       <template #body>
@@ -177,7 +177,7 @@ definePageMeta({
       bgcolor="blue"
       title="University of South Florida: GC Continuing Services Partner Since 2024"
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/USF_SPD_88c22fb1fc.png?updatedAt=1780449780853"
     >
       <template #body>
         <app-typography class="mb-8">

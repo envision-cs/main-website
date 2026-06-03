@@ -93,7 +93,7 @@ const projectHighlights = [
       eyebrow="Built Around You"
       title="Not every contractor can work in a live environment. We've been doing it for over a decade."
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827"
     >
       <template #body>
         <app-typography>
@@ -134,7 +134,7 @@ const projectHighlights = [
       eyebrow="Typical Scopes"
       title="What we deliver."
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/TI_Typical_Scopes_efcd77ecc1.jpg?updatedAt=1780449594590"
       bgcolor="dark"
     >
       <template #body>
