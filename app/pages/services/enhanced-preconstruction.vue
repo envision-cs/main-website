@@ -102,12 +102,12 @@ const projectHighlights = [
           of decisions made too late: scope gaps, schedule delays, change orders, and mounting
           frustration.
         </app-typography>
-        <app-typography>
+        <app-typography class="mt-6">
           Preconstruction helps owners gain clarity before construction begins by validating budget,
           aligning scope, planning procurement, and identifying risks early. The result is greater
           predictability, fewer surprises, and more control over the project.
         </app-typography>
-        <app-typography>
+        <app-typography class="mt-6">
           Envision offers preconstruction as a standalone engagement—helping owners establish budget
           confidence, schedule realism, and risk visibility before committing to construction.
         </app-typography>
@@ -117,7 +117,7 @@ const projectHighlights = [
     <section-a
       bgcolor="dark"
       eyebrow="What owners actually need"
-      title='"Owners do not just need a builder. They need certainty."'
+      title="Owners do not just need a builder. They need certainty."
     >
       <list-d :items="capabilities" />
     </section-a>
