@@ -12,7 +12,7 @@
     />
     <three-uniques />
     <app-parallax
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_5432.jpg?tr=c-maintain_ratio,w-1920,h-800"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0400%20(1).jpg"
       class="col-span-full"
     />
     <core-values />

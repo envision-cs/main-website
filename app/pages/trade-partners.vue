@@ -4,6 +4,7 @@
   <div class="">
     <banner-b
       image="https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350"
+      position="right"
     >
       <template #eyebrow> Trade Partners Program </template>
 
@@ -16,7 +17,10 @@
         title="Partners who show up and follow through"
         body="We work with trade partners who show up, communicate, and take pride in the work. Clear scope. Organized sites. A team that keeps you in the loop. If that's how you operate, we want to hear from you."
       />
-      <app-parallax image="about/about03.jpg" class="col-span-full" />
+      <app-parallax
+        image="https://ik.imagekit.io/pnixsw7lg/main-website/Full_Team_417498b48b.jpg?updatedAt=1780450996672"
+        class="col-span-full"
+      />
       <cta-c
         bgcolor="dark"
         flip
