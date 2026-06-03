@@ -75,7 +75,7 @@ const projectHighlights = [
       eyebrow="THE PROBLEM WITH PRICE-FIRST DECISIONS"
       title="A lower price does not always cost less."
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043"
       bgcolor="light"
     >
       <template #body>

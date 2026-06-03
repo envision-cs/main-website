@@ -80,7 +80,11 @@ const projectOutcomes = [
       <list-a :items="differentiators" />
     </section-a>
 
-    <cta-a eyebrow="Typical scopes" title="What we're built for." image="/IMG_1915.jpg">
+    <cta-a
+      eyebrow="Typical scopes"
+      title="What we're built for."
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/DB_Typical_Scopes_9d8a17b3f7.jpeg?updatedAt=1780449866302"
+    >
       <template #body>
         <list-d :items="deliveryMethods" />
       </template>
