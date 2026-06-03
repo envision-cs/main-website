@@ -2,9 +2,21 @@
 <script setup lang="ts">
 definePageMeta({ layout: "layout-a" });
 useSeoMeta({
-  title: "Tenant Improvements | Envision",
+  title: "Tenant Improvements | Envision Tampa Bay & Central Florida",
   description:
-    "Tenant improvement construction for active offices, healthcare facilities, faith-based spaces, education facilities, hospitality, and retail environments.",
+    "Tenant improvement construction for active offices, healthcare facilities, faith-based spaces, education facilities, hospitality, and retail environments. Phased sequencing, dust containment, and after-hours work that keeps you operating.",
+  ogTitle: "Tenant Improvements | Envision Tampa Bay & Central Florida",
+  ogDescription:
+    "Built around your operations. Phased sequencing, negative-air containment, and after-hours work for occupied offices, healthcare, and more.",
+  ogImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Tenant Improvements | Envision Tampa Bay & Central Florida",
+  twitterDescription:
+    "Built around your operations. Phased sequencing, negative-air containment, and after-hours work for occupied offices, healthcare, and more.",
+  twitterImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827",
 });
 
 const operations = [

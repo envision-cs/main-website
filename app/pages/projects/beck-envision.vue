@@ -27,6 +27,22 @@ const bannerBody = computed(() => "");
 definePageMeta({
   layout: "none",
 });
+
+useSeoMeta({
+  title: "Beck/Envision Partnership | Joint-Venture Construction Projects",
+  description:
+    "The Beck/Envision partnership brings together two trusted builders to deliver complex, high-value construction across Tampa Bay and Central Florida, combining deep resources with local accountability.",
+  ogTitle: "Beck/Envision Partnership | Joint-Venture Construction Projects",
+  ogDescription:
+    "Two builders, one standard. Explore the projects delivered through the Beck/Envision joint venture, where combined expertise meets local commitment.",
+  ogImage: "/projects-all.jpg",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Beck/Envision Partnership | Joint-Venture Construction Projects",
+  twitterDescription:
+    "Two builders, one standard. Explore the projects delivered through the Beck/Envision joint venture, where combined expertise meets local commitment.",
+  twitterImage: "/projects-all.jpg",
+});
 </script>
 
 <template>

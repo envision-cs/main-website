@@ -92,6 +92,40 @@ const projectListTitle = computed(() => `${activeCategory.value?.name || "Projec
 definePageMeta({
   layout: "none",
 });
+const canonicalPath = computed(() =>
+  categorySlug.value ? `/projects/${categorySlug.value}` : route.path,
+);
+
+const seoTitle = computed(() =>
+  activeCategory.value?.name
+    ? `${activeCategory.value.name} Projects | Envision Construction`
+    : "Projects | Envision Construction",
+);
+
+const seoDescription = computed(() => {
+  const name = activeCategory.value?.name;
+  return activeCategory.value?.description
+    ? activeCategory.value.description
+    : `Explore Envision's ${name ? `${name.toLowerCase()} ` : ""}construction projects across Tampa Bay and Central Florida, delivered organized, high-quality, and on time.`;
+});
+
+useSeoMeta(() => ({
+  title: seoTitle.value,
+  description: seoDescription.value,
+  ogTitle: seoTitle.value,
+  ogDescription: seoDescription.value,
+  ogImage: bannerImage.value,
+  ogType: "website",
+  ogUrl: canonicalPath.value,
+  twitterCard: "summary_large_image",
+  twitterTitle: seoTitle.value,
+  twitterDescription: seoDescription.value,
+  twitterImage: bannerImage.value,
+}));
+
+useHead(() => ({
+  link: [{ rel: "canonical", href: canonicalPath.value }],
+}));
 </script>
 
 <template>

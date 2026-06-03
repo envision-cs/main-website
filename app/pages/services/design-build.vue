@@ -3,6 +3,24 @@ definePageMeta({
   layout: "layout-a",
 });
 
+useSeoMeta({
+  title: "Design-Build | Envision Tampa Bay & Central Florida",
+  description:
+    "Single-source design-build from Envision. Target Value Design, early constructability input, and one point of accountability from concept through closeout, reducing redesign cycles and protecting budget.",
+  ogTitle: "Design-Build | Envision Tampa Bay & Central Florida",
+  ogDescription:
+    "Most contractors wait for plans. We help shape them. One team, one contract, full accountability from concept through closeout.",
+  ogImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Design-Build | Envision Tampa Bay & Central Florida",
+  twitterDescription:
+    "Most contractors wait for plans. We help shape them. One team, one contract, full accountability from concept through closeout.",
+  twitterImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270",
+});
+
 const differentiators = [
   {
     id: 1,

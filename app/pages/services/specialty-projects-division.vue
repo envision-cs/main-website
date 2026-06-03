@@ -1,4 +1,22 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: "Specialty Projects Division | Envision Tampa Bay & Central Florida",
+  description:
+    "Envision's Specialty Projects Division (SPD) handles high-volume maintenance, fast-turnaround renovations, multi-site programs, and annual small-project contracts, with 72-hour turnarounds and full CompanyCam documentation.",
+  ogTitle: "Specialty Projects Division | Envision Tampa Bay & Central Florida",
+  ogDescription:
+    "One reliable partner for ongoing small-scope work. Scope it, price it, execute it, document it, on your schedule, including weekends and overnight.",
+  ogImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/Moffitt_SPD_77a989a8a3.png?updatedAt=1780449600305",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Specialty Projects Division | Envision Tampa Bay & Central Florida",
+  twitterDescription:
+    "One reliable partner for ongoing small-scope work. Scope it, price it, execute it, document it, on your schedule, including weekends and overnight.",
+  twitterImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/Moffitt_SPD_77a989a8a3.png?updatedAt=1780449600305",
+});
+
 const targetAudience = [
   { id: 1, label: "Facilities directors" },
   { id: 2, label: "Maintenance teams" },

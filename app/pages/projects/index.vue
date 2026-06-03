@@ -26,6 +26,22 @@ const bannerBody = computed(() => "");
 definePageMeta({
   layout: "none",
 });
+
+useSeoMeta({
+  title: "Projects | Envision Construction Tampa Bay & Central Florida",
+  description:
+    "Browse Envision's portfolio of completed construction projects across Tampa Bay and Central Florida, spanning K-12, higher education, sports, hospitality, and institutional sectors.",
+  ogTitle: "Projects | Envision Construction Tampa Bay & Central Florida",
+  ogDescription:
+    "Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.",
+  ogImage: "/projects-all.jpg",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Projects | Envision Construction Tampa Bay & Central Florida",
+  twitterDescription:
+    "Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.",
+  twitterImage: "/projects-all.jpg",
+});
 </script>
 
 <template>

@@ -3,6 +3,24 @@ definePageMeta({
   layout: "layout-a",
 });
 
+useSeoMeta({
+  title: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+  description:
+    "Standalone preconstruction from Envision: open-book estimating, Target Value Design, 500+ qualified trade partners, and early risk identification. One hour of planning saves ten hours during construction.",
+  ogTitle: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+  ogDescription:
+    "A lower price does not always cost less. Validate budget, align scope, and identify risks before you commit to construction.",
+  ogImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+  twitterDescription:
+    "A lower price does not always cost less. Validate budget, align scope, and identify risks before you commit to construction.",
+  twitterImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043",
+});
+
 const stats = [
   { id: 1, label: "500+", description: "Qualified Trade Partners" },
   {
