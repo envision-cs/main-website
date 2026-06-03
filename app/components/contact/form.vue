@@ -23,6 +23,8 @@ const state = reactive({
 });
 
 const toast = useToast();
+const analytics = useAnalytics();
+const hasStarted = ref(false);
 
 function formatPhone(digits: string) {
   const [a, b, c] = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 10)];
@@ -35,11 +37,21 @@ function onPhoneBlur() {
   if (digits.length === 10) state.phone = formatPhone(digits);
 }
 
+function onFormStart() {
+  if (hasStarted.value) return;
+  hasStarted.value = true;
+  analytics.capture("contact_form_started");
+}
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   try {
     await $fetch("https://submit-form.com/1mjeYb91R", {
       method: "POST",
       body: event.data,
+    });
+    analytics.capture("contact_form_submitted", {
+      has_company: Boolean(event.data.company),
+      message_length: event.data.message.length,
     });
     toast.add({
       title: "Success",
@@ -48,6 +60,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     });
   } catch (error) {
     console.error("Form submission error:", error);
+    analytics.capture("contact_form_failed", {
+      has_company: Boolean(event.data.company),
+      message_length: event.data.message.length,
+    });
     toast.add({
       title: "Error",
       description: "There was an issue sending your message. Please try again later.",
@@ -60,7 +76,13 @@ const text_count = computed(() => `${state.message.length} / 250`);
 </script>
 
 <template>
-  <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+  <UForm
+    :schema="schema"
+    :state="state"
+    class="space-y-4"
+    @focusin="onFormStart"
+    @submit="onSubmit"
+  >
     <div class="grid grid-cols-1 gap-4">
       <!-- Name -->
       <UFormField label="Name" name="name" size="xl">

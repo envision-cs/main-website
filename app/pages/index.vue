@@ -46,8 +46,6 @@ useSeoMeta({
   twitterImage: homepageImage,
 });
 
-const { $posthog } = useNuxtApp();
-
 const testimonials: HomepageTestimonial[] = [
   {
     quote:
@@ -258,10 +256,6 @@ useHead({
     },
   ],
 });
-
-if ($posthog) {
-  $posthog().capture("$pageview");
-}
 </script>
 
 <template>
