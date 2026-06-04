@@ -43,6 +43,11 @@ describe("project category page hardening", () => {
     expect(pageSource).not.toContain("project.sector?.slug === activeCategory.value?.slug");
   });
 
+  it("sorts category projects from newest completed date to oldest", () => {
+    expect(pageSource).toContain("getProjectCompletedTime");
+    expect(pageSource).toContain("getProjectCompletedTime(right) - getProjectCompletedTime(left)");
+  });
+
   it("provides a section heading before project card headings", () => {
     expect(pageSource).toContain("projectListTitle");
     expect(pageSource).toMatch(/<section[\s\S]*aria-labelledby="projects-list-title"/);

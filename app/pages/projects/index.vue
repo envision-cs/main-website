@@ -29,7 +29,18 @@ const { data } = await useAsyncData<Project[]>(
   },
   { default: () => [] },
 );
-const activeProjects = computed(() => data.value ?? []);
+
+function getProjectCompletedTime(project: Project): number {
+  const time = project.completed ? new Date(project.completed).getTime() : 0;
+
+  return Number.isNaN(time) ? 0 : time;
+}
+
+const activeProjects = computed(() =>
+  [...(data.value ?? [])].sort(
+    (left, right) => getProjectCompletedTime(right) - getProjectCompletedTime(left),
+  ),
+);
 const projectCards = computed<ProjectCardItem[]>(() =>
   activeProjects.value.flatMap((project) => {
     const image = project.mainImage?.url;

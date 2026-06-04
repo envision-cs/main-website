@@ -54,14 +54,20 @@ const {
 const hasProjectsError = computed(() => Boolean(projectsError.value));
 const isProjectsRefreshing = computed(() => projectsStatus.value === "pending");
 
+function getProjectCompletedTime(project: Project): number {
+  const time = project.completed ? new Date(project.completed).getTime() : 0;
+
+  return Number.isNaN(time) ? 0 : time;
+}
+
 const activeProjects = computed(() => {
   if (!data.value?.length) {
     return [];
   }
 
-  return data.value.filter((project) =>
-    projectBelongsToSector(project, activeCategory.value?.slug),
-  );
+  return data.value
+    .filter((project) => projectBelongsToSector(project, activeCategory.value?.slug))
+    .sort((left, right) => getProjectCompletedTime(right) - getProjectCompletedTime(left));
 });
 
 const projectCards = computed<ProjectCardItem[]>(() =>
