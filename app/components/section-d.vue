@@ -75,8 +75,8 @@ section {
   grid-template-columns: 1fr;
   align-items: center;
 
-  @media (min-width: 600px) {
-    grid-template-columns: 1fr 1fr;
+  @media (min-width: 700px) {
+    grid-template-columns: 1fr 2fr;
   }
 }
 

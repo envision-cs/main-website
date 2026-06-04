@@ -36,16 +36,16 @@ useSeoMeta({
         body="We work with trade partners who show up, communicate, and take pride in the work. Clear scope. Organized sites. A team that keeps you in the loop. If that's how you operate, we want to hear from you."
       />
       <app-parallax
-        image="https://ik.imagekit.io/pnixsw7lg/main-website/Full_Team_417498b48b.jpg?updatedAt=1780450996672"
+        image="https://ik.imagekit.io/pnixsw7lg/main-website/Trade_Partner_Page_Photo_bb9088bb05.jpg?updatedAt=1780535064252"
         class="col-span-full"
       />
       <cta-c
         bgcolor="dark"
         flip
-        eyebrow="Featured project"
+        eyebrow="Let's Connect."
         title="Ready to work together"
-        href="/contact"
-        body="Fill out the prequalification form and we will be in touch"
+        href="https://forms.gle/V5ThrGDGapLmQDBi9"
+        body="Fill out the trade partner form, and our team will be in touch."
         label="Get prequalified"
         image="/florida-aquarium-restroom-renovation-03.jpg"
       />

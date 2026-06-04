@@ -79,7 +79,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
         :format="imageFormat"
         :loading="imageLoading"
         :width="imageWidth"
-        sizes="50vw md:25vw"
+        sizes="400px md:500px lg:700px"
         :height="imageHeight"
         class="reveal-card__image"
       />

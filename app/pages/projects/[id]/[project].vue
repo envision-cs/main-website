@@ -222,6 +222,29 @@ useHead(() => ({
     },
   ],
 }));
+
+const { data } = await useAsyncData<Project[]>(
+  "projects-page-data",
+  async () => {
+    try {
+      return await $fetch<Project[]>("/api/projects");
+    } catch (err) {
+      console.error("Strapi error:", err);
+      return [];
+    }
+  },
+  { default: () => [] },
+);
+
+const activeProjects = computed(() => {
+  return data.value.find((p) => {
+    const sector = p.sector?.name ?? undefined;
+    if (!sector || sector === undefined) {
+      return true;
+    }
+    return sector === page.value?.sector;
+  });
+});
 </script>
 
 <template>
@@ -314,6 +337,26 @@ useHead(() => ({
       </template>
     </section-e>
     <div v-else>Oh no! Page not found.</div>
+
+    <!-- <div class="projects">
+           <div class="projects-grid">
+             <project-card
+               v-for="project in activeProjects"
+               :key="project.id"
+               :image="project.mainImage?.url"
+               :alt="project.title"
+               :aria-label="project.title"
+               :to="`/projects/${project.sector?.slug}/${project.slug}`"
+               aspect-ratio="3/4"
+               image-densities="x1 x2"
+               :outlined="false"
+               :title="project.title"
+               :location="project.location"
+               :completed="project.completed ? formatMonthYear(project.completed) : undefined"
+               :sector="project.sector?.name"
+             />
+           </div>
+         </div> -->
   </div>
 </template>
 
@@ -467,6 +510,37 @@ article {
 @media (prefers-reduced-motion: reduce) {
   .gallery-trigger__image {
     transition: none;
+  }
+}
+
+.projects {
+  container-type: inline-size;
+  container-name: projects;
+  position: relative;
+  background: var(--color-envision-gray-800);
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  container: projects;
+  background: var(--color-envision-gray-800);
+}
+
+@container projects (width > 550px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container projects (width > 1000px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@container projects (width > 1400px) {
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 </style>
