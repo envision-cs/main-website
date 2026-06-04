@@ -75,7 +75,7 @@ const page = computed(() => {
     slug: entry.slug,
     main_image: entry.mainImage?.url,
     location: entry.location,
-    sector: entry.sector.name,
+    sector: formatProjectSectorLabel(entry) || "Project",
     area: entry.area,
     completed: entry.completed,
     gallery,
@@ -238,7 +238,7 @@ const { data } = await useAsyncData<Project[]>(
 
 const activeProjects = computed(() => {
   return data.value.find((p) => {
-    const sector = p.sector?.name ?? undefined;
+    const sector = formatProjectSectorLabel(p);
     if (!sector || sector === undefined) {
       return true;
     }
@@ -337,26 +337,6 @@ const activeProjects = computed(() => {
       </template>
     </section-e>
     <div v-else>Oh no! Page not found.</div>
-
-    <!-- <div class="projects">
-           <div class="projects-grid">
-             <project-card
-               v-for="project in activeProjects"
-               :key="project.id"
-               :image="project.mainImage?.url"
-               :alt="project.title"
-               :aria-label="project.title"
-               :to="`/projects/${project.sector?.slug}/${project.slug}`"
-               aspect-ratio="3/4"
-               image-densities="x1 x2"
-               :outlined="false"
-               :title="project.title"
-               :location="project.location"
-               :completed="project.completed ? formatMonthYear(project.completed) : undefined"
-               :sector="project.sector?.name"
-             />
-           </div>
-         </div> -->
   </div>
 </template>
 

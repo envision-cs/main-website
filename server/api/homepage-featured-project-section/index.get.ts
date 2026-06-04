@@ -7,10 +7,13 @@ type FeaturedProject = {
   mainImage?: {
     url?: string;
   } | null;
-  sector?: {
-    name?: string;
-    slug?: string;
-  } | null;
+  sector?: FeaturedProjectSector[] | FeaturedProjectSector | null;
+  sectors?: FeaturedProjectSector[] | null;
+};
+
+type FeaturedProjectSector = {
+  name?: string;
+  slug?: string;
 };
 
 type HomepageFeaturedSectionResponse = {
@@ -48,11 +51,20 @@ function getCompletedYear(completed?: string): string {
   return Number.isNaN(year) ? "" : String(year);
 }
 
+function getProjectSectors(project: FeaturedProject): FeaturedProjectSector[] {
+  const source = project.sectors ?? project.sector;
+  const sectors = Array.isArray(source) ? source : source ? [source] : [];
+
+  return sectors.filter((sector) => normalizeValue(sector.slug) && normalizeValue(sector.name));
+}
+
 function mapProjects(projects: FeaturedProject[]): FeaturedCard[] {
   return projects
     .map((project) => {
       const projectSlug = normalizeValue(project.slug);
-      const sectorSlug = normalizeValue(project.sector?.slug) || "all";
+      const sectors = getProjectSectors(project);
+      const primarySector = sectors[0];
+      const sectorSlug = normalizeValue(primarySector?.slug) || "all";
 
       if (!projectSlug) return null;
 
@@ -60,7 +72,7 @@ function mapProjects(projects: FeaturedProject[]): FeaturedCard[] {
         title: normalizeValue(project.title),
         link: `/projects/${sectorSlug}/${projectSlug}`,
         image: normalizeValue(project.mainImage?.url),
-        sector: normalizeValue(project.sector?.name),
+        sector: sectors.map((sector) => normalizeValue(sector.name)).join(", "),
         completed: getCompletedYear(project.completed),
       };
 
@@ -71,8 +83,10 @@ function mapProjects(projects: FeaturedProject[]): FeaturedCard[] {
 
 export default defineEventHandler(async (): Promise<HomepageFeaturedProjectsResponse> => {
   const config = useRuntimeConfig();
-  const url = `${config.strapi.url}/api/featured-project-section-one?populate[projects][fields][0]=title&populate[projects][fields][1]=slug&populate[projects][fields][2]=completed&populate[projects][populate][mainImage][fields][0]=url&populate[projects][populate][sector][fields][0]=name&populate[projects][populate][sector][fields][1]=slug`;
-  const url2 = `${config.strapi.url}/api/featured-project-section-two?populate[projects][fields][0]=title&populate[projects][fields][1]=slug&populate[projects][fields][2]=completed&populate[projects][populate][mainImage][fields][0]=url&populate[projects][populate][sector][fields][0]=name&populate[projects][populate][sector][fields][1]=slug`;
+  const query =
+    "populate[projects][fields][0]=title&populate[projects][fields][1]=slug&populate[projects][fields][2]=completed&populate[projects][populate][mainImage][fields][0]=url&populate[projects][populate][sectors][fields][0]=name&populate[projects][populate][sectors][fields][1]=slug";
+  const url = `${config.strapi.url}/api/featured-project-section-one?${query}`;
+  const url2 = `${config.strapi.url}/api/featured-project-section-two?${query}`;
 
   const [strapiError, responses] = await catchError(
     Promise.all([

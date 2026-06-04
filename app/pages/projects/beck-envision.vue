@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import type { Project } from "~~/shared/types/content-types";
 
+interface ProjectCardItem {
+  id: Project["id"];
+  image: string;
+  title: string;
+  to: string;
+  location?: string;
+  completed?: string;
+  sector?: string;
+}
+
 const { formatMonthYear } = useFormatDate();
 const { sectors: categories } = await useSectors();
 const navCategories = computed(() => [
@@ -21,6 +31,28 @@ const { data } = await useAsyncData<Project[]>(
   { default: () => [] },
 );
 const activeProjects = computed(() => data.value.filter((p) => p.beck === true));
+const projectCards = computed<ProjectCardItem[]>(() =>
+  activeProjects.value.flatMap((project) => {
+    const image = project.mainImage?.url;
+    const primarySector = getPrimaryProjectSector(project);
+
+    if (!image || !primarySector || !project.slug) {
+      return [];
+    }
+
+    return [
+      {
+        id: project.id,
+        image,
+        title: project.title,
+        to: `/projects/${primarySector.slug}/${project.slug}`,
+        location: project.location,
+        completed: project.completed ? formatMonthYear(project.completed) : undefined,
+        sector: formatProjectSectorLabel(project),
+      },
+    ];
+  }),
+);
 const bannerImage = computed(() => "projects-all.jpg");
 const bannerBody = computed(() => "");
 
@@ -60,19 +92,19 @@ useSeoMeta({
         </div>
         <div class="projects-grid">
           <project-card
-            v-for="project in activeProjects"
+            v-for="project in projectCards"
             :key="project.id"
-            :image="project.mainImage?.url"
+            :image="project.image"
             :alt="project.title"
             :aria-label="project.title"
-            :to="`${project.sector?.slug}/${project.slug}`"
+            :to="project.to"
             aspect-ratio="3/4"
             image-densities="x1 x2"
             :outlined="false"
             :title="project.title"
             :location="project.location"
-            :completed="project.completed ? formatMonthYear(project.completed) : undefined"
-            :sector="project.sector?.name"
+            :completed="project.completed"
+            :sector="project.sector"
           />
         </div>
       </div>

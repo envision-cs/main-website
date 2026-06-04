@@ -32,23 +32,35 @@ const { data: projects } = await useAsyncData<Project[]>(
 
 const slides = computed<FeaturedProjectSlide[]>(() => {
   return [...(projects.value ?? [])]
-    .filter((project) => project.slug && project.sector?.slug && project.mainImage?.url)
     .sort((left, right) => {
       const rightTime = right.completed ? new Date(right.completed).getTime() : 0;
       const leftTime = left.completed ? new Date(left.completed).getTime() : 0;
 
       return rightTime - leftTime;
     })
-    .slice(0, 5)
-    .map((project) => ({
-      id: project.id,
-      title: project.title,
-      href: `/projects/${project.sector.slug}/${project.slug}`,
-      image: project.mainImage.url,
-      sector: project.sector.name,
-      completedLabel: project.completed ? formatMonthYear(project.completed) : "Current project",
-      linkLabel: `Read more about ${project.title}`,
-    }));
+    .flatMap((project) => {
+      const primarySector = getPrimaryProjectSector(project);
+      const image = project.mainImage?.url;
+
+      if (!project.slug || !primarySector || !image) {
+        return [];
+      }
+
+      return [
+        {
+          id: project.id,
+          title: project.title,
+          href: `/projects/${primarySector.slug}/${project.slug}`,
+          image,
+          sector: formatProjectSectorLabel(project) || primarySector.name,
+          completedLabel: project.completed
+            ? formatMonthYear(project.completed)
+            : "Current project",
+          linkLabel: `Read more about ${project.title}`,
+        },
+      ];
+    })
+    .slice(0, 5);
 });
 
 const carouselRef = useTemplateRef<HTMLElement | null>("carouselRef");

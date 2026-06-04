@@ -59,13 +59,15 @@ const activeProjects = computed(() => {
     return [];
   }
 
-  return data.value.filter((project) => project.sector?.slug === activeCategory.value?.slug);
+  return data.value.filter((project) =>
+    projectBelongsToSector(project, activeCategory.value?.slug),
+  );
 });
 
 const projectCards = computed<ProjectCardItem[]>(() =>
   activeProjects.value.flatMap((project) => {
     const image = project.mainImage?.url;
-    const sectorSlug = project.sector?.slug;
+    const sectorSlug = activeCategory.value?.slug;
 
     if (!image || !sectorSlug || !project.slug) {
       return [];
@@ -76,10 +78,10 @@ const projectCards = computed<ProjectCardItem[]>(() =>
         id: project.id,
         image,
         title: project.title,
-        to: `${sectorSlug}/${project.slug}`,
+        to: `/projects/${sectorSlug}/${project.slug}`,
         location: project.location,
         completed: project.completed ? formatMonthYear(project.completed) : undefined,
-        sector: project.sector?.name,
+        sector: formatProjectSectorLabel(project),
       },
     ];
   }),
