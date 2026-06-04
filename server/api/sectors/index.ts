@@ -1,6 +1,7 @@
-import type { APISectors } from '~~/shared/types/content-types';
+import type { APISectors } from "~~/shared/types/content-types";
 
-import { catchError } from '~~/shared/utils/catch-error';
+import { getFallbackSectors } from "~~/server/utils/fallback-sectors";
+import { catchError } from "~~/shared/utils/catch-error";
 
 export default defineEventHandler(async () => {
   const config = useRuntimeConfig();
@@ -8,15 +9,16 @@ export default defineEventHandler(async () => {
 
   const [strapiError, response] = await catchError(
     $fetch<APISectors>(url, {
-      method: 'GET',
+      method: "GET",
     }),
   );
   if (strapiError) {
-    console.error('Error fetching projects from Strapi:', strapiError);
-    throw createError({
-      statusCode: 500,
-      statusMessage: strapiError?.message,
-    });
+    console.warn(
+      `[api/sectors] Strapi sectors unavailable: ${strapiError.message}. Using local fallback sectors.`,
+    );
+
+    return getFallbackSectors();
   }
+
   return response?.data ?? [];
 });

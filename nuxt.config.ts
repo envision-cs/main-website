@@ -66,10 +66,11 @@ export default defineNuxtConfig({
     },
   },
   posthogConfig: {
-    publicKey: "phc_U861r9C5hjKh8CRlC1uGW6NW6OG3yfhZstFtFEOjCxX", // Find it in project settings https://app.posthog.com/settings/project
+    publicKey: "phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78", // Find it in project settings https://app.posthog.com/settings/project
     host: "https://us.i.posthog.com", // Optional: defaults to https://us.i.posthog.com. Use https://eu.i.posthog.com for EU region
     clientConfig: {
-      // Optional: PostHog client configuration options
+      defaults: "2025-05-24",
+      capture_pageview: "history_change",
     },
   },
   icon: {

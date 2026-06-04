@@ -149,7 +149,14 @@ function onHeaderFocusout(event: FocusEvent) {
 
     <header class="header-root site-max">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
-        <Icon name="logos:envision" class="brand-link__mark" aria-hidden="true" />
+        <NuxtImg
+          src="https://ik.imagekit.io/pnixsw7lg/main-website/White_Envision_Logo_c1724c69d3.png?updatedAt=1780533539430"
+          alt="Envision Construction logo"
+          width="160"
+          height="32"
+          class="brand-link__logo"
+          data-test="envision-logo"
+        />
       </NuxtLink>
 
       <NavigationMenuRoot

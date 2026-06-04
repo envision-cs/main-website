@@ -22,7 +22,14 @@ const { services: servicesLinks } = await useServicesList();
   <footer class="relative" aria-label="Site footer">
     <div class="footer-head">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
-        <Icon name="logos:envision" size="30" alt="envision construction logo" />
+        <NuxtImg
+          src="https://ik.imagekit.io/pnixsw7lg/main-website/White_Envision_Logo_c1724c69d3.png?updatedAt=1780533539430"
+          alt="Envision Construction logo"
+          width="160"
+          height="32"
+          class="brand-link__logo"
+          data-test="envision-logo"
+        />
       </NuxtLink>
     </div>
     <section class="site-footer">

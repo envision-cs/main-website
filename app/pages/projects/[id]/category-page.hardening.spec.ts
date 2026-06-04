@@ -31,11 +31,21 @@ describe("project category page hardening", () => {
   it("skips malformed project cards instead of assuming image and sector data exists", () => {
     expect(pageSource).toContain("const projectCards = computed<ProjectCardItem[]>");
     expect(pageSource).toContain("const image = project.mainImage?.url");
-    expect(pageSource).toContain("const sectorSlug = project.sector?.slug");
+    expect(pageSource).toContain("const sectorSlug = activeCategory.value?.slug");
     expect(pageSource).toContain("if (!image || !sectorSlug || !project.slug)");
     expect(pageSource).toContain(':image="project.image"');
     expect(pageSource).not.toContain("project.mainImage.url");
     expect(pageSource).not.toContain("project.sector.slug");
+  });
+
+  it("matches projects against every sector in the project sector array", () => {
+    expect(pageSource).toContain("projectBelongsToSector(project, activeCategory.value?.slug)");
+    expect(pageSource).not.toContain("project.sector?.slug === activeCategory.value?.slug");
+  });
+
+  it("sorts category projects from newest completed date to oldest", () => {
+    expect(pageSource).toContain("getProjectCompletedTime");
+    expect(pageSource).toContain("getProjectCompletedTime(right) - getProjectCompletedTime(left)");
   });
 
   it("provides a section heading before project card headings", () => {

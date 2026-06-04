@@ -54,18 +54,26 @@ const {
 const hasProjectsError = computed(() => Boolean(projectsError.value));
 const isProjectsRefreshing = computed(() => projectsStatus.value === "pending");
 
+function getProjectCompletedTime(project: Project): number {
+  const time = project.completed ? new Date(project.completed).getTime() : 0;
+
+  return Number.isNaN(time) ? 0 : time;
+}
+
 const activeProjects = computed(() => {
   if (!data.value?.length) {
     return [];
   }
 
-  return data.value.filter((project) => project.sector?.slug === activeCategory.value?.slug);
+  return data.value
+    .filter((project) => projectBelongsToSector(project, activeCategory.value?.slug))
+    .sort((left, right) => getProjectCompletedTime(right) - getProjectCompletedTime(left));
 });
 
 const projectCards = computed<ProjectCardItem[]>(() =>
   activeProjects.value.flatMap((project) => {
     const image = project.mainImage?.url;
-    const sectorSlug = project.sector?.slug;
+    const sectorSlug = activeCategory.value?.slug;
 
     if (!image || !sectorSlug || !project.slug) {
       return [];
@@ -76,10 +84,10 @@ const projectCards = computed<ProjectCardItem[]>(() =>
         id: project.id,
         image,
         title: project.title,
-        to: `${sectorSlug}/${project.slug}`,
+        to: `/projects/${sectorSlug}/${project.slug}`,
         location: project.location,
         completed: project.completed ? formatMonthYear(project.completed) : undefined,
-        sector: project.sector?.name,
+        sector: formatProjectSectorLabel(project),
       },
     ];
   }),
@@ -92,6 +100,40 @@ const projectListTitle = computed(() => `${activeCategory.value?.name || "Projec
 definePageMeta({
   layout: "none",
 });
+const canonicalPath = computed(() =>
+  categorySlug.value ? `/projects/${categorySlug.value}` : route.path,
+);
+
+const seoTitle = computed(() =>
+  activeCategory.value?.name
+    ? `${activeCategory.value.name} Projects | Envision Construction`
+    : "Projects | Envision Construction",
+);
+
+const seoDescription = computed(() => {
+  const name = activeCategory.value?.name;
+  return activeCategory.value?.description
+    ? activeCategory.value.description
+    : `Explore Envision's ${name ? `${name.toLowerCase()} ` : ""}construction projects across Tampa Bay and Central Florida, delivered organized, high-quality, and on time.`;
+});
+
+useSeoMeta(() => ({
+  title: seoTitle.value,
+  description: seoDescription.value,
+  ogTitle: seoTitle.value,
+  ogDescription: seoDescription.value,
+  ogImage: bannerImage.value,
+  ogType: "website",
+  ogUrl: canonicalPath.value,
+  twitterCard: "summary_large_image",
+  twitterTitle: seoTitle.value,
+  twitterDescription: seoDescription.value,
+  twitterImage: bannerImage.value,
+}));
+
+useHead(() => ({
+  link: [{ rel: "canonical", href: canonicalPath.value }],
+}));
 </script>
 
 <template>

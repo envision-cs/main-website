@@ -75,7 +75,7 @@ const page = computed(() => {
     slug: entry.slug,
     main_image: entry.mainImage?.url,
     location: entry.location,
-    sector: entry.sector.name,
+    sector: formatProjectSectorLabel(entry) || "Project",
     area: entry.area,
     completed: entry.completed,
     gallery,
@@ -222,6 +222,29 @@ useHead(() => ({
     },
   ],
 }));
+
+const { data } = await useAsyncData<Project[]>(
+  "projects-page-data",
+  async () => {
+    try {
+      return await $fetch<Project[]>("/api/projects");
+    } catch (err) {
+      console.error("Strapi error:", err);
+      return [];
+    }
+  },
+  { default: () => [] },
+);
+
+const activeProjects = computed(() => {
+  return data.value.find((p) => {
+    const sector = formatProjectSectorLabel(p);
+    if (!sector || sector === undefined) {
+      return true;
+    }
+    return sector === page.value?.sector;
+  });
+});
 </script>
 
 <template>
@@ -467,6 +490,37 @@ article {
 @media (prefers-reduced-motion: reduce) {
   .gallery-trigger__image {
     transition: none;
+  }
+}
+
+.projects {
+  container-type: inline-size;
+  container-name: projects;
+  position: relative;
+  background: var(--color-envision-gray-800);
+}
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  container: projects;
+  background: var(--color-envision-gray-800);
+}
+
+@container projects (width > 550px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container projects (width > 1000px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@container projects (width > 1400px) {
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 </style>

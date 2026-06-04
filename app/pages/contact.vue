@@ -1,5 +1,21 @@
 <script setup lang="ts">
 const { data: contactData, error } = await useFetch("/api/contact");
+
+useSeoMeta({
+  title: "Contact Envision | Tampa Bay & Central Florida Construction",
+  description:
+    "Connect with the Envision team to start a project, ask a question, or find the right construction partner across Greater Tampa Bay and Central Florida. Email pursuits@envision-cs.com.",
+  ogTitle: "Contact Envision | Tampa Bay & Central Florida Construction",
+  ogDescription:
+    "Speak with our team. Start a project, ask a question, or find the right construction partner across Tampa Bay and Central Florida.",
+  ogImage: "https://ik.imagekit.io/pnixsw7lg/main-website/contact-image",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Contact Envision | Tampa Bay & Central Florida Construction",
+  twitterDescription:
+    "Speak with our team. Start a project, ask a question, or find the right construction partner across Tampa Bay and Central Florida.",
+  twitterImage: "https://ik.imagekit.io/pnixsw7lg/main-website/contact-image",
+});
 </script>
 
 <template>

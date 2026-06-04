@@ -35,6 +35,7 @@ const props = withDefaults(
 const destination = computed(() => props.to ?? props.href);
 const isLink = computed(() => Boolean(destination.value));
 const isDisabledLink = computed(() => isLink.value && props.disabled);
+const isTrackableCta = computed(() => isInternalCtaDestination(destination.value));
 
 const resolvedFill = computed(() => {
   if (props.color === "secondary") return "secondary";
@@ -85,6 +86,7 @@ const classes = computed(() => [
     :target="target"
     :class="classes"
     :aria-label="ariaLabel"
+    :data-analytics-cta="isTrackableCta ? 'true' : undefined"
   >
     <UIcon v-if="icon" :name="icon" class="app-btn__icon" aria-hidden="true" />
     <span v-if="hasSlot" class="app-btn__label">

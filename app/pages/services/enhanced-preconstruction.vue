@@ -3,6 +3,24 @@ definePageMeta({
   layout: "layout-a",
 });
 
+useSeoMeta({
+  title: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+  description:
+    "Standalone preconstruction from Envision: open-book estimating, Target Value Design, 500+ qualified trade partners, and early risk identification. One hour of planning saves ten hours during construction.",
+  ogTitle: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+  ogDescription:
+    "A lower price does not always cost less. Validate budget, align scope, and identify risks before you commit to construction.",
+  ogImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+  twitterDescription:
+    "A lower price does not always cost less. Validate budget, align scope, and identify risks before you commit to construction.",
+  twitterImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043",
+});
+
 const stats = [
   { id: 1, label: "500+", description: "Qualified Trade Partners" },
   {
@@ -84,12 +102,12 @@ const projectHighlights = [
           of decisions made too late: scope gaps, schedule delays, change orders, and mounting
           frustration.
         </app-typography>
-        <app-typography>
+        <app-typography class="mt-6">
           Preconstruction helps owners gain clarity before construction begins by validating budget,
           aligning scope, planning procurement, and identifying risks early. The result is greater
           predictability, fewer surprises, and more control over the project.
         </app-typography>
-        <app-typography>
+        <app-typography class="mt-6">
           Envision offers preconstruction as a standalone engagement—helping owners establish budget
           confidence, schedule realism, and risk visibility before committing to construction.
         </app-typography>
@@ -99,7 +117,7 @@ const projectHighlights = [
     <section-a
       bgcolor="dark"
       eyebrow="What owners actually need"
-      title='"Owners do not just need a builder. They need certainty."'
+      title="Owners do not just need a builder. They need certainty."
     >
       <list-d :items="capabilities" />
     </section-a>

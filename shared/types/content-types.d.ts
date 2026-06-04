@@ -103,7 +103,8 @@ export type Project = {
   beck: boolean;
   gallery: Photo[];
   mainImage: Photo;
-  sector: Sector;
+  sector?: Sector[];
+  sectors: Sector[];
 };
 
 export type Sector = {

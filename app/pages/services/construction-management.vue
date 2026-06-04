@@ -3,6 +3,24 @@ definePageMeta({
   layout: "layout-a",
 });
 
+useSeoMeta({
+  title: "Construction Management | Envision Tampa Bay & Central Florida",
+  description:
+    "Envision's construction management delivers certainty: Target Value Design, real-time cost control, proactive scheduling, and full Procore transparency. 200+ projects on time and on budget, 90% repeat clients.",
+  ogTitle: "Construction Management | Envision Tampa Bay & Central Florida",
+  ogDescription:
+    "Owners don't just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.",
+  ogImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428",
+  ogType: "website",
+  twitterCard: "summary_large_image",
+  twitterTitle: "Construction Management | Envision Tampa Bay & Central Florida",
+  twitterDescription:
+    "Owners don't just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.",
+  twitterImage:
+    "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428",
+});
+
 const benefits = [
   {
     id: 1,
@@ -116,7 +134,7 @@ const commitments = [
 
 const stats = [
   { id: 1, label: "90%", description: "Repeat client rate earned one project at a time" },
-  { id: 2, label: "$200M+", description: "Projects Delivered. On Time & On Budget." },
+  { id: 2, label: "200+", description: "Projects Delivered. On Time & On Budget." },
   { id: 3, label: "16 yrs", description: "Building Greater Tampa Bay" },
 ];
 </script>

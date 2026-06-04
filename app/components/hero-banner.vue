@@ -21,11 +21,12 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
     <div class="hero__media">
       <NuxtImg
         v-if="hero.image?.url"
+        provider="imagekit"
         :src="hero.image.url"
         alt="Exterior view of a residence hall at dusk"
-        sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+        sizes="500px sm:700px md:800px lg:1200px xl:1400px 2xl:1920px"
         fit="cover"
-        preload
+        :preload="{ fetchPriority: 'high' }"
         format="avif,webp"
         loading="eager"
         class="hero__image"

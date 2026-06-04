@@ -86,9 +86,43 @@ const profileCards = computed(() => [
 
 const title = computed(() => data.value?.teamMember?.name);
 
-useSeoMeta({
-  title: title.value,
+function toSeoDescription(text?: string) {
+  return (
+    text
+      ?.replace(/```[\s\S]*?```/g, " ")
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+      .replace(/[#*_>`~|-]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 160) || ""
+  );
+}
+
+const seoTitle = computed(() =>
+  title.value ? `${title.value} | Envision` : "Meet the Team | Envision",
+);
+
+const seoDescription = computed(() => {
+  const fromBio = toSeoDescription(teamMember.value?.bio);
+  if (fromBio) return fromBio;
+
+  const role = teamMember.value?.title ? `${teamMember.value.title}, ` : "";
+  return `${role}part of the ${teamName.value} at Envision. Meet the people delivering organized, high-quality construction across Tampa Bay and Central Florida.`;
 });
+
+useSeoMeta(() => ({
+  title: seoTitle.value,
+  description: seoDescription.value,
+  ogTitle: seoTitle.value,
+  ogDescription: seoDescription.value,
+  ogImage: teamMember.value?.photo?.url,
+  ogType: "profile",
+  twitterCard: teamMember.value?.photo?.url ? "summary_large_image" : "summary",
+  twitterTitle: seoTitle.value,
+  twitterDescription: seoDescription.value,
+  twitterImage: teamMember.value?.photo?.url,
+}));
 </script>
 
 <template>
