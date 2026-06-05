@@ -148,6 +148,28 @@ definePageMeta({
     >
       <list-a :items="serviceOfferings" />
     </section-a>
+
+    <cta-a
+      eyebrow="Featured Project"
+      bgcolor="blue"
+      title="University of South Florida: GC Continuing Services Partner Since 2024"
+      body=""
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/USF_SPD_88c22fb1fc.png?updatedAt=1780449780853"
+    >
+      <template #body>
+        <app-typography class="mb-8">
+          Envision has served the University of South Florida under a General Contracting Continuing
+          Services contract since 2024, supporting small projects and general construction work up
+          to $7.5 million. Since that time, our team has been engaged on approximately 15 projects
+          and counting across campus, including lab improvements, interior renovations, building
+          upgrades, and other focused scopes of work. This is what a reliable construction partner
+          looks like at volume: responsive service, strong coordination, and reliable execution
+          across a wide range of active campus projects.
+        </app-typography>
+
+        <list-e :items="stats" />
+      </template>
+    </cta-a>
     <cta-a
       flip="true"
       eyebrow="Featured Project"
@@ -180,38 +202,8 @@ definePageMeta({
             </app-typography>
           </li>
         </ul>
-        <ul class="list">
-          <li v-for="item in projectHighlights" :key="item.id">
-            <app-typography class="text-balance">
-              {{ item.label }}
-            </app-typography>
-          </li>
-        </ul>
       </template>
     </cta-a>
-
-    <cta-a
-      eyebrow="Featured Project"
-      bgcolor="blue"
-      title="University of South Florida: GC Continuing Services Partner Since 2024"
-      body=""
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/USF_SPD_88c22fb1fc.png?updatedAt=1780449780853"
-    >
-      <template #body>
-        <app-typography class="mb-8">
-          Envision has served the University of South Florida under a General Contracting Continuing
-          Services contract since 2024, supporting small projects and general construction work up
-          to $7.5 million. Since that time, our team has been engaged on approximately 15 projects
-          and counting across campus, including lab improvements, interior renovations, building
-          upgrades, and other focused scopes of work. This is what a reliable construction partner
-          looks like at volume: responsive service, strong coordination, and reliable execution
-          across a wide range of active campus projects.
-        </app-typography>
-
-        <list-e :items="stats" />
-      </template>
-    </cta-a>
-
     <cta-c
       title=" "
       center

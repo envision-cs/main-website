@@ -137,6 +137,7 @@ export type Service = {
   meta?: unknown;
   content?: unknown;
   headline?: string;
+  previewImg: Photo;
   cta?: string;
   link?: string;
   order?: number;

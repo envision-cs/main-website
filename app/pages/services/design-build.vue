@@ -53,8 +53,6 @@ const deliveryMethods = [
   { id: 2, label: "Renovation design-build" },
   { id: 3, label: "Fast-track delivery" },
   { id: 4, label: "Design-assist engagements" },
-  { id: 5, label: "CM at Risk (CMAR)" },
-  { id: 6, label: "Design professional + builder" },
 ];
 
 // const projectOutcomes = [

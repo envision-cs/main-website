@@ -44,7 +44,21 @@ useSeoMeta({
                 We're ready to connect, whether you're starting a project, asking a question, or
                 looking for the right construction partner.
               </app-typography>
-              <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
+              <div>
+                <app-typography tag="p" variant="text-md" class="section-copy">
+                  Email
+                </app-typography>
+                <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
+              </div>
+              <div>
+                <app-typography tag="p" variant="text-md" class="section-copy">
+                  Phone
+                </app-typography>
+                <a href="tel:813-443-3800">813-443-3800</a>
+              </div>
+              <app-typography tag="p" variant="text-md" class="section-copy">
+                For pursuits, select Option 4 or dial Ext. 103.
+              </app-typography>
             </div>
           </div>
         </template>

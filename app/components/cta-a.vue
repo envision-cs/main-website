@@ -39,7 +39,7 @@ withDefaults(
       loading="lazy"
       class="image"
       fit="cover"
-      sizes="100vw sm:50vw"
+      sizes="100vw sm:450px md:850px"
       placeholder
     />
   </section>
