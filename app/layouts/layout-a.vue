@@ -37,7 +37,8 @@ const activeCategory = computed<{
       cta: "Lets get to work",
       link: "/contact",
       slug: "all",
-      image: "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134",
+      image:
+        "https://ik.imagekit.io/pnixsw7lg/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560",
     }
   );
 });

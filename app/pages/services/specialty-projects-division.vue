@@ -120,7 +120,7 @@ definePageMeta({
       title="A dedicated division built for speed, volume, and your facilities team.
 "
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/SPD_What_SPD_Is_870e9e7493.jpg?"
     >
       <template #body>
         <app-typography>

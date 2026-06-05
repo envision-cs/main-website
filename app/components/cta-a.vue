@@ -39,7 +39,7 @@ withDefaults(
       loading="lazy"
       class="image"
       fit="cover"
-      sizes="100vw sm:450px md:850px"
+      sizes="100vw sm:450px md:850px lg:1000px xl:2000px"
       placeholder
     />
   </section>
@@ -94,6 +94,7 @@ section {
   height: 100%;
   min-height: 500px;
   object-fit: cover;
+  object-position: right;
 
   @media (min-width: 1024px) {
     max-height: 800px;
