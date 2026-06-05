@@ -27,10 +27,10 @@ useSeoMeta({
       title="Building Legacy & Serving Others Through Construction."
     />
     <three-uniques />
-    <app-parallax
+    <!-- <app-parallax
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_0400%20(1).jpg"
       class="col-span-full"
-    />
+    /> -->
     <core-values />
     <proven-process />
   </div>

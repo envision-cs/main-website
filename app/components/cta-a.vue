@@ -57,7 +57,7 @@ section {
   background-color: var(--section-bg);
   color: var(--section-color);
   max-height: auto;
-  min-width: 600px;
+  min-height: 600px;
 
   @media (width > 120ch) {
     grid-template-columns: 1fr 1fr;
@@ -76,7 +76,7 @@ section {
   align-content: center;
   direction: ltr;
   gap: calc(var(--spacing) * 4);
-  max-width: 700px;
+  max-height: 700px;
   width: 100%;
   margin: auto;
 }
