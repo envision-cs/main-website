@@ -94,7 +94,6 @@ section {
   height: 100%;
   min-height: 500px;
   object-fit: cover;
-  object-position: right;
 
   @media (min-width: 1024px) {
     max-height: 800px;
