@@ -198,7 +198,7 @@ const stats = computed<Item[]>(() => {
     },
   ];
 
-  if (!stats[0]?.label && !stats[1]?.label && !stats[1]?.label) {
+  if (!stats[0]?.label && !stats[1]?.label && !stats[2]?.label) {
     return null;
   }
   return stats;
