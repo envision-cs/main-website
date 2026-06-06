@@ -5,6 +5,7 @@ export type SectorListItem = {
   slug: string;
   description?: string;
   image?: string;
+  preview?: string;
   to: string;
 };
 
@@ -35,7 +36,6 @@ export function projectBelongsToSector(
   if (!slug) {
     return false;
   }
-
   return getProjectSectors(project).some((sector) => sector.slug === slug);
 }
 

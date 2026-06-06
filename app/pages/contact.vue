@@ -29,7 +29,7 @@ useSeoMeta({
       </banner-b>
 
       <!-- Team header -->
-      <section-e v-if="contactData.team.length && !error" bgcolor="dark" no-padding>
+      <section-e v-if="contactData?.team.length && !error" bgcolor="dark" no-padding>
         <template #header>
           <div class="section-head">
             <div class="team-role">
@@ -44,7 +44,21 @@ useSeoMeta({
                 We're ready to connect, whether you're starting a project, asking a question, or
                 looking for the right construction partner.
               </app-typography>
-              <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
+              <div>
+                <app-typography tag="p" variant="text-md" class="section-copy">
+                  Email
+                </app-typography>
+                <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
+              </div>
+              <div>
+                <app-typography tag="p" variant="text-md" class="section-copy">
+                  Phone
+                </app-typography>
+                <a href="tel:813-997-0330">813-997-0330</a>
+              </div>
+              <app-typography tag="p" variant="text-md" class="section-copy">
+                For pursuits, select Option 4 or dial Ext. 103.
+              </app-typography>
             </div>
           </div>
         </template>
@@ -55,7 +69,7 @@ useSeoMeta({
               <project-card
                 :to="`/team/${member.slug}`"
                 :aria-label="member.name"
-                :image="member.photo?.url"
+                :image="member.photo?.url ?? ''"
                 :alt="member.name"
                 link-mode="overlay"
                 aspect-ratio="3/4"
@@ -99,7 +113,7 @@ useSeoMeta({
 
           <div class="location-wrapper">
             <app-location-card
-              v-for="location in contactData.locations"
+              v-for="location in contactData?.locations"
               :key="location.id"
               :title="location.name"
               :address="location?.address"
@@ -112,7 +126,7 @@ useSeoMeta({
 
         <template #body>
           <Client-only>
-            <app-location-map class="min-h-[500px]" />
+            <app-location-map class="min-h-125" />
           </Client-only>
         </template>
       </section-e>

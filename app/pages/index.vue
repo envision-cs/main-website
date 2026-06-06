@@ -102,7 +102,7 @@ const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResp
 );
 
 const stats = [
-  { id: 1, label: "2009", description: "Established" },
+  { id: 1, label: "2009", description: "Year Established" },
   { id: 2, label: "200+", description: "Projects Delivered. On Time & On Budget." },
   { id: 3, label: "90%", description: "Repeat Clients" },
 ];
@@ -275,7 +275,7 @@ useHead({
       bgcolor="dark"
       title="Listen. Plan. Execute. Cultivate."
       body="Great projects start with the right partner"
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/Home_Listen_Plan_Execute_Cultivate_d371e56e7f.jpeg?updatedAt=1780673607902"
       flip
       content-position="bottom-left"
       href="about"

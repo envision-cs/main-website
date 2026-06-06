@@ -46,7 +46,7 @@ useSeoMeta({
         title="Ready to work together"
         href="https://forms.gle/V5ThrGDGapLmQDBi9"
         body="Fill out the trade partner form, and our team will be in touch."
-        label="Get prequalified"
+        label="Join Our Network"
         image="/florida-aquarium-restroom-renovation-03.jpg"
       />
     </main>

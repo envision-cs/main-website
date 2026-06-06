@@ -178,17 +178,16 @@ const { data: ast } = await useAsyncData(
 
 const stats = computed<Item[]>(() => {
   if (!page.value) return [];
-
-  return [
+  const stats = [
     {
       id: 1,
-      label: page.value.location || "Location unavailable",
+      label: page.value.location ?? null,
       description: "Location",
     },
 
     {
       id: 2,
-      label: page.value.completed ? formatMonthYear(page.value.completed) : "Current project",
+      label: page.value.completed ? formatMonthYear(page.value.completed) : null,
       description: "Completion",
     },
 
@@ -198,6 +197,11 @@ const stats = computed<Item[]>(() => {
       description: "Area",
     },
   ];
+
+  if (!stats[0]?.label && !stats[1]?.label && !stats[1]?.label) {
+    return null;
+  }
+  return stats;
 });
 
 useSeoMeta(() => ({
@@ -262,7 +266,7 @@ const activeProjects = computed(() => {
         <section-header-a :eyebrow="page.sector" :title="page.title" />
         <article>
           <div class="">
-            <div class="info">
+            <div v-if="stats != null" class="info">
               <list-e small :items="stats" />
             </div>
             <div v-if="ast?.body" class="max-w-[75ch]">

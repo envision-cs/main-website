@@ -53,8 +53,6 @@ const deliveryMethods = [
   { id: 2, label: "Renovation design-build" },
   { id: 3, label: "Fast-track delivery" },
   { id: 4, label: "Design-assist engagements" },
-  { id: 5, label: "CM at Risk (CMAR)" },
-  { id: 6, label: "Design professional + builder" },
 ];
 
 // const projectOutcomes = [
@@ -70,7 +68,7 @@ const deliveryMethods = [
     <cta-a
       eyebrow="The difference"
       title="Most contractors wait for plans. We help shape them."
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference2_22f0216245.jpg"
     >
       <template #body>
         <app-typography variant="text-md">

@@ -27,7 +27,7 @@ useSeoMeta({
       <project-card
         :to="service.to"
         :aria-label="service.title"
-        :image="service.image"
+        :image="service.preview"
         :alt="service.title"
         aspect-ratio="3/4"
       >

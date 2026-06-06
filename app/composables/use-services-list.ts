@@ -18,6 +18,7 @@ export async function useServicesList() {
         ...service,
         cta: service.cta,
         link: service.link,
+        preview: service.previewImg?.url,
         slug: String((service as ServiceListItem)?.slug ?? service.param),
         image:
           typeof service.image === "object" && service.image !== null
