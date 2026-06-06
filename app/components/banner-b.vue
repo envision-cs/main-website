@@ -18,7 +18,7 @@ const props = defineProps<{
   featureTo?: string;
   featureCta?: string;
   stats?: BannerStat[];
-  position: string;
+  position?: string;
 }>();
 
 const slots = useSlots();
