@@ -96,7 +96,6 @@ section {
   object-fit: cover;
 
   @media (min-width: 1024px) {
-    max-height: 800px;
   }
 
   img {
