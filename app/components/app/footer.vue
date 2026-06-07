@@ -2,11 +2,11 @@
 const year = new Date().getFullYear();
 
 const navLinks = [
-  { id: 1, to: "/", label: "Home" },
-  { id: 2, to: "/services", label: "Services" },
-  { id: 3, to: "/projects", label: "Projects" },
-  { id: 4, to: "/team", label: "Meet the team" },
-  { id: 5, to: "/about", label: "About Us" },
+  { id: 1, to: '/', label: 'Home' },
+  { id: 2, to: '/services', label: 'Services' },
+  { id: 3, to: '/projects', label: 'Projects' },
+  { id: 4, to: '/team', label: 'Meet the team' },
+  { id: 5, to: '/about', label: 'About Us' },
 ];
 const { services: servicesLinks } = await useServicesList();
 // const servicesLinks = [
@@ -22,7 +22,14 @@ const { services: servicesLinks } = await useServicesList();
   <footer class="relative" aria-label="Site footer">
     <div class="footer-head">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
-        <Icon name="logos:envision" size="30" alt="envision construction logo" />
+        <NuxtImg
+          src="https://ik.imagekit.io/pnixsw7lg/main-website/White_Envision_Logo_c1724c69d3.png?updatedAt=1780533539430"
+          alt="Envision Construction logo"
+          width="160"
+          height="32"
+          class="brand-link__logo"
+          data-test="envision-logo"
+        />
       </NuxtLink>
     </div>
     <section class="site-footer">
@@ -103,14 +110,14 @@ footer {
   margin-inline: auto;
   max-width: 1200px;
   grid-template-areas:
-    "a"
-    "b"
-    "c";
+    'a'
+    'b'
+    'c';
 
   @media (min-width: 768px) {
     grid-template-areas:
-      "a b"
-      "c c";
+      'a b'
+      'c c';
     gap: calc(var(--spacing) * 8);
   }
 }

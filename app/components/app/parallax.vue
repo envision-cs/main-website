@@ -60,7 +60,7 @@ section.hero {
 
   position: absolute;
   bottom: 0%;
-  right: 5%;
+  right: 10%;
   animation: float linear;
   animation-timeline: view(-100px);
 }
@@ -71,11 +71,11 @@ section.hero {
 
 @keyframes parallax {
   from {
-    background-position: center 25%;
+    background-position: 75% 10%;
   }
 
   to {
-    background-position: center 100%;
+    background-position: 75% 100%;
   }
 }
 

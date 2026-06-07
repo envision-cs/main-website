@@ -18,6 +18,7 @@ const props = defineProps<{
   featureTo?: string;
   featureCta?: string;
   stats?: BannerStat[];
+  position?: string;
 }>();
 
 const slots = useSlots();
@@ -28,7 +29,7 @@ const hasMedia = computed(() => Boolean(slots.image || props.image));
 const hasActions = computed(() => Boolean(slots.actions || props.ctaTo));
 const featureImage = computed(() => props.featureImage || props.image);
 const featureTo = computed(() => props.featureTo || props.ctaTo);
-const featureCta = computed(() => props.featureCta || props.cta || "Read more");
+const featureCta = computed(() => props.featureCta || props.cta || 'Read more');
 const hasFeatureCard = computed(() =>
   Boolean(slots.card || (featureImage.value && featureTo.value && featureCta.value)),
 );
@@ -50,13 +51,19 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
     :aria-describedby="hasBody ? 'banner-body' : undefined"
     role="region"
   >
-    <div v-if="hasMedia" class="banner__media">
+    <div
+      v-if="hasMedia"
+      class="banner__media"
+      :style="{
+        '--image-position': position ?? 'center',
+      }"
+    >
       <slot name="image">
         <NuxtImg
           v-if="image"
           :src="image"
           :alt="imageAlt || ''"
-          sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+          sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:2000px"
           fit="cover"
           format="avif"
           preload
@@ -100,7 +107,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
               :to="ctaTo"
               icon="i-lucide-arrow-right"
             >
-              {{ cta || "Start your project" }}
+              {{ cta || 'Start your project' }}
             </my-button>
           </slot>
         </div>
@@ -151,6 +158,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--image-position, center);
 }
 
 .banner__overlay {

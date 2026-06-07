@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useEmblaCarousel from "embla-carousel-vue";
+import useEmblaCarousel from 'embla-carousel-vue';
 interface TestimonialItem {
   quote: string;
   name: string;
@@ -18,12 +18,12 @@ const props = withDefaults(
     eyebrow?: string;
     sectionTitle?: string;
     sectionBody?: string;
-    bgcolor?: "light" | "dark" | "blue";
+    bgcolor?: 'light' | 'dark' | 'blue';
   }>(),
   {
-    eyebrow: "Client Testimonials",
-    sectionTitle: "Our clients who expect discipline, communication, and follow-through.",
-    bgcolor: "dark",
+    eyebrow: 'Client Testimonials',
+    sectionTitle: 'Our clients who expect discipline, communication, and follow-through.',
+    bgcolor: 'dark',
   },
 );
 
@@ -32,8 +32,8 @@ const normalizedTestimonials = computed(() => {
     .filter((testimonial) => testimonial?.quote?.trim())
     .map((testimonial) => ({
       quote: testimonial.quote.trim(),
-      name: testimonial.name?.trim() || "Envision Client",
-      title: testimonial.title?.trim() || "Project Partner",
+      name: testimonial.name?.trim() || 'Envision Client',
+      title: testimonial.title?.trim() || 'Project Partner',
       detail: testimonial.detail?.trim(),
     }));
 });
@@ -42,7 +42,7 @@ const hasTestimonials = computed(() => normalizedTestimonials.value.length > 0);
 const showRailNavigation = computed(() => normalizedTestimonials.value.length > 1);
 
 const [emblaRef, emblaApi] = useEmblaCarousel({
-  align: "center",
+  align: 'center',
   loop: true,
 });
 
@@ -113,12 +113,12 @@ function scrollTo(index: number) {
 }
 
 function handleKeydown(event: KeyboardEvent) {
-  if (event.key === "ArrowLeft") {
+  if (event.key === 'ArrowLeft') {
     event.preventDefault();
     scrollPrevious();
   }
 
-  if (event.key === "ArrowRight") {
+  if (event.key === 'ArrowRight') {
     event.preventDefault();
     scrollNext();
   }
@@ -127,30 +127,30 @@ function handleKeydown(event: KeyboardEvent) {
 watch(
   emblaApi,
   (api, previousApi) => {
-    previousApi?.off("select", syncCarouselState);
-    previousApi?.off("reInit", syncCarouselState);
+    previousApi?.off('select', syncCarouselState);
+    previousApi?.off('reInit', syncCarouselState);
 
     if (!api) return;
 
     syncCarouselState();
     startAutoscroll();
-    api.on("select", syncCarouselState);
-    api.on("reInit", syncCarouselState);
+    api.on('select', syncCarouselState);
+    api.on('reInit', syncCarouselState);
   },
   { immediate: true },
 );
 
 onMounted(() => {
-  reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  reducedMotionQuery.addEventListener("change", startAutoscroll);
+  reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  reducedMotionQuery.addEventListener('change', startAutoscroll);
   startAutoscroll();
 });
 
 onUnmounted(() => {
   stopAutoscroll();
-  reducedMotionQuery?.removeEventListener("change", startAutoscroll);
-  emblaApi.value?.off("select", syncCarouselState);
-  emblaApi.value?.off("reInit", syncCarouselState);
+  reducedMotionQuery?.removeEventListener('change', startAutoscroll);
+  emblaApi.value?.off('select', syncCarouselState);
+  emblaApi.value?.off('reInit', syncCarouselState);
 });
 </script>
 
@@ -248,7 +248,7 @@ onUnmounted(() => {
         {{ eyebrow }}
       </app-typography>
       <app-typography variant="heading-sm" tag="p" class="quote-fallback__quote">
-        {{ quote || "Clients trust Envision to communicate clearly and follow through." }}
+        {{ quote || 'Clients trust Envision to communicate clearly and follow through.' }}
       </app-typography>
       <app-typography v-if="name" variant="text-lg" tag="p" class="quote-fallback__name">
         {{ name }}

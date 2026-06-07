@@ -5,7 +5,7 @@ defineProps<{
   area: string;
   title: string;
   year: string;
-  direction?: "left" | "right";
+  direction?: 'left' | 'right';
 }>();
 
 const { base } = useEasings();

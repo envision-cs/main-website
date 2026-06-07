@@ -4,14 +4,14 @@ export default defineEventHandler(async () => {
   const locationsUrl = `${config.strapi.url}/api/locations?populate=*`;
 
   const [locationsError, locationsResponse] = await catchError(
-    $fetch<APILocation>(locationsUrl, { method: "GET" }),
+    $fetch<APILocation>(locationsUrl, { method: 'GET' }),
   );
 
   if (locationsError || !locationsResponse) {
-    console.error("Error fetching locations for contact page:", locationsError);
+    console.error('Error fetching locations for contact page:', locationsError);
     throw createError({
       statusCode: 502,
-      statusMessage: "Unable to fetch contact locations",
+      statusMessage: 'Unable to fetch contact locations',
     });
   }
 

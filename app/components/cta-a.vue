@@ -8,10 +8,10 @@ withDefaults(
     label?: string;
     title: string;
     eyebrow?: string;
-    bgcolor?: "light" | "dark" | "blue";
+    bgcolor?: 'light' | 'dark' | 'blue';
   }>(),
   {
-    bgcolor: "light",
+    bgcolor: 'light',
   },
 );
 </script>
@@ -39,6 +39,7 @@ withDefaults(
       loading="lazy"
       class="image"
       fit="cover"
+      sizes="100vw sm:450px md:850px lg:1000px xl:2000px"
       placeholder
     />
   </section>
@@ -56,7 +57,7 @@ section {
   background-color: var(--section-bg);
   color: var(--section-color);
   max-height: auto;
-  min-width: 600px;
+  min-height: 600px;
 
   @media (width > 120ch) {
     grid-template-columns: 1fr 1fr;
@@ -75,7 +76,7 @@ section {
   align-content: center;
   direction: ltr;
   gap: calc(var(--spacing) * 4);
-  max-width: 700px;
+  max-height: 700px;
   width: 100%;
   margin: auto;
 }

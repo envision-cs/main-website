@@ -2,7 +2,7 @@
 const route = useRoute();
 
 const { services } = await useServicesList();
-const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? "");
+const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');
 
 const categories = computed(() =>
   services.value
@@ -13,6 +13,7 @@ const categories = computed(() =>
       title: service.title,
       slug: service.slug,
       image: service.image,
+      position: service.imageposition,
       cta: service.cta,
       link: service.link,
     })),
@@ -29,14 +30,15 @@ const activeCategory = computed<{
 }>(() => {
   return (
     categories.value.find((category) => category.slug === currentServiceSlug.value) ?? {
-      headline: "Our team is ready for Whatever you need",
+      headline: "Let's Build",
       description:
-        "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.",
-      title: "Envision Services",
-      cta: "Lets get to work",
-      link: "/contact",
-      slug: "all",
-      image: "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915-2.jpg?updatedAt=1771214685134",
+        'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.',
+      title: 'Envision Services',
+      cta: 'Lets get to work',
+      link: '/contact',
+      slug: 'all',
+      image:
+        'https://ik.imagekit.io/pnixsw7lg/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560',
     }
   );
 });
@@ -46,7 +48,12 @@ const activeCategory = computed<{
   <div>
     <app-header />
     <div class="header">
-      <banner-b :image="activeCategory?.image" :cta="activeCategory.cta" cta-to="/contact">
+      <banner-b
+        :position="activeCategory.position"
+        :image="activeCategory?.image"
+        :cta="activeCategory.cta"
+        cta-to="/contact"
+      >
         <template #eyebrow>
           {{ activeCategory.title }}
         </template>

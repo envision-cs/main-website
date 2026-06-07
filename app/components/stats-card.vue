@@ -6,7 +6,7 @@ withDefaults(
     color?: string;
   }>(),
   {
-    color: "--color-envision-blue-600",
+    color: '--color-envision-blue-600',
   },
 );
 </script>

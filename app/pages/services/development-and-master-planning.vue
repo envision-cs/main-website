@@ -1,4 +1,5 @@
-<script setup lang="ts">definePageMeta({
+<script setup lang="ts">
+definePageMeta({
   layout: 'layout-a',
 });
 </script>

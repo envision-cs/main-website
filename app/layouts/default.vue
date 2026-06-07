@@ -11,7 +11,7 @@ const mainStyle = computed(() => {
 
   const w = width.value ?? 400;
   return {
-    "--vw": `${w * 0.15}px`,
+    '--vw': `${w * 0.15}px`,
   };
 });
 </script>
@@ -34,7 +34,7 @@ const mainStyle = computed(() => {
 }
 
 .divider::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 50%;

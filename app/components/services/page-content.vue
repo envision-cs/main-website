@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Service } from '~~/shared/types/content-types';
+<script setup lang="ts">
+import type { Service } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
@@ -13,14 +14,27 @@ const { data: serviceData } = await useAsyncData(
 );
 
 const content = computedAsync(async () => {
-  if (!serviceData.value?.description)
-    return null;
+  if (!serviceData.value?.description) return null;
   return parseMarkdown(serviceData.value.description);
 }, null);
+
+const seoImage = computed(() => {
+  const image = serviceData.value?.image;
+  if (typeof image === 'object' && image !== null) return image.url;
+  return typeof image === 'string' ? image : undefined;
+});
 
 useSeoMeta(() => ({
   title: serviceData.value?.title || 'Service',
   description: serviceData.value?.description || 'Service Description',
+  ogTitle: serviceData.value?.title || 'Service',
+  ogDescription: serviceData.value?.description || 'Service Description',
+  ogImage: seoImage.value,
+  ogType: 'website',
+  twitterCard: seoImage.value ? 'summary_large_image' : 'summary',
+  twitterTitle: serviceData.value?.title || 'Service',
+  twitterDescription: serviceData.value?.description || 'Service Description',
+  twitterImage: seoImage.value,
 }));
 </script>
 

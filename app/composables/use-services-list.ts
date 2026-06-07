@@ -1,4 +1,4 @@
-import type { Service } from "~~/shared/types/content-types";
+import type { Service } from '~~/shared/types/content-types';
 
 export type ServiceListItem = Service & {
   slug: string;
@@ -7,7 +7,7 @@ export type ServiceListItem = Service & {
 };
 
 export async function useServicesList() {
-  const { data } = await useAsyncData("services-list", () => $fetch<Service[]>("/api/services"), {
+  const { data } = await useAsyncData('services-list', () => $fetch<Service[]>('/api/services'), {
     default: () => [],
   });
 
@@ -18,9 +18,10 @@ export async function useServicesList() {
         ...service,
         cta: service.cta,
         link: service.link,
+        preview: service.previewImg?.url,
         slug: String((service as ServiceListItem)?.slug ?? service.param),
         image:
-          typeof service.image === "object" && service.image !== null
+          typeof service.image === 'object' && service.image !== null
             ? service.image.url
             : undefined,
         to: `/services/${String((service as ServiceListItem).slug ?? service.param)}`,

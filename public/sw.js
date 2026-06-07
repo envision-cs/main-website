@@ -1,7 +1,7 @@
-globalThis.addEventListener("install", () => {
+globalThis.addEventListener('install', () => {
   globalThis.skipWaiting();
 });
 
-globalThis.addEventListener("activate", (event) => {
+globalThis.addEventListener('activate', (event) => {
   event.waitUntil(globalThis.clients.claim());
 });

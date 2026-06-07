@@ -3,7 +3,7 @@ title: TPA Airside F Reroof & Envelope Repair
 slug: tpa-airside-f-refoof-and-envelope-repair
 completed:
 location: Tampa, FL
-area: ""
+area: ''
 sector: Aviation
 sectorSlug: aviation
 main_image: /tpa_airside_f_reroof-01.jpg

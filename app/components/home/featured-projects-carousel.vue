@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Project } from "~~/shared/types/content-types";
+import type { Project } from '~~/shared/types/content-types';
 
 const AUTOSCROLL_INTERVAL_MS = 8000;
 
@@ -16,12 +16,12 @@ interface FeaturedProjectSlide {
 const { formatMonthYear } = useFormatDate();
 
 const { data: projects } = await useAsyncData<Project[]>(
-  "hero-featured-projects-carousel",
+  'hero-featured-projects-carousel',
   async () => {
     try {
-      return await $fetch<Project[]>("/api/projects");
+      return await $fetch<Project[]>('/api/projects');
     } catch (error) {
-      console.error("Failed to fetch hero featured projects:", error);
+      console.error('Failed to fetch hero featured projects:', error);
       return [];
     }
   },
@@ -32,26 +32,38 @@ const { data: projects } = await useAsyncData<Project[]>(
 
 const slides = computed<FeaturedProjectSlide[]>(() => {
   return [...(projects.value ?? [])]
-    .filter((project) => project.slug && project.sector?.slug && project.mainImage?.url)
     .sort((left, right) => {
       const rightTime = right.completed ? new Date(right.completed).getTime() : 0;
       const leftTime = left.completed ? new Date(left.completed).getTime() : 0;
 
       return rightTime - leftTime;
     })
-    .slice(0, 5)
-    .map((project) => ({
-      id: project.id,
-      title: project.title,
-      href: `/projects/${project.sector.slug}/${project.slug}`,
-      image: project.mainImage.url,
-      sector: project.sector.name,
-      completedLabel: project.completed ? formatMonthYear(project.completed) : "Current project",
-      linkLabel: `Read more about ${project.title}`,
-    }));
+    .flatMap((project) => {
+      const primarySector = getPrimaryProjectSector(project);
+      const image = project.mainImage?.url;
+
+      if (!project.slug || !primarySector || !image) {
+        return [];
+      }
+
+      return [
+        {
+          id: project.id,
+          title: project.title,
+          href: `/projects/${primarySector.slug}/${project.slug}`,
+          image,
+          sector: formatProjectSectorLabel(project) || primarySector.name,
+          completedLabel: project.completed
+            ? formatMonthYear(project.completed)
+            : 'Current project',
+          linkLabel: `Read more about ${project.title}`,
+        },
+      ];
+    })
+    .slice(0, 5);
 });
 
-const carouselRef = useTemplateRef<HTMLElement | null>("carouselRef");
+const carouselRef = useTemplateRef<HTMLElement | null>('carouselRef');
 
 const activeIndex = ref(0);
 const isUserPaused = ref(false);
@@ -65,11 +77,11 @@ const slideCount = computed(() => slides.value.length);
 const activeSlide = computed(() => slides.value[activeIndex.value] ?? null);
 
 const liveRegionMode = computed(() =>
-  isUserPaused.value || prefersReducedMotion.value ? "polite" : "off",
+  isUserPaused.value || prefersReducedMotion.value ? 'polite' : 'off',
 );
 
-const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, "0"));
-const formattedCount = computed(() => String(slideCount.value).padStart(2, "0"));
+const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, '0'));
+const formattedCount = computed(() => String(slideCount.value).padStart(2, '0'));
 const canAutoplay = computed(() => {
   return (
     slideCount.value > 1 &&
@@ -203,19 +215,19 @@ watch(slideCount, (count) => {
 });
 
 onMounted(() => {
-  motionMediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  motionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   updateReducedMotionPreference();
 
-  motionMediaQuery.addEventListener("change", updateReducedMotionPreference);
-  document.addEventListener("visibilitychange", onDocumentVisibilityChange);
+  motionMediaQuery.addEventListener('change', updateReducedMotionPreference);
+  document.addEventListener('visibilitychange', onDocumentVisibilityChange);
 
   startAutoplayInterval();
 });
 
 onUnmounted(() => {
   stopAutoplayInterval();
-  motionMediaQuery?.removeEventListener("change", updateReducedMotionPreference);
-  document.removeEventListener("visibilitychange", onDocumentVisibilityChange);
+  motionMediaQuery?.removeEventListener('change', updateReducedMotionPreference);
+  document.removeEventListener('visibilitychange', onDocumentVisibilityChange);
 });
 </script>
 
@@ -390,7 +402,7 @@ onUnmounted(() => {
 }
 
 .featured-projects__media::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
 }
@@ -613,7 +625,7 @@ onUnmounted(() => {
 }
 
 .featured-projects__meta::before {
-  content: "";
+  content: '';
   width: 0.45rem;
   height: 0.45rem;
   margin-top: 0.12rem;

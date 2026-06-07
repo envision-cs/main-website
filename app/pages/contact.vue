@@ -1,5 +1,21 @@
 <script setup lang="ts">
-const { data: contactData, error } = await useFetch("/api/contact");
+const { data: contactData, error } = await useFetch('/api/contact');
+
+useSeoMeta({
+  title: 'Contact Envision | Tampa Bay & Central Florida Construction',
+  description:
+    'Connect with the Envision team to start a project, ask a question, or find the right construction partner across Greater Tampa Bay and Central Florida. Email pursuits@envision-cs.com.',
+  ogTitle: 'Contact Envision | Tampa Bay & Central Florida Construction',
+  ogDescription:
+    'Speak with our team. Start a project, ask a question, or find the right construction partner across Tampa Bay and Central Florida.',
+  ogImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/contact-image',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Contact Envision | Tampa Bay & Central Florida Construction',
+  twitterDescription:
+    'Speak with our team. Start a project, ask a question, or find the right construction partner across Tampa Bay and Central Florida.',
+  twitterImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/contact-image',
+});
 </script>
 
 <template>
@@ -13,7 +29,7 @@ const { data: contactData, error } = await useFetch("/api/contact");
       </banner-b>
 
       <!-- Team header -->
-      <section-e v-if="contactData.team.length && !error" bgcolor="dark" no-padding>
+      <section-e v-if="contactData?.team.length && !error" bgcolor="dark" no-padding>
         <template #header>
           <div class="section-head">
             <div class="team-role">
@@ -28,7 +44,21 @@ const { data: contactData, error } = await useFetch("/api/contact");
                 We're ready to connect, whether you're starting a project, asking a question, or
                 looking for the right construction partner.
               </app-typography>
-              <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
+              <div>
+                <app-typography tag="p" variant="text-md" class="section-copy">
+                  Email
+                </app-typography>
+                <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
+              </div>
+              <div>
+                <app-typography tag="p" variant="text-md" class="section-copy">
+                  Phone
+                </app-typography>
+                <a href="tel:813-997-0330">813-997-0330</a>
+              </div>
+              <app-typography tag="p" variant="text-md" class="section-copy">
+                For pursuits, select Option 4 or dial Ext. 103.
+              </app-typography>
             </div>
           </div>
         </template>
@@ -39,7 +69,7 @@ const { data: contactData, error } = await useFetch("/api/contact");
               <project-card
                 :to="`/team/${member.slug}`"
                 :aria-label="member.name"
-                :image="member.photo?.url"
+                :image="member.photo?.url ?? ''"
                 :alt="member.name"
                 link-mode="overlay"
                 aspect-ratio="3/4"
@@ -83,7 +113,7 @@ const { data: contactData, error } = await useFetch("/api/contact");
 
           <div class="location-wrapper">
             <app-location-card
-              v-for="location in contactData.locations"
+              v-for="location in contactData?.locations"
               :key="location.id"
               :title="location.name"
               :address="location?.address"
@@ -96,7 +126,7 @@ const { data: contactData, error } = await useFetch("/api/contact");
 
         <template #body>
           <Client-only>
-            <app-location-map class="min-h-[500px]" />
+            <app-location-map class="min-h-125" />
           </Client-only>
         </template>
       </section-e>

@@ -1,7 +1,7 @@
 ---
 title: Revealing Truth Ministries
 description: The Revealing Truth Ministries Interior Upgrades project transformed the 30,000 SF worship center into a state-of-the-art facility. Visitors are met with a beautiful foyer upon entry, where existing circular columns were framed with drywall as a cost-effective yet modern upgrade.
-completed: "2025"
+completed: '2025'
 gallery:
   - /revealing-truth-ministries-01.jpg
   - /revealing-truth-ministries-02.jpg

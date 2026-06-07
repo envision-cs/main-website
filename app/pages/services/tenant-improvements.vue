@@ -1,88 +1,100 @@
 <!-- eslint-disable @stylistic/quotes, @stylistic/no-multiple-empty-lines -->
 <script setup lang="ts">
-definePageMeta({ layout: "layout-a" });
+definePageMeta({ layout: 'layout-a' });
 useSeoMeta({
-  title: "Tenant Improvements | Envision",
+  title: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
   description:
-    "Tenant improvement construction for active offices, healthcare facilities, faith-based spaces, education facilities, hospitality, and retail environments.",
+    'Tenant improvement construction for active offices, healthcare facilities, faith-based spaces, education facilities, hospitality, and retail environments. Phased sequencing, dust containment, and after-hours work that keeps you operating.',
+  ogTitle: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
+  ogDescription:
+    'Built around your operations. Phased sequencing, negative-air containment, and after-hours work for occupied offices, healthcare, and more.',
+  ogImage:
+    'https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
+  twitterDescription:
+    'Built around your operations. Phased sequencing, negative-air containment, and after-hours work for occupied offices, healthcare, and more.',
+  twitterImage:
+    'https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827',
 });
 
 const operations = [
   {
     id: 1,
-    title: "Phased construction sequencing",
+    title: 'Phased construction sequencing',
     description:
-      "Work is planned around your schedule — not ours. We sequence around your peak hours, events, and operational needs from day one.",
+      'Work is planned around your schedule—not ours. We sequence around your peak hours, events, and operational needs from day one.',
   },
   {
     id: 2,
-    title: "Negative air and dust containment",
+    title: 'Negative air and dust containment',
     description:
-      "In sensitive environments — healthcare, hospitality, occupied offices — we implement full dust barriers and negative air pressure where required.",
+      'In sensitive environments like healthcare, hospitality, occupied offices, we implement full dust barriers and negative air pressure where required.',
   },
   {
     id: 3,
-    title: "After-hours and weekend work",
+    title: 'After-hours and weekend work',
     description:
       "When operations can't pause, we work around them. After-hours and weekend scheduling is standard practice, not an exception.",
   },
   {
     id: 4,
-    title: "Daily communication",
+    title: 'Daily communication',
     description:
-      "Every day you know exactly what's happening — access points, noise windows, site conditions, and what to expect the next day. No surprises.",
+      "Every day you know exactly what's happening: access points, noise windows, site conditions, and what to expect the next day. No surprises.",
   },
 ];
 
 const tenantSectors = [
   {
     id: 1,
-    label: "Corporate offices",
-    icon: "i-lucide-briefcase-business",
+    label: 'Corporate offices',
+    icon: 'i-lucide-briefcase-business',
   },
   {
     id: 2,
-    label: "Healthcare facilities",
-    icon: "i-lucide-activity",
+    label: 'Healthcare facilities',
+    icon: 'i-lucide-activity',
   },
   {
     id: 3,
-    label: "Faith-based spaces",
-    icon: "i-lucide-church",
+    label: 'Faith-based spaces',
+    icon: 'i-lucide-church',
   },
   {
     id: 4,
-    label: "Educational facilities",
-    icon: "i-lucide-shield-check",
+    label: 'Educational facilities',
+    icon: 'i-lucide-shield-check',
   },
   {
     id: 5,
-    label: "Hospitality and retail",
-    icon: "i-lucide-heart",
+    label: 'Hospitality and retail',
+    icon: 'i-lucide-heart',
   },
 ];
 
 const scopes = [
-  { id: 1, label: "Corporate office build-outs and interior renovations" },
-  { id: 2, label: "Healthcare facility renovations" },
-  { id: 3, label: "Educational facility upgrades" },
-  { id: 4, label: "Faith-based interior renovations" },
-  { id: 5, label: "Hospitality and retail fit-outs" },
-  { id: 6, label: "Shell-to-finish build-outs" },
+  { id: 1, label: 'Corporate office build-outs and interior renovations' },
+  { id: 2, label: 'Healthcare facility renovations' },
+  { id: 3, label: 'Educational facility upgrades' },
+  { id: 4, label: 'Faith-based interior renovations' },
+  { id: 5, label: 'Hospitality and retail fit-outs' },
+  { id: 6, label: 'Shell-to-finish build-outs' },
 ];
 
 const projectHighlights = [
-  { id: 1, label: "17,000 SF active office renovation — staff never stopped working" },
-  { id: 2, label: "Hard barriers and air quality controls maintained throughout construction" },
+  { id: 1, label: '17,000 SF active office renovation—staff never stopped working' },
+  { id: 2, label: 'Hard barriers and air quality controls maintained throughout construction' },
   {
     id: 3,
-    label: "Budget constraints navigated through product substitution and design collaboration",
+    label: 'Budget constraints navigated through product substitution and design collaboration',
   },
-  { id: 4, label: "Delivered within the client's fixed budget — no scope reduction" },
+  { id: 4, label: "Delivered within the client's fixed budget without scope reduction" },
   {
     id: 5,
     label:
-      "Modernized layout and finishes that the client was excited to share with their team and clients",
+      'Modernized layout and finishes that the client was excited to share with their team and clients',
   },
 ];
 </script>
@@ -93,7 +105,7 @@ const projectHighlights = [
       eyebrow="Built Around You"
       title="Not every contractor can work in a live environment. We've been doing it for over a decade."
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827"
     >
       <template #body>
         <app-typography>
@@ -101,7 +113,7 @@ const projectHighlights = [
           operating healthcare facilities, and live hospitality environments. We understand the
           nuances of working in your space while you are still using it.
         </app-typography>
-        <app-typography>
+        <app-typography class="mt-6">
           The standard is not just completing the scope. It is protecting your people, your guests,
           and your operations throughout every phase of construction while delivering the space you
           envisioned.
@@ -115,7 +127,7 @@ const projectHighlights = [
       title="How we keep your world running while we build."
       body=""
     >
-      <template #body> Every TI scope is planned around your schedule — not ours. </template>
+      <template #body> Every TI scope is planned around your schedule, not ours. </template>
       <list-a :items="operations" />
     </section-a>
 
@@ -134,7 +146,7 @@ const projectHighlights = [
       eyebrow="Typical Scopes"
       title="What we deliver."
       body=""
-      image="/florida-aquarium-restroom-renovation-03.jpg"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/TI_Typical_Scopes_efcd77ecc1.jpg?updatedAt=1780449594590"
       bgcolor="dark"
     >
       <template #body>
@@ -145,7 +157,7 @@ const projectHighlights = [
     <cta-a
       flip="true"
       eyebrow="Featured Project"
-      title="Greater Tampa Realtors: 17,000 SF Interior Office Renovation"
+      title="Greater Tampa Realtors: Interior Office Renovation"
       body=""
       image="https://ik.imagekit.io/pnixsw7lg/main-website/2024-04-09%20(1).jpg"
       bgcolor="light"

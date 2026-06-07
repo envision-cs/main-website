@@ -2,12 +2,12 @@
 withDefaults(
   defineProps<{
     to: string;
-    size?: "sm" | "md" | "lg";
-    variant?: "primary" | "secondary";
+    size?: 'sm' | 'md' | 'lg';
+    variant?: 'primary' | 'secondary';
   }>(),
   {
-    size: "md",
-    variant: "primary",
+    size: 'md',
+    variant: 'primary',
   },
 );
 </script>
