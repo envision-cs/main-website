@@ -171,7 +171,7 @@ definePageMeta({
       </template>
     </cta-a>
     <cta-a
-      flip="true"
+      :flip="true"
       eyebrow="Featured Project"
       title="Moffitt Cancer Center: Multiple Facility Maintenance Projects"
       body=""
