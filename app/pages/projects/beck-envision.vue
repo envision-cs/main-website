@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Project } from "~~/shared/types/content-types";
+import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
-  id: Project["id"];
+  id: Project['id'];
   image: string;
   title: string;
   to: string;
@@ -15,16 +15,16 @@ const { formatMonthYear } = useFormatDate();
 const { sectors: categories } = await useSectors();
 const navCategories = computed(() => [
   ...categories.value,
-  { name: "Beck/Envision", slug: "beck-envision" },
+  { name: 'Beck/Envision', slug: 'beck-envision' },
 ]);
 
 const { data } = await useAsyncData<Project[]>(
-  "beck-envision-page-data",
+  'beck-envision-page-data',
   async () => {
     try {
-      return await $fetch<Project[]>("/api/projects");
+      return await $fetch<Project[]>('/api/projects');
     } catch (err) {
-      console.error("Strapi error:", err);
+      console.error('Strapi error:', err);
       return [];
     }
   },
@@ -53,27 +53,27 @@ const projectCards = computed<ProjectCardItem[]>(() =>
     ];
   }),
 );
-const bannerImage = computed(() => "projects-all.jpg");
-const bannerBody = computed(() => "");
+const bannerImage = computed(() => 'projects-all.jpg');
+const bannerBody = computed(() => '');
 
 definePageMeta({
-  layout: "none",
+  layout: 'none',
 });
 
 useSeoMeta({
-  title: "Beck/Envision Partnership | Joint-Venture Construction Projects",
+  title: 'Beck/Envision Partnership | Joint-Venture Construction Projects',
   description:
-    "The Beck/Envision partnership brings together two trusted builders to deliver complex, high-value construction across Tampa Bay and Central Florida, combining deep resources with local accountability.",
-  ogTitle: "Beck/Envision Partnership | Joint-Venture Construction Projects",
+    'The Beck/Envision partnership brings together two trusted builders to deliver complex, high-value construction across Tampa Bay and Central Florida, combining deep resources with local accountability.',
+  ogTitle: 'Beck/Envision Partnership | Joint-Venture Construction Projects',
   ogDescription:
-    "Two builders, one standard. Explore the projects delivered through the Beck/Envision joint venture, where combined expertise meets local commitment.",
-  ogImage: "/projects-all.jpg",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Beck/Envision Partnership | Joint-Venture Construction Projects",
+    'Two builders, one standard. Explore the projects delivered through the Beck/Envision joint venture, where combined expertise meets local commitment.',
+  ogImage: '/projects-all.jpg',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Beck/Envision Partnership | Joint-Venture Construction Projects',
   twitterDescription:
-    "Two builders, one standard. Explore the projects delivered through the Beck/Envision joint venture, where combined expertise meets local commitment.",
-  twitterImage: "/projects-all.jpg",
+    'Two builders, one standard. Explore the projects delivered through the Beck/Envision joint venture, where combined expertise meets local commitment.',
+  twitterImage: '/projects-all.jpg',
 });
 </script>
 

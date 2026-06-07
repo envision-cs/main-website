@@ -1,82 +1,82 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "layout-a",
+  layout: 'layout-a',
 });
 
 useSeoMeta({
-  title: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+  title: 'Enhanced Preconstruction | Envision Tampa Bay & Central Florida',
   description:
-    "Standalone preconstruction from Envision: open-book estimating, Target Value Design, 500+ qualified trade partners, and early risk identification. One hour of planning saves ten hours during construction.",
-  ogTitle: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+    'Standalone preconstruction from Envision: open-book estimating, Target Value Design, 500+ qualified trade partners, and early risk identification. One hour of planning saves ten hours during construction.',
+  ogTitle: 'Enhanced Preconstruction | Envision Tampa Bay & Central Florida',
   ogDescription:
-    "A lower price does not always cost less. Validate budget, align scope, and identify risks before you commit to construction.",
+    'A lower price does not always cost less. Validate budget, align scope, and identify risks before you commit to construction.',
   ogImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Enhanced Preconstruction | Envision Tampa Bay & Central Florida",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Enhanced Preconstruction | Envision Tampa Bay & Central Florida',
   twitterDescription:
-    "A lower price does not always cost less. Validate budget, align scope, and identify risks before you commit to construction.",
+    'A lower price does not always cost less. Validate budget, align scope, and identify risks before you commit to construction.',
   twitterImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043',
 });
 
 const stats = [
-  { id: 1, label: "500+", description: "Qualified Trade Partners" },
+  { id: 1, label: '500+', description: 'Qualified Trade Partners' },
   {
     id: 2,
-    label: "100% Transparency",
-    description: "Open-book estimating that keeps owners informed and in control.",
+    label: '100% Transparency',
+    description: 'Open-book estimating that keeps owners informed and in control.',
   },
 ];
 
 const capabilities = [
-  { id: 1, label: "Model-based and real-time estimating" },
-  { id: 2, label: "3D quantity surveying and trending analysis" },
-  { id: 3, label: "Target Value Design workshops" },
-  { id: 4, label: "Revit, 3D coordination, and laser scanning" },
-  { id: 5, label: "Pull planning and Lean scheduling (P6 Primavera)" },
-  { id: 6, label: "Constructability review" },
-  { id: 7, label: "Supply chain and long-lead item monitoring" },
-  { id: 8, label: "Targeted trade partner bidding — 5 to 8 qualified firms per scope" },
-  { id: 9, label: "Weekly bid participation reports for full client visibility" },
-  { id: 10, label: "Feasibility analysis and early budget development" },
-  { id: 11, label: "Risk identification and mitigation planning" },
-  { id: 12, label: "Diverse and local trade partner engagement" },
+  { id: 1, label: 'Model-based and real-time estimating' },
+  { id: 2, label: '3D quantity surveying and trending analysis' },
+  { id: 3, label: 'Target Value Design workshops' },
+  { id: 4, label: 'Revit, 3D coordination, and laser scanning' },
+  { id: 5, label: 'Pull planning and Lean scheduling (P6 Primavera)' },
+  { id: 6, label: 'Constructability review' },
+  { id: 7, label: 'Supply chain and long-lead item monitoring' },
+  { id: 8, label: 'Targeted trade partner bidding — 5 to 8 qualified firms per scope' },
+  { id: 9, label: 'Weekly bid participation reports for full client visibility' },
+  { id: 10, label: 'Feasibility analysis and early budget development' },
+  { id: 11, label: 'Risk identification and mitigation planning' },
+  { id: 12, label: 'Diverse and local trade partner engagement' },
 ];
 
 const protections = [
   {
     id: 1,
-    label: "Your budget",
+    label: 'Your budget',
     description:
-      "We design to a budget - not the other way around. Real-time estimating and Target Value Design identify cost pressures early so adjustments can be made before they become expensive surprises.",
+      'We design to a budget - not the other way around. Real-time estimating and Target Value Design identify cost pressures early so adjustments can be made before they become expensive surprises.',
   },
   {
     id: 2,
-    label: "Your schedule",
+    label: 'Your schedule',
     description:
-      "Pull planning, procurement strategy, and long-lead item identification help protect milestones before they are at risk.",
+      'Pull planning, procurement strategy, and long-lead item identification help protect milestones before they are at risk.',
   },
   {
     id: 3,
-    label: "Your design",
+    label: 'Your design',
     description:
-      "Constructability reviews, coordination, and risk analysis reduce redesign, field conflicts, and costly scope gaps before construction begins.",
+      'Constructability reviews, coordination, and risk analysis reduce redesign, field conflicts, and costly scope gaps before construction begins.',
   },
   {
     id: 4,
-    label: "Your Outcome",
+    label: 'Your Outcome',
     description:
-      "Strategic trade engagement, procurement planning, and proactive decision-making create alignment across the project team before execution starts.",
+      'Strategic trade engagement, procurement planning, and proactive decision-making create alignment across the project team before execution starts.',
   },
 ];
 const projectHighlights = [
-  { id: 1, label: "Final construction cost: $3,230,866 against an initial estimate of $3,440,228" },
-  { id: 2, label: "$209,362 returned to the owner—without reducing a single line of scope" },
-  { id: 3, label: "Early material flagging prevented delays during construction" },
-  { id: 4, label: "Trade partners engaged at every design phase for real-time cost input" },
-  { id: 5, label: "Delivered on schedule within an active school zone" },
+  { id: 1, label: 'Final construction cost: $3,230,866 against an initial estimate of $3,440,228' },
+  { id: 2, label: '$209,362 returned to the owner—without reducing a single line of scope' },
+  { id: 3, label: 'Early material flagging prevented delays during construction' },
+  { id: 4, label: 'Trade partners engaged at every design phase for real-time cost input' },
+  { id: 5, label: 'Delivered on schedule within an active school zone' },
 ];
 </script>
 

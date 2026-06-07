@@ -5,7 +5,7 @@ const props = defineProps<{
   small?: boolean;
 }>();
 
-const varient = computed(() => (props.small ? "text-sm" : "text-lg"));
+const varient = computed(() => (props.small ? 'text-sm' : 'text-lg'));
 </script>
 <template>
   <div class="card" :class="{ small: small }">

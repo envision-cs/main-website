@@ -1,22 +1,22 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: "Meet the Team | Envision Construction Services",
+  title: 'Meet the Team | Envision Construction Services',
   description:
-    "Meet the Envision team and learn how each group collaborates to deliver organized, high-quality construction work across Tampa Bay and Central Florida.",
-  ogTitle: "Meet the Team | Envision Construction Services",
+    'Meet the Envision team and learn how each group collaborates to deliver organized, high-quality construction work across Tampa Bay and Central Florida.',
+  ogTitle: 'Meet the Team | Envision Construction Services',
   ogDescription:
     "Six teams, one mission. See how Envision's people collaborate to deliver high-quality projects on time and within budget.",
-  ogImage: "https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Meet the Team | Envision Construction Services",
+  ogImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Meet the Team | Envision Construction Services',
   twitterDescription:
     "Six teams, one mission. See how Envision's people collaborate to deliver high-quality projects on time and within budget.",
-  twitterImage: "https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg",
+  twitterImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg',
 });
 
-const { data } = useFetch("/api/team", {
-  key: "team",
+const { data } = useFetch('/api/team', {
+  key: 'team',
 });
 </script>
 

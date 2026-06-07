@@ -1,106 +1,106 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "layout-a",
+  layout: 'layout-a',
 });
 
 useSeoMeta({
-  title: "Construction Management | Envision Tampa Bay & Central Florida",
+  title: 'Construction Management | Envision Tampa Bay & Central Florida',
   description:
     "Envision's construction management delivers certainty: Target Value Design, real-time cost control, proactive scheduling, and full Procore transparency. 200+ projects on time and on budget, 90% repeat clients.",
-  ogTitle: "Construction Management | Envision Tampa Bay & Central Florida",
+  ogTitle: 'Construction Management | Envision Tampa Bay & Central Florida',
   ogDescription:
     "Owners don't just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.",
   ogImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Construction Management | Envision Tampa Bay & Central Florida",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Construction Management | Envision Tampa Bay & Central Florida',
   twitterDescription:
     "Owners don't just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.",
   twitterImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428',
 });
 
 const benefits = [
   {
     id: 1,
-    label: "Certainty early",
+    label: 'Certainty early',
     description:
-      "Decisions, budget confidence, and schedule realism before a single shovel breaks ground.",
+      'Decisions, budget confidence, and schedule realism before a single shovel breaks ground.',
   },
   {
     id: 2,
-    label: "Risk reduction",
+    label: 'Risk reduction',
     description:
-      "Early risk detection in preconstruction while options are still open. Fewer surprises, fewer forced trade-offs.",
+      'Early risk detection in preconstruction while options are still open. Fewer surprises, fewer forced trade-offs.',
   },
   {
     id: 3,
-    label: "Predictable experience",
+    label: 'Predictable experience',
     description:
-      "Clear communication. Consistent follow-through. A team that owns the outcome and never leaves you guessing.",
+      'Clear communication. Consistent follow-through. A team that owns the outcome and never leaves you guessing.',
   },
   {
     id: 4,
-    label: "Value before construction",
+    label: 'Value before construction',
     description:
-      "Preconstruction as stewardship, not overhead—protecting every dollar that follows",
+      'Preconstruction as stewardship, not overhead—protecting every dollar that follows',
   },
 ];
 
 const phases = [
   {
     id: 1,
-    label: "Listen",
+    label: 'Listen',
     items: [
-      "Project discovery and kickoff",
-      "Budget and timeline goals",
-      "Site and feasibility review",
-      "Honoring your vision from day one",
+      'Project discovery and kickoff',
+      'Budget and timeline goals',
+      'Site and feasibility review',
+      'Honoring your vision from day one',
     ],
   },
   {
     id: 2,
-    label: "Plan",
+    label: 'Plan',
     items: [
-      "Budget-aligned design and estimating",
-      "Early trade input and constructability",
-      "Real-time scheduling and risk prevention",
-      "Decision-making support",
+      'Budget-aligned design and estimating',
+      'Early trade input and constructability',
+      'Real-time scheduling and risk prevention',
+      'Decision-making support',
     ],
   },
   {
     id: 3,
-    label: "Execute",
+    label: 'Execute',
     items: [
-      "Clear and documented weekly updates",
-      "Full jobsite visibility via Procore",
-      "Community engagement every project",
-      "Clean, documented closeout",
+      'Clear and documented weekly updates',
+      'Full jobsite visibility via Procore',
+      'Community engagement every project',
+      'Clean, documented closeout',
     ],
   },
   {
     id: 4,
-    label: "Cultivate",
+    label: 'Cultivate',
     items: [
-      "12-month legacy lap post-closeout",
-      "30-60-90 day check-ins",
-      "One-year walkthrough",
+      '12-month legacy lap post-closeout',
+      '30-60-90 day check-ins',
+      'One-year walkthrough',
       "Planning what's next together",
     ],
   },
 ];
 
 const projectHighlights = [
-  { id: 1, label: "5,000-seat professional stadium delivered within an active school zone" },
+  { id: 1, label: '5,000-seat professional stadium delivered within an active school zone' },
   {
     id: 2,
-    label: "Construction sequenced around student schedules, safety protocols, and city operations",
+    label: 'Construction sequenced around student schedules, safety protocols, and city operations',
   },
-  { id: 3, label: "Weekend shifts and extended hours implemented strategically, not reactively" },
+  { id: 3, label: 'Weekend shifts and extended hours implemented strategically, not reactively' },
   {
     id: 4,
-    label: "Scopes resequenced in real time to maintain progress without compromising quality",
+    label: 'Scopes resequenced in real time to maintain progress without compromising quality',
   },
   { id: 5, label: "Delivered on schedule—Tampa Bay Sun FC's inaugural season started on time" },
 ];
@@ -108,34 +108,34 @@ const projectHighlights = [
 const commitments = [
   {
     id: 1,
-    label: "Your budget",
+    label: 'Your budget',
     description:
-      "Target Value Design and real-time cost control keep your financials visible and decisions informed from day one.",
+      'Target Value Design and real-time cost control keep your financials visible and decisions informed from day one.',
   },
   {
     id: 2,
-    label: "Your schedule",
+    label: 'Your schedule',
     description:
       "Proactive sequencing, long-lead identification, and early trade coordination protect your move-in date before it's at risk.",
   },
   {
     id: 3,
-    label: "Your stakeholders",
+    label: 'Your stakeholders',
     description:
-      "Weekly updates and full Procore access mean everyone stays aligned—without you playing middleman.",
+      'Weekly updates and full Procore access mean everyone stays aligned—without you playing middleman.',
   },
   {
     id: 4,
-    label: "Your outcome",
+    label: 'Your outcome',
     description:
-      "Every project is backed by our Total Transparency guarantee: clear communication and consistent follow-through from kickoff to closeout.",
+      'Every project is backed by our Total Transparency guarantee: clear communication and consistent follow-through from kickoff to closeout.',
   },
 ];
 
 const stats = [
-  { id: 1, label: "90%", description: "Repeat client rate earned one project at a time" },
-  { id: 2, label: "200+", description: "Projects Delivered. On Time & On Budget." },
-  { id: 3, label: "16 yrs", description: "Building Greater Tampa Bay" },
+  { id: 1, label: '90%', description: 'Repeat client rate earned one project at a time' },
+  { id: 2, label: '200+', description: 'Projects Delivered. On Time & On Budget.' },
+  { id: 3, label: '16 yrs', description: 'Building Greater Tampa Bay' },
 ];
 </script>
 

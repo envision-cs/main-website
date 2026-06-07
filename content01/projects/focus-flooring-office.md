@@ -3,7 +3,7 @@ title: Focus Flooring Office
 slug: focus-flooring-office
 completed:
 location: Tampa, FL
-area: ""
+area: ''
 sector: Business/Corporate
 sectorSlug: business_corporate
 main_image: /focus-flooring-office-01.jpg

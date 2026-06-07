@@ -3,20 +3,20 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(
   defineProps<{
     to?: string;
-    type?: "button" | "submit" | "reset";
-    variant?: "primary" | "secondary" | "outline";
-    size?: "sm" | "md" | "lg";
+    type?: 'button' | 'submit' | 'reset';
+    variant?: 'primary' | 'secondary' | 'outline';
+    size?: 'sm' | 'md' | 'lg';
     disabled?: boolean;
     loading?: boolean;
     iconOnly?: boolean;
-    target?: "_self" | "_blank";
+    target?: '_self' | '_blank';
     rel?: string;
   }>(),
   {
-    type: "button",
-    variant: "primary",
-    size: "md",
-    target: "_self",
+    type: 'button',
+    variant: 'primary',
+    size: 'md',
+    target: '_self',
     disabled: false,
     loading: false,
     iconOnly: false,
@@ -28,12 +28,12 @@ const attrs = useAttrs();
 const { componentProps, isDisabled, hasIcon, hasLabel, isIconOnly } = useButton(props);
 
 const classes = computed(() => [
-  "btn",
+  'btn',
   `btn--${props.size}`,
   {
-    "is-disabled": isDisabled.value,
-    "is-loading": props.loading,
-    "btn--icon-only": isIconOnly.value,
+    'is-disabled': isDisabled.value,
+    'is-loading': props.loading,
+    'btn--icon-only': isIconOnly.value,
   },
 ]);
 
@@ -113,7 +113,7 @@ const isTrackableCta = computed(() => isInternalCtaDestination(props.to));
     transform 180ms var(--ease-gentle);
 
   &::after {
-    content: "";
+    content: '';
     background: #fff;
     opacity: 0;
     position: absolute;
@@ -132,15 +132,15 @@ const isTrackableCta = computed(() => isInternalCtaDestination(props.to));
 /* =========================
    EXCEPTIONS (variants)
 ========================= */
-.btn[data-variant="primary"] {
+.btn[data-variant='primary'] {
   --btn-bg: var(--color-primary);
 }
 
-.btn[data-variant="secondary"] {
+.btn[data-variant='secondary'] {
   --btn-bg: var(--color-secondary-500);
 }
 
-.btn[data-variant="outline"] {
+.btn[data-variant='outline'] {
   --btn-bg: rgba(255, 255, 255, 0.2);
   --btn-border: currentColor;
 

@@ -9,10 +9,10 @@ withDefaults(
     label?: string;
     title: string;
     eyebrow?: string;
-    bgcolor?: "light" | "dark" | "blue";
+    bgcolor?: 'light' | 'dark' | 'blue';
   }>(),
   {
-    bgcolor: "light",
+    bgcolor: 'light',
   },
 );
 </script>

@@ -1,46 +1,46 @@
 <!-- eslint-disable @stylistic/quotes, @stylistic/no-multiple-empty-lines -->
 <script setup lang="ts">
-definePageMeta({ layout: "layout-a" });
+definePageMeta({ layout: 'layout-a' });
 useSeoMeta({
-  title: "Tenant Improvements | Envision Tampa Bay & Central Florida",
+  title: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
   description:
-    "Tenant improvement construction for active offices, healthcare facilities, faith-based spaces, education facilities, hospitality, and retail environments. Phased sequencing, dust containment, and after-hours work that keeps you operating.",
-  ogTitle: "Tenant Improvements | Envision Tampa Bay & Central Florida",
+    'Tenant improvement construction for active offices, healthcare facilities, faith-based spaces, education facilities, hospitality, and retail environments. Phased sequencing, dust containment, and after-hours work that keeps you operating.',
+  ogTitle: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
   ogDescription:
-    "Built around your operations. Phased sequencing, negative-air containment, and after-hours work for occupied offices, healthcare, and more.",
+    'Built around your operations. Phased sequencing, negative-air containment, and after-hours work for occupied offices, healthcare, and more.',
   ogImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Tenant Improvements | Envision Tampa Bay & Central Florida",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
   twitterDescription:
-    "Built around your operations. Phased sequencing, negative-air containment, and after-hours work for occupied offices, healthcare, and more.",
+    'Built around your operations. Phased sequencing, negative-air containment, and after-hours work for occupied offices, healthcare, and more.',
   twitterImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/TI_Built_Around_You_24158ce1cf.jpg?updatedAt=1780449593827',
 });
 
 const operations = [
   {
     id: 1,
-    title: "Phased construction sequencing",
+    title: 'Phased construction sequencing',
     description:
-      "Work is planned around your schedule—not ours. We sequence around your peak hours, events, and operational needs from day one.",
+      'Work is planned around your schedule—not ours. We sequence around your peak hours, events, and operational needs from day one.',
   },
   {
     id: 2,
-    title: "Negative air and dust containment",
+    title: 'Negative air and dust containment',
     description:
-      "In sensitive environments like healthcare, hospitality, occupied offices, we implement full dust barriers and negative air pressure where required.",
+      'In sensitive environments like healthcare, hospitality, occupied offices, we implement full dust barriers and negative air pressure where required.',
   },
   {
     id: 3,
-    title: "After-hours and weekend work",
+    title: 'After-hours and weekend work',
     description:
       "When operations can't pause, we work around them. After-hours and weekend scheduling is standard practice, not an exception.",
   },
   {
     id: 4,
-    title: "Daily communication",
+    title: 'Daily communication',
     description:
       "Every day you know exactly what's happening: access points, noise windows, site conditions, and what to expect the next day. No surprises.",
   },
@@ -49,52 +49,52 @@ const operations = [
 const tenantSectors = [
   {
     id: 1,
-    label: "Corporate offices",
-    icon: "i-lucide-briefcase-business",
+    label: 'Corporate offices',
+    icon: 'i-lucide-briefcase-business',
   },
   {
     id: 2,
-    label: "Healthcare facilities",
-    icon: "i-lucide-activity",
+    label: 'Healthcare facilities',
+    icon: 'i-lucide-activity',
   },
   {
     id: 3,
-    label: "Faith-based spaces",
-    icon: "i-lucide-church",
+    label: 'Faith-based spaces',
+    icon: 'i-lucide-church',
   },
   {
     id: 4,
-    label: "Educational facilities",
-    icon: "i-lucide-shield-check",
+    label: 'Educational facilities',
+    icon: 'i-lucide-shield-check',
   },
   {
     id: 5,
-    label: "Hospitality and retail",
-    icon: "i-lucide-heart",
+    label: 'Hospitality and retail',
+    icon: 'i-lucide-heart',
   },
 ];
 
 const scopes = [
-  { id: 1, label: "Corporate office build-outs and interior renovations" },
-  { id: 2, label: "Healthcare facility renovations" },
-  { id: 3, label: "Educational facility upgrades" },
-  { id: 4, label: "Faith-based interior renovations" },
-  { id: 5, label: "Hospitality and retail fit-outs" },
-  { id: 6, label: "Shell-to-finish build-outs" },
+  { id: 1, label: 'Corporate office build-outs and interior renovations' },
+  { id: 2, label: 'Healthcare facility renovations' },
+  { id: 3, label: 'Educational facility upgrades' },
+  { id: 4, label: 'Faith-based interior renovations' },
+  { id: 5, label: 'Hospitality and retail fit-outs' },
+  { id: 6, label: 'Shell-to-finish build-outs' },
 ];
 
 const projectHighlights = [
-  { id: 1, label: "17,000 SF active office renovation—staff never stopped working" },
-  { id: 2, label: "Hard barriers and air quality controls maintained throughout construction" },
+  { id: 1, label: '17,000 SF active office renovation—staff never stopped working' },
+  { id: 2, label: 'Hard barriers and air quality controls maintained throughout construction' },
   {
     id: 3,
-    label: "Budget constraints navigated through product substitution and design collaboration",
+    label: 'Budget constraints navigated through product substitution and design collaboration',
   },
   { id: 4, label: "Delivered within the client's fixed budget without scope reduction" },
   {
     id: 5,
     label:
-      "Modernized layout and finishes that the client was excited to share with their team and clients",
+      'Modernized layout and finishes that the client was excited to share with their team and clients',
   },
 ];
 </script>

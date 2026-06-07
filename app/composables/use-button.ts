@@ -2,7 +2,7 @@ type ButtonProps = {
   to?: string;
   disabled?: boolean;
   loading?: boolean;
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
   target?: string;
   rel?: string;
   iconOnly?: boolean;
@@ -18,7 +18,7 @@ export function useButton(props: ButtonProps) {
     if (isLink.value) {
       return {
         to: isDisabled.value ? undefined : props.to,
-        "aria-disabled": isDisabled.value ? "true" : undefined,
+        'aria-disabled': isDisabled.value ? 'true' : undefined,
         tabindex: isDisabled.value ? -1 : undefined,
         target: props.target,
         rel: resolveRel(props),
@@ -26,14 +26,14 @@ export function useButton(props: ButtonProps) {
     }
 
     return {
-      type: props.type ?? "button",
+      type: props.type ?? 'button',
       disabled: isDisabled.value,
     };
   });
 
   function resolveRel(props: ButtonProps) {
     if (props.rel) return props.rel;
-    if (props.target === "_blank") return "noopener noreferrer";
+    if (props.target === '_blank') return 'noopener noreferrer';
     return undefined;
   }
 

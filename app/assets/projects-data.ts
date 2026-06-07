@@ -22,13 +22,13 @@ type Catagories = {
 
 export const portfolio: Catagories[] = [
   {
-    id: "1",
-    name: "Aviation",
-    description: "Explore our diverse range of entertainment projects.",
+    id: '1',
+    name: 'Aviation',
+    description: 'Explore our diverse range of entertainment projects.',
     projects: [
       {
-        id: "1",
-        title: "HCCA TPA Airside A, C, and F Restroom Renovations",
+        id: '1',
+        title: 'HCCA TPA Airside A, C, and F Restroom Renovations',
         content: `This renovation refurbished and expanded public restrooms to enhance maintainability, improve the overall appearance, and provide a new layout with larger stalls. It also included an expansion to the Airside C building to accommodate offices displaced by the expansion.
 
       **Envision and The Beck Group carried out the following to ensure the success of the project:**
@@ -47,13 +47,13 @@ export const portfolio: Catagories[] = [
 
       Our integrated role ensured alignment, continuity, and excellence from pursuit to delivery.
 `,
-        heroImg: "/TPA_ASC_Restrooms_Hero.jpg",
-        heroAlt: "a hero image",
+        heroImg: '/TPA_ASC_Restrooms_Hero.jpg',
+        heroAlt: 'a hero image',
         withBeck: true,
         images: [
-          { src: "/MaternityBathroom_Vanity.jpg", alt: "Project 1 image 1" },
-          { src: "/WomensRestroom_BathroomSinkAngle.jpg", alt: "Project 1 image 2" },
-          { src: "/WomensRestroom_StallsVacant.jpg", alt: "Project 1 image 2" },
+          { src: '/MaternityBathroom_Vanity.jpg', alt: 'Project 1 image 1' },
+          { src: '/WomensRestroom_BathroomSinkAngle.jpg', alt: 'Project 1 image 2' },
+          { src: '/WomensRestroom_StallsVacant.jpg', alt: 'Project 1 image 2' },
         ],
       },
     ],

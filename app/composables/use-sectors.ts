@@ -1,4 +1,4 @@
-import type { Project, Sector } from "~~/shared/types/content-types";
+import type { Project, Sector } from '~~/shared/types/content-types';
 
 export type SectorListItem = {
   name: string;
@@ -10,8 +10,8 @@ export type SectorListItem = {
 };
 
 type ProjectSectorSource = {
-  sector?: Project["sector"] | Sector | null;
-  sectors?: Project["sectors"] | null;
+  sector?: Project['sector'] | Sector | null;
+  sectors?: Project['sectors'] | null;
 };
 
 function isValidProjectSector(sector: Sector | null | undefined): sector is Sector {
@@ -42,13 +42,13 @@ export function projectBelongsToSector(
 export function formatProjectSectorLabel(project: ProjectSectorSource): string | undefined {
   const label = getProjectSectors(project)
     .map((sector) => sector.name)
-    .join(", ");
+    .join(', ');
 
   return label || undefined;
 }
 
 export async function useSectors() {
-  const { data } = await useAsyncData("sectors-list", () => $fetch<Sector[]>("/api/sectors"), {
+  const { data } = await useAsyncData('sectors-list', () => $fetch<Sector[]>('/api/sectors'), {
     default: () => [],
   });
 

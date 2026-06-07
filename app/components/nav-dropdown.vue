@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 const props = defineProps({
   buttonText: String,
   image: {
     type: String,
     default:
-      "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122",
+      'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122',
   },
 });
 
 const route = useRoute();
-const menuValue = "services";
-const openMenu = ref("");
+const menuValue = 'services';
+const openMenu = ref('');
 
 watch(
   () => route.fullPath,
   () => {
-    openMenu.value = "";
+    openMenu.value = '';
   },
 );
 </script>

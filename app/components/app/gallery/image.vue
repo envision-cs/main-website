@@ -2,7 +2,7 @@
 defineProps({
   sources: Array,
   fallbackSrc: String,
-  alt: { type: String, default: "" },
+  alt: { type: String, default: '' },
 });
 </script>
 

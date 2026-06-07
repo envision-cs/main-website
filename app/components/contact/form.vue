@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import type { FormSubmitEvent } from "@nuxt/ui";
+import type { FormSubmitEvent } from '@nuxt/ui';
 
-import * as z from "zod/v3";
+import * as z from 'zod/v3';
 
 const schema = z.object({
-  name: z.string().min(2, "Must be at least 2 characters"),
+  name: z.string().min(2, 'Must be at least 2 characters'),
   company: z.string().optional(),
-  email: z.string().email("Please enter a vaild email"),
+  email: z.string().email('Please enter a vaild email'),
   phone: z
     .string()
-    .refine((v) => v.replace(/\D/g, "").length === 10, "Enter a 10-digit phone number"),
-  message: z.string().max(200, "Message must be less than 250 characters"),
+    .refine((v) => v.replace(/\D/g, '').length === 10, 'Enter a 10-digit phone number'),
+  message: z.string().max(200, 'Message must be less than 250 characters'),
 });
 type Schema = z.output<typeof schema>;
 
 const state = reactive({
-  name: "",
-  company: "",
-  email: "",
-  phone: "",
-  message: "",
+  name: '',
+  company: '',
+  email: '',
+  phone: '',
+  message: '',
 });
 
 const toast = useToast();
@@ -32,42 +32,42 @@ function formatPhone(digits: string) {
 }
 
 function onPhoneBlur() {
-  const raw = (state.phone ?? "").toString();
-  const digits = raw.replace(/\D/g, "");
+  const raw = (state.phone ?? '').toString();
+  const digits = raw.replace(/\D/g, '');
   if (digits.length === 10) state.phone = formatPhone(digits);
 }
 
 function onFormStart() {
   if (hasStarted.value) return;
   hasStarted.value = true;
-  analytics.capture("contact_form_started");
+  analytics.capture('contact_form_started');
 }
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   try {
-    await $fetch("https://submit-form.com/1mjeYb91R", {
-      method: "POST",
+    await $fetch('https://submit-form.com/1mjeYb91R', {
+      method: 'POST',
       body: event.data,
     });
-    analytics.capture("contact_form_submitted", {
+    analytics.capture('contact_form_submitted', {
       has_company: Boolean(event.data.company),
       message_length: event.data.message.length,
     });
     toast.add({
-      title: "Success",
-      description: "Your message has been sent!",
-      color: "primary",
+      title: 'Success',
+      description: 'Your message has been sent!',
+      color: 'primary',
     });
   } catch (error) {
-    console.error("Form submission error:", error);
-    analytics.capture("contact_form_failed", {
+    console.error('Form submission error:', error);
+    analytics.capture('contact_form_failed', {
       has_company: Boolean(event.data.company),
       message_length: event.data.message.length,
     });
     toast.add({
-      title: "Error",
-      description: "There was an issue sending your message. Please try again later.",
-      color: "error",
+      title: 'Error',
+      description: 'There was an issue sending your message. Please try again later.',
+      color: 'error',
     });
   }
 }

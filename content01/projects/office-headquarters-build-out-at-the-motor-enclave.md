@@ -3,7 +3,7 @@ title: Office Headquarters Build-Out at The Motor Enclave
 slug: office-headquarters-build-out-at-the-motor-enclave
 completed:
 location: Tampa, FL
-area: ""
+area: ''
 sector: Business/Corporate
 sectorSlug: business_corporate
 main_image: /office-headquarters-build-out-at-the-motor-enclave-01.jpg
