@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue';
 
 interface Props {
   title?: string;
@@ -7,30 +7,30 @@ interface Props {
   imageSrc?: string;
   imageAlt?: string;
   headingTag?: string;
-  align?: "top" | "center" | "bottom";
+  align?: 'top' | 'center' | 'bottom';
   overlay?: boolean;
   fullHeight?: boolean;
   containerClass?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: "You need a builder who sees the bigger picture.",
-  imageSrc: "/hero-small.png",
-  imageAlt: "Construction site hero image",
-  headingTag: "h1",
-  align: "bottom",
+  title: 'You need a builder who sees the bigger picture.',
+  imageSrc: '/hero-small.png',
+  imageAlt: 'Construction site hero image',
+  headingTag: 'h1',
+  align: 'bottom',
   overlay: true,
   fullHeight: true,
 });
 
 const alignClasses = computed(() => {
   switch (props.align) {
-    case "top":
-      return "items-start";
-    case "center":
-      return "items-center";
+    case 'top':
+      return 'items-start';
+    case 'center':
+      return 'items-center';
     default:
-      return "items-end";
+      return 'items-end';
   }
 });
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import useEmblaCarousel from "embla-carousel-vue";
+import useEmblaCarousel from 'embla-carousel-vue';
 
 interface ProcessSliderPoint {
   icon?: string;
@@ -24,8 +24,8 @@ withDefaults(
     slides: ProcessSliderSlide[];
   }>(),
   {
-    backgroundImage: "",
-    backgroundImageAlt: "",
+    backgroundImage: '',
+    backgroundImageAlt: '',
   },
 );
 
@@ -40,7 +40,7 @@ function goToNext() {
 }
 
 function resolveTone(tone?: string) {
-  return tone ? `var(${tone})` : "var(--color-envision-blue-600)";
+  return tone ? `var(${tone})` : 'var(--color-envision-blue-600)';
 }
 </script>
 

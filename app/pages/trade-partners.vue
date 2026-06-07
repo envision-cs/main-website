@@ -1,20 +1,20 @@
 <script setup lang="ts">
 useSeoMeta({
-  title: "Trade Partners Program | Build on the Right Partnerships | Envision",
+  title: 'Trade Partners Program | Build on the Right Partnerships | Envision',
   description:
     "Join Envision's Trade Partners Program. We work with trade partners who show up, communicate, and take pride in the work. Get prequalified to build with us across Tampa Bay and Central Florida.",
-  ogTitle: "Trade Partners Program | Build on the Right Partnerships | Envision",
+  ogTitle: 'Trade Partners Program | Build on the Right Partnerships | Envision',
   ogDescription:
-    "Partners who show up and follow through. Clear scope, organized sites, and a team that keeps you in the loop. Get prequalified to work with Envision.",
+    'Partners who show up and follow through. Clear scope, organized sites, and a team that keeps you in the loop. Get prequalified to work with Envision.',
   ogImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Trade Partners Program | Build on the Right Partnerships | Envision",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Trade Partners Program | Build on the Right Partnerships | Envision',
   twitterDescription:
-    "Partners who show up and follow through. Clear scope, organized sites, and a team that keeps you in the loop. Get prequalified to work with Envision.",
+    'Partners who show up and follow through. Clear scope, organized sites, and a team that keeps you in the loop. Get prequalified to work with Envision.',
   twitterImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350',
 });
 </script>
 

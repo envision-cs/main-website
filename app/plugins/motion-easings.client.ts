@@ -5,7 +5,7 @@ export default defineNuxtPlugin(() => {
      :root {
        ${Object.entries(EASINGS)
          .map(([name, [a, b, c, d]]) => `--ease-${name}: cubic-bezier(${a}, ${b}, ${c}, ${d});`)
-         .join("\n")}
+         .join('\n')}
      }
   `;
 

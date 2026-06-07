@@ -1,4 +1,4 @@
-import { cubicBezier } from "motion-v";
+import { cubicBezier } from 'motion-v';
 
 export function useEasings() {
   const { EASINGS } = useAppConfig();

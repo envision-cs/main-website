@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import { useSlots } from "vue";
+import { useSlots } from 'vue';
 
 const props = withDefaults(
   defineProps<{
     href?: string;
     to?: string;
-    type?: "button" | "submit" | "reset";
-    size?: "sm" | "md" | "lg";
-    variant?: "base" | "outline" | "secondary" | "solid" | "ghost" | "soft" | "link";
-    fill?: "primary" | "secondary";
-    color?: "primary" | "secondary" | "white" | "neutral";
+    type?: 'button' | 'submit' | 'reset';
+    size?: 'sm' | 'md' | 'lg';
+    variant?: 'base' | 'outline' | 'secondary' | 'solid' | 'ghost' | 'soft' | 'link';
+    fill?: 'primary' | 'secondary';
+    color?: 'primary' | 'secondary' | 'white' | 'neutral';
     icon?: string;
     disabled?: boolean;
     ariaLabel?: string;
-    target?: "_self" | "_blank" | "_parent" | "_top";
+    target?: '_self' | '_blank' | '_parent' | '_top';
     rel?: string;
     block?: boolean;
   }>(),
   {
-    type: "button",
-    size: "md",
-    variant: "base",
-    fill: "primary",
+    type: 'button',
+    size: 'md',
+    variant: 'base',
+    fill: 'primary',
     color: undefined,
     icon: undefined,
     disabled: false,
@@ -38,15 +38,15 @@ const isDisabledLink = computed(() => isLink.value && props.disabled);
 const isTrackableCta = computed(() => isInternalCtaDestination(destination.value));
 
 const resolvedFill = computed(() => {
-  if (props.color === "secondary") return "secondary";
-  if (props.color === "primary") return "primary";
+  if (props.color === 'secondary') return 'secondary';
+  if (props.color === 'primary') return 'primary';
   return props.fill;
 });
 
 const resolvedVariant = computed(() => {
-  if (props.color === "white") return "outline";
-  if (props.variant === "solid") return "base";
-  if (props.variant === "link") return "ghost";
+  if (props.color === 'white') return 'outline';
+  if (props.variant === 'solid') return 'base';
+  if (props.variant === 'link') return 'ghost';
   return props.variant;
 });
 
@@ -56,13 +56,13 @@ const slots = useSlots();
 const hasSlot = computed(() => !!slots.default);
 
 const classes = computed(() => [
-  "app-btn",
+  'app-btn',
   `app-btn--size-${props.size}`,
   `app-btn--variant-${resolvedVariant.value}`,
   `app-btn--fill-${resolvedFill.value}`,
-  { "app-btn--legacy-white": props.color === "white" },
-  { "app-btn--block": props.block, "is-disabled": props.disabled },
-  { "app-btn--icon-only": !!props.icon && !hasSlot.value },
+  { 'app-btn--legacy-white': props.color === 'white' },
+  { 'app-btn--block': props.block, 'is-disabled': props.disabled },
+  { 'app-btn--icon-only': !!props.icon && !hasSlot.value },
 ]);
 </script>
 
@@ -154,7 +154,7 @@ const classes = computed(() => [
 }
 
 .app-btn::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 0.7rem;

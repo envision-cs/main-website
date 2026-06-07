@@ -2,7 +2,7 @@
 const route = useRoute();
 
 const { services } = await useServicesList();
-const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? "");
+const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');
 
 const categories = computed(() =>
   services.value
@@ -32,13 +32,13 @@ const activeCategory = computed<{
     categories.value.find((category) => category.slug === currentServiceSlug.value) ?? {
       headline: "Let's Build",
       description:
-        "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.",
-      title: "Envision Services",
-      cta: "Lets get to work",
-      link: "/contact",
-      slug: "all",
+        'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.',
+      title: 'Envision Services',
+      cta: 'Lets get to work',
+      link: '/contact',
+      slug: 'all',
       image:
-        "https://ik.imagekit.io/pnixsw7lg/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560",
+        'https://ik.imagekit.io/pnixsw7lg/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560',
     }
   );
 });

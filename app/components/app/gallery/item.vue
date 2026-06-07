@@ -1,11 +1,11 @@
 <script setup>
-import { computed, inject } from "vue";
+import { computed, inject } from 'vue';
 
 const props = defineProps({
   index: { type: Number, required: true },
 });
 
-const currentIndex = inject("currentIndex", ref(0));
+const currentIndex = inject('currentIndex', ref(0));
 const isCurrent = computed(() => props.index === currentIndex.value);
 </script>
 

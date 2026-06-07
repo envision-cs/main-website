@@ -9,10 +9,10 @@ export function useScrollGallery(
   const { width: containerWidth } = useElementSize(containerRef);
 
   const calculateDimensions = () => {
-    const firstItem = containerRef.value?.querySelector<HTMLElement>(".gallery-item");
+    const firstItem = containerRef.value?.querySelector<HTMLElement>('.gallery-item');
     if (!firstItem) return;
 
-    const cardSet = containerRef.value?.querySelector<HTMLElement>(".card-set");
+    const cardSet = containerRef.value?.querySelector<HTMLElement>('.card-set');
     if (!cardSet) return;
 
     const gap = Number.parseFloat(window.getComputedStyle(cardSet).gap) || 20;
@@ -27,7 +27,7 @@ export function useScrollGallery(
 
   const scrollToIndex = (index: number) => {
     const scrollPosition = index * itemWidth.value;
-    containerRef.value?.scrollTo({ left: scrollPosition, behavior: "smooth" });
+    containerRef.value?.scrollTo({ left: scrollPosition, behavior: 'smooth' });
   };
 
   const scrollPrevious = () => {
@@ -48,17 +48,17 @@ export function useScrollGallery(
   };
 
   const handleKeydown = (event: KeyboardEvent) => {
-    if (event.key === "ArrowLeft") scrollPrevious();
-    else if (event.key === "ArrowRight") scrollNext();
+    if (event.key === 'ArrowLeft') scrollPrevious();
+    else if (event.key === 'ArrowRight') scrollNext();
   };
 
   onMounted(() => {
-    itemsRef.value = Array.from(containerRef.value?.querySelectorAll(".gallery-item") || []);
+    itemsRef.value = Array.from(containerRef.value?.querySelectorAll('.gallery-item') || []);
     calculateDimensions();
   });
 
-  useEventListener(containerRef, "scroll", updateCurrentIndex);
-  useEventListener(window, "resize", calculateDimensions);
+  useEventListener(containerRef, 'scroll', updateCurrentIndex);
+  useEventListener(window, 'resize', calculateDimensions);
 
   return {
     currentIndex,

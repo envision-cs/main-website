@@ -1,14 +1,14 @@
 type AnalyticsEventName =
-  | "cta_clicked"
-  | "contact_form_started"
-  | "contact_form_submitted"
-  | "contact_form_failed"
-  | "project_viewed"
-  | "service_viewed"
-  | "team_member_viewed"
-  | "external_social_clicked"
-  | "email_clicked"
-  | "phone_clicked";
+  | 'cta_clicked'
+  | 'contact_form_started'
+  | 'contact_form_submitted'
+  | 'contact_form_failed'
+  | 'project_viewed'
+  | 'service_viewed'
+  | 'team_member_viewed'
+  | 'external_social_clicked'
+  | 'email_clicked'
+  | 'phone_clicked';
 
 type AnalyticsProperties = Record<string, boolean | number | string | null | undefined>;
 
@@ -31,22 +31,22 @@ type AnalyticsResolvedEvent = {
 };
 
 const socialHosts = [
-  "facebook.com",
-  "linkedin.com",
-  "instagram.com",
-  "youtube.com",
-  "x.com",
-  "twitter.com",
+  'facebook.com',
+  'linkedin.com',
+  'instagram.com',
+  'youtube.com',
+  'x.com',
+  'twitter.com',
 ];
 
 export function resolveAnalyticsRouteEvent(
   route: AnalyticsRouteInput,
 ): AnalyticsResolvedEvent | null {
-  const segments = route.path.split("/").filter(Boolean);
+  const segments = route.path.split('/').filter(Boolean);
 
-  if (segments[0] === "projects" && segments.length >= 3) {
+  if (segments[0] === 'projects' && segments.length >= 3) {
     return {
-      event: "project_viewed",
+      event: 'project_viewed',
       properties: {
         path: route.path,
         full_path: route.fullPath || route.path,
@@ -57,9 +57,9 @@ export function resolveAnalyticsRouteEvent(
     };
   }
 
-  if (segments[0] === "services" && segments.length >= 2) {
+  if (segments[0] === 'services' && segments.length >= 2) {
     return {
-      event: "service_viewed",
+      event: 'service_viewed',
       properties: {
         path: route.path,
         full_path: route.fullPath || route.path,
@@ -69,9 +69,9 @@ export function resolveAnalyticsRouteEvent(
     };
   }
 
-  if (segments[0] === "team" && segments.length >= 2) {
+  if (segments[0] === 'team' && segments.length >= 2) {
     return {
-      event: "team_member_viewed",
+      event: 'team_member_viewed',
       properties: {
         path: route.path,
         full_path: route.fullPath || route.path,
@@ -91,9 +91,9 @@ export function resolveAnalyticsLinkEvent(
 
   if (!href) return null;
 
-  if (href.startsWith("mailto:")) {
+  if (href.startsWith('mailto:')) {
     return {
-      event: "email_clicked",
+      event: 'email_clicked',
       properties: {
         path: input.path,
         label: input.label,
@@ -101,9 +101,9 @@ export function resolveAnalyticsLinkEvent(
     };
   }
 
-  if (href.startsWith("tel:")) {
+  if (href.startsWith('tel:')) {
     return {
-      event: "phone_clicked",
+      event: 'phone_clicked',
       properties: {
         path: input.path,
         label: input.label,
@@ -118,7 +118,7 @@ export function resolveAnalyticsLinkEvent(
 
   if (socialHost) {
     return {
-      event: "external_social_clicked",
+      event: 'external_social_clicked',
       properties: {
         path: input.path,
         label: input.label,
@@ -129,7 +129,7 @@ export function resolveAnalyticsLinkEvent(
 
   if (input.cta) {
     return {
-      event: "cta_clicked",
+      event: 'cta_clicked',
       properties: {
         path: input.path,
         label: input.label,
@@ -143,7 +143,7 @@ export function resolveAnalyticsLinkEvent(
 
 export function isInternalCtaDestination(destination?: string) {
   if (!destination) return false;
-  return destination.startsWith("/") || destination.startsWith("#");
+  return destination.startsWith('/') || destination.startsWith('#');
 }
 
 export function useAnalytics() {
@@ -153,7 +153,7 @@ export function useAnalytics() {
     const posthog = usePostHog();
     posthog?.capture(event, {
       ...properties,
-      taxonomy_version: "launch_v1",
+      taxonomy_version: 'launch_v1',
     });
   }
 
@@ -170,8 +170,8 @@ export function useAnalytics() {
 
 function resolveHost(href: string) {
   try {
-    return new URL(href, globalThis.location?.origin).hostname.replace(/^www\./, "");
+    return new URL(href, globalThis.location?.origin).hostname.replace(/^www\./, '');
   } catch {
-    return "";
+    return '';
   }
 }

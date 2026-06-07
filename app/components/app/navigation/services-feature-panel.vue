@@ -6,7 +6,7 @@ defineProps<{
   title: string;
   copy: string;
   linkLabel: string;
-  tone?: "services" | "projects";
+  tone?: 'services' | 'projects';
   dataTest?: string;
 }>();
 </script>

@@ -1,23 +1,23 @@
 <script setup lang="ts">
 const { services } = await useServicesList();
 definePageMeta({
-  layout: "layout-a",
+  layout: 'layout-a',
 });
 
 useSeoMeta({
-  title: "Construction Services | Envision Tampa Bay & Central Florida",
+  title: 'Construction Services | Envision Tampa Bay & Central Florida',
   description:
     "Explore Envision's construction services: construction management, design-build, enhanced preconstruction, tenant improvements, development and master planning, and specialty projects across Tampa Bay and Central Florida.",
-  ogTitle: "Construction Services | Envision Tampa Bay & Central Florida",
+  ogTitle: 'Construction Services | Envision Tampa Bay & Central Florida',
   ogDescription:
-    "Construction management, design-build, preconstruction, tenant improvements, master planning, and specialty projects across Tampa Bay and Central Florida.",
-  ogImage: "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Construction Services | Envision Tampa Bay & Central Florida",
+    'Construction management, design-build, preconstruction, tenant improvements, master planning, and specialty projects across Tampa Bay and Central Florida.',
+  ogImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Construction Services | Envision Tampa Bay & Central Florida',
   twitterDescription:
-    "Construction management, design-build, preconstruction, tenant improvements, master planning, and specialty projects across Tampa Bay and Central Florida.",
-  twitterImage: "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg",
+    'Construction management, design-build, preconstruction, tenant improvements, master planning, and specialty projects across Tampa Bay and Central Florida.',
+  twitterImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg',
 });
 </script>
 

@@ -7,7 +7,7 @@ interface HomeHero {
   } | null;
 }
 
-const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/home-hero"));
+const { data: hero } = useAsyncData<HomeHero>('home-hero', () => $fetch('/api/home-hero'));
 </script>
 
 <template>
@@ -189,7 +189,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
   backdrop-filter: blur(18px);
 }
 
-.hero-actions :deep(.btn[data-variant="outline"]) {
+.hero-actions :deep(.btn[data-variant='outline']) {
   background: color-mix(in oklch, var(--color-white) 14%, transparent);
   color: var(--color-white);
 }
@@ -226,7 +226,7 @@ const { data: hero } = useAsyncData<HomeHero>("home-hero", () => $fetch("/api/ho
 }
 
 .services :deep(.chip-link)::before {
-  content: "";
+  content: '';
   flex: 0 0 auto;
   width: 0.42rem;
   height: 0.42rem;

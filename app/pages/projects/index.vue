@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { Project } from "~~/shared/types/content-types";
+import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
-  id: Project["id"];
+  id: Project['id'];
   image: string;
   title: string;
   to: string;
@@ -15,15 +15,15 @@ const { formatMonthYear } = useFormatDate();
 const { sectors: categories } = await useSectors();
 const navCategories = computed(() => [
   ...categories.value,
-  { name: "Beck/Envision", slug: "beck-envision" },
+  { name: 'Beck/Envision', slug: 'beck-envision' },
 ]);
 const { data } = await useAsyncData<Project[]>(
-  "projects-page-data",
+  'projects-page-data',
   async () => {
     try {
-      return await $fetch<Project[]>("/api/projects");
+      return await $fetch<Project[]>('/api/projects');
     } catch (err) {
-      console.error("Strapi error:", err);
+      console.error('Strapi error:', err);
       return [];
     }
   },
@@ -63,27 +63,27 @@ const projectCards = computed<ProjectCardItem[]>(() =>
     ];
   }),
 );
-const bannerImage = computed(() => "projects-all.jpg");
-const bannerBody = computed(() => "");
+const bannerImage = computed(() => 'projects-all.jpg');
+const bannerBody = computed(() => '');
 
 definePageMeta({
-  layout: "none",
+  layout: 'none',
 });
 
 useSeoMeta({
-  title: "Projects | Envision Construction Tampa Bay & Central Florida",
+  title: 'Projects | Envision Construction Tampa Bay & Central Florida',
   description:
     "Browse Envision's portfolio of completed construction projects across Tampa Bay and Central Florida, spanning K-12, higher education, sports, hospitality, and institutional sectors.",
-  ogTitle: "Projects | Envision Construction Tampa Bay & Central Florida",
+  ogTitle: 'Projects | Envision Construction Tampa Bay & Central Florida',
   ogDescription:
-    "Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.",
-  ogImage: "/projects-all.jpg",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Projects | Envision Construction Tampa Bay & Central Florida",
+    'Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.',
+  ogImage: '/projects-all.jpg',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Projects | Envision Construction Tampa Bay & Central Florida',
   twitterDescription:
-    "Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.",
-  twitterImage: "/projects-all.jpg",
+    'Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.',
+  twitterImage: '/projects-all.jpg',
 });
 </script>
 

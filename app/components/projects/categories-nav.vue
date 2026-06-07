@@ -11,7 +11,7 @@ defineProps<{
 
 const route = useRoute();
 
-const currentPath = computed(() => route.path.replace(/\/$/, "") || "/");
+const currentPath = computed(() => route.path.replace(/\/$/, '') || '/');
 </script>
 
 <template>

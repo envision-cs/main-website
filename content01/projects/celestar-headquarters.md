@@ -3,7 +3,7 @@ title: Celestar Headquarters
 slug: celestar-headquarters
 completed:
 location: Tampa, FL
-area: ""
+area: ''
 sector: Business/Corporate
 sectorSlug: business_corporate
 main_image: /celestar-headquarters-01.jpg

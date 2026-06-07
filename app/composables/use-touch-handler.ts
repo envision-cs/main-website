@@ -5,8 +5,7 @@ export function useTouchHandler(elementRef: Ref<HTMLElement | null>) {
 
   function handleTouchStart(event: TouchEvent) {
     const touch = event.touches[0];
-    if (!touch)
-      return;
+    if (!touch) return;
 
     startX.value = touch.clientX;
     startY.value = touch.clientY;
@@ -14,12 +13,10 @@ export function useTouchHandler(elementRef: Ref<HTMLElement | null>) {
   }
 
   function handleTouchMove(event: TouchEvent) {
-    if (!isDragging.value)
-      return;
+    if (!isDragging.value) return;
 
     const touch = event.touches[0];
-    if (!touch)
-      return;
+    if (!touch) return;
 
     const deltaX = Math.abs(touch.clientX - startX.value);
     const deltaY = Math.abs(touch.clientY - startY.value);

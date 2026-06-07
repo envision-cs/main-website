@@ -5,7 +5,7 @@ let observer: IntersectionObserver | null = null;
 
 onMounted(() => {
   revealNodes.value = rootEl.value
-    ? Array.from(rootEl.value.querySelectorAll("[data-reveal]"))
+    ? Array.from(rootEl.value.querySelectorAll('[data-reveal]'))
     : [];
 
   observer = new IntersectionObserver(
@@ -13,13 +13,13 @@ onMounted(() => {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
 
-        entry.target.classList.add("is-visible");
+        entry.target.classList.add('is-visible');
         observer?.unobserve(entry.target);
       }
     },
     {
       root: null,
-      rootMargin: "0px 0px -25% 0px",
+      rootMargin: '0px 0px -25% 0px',
       threshold: 0.01,
     },
   );
