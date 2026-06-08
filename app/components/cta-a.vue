@@ -94,7 +94,6 @@ section {
   min-height: unset;
   object-fit: scale-down;
 
-
   img {
     height: 100%;
     width: 100%;
