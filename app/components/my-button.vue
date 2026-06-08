@@ -1,5 +1,4 @@
-<script setup lang="ts">
-defineOptions({ inheritAttrs: false });
+<script setup lang="ts">defineOptions({ inheritAttrs: false });
 const props = withDefaults(
   defineProps<{
     to?: string;

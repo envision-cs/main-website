@@ -31,6 +31,6 @@ describe('fallback sectors', () => {
   });
 
   it('does not include the aggregate all-projects category', () => {
-    expect(getFallbackSectors().map((sector) => sector.slug)).not.toContain('all');
+    expect(getFallbackSectors().map(sector => sector.slug)).not.toContain('all');
   });
 });

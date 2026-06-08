@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface Card {
+<script setup lang="ts">interface Card {
   title: string;
   link: string;
   image: string;

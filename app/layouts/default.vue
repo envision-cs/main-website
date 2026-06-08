@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const { width } = useWindowSize();
+<script setup lang="ts">const { width } = useWindowSize();
 const isClient = ref(false);
 
 onMounted(() => {
@@ -7,7 +6,8 @@ onMounted(() => {
 });
 
 const mainStyle = computed(() => {
-  if (!isClient.value) return {};
+  if (!isClient.value)
+    return {};
 
   const w = width.value ?? 400;
   return {

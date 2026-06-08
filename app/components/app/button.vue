@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { useSlots } from 'vue';
+<script setup lang="ts">import { useSlots } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -38,15 +37,20 @@ const isDisabledLink = computed(() => isLink.value && props.disabled);
 const isTrackableCta = computed(() => isInternalCtaDestination(destination.value));
 
 const resolvedFill = computed(() => {
-  if (props.color === 'secondary') return 'secondary';
-  if (props.color === 'primary') return 'primary';
+  if (props.color === 'secondary')
+    return 'secondary';
+  if (props.color === 'primary')
+    return 'primary';
   return props.fill;
 });
 
 const resolvedVariant = computed(() => {
-  if (props.color === 'white') return 'outline';
-  if (props.variant === 'solid') return 'base';
-  if (props.variant === 'link') return 'ghost';
+  if (props.color === 'white')
+    return 'outline';
+  if (props.variant === 'solid')
+    return 'base';
+  if (props.variant === 'link')
+    return 'ghost';
   return props.variant;
 });
 

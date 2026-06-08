@@ -1,5 +1,4 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   eyebrow?: string;
   title?: string;
   body?: string;

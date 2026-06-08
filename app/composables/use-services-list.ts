@@ -13,8 +13,8 @@ export async function useServicesList() {
 
   const services = computed<ServiceListItem[]>(() =>
     (data.value ?? [])
-      .filter((service) => Boolean((service as ServiceListItem)?.slug || service?.param))
-      .map((service) => ({
+      .filter(service => Boolean((service as ServiceListItem)?.slug || service?.param))
+      .map(service => ({
         ...service,
         cta: service.cta,
         link: service.link,

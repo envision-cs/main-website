@@ -1,14 +1,14 @@
-type AnalyticsEventName =
-  | 'cta_clicked'
-  | 'contact_form_started'
-  | 'contact_form_submitted'
-  | 'contact_form_failed'
-  | 'project_viewed'
-  | 'service_viewed'
-  | 'team_member_viewed'
-  | 'external_social_clicked'
-  | 'email_clicked'
-  | 'phone_clicked';
+type AnalyticsEventName
+  = | 'cta_clicked'
+    | 'contact_form_started'
+    | 'contact_form_submitted'
+    | 'contact_form_failed'
+    | 'project_viewed'
+    | 'service_viewed'
+    | 'team_member_viewed'
+    | 'external_social_clicked'
+    | 'email_clicked'
+    | 'phone_clicked';
 
 type AnalyticsProperties = Record<string, boolean | number | string | null | undefined>;
 
@@ -89,7 +89,8 @@ export function resolveAnalyticsLinkEvent(
 ): AnalyticsResolvedEvent | null {
   const href = input.href.trim();
 
-  if (!href) return null;
+  if (!href)
+    return null;
 
   if (href.startsWith('mailto:')) {
     return {
@@ -113,7 +114,7 @@ export function resolveAnalyticsLinkEvent(
 
   const host = resolveHost(href);
   const socialHost = host
-    ? socialHosts.find((domain) => host === domain || host.endsWith(`.${domain}`))
+    ? socialHosts.find(domain => host === domain || host.endsWith(`.${domain}`))
     : null;
 
   if (socialHost) {
@@ -142,13 +143,15 @@ export function resolveAnalyticsLinkEvent(
 }
 
 export function isInternalCtaDestination(destination?: string) {
-  if (!destination) return false;
+  if (!destination)
+    return false;
   return destination.startsWith('/') || destination.startsWith('#');
 }
 
 export function useAnalytics() {
   function capture(event: AnalyticsEventName, properties: AnalyticsProperties = {}) {
-    if (import.meta.server) return;
+    if (import.meta.server)
+      return;
 
     const posthog = usePostHog();
     posthog?.capture(event, {
@@ -158,7 +161,8 @@ export function useAnalytics() {
   }
 
   function captureResolved(resolved: AnalyticsResolvedEvent | null) {
-    if (!resolved) return;
+    if (!resolved)
+      return;
     capture(resolved.event, resolved.properties);
   }
 
@@ -171,7 +175,8 @@ export function useAnalytics() {
 function resolveHost(href: string) {
   try {
     return new URL(href, globalThis.location?.origin).hostname.replace(/^www\./, '');
-  } catch {
+  }
+  catch {
     return '';
   }
 }

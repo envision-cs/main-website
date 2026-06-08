@@ -1,5 +1,4 @@
-<script setup lang="ts">
-withDefaults(
+<script setup lang="ts">withDefaults(
   defineProps<{
     to: string;
     size?: 'sm' | 'md' | 'lg';

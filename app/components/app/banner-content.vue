@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const rootEl = ref<HTMLElement | null>(null);
+<script setup lang="ts">const rootEl = ref<HTMLElement | null>(null);
 const revealNodes = ref<HTMLElement[]>([]);
 let observer: IntersectionObserver | null = null;
 
@@ -11,7 +10,8 @@ onMounted(() => {
   observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
+        if (!entry.isIntersecting)
+          continue;
 
         entry.target.classList.add('is-visible');
         observer?.unobserve(entry.target);

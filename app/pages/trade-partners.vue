@@ -1,8 +1,7 @@
-<script setup lang="ts">
-useSeoMeta({
+<script setup lang="ts">useSeoMeta({
   title: 'Trade Partners Program | Build on the Right Partnerships | Envision',
   description:
-    "Join Envision's Trade Partners Program. We work with trade partners who show up, communicate, and take pride in the work. Get prequalified to build with us across Tampa Bay and Central Florida.",
+    'Join Envision\'s Trade Partners Program. We work with trade partners who show up, communicate, and take pride in the work. Get prequalified to build with us across Tampa Bay and Central Florida.',
   ogTitle: 'Trade Partners Program | Build on the Right Partnerships | Envision',
   ogDescription:
     'Partners who show up and follow through. Clear scope, organized sites, and a team that keeps you in the loop. Get prequalified to work with Envision.',

@@ -29,7 +29,7 @@ function createFallbackPhoto(id: number, url: string, name: string): Photo {
 
 export function getFallbackSectors(): Sector[] {
   return staticSectors
-    .filter((sector) => sector.slug !== 'all')
+    .filter(sector => sector.slug !== 'all')
     .map((sector, index) => {
       const id = index + 1;
 

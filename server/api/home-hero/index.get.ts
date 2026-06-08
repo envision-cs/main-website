@@ -30,9 +30,11 @@ function normalizeText(value?: string | null): string {
 function normalizeImageUrl(value: string | null | undefined, baseUrl: string): string {
   const normalized = normalizeText(value);
 
-  if (!normalized) return '';
+  if (!normalized)
+    return '';
 
-  if (/^https?:\/\//.test(normalized)) return normalized;
+  if (/^https?:\/\//.test(normalized))
+    return normalized;
 
   return new URL(normalized, baseUrl).toString();
 }
@@ -57,7 +59,8 @@ export default defineEventHandler(async (): Promise<HomeHeroResponse> => {
 
   const hero = response?.data;
 
-  if (!hero) return null;
+  if (!hero)
+    return null;
 
   const imageUrl = normalizeImageUrl(hero.image?.url, config.strapi.url);
 

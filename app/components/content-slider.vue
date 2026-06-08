@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+<script setup lang="ts">import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface ContentSliderItem {
   id: number | string;
@@ -32,7 +31,8 @@ let scrollTriggerInstance: ScrollTrigger | null = null;
 
 onMounted(() => {
   useGSAP().registerPlugin(ScrollTrigger);
-  if (!trackRef.value) return;
+  if (!trackRef.value)
+    return;
 
   const tween = useGSAP().to(trackRef.value, {
     x: getScrollAmount,

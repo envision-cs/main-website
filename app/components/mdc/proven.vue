@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const {
+<script setup lang="ts">const {
   data: our_process,
   pending,
   error,

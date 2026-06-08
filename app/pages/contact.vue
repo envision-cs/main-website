@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const { data: contactData, error } = await useFetch('/api/contact');
+<script setup lang="ts">const { data: contactData, error } = await useFetch('/api/contact');
 
 useSeoMeta({
   title: 'Contact Envision | Tampa Bay & Central Florida Construction',

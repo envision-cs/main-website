@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const { images = [] } = defineProps<{
+<script setup lang="ts">const { images = [] } = defineProps<{
   eyebrow?: string;
   title: string;
   description?: string;

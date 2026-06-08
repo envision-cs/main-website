@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const slots = useSlots();
+<script setup lang="ts">const slots = useSlots();
 const hasAsideSlot = computed(() => Boolean(slots['aside-slot']));
 </script>
 

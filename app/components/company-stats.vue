@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const slides = [
+<script setup lang="ts">const slides = [
   {
     id: 1,
     label: '2009',

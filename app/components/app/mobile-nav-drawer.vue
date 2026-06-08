@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const mobileDrawerOpen = ref(false);
+<script setup lang="ts">const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const mobileProjectsOpen = ref(false);
 const mobileCompanyOpen = ref(false);
@@ -12,7 +11,7 @@ const { sectors } = await useSectors();
 
 const serviceLinks = computed(() => [
   { title: 'All Services', to: '/services' },
-  ...services.value.map((service) => ({
+  ...services.value.map(service => ({
     title: service.title,
     to: service.to,
   })),
@@ -20,7 +19,7 @@ const serviceLinks = computed(() => [
 
 const projectLinks = computed(() => [
   { title: 'All Projects', to: '/projects' },
-  ...sectors.value.map((sector) => ({
+  ...sectors.value.map(sector => ({
     title: sector.name,
     to: sector.to,
   })),
@@ -64,7 +63,8 @@ type FocusableRef = HTMLElement | { $el?: Element } | null | undefined;
 watch(
   () => route.fullPath,
   async () => {
-    if (mobileDrawerOpen.value) await closeDrawer();
+    if (mobileDrawerOpen.value)
+      await closeDrawer();
 
     mobileServicesOpen.value = false;
     mobileProjectsOpen.value = false;
@@ -97,9 +97,11 @@ function getDrawerElements() {
 }
 
 function resolveFocusable(target: FocusableRef, fallbackSelector: string) {
-  if (target instanceof HTMLElement) return target;
+  if (target instanceof HTMLElement)
+    return target;
 
-  if (target?.$el instanceof HTMLElement) return target.$el;
+  if (target?.$el instanceof HTMLElement)
+    return target.$el;
 
   return document.body.querySelector(fallbackSelector) as HTMLElement | null;
 }
@@ -120,7 +122,8 @@ function queueFirstDrawerLinkFocus() {
 
 function animateDrawerOpen() {
   const { content, overlay, navTargets } = getDrawerElements();
-  if (!content) return;
+  if (!content)
+    return;
 
   const targets = overlay ? [overlay, content, ...navTargets] : [content, ...navTargets];
   gsap.killTweensOf(targets);
@@ -131,7 +134,8 @@ function animateDrawerOpen() {
   }
 
   gsap.set(content, { xPercent: 100 });
-  if (navTargets.length) gsap.set(navTargets, { opacity: 0, x: 24 });
+  if (navTargets.length)
+    gsap.set(navTargets, { opacity: 0, x: 24 });
 
   const timeline = gsap.timeline();
   timeline.to(content, { xPercent: 0, duration: 0.4, ease: 'power3.out' }, 0);
@@ -147,7 +151,8 @@ function animateDrawerOpen() {
 
 function animateDrawerClose() {
   const { content, overlay, navTargets } = getDrawerElements();
-  if (!content) return Promise.resolve();
+  if (!content)
+    return Promise.resolve();
 
   const targets = overlay ? [overlay, content, ...navTargets] : [content, ...navTargets];
   gsap.killTweensOf(targets);
@@ -163,7 +168,8 @@ function animateDrawerClose() {
       });
     }
 
-    if (overlay) gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: 'power2.inOut' });
+    if (overlay)
+      gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: 'power2.inOut' });
 
     gsap.to(content, {
       xPercent: 100,
@@ -175,7 +181,8 @@ function animateDrawerClose() {
 }
 
 async function closeDrawer() {
-  if (!mobileDrawerOpen.value || isDrawerClosing.value) return;
+  if (!mobileDrawerOpen.value || isDrawerClosing.value)
+    return;
 
   isDrawerClosing.value = true;
   await nextTick();

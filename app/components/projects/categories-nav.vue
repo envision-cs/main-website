@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface Category {
+<script setup lang="ts">interface Category {
   name: string;
   slug: string;
   image?: string;

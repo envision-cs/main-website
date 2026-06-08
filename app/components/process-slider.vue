@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import useEmblaCarousel from 'embla-carousel-vue';
+<script setup lang="ts">import useEmblaCarousel from 'embla-carousel-vue';
 
 interface ProcessSliderPoint {
   icon?: string;

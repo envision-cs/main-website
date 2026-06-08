@@ -1,8 +1,7 @@
-<script setup lang="ts">
-useSeoMeta({
+<script setup lang="ts">useSeoMeta({
   title: 'About Envision | Building Legacy & Serving Others Through Construction',
   description:
-    "Learn about Envision's mission, core values, and proven process. A faith-informed, people-first construction partner building legacy across Tampa Bay and Central Florida.",
+    'Learn about Envision\'s mission, core values, and proven process. A faith-informed, people-first construction partner building legacy across Tampa Bay and Central Florida.',
   ogTitle: 'About Envision | Building Legacy & Serving Others Through Construction',
   ogDescription:
     'Our mission, core values, and proven process. A people-first construction partner serving Greater Tampa Bay and Central Florida.',

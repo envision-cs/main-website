@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Service } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Service } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
@@ -14,13 +13,15 @@ const { data: serviceData } = await useAsyncData(
 );
 
 const content = computedAsync(async () => {
-  if (!serviceData.value?.description) return null;
+  if (!serviceData.value?.description)
+    return null;
   return parseMarkdown(serviceData.value.description);
 }, null);
 
 const seoImage = computed(() => {
   const image = serviceData.value?.image;
-  if (typeof image === 'object' && image !== null) return image.url;
+  if (typeof image === 'object' && image !== null)
+    return image.url;
   return typeof image === 'string' ? image : undefined;
 });
 

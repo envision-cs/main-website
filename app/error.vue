@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { NuxtError } from '#app';
+<script setup lang="ts">import type { NuxtError } from '#app';
 
 const props = defineProps<{ error: NuxtError }>();
 
@@ -8,7 +7,7 @@ const isNotFound = computed(() => statusCode.value === 404 || statusCode.value =
 const errorEyebrow = computed(() => (isNotFound.value ? 'Page not found' : 'Unexpected error'));
 const errorSummary = computed(() =>
   isNotFound.value
-    ? "Sorry, we couldn't find that page. Start from one of the paths below and keep moving."
+    ? 'Sorry, we couldn\'t find that page. Start from one of the paths below and keep moving.'
     : 'Something went wrong. Use one of the paths below or head back home.',
 );
 </script>

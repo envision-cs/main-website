@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { FormSubmitEvent } from '@nuxt/ui';
+<script setup lang="ts">import type { FormSubmitEvent } from '@nuxt/ui';
 
 import * as z from 'zod/v3';
 
@@ -9,7 +8,7 @@ const schema = z.object({
   email: z.string().email('Please enter a vaild email'),
   phone: z
     .string()
-    .refine((v) => v.replace(/\D/g, '').length === 10, 'Enter a 10-digit phone number'),
+    .refine(v => v.replace(/\D/g, '').length === 10, 'Enter a 10-digit phone number'),
   message: z.string().max(200, 'Message must be less than 250 characters'),
 });
 type Schema = z.output<typeof schema>;
@@ -34,11 +33,13 @@ function formatPhone(digits: string) {
 function onPhoneBlur() {
   const raw = (state.phone ?? '').toString();
   const digits = raw.replace(/\D/g, '');
-  if (digits.length === 10) state.phone = formatPhone(digits);
+  if (digits.length === 10)
+    state.phone = formatPhone(digits);
 }
 
 function onFormStart() {
-  if (hasStarted.value) return;
+  if (hasStarted.value)
+    return;
   hasStarted.value = true;
   analytics.capture('contact_form_started');
 }
@@ -58,7 +59,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       description: 'Your message has been sent!',
       color: 'primary',
     });
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Form submission error:', error);
     analytics.capture('contact_form_failed', {
       has_company: Boolean(event.data.company),

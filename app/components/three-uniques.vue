@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface ThreeUniqueSlide {
+<script setup lang="ts">interface ThreeUniqueSlide {
   id: number;
   label: string;
   description: string;

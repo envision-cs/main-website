@@ -38,7 +38,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const teamName = teamMember.team?.name;
-  const team = teamName ? response.data.filter((member) => member.team?.name === teamName) : [];
+  const team = teamName ? response.data.filter(member => member.team?.name === teamName) : [];
 
   return {
     teamMember,

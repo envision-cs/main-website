@@ -10,10 +10,12 @@ export function useScrollGallery(
 
   const calculateDimensions = () => {
     const firstItem = containerRef.value?.querySelector<HTMLElement>('.gallery-item');
-    if (!firstItem) return;
+    if (!firstItem)
+      return;
 
     const cardSet = containerRef.value?.querySelector<HTMLElement>('.card-set');
-    if (!cardSet) return;
+    if (!cardSet)
+      return;
 
     const gap = Number.parseFloat(window.getComputedStyle(cardSet).gap) || 20;
 
@@ -31,25 +33,30 @@ export function useScrollGallery(
   };
 
   const scrollPrevious = () => {
-    if (!canScrollPrevious.value) return;
+    if (!canScrollPrevious.value)
+      return;
     currentIndex.value = Math.max(0, currentIndex.value - 1);
     scrollToIndex(currentIndex.value);
   };
 
   const scrollNext = () => {
-    if (!canScrollNext.value) return;
+    if (!canScrollNext.value)
+      return;
     currentIndex.value = Math.min(maxIndex.value, currentIndex.value + 1);
     scrollToIndex(currentIndex.value);
   };
 
   const updateCurrentIndex = () => {
-    if (!containerRef.value) return;
+    if (!containerRef.value)
+      return;
     currentIndex.value = Math.round(containerRef.value.scrollLeft / itemWidth.value);
   };
 
   const handleKeydown = (event: KeyboardEvent) => {
-    if (event.key === 'ArrowLeft') scrollPrevious();
-    else if (event.key === 'ArrowRight') scrollNext();
+    if (event.key === 'ArrowLeft')
+      scrollPrevious();
+    else if (event.key === 'ArrowRight')
+      scrollNext();
   };
 
   onMounted(() => {

@@ -17,11 +17,11 @@ export function useButton(props: ButtonProps) {
   const componentProps = computed(() => {
     if (isLink.value) {
       return {
-        to: isDisabled.value ? undefined : props.to,
+        'to': isDisabled.value ? undefined : props.to,
         'aria-disabled': isDisabled.value ? 'true' : undefined,
-        tabindex: isDisabled.value ? -1 : undefined,
-        target: props.target,
-        rel: resolveRel(props),
+        'tabindex': isDisabled.value ? -1 : undefined,
+        'target': props.target,
+        'rel': resolveRel(props),
       };
     }
 
@@ -32,8 +32,10 @@ export function useButton(props: ButtonProps) {
   });
 
   function resolveRel(props: ButtonProps) {
-    if (props.rel) return props.rel;
-    if (props.target === '_blank') return 'noopener noreferrer';
+    if (props.rel)
+      return props.rel;
+    if (props.target === '_blank')
+      return 'noopener noreferrer';
     return undefined;
   }
 

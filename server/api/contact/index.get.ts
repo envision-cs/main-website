@@ -21,7 +21,7 @@ export default defineEventHandler(async () => {
     });
   }
 
-  const team = teamResponse.data.team_members.map((t) => ({
+  const team = teamResponse.data.team_members.map(t => ({
     name: t.name,
     email: t.email,
     title: t.title,
@@ -48,7 +48,7 @@ export default defineEventHandler(async () => {
     });
   }
 
-  const locations = locationsResponse.data.map((l) => ({
+  const locations = locationsResponse.data.map(l => ({
     id: l.id,
     name: l.name,
     phone: l.phone,

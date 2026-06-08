@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const props = defineProps<{
+<script setup lang="ts">const props = defineProps<{
   item: Item;
   idx?: number;
   small?: boolean;

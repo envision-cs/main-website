@@ -6,7 +6,7 @@ export default defineConfig({
     singleQuote: true,
   },
   staged: {
-    '*': ['vp lint --fix', 'vp check --fix'],
+    '*': ['vp lint --fix'],
   },
   lint: {
     plugins: ['oxc', 'typescript', 'unicorn', 'react', 'node', 'jsdoc', 'import'],
@@ -755,7 +755,7 @@ export default defineConfig({
           allowKeywords: true,
         },
       ],
-      eqeqeq: ['error', 'smart'],
+      'eqeqeq': ['error', 'smart'],
       'new-cap': [
         'error',
         {
@@ -933,7 +933,7 @@ export default defineConfig({
         },
       ],
       'vars-on-top': 'error',
-      yoda: ['error', 'never'],
+      'yoda': ['error', 'never'],
       'eslint-comments/no-aggregating-enable': 'error',
       'eslint-comments/no-duplicate-disable': 'error',
       'eslint-comments/no-unlimited-disable': 'error',

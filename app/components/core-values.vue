@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const slides = [
+<script setup lang="ts">const slides = [
   {
     id: 1,
     eyebrow: '01',
@@ -11,7 +10,7 @@ const slides = [
   {
     id: 2,
     eyebrow: '02',
-    label: "It's Bigger Than You",
+    label: 'It\'s Bigger Than You',
     description:
       'We build the company, the project, and the people around us with a bigger purpose in view. Purpose gets clearer when ego gets smaller.',
     tone: '--color-envision-green-500',

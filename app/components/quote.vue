@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import useEmblaCarousel from 'embla-carousel-vue';
+<script setup lang="ts">import useEmblaCarousel from 'embla-carousel-vue';
 interface TestimonialItem {
   quote: string;
   name: string;
@@ -29,8 +28,8 @@ const props = withDefaults(
 
 const normalizedTestimonials = computed(() => {
   return (props.testimonials ?? [])
-    .filter((testimonial) => testimonial?.quote?.trim())
-    .map((testimonial) => ({
+    .filter(testimonial => testimonial?.quote?.trim())
+    .map(testimonial => ({
       quote: testimonial.quote.trim(),
       name: testimonial.name?.trim() || 'Envision Client',
       title: testimonial.title?.trim() || 'Project Partner',
@@ -57,7 +56,8 @@ let reducedMotionQuery: MediaQueryList | null = null;
 
 function syncCarouselState() {
   const api = emblaApi.value;
-  if (!api) return;
+  if (!api)
+    return;
 
   selectedIndex.value = api.selectedScrollSnap();
   scrollSnaps.value = api.scrollSnapList();
@@ -66,15 +66,18 @@ function syncCarouselState() {
 }
 
 function stopAutoscroll() {
-  if (!import.meta.client) return;
-  if (!autoscrollTimer) return;
+  if (!import.meta.client)
+    return;
+  if (!autoscrollTimer)
+    return;
 
   window.clearInterval(autoscrollTimer);
   autoscrollTimer = null;
 }
 
 function startAutoscroll() {
-  if (!import.meta.client) return;
+  if (!import.meta.client)
+    return;
 
   stopAutoscroll();
 
@@ -130,7 +133,8 @@ watch(
     previousApi?.off('select', syncCarouselState);
     previousApi?.off('reInit', syncCarouselState);
 
-    if (!api) return;
+    if (!api)
+      return;
 
     syncCarouselState();
     startAutoscroll();

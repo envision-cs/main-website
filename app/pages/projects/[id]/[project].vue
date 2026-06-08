@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
@@ -10,17 +9,20 @@ const route = useRoute();
 const slug = computed(() => {
   const param = route.params.project;
 
-  if (typeof param !== 'string') return '';
+  if (typeof param !== 'string')
+    return '';
 
   const normalized = param.trim();
-  if (!normalized || normalized === 'null' || normalized === 'undefined') return '';
+  if (!normalized || normalized === 'null' || normalized === 'undefined')
+    return '';
 
   return normalized;
 });
 const sectorSlug = computed(() => {
   const param = route.params.id;
 
-  if (typeof param !== 'string') return '';
+  if (typeof param !== 'string')
+    return '';
 
   return param.trim();
 });
@@ -106,7 +108,8 @@ const seoTitle = computed(() => {
 
 const seoDescription = computed(() => {
   const fromDescription = toSeoDescription(page.value?.description);
-  if (fromDescription) return fromDescription;
+  if (fromDescription)
+    return fromDescription;
 
   const location = page.value?.location ? ` in ${page.value.location}` : '';
   const sector = page.value?.sector ? `${page.value.sector} ` : '';
@@ -138,8 +141,8 @@ async function handleImageClick(image: GalleryImage) {
 
   const dialog = imageDialogRef.value;
   if (!dialog?.open) {
-    restoreFocusRef.value =
-      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    restoreFocusRef.value
+      = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     dialog?.showModal();
   }
 
@@ -177,7 +180,8 @@ const { data: ast } = await useAsyncData(
 );
 
 const stats = computed<Item[]>(() => {
-  if (!page.value) return [];
+  if (!page.value)
+    return [];
   const stats = [
     {
       id: 1,
@@ -232,7 +236,8 @@ const { data } = await useAsyncData<Project[]>(
   async () => {
     try {
       return await $fetch<Project[]>('/api/projects');
-    } catch (err) {
+    }
+    catch (err) {
       console.error('Strapi error:', err);
       return [];
     }

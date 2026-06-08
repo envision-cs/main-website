@@ -1,13 +1,12 @@
-<script setup lang="ts">
-const route = useRoute();
+<script setup lang="ts">const route = useRoute();
 
 const { services } = await useServicesList();
 const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');
 
 const categories = computed(() =>
   services.value
-    .filter((service) => Boolean(service?.title))
-    .map((service) => ({
+    .filter(service => Boolean(service?.title))
+    .map(service => ({
       headline: service.headline,
       description: service.description,
       title: service.title,
@@ -29,8 +28,8 @@ const activeCategory = computed<{
   link: string;
 }>(() => {
   return (
-    categories.value.find((category) => category.slug === currentServiceSlug.value) ?? {
-      headline: "Let's Build",
+    categories.value.find(category => category.slug === currentServiceSlug.value) ?? {
+      headline: 'Let\'s Build',
       description:
         'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.',
       title: 'Envision Services',

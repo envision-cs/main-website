@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface BannerStat {
+<script setup lang="ts">interface BannerStat {
   id?: number;
   label: string;
   description?: string;

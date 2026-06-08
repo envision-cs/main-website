@@ -1,5 +1,4 @@
-<script setup lang="ts">
-definePageMeta({
+<script setup lang="ts">definePageMeta({
   layout: 'layout-a',
 });
 
@@ -38,7 +37,7 @@ const differentiators = [
     id: 3,
     label: 'Real-cost feedback in real time',
     description:
-      "No pricing surprises at construction documents. We flag cost implications as design evolves—when there are still options to act, not after you're locked in.",
+      'No pricing surprises at construction documents. We flag cost implications as design evolves—when there are still options to act, not after you\'re locked in.',
   },
   {
     id: 4,

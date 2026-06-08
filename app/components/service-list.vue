@@ -1,5 +1,4 @@
-<script setup>
-const { services } = await useServicesList();
+<script setup>const { services } = await useServicesList();
 </script>
 
 <template>

@@ -113,7 +113,7 @@ export default defineAppConfig({
       name: 'Green Team',
       role: 'Leadership',
       description:
-        "The Green Team is responsable tor Collaborating wirh each team in the company to ensure the best results are implemented within the company's operations",
+        'The Green Team is responsable tor Collaborating wirh each team in the company to ensure the best results are implemented within the company\'s operations',
       teamColor: '#5AB847',
     },
     {
@@ -127,7 +127,7 @@ export default defineAppConfig({
       name: 'Orange Team',
       role: 'Pre Construction',
       description:
-        "The Orange Team helps to ensure efficiency when completing pre-construction related duties such as processing |TB's generating estimates and more",
+        'The Orange Team helps to ensure efficiency when completing pre-construction related duties such as processing |TB\'s generating estimates and more',
       teamColor: '#FFAE00',
     },
     {

@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface DropdownFeaturePanel {
+<script setup lang="ts">interface DropdownFeaturePanel {
   to: string;
   image: string;
   eyebrow: string;
@@ -40,7 +39,8 @@ function openMenu() {
 }
 
 function focusFirstMenuItem() {
-  if (!import.meta.client) return;
+  if (!import.meta.client)
+    return;
 
   window.requestAnimationFrame(() => {
     const panel = document.querySelector(`[data-test="${props.panelDataTest}"]`);

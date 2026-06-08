@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
   id: Project['id'];
@@ -23,14 +22,15 @@ const { data } = await useAsyncData<Project[]>(
   async () => {
     try {
       return await $fetch<Project[]>('/api/projects');
-    } catch (err) {
+    }
+    catch (err) {
       console.error('Strapi error:', err);
       return [];
     }
   },
   { default: () => [] },
 );
-const activeProjects = computed(() => data.value.filter((p) => p.beck === true));
+const activeProjects = computed(() => data.value.filter(p => p.beck === true));
 const projectCards = computed<ProjectCardItem[]>(() =>
   activeProjects.value.flatMap((project) => {
     const image = project.mainImage?.url;

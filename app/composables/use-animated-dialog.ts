@@ -29,7 +29,8 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
   // --- Core Functions ---
   function openMenu() {
     const el = dialogRef.value;
-    if (!el || el.open) return; // Don't re-open if already open
+    if (!el || el.open)
+      return; // Don't re-open if already open
 
     handleOpen();
 
@@ -39,7 +40,7 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
     opacity.set(0);
     animate(opacity, 1, {
       duration: 0.15,
-      onUpdate: (latest) => (el.style.opacity = `${latest}`),
+      onUpdate: latest => (el.style.opacity = `${latest}`),
       ease: base,
     });
 
@@ -49,15 +50,16 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
       scale.set(0);
       animate(scale, 1, {
         duration: 0.4,
-        onUpdate: (latest) => (el.style.transform = `scale(${latest})`),
+        onUpdate: latest => (el.style.transform = `scale(${latest})`),
         ease: base,
       });
-    } else {
+    }
+    else {
       el.showModal();
       y.set(direction.value === 'top' ? '-100%' : '100%');
       animate(y, '0%', {
         duration: 0.4,
-        onUpdate: (latest) => (el.style.transform = `translateY(${latest})`),
+        onUpdate: latest => (el.style.transform = `translateY(${latest})`),
         ease: base,
       });
     }
@@ -65,22 +67,24 @@ export function useAnimatedDialog(dialogRef: Ref<HTMLDialogElement | null>) {
 
   async function closeMenu() {
     const el = dialogRef.value;
-    if (!el) return;
+    if (!el)
+      return;
 
     handleClose();
     // Run responsive animation
     if (isLaptop.value) {
       await animate(scale, 0, {
         duration: 0.4,
-        onUpdate: (latest) => (el.style.transform = `scale(${latest})`),
+        onUpdate: latest => (el.style.transform = `scale(${latest})`),
         ease: base,
       }).finished;
 
       el.close(); // This triggers the 'close' event listener
-    } else {
+    }
+    else {
       await animate(y, direction.value === 'top' ? '-100%' : '100%', {
         duration: 0.4,
-        onUpdate: (latest) => (el.style.transform = `translateY(${latest})`),
+        onUpdate: latest => (el.style.transform = `translateY(${latest})`),
         ease: base,
       }).finished;
 

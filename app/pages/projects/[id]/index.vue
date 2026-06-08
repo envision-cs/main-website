@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
   id: Project['id'];
@@ -30,7 +29,7 @@ const categorySlug = computed(() => {
 });
 
 const activeCategory = computed(() => {
-  return categories.value.find((category) => category.slug === categorySlug.value);
+  return categories.value.find(category => category.slug === categorySlug.value);
 });
 
 if (!categorySlug.value || !activeCategory.value) {
@@ -66,7 +65,7 @@ const activeProjects = computed(() => {
   }
 
   return data.value
-    .filter((project) => projectBelongsToSector(project, activeCategory.value?.slug))
+    .filter(project => projectBelongsToSector(project, activeCategory.value?.slug))
     .sort((left, right) => getProjectCompletedTime(right) - getProjectCompletedTime(left));
 });
 

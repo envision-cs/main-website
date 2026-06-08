@@ -1,5 +1,4 @@
-<script setup lang="ts">
-onMounted(() => {
+<script setup lang="ts">onMounted(() => {
   const scrollers = document.querySelectorAll('.scroller');
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     addAnimation();
@@ -10,7 +9,8 @@ onMounted(() => {
       scroller.setAttribute('data-animated', 'true');
 
       const scrollerInner = scroller.querySelector('.scroller__inner');
-      if (!scrollerInner) return;
+      if (!scrollerInner)
+        return;
       const scrollerContent = Array.from(scrollerInner.children);
 
       scrollerContent.forEach((item) => {

@@ -1,5 +1,4 @@
-<script setup lang="ts">
-withDefaults(
+<script setup lang="ts">withDefaults(
   defineProps<{
     body?: string;
     image?: string;
@@ -76,7 +75,6 @@ section {
   align-content: center;
   direction: ltr;
   gap: calc(var(--spacing) * 4);
-  max-height: 700px;
   width: 100%;
   margin: auto;
 }

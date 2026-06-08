@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 const AUTOSCROLL_INTERVAL_MS = 8000;
 
@@ -20,7 +19,8 @@ const { data: projects } = await useAsyncData<Project[]>(
   async () => {
     try {
       return await $fetch<Project[]>('/api/projects');
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Failed to fetch hero featured projects:', error);
       return [];
     }
@@ -84,10 +84,10 @@ const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, 
 const formattedCount = computed(() => String(slideCount.value).padStart(2, '0'));
 const canAutoplay = computed(() => {
   return (
-    slideCount.value > 1 &&
-    !isUserPaused.value &&
-    !isInteractionPaused.value &&
-    !prefersReducedMotion.value
+    slideCount.value > 1
+    && !isUserPaused.value
+    && !isInteractionPaused.value
+    && !prefersReducedMotion.value
   );
 });
 
@@ -110,7 +110,8 @@ function resetTick() {
   });
 }
 function setActiveIndex(index: number) {
-  if (!slideCount.value) return;
+  if (!slideCount.value)
+    return;
   resetTick();
   activeIndex.value = (index + slideCount.value) % slideCount.value;
 }
@@ -128,7 +129,8 @@ function pauseAutoplay() {
 }
 
 function resumeAutoplay() {
-  if (prefersReducedMotion.value) return;
+  if (prefersReducedMotion.value)
+    return;
   isUserPaused.value = false;
 }
 
@@ -141,14 +143,16 @@ function toggleAutoplay() {
 }
 
 function stopAutoplayInterval() {
-  if (!intervalId) return;
+  if (!intervalId)
+    return;
   resetTick();
   window.clearInterval(intervalId);
   intervalId = null;
 }
 
 function startAutoplayInterval() {
-  if (!import.meta.client || !canAutoplay.value) return;
+  if (!import.meta.client || !canAutoplay.value)
+    return;
 
   stopAutoplayInterval();
   resetTick();

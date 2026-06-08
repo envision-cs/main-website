@@ -1,22 +1,21 @@
-<script setup lang="ts">
-definePageMeta({
+<script setup lang="ts">definePageMeta({
   layout: 'layout-a',
 });
 
 useSeoMeta({
   title: 'Construction Management | Envision Tampa Bay & Central Florida',
   description:
-    "Envision's construction management delivers certainty: Target Value Design, real-time cost control, proactive scheduling, and full Procore transparency. 200+ projects on time and on budget, 90% repeat clients.",
+    'Envision\'s construction management delivers certainty: Target Value Design, real-time cost control, proactive scheduling, and full Procore transparency. 200+ projects on time and on budget, 90% repeat clients.',
   ogTitle: 'Construction Management | Envision Tampa Bay & Central Florida',
   ogDescription:
-    "Owners don't just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.",
+    'Owners don\'t just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.',
   ogImage:
     'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Construction Management | Envision Tampa Bay & Central Florida',
   twitterDescription:
-    "Owners don't just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.",
+    'Owners don\'t just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.',
   twitterImage:
     'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428',
 });
@@ -86,7 +85,7 @@ const phases = [
       '12-month legacy lap post-closeout',
       '30-60-90 day check-ins',
       'One-year walkthrough',
-      "Planning what's next together",
+      'Planning what\'s next together',
     ],
   },
 ];
@@ -102,7 +101,7 @@ const projectHighlights = [
     id: 4,
     label: 'Scopes resequenced in real time to maintain progress without compromising quality',
   },
-  { id: 5, label: "Delivered on schedule—Tampa Bay Sun FC's inaugural season started on time" },
+  { id: 5, label: 'Delivered on schedule—Tampa Bay Sun FC\'s inaugural season started on time' },
 ];
 
 const commitments = [
@@ -116,7 +115,7 @@ const commitments = [
     id: 2,
     label: 'Your schedule',
     description:
-      "Proactive sequencing, long-lead identification, and early trade coordination protect your move-in date before it's at risk.",
+      'Proactive sequencing, long-lead identification, and early trade coordination protect your move-in date before it\'s at risk.',
   },
   {
     id: 3,

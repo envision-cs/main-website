@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { Comment, Fragment, Text, useSlots } from 'vue';
+<script setup lang="ts">import { Comment, Fragment, Text, useSlots } from 'vue';
 import useEmblaCarousel from 'embla-carousel-vue';
 
 const props = withDefaults(

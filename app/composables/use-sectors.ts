@@ -36,12 +36,13 @@ export function projectBelongsToSector(
   if (!slug) {
     return false;
   }
-  return getProjectSectors(project).some((sector) => sector.slug === slug);
+  const test = getProjectSectors(project).some(sector => sector.slug === slug);
+  return test;
 }
 
 export function formatProjectSectorLabel(project: ProjectSectorSource): string | undefined {
   const label = getProjectSectors(project)
-    .map((sector) => sector.name)
+    .map(sector => sector.name)
     .join(', ');
 
   return label || undefined;
@@ -54,8 +55,8 @@ export async function useSectors() {
 
   const sectors = computed<SectorListItem[]>(() =>
     (data.value ?? [])
-      .filter((sector) => Boolean(sector?.slug && sector?.name))
-      .map((sector) => ({
+      .filter(sector => Boolean(sector?.slug && sector?.name))
+      .map(sector => ({
         name: sector.name,
         slug: sector.slug,
         description: sector.description,

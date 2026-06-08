@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
   id: Project['id'];
@@ -17,12 +16,14 @@ const navCategories = computed(() => [
   ...categories.value,
   { name: 'Beck/Envision', slug: 'beck-envision' },
 ]);
+
 const { data } = await useAsyncData<Project[]>(
-  'projects-page-data',
+  'projects-data',
   async () => {
     try {
       return await $fetch<Project[]>('/api/projects');
-    } catch (err) {
+    }
+    catch (err) {
       console.error('Strapi error:', err);
       return [];
     }
@@ -73,7 +74,7 @@ definePageMeta({
 useSeoMeta({
   title: 'Projects | Envision Construction Tampa Bay & Central Florida',
   description:
-    "Browse Envision's portfolio of completed construction projects across Tampa Bay and Central Florida, spanning K-12, higher education, sports, hospitality, and institutional sectors.",
+    'Browse Envision\'s portfolio of completed construction projects across Tampa Bay and Central Florida, spanning K-12, higher education, sports, hospitality, and institutional sectors.',
   ogTitle: 'Projects | Envision Construction Tampa Bay & Central Florida',
   ogDescription:
     'Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.',

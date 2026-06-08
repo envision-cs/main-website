@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { computed } from 'vue';
+<script setup lang="ts">import { computed } from 'vue';
 
 interface Props {
   title?: string;

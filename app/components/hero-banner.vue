@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface HomeHero {
+<script setup lang="ts">interface HomeHero {
   title?: string;
   subtitle?: string;
   image?: {

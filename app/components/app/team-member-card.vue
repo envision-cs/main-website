@@ -1,11 +1,10 @@
-<script setup lang="ts">
-type TypographyVariant =
-  | 'heading-sm'
-  | 'heading-md'
-  | 'heading-lg'
-  | 'text-sm'
-  | 'text-md'
-  | 'text-lg';
+<script setup lang="ts">type TypographyVariant
+  = | 'heading-sm'
+    | 'heading-md'
+    | 'heading-lg'
+    | 'text-sm'
+    | 'text-md'
+    | 'text-lg';
 
 const props = defineProps<{
   path: string;

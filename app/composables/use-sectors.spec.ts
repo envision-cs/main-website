@@ -33,7 +33,7 @@ describe('project sector helpers', () => {
       sector('Athletics', 'athletics'),
     ]);
 
-    expect(getProjectSectors(project).map((item) => item.slug)).toEqual(['education', 'athletics']);
+    expect(getProjectSectors(project).map(item => item.slug)).toEqual(['education', 'athletics']);
   });
 
   it('uses the first valid sector as the primary sector', () => {

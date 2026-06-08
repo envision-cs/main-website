@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const year = new Date().getFullYear();
+<script setup lang="ts">const year = new Date().getFullYear();
 
 const navLinks = [
   { id: 1, to: '/', label: 'Home' },
