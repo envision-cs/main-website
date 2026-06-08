@@ -1,21 +1,21 @@
-<script setup lang="ts">
-onMounted(() => {
-  const scrollers = document.querySelectorAll(".scroller");
-  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+<script setup lang="ts">onMounted(() => {
+  const scrollers = document.querySelectorAll('.scroller');
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     addAnimation();
   }
 
   function addAnimation() {
     scrollers.forEach((scroller) => {
-      scroller.setAttribute("data-animated", "true");
+      scroller.setAttribute('data-animated', 'true');
 
-      const scrollerInner = scroller.querySelector(".scroller__inner");
-      if (!scrollerInner) return;
+      const scrollerInner = scroller.querySelector('.scroller__inner');
+      if (!scrollerInner)
+        return;
       const scrollerContent = Array.from(scrollerInner.children);
 
       scrollerContent.forEach((item) => {
         const duplicatedItem = item.cloneNode(true);
-        duplicatedItem.setAttribute("aria-hidden", true);
+        duplicatedItem.setAttribute('aria-hidden', true);
         scrollerInner.appendChild(duplicatedItem);
       });
     });
@@ -36,7 +36,7 @@ onMounted(() => {
   grid-column: 1/-1;
   max-width: 1980px;
 
-  &[data-animated="true"] {
+  &[data-animated='true'] {
     overflow: hidden;
   }
 }
@@ -46,7 +46,7 @@ onMounted(() => {
   gap: calc(var(--spacing) * 4);
 }
 
-[data-animated="true"] .scroller__inner {
+[data-animated='true'] .scroller__inner {
   width: max-content;
   flex-wrap: nowrap;
   animation: scroll 40s linear infinite;

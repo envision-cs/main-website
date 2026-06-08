@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+<script setup lang="ts">import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 interface ContentSliderItem {
   id: number | string;
@@ -22,27 +21,28 @@ defineProps<{
 }>();
 
 function resolveTone(tone?: string) {
-  return tone ? `var(${tone})` : "var(--color-envision-blue-600)";
+  return tone ? `var(${tone})` : 'var(--color-envision-blue-600)';
 }
 
-const trackRef = useTemplateRef("trackRef");
-const targetRef = useTemplateRef("targetRef");
+const trackRef = useTemplateRef('trackRef');
+const targetRef = useTemplateRef('targetRef');
 
 let scrollTriggerInstance: ScrollTrigger | null = null;
 
 onMounted(() => {
   useGSAP().registerPlugin(ScrollTrigger);
-  if (!trackRef.value) return;
+  if (!trackRef.value)
+    return;
 
   const tween = useGSAP().to(trackRef.value, {
     x: getScrollAmount,
     duration: 3,
-    ease: "none",
+    ease: 'none',
   });
 
   scrollTriggerInstance = ScrollTrigger.create({
     trigger: targetRef.value,
-    start: "top top",
+    start: 'top top',
     end: () => `+=${getScrollAmount() * -1}`,
     pin: true,
     animation: tween,
@@ -177,7 +177,7 @@ section {
 }
 
 .slide::before {
-  content: "";
+  content: '';
   position: absolute;
   background-image: var(--slide-bg-image);
   inset: 0;

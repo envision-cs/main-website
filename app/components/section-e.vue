@@ -1,13 +1,12 @@
-<script setup lang="ts">
-withDefaults(
+<script setup lang="ts">withDefaults(
   defineProps<{
     noPadding?: boolean;
     noPaddingMain?: boolean;
     fill?: boolean;
-    bgcolor?: "light" | "dark" | "blue";
+    bgcolor?: 'light' | 'dark' | 'blue';
   }>(),
   {
-    bgcolor: "light",
+    bgcolor: 'light',
   },
 );
 </script>

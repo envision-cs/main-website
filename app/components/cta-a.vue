@@ -1,5 +1,4 @@
-<script setup lang="ts">
-withDefaults(
+<script setup lang="ts">withDefaults(
   defineProps<{
     body?: string;
     image?: string;
@@ -8,10 +7,10 @@ withDefaults(
     label?: string;
     title: string;
     eyebrow?: string;
-    bgcolor?: "light" | "dark" | "blue";
+    bgcolor?: 'light' | 'dark' | 'blue';
   }>(),
   {
-    bgcolor: "light",
+    bgcolor: 'light',
   },
 );
 </script>
@@ -76,7 +75,6 @@ section {
   align-content: center;
   direction: ltr;
   gap: calc(var(--spacing) * 4);
-  max-height: 700px;
   width: 100%;
   margin: auto;
 }
@@ -96,7 +94,6 @@ section {
   object-fit: cover;
 
   @media (min-width: 1024px) {
-    max-height: 800px;
   }
 
   img {

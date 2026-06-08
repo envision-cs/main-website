@@ -1,13 +1,12 @@
-<script setup>
-const props = defineProps({
+<script setup>const props = defineProps({
   href: String,
   modalId: String,
   ariaLabel: { type: String, required: true },
-  icon: { type: String, default: "plus" },
+  icon: { type: String, default: 'plus' },
 });
-const emit = defineEmits(["click"]);
-const tag = computed(() => (props.href ? "a" : "button"));
-const handleClick = (e) => emit("click", e);
+const emit = defineEmits(['click']);
+const tag = computed(() => (props.href ? 'a' : 'button'));
+const handleClick = e => emit('click', e);
 </script>
 
 <template>

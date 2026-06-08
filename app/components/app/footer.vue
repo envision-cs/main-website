@@ -1,12 +1,11 @@
-<script setup lang="ts">
-const year = new Date().getFullYear();
+<script setup lang="ts">const year = new Date().getFullYear();
 
 const navLinks = [
-  { id: 1, to: "/", label: "Home" },
-  { id: 2, to: "/services", label: "Services" },
-  { id: 3, to: "/projects", label: "Projects" },
-  { id: 4, to: "/team", label: "Meet the team" },
-  { id: 5, to: "/about", label: "About Us" },
+  { id: 1, to: '/', label: 'Home' },
+  { id: 2, to: '/services', label: 'Services' },
+  { id: 3, to: '/projects', label: 'Projects' },
+  { id: 4, to: '/team', label: 'Meet the team' },
+  { id: 5, to: '/about', label: 'About Us' },
 ];
 const { services: servicesLinks } = await useServicesList();
 // const servicesLinks = [
@@ -110,14 +109,14 @@ footer {
   margin-inline: auto;
   max-width: 1200px;
   grid-template-areas:
-    "a"
-    "b"
-    "c";
+    'a'
+    'b'
+    'c';
 
   @media (min-width: 768px) {
     grid-template-areas:
-      "a b"
-      "c c";
+      'a b'
+      'c c';
     gap: calc(var(--spacing) * 8);
   }
 }

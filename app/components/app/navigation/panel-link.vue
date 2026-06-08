@@ -1,5 +1,4 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   to: string;
   title: string;
   description?: string;
@@ -30,7 +29,7 @@ defineProps<{
 }
 
 .nav-panel-link:hover::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -1rem;

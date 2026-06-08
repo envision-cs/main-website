@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface ImageItem {
+<script setup lang="ts">interface ImageItem {
   img: string;
   alt?: string;
 }

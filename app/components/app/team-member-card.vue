@@ -1,11 +1,10 @@
-<script setup lang="ts">
-type TypographyVariant =
-  | "heading-sm"
-  | "heading-md"
-  | "heading-lg"
-  | "text-sm"
-  | "text-md"
-  | "text-lg";
+<script setup lang="ts">type TypographyVariant
+  = | 'heading-sm'
+    | 'heading-md'
+    | 'heading-lg'
+    | 'text-sm'
+    | 'text-md'
+    | 'text-lg';
 
 const props = defineProps<{
   path: string;
@@ -19,7 +18,7 @@ const props = defineProps<{
 }>();
 
 const overlay = computed(() => {
-  const teamColor = props.color || "#0c2c45";
+  const teamColor = props.color || '#0c2c45';
   return `linear-gradient(
     to top,
     color-mix(in srgb, ${teamColor} 75%, transparent) 0%,

@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Link } from "#shared/types/global";
+<script setup lang="ts">import type { Link } from '#shared/types/global';
 
 interface Item {
   image?: string;
@@ -12,22 +11,22 @@ interface Item {
 
 const items: Item[] = [
   {
-    image: "/community.jpg",
-    icon: "i-heroicons-home",
-    title: "Start a Project",
-    link: { label: "Learn More", to: "/about", color: "neutral" },
+    image: '/community.jpg',
+    icon: 'i-heroicons-home',
+    title: 'Start a Project',
+    link: { label: 'Learn More', to: '/about', color: 'neutral' },
   },
   {
-    image: "/community.jpg",
-    icon: "i-heroicons-home",
-    title: "Contact Information",
-    link: { label: "Learn More", to: "/about", color: "neutral" },
+    image: '/community.jpg',
+    icon: 'i-heroicons-home',
+    title: 'Contact Information',
+    link: { label: 'Learn More', to: '/about', color: 'neutral' },
   },
   {
-    image: "/images/hero-construction.jpg",
-    icon: "i-heroicons-home",
-    title: "Meet the team",
-    link: { label: "Learn More", to: "/about", color: "neutral" },
+    image: '/images/hero-construction.jpg',
+    icon: 'i-heroicons-home',
+    title: 'Meet the team',
+    link: { label: 'Learn More', to: '/about', color: 'neutral' },
   },
 ];
 </script>

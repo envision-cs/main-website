@@ -4,7 +4,7 @@ title: Florida Power & Light Toledo Blade Pole Yard
 slug: florida-power-and-light-toledo-blade-pole-yard
 completed:
 location: Tampa, FL
-area: ""
+area: ''
 sector: Industrial
 sectorSlug: industrial
 main_image: /florida-power-&-light-toledo-blade-pole-yard-01.jpg

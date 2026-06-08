@@ -1,8 +1,7 @@
-<script setup lang="ts">
-import type { Project } from "~~/shared/types/content-types";
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
-  id: Project["id"];
+  id: Project['id'];
   image: string;
   title: string;
   to: string;
@@ -15,28 +14,28 @@ const { formatMonthYear } = useFormatDate();
 const { sectors: categories } = await useSectors();
 const navCategories = computed(() => [
   ...categories.value,
-  { name: "Beck/Envision", slug: "beck-envision" },
+  { name: 'Beck/Envision', slug: 'beck-envision' },
 ]);
 const route = useRoute();
 
 const categorySlug = computed(() => {
   const param = route.params.id;
 
-  if (typeof param !== "string") {
-    return "";
+  if (typeof param !== 'string') {
+    return '';
   }
 
   return param.trim();
 });
 
 const activeCategory = computed(() => {
-  return categories.value.find((category) => category.slug === categorySlug.value);
+  return categories.value.find(category => category.slug === categorySlug.value);
 });
 
 if (!categorySlug.value || !activeCategory.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: "Project category not found",
+    statusMessage: 'Project category not found',
   });
 }
 
@@ -46,13 +45,13 @@ const {
   refresh: refreshProjects,
   status: projectsStatus,
 } = await useAsyncData<Project[]>(
-  "projects-by-sector-page-data",
-  () => $fetch<Project[]>("/api/projects"),
+  'projects-by-sector-page-data',
+  () => $fetch<Project[]>('/api/projects'),
   { default: () => [] },
 );
 
 const hasProjectsError = computed(() => Boolean(projectsError.value));
-const isProjectsRefreshing = computed(() => projectsStatus.value === "pending");
+const isProjectsRefreshing = computed(() => projectsStatus.value === 'pending');
 
 function getProjectCompletedTime(project: Project): number {
   const time = project.completed ? new Date(project.completed).getTime() : 0;
@@ -66,7 +65,7 @@ const activeProjects = computed(() => {
   }
 
   return data.value
-    .filter((project) => projectBelongsToSector(project, activeCategory.value?.slug))
+    .filter(project => projectBelongsToSector(project, activeCategory.value?.slug))
     .sort((left, right) => getProjectCompletedTime(right) - getProjectCompletedTime(left));
 });
 
@@ -93,12 +92,12 @@ const projectCards = computed<ProjectCardItem[]>(() =>
   }),
 );
 
-const bannerImage = computed(() => activeCategory.value?.image || "projects-all.jpg");
-const bannerBody = computed(() => activeCategory.value?.description || "");
-const projectListTitle = computed(() => `${activeCategory.value?.name || "Project"} projects`);
+const bannerImage = computed(() => activeCategory.value?.image || 'projects-all.jpg');
+const bannerBody = computed(() => activeCategory.value?.description || '');
+const projectListTitle = computed(() => `${activeCategory.value?.name || 'Project'} projects`);
 
 definePageMeta({
-  layout: "none",
+  layout: 'none',
 });
 const canonicalPath = computed(() =>
   categorySlug.value ? `/projects/${categorySlug.value}` : route.path,
@@ -107,14 +106,14 @@ const canonicalPath = computed(() =>
 const seoTitle = computed(() =>
   activeCategory.value?.name
     ? `${activeCategory.value.name} Projects | Envision Construction`
-    : "Projects | Envision Construction",
+    : 'Projects | Envision Construction',
 );
 
 const seoDescription = computed(() => {
   const name = activeCategory.value?.name;
   return activeCategory.value?.description
     ? activeCategory.value.description
-    : `Explore Envision's ${name ? `${name.toLowerCase()} ` : ""}construction projects across Tampa Bay and Central Florida, delivered organized, high-quality, and on time.`;
+    : `Explore Envision's ${name ? `${name.toLowerCase()} ` : ''}construction projects across Tampa Bay and Central Florida, delivered organized, high-quality, and on time.`;
 });
 
 useSeoMeta(() => ({
@@ -123,16 +122,16 @@ useSeoMeta(() => ({
   ogTitle: seoTitle.value,
   ogDescription: seoDescription.value,
   ogImage: bannerImage.value,
-  ogType: "website",
+  ogType: 'website',
   ogUrl: canonicalPath.value,
-  twitterCard: "summary_large_image",
+  twitterCard: 'summary_large_image',
   twitterTitle: seoTitle.value,
   twitterDescription: seoDescription.value,
   twitterImage: bannerImage.value,
 }));
 
 useHead(() => ({
-  link: [{ rel: "canonical", href: canonicalPath.value }],
+  link: [{ rel: 'canonical', href: canonicalPath.value }],
 }));
 </script>
 
@@ -141,7 +140,7 @@ useHead(() => ({
     <template #header-slot>
       <banner-b class="header" :image="bannerImage" :body="bannerBody">
         <template #title> Projects </template>
-        {{ activeCategory?.name || "All" }}
+        {{ activeCategory?.name || 'All' }}
         <template #body>
           {{ activeCategory?.description }}
         </template>
@@ -173,7 +172,7 @@ useHead(() => ({
             :disabled="isProjectsRefreshing"
             @click="refreshProjects"
           >
-            {{ isProjectsRefreshing ? "Retrying" : "Try again" }}
+            {{ isProjectsRefreshing ? 'Retrying' : 'Try again' }}
           </app-button>
         </section>
         <section v-else class="projects-list" aria-labelledby="projects-list-title">

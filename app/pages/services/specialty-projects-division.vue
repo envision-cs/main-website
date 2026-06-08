@@ -1,111 +1,110 @@
-<script setup lang="ts">
-useSeoMeta({
-  title: "Specialty Projects Division | Envision Tampa Bay & Central Florida",
+<script setup lang="ts">useSeoMeta({
+  title: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   description:
-    "Envision's Specialty Projects Division (SPD) handles high-volume maintenance, fast-turnaround renovations, multi-site programs, and annual small-project contracts, with 72-hour turnarounds and full CompanyCam documentation.",
-  ogTitle: "Specialty Projects Division | Envision Tampa Bay & Central Florida",
+    'Envision\'s Specialty Projects Division (SPD) handles high-volume maintenance, fast-turnaround renovations, multi-site programs, and annual small-project contracts, with 72-hour turnarounds and full CompanyCam documentation.',
+  ogTitle: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   ogDescription:
-    "One reliable partner for ongoing small-scope work. Scope it, price it, execute it, document it, on your schedule, including weekends and overnight.",
+    'One reliable partner for ongoing small-scope work. Scope it, price it, execute it, document it, on your schedule, including weekends and overnight.',
   ogImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/Moffitt_SPD_77a989a8a3.png?updatedAt=1780449600305",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Specialty Projects Division | Envision Tampa Bay & Central Florida",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/Moffitt_SPD_77a989a8a3.png?updatedAt=1780449600305',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   twitterDescription:
-    "One reliable partner for ongoing small-scope work. Scope it, price it, execute it, document it, on your schedule, including weekends and overnight.",
+    'One reliable partner for ongoing small-scope work. Scope it, price it, execute it, document it, on your schedule, including weekends and overnight.',
   twitterImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/Moffitt_SPD_77a989a8a3.png?updatedAt=1780449600305",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/Moffitt_SPD_77a989a8a3.png?updatedAt=1780449600305',
 });
 
 const targetAudience = [
-  { id: 1, label: "Facilities directors" },
-  { id: 2, label: "Maintenance teams" },
-  { id: 3, label: "Operations managers" },
-  { id: 4, label: "Multi-site programs" },
-  { id: 5, label: "Annual contract holders" },
-  { id: 6, label: "Healthcare operators" },
+  { id: 1, label: 'Facilities directors' },
+  { id: 2, label: 'Maintenance teams' },
+  { id: 3, label: 'Operations managers' },
+  { id: 4, label: 'Multi-site programs' },
+  { id: 5, label: 'Annual contract holders' },
+  { id: 6, label: 'Healthcare operators' },
 ];
 
 const process = [
   {
     id: 1,
-    label: "Scope it",
+    label: 'Scope it',
     description:
-      "We assess the scope, ask the right questions, and get you a clear picture of what the work involves before anything starts.",
+      'We assess the scope, ask the right questions, and get you a clear picture of what the work involves before anything starts.',
   },
   {
     id: 2,
-    step: "02",
-    label: "Price it",
+    step: '02',
+    label: 'Price it',
     description:
-      "Transparent pricing with no surprises. You know the cost before we mobilize, and we stick to it.",
+      'Transparent pricing with no surprises. You know the cost before we mobilize, and we stick to it.',
   },
   {
     id: 3,
-    label: "Execute it",
+    label: 'Execute it',
     description:
-      "Work begins on your schedule—including weekends, overnight, and 72-hour turnarounds.Our team shows up, works around the clock when needed, and delivers clean work ready for operations on Monday morning.",
+      'Work begins on your schedule—including weekends, overnight, and 72-hour turnarounds.Our team shows up, works around the clock when needed, and delivers clean work ready for operations on Monday morning.',
   },
   {
     id: 4,
-    label: "Document it",
+    label: 'Document it',
     description:
-      "Every scope is fully documented in CompanyCam with before, during, and after photos. You’ll always know exactly what was completed.",
+      'Every scope is fully documented in CompanyCam with before, during, and after photos. You’ll always know exactly what was completed.',
   },
 ];
 
 const serviceOfferings = [
   {
     id: 1,
-    label: "Annual small-project and permit-holder contracts",
+    label: 'Annual small-project and permit-holder contracts',
     description:
-      "One reliable partner for all your ongoing small-scope work means no re-bidding every job.",
+      'One reliable partner for all your ongoing small-scope work means no re-bidding every job.',
   },
   {
     id: 2,
-    label: "High-volume maintenance and facilities work",
+    label: 'High-volume maintenance and facilities work',
     description:
-      "Built to handle volume without sacrificing responsiveness or quality on any single scope.",
+      'Built to handle volume without sacrificing responsiveness or quality on any single scope.',
   },
   {
     id: 3,
-    label: "Fast-turnaround renovations and repairs",
+    label: 'Fast-turnaround renovations and repairs',
     description:
-      "When something needs to move fast, SPD is structured to mobilize quickly without cutting corners.",
+      'When something needs to move fast, SPD is structured to mobilize quickly without cutting corners.',
   },
   {
     id: 4,
-    label: "Multi-site program delivery",
+    label: 'Multi-site program delivery',
     description:
-      "Consistent execution across multiple locations—same standard, same documentation, every time.",
+      'Consistent execution across multiple locations—same standard, same documentation, every time.',
   },
 ];
 
 const activeProjects = [
-  { id: 1, label: "Active Operations: Patient safety and care never compromised" },
+  { id: 1, label: 'Active Operations: Patient safety and care never compromised' },
   {
     id: 2,
-    label: "Cleanliness Maintained: Negative air scrubbers controlled bacteria and dust levels",
+    label: 'Cleanliness Maintained: Negative air scrubbers controlled bacteria and dust levels',
   },
-  { id: 3, label: "Full Transparency: Daily owner reports at every phase" },
-  { id: 4, label: "Multiple Repeat Scopes: Moffitt keeps calling us back" },
+  { id: 3, label: 'Full Transparency: Daily owner reports at every phase' },
+  { id: 4, label: 'Multiple Repeat Scopes: Moffitt keeps calling us back' },
 ];
 
 const projectHighlights = [
-  { id: 1, label: "Active cancer center — patient safety and care never compromised" },
-  { id: 2, label: "72-hour weekend turnarounds — clinics cleaned and operational every Monday" },
-  { id: 3, label: "Negative air scrubbers used to control bacteria and dust levels throughout" },
-  { id: 4, label: "Daily owner reports maintained full transparency at every phase" },
-  { id: 5, label: "Multiple repeat scopes — Moffitt keeps calling us back" },
+  { id: 1, label: 'Active cancer center — patient safety and care never compromised' },
+  { id: 2, label: '72-hour weekend turnarounds — clinics cleaned and operational every Monday' },
+  { id: 3, label: 'Negative air scrubbers used to control bacteria and dust levels throughout' },
+  { id: 4, label: 'Daily owner reports maintained full transparency at every phase' },
+  { id: 5, label: 'Multiple repeat scopes — Moffitt keeps calling us back' },
 ];
 
 const stats = [
-  { id: 1, label: "13+", description: "USF projects completed" },
-  { id: 2, label: "$7.5M", description: "Contract ceiling" },
+  { id: 1, label: '13+', description: 'USF projects completed' },
+  { id: 2, label: '$7.5M', description: 'Contract ceiling' },
 ];
 
 definePageMeta({
-  layout: "layout-a",
+  layout: 'layout-a',
 });
 </script>
 
@@ -171,7 +170,7 @@ definePageMeta({
       </template>
     </cta-a>
     <cta-a
-      flip="true"
+      :flip="true"
       eyebrow="Featured Project"
       title="Moffitt Cancer Center: Multiple Facility Maintenance Projects"
       body=""

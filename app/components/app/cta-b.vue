@@ -1,5 +1,4 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   title: string;
   path: string;
   description?: string;

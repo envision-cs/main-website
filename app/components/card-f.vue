@@ -1,11 +1,10 @@
-<script setup lang="ts">
-const props = defineProps<{
+<script setup lang="ts">const props = defineProps<{
   item: Item;
   idx?: number;
   small?: boolean;
 }>();
 
-const varient = computed(() => (props.small ? "text-sm" : "text-lg"));
+const varient = computed(() => (props.small ? 'text-sm' : 'text-lg'));
 </script>
 <template>
   <div class="card" :class="{ small: small }">

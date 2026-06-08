@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const props = defineProps<{
+<script setup lang="ts">const props = defineProps<{
   /** When true, use a denser, auto-fitting grid */
   dense?: boolean;
 }>();

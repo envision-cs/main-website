@@ -1,7 +1,7 @@
-import { sectors as staticSectors } from "~~/app/assets/sectors";
-import type { Photo, Sector } from "~~/shared/types/content-types";
+import { sectors as staticSectors } from '~~/app/assets/sectors';
+import type { Photo, Sector } from '~~/shared/types/content-types';
 
-const FALLBACK_TIMESTAMP = "2026-01-01T00:00:00.000Z";
+const FALLBACK_TIMESTAMP = '2026-01-01T00:00:00.000Z';
 
 function createFallbackPhoto(id: number, url: string, name: string): Photo {
   return {
@@ -13,14 +13,14 @@ function createFallbackPhoto(id: number, url: string, name: string): Photo {
     width: 0,
     height: 0,
     formats: null,
-    hash: "",
-    ext: "",
-    mime: "",
+    hash: '',
+    ext: '',
+    mime: '',
     size: 0,
     url,
-    previewUrl: "",
-    provider: "local",
-    provider_metadata: { fileId: "" },
+    previewUrl: '',
+    provider: 'local',
+    provider_metadata: { fileId: '' },
     createdAt: FALLBACK_TIMESTAMP,
     updatedAt: FALLBACK_TIMESTAMP,
     publishedAt: FALLBACK_TIMESTAMP,
@@ -29,7 +29,7 @@ function createFallbackPhoto(id: number, url: string, name: string): Photo {
 
 export function getFallbackSectors(): Sector[] {
   return staticSectors
-    .filter((sector) => sector.slug !== "all")
+    .filter(sector => sector.slug !== 'all')
     .map((sector, index) => {
       const id = index + 1;
 
@@ -38,7 +38,7 @@ export function getFallbackSectors(): Sector[] {
         documentId: `fallback-sector-${id}`,
         name: sector.title,
         slug: sector.slug,
-        description: "",
+        description: '',
         createdAt: FALLBACK_TIMESTAMP,
         updatedAt: FALLBACK_TIMESTAMP,
         publishedAt: FALLBACK_TIMESTAMP,

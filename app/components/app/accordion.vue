@@ -1,5 +1,4 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   data: any[] | undefined | null;
   name: string;
 }>();

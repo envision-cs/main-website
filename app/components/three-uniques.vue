@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface ThreeUniqueSlide {
+<script setup lang="ts">interface ThreeUniqueSlide {
   id: number;
   label: string;
   description: string;
@@ -8,21 +7,21 @@ interface ThreeUniqueSlide {
 const slides: ThreeUniqueSlide[] = [
   {
     id: 1,
-    label: "Built on Faith, Driven by Purpose",
+    label: 'Built on Faith, Driven by Purpose',
     description:
-      "Our foundation is God, our work is built on integrity, and our mission is to serve with excellence.",
+      'Our foundation is God, our work is built on integrity, and our mission is to serve with excellence.',
   },
   {
     id: 2,
-    label: "Impact Beyond Construction",
+    label: 'Impact Beyond Construction',
     description:
-      "We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge. With heart, craftsmanship, and purpose, we build legacies that elevate communities for generations to come.",
+      'We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge. With heart, craftsmanship, and purpose, we build legacies that elevate communities for generations to come.',
   },
   {
     id: 3,
-    label: "Versatile. Adaptive. Enhanced Approach",
+    label: 'Versatile. Adaptive. Enhanced Approach',
     description:
-      "No two projects are the same, and neither is our approach. Whether it’s a small renovation or a large-scale build, we move with precision, flexibility, and care, delivering the personal attention of a local partner with the expertise of a national leader.",
+      'No two projects are the same, and neither is our approach. Whether it’s a small renovation or a large-scale build, we move with precision, flexibility, and care, delivering the personal attention of a local partner with the expertise of a national leader.',
   },
 ];
 </script>

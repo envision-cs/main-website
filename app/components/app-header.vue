@@ -1,32 +1,31 @@
-<script setup lang="ts">
-const servicesFeatureImage = "/design-build.jpg";
-const projectsFeatureImage =
-  "https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122";
-const servicesDropdownDescription =
-  "Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.";
-const projectsDropdownDescription =
-  "Selected work across commercial interiors, healthcare, sports, and complex active sites.";
-type DesktopDropdownValue = "services" | "projects";
+<script setup lang="ts">const servicesFeatureImage = '/design-build.jpg';
+const projectsFeatureImage
+  = 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122';
+const servicesDropdownDescription
+  = 'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.';
+const projectsDropdownDescription
+  = 'Selected work across commercial interiors, healthcare, sports, and complex active sites.';
+type DesktopDropdownValue = 'services' | 'projects';
 
 const { services } = await useServicesList();
 const { sectors } = await useSectors();
 
 const desktopDropdowns = computed(() => [
   {
-    value: "services",
-    label: "Services",
-    triggerDataTest: "desktop-services-trigger",
-    panelDataTest: "desktop-mega-menu-panel",
-    gridDataTest: "services-grid",
-    itemDataTest: "services-grid-item",
+    value: 'services',
+    label: 'Services',
+    triggerDataTest: 'desktop-services-trigger',
+    panelDataTest: 'desktop-mega-menu-panel',
+    gridDataTest: 'services-grid',
+    itemDataTest: 'services-grid-item',
     featurePanel: {
-      dataTest: "services-feature-panel",
-      to: "/services",
+      dataTest: 'services-feature-panel',
+      to: '/services',
       image: servicesFeatureImage,
-      eyebrow: "Capabilities",
-      title: "Services",
+      eyebrow: 'Capabilities',
+      title: 'Services',
       copy: servicesDropdownDescription,
-      linkLabel: "view all services",
+      linkLabel: 'view all services',
     },
     items: services.value.map((item, index) => ({
       id: index,
@@ -37,21 +36,21 @@ const desktopDropdowns = computed(() => [
     })),
   },
   {
-    value: "projects",
-    label: "Projects",
-    triggerDataTest: "desktop-projects-trigger",
-    panelDataTest: "desktop-projects-menu-panel",
-    gridDataTest: "projects-grid",
-    itemDataTest: "projects-grid-item",
+    value: 'projects',
+    label: 'Projects',
+    triggerDataTest: 'desktop-projects-trigger',
+    panelDataTest: 'desktop-projects-menu-panel',
+    gridDataTest: 'projects-grid',
+    itemDataTest: 'projects-grid-item',
     featurePanel: {
-      dataTest: "projects-feature-panel",
-      to: "/projects",
+      dataTest: 'projects-feature-panel',
+      to: '/projects',
       image: projectsFeatureImage,
-      eyebrow: "Selected Work",
-      title: "Projects",
+      eyebrow: 'Selected Work',
+      title: 'Projects',
       copy: projectsDropdownDescription,
-      linkLabel: "view all projects",
-      tone: "projects" as const,
+      linkLabel: 'view all projects',
+      tone: 'projects' as const,
     },
     items: sectors.value.map((item, index) => ({
       id: index,
@@ -63,20 +62,20 @@ const desktopDropdowns = computed(() => [
   },
 ]);
 
-const desktopMenuValue = ref<"" | DesktopDropdownValue>("");
+const desktopMenuValue = ref<'' | DesktopDropdownValue>('');
 const suppressDesktopMenuOpenUntil = ref(0);
 const desktopMenuModel = computed({
   get: () => desktopMenuValue.value,
   set: (value: string) => {
     if (Date.now() < suppressDesktopMenuOpenUntil.value) {
-      desktopMenuValue.value = "";
+      desktopMenuValue.value = '';
       return;
     }
 
-    desktopMenuValue.value = value === "services" || value === "projects" ? value : "";
+    desktopMenuValue.value = value === 'services' || value === 'projects' ? value : '';
   },
 });
-const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== "");
+const isDesktopMenuOpen = computed(() => desktopMenuValue.value !== '');
 const route = useRoute();
 const router = useRouter();
 let removeDesktopMenuRouteHook: (() => void) | undefined;
@@ -100,18 +99,20 @@ onBeforeUnmount(() => {
 
 function closeDesktopMenu(suppressMs = 350) {
   suppressDesktopMenuOpenUntil.value = Date.now() + suppressMs;
-  desktopMenuValue.value = "";
+  desktopMenuValue.value = '';
 
   if (import.meta.client) {
     window.setTimeout(() => {
-      desktopMenuValue.value = "";
+      desktopMenuValue.value = '';
     }, 0);
   }
 }
 
 function openDesktopMenu(menu: string) {
-  if (menu !== "services" && menu !== "projects") return;
-  if (Date.now() < suppressDesktopMenuOpenUntil.value) return;
+  if (menu !== 'services' && menu !== 'projects')
+    return;
+  if (Date.now() < suppressDesktopMenuOpenUntil.value)
+    return;
 
   desktopMenuValue.value = menu;
 }
@@ -120,9 +121,11 @@ function onHeaderFocusout(event: FocusEvent) {
   const nextTarget = event.relatedTarget;
   const currentTarget = event.currentTarget;
 
-  if (!(currentTarget instanceof HTMLElement)) return;
+  if (!(currentTarget instanceof HTMLElement))
+    return;
 
-  if (nextTarget instanceof Node && currentTarget.contains(nextTarget)) return;
+  if (nextTarget instanceof Node && currentTarget.contains(nextTarget))
+    return;
 
   closeDesktopMenu(0);
 }
@@ -374,8 +377,8 @@ function onHeaderFocusout(event: FocusEvent) {
     outline-offset: 0.2rem;
   }
 
-  .desktop-dropdown-open-button:focus[aria-expanded="true"],
-  .desktop-dropdown-open-button:focus-visible[aria-expanded="true"] {
+  .desktop-dropdown-open-button:focus[aria-expanded='true'],
+  .desktop-dropdown-open-button:focus-visible[aria-expanded='true'] {
     border-color: var(--color-envision-green-500);
     background: color-mix(in oklch, var(--color-envision-green-500) 16%, transparent);
   }
@@ -408,7 +411,7 @@ function onHeaderFocusout(event: FocusEvent) {
   }
 
   .desktop-inline-nav-link::after {
-    content: "";
+    content: '';
     position: absolute;
     left: 0;
     right: 0;
@@ -431,12 +434,12 @@ function onHeaderFocusout(event: FocusEvent) {
 
   .desktop-inline-nav-link:hover::after,
   .desktop-inline-nav-link:focus-visible::after,
-  .desktop-inline-nav-link[data-menu-open="true"]::after,
-  .desktop-inline-nav-link[aria-expanded="true"]::after {
+  .desktop-inline-nav-link[data-menu-open='true']::after,
+  .desktop-inline-nav-link[aria-expanded='true']::after {
     transform: scaleX(1);
   }
 
-  .desktop-inline-nav-link[aria-expanded="true"]:not(:focus-visible) {
+  .desktop-inline-nav-link[aria-expanded='true']:not(:focus-visible) {
     outline: none;
   }
 
@@ -493,19 +496,19 @@ function onHeaderFocusout(event: FocusEvent) {
     animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  .NavigationMenuContent[data-motion="from-start"] {
+  .NavigationMenuContent[data-motion='from-start'] {
     animation-name: enterFromLeft;
   }
 
-  .NavigationMenuContent[data-motion="from-end"] {
+  .NavigationMenuContent[data-motion='from-end'] {
     animation-name: enterFromRight;
   }
 
-  .NavigationMenuContent[data-motion="to-start"] {
+  .NavigationMenuContent[data-motion='to-start'] {
     animation-name: exitToLeft;
   }
 
-  .NavigationMenuContent[data-motion="to-end"] {
+  .NavigationMenuContent[data-motion='to-end'] {
     animation-name: exitToRight;
   }
 
@@ -546,11 +549,11 @@ function onHeaderFocusout(event: FocusEvent) {
     transition: height 200ms cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  .NavigationMenuViewport[data-state="open"] {
+  .NavigationMenuViewport[data-state='open'] {
     animation: viewportSlideIn 250ms cubic-bezier(0.19, 1, 0.22, 1);
   }
 
-  .NavigationMenuViewport[data-state="closed"] {
+  .NavigationMenuViewport[data-state='closed'] {
     animation: viewportSlideOut 200ms cubic-bezier(0.19, 1, 0.22, 1);
   }
 
@@ -880,8 +883,8 @@ function onHeaderFocusout(event: FocusEvent) {
 
   .desktop-inline-nav-link:hover,
   .desktop-inline-nav-link:focus-visible,
-  .desktop-inline-nav-link[data-menu-open="true"],
-  .desktop-inline-nav-link[aria-expanded="true"] {
+  .desktop-inline-nav-link[data-menu-open='true'],
+  .desktop-inline-nav-link[aria-expanded='true'] {
     background: color-mix(in oklch, var(--color-white) 9%, transparent);
     color: var(--color-white);
   }

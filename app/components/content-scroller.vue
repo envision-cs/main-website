@@ -1,6 +1,5 @@
-<script setup lang="ts">
-import { Comment, Fragment, Text, useSlots } from "vue";
-import useEmblaCarousel from "embla-carousel-vue";
+<script setup lang="ts">import { Comment, Fragment, Text, useSlots } from 'vue';
+import useEmblaCarousel from 'embla-carousel-vue';
 
 const props = withDefaults(
   defineProps<{
@@ -14,8 +13,8 @@ const props = withDefaults(
 const slots = useSlots();
 
 const [emblaRef, emblaApi] = useEmblaCarousel({
-  align: "start",
-  containScroll: "trimSnaps",
+  align: 'start',
+  containScroll: 'trimSnaps',
   dragFree: true,
   loop: false,
 });
@@ -59,26 +58,26 @@ function scrollNext() {
 watch(
   emblaApi,
   (api, previousApi) => {
-    previousApi?.off("select", syncCarouselState);
-    previousApi?.off("reInit", syncCarouselState);
-    previousApi?.off("scroll", syncCarouselState);
+    previousApi?.off('select', syncCarouselState);
+    previousApi?.off('reInit', syncCarouselState);
+    previousApi?.off('scroll', syncCarouselState);
 
     if (!api) {
       return;
     }
 
     syncCarouselState();
-    api.on("select", syncCarouselState);
-    api.on("reInit", syncCarouselState);
-    api.on("scroll", syncCarouselState);
+    api.on('select', syncCarouselState);
+    api.on('reInit', syncCarouselState);
+    api.on('scroll', syncCarouselState);
   },
   { immediate: true },
 );
 
 onUnmounted(() => {
-  emblaApi.value?.off("select", syncCarouselState);
-  emblaApi.value?.off("reInit", syncCarouselState);
-  emblaApi.value?.off("scroll", syncCarouselState);
+  emblaApi.value?.off('select', syncCarouselState);
+  emblaApi.value?.off('reInit', syncCarouselState);
+  emblaApi.value?.off('scroll', syncCarouselState);
 });
 </script>
 

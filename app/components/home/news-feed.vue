@@ -1,33 +1,32 @@
-<script setup lang="ts">
-const items = [
+<script setup lang="ts">const items = [
   {
-    eyebrow: "Tampa Business Journal",
-    title: "Member Spotlight: Envision Construction Services",
-    icon: "i-lucide-newspaper",
+    eyebrow: 'Tampa Business Journal',
+    title: 'Member Spotlight: Envision Construction Services',
+    icon: 'i-lucide-newspaper',
     link: {
-      label: "Read more",
-      to: "#",
-      color: "neutral",
+      label: 'Read more',
+      to: '#',
+      color: 'neutral',
     },
   },
   {
-    eyebrow: "Tampa Business Journal",
-    title: "Meet Envision CS, a 2021 Fast 50 honoree",
-    icon: "i-lucide-newspaper",
+    eyebrow: 'Tampa Business Journal',
+    title: 'Meet Envision CS, a 2021 Fast 50 honoree',
+    icon: 'i-lucide-newspaper',
     link: {
-      label: "Read more",
-      to: "#",
-      color: "neutral",
+      label: 'Read more',
+      to: '#',
+      color: 'neutral',
     },
   },
   {
-    eyebrow: "Tampa Business Journal",
-    title: "Member Spotlight: Envision Construction Services",
-    icon: "i-lucide-newspaper",
+    eyebrow: 'Tampa Business Journal',
+    title: 'Member Spotlight: Envision Construction Services',
+    icon: 'i-lucide-newspaper',
     link: {
-      label: "Read more",
-      to: "#",
-      color: "neutral",
+      label: 'Read more',
+      to: '#',
+      color: 'neutral',
     },
   },
 ];

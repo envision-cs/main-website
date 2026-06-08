@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface BannerStat {
+<script setup lang="ts">interface BannerStat {
   id?: number;
   label: string;
   description?: string;
@@ -29,7 +28,7 @@ const hasMedia = computed(() => Boolean(slots.image || props.image));
 const hasActions = computed(() => Boolean(slots.actions || props.ctaTo));
 const featureImage = computed(() => props.featureImage || props.image);
 const featureTo = computed(() => props.featureTo || props.ctaTo);
-const featureCta = computed(() => props.featureCta || props.cta || "Read more");
+const featureCta = computed(() => props.featureCta || props.cta || 'Read more');
 const hasFeatureCard = computed(() =>
   Boolean(slots.card || (featureImage.value && featureTo.value && featureCta.value)),
 );
@@ -107,7 +106,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
               :to="ctaTo"
               icon="i-lucide-arrow-right"
             >
-              {{ cta || "Start your project" }}
+              {{ cta || 'Start your project' }}
             </my-button>
           </slot>
         </div>

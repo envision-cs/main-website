@@ -1,5 +1,4 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   index?: number;
   title: string;
   text: string;
@@ -69,21 +68,21 @@ const hovered = ref(false);
 
 <style scoped>
 .site-grid {
-  grid-template-areas: "c c c c";
+  grid-template-areas: 'c c c c';
 
   &.show {
     grid-template-areas:
-      "a a a a"
-      "c c c c";
+      'a a a a'
+      'c c c c';
   }
 }
 
 @media (min-width: 700px) {
   .site-grid {
-    grid-template-areas: "c c c c c c c c c c c c ";
+    grid-template-areas: 'c c c c c c c c c c c c ';
 
     &.show {
-      grid-template-areas: "a a a a b c c c c c c c ";
+      grid-template-areas: 'a a a a b c c c c c c c ';
     }
   }
 }
@@ -91,10 +90,10 @@ const hovered = ref(false);
 @media (min-width: 1024px) {
   .site-grid {
     gap: 0;
-    grid-template-areas: "c c c c c c c c c c c c c b i i i i i i i i i i";
+    grid-template-areas: 'c c c c c c c c c c c c c b i i i i i i i i i i';
 
     &.show {
-      grid-template-areas: "a a a c c c c c c c c c c b i i i i i i i i i i";
+      grid-template-areas: 'a a a c c c c c c c c c c b i i i i i i i i i i';
     }
   }
 }

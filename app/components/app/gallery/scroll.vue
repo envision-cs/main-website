@@ -1,9 +1,8 @@
-<script setup>
-const scrollContainer = ref(null);
+<script setup>const scrollContainer = ref(null);
 const items = ref([]);
 
-const { canScrollPrevious, canScrollNext, scrollPrevious, scrollNext, handleKeydown } =
-  useScrollGallery(scrollContainer, items);
+const { canScrollPrevious, canScrollNext, scrollPrevious, scrollNext, handleKeydown }
+  = useScrollGallery(scrollContainer, items);
 
 useTouchHandler(scrollContainer);
 </script>

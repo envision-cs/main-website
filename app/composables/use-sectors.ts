@@ -1,4 +1,4 @@
-import type { Project, Sector } from "~~/shared/types/content-types";
+import type { Project, Sector } from '~~/shared/types/content-types';
 
 export type SectorListItem = {
   name: string;
@@ -10,8 +10,8 @@ export type SectorListItem = {
 };
 
 type ProjectSectorSource = {
-  sector?: Project["sector"] | Sector | null;
-  sectors?: Project["sectors"] | null;
+  sector?: Project['sector'] | Sector | null;
+  sectors?: Project['sectors'] | null;
 };
 
 function isValidProjectSector(sector: Sector | null | undefined): sector is Sector {
@@ -36,26 +36,27 @@ export function projectBelongsToSector(
   if (!slug) {
     return false;
   }
-  return getProjectSectors(project).some((sector) => sector.slug === slug);
+  const test = getProjectSectors(project).some(sector => sector.slug === slug);
+  return test;
 }
 
 export function formatProjectSectorLabel(project: ProjectSectorSource): string | undefined {
   const label = getProjectSectors(project)
-    .map((sector) => sector.name)
-    .join(", ");
+    .map(sector => sector.name)
+    .join(', ');
 
   return label || undefined;
 }
 
 export async function useSectors() {
-  const { data } = await useAsyncData("sectors-list", () => $fetch<Sector[]>("/api/sectors"), {
+  const { data } = await useAsyncData('sectors-list', () => $fetch<Sector[]>('/api/sectors'), {
     default: () => [],
   });
 
   const sectors = computed<SectorListItem[]>(() =>
     (data.value ?? [])
-      .filter((sector) => Boolean(sector?.slug && sector?.name))
-      .map((sector) => ({
+      .filter(sector => Boolean(sector?.slug && sector?.name))
+      .map(sector => ({
         name: sector.name,
         slug: sector.slug,
         description: sector.description,

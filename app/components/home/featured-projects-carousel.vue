@@ -1,5 +1,4 @@
-<script setup lang="ts">
-import type { Project } from "~~/shared/types/content-types";
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 const AUTOSCROLL_INTERVAL_MS = 8000;
 
@@ -16,12 +15,13 @@ interface FeaturedProjectSlide {
 const { formatMonthYear } = useFormatDate();
 
 const { data: projects } = await useAsyncData<Project[]>(
-  "hero-featured-projects-carousel",
+  'hero-featured-projects-carousel',
   async () => {
     try {
-      return await $fetch<Project[]>("/api/projects");
-    } catch (error) {
-      console.error("Failed to fetch hero featured projects:", error);
+      return await $fetch<Project[]>('/api/projects');
+    }
+    catch (error) {
+      console.error('Failed to fetch hero featured projects:', error);
       return [];
     }
   },
@@ -55,7 +55,7 @@ const slides = computed<FeaturedProjectSlide[]>(() => {
           sector: formatProjectSectorLabel(project) || primarySector.name,
           completedLabel: project.completed
             ? formatMonthYear(project.completed)
-            : "Current project",
+            : 'Current project',
           linkLabel: `Read more about ${project.title}`,
         },
       ];
@@ -63,7 +63,7 @@ const slides = computed<FeaturedProjectSlide[]>(() => {
     .slice(0, 5);
 });
 
-const carouselRef = useTemplateRef<HTMLElement | null>("carouselRef");
+const carouselRef = useTemplateRef<HTMLElement | null>('carouselRef');
 
 const activeIndex = ref(0);
 const isUserPaused = ref(false);
@@ -77,17 +77,17 @@ const slideCount = computed(() => slides.value.length);
 const activeSlide = computed(() => slides.value[activeIndex.value] ?? null);
 
 const liveRegionMode = computed(() =>
-  isUserPaused.value || prefersReducedMotion.value ? "polite" : "off",
+  isUserPaused.value || prefersReducedMotion.value ? 'polite' : 'off',
 );
 
-const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, "0"));
-const formattedCount = computed(() => String(slideCount.value).padStart(2, "0"));
+const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, '0'));
+const formattedCount = computed(() => String(slideCount.value).padStart(2, '0'));
 const canAutoplay = computed(() => {
   return (
-    slideCount.value > 1 &&
-    !isUserPaused.value &&
-    !isInteractionPaused.value &&
-    !prefersReducedMotion.value
+    slideCount.value > 1
+    && !isUserPaused.value
+    && !isInteractionPaused.value
+    && !prefersReducedMotion.value
   );
 });
 
@@ -110,7 +110,8 @@ function resetTick() {
   });
 }
 function setActiveIndex(index: number) {
-  if (!slideCount.value) return;
+  if (!slideCount.value)
+    return;
   resetTick();
   activeIndex.value = (index + slideCount.value) % slideCount.value;
 }
@@ -128,7 +129,8 @@ function pauseAutoplay() {
 }
 
 function resumeAutoplay() {
-  if (prefersReducedMotion.value) return;
+  if (prefersReducedMotion.value)
+    return;
   isUserPaused.value = false;
 }
 
@@ -141,14 +143,16 @@ function toggleAutoplay() {
 }
 
 function stopAutoplayInterval() {
-  if (!intervalId) return;
+  if (!intervalId)
+    return;
   resetTick();
   window.clearInterval(intervalId);
   intervalId = null;
 }
 
 function startAutoplayInterval() {
-  if (!import.meta.client || !canAutoplay.value) return;
+  if (!import.meta.client || !canAutoplay.value)
+    return;
 
   stopAutoplayInterval();
   resetTick();
@@ -215,19 +219,19 @@ watch(slideCount, (count) => {
 });
 
 onMounted(() => {
-  motionMediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  motionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   updateReducedMotionPreference();
 
-  motionMediaQuery.addEventListener("change", updateReducedMotionPreference);
-  document.addEventListener("visibilitychange", onDocumentVisibilityChange);
+  motionMediaQuery.addEventListener('change', updateReducedMotionPreference);
+  document.addEventListener('visibilitychange', onDocumentVisibilityChange);
 
   startAutoplayInterval();
 });
 
 onUnmounted(() => {
   stopAutoplayInterval();
-  motionMediaQuery?.removeEventListener("change", updateReducedMotionPreference);
-  document.removeEventListener("visibilitychange", onDocumentVisibilityChange);
+  motionMediaQuery?.removeEventListener('change', updateReducedMotionPreference);
+  document.removeEventListener('visibilitychange', onDocumentVisibilityChange);
 });
 </script>
 
@@ -402,7 +406,7 @@ onUnmounted(() => {
 }
 
 .featured-projects__media::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
 }
@@ -625,7 +629,7 @@ onUnmounted(() => {
 }
 
 .featured-projects__meta::before {
-  content: "";
+  content: '';
   width: 0.45rem;
   height: 0.45rem;
   margin-top: 0.12rem;

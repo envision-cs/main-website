@@ -1,25 +1,24 @@
-<script setup lang="ts">
-const props = withDefaults(
+<script setup lang="ts">const props = withDefaults(
   defineProps<{
-    direction?: "left" | "right" | "top" | "bottom" | "botom";
+    direction?: 'left' | 'right' | 'top' | 'bottom' | 'botom';
   }>(),
   {
-    direction: "bottom",
+    direction: 'bottom',
   },
 );
 
 const angle = computed(() => {
   switch (props.direction) {
-    case "top":
-      return "0deg";
-    case "left":
-      return "270deg";
-    case "right":
-      return "90deg";
-    case "botom":
-    case "bottom":
+    case 'top':
+      return '0deg';
+    case 'left':
+      return '270deg';
+    case 'right':
+      return '90deg';
+    case 'botom':
+    case 'bottom':
     default:
-      return "180deg";
+      return '180deg';
   }
 });
 

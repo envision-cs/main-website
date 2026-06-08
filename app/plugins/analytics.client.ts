@@ -2,7 +2,7 @@ import {
   resolveAnalyticsLinkEvent,
   resolveAnalyticsRouteEvent,
   useAnalytics,
-} from "~/composables/use-analytics";
+} from '~/composables/use-analytics';
 
 export default defineNuxtPlugin((nuxtApp) => {
   const route = useRoute();
@@ -15,7 +15,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         resolveAnalyticsRouteEvent({
           path: route.path,
           fullPath: route.fullPath,
-          name: typeof route.name === "string" ? route.name : null,
+          name: typeof route.name === 'string' ? route.name : null,
         }),
       );
     },
@@ -24,28 +24,29 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   function onDocumentClick(event: MouseEvent) {
     const target = event.target instanceof Element ? event.target : null;
-    const link = target?.closest<HTMLAnchorElement>("a[href]");
+    const link = target?.closest<HTMLAnchorElement>('a[href]');
 
-    if (!link) return;
+    if (!link)
+      return;
 
     analytics.captureResolved(
       resolveAnalyticsLinkEvent({
-        href: link.getAttribute("href") || "",
+        href: link.getAttribute('href') || '',
         label: getLinkLabel(link),
         path: route.path,
-        cta: link.dataset.analyticsCta === "true",
+        cta: link.dataset.analyticsCta === 'true',
       }),
     );
   }
 
-  document.addEventListener("click", onDocumentClick, true);
+  document.addEventListener('click', onDocumentClick, true);
 
   nuxtApp.vueApp.onUnmount(() => {
     stopRouteTracking();
-    document.removeEventListener("click", onDocumentClick, true);
+    document.removeEventListener('click', onDocumentClick, true);
   });
 });
 
 function getLinkLabel(link: HTMLAnchorElement) {
-  return link.getAttribute("aria-label") || link.textContent?.replace(/\s+/g, " ").trim() || "";
+  return link.getAttribute('aria-label') || link.textContent?.replace(/\s+/g, ' ').trim() || '';
 }

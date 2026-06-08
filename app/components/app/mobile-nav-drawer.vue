@@ -1,5 +1,4 @@
-<script setup lang="ts">
-const mobileDrawerOpen = ref(false);
+<script setup lang="ts">const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const mobileProjectsOpen = ref(false);
 const mobileCompanyOpen = ref(false);
@@ -11,47 +10,47 @@ const { services } = await useServicesList();
 const { sectors } = await useSectors();
 
 const serviceLinks = computed(() => [
-  { title: "All Services", to: "/services" },
-  ...services.value.map((service) => ({
+  { title: 'All Services', to: '/services' },
+  ...services.value.map(service => ({
     title: service.title,
     to: service.to,
   })),
 ]);
 
 const projectLinks = computed(() => [
-  { title: "All Projects", to: "/projects" },
-  ...sectors.value.map((sector) => ({
+  { title: 'All Projects', to: '/projects' },
+  ...sectors.value.map(sector => ({
     title: sector.name,
     to: sector.to,
   })),
 ]);
 
 const companyLinks = [
-  { title: "Meet the Team", to: "/team" },
-  { title: "About Us", to: "/about" },
+  { title: 'Meet the Team', to: '/team' },
+  { title: 'About Us', to: '/about' },
 ] as const;
 
 const primaryLinks = [
-  { title: "Contact", to: "/contact" },
-  { title: "Trade Partner Program", to: "/trade-partners", accent: true },
+  { title: 'Contact', to: '/contact' },
+  { title: 'Trade Partner Program', to: '/trade-partners', accent: true },
 ] as const;
 
 const footerLinkGroups = [
   {
-    title: "Envision",
+    title: 'Envision',
     links: [
-      { title: "Home", to: "/" },
-      { title: "Services", to: "/services" },
-      { title: "Projects", to: "/projects" },
-      { title: "Company", to: "/about" },
+      { title: 'Home', to: '/' },
+      { title: 'Services', to: '/services' },
+      { title: 'Projects', to: '/projects' },
+      { title: 'Company', to: '/about' },
     ],
   },
   {
-    title: "Connect",
+    title: 'Connect',
     links: [
-      { title: "Contact", to: "/contact" },
-      { title: "Meet the Team", to: "/team" },
-      { title: "Trade Partners", to: "/trade-partners" },
+      { title: 'Contact', to: '/contact' },
+      { title: 'Meet the Team', to: '/team' },
+      { title: 'Trade Partners', to: '/trade-partners' },
     ],
   },
 ] as const;
@@ -64,7 +63,8 @@ type FocusableRef = HTMLElement | { $el?: Element } | null | undefined;
 watch(
   () => route.fullPath,
   async () => {
-    if (mobileDrawerOpen.value) await closeDrawer();
+    if (mobileDrawerOpen.value)
+      await closeDrawer();
 
     mobileServicesOpen.value = false;
     mobileProjectsOpen.value = false;
@@ -97,9 +97,11 @@ function getDrawerElements() {
 }
 
 function resolveFocusable(target: FocusableRef, fallbackSelector: string) {
-  if (target instanceof HTMLElement) return target;
+  if (target instanceof HTMLElement)
+    return target;
 
-  if (target?.$el instanceof HTMLElement) return target.$el;
+  if (target?.$el instanceof HTMLElement)
+    return target.$el;
 
   return document.body.querySelector(fallbackSelector) as HTMLElement | null;
 }
@@ -120,26 +122,28 @@ function queueFirstDrawerLinkFocus() {
 
 function animateDrawerOpen() {
   const { content, overlay, navTargets } = getDrawerElements();
-  if (!content) return;
+  if (!content)
+    return;
 
   const targets = overlay ? [overlay, content, ...navTargets] : [content, ...navTargets];
   gsap.killTweensOf(targets);
 
   if (overlay) {
     gsap.set(overlay, { autoAlpha: 0 });
-    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: "power2.out" });
+    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: 'power2.out' });
   }
 
   gsap.set(content, { xPercent: 100 });
-  if (navTargets.length) gsap.set(navTargets, { opacity: 0, x: 24 });
+  if (navTargets.length)
+    gsap.set(navTargets, { opacity: 0, x: 24 });
 
   const timeline = gsap.timeline();
-  timeline.to(content, { xPercent: 0, duration: 0.4, ease: "power3.out" }, 0);
+  timeline.to(content, { xPercent: 0, duration: 0.4, ease: 'power3.out' }, 0);
 
   if (navTargets.length) {
     timeline.to(
       navTargets,
-      { opacity: 1, x: 0, duration: 0.24, stagger: 0.06, ease: "power2.out" },
+      { opacity: 1, x: 0, duration: 0.24, stagger: 0.06, ease: 'power2.out' },
       0.1,
     );
   }
@@ -147,7 +151,8 @@ function animateDrawerOpen() {
 
 function animateDrawerClose() {
   const { content, overlay, navTargets } = getDrawerElements();
-  if (!content) return Promise.resolve();
+  if (!content)
+    return Promise.resolve();
 
   const targets = overlay ? [overlay, content, ...navTargets] : [content, ...navTargets];
   gsap.killTweensOf(targets);
@@ -158,24 +163,26 @@ function animateDrawerClose() {
         opacity: 0,
         x: 14,
         duration: 0.14,
-        stagger: { each: 0.03, from: "end" },
-        ease: "power2.in",
+        stagger: { each: 0.03, from: 'end' },
+        ease: 'power2.in',
       });
     }
 
-    if (overlay) gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: "power2.inOut" });
+    if (overlay)
+      gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: 'power2.inOut' });
 
     gsap.to(content, {
       xPercent: 100,
       duration: 0.3,
-      ease: "power3.in",
+      ease: 'power3.in',
       onComplete: resolve,
     });
   });
 }
 
 async function closeDrawer() {
-  if (!mobileDrawerOpen.value || isDrawerClosing.value) return;
+  if (!mobileDrawerOpen.value || isDrawerClosing.value)
+    return;
 
   isDrawerClosing.value = true;
   await nextTick();
@@ -677,7 +684,7 @@ function onDrawerCloseAutoFocus(event: Event) {
   color: var(--drawer-accent);
 }
 
-.mobile-services-toggle[aria-expanded="true"] .mobile-services-toggle__icon {
+.mobile-services-toggle[aria-expanded='true'] .mobile-services-toggle__icon {
   color: var(--drawer-accent);
   transform: rotate(180deg);
 }
@@ -711,7 +718,7 @@ function onDrawerCloseAutoFocus(event: Event) {
 }
 
 .mobile-services-list .mobile-link::before {
-  content: "";
+  content: '';
   display: block;
   width: 0.75rem;
   height: 1px;
@@ -855,7 +862,7 @@ function onDrawerCloseAutoFocus(event: Event) {
   text-align: left;
 }
 
-.mobile-services-toggle[aria-expanded="true"] .mobile-services-toggle__icon {
+.mobile-services-toggle[aria-expanded='true'] .mobile-services-toggle__icon {
   transform: rotate(180deg);
 }
 

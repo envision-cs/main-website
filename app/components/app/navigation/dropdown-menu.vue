@@ -1,12 +1,11 @@
-<script setup lang="ts">
-interface DropdownFeaturePanel {
+<script setup lang="ts">interface DropdownFeaturePanel {
   to: string;
   image: string;
   eyebrow: string;
   title: string;
   copy: string;
   linkLabel: string;
-  tone?: "services" | "projects";
+  tone?: 'services' | 'projects';
   dataTest?: string;
 }
 
@@ -36,15 +35,16 @@ const emit = defineEmits<{
 }>();
 
 function openMenu() {
-  emit("open", props.value);
+  emit('open', props.value);
 }
 
 function focusFirstMenuItem() {
-  if (!import.meta.client) return;
+  if (!import.meta.client)
+    return;
 
   window.requestAnimationFrame(() => {
     const panel = document.querySelector(`[data-test="${props.panelDataTest}"]`);
-    const firstLink = panel?.querySelector<HTMLElement>("a, button");
+    const firstLink = panel?.querySelector<HTMLElement>('a, button');
 
     firstLink?.focus();
   });
@@ -59,21 +59,21 @@ function closeOnNavigation() {
 }
 
 function onTriggerKeydown(event: KeyboardEvent) {
-  if (event.key === "ArrowDown") {
+  if (event.key === 'ArrowDown') {
     event.preventDefault();
     openMenu();
     focusFirstMenuItem();
     return;
   }
 
-  if (event.key === " ") {
+  if (event.key === ' ') {
     event.preventDefault();
     openMenu();
     focusFirstMenuItem();
     return;
   }
 
-  if (event.key === "Escape") {
+  if (event.key === 'Escape') {
     props.closeMenu(0);
   }
 }

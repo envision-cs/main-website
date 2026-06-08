@@ -1,11 +1,10 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   image: string;
   alt: string;
   area: string;
   title: string;
   year: string;
-  direction?: "left" | "right";
+  direction?: 'left' | 'right';
 }>();
 
 const { base } = useEasings();

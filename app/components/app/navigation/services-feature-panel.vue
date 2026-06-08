@@ -1,12 +1,11 @@
-<script setup lang="ts">
-defineProps<{
+<script setup lang="ts">defineProps<{
   to: string;
   image: string;
   eyebrow: string;
   title: string;
   copy: string;
   linkLabel: string;
-  tone?: "services" | "projects";
+  tone?: 'services' | 'projects';
   dataTest?: string;
 }>();
 </script>

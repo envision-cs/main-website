@@ -1,5 +1,26 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { defineNuxtConfig } from "nuxt/config";
+import { defineNuxtConfig } from 'nuxt/config';
+
+const posthogReleaseName = process.env.POSTHOG_RELEASE_NAME || 'envision-website';
+const posthogReleaseVersion =
+  process.env.POSTHOG_RELEASE_VERSION ||
+  process.env.VERCEL_GIT_COMMIT_SHA ||
+  process.env.GITHUB_SHA ||
+  'local';
+const posthogSourcemapProjectId = process.env.POSTHOG_PROJECT_ID;
+const posthogSourcemapApiKey = process.env.POSTHOG_PERSONAL_API_KEY;
+const posthogSourcemaps =
+  posthogSourcemapProjectId && posthogSourcemapApiKey
+    ? {
+        enabled: true,
+        projectId: posthogSourcemapProjectId,
+        personalApiKey: posthogSourcemapApiKey,
+        releaseName: posthogReleaseName,
+        releaseVersion: posthogReleaseVersion,
+        deleteAfterUpload: true,
+      }
+    : undefined;
+
 export default defineNuxtConfig({
   devtools: {
     enabled: true,
@@ -7,94 +28,103 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [
-        { charset: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       ],
-      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     },
   },
-  modules: [
-    "@nuxt/ui",
-    "@vueuse/nuxt",
-    "@nuxt/image",
-    "@nuxtjs/mdc",
-    "@posthog/nuxt",
-    "motion-v/nuxt",
-    "@nuxtjs/strapi",
-    "reka-ui/nuxt",
-    "@nuxt/hints",
-    "@nuxt/eslint",
-    "v-gsap-nuxt",
-    "nuxt-maplibre",
-  ],
-  vite: {
-    optimizeDeps: {
-      include: [
-        "gsap/ScrollTrigger",
-        "@vue/devtools-core",
-        "@vue/devtools-kit",
-        "embla-carousel-vue",
-      ],
-    },
-  },
-  css: ["~/assets/css/main.css", "~/assets/css/maplibre-gl.css"],
-  ui: {
-    colorMode: false,
-    theme: {
-      colors: ["primary", "secondary", "info", "success", "warning", "error"],
-    },
-  },
-  nitro: {
-    preset: "vercel",
-  },
-  routeRules: {
-    "/api/home-hero": { cache: { maxAge: 60 * 10 } }, // 10 min
-  },
-
   runtimeConfig: {
     public: {
-      posthogPublicKey: "phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78",
-      posthogDefaults: "2025-05-24",
+      posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
+      posthogDefaults: '2025-05-24',
       strapi: {
-        url: "",
+        url: '',
       },
     },
   },
-  image: {
-    imagekit: {
-      baseURL: "",
-    },
-  },
-  posthogConfig: {
-    publicKey: "phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78", // Find it in project settings https://app.posthog.com/settings/project
-    host: "https://us.i.posthog.com", // Optional: defaults to https://us.i.posthog.com. Use https://eu.i.posthog.com for EU region
-    clientConfig: {
-      defaults: "2025-05-24",
-      capture_pageview: "history_change",
+
+  css: ['~/assets/css/main.css', '~/assets/css/maplibre-gl.css'],
+  modules: [
+    '@nuxt/ui',
+    '@vueuse/nuxt',
+    '@nuxt/image',
+    '@nuxtjs/mdc',
+    '@posthog/nuxt',
+    'motion-v/nuxt',
+    '@nuxtjs/strapi',
+    'reka-ui/nuxt',
+    '@nuxt/hints',
+    '@nuxt/eslint',
+    'v-gsap-nuxt',
+    'nuxt-maplibre',
+  ],
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        'gsap/ScrollTrigger',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'embla-carousel-vue',
+      ],
     },
   },
   icon: {
     serverBundle: {
-      collections: ["lucide", "simple-icons"], // Only bundle what you need
+      collections: ['lucide', 'simple-icons'], // Only bundle what you need
     },
     customCollections: [
       {
-        prefix: "logos",
-        dir: "./app/assets/logos",
+        prefix: 'logos',
+        dir: './app/assets/logos',
       },
     ],
   },
-  compatibilityDate: "2025-05-15",
+  posthogConfig: {
+    publicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78', // Find it in project settings https://app.posthog.com/settings/project
+    host: 'https://us.i.posthog.com', // Optional: defaults to https://us.i.posthog.com. Use https://eu.i.posthog.com for EU region
+    clientConfig: {
+      defaults: '2025-05-24',
+      capture_pageview: 'history_change',
+      capture_exceptions: {
+        capture_unhandled_errors: true,
+        capture_unhandled_rejections: true,
+      },
+    },
+    serverConfig: {
+      enableExceptionAutocapture: true,
+    },
+    sourcemaps: posthogSourcemaps,
+  },
+  ui: {
+    colorMode: false,
+    theme: {
+      colors: ['primary', 'secondary', 'info', 'success', 'warning', 'error'],
+    },
+  },
+  nitro: {
+    preset: 'vercel',
+  },
+  compatibilityDate: '2025-05-15',
   experimental: {
     sharedPrerenderData: true,
   },
   strapi: {
     url: process.env.STRAPI_URL,
     token: process.env.STRAPI_TOKEN || undefined,
-    prefix: "/api",
-    admin: "/admin",
-    version: "v5",
+    prefix: '/api',
+    admin: '/admin',
+    version: 'v5',
     cookie: {},
-    cookieName: "strapi_jwt",
+    cookieName: 'strapi_jwt',
+  },
+  routeRules: {
+    '/api/home-hero': { cache: { maxAge: 60 * 10 } }, // 10 min
+  },
+  image: {
+    imagekit: {
+      baseURL: '',
+    },
   },
 });

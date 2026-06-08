@@ -1,7 +1,6 @@
-<script setup lang="ts">
-import type { Project } from "~~/shared/types/content-types";
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
-import { parseMarkdown } from "@nuxtjs/mdc/runtime";
+import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
 const { formatMonthYear } = useFormatDate();
 
@@ -10,17 +9,20 @@ const route = useRoute();
 const slug = computed(() => {
   const param = route.params.project;
 
-  if (typeof param !== "string") return "";
+  if (typeof param !== 'string')
+    return '';
 
   const normalized = param.trim();
-  if (!normalized || normalized === "null" || normalized === "undefined") return "";
+  if (!normalized || normalized === 'null' || normalized === 'undefined')
+    return '';
 
   return normalized;
 });
 const sectorSlug = computed(() => {
   const param = route.params.id;
 
-  if (typeof param !== "string") return "";
+  if (typeof param !== 'string')
+    return '';
 
   return param.trim();
 });
@@ -33,7 +35,7 @@ const { data: projectData, error: projectError } = await useAsyncData(
     if (!slug.value) {
       throw createError({
         statusCode: 404,
-        statusMessage: "Project not found",
+        statusMessage: 'Project not found',
       });
     }
 
@@ -45,7 +47,7 @@ const { data: projectData, error: projectError } = await useAsyncData(
 if (projectError.value) {
   throw createError({
     statusCode: projectError.value.statusCode || 500,
-    statusMessage: projectError.value.statusMessage || "Unable to load project",
+    statusMessage: projectError.value.statusMessage || 'Unable to load project',
     fatal: true,
   });
 }
@@ -65,7 +67,7 @@ const page = computed(() => {
   const gallery: GalleryImage[] = (entry.gallery || []).map((image) => {
     return {
       url: image.url,
-      altText: typeof image.alternativeText === "string" ? image.alternativeText : "",
+      altText: typeof image.alternativeText === 'string' ? image.alternativeText : '',
     };
   });
 
@@ -75,7 +77,7 @@ const page = computed(() => {
     slug: entry.slug,
     main_image: entry.mainImage?.url,
     location: entry.location,
-    sector: formatProjectSectorLabel(entry) || "Project",
+    sector: formatProjectSectorLabel(entry) || 'Project',
     area: entry.area,
     completed: entry.completed,
     gallery,
@@ -90,27 +92,28 @@ const title = computed(() => page.value?.title);
 function toSeoDescription(description?: string) {
   return (
     description
-      ?.replace(/```[\s\S]*?```/g, " ")
-      .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
-      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-      .replace(/[#*_>`~|-]/g, " ")
-      .replace(/\s+/g, " ")
+      ?.replace(/```[\s\S]*?```/g, ' ')
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+      .replace(/[#*_>`~|-]/g, ' ')
+      .replace(/\s+/g, ' ')
       .trim()
-      .slice(0, 160) || ""
+      .slice(0, 160) || ''
   );
 }
 
 const seoTitle = computed(() => {
-  return title.value ? `${title.value} | Envision Projects` : "Project | Envision";
+  return title.value ? `${title.value} | Envision Projects` : 'Project | Envision';
 });
 
 const seoDescription = computed(() => {
   const fromDescription = toSeoDescription(page.value?.description);
-  if (fromDescription) return fromDescription;
+  if (fromDescription)
+    return fromDescription;
 
-  const location = page.value?.location ? ` in ${page.value.location}` : "";
-  const sector = page.value?.sector ? `${page.value.sector} ` : "";
-  return `Explore ${page.value?.title || "this project"}, an Envision ${sector}project${location}.`;
+  const location = page.value?.location ? ` in ${page.value.location}` : '';
+  const sector = page.value?.sector ? `${page.value.sector} ` : '';
+  return `Explore ${page.value?.title || 'this project'}, an Envision ${sector}project${location}.`;
 });
 
 const canonicalPath = computed(() => {
@@ -122,8 +125,8 @@ const canonicalPath = computed(() => {
 });
 
 const activeImage = ref<string | null>(null);
-const imageDialogRef = useTemplateRef<HTMLDialogElement | null>("imageDialogRef");
-const closeButtonRef = useTemplateRef<HTMLButtonElement | null>("closeButtonRef");
+const imageDialogRef = useTemplateRef<HTMLDialogElement | null>('imageDialogRef');
+const closeButtonRef = useTemplateRef<HTMLButtonElement | null>('closeButtonRef');
 const restoreFocusRef = ref<HTMLElement | null>(null);
 
 const isLoading = ref(false);
@@ -138,8 +141,8 @@ async function handleImageClick(image: GalleryImage) {
 
   const dialog = imageDialogRef.value;
   if (!dialog?.open) {
-    restoreFocusRef.value =
-      document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    restoreFocusRef.value
+      = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     dialog?.showModal();
   }
 
@@ -177,24 +180,25 @@ const { data: ast } = await useAsyncData(
 );
 
 const stats = computed<Item[]>(() => {
-  if (!page.value) return [];
+  if (!page.value)
+    return [];
   const stats = [
     {
       id: 1,
       label: page.value.location ?? null,
-      description: "Location",
+      description: 'Location',
     },
 
     {
       id: 2,
       label: page.value.completed ? formatMonthYear(page.value.completed) : null,
-      description: "Completion",
+      description: 'Completion',
     },
 
     {
       id: 3,
       label: page.value.area,
-      description: "Area",
+      description: 'Area',
     },
   ];
 
@@ -210,9 +214,9 @@ useSeoMeta(() => ({
   ogTitle: seoTitle.value,
   ogDescription: seoDescription.value,
   ogImage: page.value?.main_image,
-  ogType: "article",
+  ogType: 'article',
   ogUrl: canonicalPath.value,
-  twitterCard: page.value?.main_image ? "summary_large_image" : "summary",
+  twitterCard: page.value?.main_image ? 'summary_large_image' : 'summary',
   twitterTitle: seoTitle.value,
   twitterDescription: seoDescription.value,
   twitterImage: page.value?.main_image,
@@ -221,19 +225,20 @@ useSeoMeta(() => ({
 useHead(() => ({
   link: [
     {
-      rel: "canonical",
+      rel: 'canonical',
       href: canonicalPath.value,
     },
   ],
 }));
 
 const { data } = await useAsyncData<Project[]>(
-  "projects-page-data",
+  'projects-page-data',
   async () => {
     try {
-      return await $fetch<Project[]>("/api/projects");
-    } catch (err) {
-      console.error("Strapi error:", err);
+      return await $fetch<Project[]>('/api/projects');
+    }
+    catch (err) {
+      console.error('Strapi error:', err);
       return [];
     }
   },
@@ -385,7 +390,7 @@ article {
 }
 
 .gallery-trigger::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;

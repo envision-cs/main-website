@@ -1,13 +1,12 @@
-<script setup lang="ts">
-withDefaults(
+<script setup lang="ts">withDefaults(
   defineProps<{
     body?: string;
     title?: string;
     eyebrow?: string;
-    bgcolor?: "light" | "dark";
+    bgcolor?: 'light' | 'dark';
   }>(),
   {
-    bgcolor: "light",
+    bgcolor: 'light',
   },
 );
 </script>

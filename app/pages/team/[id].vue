@@ -1,9 +1,8 @@
-<script setup lang="ts">
-/* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
-import { parseMarkdown } from "@nuxtjs/mdc/runtime";
+<script setup lang="ts">/* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
+import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
 definePageMeta({
-  layout: "default",
+  layout: 'default',
 });
 
 const route = useRoute();
@@ -31,20 +30,20 @@ const relatedMembers = computed(() => {
 });
 
 const teamMember = computed(() => data.value?.teamMember);
-const teamName = computed(() => teamMember.value?.team?.name || "Envision");
-const teamRole = computed(() => teamMember.value?.team?.role || "Meet the Team");
+const teamName = computed(() => teamMember.value?.team?.name || 'Envision');
+const teamRole = computed(() => teamMember.value?.team?.role || 'Meet the Team');
 const teamColor = computed(
-  () => teamMember.value?.team?.color || "var(--color-envision-green-500)",
+  () => teamMember.value?.team?.color || 'var(--color-envision-green-500)',
 );
 const portraitFailed = ref(false);
 const memberInitials = computed(() => {
   return (
     teamMember.value?.name
-      ?.split(" ")
+      ?.split(' ')
       .filter(Boolean)
       .slice(0, 2)
       .map((part) => part[0])
-      .join("") || "EV"
+      .join('') || 'EV'
   );
 });
 
@@ -54,33 +53,33 @@ watch(id, () => {
 
 const contactActions = computed(() => [
   {
-    label: "LinkedIn",
+    label: 'LinkedIn',
     to: teamMember.value?.linkedin,
-    icon: "i-simple-icons-linkedin",
+    icon: 'i-simple-icons-linkedin',
     show: Boolean(teamMember.value?.linkedin),
   },
   {
-    label: "Email",
+    label: 'Email',
     to: teamMember.value?.email ? `mailto:${teamMember.value.email}` : undefined,
-    icon: "i-heroicons-envelope",
+    icon: 'i-heroicons-envelope',
     show: Boolean(teamMember.value?.email),
   },
 ]);
 
 const profileCards = computed(() => [
   {
-    label: "Role",
-    description: teamMember.value?.title || "Team member",
+    label: 'Role',
+    description: teamMember.value?.title || 'Team member',
   },
   {
-    label: "Team",
+    label: 'Team',
     description: teamName.value,
   },
   {
-    label: "Focus",
+    label: 'Focus',
     description:
       teamMember.value?.team?.description ||
-      "Helping Envision deliver steady, detailed work for clients across Central Florida.",
+      'Helping Envision deliver steady, detailed work for clients across Central Florida.',
   },
 ]);
 
@@ -89,25 +88,26 @@ const title = computed(() => data.value?.teamMember?.name);
 function toSeoDescription(text?: string) {
   return (
     text
-      ?.replace(/```[\s\S]*?```/g, " ")
-      .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
-      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-      .replace(/[#*_>`~|-]/g, " ")
-      .replace(/\s+/g, " ")
+      ?.replace(/```[\s\S]*?```/g, ' ')
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+      .replace(/[#*_>`~|-]/g, ' ')
+      .replace(/\s+/g, ' ')
       .trim()
-      .slice(0, 160) || ""
+      .slice(0, 160) || ''
   );
 }
 
 const seoTitle = computed(() =>
-  title.value ? `${title.value} | Envision` : "Meet the Team | Envision",
+  title.value ? `${title.value} | Envision` : 'Meet the Team | Envision',
 );
 
 const seoDescription = computed(() => {
   const fromBio = toSeoDescription(teamMember.value?.bio);
-  if (fromBio) return fromBio;
+  if (fromBio)
+    return fromBio;
 
-  const role = teamMember.value?.title ? `${teamMember.value.title}, ` : "";
+  const role = teamMember.value?.title ? `${teamMember.value.title}, ` : '';
   return `${role}part of the ${teamName.value} at Envision. Meet the people delivering organized, high-quality construction across Tampa Bay and Central Florida.`;
 });
 
@@ -117,8 +117,8 @@ useSeoMeta(() => ({
   ogTitle: seoTitle.value,
   ogDescription: seoDescription.value,
   ogImage: teamMember.value?.photo?.url,
-  ogType: "profile",
-  twitterCard: teamMember.value?.photo?.url ? "summary_large_image" : "summary",
+  ogType: 'profile',
+  twitterCard: teamMember.value?.photo?.url ? 'summary_large_image' : 'summary',
   twitterTitle: seoTitle.value,
   twitterDescription: seoDescription.value,
   twitterImage: teamMember.value?.photo?.url,

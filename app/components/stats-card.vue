@@ -1,12 +1,11 @@
-<script setup lang="ts">
-withDefaults(
+<script setup lang="ts">withDefaults(
   defineProps<{
     stat: string;
     description: string;
     color?: string;
   }>(),
   {
-    color: "--color-envision-blue-600",
+    color: '--color-envision-blue-600',
   },
 );
 </script>

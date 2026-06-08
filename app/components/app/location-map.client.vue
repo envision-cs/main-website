@@ -1,16 +1,15 @@
-<script setup lang="ts">
-const style = "https://tiles.openfreemap.org/styles/positron";
+<script setup lang="ts">const style = 'https://tiles.openfreemap.org/styles/positron';
 const zoom = 9;
 
 const mapLoaded = ref(false);
 const mapFailed = ref(false);
 
 const office = {
-  name: "Tampa Office",
-  address: "5000 Acline Drive East, Tampa, FL 33619",
+  name: 'Tampa Office',
+  address: '5000 Acline Drive East, Tampa, FL 33619',
   coordinates: [-82.4, 27.95] as [number, number],
   directionsUrl:
-    "https://www.google.com/maps/search/?api=1&query=5000%20Acline%20Drive%20East%2C%20Tampa%2C%20FL%2033619",
+    'https://www.google.com/maps/search/?api=1&query=5000%20Acline%20Drive%20East%2C%20Tampa%2C%20FL%2033619',
 };
 
 function handleMapLoad() {
@@ -51,7 +50,7 @@ function handleMapError() {
         <Icon name="lucide:map-pin" size="32" class="map-fallback__icon" aria-hidden="true" />
         <div>
           <p class="map-fallback__eyebrow">
-            {{ mapFailed ? "Map unavailable" : "Loading map" }}
+            {{ mapFailed ? 'Map unavailable' : 'Loading map' }}
           </p>
           <p class="map-fallback__title">{{ office.name }}</p>
           <p class="map-fallback__address">{{ office.address }}</p>

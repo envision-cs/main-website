@@ -1,7 +1,7 @@
-import type { APISectors } from "~~/shared/types/content-types";
+import type { APISectors } from '~~/shared/types/content-types';
 
-import { getFallbackSectors } from "~~/server/utils/fallback-sectors";
-import { catchError } from "~~/shared/utils/catch-error";
+import { getFallbackSectors } from '~~/server/utils/fallback-sectors';
+import { catchError } from '~~/shared/utils/catch-error';
 
 export default defineEventHandler(async () => {
   const config = useRuntimeConfig();
@@ -9,7 +9,7 @@ export default defineEventHandler(async () => {
 
   const [strapiError, response] = await catchError(
     $fetch<APISectors>(url, {
-      method: "GET",
+      method: 'GET',
     }),
   );
   if (strapiError) {

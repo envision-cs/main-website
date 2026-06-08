@@ -1,5 +1,4 @@
-<script setup lang="ts">
-interface Item {
+<script setup lang="ts">interface Item {
   id: number;
   label: string;
 }

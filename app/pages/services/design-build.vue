@@ -1,58 +1,57 @@
-<script setup lang="ts">
-definePageMeta({
-  layout: "layout-a",
+<script setup lang="ts">definePageMeta({
+  layout: 'layout-a',
 });
 
 useSeoMeta({
-  title: "Design-Build | Envision Tampa Bay & Central Florida",
+  title: 'Design-Build | Envision Tampa Bay & Central Florida',
   description:
-    "Single-source design-build from Envision. Target Value Design, early constructability input, and one point of accountability from concept through closeout, reducing redesign cycles and protecting budget.",
-  ogTitle: "Design-Build | Envision Tampa Bay & Central Florida",
+    'Single-source design-build from Envision. Target Value Design, early constructability input, and one point of accountability from concept through closeout, reducing redesign cycles and protecting budget.',
+  ogTitle: 'Design-Build | Envision Tampa Bay & Central Florida',
   ogDescription:
-    "Most contractors wait for plans. We help shape them. One team, one contract, full accountability from concept through closeout.",
+    'Most contractors wait for plans. We help shape them. One team, one contract, full accountability from concept through closeout.',
   ogImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270",
-  ogType: "website",
-  twitterCard: "summary_large_image",
-  twitterTitle: "Design-Build | Envision Tampa Bay & Central Florida",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'Design-Build | Envision Tampa Bay & Central Florida',
   twitterDescription:
-    "Most contractors wait for plans. We help shape them. One team, one contract, full accountability from concept through closeout.",
+    'Most contractors wait for plans. We help shape them. One team, one contract, full accountability from concept through closeout.',
   twitterImage:
-    "https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270",
+    'https://ik.imagekit.io/pnixsw7lg/main-website/DB_The_Difference_8b7c167c72.JPG?updatedAt=1780433666270',
 });
 
 const differentiators = [
   {
     id: 1,
-    label: "Target Value Design",
+    label: 'Target Value Design',
     description:
-      " We design to a budget, not the other way around. Trade partners provide cost input at every design phase so there are no surprises when construction documents are finalized.",
+      ' We design to a budget, not the other way around. Trade partners provide cost input at every design phase so there are no surprises when construction documents are finalized.',
   },
   {
     id: 2,
-    label: "Constructability input early",
+    label: 'Constructability input early',
     description:
-      "Our team reviews design during schematic and design development before decisions lock in and become expensive to reverse.",
+      'Our team reviews design during schematic and design development before decisions lock in and become expensive to reverse.',
   },
   {
     id: 3,
-    label: "Real-cost feedback in real time",
+    label: 'Real-cost feedback in real time',
     description:
-      "No pricing surprises at construction documents. We flag cost implications as design evolves—when there are still options to act, not after you're locked in.",
+      'No pricing surprises at construction documents. We flag cost implications as design evolves—when there are still options to act, not after you\'re locked in.',
   },
   {
     id: 4,
-    label: "Single-source accountability",
+    label: 'Single-source accountability',
     description:
-      "One team. One contract. Full accountability from concept through closeout—no gaps, no finger-pointing, no redesign cycles.",
+      'One team. One contract. Full accountability from concept through closeout—no gaps, no finger-pointing, no redesign cycles.',
   },
 ];
 
 const deliveryMethods = [
-  { id: 1, label: "Ground-up design-build" },
-  { id: 2, label: "Renovation design-build" },
-  { id: 3, label: "Fast-track delivery" },
-  { id: 4, label: "Design-assist engagements" },
+  { id: 1, label: 'Ground-up design-build' },
+  { id: 2, label: 'Renovation design-build' },
+  { id: 3, label: 'Fast-track delivery' },
+  { id: 4, label: 'Design-assist engagements' },
 ];
 
 // const projectOutcomes = [
