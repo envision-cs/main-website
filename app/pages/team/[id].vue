@@ -126,7 +126,7 @@ useSeoMeta(() => ({
 </script>
 
 <template>
-  <UPage v-if="teamMember" class="team-profile-page">
+  <UPage v-if="teamMember" class="team-profile-page pt-24">
     <section
       class="team-profile-hero dark"
       :style="{ '--team-accent': teamColor }"
@@ -151,7 +151,7 @@ useSeoMeta(() => ({
             </app-typography>
           </div>
 
-          <div class="team-profile-hero__actions" aria-label="Team member actions">
+          <!-- <div class="team-profile-hero__actions" aria-label="Team member actions">
             <app-button
               v-for="action in contactActions.filter((item) => item.show)"
               :key="action.label"
@@ -164,7 +164,7 @@ useSeoMeta(() => ({
             >
               {{ action.label }}
             </app-button>
-          </div>
+          </div> -->
         </div>
 
         <figure class="team-profile-hero__portrait">
@@ -175,7 +175,7 @@ useSeoMeta(() => ({
             class="portrait-image"
             fetchpriority="high"
             @error="portraitFailed = true"
-          />
+          >
           <div v-else class="portrait-fallback" aria-hidden="true">
             {{ memberInitials }}
           </div>
