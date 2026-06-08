@@ -151,7 +151,7 @@ useSeoMeta(() => ({
             </app-typography>
           </div>
 
-          <div class="team-profile-hero__actions" aria-label="Team member actions">
+          <!-- <div class="team-profile-hero__actions" aria-label="Team member actions">
             <app-button
               v-for="action in contactActions.filter((item) => item.show)"
               :key="action.label"
@@ -164,7 +164,7 @@ useSeoMeta(() => ({
             >
               {{ action.label }}
             </app-button>
-          </div>
+          </div> -->
         </div>
 
         <figure class="team-profile-hero__portrait">
