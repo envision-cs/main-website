@@ -358,50 +358,29 @@ function onDrawerCloseAutoFocus(event: Event) {
               </CollapsibleRoot>
             </li>
 
-            <li class="mobile-nav-list__item">
-              <CollapsibleRoot v-model:open="mobileCompanyOpen">
-                <CollapsibleTrigger as-child>
-                  <button
-                    class="mobile-services-toggle"
-                    type="button"
-                    data-test="mobile-company-toggle"
-                    data-anim="mobile-nav-link"
-                    :aria-expanded="String(mobileCompanyOpen)"
-                  >
-                    <app-typography
-                      tag="span"
-                      variant="heading-sm"
-                      class="mobile-services-toggle__label"
-                    >
-                      Company
-                    </app-typography>
-                    <UIcon
-                      name="i-lucide-chevron-down"
-                      class="mobile-services-toggle__icon"
-                      aria-hidden="true"
-                    />
-                  </button>
-                </CollapsibleTrigger>
-                <CollapsibleContent class="mobile-services-panel" data-test="mobile-company-panel">
-                  <ul class="mobile-services-list">
+
                     <li
                       v-for="link in companyLinks"
                       :key="link.to"
                       class="mobile-services-list__item"
                     >
                       <NuxtLink
-                        class="mobile-sub-link"
+                        class="mobile-link"
                         :to="link.to"
                         data-anim="mobile-nav-link"
                         @click="closeDrawerAndNavigate"
                       >
-                        {{ link.title }}
+                        <app-typography tag="span" variant="heading-sm" class="mobile-link__label">
+                          {{ link.title }}
+                        </app-typography>
+                        <UIcon
+                          name="i-lucide-arrow-up-right"
+                          class="mobile-link__icon"
+                          aria-hidden="true"
+                        />
                       </NuxtLink>
                     </li>
-                  </ul>
-                </CollapsibleContent>
-              </CollapsibleRoot>
-            </li>
+
 
             <li v-for="link in primaryLinks" :key="link.to" class="mobile-nav-list__item">
               <NuxtLink
@@ -423,26 +402,7 @@ function onDrawerCloseAutoFocus(event: Event) {
             </li>
           </ul>
 
-          <div class="mobile-actions" aria-label="Primary actions">
-            <NuxtLink
-              class="mobile-action mobile-action--primary"
-              to="/contact"
-              data-anim="mobile-nav-link"
-              @click="closeDrawerAndNavigate"
-            >
-              Start your project
-              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-            </NuxtLink>
-            <NuxtLink
-              class="mobile-action"
-              to="/trade-partners"
-              data-anim="mobile-nav-link"
-              @click="closeDrawerAndNavigate"
-            >
-              Trade Partner Program
-              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-            </NuxtLink>
-          </div>
+
         </nav>
 
         <footer class="mobile-footer" aria-label="Secondary navigation">
