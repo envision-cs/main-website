@@ -56,9 +56,10 @@ section {
   background-color: var(--section-bg);
   color: var(--section-color);
   max-height: auto;
-  min-height: 600px;
+  min-height: auto;
 
-  @media (width > 120ch) {
+  @media (width > 1500px) {
+      min-height: 600px;
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -90,16 +91,18 @@ section {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  min-height: 500px;
-  object-fit: cover;
-
-  @media (min-width: 1024px) {
-  }
+  min-height: unset;
+  object-fit: scale-down;
 
   img {
     height: 100%;
     width: 100%;
     max-inline-size: 100%;
+  }
+
+  @media (width > 1500px) {
+      min-height: 500px;
+      object-fit: cover;
   }
 }
 </style>

@@ -135,7 +135,7 @@ const projectHighlights = [
       eyebrow="Featured project"
       title="Hillsborough County Public Schools — Liberty Middle School"
       body=""
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/20230801_072634.webp"
+      image="https://ik.imagekit.io/pnixsw7lg/main-website/precon_image_b3b96f9189.webp?updatedAt=1780912282476"
       bgcolor="dark"
     >
       <template #body>
