@@ -126,7 +126,7 @@ useSeoMeta(() => ({
 </script>
 
 <template>
-  <UPage v-if="teamMember" class="team-profile-page">
+  <UPage v-if="teamMember" class="team-profile-page pt-24">
     <section
       class="team-profile-hero dark"
       :style="{ '--team-accent': teamColor }"
@@ -175,7 +175,7 @@ useSeoMeta(() => ({
             class="portrait-image"
             fetchpriority="high"
             @error="portraitFailed = true"
-          />
+          >
           <div v-else class="portrait-fallback" aria-hidden="true">
             {{ memberInitials }}
           </div>
