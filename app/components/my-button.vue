@@ -35,8 +35,6 @@ const classes = computed(() => [
     'btn--icon-only': isIconOnly.value,
   },
 ]);
-
-const isTrackableCta = computed(() => isInternalCtaDestination(props.to));
 </script>
 
 <template>
@@ -45,7 +43,6 @@ const isTrackableCta = computed(() => isInternalCtaDestination(props.to));
     v-bind="{ ...attrs, ...componentProps }"
     :class="classes"
     :data-variant="variant"
-    :data-analytics-cta="isTrackableCta ? 'true' : undefined"
   >
     <span v-if="loading" class="btn__loader" aria-hidden="true" />
     <span v-if="hasIcon" class="btn__icon">

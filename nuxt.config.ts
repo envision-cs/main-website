@@ -57,7 +57,6 @@ export default defineNuxtConfig({
     'motion-v/nuxt',
     '@nuxtjs/strapi',
     'reka-ui/nuxt',
-    '@nuxt/hints',
     '@nuxt/eslint',
     'v-gsap-nuxt',
     'nuxt-maplibre',
@@ -85,22 +84,14 @@ export default defineNuxtConfig({
       },
     ],
   },
-  posthogConfig: {
-    publicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78', // Find it in project settings https://app.posthog.com/settings/project
-    host: 'https://us.i.posthog.com', // Optional: defaults to https://us.i.posthog.com. Use https://eu.i.posthog.com for EU region
-    clientConfig: {
-      defaults: '2025-05-24',
-      capture_pageview: 'history_change',
-      capture_exceptions: {
-        capture_unhandled_errors: true,
-        capture_unhandled_rejections: true,
-      },
-    },
-    serverConfig: {
-      enableExceptionAutocapture: true,
-    },
-    sourcemaps: posthogSourcemaps,
-  },
+  // posthogConfig: {
+  //   publicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78', // Find it in project settings https://app.posthog.com/settings/project
+  //   host: 'https://us.i.posthog.com', // Optional: defaults to https://us.i.posthog.com. Use https://eu.i.posthog.com for EU region
+  //   serverConfig: {
+  //     enableExceptionAutocapture: true,
+  //   },
+  //   sourcemaps: posthogSourcemaps,
+  // },
   ui: {
     colorMode: false,
     theme: {
