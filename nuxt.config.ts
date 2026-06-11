@@ -39,7 +39,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      posthogPublicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
+      posthog: {
+        publicKey: process.env.NUXT_PUBLIC_POSTHOG_PROJECT_TOKEN || '',
+        host: process.env.NUXT_PUBLIC_POSTHOG_HOST || 'https://p.envision-cs.com',
+      },
       posthogDefaults: '2025-05-24',
       strapi: {
         url: '',
@@ -85,14 +88,20 @@ export default defineNuxtConfig({
       },
     ],
   },
-  // posthogConfig: {
-  //   publicKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78', // Find it in project settings https://app.posthog.com/settings/project
-  //   host: 'https://us.i.posthog.com', // Optional: defaults to https://us.i.posthog.com. Use https://eu.i.posthog.com for EU region
-  //   serverConfig: {
-  //     enableExceptionAutocapture: true,
-  //   },
-  //   sourcemaps: posthogSourcemaps,
-  // },
+  posthogConfig: {
+    publicKey: process.env.NUXT_PUBLIC_POSTHOG_PROJECT_TOKEN || '',
+    host: process.env.NUXT_PUBLIC_POSTHOG_HOST || 'https://p.envision-cs.com',
+    clientConfig: {
+      capture_exceptions: true,
+      __add_tracing_headers: ['localhost', 'envision-cs.com'],
+      ui_host: 'https://us.posthog.com',
+      person_profiles: 'identified_only',
+    },
+    serverConfig: {
+      enableExceptionAutocapture: true,
+    },
+    sourcemaps: posthogSourcemaps,
+  },
   ui: {
     colorMode: false,
     theme: {

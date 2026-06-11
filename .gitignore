@@ -27,3 +27,4 @@ context.md
 .vercel
 
 .worktrees/
+.env.local

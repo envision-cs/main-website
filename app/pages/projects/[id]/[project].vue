@@ -124,6 +124,19 @@ const canonicalPath = computed(() => {
   return route.path;
 });
 
+const posthog = usePostHog();
+
+onMounted(() => {
+  if (page.value) {
+    posthog?.capture('project_viewed', {
+      project_title: page.value.title,
+      project_sector: page.value.sector,
+      project_location: page.value.location,
+      project_slug: page.value.slug,
+    });
+  }
+});
+
 const activeImage = ref<string | null>(null);
 const imageDialogRef = useTemplateRef<HTMLDialogElement | null>('imageDialogRef');
 const closeButtonRef = useTemplateRef<HTMLButtonElement | null>('closeButtonRef');
@@ -133,6 +146,11 @@ const isLoading = ref(false);
 const hasImageError = ref(false);
 
 async function handleImageClick(image: GalleryImage) {
+  posthog?.capture('project_gallery_image_opened', {
+    project_title: page.value?.title,
+    project_slug: page.value?.slug,
+  });
+
   if (activeImage.value !== image.url) {
     activeImage.value = image.url;
     isLoading.value = true;
