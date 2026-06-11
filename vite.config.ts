@@ -6,7 +6,7 @@ export default defineConfig({
     singleQuote: true,
   },
   staged: {
-    '*': ['vp lint --fix'],
+    '*': ['vp lint --fix --no-error-on-unmatched-pattern'],
   },
   lint: {
     plugins: ['oxc', 'typescript', 'unicorn', 'react', 'node', 'jsdoc', 'import'],
