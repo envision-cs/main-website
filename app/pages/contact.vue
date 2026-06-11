@@ -1,4 +1,13 @@
-<script setup lang="ts">const { data: contactData, error } = await useFetch('/api/contact');
+<script setup lang="ts">const posthog = usePostHog();
+const { data: contactData, error } = await useFetch('/api/contact');
+
+function trackEmailClick() {
+  posthog?.capture('contact_email_clicked');
+}
+
+function trackPhoneClick() {
+  posthog?.capture('contact_phone_clicked');
+}
 
 useSeoMeta({
   title: 'Contact Envision | Tampa Bay & Central Florida Construction',
@@ -47,13 +56,13 @@ useSeoMeta({
                 <app-typography tag="p" variant="text-md" class="section-copy">
                   Email
                 </app-typography>
-                <a href="mailto:pursuits@envision-cs.com">pursuits@envision-cs.com</a>
+                <a href="mailto:pursuits@envision-cs.com" @click="trackEmailClick">pursuits@envision-cs.com</a>
               </div>
               <div>
                 <app-typography tag="p" variant="text-md" class="section-copy">
                   Phone
                 </app-typography>
-                <a href="tel:813-997-0330">813-997-0330</a>
+                <a href="tel:813-997-0330" @click="trackPhoneClick">813-997-0330</a>
               </div>
               <app-typography tag="p" variant="text-md" class="section-copy">
                 For pursuits, select Option 4 or dial Ext. 103.

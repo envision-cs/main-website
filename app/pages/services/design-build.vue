@@ -2,6 +2,11 @@
   layout: 'layout-a',
 });
 
+const posthog = usePostHog();
+onMounted(() => {
+  posthog?.capture('service_page_viewed', { service_name: 'Design-Build' });
+});
+
 useSeoMeta({
   title: 'Design-Build | Envision Tampa Bay & Central Florida',
   description:

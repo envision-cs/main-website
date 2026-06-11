@@ -1,4 +1,4 @@
-<script setup lang="ts">withDefaults(
+<script setup lang="ts">const props = withDefaults(
   defineProps<{
     body?: string;
     image?: string;
@@ -14,6 +14,14 @@
     bgcolor: 'light',
   },
 );
+
+const posthog = usePostHog();
+
+function handleCtaClick() {
+  if (props.href) {
+    posthog?.capture('cta_clicked', { label: props.label, href: props.href });
+  }
+}
 </script>
 
 <template>
@@ -25,6 +33,7 @@
       flip: flip,
       center: center,
     }"
+    @click.capture="handleCtaClick"
   >
     <div class="content">
       <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label">

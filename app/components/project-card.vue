@@ -5,6 +5,7 @@
     image: string;
     alt?: string;
     imageFormat?: string;
+    imageQuality?: number;
     imageSizes?: string;
     imageDensities?: string;
     imageLoading?: 'lazy' | 'eager';
@@ -29,8 +30,9 @@
     ariaLabel: 'View details',
     alt: '',
     imageFormat: 'webp',
-    imageSizes: undefined,
-    imageDensities: undefined,
+    imageQuality: 70,
+    imageSizes: 'xs:100vw sm:50vw md:33vw lg:25vw',
+    imageDensities: 'x1 x2',
     imageLoading: undefined,
     imageWidth: undefined,
     imageHeight: undefined,
@@ -76,9 +78,11 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
         :src="image"
         :alt="imageAlt"
         :format="imageFormat"
+        :quality="imageQuality"
         :loading="imageLoading"
         :width="imageWidth"
-        sizes="400px md:500px lg:700px"
+        :sizes="imageSizes"
+        :densities="imageDensities"
         :height="imageHeight"
         class="reveal-card__image"
       />
@@ -147,6 +151,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
       :src="image"
       :alt="imageAlt"
       :format="imageFormat"
+      :quality="imageQuality"
       :sizes="imageSizes"
       :densities="imageDensities"
       :loading="imageLoading"
