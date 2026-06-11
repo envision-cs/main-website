@@ -28,8 +28,8 @@ const activeCategory = computed<{
   link: string;
 }>(() => {
   return (
-    categories.value.find((category) => category.slug === currentServiceSlug.value) ?? {
-      headline: "Let's Build",
+    categories.value.find(category => category.slug === currentServiceSlug.value) ?? {
+      headline: 'Let\'s Build',
       description:
         'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.',
       title: 'Envision Services',

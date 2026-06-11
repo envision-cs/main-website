@@ -268,7 +268,7 @@ onUnmounted(() => {
                 provider="imagekit"
                 :src="activeSlide.image"
                 alt=""
-                sizes="sm:320px md:400px lg:480px"
+                width="89"
                 format="avif,webp"
                 class="featured-projects__image"
               />
