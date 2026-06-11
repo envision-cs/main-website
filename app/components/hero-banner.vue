@@ -7,6 +7,11 @@
 }
 
 const { data: hero } = useAsyncData<HomeHero>('home-hero', () => $fetch('/api/home-hero'));
+
+const FeatureProjects = defineLazyHydrationComponent(
+  'idle',
+  () => import('../components/home/featured-projects-carousel.vue'),
+);
 </script>
 
 <template>
@@ -52,7 +57,7 @@ const { data: hero } = useAsyncData<HomeHero>('home-hero', () => $fetch('/api/ho
       </div>
 
       <aside class="hero__rail" aria-label="Featured projects">
-        <home-featured-projects-carousel />
+        <FeatureProjects hydrate-on-interaction="mouseover" />
       </aside>
     </div>
   </section>

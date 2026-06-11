@@ -23,6 +23,7 @@
   "dependencies": {
     "@nuxt/content": "^3.14.0",
     "@nuxt/eslint-plugin": "^1.16.0",
+    "@nuxt/fonts": "0.14.0",
     "@nuxt/hints": "1.0.0-alpha.3",
     "@nuxt/image": "2.0.0",
     "@nuxt/scripts": "1.2.1",

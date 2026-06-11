@@ -256,6 +256,11 @@ useHead({
     },
   ],
 });
+
+const LazyCardGroup = defineLazyHydrationComponent(
+  'idle',
+  () => import('../components/card-group-a.vue'),
+);
 </script>
 
 <template>
@@ -270,7 +275,7 @@ useHead({
         <list-e :items="stats" />
       </div>
     </section-d>
-    <card-group-a :cards="featuredProjectCards.sectionOne" />
+    <LazyCardGroup :cards="featuredProjectCards.sectionOne" hydrate-on-interaction="mouseover" />
     <cta-a
       bgcolor="dark"
       title="Listen. Plan. Execute. Cultivate."
@@ -281,8 +286,9 @@ useHead({
       href="about"
       label="Learn more about us"
     />
-    <card-group-a :cards="featuredProjectCards.sectionTwo" />
+    <LazyCardGroup :cards="featuredProjectCards.sectionTwo" hydrate-on-interaction="mouseover" />
     <quote
+     hydrate-on-visible
       :testimonials="testimonials"
       section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
     />

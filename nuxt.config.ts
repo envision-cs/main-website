@@ -61,6 +61,7 @@ export default defineNuxtConfig({
     'v-gsap-nuxt',
     'nuxt-maplibre',
     '@nuxt/scripts',
+    '@nuxt/fonts',
   ],
 
   vite: {
