@@ -26,8 +26,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     const target = event.target instanceof Element ? event.target : null;
     const link = target?.closest<HTMLAnchorElement>('a[href]');
 
-    if (!link)
-      return;
+    if (!link) 
+return;
 
     analytics.captureResolved(
       resolveAnalyticsLinkEvent({

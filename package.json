@@ -25,6 +25,7 @@
     "@nuxt/eslint-plugin": "^1.16.0",
     "@nuxt/hints": "1.0.0-alpha.3",
     "@nuxt/image": "2.0.0",
+    "@nuxt/scripts": "1.2.1",
     "@nuxt/ui": "^4.8.2",
     "@nuxtjs/mdc": "^0.19.2",
     "@nuxtjs/sitemap": "^7.6.0",
