@@ -55,6 +55,7 @@ export default defineNuxtConfig({
     '@nuxtjs/mdc',
     '@posthog/nuxt',
     'motion-v/nuxt',
+    '@nuxtjs/strapi',
     'reka-ui/nuxt',
     '@nuxt/hints',
     '@nuxt/eslint',
@@ -113,6 +114,15 @@ export default defineNuxtConfig({
   experimental: {
     sharedPrerenderData: true,
   },
+  strapi: {
+    url: process.env.STRAPI_URL,
+    token: process.env.STRAPI_TOKEN || undefined,
+    prefix: '/api',
+    admin: '/admin',
+    version: 'v5',
+    cookie: {},
+    cookieName: 'strapi_jwt',
+  },
   routeRules: {
     '/api/home-hero': { cache: { maxAge: 60 * 10 } }, // 10 min
   },
@@ -125,7 +135,13 @@ export default defineNuxtConfig({
     registry: {
       posthog: {
         apiKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
+        apiHost: 'https://p.envision-cs.com', // your Cloudflare managed reverse proxy
         trigger: 'onNuxtReady',
+        config: {
+          ui_host: 'https://us.posthog.com',
+          defaults: '2026-05-30',
+          person_profiles: 'identified_only',
+        },
       },
     },
   },
