@@ -68,6 +68,7 @@ useHead(() => {
         fetchpriority="high"
         format="avif"
         loading="eager"
+        preload
         class="hero__image"
       />
     </div>
