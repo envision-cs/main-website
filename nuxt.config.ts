@@ -136,4 +136,18 @@ export default defineNuxtConfig({
       baseURL: '',
     },
   },
+  scripts: {
+    registry: {
+      posthog: {
+        apiKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
+        apiHost: 'https://p.envision-cs.com', // your Cloudflare managed reverse proxy
+        trigger: 'onNuxtReady',
+        config: {
+          ui_host: 'https://us.posthog.com',
+          defaults: '2026-05-30',
+          person_profiles: 'identified_only',
+        },
+      },
+    },
+  },
 });
