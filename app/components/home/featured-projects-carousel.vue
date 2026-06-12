@@ -316,7 +316,7 @@ onUnmounted(() => {
   width: 100%;
   color: var(--color-white);
 
-  @media (min-width: 700px) {
+  @media (min-width: 1100px) {
     width: clamp(16rem, 22vw, 19rem);
     margin-left: auto;
   }
@@ -333,9 +333,13 @@ onUnmounted(() => {
 }
 
 .featured-projects__card {
-  display: block;
+  display: flex;
   color: inherit;
   text-decoration: none;
+
+  @media(min-width: 1100px){
+      display: block;
+  }
 }
 
 .featured-projects__media {
@@ -345,6 +349,10 @@ onUnmounted(() => {
   aspect-ratio: 21 / 9;
 
   @media (min-width: 700px) {
+    aspect-ratio: 8/ 3;
+  }
+
+  @media (min-width: 1100px) {
     aspect-ratio: 2 / 1;
   }
 }
