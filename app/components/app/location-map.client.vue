@@ -1,4 +1,6 @@
-<script setup lang="ts">const style = 'https://tiles.openfreemap.org/styles/positron';
+<script setup lang="ts">import 'maplibre-gl/dist/maplibre-gl.css';
+
+const style = 'https://tiles.openfreemap.org/styles/positron';
 const zoom = 9;
 
 const mapLoaded = ref(false);

@@ -12,6 +12,40 @@ const FeatureProjects = defineLazyHydrationComponent(
   'idle',
   () => import('../components/home/featured-projects-carousel.vue'),
 );
+
+const heroImageSizes = '500px sm:700px md:800px lg:1200px xl:1400px 2xl:1920px';
+
+const img = useImage();
+
+// @nuxt/image's `preload` prop emits `imagesizes` without `imagesrcset`,
+// which browsers ignore — the oversized fallback href gets preloaded and
+// the actually-rendered variant starts late. Build the link by hand from
+// the exact srcset NuxtImg renders so the preloaded bytes are the used bytes.
+useHead(() => {
+  const src = hero.value?.image?.url;
+  if (!src)
+    return {};
+
+  const { srcset, sizes, src: href } = img.getSizes(src, {
+    provider: 'ipx',
+    sizes: heroImageSizes,
+    modifiers: { format: 'avif', quality: 75, fit: 'cover' },
+  });
+
+  return {
+    link: [
+      {
+        key: 'hero-image-preload',
+        rel: 'preload' as const,
+        as: 'image' as const,
+        href,
+        imagesrcset: srcset,
+        imagesizes: sizes,
+        fetchpriority: 'high',
+      },
+    ],
+  };
+});
 </script>
 
 <template>
@@ -28,10 +62,11 @@ const FeatureProjects = defineLazyHydrationComponent(
         provider="imagekit"
         :src="hero.image.url"
         alt="Exterior view of a residence hall at dusk"
-        sizes="500px sm:700px md:800px lg:1200px xl:1400px 2xl:1920px"
+        :sizes="heroImageSizes"
         fit="cover"
-        :preload="{ fetchPriority: 'high' }"
-        format="avif,webp"
+        :quality="75"
+        fetchpriority="high"
+        format="avif"
         loading="eager"
         class="hero__image"
       />

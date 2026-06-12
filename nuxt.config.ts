@@ -50,7 +50,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['~/assets/css/main.css', '~/assets/css/maplibre-gl.css'],
+  css: ['~/assets/css/main.css'],
   modules: [
     '@nuxt/ui',
     '@vueuse/nuxt',
@@ -63,6 +63,11 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     'v-gsap-nuxt',
     'nuxt-maplibre',
+    // nuxt-maplibre force-pushes its css globally; strip it so the map
+    // component loads it only on pages that render a map.
+    (_options: unknown, nuxt: { options: { css: string[] } }) => {
+      nuxt.options.css = nuxt.options.css.filter(entry => !entry.includes('maplibre-gl.css'));
+    },
     '@nuxt/scripts',
     '@nuxt/fonts',
   ],

@@ -773,7 +773,7 @@ const activeProjects = computed(() => {
                 provider="imagekit"
                 :src="image.url"
                 :alt="image.altText || page.title"
-                format="webp"
+                format="avif"
                 sizes="100vw sm:50vw lg:25vw"
                 loading="lazy"
                 class="gallery-trigger__image"
