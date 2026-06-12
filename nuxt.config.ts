@@ -93,6 +93,10 @@ export default defineNuxtConfig({
     host: process.env.NUXT_PUBLIC_POSTHOG_HOST || 'https://p.envision-cs.com',
     clientConfig: {
       capture_exceptions: true,
+      capture_heatmaps: true,
+      autocapture: true,
+      capture_pageview: 'history_change',
+      capture_pageleave: 'if_capture_pageview',
       __add_tracing_headers: ['localhost', 'envision-cs.com'],
       ui_host: 'https://us.posthog.com',
       person_profiles: 'identified_only',
