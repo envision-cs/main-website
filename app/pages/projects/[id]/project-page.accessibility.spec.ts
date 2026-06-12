@@ -25,14 +25,32 @@ describe('project page image lightbox accessibility', () => {
   it('provides project-specific SEO metadata', () => {
     expect(pageSource).toContain('description: seoDescription.value');
     expect(pageSource).toContain('ogImage: page.value?.main_image');
-    expect(pageSource).toContain('rel: "canonical"');
+    expect(pageSource).toContain(`rel: 'canonical'`);
     expect(pageSource).toContain('href: canonicalPath.value');
   });
 
   it('shows an explicit fallback when the active image fails', () => {
-    expect(pageSource).toContain('hasImageError');
-    expect(pageSource).toContain('@error="onImageError"');
+    expect(pageSource).toContain('failedImageUrls');
+    expect(pageSource).toContain('@error="onSlideError(image)"');
     expect(pageSource).toContain('role="status"');
+  });
+
+  it('announces the active image position to assistive tech', () => {
+    expect(pageSource).toContain('lightboxAnnouncement');
+    expect(pageSource).toMatch(/<p class="sr-only" role="status">/);
+  });
+
+  it('supports keyboard navigation between images', () => {
+    expect(pageSource).toContain(`case 'ArrowRight':`);
+    expect(pageSource).toContain(`case 'ArrowLeft':`);
+    expect(pageSource).toContain('aria-label="Previous image"');
+    expect(pageSource).toContain('aria-label="Next image"');
+  });
+
+  it('keeps disabled nav buttons focusable via aria-disabled', () => {
+    expect(pageSource).toContain(':aria-disabled="isFirstImage"');
+    expect(pageSource).toContain(':aria-disabled="isLastImage"');
+    expect(pageSource).not.toMatch(/:disabled="is(?:First|Last)Image"/);
   });
 
   it('does not use unsupported lazy props on the active dialog image', () => {
