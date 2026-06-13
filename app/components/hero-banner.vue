@@ -26,10 +26,21 @@ useHead(() => {
   if (!src)
     return {};
 
+  // Modifier key order MUST match NuxtImg's internal order
+  // ({ width, height, format, quality, background, fit }) so the preload URL
+  // is byte-identical to the rendered <img> srcset — otherwise the browser
+  // treats them as different resources and the preload is wasted.
   const { srcset, sizes, src: href } = img.getSizes(src, {
-    provider: 'ipx',
+    provider: 'imagekit',
     sizes: heroImageSizes,
-    modifiers: { format: 'avif', quality: 75, fit: 'cover' },
+    modifiers: {
+      width: undefined,
+      height: undefined,
+      format: 'avif',
+      quality: 75,
+      background: undefined,
+      fit: 'cover',
+    },
   });
 
   return {
@@ -68,7 +79,6 @@ useHead(() => {
         fetchpriority="high"
         format="avif"
         loading="eager"
-        preload
         class="hero__image"
       />
     </div>

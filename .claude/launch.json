@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nuxt-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["nuxt", "dev", "--port", "4477"],
+      "port": 4477
+    }
+  ]
+}
