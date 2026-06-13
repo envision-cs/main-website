@@ -35,11 +35,11 @@
       provider="imagekit"
       :modifiers="{ focus: 'bottom' }"
       format="avif"
-      :quality="70"
+      :quality="80"
       loading="lazy"
       class="image"
       fit="cover"
-      sizes="100vw sm:450px md:850px lg:1200px xl:1600px 2xl:2000px"
+      sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:735px"
       placeholder
     />
   </section>

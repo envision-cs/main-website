@@ -62,7 +62,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
           v-if="image"
           :src="image"
           :alt="imageAlt || ''"
-          sizes="500px sm:700px md:800px lg:1200px xl:1400px 2xl:1920px"
+          sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
           fit="cover"
           fetchpriority="high"
         format="avif"

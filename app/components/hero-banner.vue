@@ -13,50 +13,7 @@ const FeatureProjects = defineLazyHydrationComponent(
   () => import('../components/home/featured-projects-carousel.vue'),
 );
 
-const heroImageSizes = '500px sm:700px md:800px lg:1200px xl:1400px 2xl:1920px';
-
-const img = useImage();
-
-// @nuxt/image's `preload` prop emits `imagesizes` without `imagesrcset`,
-// which browsers ignore — the oversized fallback href gets preloaded and
-// the actually-rendered variant starts late. Build the link by hand from
-// the exact srcset NuxtImg renders so the preloaded bytes are the used bytes.
-useHead(() => {
-  const src = hero.value?.image?.url;
-  if (!src)
-    return {};
-
-  // Modifier key order MUST match NuxtImg's internal order
-  // ({ width, height, format, quality, background, fit }) so the preload URL
-  // is byte-identical to the rendered <img> srcset — otherwise the browser
-  // treats them as different resources and the preload is wasted.
-  const { srcset, sizes, src: href } = img.getSizes(src, {
-    provider: 'imagekit',
-    sizes: heroImageSizes,
-    modifiers: {
-      width: undefined,
-      height: undefined,
-      format: 'avif',
-      quality: 75,
-      background: undefined,
-      fit: 'cover',
-    },
-  });
-
-  return {
-    link: [
-      {
-        key: 'hero-image-preload',
-        rel: 'preload' as const,
-        as: 'image' as const,
-        href,
-        imagesrcset: srcset,
-        imagesizes: sizes,
-        fetchpriority: 'high',
-      },
-    ],
-  };
-});
+const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px';
 </script>
 
 <template>
@@ -75,7 +32,6 @@ useHead(() => {
         alt="Exterior view of a residence hall at dusk"
         :sizes="heroImageSizes"
         fit="cover"
-        :quality="75"
         fetchpriority="high"
         format="avif"
         loading="eager"

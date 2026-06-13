@@ -243,11 +243,10 @@ onUnmounted(() => {
               <NuxtImg
                 provider="imagekit"
                 :src="activeSlide.image"
+                height="300"
                 alt=""
-                width="640"
-                height="320"
-                format="avif,webp"
-                sizes="100vw md:320px"
+                format="avif"
+                sizes="100vw sm:240px md:320px xl:275px 2xl:300px"
                 class="featured-projects__image"
               />
             </span>

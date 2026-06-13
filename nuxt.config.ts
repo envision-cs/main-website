@@ -66,7 +66,7 @@ export default defineNuxtConfig({
     // nuxt-maplibre force-pushes its css globally; strip it so the map
     // component loads it only on pages that render a map.
     (_options: unknown, nuxt: { options: { css: string[] } }) => {
-      nuxt.options.css = nuxt.options.css.filter(entry => !entry.includes('maplibre-gl.css'));
+      nuxt.options.css = nuxt.options.css.filter((entry) => !entry.includes('maplibre-gl.css'));
     },
     '@nuxt/scripts',
     '@nuxt/fonts',
@@ -92,6 +92,9 @@ export default defineNuxtConfig({
         dir: './app/assets/logos',
       },
     ],
+  },
+  fonts: {
+    provider: 'local',
   },
   posthogConfig: {
     publicKey: process.env.NUXT_PUBLIC_POSTHOG_PROJECT_TOKEN || '',
