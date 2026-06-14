@@ -160,10 +160,6 @@ export default defineNuxtConfig({
     },
   },
   security: {
-    corsHandler: false,
-    headers: {
-      contentSecurityPolicy: true, // Enforces strict CSP
-    },
     rateLimiter: {
       // Prevents brute force
       tokensPerInterval: 150,
