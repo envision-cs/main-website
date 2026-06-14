@@ -159,11 +159,4 @@ export default defineNuxtConfig({
       },
     },
   },
-  security: {
-    rateLimiter: {
-      // Prevents brute force
-      tokensPerInterval: 150,
-      interval: 300000,
-    },
-  },
 });
