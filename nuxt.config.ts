@@ -160,6 +160,7 @@ export default defineNuxtConfig({
     },
   },
   security: {
+    corsHandler: false,
     headers: {
       contentSecurityPolicy: true, // Enforces strict CSP
     },
