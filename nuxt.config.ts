@@ -70,6 +70,7 @@ export default defineNuxtConfig({
     },
     '@nuxt/scripts',
     '@nuxt/fonts',
+    'nuxt-security',
   ],
 
   vite: {
@@ -156,6 +157,16 @@ export default defineNuxtConfig({
           person_profiles: 'identified_only',
         },
       },
+    },
+  },
+  security: {
+    headers: {
+      contentSecurityPolicy: true, // Enforces strict CSP
+    },
+    rateLimiter: {
+      // Prevents brute force
+      tokensPerInterval: 150,
+      interval: 300000,
     },
   },
 });

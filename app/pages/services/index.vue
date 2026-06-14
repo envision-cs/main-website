@@ -21,7 +21,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <app-team-member-list dense>
+<div class="projects">
+  <ul class="projects-grid" dense>
     <li v-for="service in services" :key="service.slug">
       <project-card
         :to="service.to"
@@ -43,7 +44,8 @@ useSeoMeta({
         </template>
       </project-card>
     </li>
-  </app-team-member-list>
+  </ul>
+  </div>
 </template>
 
 <style scoped>
@@ -51,5 +53,37 @@ useSeoMeta({
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.projects {
+  container-type: inline-size;
+  container-name: projects;
+  position: relative;
+  background: var(--color-envision-gray-800);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  container: projects;
+  background: var(--color-envision-gray-800);
+}
+
+@container projects (width > 550px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container projects (width > 1000px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@container projects (width > 1400px) {
+  .projects-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 </style>

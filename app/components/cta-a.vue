@@ -39,7 +39,7 @@
       loading="lazy"
       class="image"
       fit="cover"
-      sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:735px"
+      sizes="100vw sm:640px md:768px lg:1024px xl:1500px 2xl:735px"
       placeholder
     />
   </section>
