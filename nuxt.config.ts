@@ -70,7 +70,6 @@ export default defineNuxtConfig({
     },
     '@nuxt/scripts',
     '@nuxt/fonts',
-    'nuxt-security',
   ],
 
   vite: {
@@ -158,10 +157,5 @@ export default defineNuxtConfig({
         },
       },
     },
-  },
-  security: {
-    // nuxt-security's CORS handler currently calls event.req.headers.get()
-    // in the Vercel Node runtime, where headers are a plain Node object.
-    corsHandler: false,
   },
 });
