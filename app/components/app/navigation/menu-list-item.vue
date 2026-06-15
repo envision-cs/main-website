@@ -24,7 +24,7 @@ function emitOpen(children: NavigationMenuItem[], index: number) {
 <template>
   <li class="menu-item" role="none">
     <!-- Branch: Parent item (has children) -->
-    <button
+    <MButton
       v-if="item.children?.length"
       class="menu-parent"
       role="menuitem"
@@ -34,7 +34,7 @@ function emitOpen(children: NavigationMenuItem[], index: number) {
       @keydown.enter.prevent="emitOpen(item.children, idx)"
     >
       {{ item.label }}
-    </button>
+    </MButton>
 
     <!-- Branch: Leaf link -->
     <NuxtLink v-else :to="item.to" role="menuitem" class="menuitem">

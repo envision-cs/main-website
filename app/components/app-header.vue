@@ -141,7 +141,7 @@ function onHeaderFocusout(event: FocusEvent) {
     @focusout="onHeaderFocusout"
     @keydown.esc="closeDesktopMenu(0)"
   >
-    <button
+    <MButton
       v-if="isDesktopMenuOpen"
       type="button"
       class="desktop-mega-menu-backdrop"

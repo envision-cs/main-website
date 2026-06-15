@@ -105,12 +105,16 @@ function resolveTone(tone?: string) {
       </div>
 
       <div class="process-slider__controls">
-        <Button icon-only variant="outline" size="sm" @click="goToPrev">
-          <Icon name="lucide:chevron-left" class="block" />
-        </Button>
-        <Button icon-only variant="outline" size="sm" @click="goToNext">
-          <Icon name="lucide:chevron-right" size="1.2em" class="block" />
-        </Button>
+        <MButton icon-only variant="outline" size="sm" @click="goToPrev">
+          <template #icon>
+            <Icon name="lucide:chevron-left" class="block" />
+          </template>
+        </MButton>
+        <MButton icon-only variant="outline" size="sm" @click="goToNext">
+          <template #icon>
+            <Icon name="lucide:chevron-right" size="1.2em" class="block" />
+          </template>
+        </MButton>
       </div>
     </div>
   </section>

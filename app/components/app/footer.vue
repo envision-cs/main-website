@@ -75,7 +75,7 @@ const { services: servicesLinks } = await useServicesList();
             From preconstruction through closeout, our process stays direct: listen, plan, execute,
             cultivate.
           </p>
-          <my-button to="/contact" size="sm" variant="outline">Contact Us</my-button>
+          <m-button to="/contact" size="sm" variant="outline">Contact Us</m-button>
         </div>
       </div>
       <div class="date-socials">

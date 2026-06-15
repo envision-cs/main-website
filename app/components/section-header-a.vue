@@ -33,9 +33,9 @@
     </app-typography>
 
     <div v-if="buttonTo" class="action mt-6">
-      <my-button :to="buttonTo" variant="outline" size="md">
+      <m-button :to="buttonTo" variant="outline" size="md">
         {{ buttonLabel }}
-      </my-button>
+      </m-button>
     </div>
   </div>
 </template>

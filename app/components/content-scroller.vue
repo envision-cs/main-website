@@ -1,5 +1,5 @@
-<script setup lang="ts">import { Comment, Fragment, Text, useSlots } from 'vue';
-import useEmblaCarousel from 'embla-carousel-vue';
+<script setup lang="ts">import useEmblaCarousel from 'embla-carousel-vue';
+import { Comment, Fragment, Text, useSlots } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -94,24 +94,30 @@ onUnmounted(() => {
 
     <div class="content-scroller__viewport">
       <div v-if="props.items.length > 1" class="content-scroller__controls">
-        <button
+        <MButton
           type="button"
           class="content-scroller__control"
           :disabled="!canScrollBackward"
           aria-label="Scroll backward"
+          icon-only
           @click="scrollPrevious"
         >
-          <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
-        </button>
-        <button
+          <template #icon>
+            <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
+          </template>
+        </MButton>
+        <MButton
           type="button"
           class="content-scroller__control"
           :disabled="!canScrollForward"
           aria-label="Scroll forward"
+          icon-only
           @click="scrollNext"
         >
-          <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-        </button>
+          <template #icon>
+            <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+          </template>
+        </MButton>
       </div>
 
       <div ref="emblaRef" class="content-scroller__embla">

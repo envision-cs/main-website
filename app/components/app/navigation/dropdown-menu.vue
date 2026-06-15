@@ -99,17 +99,20 @@ function onTriggerKeydown(event: KeyboardEvent) {
           {{ label }}
         </a>
       </NuxtLink>
-      <button
+      <MButton
         type="button"
         class="desktop-dropdown-open-button"
         :aria-label="`Open ${label} menu`"
         :aria-expanded="isOpen"
         tabindex="0"
+        icon-only
         @focus="openMenu"
         @keydown="onTriggerKeydown"
       >
-        <UIcon name="i-lucide-chevron-down" aria-hidden="true" />
-      </button>
+        <template #icon>
+          <UIcon name="i-lucide-chevron-down" aria-hidden="true" />
+        </template>
+      </MButton>
     </div>
     <NavigationMenuContent class="NavigationMenuContent dark" :data-test="panelDataTest">
       <div class="mega-menu-shell">

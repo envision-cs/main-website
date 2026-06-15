@@ -7,30 +7,36 @@ defineEmits(['previous', 'next']);
 
 <template>
   <nav class="paddle-nav" aria-label="Gallery navigation">
-    <button
+    <MButton
       class="nav-arrow"
       :disabled="!canScrollPrevious"
       aria-label="Previous item"
+      icon-only
       @click="$emit('previous')"
     >
-      <svg viewBox="0 0 36 36">
-        <path
-          d="M20 25a1.5 1.5 0 0 1-1.06-.44l-5.5-5.5a1.5 1.5 0 0 1 0-2.12l5.5-5.5a1.5 1.5 0 1 1 2.12 2.12L16.12 18l4.44 4.44a1.5 1.5 0 0 1-1.06 2.56z"
-        />
-      </svg>
-    </button>
-    <button
+      <template #icon>
+        <svg viewBox="0 0 36 36">
+          <path
+            d="M20 25a1.5 1.5 0 0 1-1.06-.44l-5.5-5.5a1.5 1.5 0 0 1 0-2.12l5.5-5.5a1.5 1.5 0 1 1 2.12 2.12L16.12 18l4.44 4.44a1.5 1.5 0 0 1-1.06 2.56z"
+          />
+        </svg>
+      </template>
+    </MButton>
+    <MButton
       class="nav-arrow"
       :disabled="!canScrollNext"
       aria-label="Next item"
+      icon-only
       @click="$emit('next')"
     >
-      <svg viewBox="0 0 36 36">
-        <path
-          d="M22.56 16.94l-5.51-5.5a1.5 1.5 0 0 0-2.12 2.12l4.44 4.44-4.44 4.44a1.5 1.5 0 1 0 2.12 2.12l5.51-5.5a1.5 1.5 0 0 0 0-2.12z"
-        />
-      </svg>
-    </button>
+      <template #icon>
+        <svg viewBox="0 0 36 36">
+          <path
+            d="M22.56 16.94l-5.51-5.5a1.5 1.5 0 0 0-2.12 2.12l4.44 4.44-4.44 4.44a1.5 1.5 0 1 0 2.12 2.12l5.51-5.5a1.5 1.5 0 0 0 0-2.12z"
+          />
+        </svg>
+      </template>
+    </MButton>
   </nav>
 </template>
 

@@ -100,7 +100,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 
         <div v-if="hasActions" class="banner__actions">
           <slot name="actions">
-            <my-button
+            <m-button
               v-if="ctaTo"
               variant="outline"
               size="md"
@@ -108,7 +108,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
               icon="i-lucide-arrow-right"
             >
               {{ cta || 'Start your project' }}
-            </my-button>
+            </m-button>
           </slot>
         </div>
       </div>

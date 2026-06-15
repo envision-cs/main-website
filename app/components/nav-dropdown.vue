@@ -33,9 +33,9 @@ watch(
     <NavigationMenuList>
       <NavigationMenuItem :value="menuValue">
         <NavigationMenuTrigger as-child>
-          <button type="button" class="anchor-button" aria-haspopup="menu">
+          <MButton type="button" class="anchor-button" aria-haspopup="menu">
             {{ props.buttonText }}
-          </button>
+          </MButton>
         </NavigationMenuTrigger>
 
         <NavigationMenuContent class="styled-popover">

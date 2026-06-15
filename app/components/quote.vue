@@ -292,24 +292,30 @@ onUnmounted(() => {
         </div>
 
         <div v-if="showRailNavigation" class="testimonials__nav testimonials__nav--header">
-          <button
+          <MButton
             type="button"
             class="testimonials__arrow"
             :disabled="!canScrollPrevious"
             aria-label="Previous testimonial"
+            icon-only
             @click="scrollPrevious('button')"
           >
-            <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
-          </button>
-          <button
+            <template #icon>
+              <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
+            </template>
+          </MButton>
+          <MButton
             type="button"
             class="testimonials__arrow"
             :disabled="!canScrollNext"
             aria-label="Next testimonial"
+            icon-only
             @click="scrollNext('button')"
           >
-            <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-          </button>
+            <template #icon>
+              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+            </template>
+          </MButton>
         </div>
       </header>
 
@@ -355,7 +361,7 @@ onUnmounted(() => {
 
           <ul class="testimonials__pages" aria-label="Testimonial pages">
             <li v-for="(_, index) in scrollSnaps" :key="index" class="testimonials__page-item">
-              <button
+              <MButton
                 type="button"
                 class="testimonials__page"
                 :class="{ 'is-active': index === selectedIndex }"
@@ -367,24 +373,30 @@ onUnmounted(() => {
           </ul>
 
           <div class="testimonials__nav testimonials__nav--rail">
-            <button
+            <MButton
               type="button"
               class="testimonials__arrow"
               :disabled="!canScrollPrevious"
               aria-label="Previous testimonial"
+              icon-only
               @click="scrollPrevious('button')"
             >
-              <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
-            </button>
-            <button
+              <template #icon>
+                <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
+              </template>
+            </MButton>
+            <MButton
               type="button"
               class="testimonials__arrow"
               :disabled="!canScrollNext"
               aria-label="Next testimonial"
+              icon-only
               @click="scrollNext('button')"
             >
-              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-            </button>
+              <template #icon>
+                <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+              </template>
+            </MButton>
           </div>
         </footer>
       </div>
