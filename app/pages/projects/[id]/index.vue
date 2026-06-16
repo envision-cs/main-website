@@ -165,15 +165,17 @@ useHead(() => ({
             This project category is available, but the project list is temporarily unavailable.
             Please try again.
           </app-typography>
-          <app-button
+          <MButton
             type="button"
             variant="outline"
-            icon="i-lucide-refresh-cw"
             :disabled="isProjectsRefreshing"
             @click="refreshProjects"
           >
+            <template #icon>
+              <UIcon name="i-lucide-refresh-cw" aria-hidden="true" />
+            </template>
             {{ isProjectsRefreshing ? 'Retrying' : 'Try again' }}
-          </app-button>
+          </MButton>
         </section>
         <section v-else class="projects-list" aria-labelledby="projects-list-title">
           <app-typography

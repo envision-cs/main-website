@@ -62,11 +62,12 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
           v-if="image"
           :src="image"
           :alt="imageAlt || ''"
-          sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:2000px"
+          sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
           fit="cover"
-          format="avif"
-          preload
-          loading="eager"
+          fetchpriority="high"
+        format="avif"
+                  loading="eager"
+                  preload
           class="banner__image"
         />
       </slot>
@@ -99,7 +100,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 
         <div v-if="hasActions" class="banner__actions">
           <slot name="actions">
-            <my-button
+            <m-button
               v-if="ctaTo"
               variant="outline"
               size="md"
@@ -107,7 +108,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
               icon="i-lucide-arrow-right"
             >
               {{ cta || 'Start your project' }}
-            </my-button>
+            </m-button>
           </slot>
         </div>
       </div>

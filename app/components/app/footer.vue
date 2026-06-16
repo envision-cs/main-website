@@ -22,10 +22,14 @@ const { services: servicesLinks } = await useServicesList();
     <div class="footer-head">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
         <NuxtImg
+          provider="imagekit"
           src="https://ik.imagekit.io/pnixsw7lg/main-website/White_Envision_Logo_c1724c69d3.png?updatedAt=1780533539430"
           alt="Envision Construction logo"
           width="160"
           height="32"
+          format="avif"
+          :densities="'x1 x2'"
+          loading="lazy"
           class="brand-link__logo"
           data-test="envision-logo"
         />
@@ -71,7 +75,7 @@ const { services: servicesLinks } = await useServicesList();
             From preconstruction through closeout, our process stays direct: listen, plan, execute,
             cultivate.
           </p>
-          <my-button to="/contact" size="sm" variant="outline">Contact Us</my-button>
+          <m-button to="/contact" size="sm" variant="outline">Contact Us</m-button>
         </div>
       </div>
       <div class="date-socials">

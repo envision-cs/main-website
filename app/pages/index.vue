@@ -287,8 +287,8 @@ const LazyCardGroup = defineLazyHydrationComponent(
       label="Learn more about us"
     />
     <LazyCardGroup :cards="featuredProjectCards.sectionTwo" hydrate-on-interaction="mouseover" />
-    <quote
-     hydrate-on-visible
+    <LazyQuote
+      hydrate-on-visible
       :testimonials="testimonials"
       section-body="The work only matters if the team behind it stays steady under pressure. These testimonials show how Envision is experienced by the people responsible for outcomes."
     />

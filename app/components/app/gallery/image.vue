@@ -13,7 +13,7 @@
     :sources="sources"
     width="300"
     height="400"
-    format="webp"
+    format="avif"
     loading="lazy"
   />
 </template>

@@ -1,9 +1,10 @@
-<script setup lang="ts">defineOptions({ inheritAttrs: false });
+<script setup lang="ts">
+defineOptions({ inheritAttrs: false });
 const props = withDefaults(
   defineProps<{
     to?: string;
     type?: 'button' | 'submit' | 'reset';
-    variant?: 'primary' | 'secondary' | 'outline';
+    variant?: 'primary' | 'secondary' | 'outline' | 'icon';
     size?: 'sm' | 'md' | 'lg';
     disabled?: boolean;
     loading?: boolean;
@@ -45,21 +46,21 @@ const classes = computed(() => [
     :data-variant="variant"
   >
     <span v-if="loading" class="btn__loader" aria-hidden="true" />
-    <span v-if="hasIcon" class="btn__icon">
-      <slot name="icon" />
-    </span>
     <span v-if="hasLabel" class="btn__label">
       <slot />
+    </span>
+    <span v-if="hasIcon" class="btn__icon">
+      <slot name="icon" />
     </span>
   </NuxtLink>
 
   <button v-else v-bind="{ ...attrs, ...componentProps }" :class="classes" :data-variant="variant">
     <span v-if="loading" class="btn__loader" aria-hidden="true" />
-    <span v-if="hasIcon" class="btn__icon">
-      <slot name="icon" />
-    </span>
     <span v-if="hasLabel" class="btn__label">
       <slot />
+    </span>
+    <span v-if="hasIcon" class="btn__icon">
+      <slot name="icon" />
     </span>
   </button>
 </template>
@@ -69,7 +70,7 @@ const classes = computed(() => [
    COMPOSITION
 ========================= */
 .btn {
-  display: inline-block;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--btn-gap, 0.5rem);
@@ -84,66 +85,78 @@ const classes = computed(() => [
 ========================= */
 
 .btn {
-  --btn-bg: var(--color-primary);
-  --btn-text: white;
+  --btn-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --btn-bg: var(--ui-primary);
+  --btn-bg-hover: var(--color-envision-blue-600);
+  --btn-text: var(--color-white);
   --btn-border: transparent;
+  --btn-focus: var(--color-envision-blue-500);
 
   background-color: var(--btn-bg);
   color: var(--btn-text);
   border: 1px solid var(--btn-border);
-  border-radius: 4px;
+  border-radius: 0;
   position: relative;
-  outline: 1px solid var(--btn-border);
-  outline-offset: 0;
-
-  &:hover {
-    --btn-border: var(--btn-bg);
-    outline-offset: calc(var(--spacing));
-  }
 
   transition:
-    background-color 3000ms var(--ease-gentle),
-    outline-color 180ms var(--ease-gentle),
-    outline-offset 180ms var(--ease-gentle),
-    color 180ms var(--ease-gentle),
-    transform 180ms var(--ease-gentle);
+    background-color 180ms var(--btn-ease),
+    border-color 180ms var(--btn-ease),
+    color 180ms var(--btn-ease),
+    transform 180ms var(--btn-ease),
+    outline-color 180ms var(--btn-ease),
+    outline-offset 180ms var(--btn-ease);
+}
 
-  &::after {
-    content: '';
-    background: #fff;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: opacity 180ms var(--ease-gentle);
-  }
+.btn:hover {
+  background-color: var(--btn-bg-hover);
+}
 
-  &:hover::after {
-    opacity: 0.1;
-  }
+.btn:active {
+  transform: translateY(1px);
 }
 
 /* =========================
    EXCEPTIONS (variants)
 ========================= */
 .btn[data-variant='primary'] {
-  --btn-bg: var(--color-primary);
+  --btn-bg: color-mix(in oklch, var(--color-envision-gray-900) 80%, transparent);
+  --btn-bg-hover: color-mix(in oklch, var(--color-envision-gray-900) 62%, var(--color-white) 12%);
+  --btn-border: color-mix(in oklch, var(--color-white) 12%, transparent);
+  --btn-text: var(--color-white);
 }
 
 .btn[data-variant='secondary'] {
-  --btn-bg: var(--color-secondary-500);
+  --btn-bg: var(--color-envision-green-600);
+  --btn-bg-hover: var(--color-envision-green-700);
+  --btn-border: transparent;
+  --btn-text: var(--color-white);
 }
 
+/* Outline: transparent fill, hairline border, inherits surface ink.
+   currentColor adapts — white on the dark hero, dark on light pages. */
 .btn[data-variant='outline'] {
-  --btn-bg: rgba(255, 255, 255, 0.2);
-  --btn-border: currentColor;
+  --btn-bg: transparent;
+  --btn-text: currentColor;
+  --btn-border: color-mix(in oklch, currentColor 28%, transparent);
+  --btn-bg-hover: color-mix(in oklch, currentColor 10%, transparent);
+}
 
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+.btn[data-variant='outline']:hover {
+  --btn-border: color-mix(in oklch, currentColor 55%, transparent);
+}
 
-  position: relative;
+/* Icon: transparent fill, white ink, faint hover fill.
+   Mirrors .featured-projects__control on the dark hero surface. */
+.btn[data-variant='icon'] {
+  --btn-bg: transparent;
+  --btn-text: var(--color-white);
+  --btn-border: transparent;
+  --btn-bg-hover: color-mix(in oklch, var(--color-white) 12%, transparent);
+}
+
+/* Adjacent icon buttons join with a hairline divider (prev/next pairs) */
+.btn[data-variant='icon'] + .btn[data-variant='icon'] {
+  border-left: 1px solid color-mix(in oklch, var(--color-white) 12%, transparent);
 }
 
 /* =========================
@@ -151,16 +164,22 @@ const classes = computed(() => [
 ========================= */
 
 .btn--sm {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .btn--md {
-  padding: 0.5rem 1rem;
+  min-height: 3rem;
+  padding: 0 1.5rem;
 }
 
 .btn--lg {
-  padding: 0.75rem 1.5rem;
+  min-height: 3.5rem;
+  padding: 0 2rem;
 }
 
 /* =========================
@@ -191,6 +210,7 @@ const classes = computed(() => [
 
 .btn__label {
   white-space: nowrap;
+  line-height: 1;
 }
 
 .btn--icon-only {
@@ -217,7 +237,7 @@ const classes = computed(() => [
 ========================= */
 
 .btn:focus-visible {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
+  outline: 3px solid var(--btn-focus, var(--color-envision-blue-500));
+  outline-offset: -3px;
 }
 </style>

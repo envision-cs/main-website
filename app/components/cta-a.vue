@@ -34,11 +34,12 @@
       :src="image"
       provider="imagekit"
       :modifiers="{ focus: 'bottom' }"
-      format="webp"
+      format="avif"
+      :quality="80"
       loading="lazy"
       class="image"
       fit="cover"
-      sizes="100vw sm:450px md:850px lg:1000px xl:2000px"
+      sizes="100vw sm:640px md:768px lg:1024px xl:1500px 2xl:735px"
       placeholder
     />
   </section>

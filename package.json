@@ -12,6 +12,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "portless envision-$(basename $PWD) nuxt dev",
+    "format": "vp fmt . --write",
+    "format:check": "vp fmt . --check",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare && cp node_modules/maplibre-gl/dist/maplibre-gl.css public/maplibre-gl.css",

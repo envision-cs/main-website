@@ -21,15 +21,15 @@ defineProps<{
           </p>
         </div>
         <div class="mt-auto">
-          <app-button
+          <MButton
             v-for="link in links"
             :key="link.label"
             :to="link.to"
-            size="xl"
-            :color="link.color"
+            size="lg"
+            :variant="link.color === 'secondary' ? 'secondary' : 'primary'"
           >
             {{ link.label }}
-          </app-button>
+          </MButton>
         </div>
       </div>
       <slot />

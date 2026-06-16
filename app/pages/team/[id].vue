@@ -247,7 +247,12 @@ useSeoMeta(() => ({
   </UPage>
   <div v-else class="team-profile-empty">
     <app-typography tag="h1" variant="heading-lg"> Team member not found. </app-typography>
-    <app-button to="/team" icon="i-lucide-arrow-left" variant="outline"> Back to Team </app-button>
+    <MButton to="/team" variant="outline">
+      <template #icon>
+        <UIcon name="i-lucide-arrow-left" aria-hidden="true" />
+      </template>
+      Back to Team
+    </MButton>
   </div>
 </template>
 

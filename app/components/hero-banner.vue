@@ -12,6 +12,8 @@ const FeatureProjects = defineLazyHydrationComponent(
   'idle',
   () => import('../components/home/featured-projects-carousel.vue'),
 );
+
+const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px';
 </script>
 
 <template>
@@ -28,10 +30,10 @@ const FeatureProjects = defineLazyHydrationComponent(
         provider="imagekit"
         :src="hero.image.url"
         alt="Exterior view of a residence hall at dusk"
-        sizes="500px sm:700px md:800px lg:1200px xl:1400px 2xl:1920px"
+        :sizes="heroImageSizes"
         fit="cover"
-        :preload="{ fetchPriority: 'high' }"
-        format="avif,webp"
+        fetchpriority="high"
+        format="avif"
         loading="eager"
         class="hero__image"
       />
@@ -51,8 +53,18 @@ const FeatureProjects = defineLazyHydrationComponent(
         </app-typography>
 
         <div class="hero-actions">
-          <my-button variant="primary" size="sm" to="/contact">Start your project</my-button>
-          <my-button variant="secondary" size="sm" to="/projects">Explore Our Portfolio</my-button>
+          <m-button variant="primary" size="sm" to="/contact">
+            Start your project
+            <template #icon>
+              <UIcon name="i-lucide-arrow-right" />
+            </template>
+          </m-button>
+          <m-button variant="outline" size="sm" to="/projects">
+            Explore Our Portfolio
+            <template #icon>
+              <UIcon name="i-lucide-arrow-right" />
+            </template>
+          </m-button>
         </div>
       </div>
 
@@ -175,27 +187,6 @@ const FeatureProjects = defineLazyHydrationComponent(
   align-items: center;
   padding-top: calc(var(--spacing) * 2);
   animation: hero-reveal 1280ms cubic-bezier(0.19, 1, 0.22, 1) both;
-}
-
-.hero-actions :deep(.app-btn) {
-  text-transform: none;
-}
-
-.hero-actions :deep(.btn) {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 3.15rem;
-  border-radius: 14px;
-  border-color: color-mix(in oklch, var(--color-white) 15%, transparent);
-  background: color-mix(in oklch, var(--color-envision-gray-900) 74%, transparent);
-  color: var(--color-white);
-  backdrop-filter: blur(18px);
-}
-
-.hero-actions :deep(.btn[data-variant='outline']) {
-  background: color-mix(in oklch, var(--color-white) 14%, transparent);
-  color: var(--color-white);
 }
 
 .services {

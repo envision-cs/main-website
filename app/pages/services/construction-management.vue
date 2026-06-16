@@ -201,14 +201,14 @@ const stats = [
             </app-typography>
           </li>
         </ul>
-        <my-button
+        <m-button
           label="View Project"
           to="/projects/athletics/usl-super-league-stadium"
           bgcolor="blue"
           class="mt-6"
         >
           View Project
-        </my-button>
+        </m-button>
       </template>
     </cta-a>
     <cta-c

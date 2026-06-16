@@ -722,14 +722,38 @@ const { data } = await useAsyncData<Project[]>(
   { default: () => [] },
 );
 
-const activeProjects = computed(() => {
-  return data.value.find((p) => {
-    const sector = formatProjectSectorLabel(p);
-    if (!sector || sector === undefined) {
-      return true;
-    }
-    return sector === page.value?.sector;
-  });
+const relatedProjects = computed(() => {
+  const current = projectData.value;
+  if (!current)
+    return [];
+
+  const currentSectorSlug = getPrimaryProjectSector(current)?.slug || sectorSlug.value;
+  if (!currentSectorSlug)
+    return [];
+
+  return (data.value ?? [])
+    .filter(p => p.slug !== current.slug && projectBelongsToSector(p, currentSectorSlug))
+    .flatMap((p) => {
+      const image = p.mainImage?.url;
+      const primarySector = getPrimaryProjectSector(p);
+
+      if (!image || !primarySector || !p.slug) {
+        return [];
+      }
+
+      return [
+        {
+          id: p.id,
+          image,
+          title: p.title,
+          to: `/projects/${primarySector.slug}/${p.slug}`,
+          location: p.location,
+          completed: p.completed ? formatMonthYear(p.completed) : undefined,
+          sector: formatProjectSectorLabel(p),
+        },
+      ];
+    })
+    .slice(0, 3);
 });
 </script>
 
@@ -763,7 +787,7 @@ const activeProjects = computed(() => {
       <template #body>
         <ul class="gallery">
           <li v-for="(image, index) in page.gallery" :key="image.url">
-            <button
+            <MButton
               type="button"
               class="gallery-trigger"
               :aria-label="`Open image ${index + 1} of ${page.gallery.length} in the ${page.title} gallery`"
@@ -773,12 +797,12 @@ const activeProjects = computed(() => {
                 provider="imagekit"
                 :src="image.url"
                 :alt="image.altText || page.title"
-                format="webp"
+                format="avif"
                 sizes="100vw sm:50vw lg:25vw"
                 loading="lazy"
                 class="gallery-trigger__image"
               />
-            </button>
+            </MButton>
           </li>
         </ul>
         <dialog
@@ -850,39 +874,79 @@ const activeProjects = computed(() => {
           <p v-if="page.gallery.length > 1" class="lightbox__counter" aria-hidden="true">
             {{ activeIndex + 1 }} / {{ page.gallery.length }}
           </p>
-          <button
+          <MButton
             ref="closeButtonRef"
             type="button"
             class="close-btn"
             :aria-label="`Close ${page.title} image viewer`"
+            icon-only
             @click="closeImageDialog"
           >
-            <UIcon name="i-lucide-x" class="close-btn__icon w-6 h-6" />
-          </button>
-          <button
+            <template #icon>
+              <UIcon name="i-lucide-x" class="close-btn__icon w-6 h-6" />
+            </template>
+          </MButton>
+          <MButton
             v-if="page.gallery.length > 1"
             type="button"
             class="lightbox__nav lightbox__nav--prev"
             aria-label="Previous image"
             :aria-disabled="isFirstImage"
+            icon-only
             @click="showPreviousImage('button')"
           >
-            <UIcon name="i-lucide-chevron-left" class="w-6 h-6" />
-          </button>
-          <button
+            <template #icon>
+              <UIcon name="i-lucide-chevron-left" class="w-6 h-6" />
+            </template>
+          </MButton>
+          <MButton
             v-if="page.gallery.length > 1"
             type="button"
             class="lightbox__nav lightbox__nav--next"
             aria-label="Next image"
             :aria-disabled="isLastImage"
+            icon-only
             @click="showNextImage('button')"
           >
-            <UIcon name="i-lucide-chevron-right" class="w-6 h-6" />
-          </button>
+            <template #icon>
+              <UIcon name="i-lucide-chevron-right" class="w-6 h-6" />
+            </template>
+          </MButton>
         </dialog>
       </template>
     </section-e>
     <div v-else>Oh no! Page not found.</div>
+    <section-e
+      v-if="page && relatedProjects.length"
+      no-padding
+      bgcolor="dark"
+      class="related-projects dark"
+    >
+      <template #header>
+        <section-header-a :eyebrow="page.sector" title="More in this sector" />
+      </template>
+      <template #body>
+        <div class="projects ">
+          <div class="projects-grid">
+            <project-card
+              v-for="project in relatedProjects"
+              :key="project.id"
+              :image="project.image"
+              :alt="project.title"
+              :aria-label="project.title"
+              :to="project.to"
+              aspect-ratio="3/4"
+              image-densities="x1 x2"
+              :outlined="false"
+              :title="project.title"
+              :location="project.location"
+              :completed="project.completed"
+              :sector="project.sector"
+            />
+          </div>
+        </div>
+      </template>
+    </section-e>
   </div>
 </template>
 
@@ -1158,6 +1222,14 @@ article {
   .lightbox__zoom--animated {
     transition: none;
   }
+}
+
+.related-projects {
+  border-top: 1px solid color-mix(in oklab, white 12%, transparent);
+}
+
+.related-projects :deep(.reveal-card__content) {
+  color: white;
 }
 
 .projects {

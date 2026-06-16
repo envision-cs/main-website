@@ -1,10 +1,11 @@
-<script setup lang="ts">const servicesFeatureImage = '/design-build.jpg';
-const projectsFeatureImage
-  = 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122';
-const servicesDropdownDescription
-  = 'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.';
-const projectsDropdownDescription
-  = 'Selected work across commercial interiors, healthcare, sports, and complex active sites.';
+<script setup lang="ts">
+const servicesFeatureImage = '/design-build.jpg';
+const projectsFeatureImage =
+  'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122';
+const servicesDropdownDescription =
+  'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.';
+const projectsDropdownDescription =
+  'Selected work across commercial interiors, healthcare, sports, and complex active sites.';
 type DesktopDropdownValue = 'services' | 'projects';
 
 const { services } = await useServicesList();
@@ -109,10 +110,8 @@ function closeDesktopMenu(suppressMs = 350) {
 }
 
 function openDesktopMenu(menu: string) {
-  if (menu !== 'services' && menu !== 'projects')
-    return;
-  if (Date.now() < suppressDesktopMenuOpenUntil.value)
-    return;
+  if (menu !== 'services' && menu !== 'projects') return;
+  if (Date.now() < suppressDesktopMenuOpenUntil.value) return;
 
   desktopMenuValue.value = menu;
 }
@@ -121,11 +120,9 @@ function onHeaderFocusout(event: FocusEvent) {
   const nextTarget = event.relatedTarget;
   const currentTarget = event.currentTarget;
 
-  if (!(currentTarget instanceof HTMLElement))
-    return;
+  if (!(currentTarget instanceof HTMLElement)) return;
 
-  if (nextTarget instanceof Node && currentTarget.contains(nextTarget))
-    return;
+  if (nextTarget instanceof Node && currentTarget.contains(nextTarget)) return;
 
   closeDesktopMenu(0);
 }
@@ -141,7 +138,7 @@ function onHeaderFocusout(event: FocusEvent) {
     @focusout="onHeaderFocusout"
     @keydown.esc="closeDesktopMenu(0)"
   >
-    <button
+    <MButton
       v-if="isDesktopMenuOpen"
       type="button"
       class="desktop-mega-menu-backdrop"
@@ -153,10 +150,13 @@ function onHeaderFocusout(event: FocusEvent) {
     <header class="header-root site-max">
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
         <NuxtImg
+          provider="imagekit"
           src="https://ik.imagekit.io/pnixsw7lg/main-website/thumbnail_White_Envision_Logo_c1724c69d3.png?updatedAt=1780533539340"
           alt="Envision Construction logo"
-          width="160px"
-          format="avif, webp"
+          width="160"
+          height="32"
+          format="avif"
+          :densities="'x1 x2'"
           class="brand-link__logo"
           data-test="envision-logo"
           placeholder

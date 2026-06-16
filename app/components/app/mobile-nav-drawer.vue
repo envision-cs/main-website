@@ -222,7 +222,7 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 <template>
   <DialogRoot :open="mobileDrawerOpen" @update:open="onDrawerOpenChange">
-    <button
+    <MButton
       ref="menuButtonRef"
       type="button"
       class="mobile-trigger mobile-menu-button"
@@ -234,9 +234,11 @@ function onDrawerCloseAutoFocus(event: Event) {
       @keydown.enter.prevent="onDrawerOpenChange(true)"
       @keydown.space.prevent="onDrawerOpenChange(true)"
     >
-      <UIcon name="i-lucide-grip" aria-hidden="true" />
+      <template #icon>
+        <UIcon name="i-lucide-grip" aria-hidden="true" />
+      </template>
       Menu
-    </button>
+    </MButton>
 
     <DialogPortal>
       <DialogOverlay class="mobile-overlay" data-test="mobile-drawer-overlay" />
@@ -253,16 +255,18 @@ function onDrawerCloseAutoFocus(event: Event) {
         </VisuallyHidden>
 
         <div class="mobile-content-header">
-          <button
+          <MButton
             type="button"
             class="mobile-menu-button mobile-menu-button--inside"
             data-test="mobile-menu-close"
             aria-label="Close main menu"
             @click="closeDrawerAndNavigate"
           >
-            <UIcon name="i-lucide-grip" aria-hidden="true" />
+            <template #icon>
+              <UIcon name="i-lucide-grip" aria-hidden="true" />
+            </template>
             Menu
-          </button>
+          </MButton>
         </div>
 
         <nav class="mobile-nav" aria-label="Mobile primary">
@@ -270,7 +274,7 @@ function onDrawerCloseAutoFocus(event: Event) {
             <li class="mobile-nav-list__item">
               <CollapsibleRoot v-model:open="mobileServicesOpen">
                 <CollapsibleTrigger as-child>
-                  <button
+                  <MButton
                     ref="firstDrawerLinkRef"
                     class="mobile-services-toggle"
                     type="button"
@@ -285,12 +289,14 @@ function onDrawerCloseAutoFocus(event: Event) {
                     >
                       Services
                     </app-typography>
-                    <UIcon
-                      name="i-lucide-chevron-down"
-                      class="mobile-services-toggle__icon"
-                      aria-hidden="true"
-                    />
-                  </button>
+                    <template #icon>
+                      <UIcon
+                        name="i-lucide-chevron-down"
+                        class="mobile-services-toggle__icon"
+                        aria-hidden="true"
+                      />
+                    </template>
+                  </MButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent class="mobile-services-panel" data-test="mobile-services-panel">
                   <ul class="mobile-services-list">
@@ -316,7 +322,7 @@ function onDrawerCloseAutoFocus(event: Event) {
             <li class="mobile-nav-list__item">
               <CollapsibleRoot v-model:open="mobileProjectsOpen">
                 <CollapsibleTrigger as-child>
-                  <button
+                  <MButton
                     class="mobile-services-toggle"
                     type="button"
                     data-test="mobile-projects-toggle"
@@ -330,12 +336,14 @@ function onDrawerCloseAutoFocus(event: Event) {
                     >
                       Projects
                     </app-typography>
-                    <UIcon
-                      name="i-lucide-chevron-down"
-                      class="mobile-services-toggle__icon"
-                      aria-hidden="true"
-                    />
-                  </button>
+                    <template #icon>
+                      <UIcon
+                        name="i-lucide-chevron-down"
+                        class="mobile-services-toggle__icon"
+                        aria-hidden="true"
+                      />
+                    </template>
+                  </MButton>
                 </CollapsibleTrigger>
                 <CollapsibleContent class="mobile-services-panel" data-test="mobile-projects-panel">
                   <ul class="mobile-services-list">
