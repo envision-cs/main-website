@@ -45,7 +45,7 @@ const activeCategory = computed<{
 
 <template>
   <div>
-    <app-header />
+    <main-navigation />
     <div class="header">
       <banner-b
         :position="activeCategory.position"

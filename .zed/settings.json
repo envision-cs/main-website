@@ -10,7 +10,6 @@
     "oxlint": {
       "initialization_options": {
         "settings": {
-          "configPath": "./.oxlintrc.json",
           "run": "onType",
           "disableNestedConfig": false,
           "fixKind": "safe_fix",
@@ -22,7 +21,7 @@
     "oxfmt": {
       "initialization_options": {
         "settings": {
-          "configPath": "./vite.config.ts",
+          "fmt.configPath": "./.oxfmtrc.json",
           "run": "onSave"
         }
       }
@@ -225,7 +224,7 @@
         }
       ]
     },
-    "Vue": {
+    "Vue.js": {
       "format_on_save": "on",
       "prettier": {
         "allowed": false

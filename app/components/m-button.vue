@@ -1,4 +1,5 @@
-<script setup lang="ts">defineOptions({ inheritAttrs: false });
+<script setup lang="ts">
+defineOptions({ inheritAttrs: false });
 const props = withDefaults(
   defineProps<{
     to?: string;
@@ -118,9 +119,9 @@ const classes = computed(() => [
    EXCEPTIONS (variants)
 ========================= */
 .btn[data-variant='primary'] {
-  --btn-bg: var(--color-envision-blue-500);
-  --btn-bg-hover: var(--color-envision-blue-600);
-  --btn-border: transparent;
+  --btn-bg: color-mix(in oklch, var(--color-envision-gray-900) 80%, transparent);
+  --btn-bg-hover: color-mix(in oklch, var(--color-envision-gray-900) 62%, var(--color-white) 12%);
+  --btn-border: color-mix(in oklch, var(--color-white) 12%, transparent);
   --btn-text: var(--color-white);
 }
 
@@ -209,6 +210,7 @@ const classes = computed(() => [
 
 .btn__label {
   white-space: nowrap;
+  line-height: 1;
 }
 
 .btn--icon-only {

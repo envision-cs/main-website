@@ -1,10 +1,11 @@
-<script setup lang="ts">const servicesFeatureImage = '/design-build.jpg';
-const projectsFeatureImage
-  = 'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122';
-const servicesDropdownDescription
-  = 'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.';
-const projectsDropdownDescription
-  = 'Selected work across commercial interiors, healthcare, sports, and complex active sites.';
+<script setup lang="ts">
+const servicesFeatureImage = '/design-build.jpg';
+const projectsFeatureImage =
+  'https://ik.imagekit.io/pnixsw7lg/main-website/small_5000_acline_drive_office_01_20b859f5db.jpg?updatedAt=1770956670122';
+const servicesDropdownDescription =
+  'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.';
+const projectsDropdownDescription =
+  'Selected work across commercial interiors, healthcare, sports, and complex active sites.';
 type DesktopDropdownValue = 'services' | 'projects';
 
 const { services } = await useServicesList();
@@ -109,10 +110,8 @@ function closeDesktopMenu(suppressMs = 350) {
 }
 
 function openDesktopMenu(menu: string) {
-  if (menu !== 'services' && menu !== 'projects')
-    return;
-  if (Date.now() < suppressDesktopMenuOpenUntil.value)
-    return;
+  if (menu !== 'services' && menu !== 'projects') return;
+  if (Date.now() < suppressDesktopMenuOpenUntil.value) return;
 
   desktopMenuValue.value = menu;
 }
@@ -121,11 +120,9 @@ function onHeaderFocusout(event: FocusEvent) {
   const nextTarget = event.relatedTarget;
   const currentTarget = event.currentTarget;
 
-  if (!(currentTarget instanceof HTMLElement))
-    return;
+  if (!(currentTarget instanceof HTMLElement)) return;
 
-  if (nextTarget instanceof Node && currentTarget.contains(nextTarget))
-    return;
+  if (nextTarget instanceof Node && currentTarget.contains(nextTarget)) return;
 
   closeDesktopMenu(0);
 }
