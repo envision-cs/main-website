@@ -57,7 +57,6 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/mdc',
     '@posthog/nuxt',
-    'motion-v/nuxt',
     '@nuxtjs/strapi',
     'reka-ui/nuxt',
     '@nuxt/eslint',
