@@ -53,7 +53,7 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
         </app-typography>
 
         <div class="hero-actions">
-          <m-button variant="outline" size="sm" to="/contact">
+          <m-button variant="primary" size="sm" to="/contact">
             Start your project
             <template #icon>
               <UIcon name="i-lucide-arrow-right" />

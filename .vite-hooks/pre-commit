@@ -1,1 +1,12 @@
-vp staged
+tmp_file=$(mktemp)
+git diff --cached --name-only -z --diff-filter=ACMR > "$tmp_file"
+
+if [ ! -s "$tmp_file" ]; then
+  rm "$tmp_file"
+  exit 0
+fi
+
+xargs -0 vp lint --fix --no-error-on-unmatched-pattern < "$tmp_file"
+status=$?
+rm "$tmp_file"
+exit "$status"

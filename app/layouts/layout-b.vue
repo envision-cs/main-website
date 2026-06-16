@@ -18,7 +18,7 @@ const mainStyle = computed(() => {
 
 <template>
   <div>
-    <app-header-b />
+    <main-navigation />
     <div class="divider">
       <UMain :style="mainStyle">
         <slot />
