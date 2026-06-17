@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">
+import type { Project } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 
@@ -9,20 +10,17 @@ const route = useRoute();
 const slug = computed(() => {
   const param = route.params.project;
 
-  if (typeof param !== 'string')
-    return '';
+  if (typeof param !== 'string') return '';
 
   const normalized = param.trim();
-  if (!normalized || normalized === 'null' || normalized === 'undefined')
-    return '';
+  if (!normalized || normalized === 'null' || normalized === 'undefined') return '';
 
   return normalized;
 });
 const sectorSlug = computed(() => {
   const param = route.params.id;
 
-  if (typeof param !== 'string')
-    return '';
+  if (typeof param !== 'string') return '';
 
   return param.trim();
 });
@@ -108,8 +106,7 @@ const seoTitle = computed(() => {
 
 const seoDescription = computed(() => {
   const fromDescription = toSeoDescription(page.value?.description);
-  if (fromDescription)
-    return fromDescription;
+  if (fromDescription) return fromDescription;
 
   const location = page.value?.location ? ` in ${page.value.location}` : '';
   const sector = page.value?.sector ? `${page.value.sector} ` : '';
@@ -166,8 +163,7 @@ const isLastImage = computed(() => activeIndex.value >= galleryCount.value - 1);
 
 const lightboxAnnouncement = computed(() => {
   const image = galleryImages.value[activeIndex.value];
-  if (!image)
-    return '';
+  if (!image) return '';
 
   const alt = image.altText ? `: ${image.altText}` : '';
   return `Image ${activeIndex.value + 1} of ${galleryCount.value}${alt}`;
@@ -217,8 +213,7 @@ function slideStyle(index: number) {
 }
 
 function zoomStyle(index: number) {
-  if (index !== activeIndex.value)
-    return undefined;
+  if (index !== activeIndex.value) return undefined;
 
   return {
     transform: `translate3d(${panX.value}px, ${panY.value}px, 0) scale(${scale.value})`,
@@ -227,8 +222,7 @@ function zoomStyle(index: number) {
 
 function pointFromViewportCenter(clientX: number, clientY: number) {
   const rect = viewportRef.value?.getBoundingClientRect();
-  if (!rect)
-    return { x: 0, y: 0 };
+  if (!rect) return { x: 0, y: 0 };
 
   return {
     x: clientX - rect.left - rect.width / 2,
@@ -238,8 +232,7 @@ function pointFromViewportCenter(clientX: number, clientY: number) {
 
 function clampPanToBounds() {
   const viewport = viewportRef.value;
-  if (!viewport)
-    return;
+  if (!viewport) return;
 
   const maxX = (viewport.clientWidth * (scale.value - 1)) / 2;
   const maxY = (viewport.clientHeight * (scale.value - 1)) / 2;
@@ -281,8 +274,8 @@ async function openLightbox(index: number) {
 
   const dialog = imageDialogRef.value;
   if (dialog && !dialog.open) {
-    restoreFocusRef.value
-      = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    restoreFocusRef.value =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     dialog.showModal();
   }
 
@@ -322,14 +315,12 @@ function onImageDialogClose() {
 type GalleryNavMethod = 'button' | 'keyboard' | 'swipe';
 
 function goToImage(index: number, method: GalleryNavMethod = 'button') {
-  if (!galleryCount.value)
-    return;
+  if (!galleryCount.value) return;
 
   dragX.value = 0;
   isDragging.value = false;
   const target = clampValue(index, 0, galleryCount.value - 1);
-  if (target === activeIndex.value)
-    return;
+  if (target === activeIndex.value) return;
 
   const fromIndex = activeIndex.value;
   activeIndex.value = target;
@@ -342,13 +333,11 @@ function goToImage(index: number, method: GalleryNavMethod = 'button') {
 }
 
 function showPreviousImage(method: GalleryNavMethod = 'button') {
-  if (!isFirstImage.value)
-    goToImage(activeIndex.value - 1, method);
+  if (!isFirstImage.value) goToImage(activeIndex.value - 1, method);
 }
 
 function showNextImage(method: GalleryNavMethod = 'button') {
-  if (!isLastImage.value)
-    goToImage(activeIndex.value + 1, method);
+  if (!isLastImage.value) goToImage(activeIndex.value + 1, method);
 }
 
 function startSinglePointerGesture(x: number, y: number) {
@@ -365,16 +354,13 @@ function startSinglePointerGesture(x: number, y: number) {
     midY: 0,
   };
 
-  if (gesture === 'pan')
-    zoomAnimated.value = false;
-  else
-    isDragging.value = true;
+  if (gesture === 'pan') zoomAnimated.value = false;
+  else isDragging.value = true;
 }
 
 function startPinchGesture() {
   const [first, second] = [...activePointers.values()];
-  if (!first || !second)
-    return;
+  if (!first || !second) return;
 
   if (scale.value <= 1.01) {
     captureGalleryEvent('project_gallery_image_zoomed', {
@@ -404,28 +390,24 @@ function startPinchGesture() {
 
 function rebaselineSinglePointer() {
   const [remaining] = [...activePointers.values()];
-  if (!remaining)
-    return;
+  if (!remaining) return;
 
   suppressTap = true;
   startSinglePointerGesture(remaining.x, remaining.y);
 }
 
 function onViewportPointerDown(event: PointerEvent) {
-  if (event.pointerType === 'mouse' && event.button !== 0)
-    return;
+  if (event.pointerType === 'mouse' && event.button !== 0) return;
 
   const viewport = viewportRef.value;
-  if (!viewport)
-    return;
+  if (!viewport) return;
 
   viewport.setPointerCapture(event.pointerId);
   activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
 
   if (activePointers.size === 2) {
     startPinchGesture();
-  }
-  else if (activePointers.size === 1) {
+  } else if (activePointers.size === 1) {
     suppressTap = false;
     startSinglePointerGesture(event.clientX, event.clientY);
   }
@@ -433,14 +415,12 @@ function onViewportPointerDown(event: PointerEvent) {
 
 function onViewportPointerMove(event: PointerEvent) {
   const pointer = activePointers.get(event.pointerId);
-  if (!pointer)
-    return;
+  if (!pointer) return;
 
   pointer.x = event.clientX;
   pointer.y = event.clientY;
 
-  if (gesture !== 'none' && !moveFrame)
-    moveFrame = requestAnimationFrame(applyGestureFrame);
+  if (gesture !== 'none' && !moveFrame) moveFrame = requestAnimationFrame(applyGestureFrame);
 }
 
 function applyGestureFrame() {
@@ -448,8 +428,7 @@ function applyGestureFrame() {
 
   if (gesture === 'pinch') {
     const [first, second] = [...activePointers.values()];
-    if (!first || !second)
-      return;
+    if (!first || !second) return;
 
     const dist = Math.max(Math.hypot(second.x - first.x, second.y - first.y), 1);
     const nextScale = clampValue(
@@ -467,35 +446,31 @@ function applyGestureFrame() {
   }
 
   const [pointer] = [...activePointers.values()];
-  if (!pointer)
-    return;
+  if (!pointer) return;
 
   if (gesture === 'pan') {
     panX.value = gestureStart.panX + (pointer.x - gestureStart.x);
     panY.value = gestureStart.panY + (pointer.y - gestureStart.y);
     clampPanToBounds();
-  }
-  else if (gesture === 'swipe') {
+  } else if (gesture === 'swipe') {
     let delta = pointer.x - gestureStart.x;
-    if ((isFirstImage.value && delta > 0) || (isLastImage.value && delta < 0))
-      delta *= 0.3;
+    if ((isFirstImage.value && delta > 0) || (isLastImage.value && delta < 0)) delta *= 0.3;
     dragX.value = delta;
   }
 }
 
 function handleTap(event: PointerEvent) {
   const now = performance.now();
-  const isDoubleTap
-    = now - lastTap.time < 300
-      && Math.hypot(event.clientX - lastTap.x, event.clientY - lastTap.y) < 32;
+  const isDoubleTap =
+    now - lastTap.time < 300 &&
+    Math.hypot(event.clientX - lastTap.x, event.clientY - lastTap.y) < 32;
 
   if (isDoubleTap) {
     lastTap = { time: 0, x: 0, y: 0 };
     zoomAnimated.value = true;
     if (scale.value > 1.01) {
       resetZoom(true);
-    }
-    else {
+    } else {
       captureGalleryEvent('project_gallery_image_zoomed', {
         method: 'double_tap',
         image_index: activeIndex.value,
@@ -509,67 +484,52 @@ function handleTap(event: PointerEvent) {
   lastTap = { time: now, x: event.clientX, y: event.clientY };
 
   const target = document.elementFromPoint(event.clientX, event.clientY);
-  if (target && !target.closest('img') && !target.closest('button'))
-    closeImageDialog();
+  if (target && !target.closest('img') && !target.closest('button')) closeImageDialog();
 }
 
 function endGesture() {
   gesture = 'none';
   isDragging.value = false;
   zoomAnimated.value = true;
-  if (scale.value < 1.01)
-    resetZoom(true);
+  if (scale.value < 1.01) resetZoom(true);
 }
 
 function onViewportPointerUp(event: PointerEvent) {
-  if (!activePointers.has(event.pointerId))
-    return;
+  if (!activePointers.has(event.pointerId)) return;
 
   activePointers.delete(event.pointerId);
 
   if (gesture === 'pinch') {
-    if (activePointers.size === 1)
-      rebaselineSinglePointer();
-    else if (activePointers.size >= 2)
-      startPinchGesture();
-    else
-      endGesture();
+    if (activePointers.size === 1) rebaselineSinglePointer();
+    else if (activePointers.size >= 2) startPinchGesture();
+    else endGesture();
     return;
   }
 
   const elapsed = performance.now() - gestureStart.time;
-  const movedDistance = Math.hypot(
-    event.clientX - gestureStart.x,
-    event.clientY - gestureStart.y,
-  );
+  const movedDistance = Math.hypot(event.clientX - gestureStart.x, event.clientY - gestureStart.y);
   const isTap = !suppressTap && movedDistance < 8 && elapsed < 350;
 
   if (gesture === 'swipe') {
-    if (isTap)
-      handleTap(event);
+    if (isTap) handleTap(event);
 
     const viewportWidth = viewportRef.value?.clientWidth ?? 0;
     const threshold = Math.min(96, Math.max(viewportWidth * 0.2, 48));
     const isFlick = elapsed < 280 && Math.abs(dragX.value) > 32;
 
-    if (dragX.value <= -threshold || (isFlick && dragX.value < 0))
-      showNextImage('swipe');
-    else if (dragX.value >= threshold || (isFlick && dragX.value > 0))
-      showPreviousImage('swipe');
+    if (dragX.value <= -threshold || (isFlick && dragX.value < 0)) showNextImage('swipe');
+    else if (dragX.value >= threshold || (isFlick && dragX.value > 0)) showPreviousImage('swipe');
 
     dragX.value = 0;
-  }
-  else if (gesture === 'pan' && isTap) {
+  } else if (gesture === 'pan' && isTap) {
     handleTap(event);
   }
 
-  if (activePointers.size === 0)
-    endGesture();
+  if (activePointers.size === 0) endGesture();
 }
 
 function onViewportPointerCancel(event: PointerEvent) {
-  if (!activePointers.has(event.pointerId))
-    return;
+  if (!activePointers.has(event.pointerId)) return;
 
   activePointers.delete(event.pointerId);
 
@@ -641,8 +601,7 @@ function onDialogKeydown(event: KeyboardEvent) {
 }
 
 onBeforeUnmount(() => {
-  if (moveFrame)
-    cancelAnimationFrame(moveFrame);
+  if (moveFrame) cancelAnimationFrame(moveFrame);
 });
 
 const { data: ast } = await useAsyncData(
@@ -657,8 +616,7 @@ const { data: ast } = await useAsyncData(
 );
 
 const stats = computed<Item[]>(() => {
-  if (!page.value)
-    return [];
+  if (!page.value) return [];
   const stats = [
     {
       id: 1,
@@ -713,8 +671,7 @@ const { data } = await useAsyncData<Project[]>(
   async () => {
     try {
       return await $fetch<Project[]>('/api/projects');
-    }
-    catch (err) {
+    } catch (err) {
       console.error('Strapi error:', err);
       return [];
     }
@@ -724,15 +681,13 @@ const { data } = await useAsyncData<Project[]>(
 
 const relatedProjects = computed(() => {
   const current = projectData.value;
-  if (!current)
-    return [];
+  if (!current) return [];
 
   const currentSectorSlug = getPrimaryProjectSector(current)?.slug || sectorSlug.value;
-  if (!currentSectorSlug)
-    return [];
+  if (!currentSectorSlug) return [];
 
   return (data.value ?? [])
-    .filter(p => p.slug !== current.slug && projectBelongsToSector(p, currentSectorSlug))
+    .filter((p) => p.slug !== current.slug && projectBelongsToSector(p, currentSectorSlug))
     .flatMap((p) => {
       const image = p.mainImage?.url;
       const primarySector = getPrimaryProjectSector(p);
@@ -760,7 +715,7 @@ const relatedProjects = computed(() => {
 <template>
   <div>
     <banner-b :image="page?.main_image">
-      {{ page?.title }}
+      <!-- {{ page?.title }} -->
     </banner-b>
     <section-e
       v-if="page"
@@ -769,20 +724,44 @@ const relatedProjects = computed(() => {
       class="dark grid grid-cols-1 min-[800px]:grid-cols-2"
     >
       <template #header>
-        <section-header-a :eyebrow="page.sector" :title="page.title" />
-        <article>
-          <div class="">
-            <div v-if="stats != null" class="info">
-              <list-e small :items="stats" />
+        <section class="project-intro" aria-labelledby="project-title">
+          <p v-if="page.sector" class="project-intro__eyebrow">
+            {{ page.sector }}
+          </p>
+          <app-typography
+            id="project-title"
+            tag="h1"
+            variant="heading-lg"
+            class="project-intro__title"
+          >
+            {{ page.title }}
+          </app-typography>
+
+          <dl v-if="stats != null" class="project-intro__stats" aria-label="Project details">
+            <div
+              v-for="item in stats"
+              v-show="item.label"
+              :key="item.id"
+              class="project-intro__stat"
+            >
+              <dt>{{ item.description }}</dt>
+              <dd>{{ item.label }}</dd>
             </div>
-            <div v-if="ast?.body" class="max-w-[75ch]">
-              <MDCRenderer :body="ast.body" :data="ast.data" />
-            </div>
-            <div v-if="page?.beck">
-              <Icon name="logos:belogo" size="60" />
-            </div>
+          </dl>
+
+          <div v-if="ast?.body" class="project-intro__body">
+            <MDCRenderer :body="ast.body" :data="ast.data" />
           </div>
-        </article>
+
+          <div
+            v-if="page?.beck"
+            class="project-intro__partner"
+            role="img"
+            aria-label="Beck affiliated project"
+          >
+            <Icon name="logos:belogo" size="60" aria-hidden="true" />
+          </div>
+        </section>
       </template>
       <template #body>
         <ul class="gallery">
@@ -815,8 +794,8 @@ const relatedProjects = computed(() => {
         >
           <p id="lightbox-help" class="sr-only">
             Swipe, use the previous and next buttons, or press the left and right arrow keys to
-            change images. Pinch, double-tap, scroll, or press plus and minus to zoom. Press
-            Escape to close the viewer.
+            change images. Pinch, double-tap, scroll, or press plus and minus to zoom. Press Escape
+            to close the viewer.
           </p>
           <p class="sr-only" role="status">{{ lightboxAnnouncement }}</p>
           <div
@@ -926,7 +905,7 @@ const relatedProjects = computed(() => {
         <section-header-a :eyebrow="page.sector" title="More in this sector" />
       </template>
       <template #body>
-        <div class="projects ">
+        <div class="projects">
           <div class="projects-grid">
             <project-card
               v-for="project in relatedProjects"
@@ -951,12 +930,100 @@ const relatedProjects = computed(() => {
 </template>
 
 <style scoped>
-article {
-  position: sticky;
+.project-intro {
+  --project-intro-rule: color-mix(in oklab, var(--section-color) 18%, transparent);
+  --project-intro-muted: color-mix(in oklab, var(--section-color) 68%, transparent);
 
-  @media (min-width: 1024px) {
-    position: sticky;
-    top: calc(var(--spacing) * 15);
+  display: grid;
+  gap: calc(var(--spacing) * 6);
+  align-content: start;
+  max-width: 44rem;
+  min-height: 100%;
+  margin: calc(var(--spacing) * 2);
+  padding-block: calc(var(--spacing) * 4);
+  padding-inline-start: calc(var(--spacing) * 5);
+}
+
+.project-intro__eyebrow {
+  width: fit-content;
+  margin: 0;
+  padding-block-end: calc(var(--spacing) * 2);
+  color: var(--accent-color);
+  font-size: var(--font-size-text-t4);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.project-intro__title {
+  max-inline-size: 25ch;
+  color: var(--section-color);
+}
+
+.project-intro__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 1px;
+  margin: 0;
+  border-block: 1px solid var(--project-intro-rule);
+  background: var(--project-intro-rule);
+}
+
+.project-intro__stat {
+  min-width: 0;
+  padding-block: calc(var(--spacing) * 4);
+  padding-inline: calc(var(--spacing) * 4);
+  background: var(--section-bg);
+}
+
+.project-intro__stat dt {
+  margin-block-end: calc(var(--spacing) * 1.5);
+  color: var(--project-intro-muted);
+  font-size: var(--font-size-text-t4);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.project-intro__stat dd {
+  margin: 0;
+  color: var(--section-color);
+  font-size: var(--font-size-text-t2);
+  font-weight: 700;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.project-intro__body {
+  max-width: 66ch;
+  color: var(--project-intro-muted);
+}
+
+.project-intro__body :deep(p) {
+  margin: 0;
+  font-size: var(--font-size-text-t2);
+  line-height: 1.55;
+}
+
+.project-intro__body :deep(p + p) {
+  margin-block-start: calc(var(--spacing) * 4);
+}
+
+.project-intro__partner {
+  width: fit-content;
+  padding-block-start: calc(var(--spacing) * 4);
+  border-block-start: 1px solid var(--project-intro-rule);
+  color: var(--section-color);
+}
+
+@media (max-width: 649px) {
+  .project-intro {
+    margin: 0;
+    padding-inline-start: calc(var(--spacing) * 4);
+  }
+
+  .project-intro__title {
+    max-inline-size: 100%;
   }
 }
 
