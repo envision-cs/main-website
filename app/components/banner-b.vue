@@ -1,4 +1,8 @@
-<script setup lang="ts">interface BannerStat {
+<script setup lang="ts">
+import { Comment, Text } from 'vue';
+import type { VNode } from 'vue';
+
+interface BannerStat {
   id?: number;
   label: string;
   description?: string;
@@ -22,6 +26,21 @@ const props = defineProps<{
 
 const slots = useSlots();
 
+function hasRenderableSlot(nodes: VNode[] = []): boolean {
+  return nodes.some((node) => {
+    if (node.type === Comment) return false;
+
+    if (node.type === Text) return String(node.children ?? '').trim().length > 0;
+
+    if (Array.isArray(node.children)) return hasRenderableSlot(node.children as VNode[]);
+
+    if (typeof node.children === 'string') return node.children.trim().length > 0;
+
+    return true;
+  });
+}
+
+const hasTitle = computed(() => hasRenderableSlot(slots.default?.() ?? []));
 const hasEyebrow = computed(() => Boolean(slots.eyebrow || slots.title));
 const hasBody = computed(() => Boolean(slots.body || props.body));
 const hasMedia = computed(() => Boolean(slots.image || props.image));
@@ -46,7 +65,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 <template>
   <section
     class="banner"
-    aria-labelledby="banner-title"
+    :aria-labelledby="hasTitle ? 'banner-title' : undefined"
     :aria-describedby="hasBody ? 'banner-body' : undefined"
     role="region"
   >
@@ -65,34 +84,35 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
           sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
           fit="cover"
           fetchpriority="high"
-        format="avif"
-                  loading="eager"
-                  preload
+          format="avif"
+          loading="eager"
+          preload
           class="banner__image"
         />
       </slot>
     </div>
 
-    <div class="banner__overlay" aria-hidden="true" />
+    <div v-if="hasTitle" class="banner__overlay" aria-hidden="true" />
 
     <div class="banner__inner site-grid">
       <div class="banner__copy">
-        <app-typography v-if="hasEyebrow" variant="heading-sm" tag="p" class="eyebrow mb-3">
+        <app-typography v-if="hasEyebrow" variant="eyebrow-md" tag="p" class="eyebrow">
           <slot name="eyebrow">
             <slot name="title" />
           </slot>
         </app-typography>
 
         <app-typography
+          v-if="hasTitle"
           id="banner-title"
           tag="h1"
-          variant="heading-huge"
-          class="max-w-full md:max-w-[60vw] text-balance"
+          variant="heading-xl"
+          class="banner__title"
         >
           <slot />
         </app-typography>
 
-        <app-typography v-if="hasBody" id="banner-body" tag="p" variant="text-xl" class="text">
+        <app-typography v-if="hasBody" id="banner-body" tag="p" variant="text-md" class="text">
           <slot name="body">
             {{ body }}
           </slot>
@@ -136,7 +156,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
   display: grid;
   isolation: isolate;
   position: relative;
-  min-height: clamp(600px, 78svh, 820px);
+  min-height: 640px;
   grid-column: 1 / -1;
   color: var(--color-white);
   background: var(--color-envision-gray-900);
@@ -164,8 +184,14 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 .banner__overlay {
   z-index: 1;
   background:
-    radial-gradient(ellipse at bottom left, rgba(6, 11, 18, 0.7) 0%, rgba(6, 11, 18, 0) 50%),
-    radial-gradient(ellipse at top left, rgba(6, 11, 18, 0.6) 0%, rgba(6, 11, 18, 0) 25%);
+    radial-gradient(
+      ellipse at 20% 82%,
+      rgb(7 12 18 / 0.82) 0%,
+      rgb(7 12 18 / 0.62) 28%,
+      rgb(7 12 18 / 0.18) 56%,
+      transparent 76%
+    ),
+    linear-gradient(0deg, rgb(7 12 18 / 0.34) 0%, rgb(7 12 18 / 0.12) 38%, transparent 68%);
 }
 
 .banner__inner {
@@ -174,28 +200,37 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
   width: 100%;
   align-self: end;
   gap: calc(var(--spacing) * 8);
-  padding: calc(var(--spacing) * 28) calc(var(--spacing) * 4) calc(var(--spacing) * 12);
+  padding: calc(var(--spacing) * 30) calc(var(--spacing) * 4) calc(var(--spacing) * 12);
 }
 
 .banner__copy {
   display: grid;
   grid-column: 1 / -1;
   align-content: end;
-  gap: calc(var(--spacing) * 5);
+  gap: calc(var(--spacing) * 4);
   z-index: 2;
-  max-width: 60rem;
+  max-width: 42rem;
 }
 
 .eyebrow {
   text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0;
   color: #fff;
+}
+
+.banner__title {
+  max-inline-size: 20ch;
+  color: var(--color-white);
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .text {
   color: color-mix(in srgb, var(--color-white) 84%, transparent);
-  max-width: 44rem;
+  max-width: 34rem;
+  font-weight: 500;
+  text-wrap: pretty;
 }
 
 .banner__actions {
@@ -237,7 +272,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 .banner__feature-eyebrow {
   margin-bottom: calc(var(--spacing) * 1);
   color: color-mix(in srgb, var(--color-white) 82%, transparent);
-  letter-spacing: 0.08em;
+  letter-spacing: 0;
 }
 
 .banner__feature-title {
@@ -254,6 +289,10 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 }
 
 @media (min-width: 700px) {
+  .banner {
+    min-height: 680px;
+  }
+
   .banner__inner {
     padding-inline: calc(var(--spacing) * 8);
     padding-bottom: calc(var(--spacing) * 16);
@@ -261,6 +300,15 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 
   .banner__copy {
     grid-column: 1 / 10;
+    max-width: 36rem;
+  }
+
+  .banner__title {
+    max-inline-size: 20ch;
+  }
+
+  .text {
+    max-width: 32rem;
   }
 
   .banner__rail {
@@ -269,12 +317,25 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 }
 
 @media (min-width: 1024px) {
+  .banner {
+    min-height: 720px;
+  }
+
   .banner__inner {
     align-items: end;
   }
 
   .banner__copy {
     grid-column: 1 / 15;
+    max-width: 42rem;
+  }
+
+  .banner__title {
+    max-inline-size: 20ch;
+  }
+
+  .text {
+    max-width: 35rem;
   }
 
   .banner__rail {
@@ -283,12 +344,76 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 }
 
 @media (min-width: 1280px) {
+  .banner {
+    min-height: 760px;
+  }
+
   .banner__copy {
     grid-column: 1 / 14;
   }
 
   .banner__rail {
     grid-column: 16 / -1;
+  }
+}
+
+@media (max-width: 699px) {
+  .banner {
+    min-height: 100svh;
+  }
+
+  .banner__image {
+    object-position: var(--image-position, center top);
+  }
+
+  .banner__overlay {
+    background:
+      radial-gradient(
+        ellipse at 24% 78%,
+        rgb(7 12 18 / 0.84) 0%,
+        rgb(7 12 18 / 0.64) 34%,
+        rgb(7 12 18 / 0.24) 62%,
+        transparent 82%
+      ),
+      linear-gradient(0deg, rgb(7 12 18 / 0.38) 0%, rgb(7 12 18 / 0.14) 42%, transparent 72%);
+  }
+
+  .banner__inner {
+    align-self: end;
+    padding-block: calc(var(--spacing) * 24) calc(var(--spacing) * 12);
+  }
+
+  .banner__copy {
+    align-content: end;
+    gap: calc(var(--spacing) * 3);
+    max-width: 30rem;
+  }
+
+  .banner__title {
+    max-inline-size: 11ch;
+  }
+
+  .eyebrow {
+    font-size: var(--font-size-text-t4);
+    line-height: 1;
+  }
+
+  .text {
+    max-width: 28rem;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+  }
+}
+
+@media (max-width: 399px) {
+  .banner__title {
+    max-inline-size: 10ch;
+  }
+
+  .text {
+    -webkit-line-clamp: 4;
   }
 }
 </style>

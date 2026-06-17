@@ -1,4 +1,5 @@
-<script setup lang="ts">interface HomeHero {
+<script setup lang="ts">
+interface HomeHero {
   title?: string;
   subtitle?: string;
   image?: {
@@ -7,6 +8,10 @@
 }
 
 const { data: hero } = useAsyncData<HomeHero>('home-hero', () => $fetch('/api/home-hero'));
+
+const hasHeroTitle = computed(() => Boolean(hero.value?.title?.trim()));
+const hasHeroSummary = computed(() => Boolean(hero.value?.subtitle?.trim()));
+const hasHeroCopy = computed(() => hasHeroTitle.value || hasHeroSummary.value);
 
 const FeatureProjects = defineLazyHydrationComponent(
   'idle',
@@ -20,8 +25,8 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
   <section
     v-if="hero"
     class="hero"
-    aria-labelledby="hero-title"
-    aria-describedby="hero-summary"
+    :aria-labelledby="hasHeroTitle ? 'hero-title' : undefined"
+    :aria-describedby="hasHeroSummary ? 'hero-summary' : undefined"
     role="region"
   >
     <div class="hero__media">
@@ -39,16 +44,28 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
       />
     </div>
 
-    <div class="hero__overlay" aria-hidden="true" />
+    <div v-if="hasHeroCopy" class="hero__overlay" aria-hidden="true" />
 
     <div class="hero__inner site-max mx-auto">
       <!-- <service-list class="services mb-auto" /> -->
-      <div class="hero__copy mt-auto">
-        <app-typography id="hero-title" tag="h1" variant="heading-huge" bold class="">
+      <div v-if="hasHeroCopy" class="hero__copy">
+        <app-typography
+          v-if="hasHeroTitle"
+          id="hero-title"
+          tag="h1"
+          variant="heading-xl"
+          class="hero-title"
+        >
           {{ hero.title }}
         </app-typography>
 
-        <app-typography id="hero-summary" tag="p" variant="text-xl" class="hero-summary">
+        <app-typography
+          v-if="hasHeroSummary"
+          id="hero-summary"
+          tag="p"
+          variant="text-md"
+          class="hero-summary"
+        >
           {{ hero.subtitle }}
         </app-typography>
 
@@ -83,7 +100,7 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
   display: grid;
   isolation: isolate;
   position: relative;
-  min-height: clamp(600px, 85svh, 820px);
+  min-height: 100svh;
   grid-column: 1 / -1;
   color: var(--section-color);
   background: var(--section-bg);
@@ -112,7 +129,15 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 
 .hero__overlay {
   z-index: 1;
-  background: rgba(6, 11, 18, 0.25);
+  background:
+    radial-gradient(
+      ellipse at 22% 76%,
+      rgb(7 12 18 / 0.82) 0%,
+      rgb(7 12 18 / 0.6) 30%,
+      rgb(7 12 18 / 0.2) 58%,
+      transparent 78%
+    ),
+    linear-gradient(0deg, rgb(7 12 18 / 0.28) 0%, rgb(7 12 18 / 0.1) 40%, transparent 72%);
 }
 
 .hero__inner {
@@ -122,26 +147,30 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  height: 100%;
+  min-height: 100svh;
   gap: calc(var(--spacing) * 6);
-  padding: calc(var(--spacing) * 12) calc(var(--spacing) * 4) calc(var(--spacing) * 5);
+  padding: calc(var(--spacing) * 28) calc(var(--spacing) * 4) calc(var(--spacing) * 5);
   align-content: end;
+  align-items: end;
 }
 
 .hero__copy {
   display: grid;
   align-content: end;
-  gap: calc(var(--spacing) * 4);
+  flex: 1 1 24rem;
+  gap: calc(var(--spacing) * 3);
   z-index: 2;
+  max-width: 36rem;
 }
 
 .hero__rail {
   display: grid;
-  grid-column: 1 / -1;
+  flex: 1 1 18rem;
   z-index: 2;
   gap: calc(var(--spacing) * 3);
-  align-self: center;
+  align-self: end;
   min-width: 0;
+  max-width: 100%;
   margin-top: auto;
 }
 
@@ -153,12 +182,14 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 }
 
 .hero-title {
+  max-inline-size: 12ch;
   color: var(--color-white);
   text-wrap: balance;
+  overflow-wrap: break-word;
   letter-spacing: 0;
-  line-height: 0.98;
+  line-height: 1;
   animation: hero-reveal 1040ms cubic-bezier(0.19, 1, 0.22, 1) both;
-  font-weight: 300;
+  font-weight: 400;
 
   span {
     color: var(--color-envision-blue-500);
@@ -173,9 +204,9 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 
 .hero-summary {
   margin: 0;
-  max-width: 35rem;
+  max-width: 32rem;
   color: var(--color-white);
-  line-height: 1.28;
+  font-weight: 500;
   text-wrap: pretty;
   animation: hero-reveal 1160ms cubic-bezier(0.19, 1, 0.22, 1) both;
 }
@@ -247,13 +278,26 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 }
 
 @media (min-width: 700px) {
+  .hero {
+    min-height: 680px;
+  }
+
   .hero__inner {
+    min-height: 680px;
     padding-bottom: clamp(4.5rem, 9vh, 7rem);
   }
 
+  .hero__copy {
+    max-width: 38rem;
+  }
+
+  .hero-title {
+    max-inline-size: 13ch;
+  }
+
   .hero__rail {
-    grid-column: 8 / -1;
     justify-self: end;
+    max-width: 28rem;
   }
 
   .services :deep(ul) {
@@ -274,27 +318,71 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 }
 
 @media (min-width: 1024px) {
+  .hero {
+    min-height: 720px;
+  }
+
   .hero__inner {
+    min-height: 720px;
     padding: calc(var(--spacing) * 20) calc(var(--spacing) * 12) calc(var(--spacing) * 5);
   }
 
   .hero__copy {
+    max-width: 42rem;
     margin-bottom: calc(var(--spacing) * 7);
   }
 
+  .hero-title {
+    max-inline-size: 14ch;
+  }
+
   .hero__rail {
-    grid-column: 17 / -1;
+    flex: 0 1 20rem;
     margin-bottom: calc(var(--spacing) * 4);
   }
 }
 
 @media (min-width: 1280px) {
-  .hero__copy {
-    grid-column: 2 / 10;
+  .hero {
+    min-height: 760px;
   }
 
-  .hero__rail {
-    grid-column: 18 / -1;
+  .hero__inner {
+    min-height: 760px;
+  }
+}
+
+@media (max-width: 699px) {
+  .hero__image {
+    object-position: center top;
+  }
+
+  .hero__overlay {
+    background:
+      radial-gradient(
+        ellipse at 26% 70%,
+        rgb(7 12 18 / 0.82) 0%,
+        rgb(7 12 18 / 0.6) 34%,
+        rgb(7 12 18 / 0.24) 64%,
+        transparent 84%
+      ),
+      linear-gradient(0deg, rgb(7 12 18 / 0.3) 0%, rgb(7 12 18 / 0.1) 44%, transparent 74%);
+  }
+
+  .hero__copy {
+    max-width: 30rem;
+  }
+
+  .hero-title {
+    max-inline-size: 11ch;
+  }
+
+  .hero-summary {
+    display: -webkit-box;
+    overflow: hidden;
+    max-width: 28rem;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
   }
 }
 </style>

@@ -1001,7 +1001,7 @@ const relatedProjects = computed(() => {
 
 .project-intro__body :deep(p) {
   margin: 0;
-  font-size: var(--font-size-text-t2);
+  font-size: var(--font-size-text-t3);
   line-height: 1.55;
 }
 
