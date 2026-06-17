@@ -117,11 +117,11 @@ const servicesPopover = createPopoverHandlers(servicesRef);
           <NuxtLink :to="item.to" class="submenu-item">
             <span class="submenu-item__title">{{ item.title }}</span>
             <app-typography
-              v-if="item.description"
+              v-if="item.nav_content"
               variant="text-sm"
               class="submenu-item__description"
             >
-              {{ item.description }}
+              {{ item.nav_content }}
             </app-typography>
           </NuxtLink>
         </li>
