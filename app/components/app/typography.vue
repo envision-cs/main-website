@@ -50,18 +50,18 @@ const variantClasses = computed(() => {
 
 .heading-huge {
   font-size: var(--font-size-huge);
-  line-height: 0.9;
+  line-height: 0.95;
   max-width: 25ch;
 }
 
 .heading-xl {
   font-size: var(--font-size-h1);
-  line-height: 1.1;
+  line-height: 1;
 }
 
 .heading-lg {
   font-size: var(--font-size-h2);
-  line-height: 1.1;
+  line-height: 1.05;
   text-wrap: balance;
 }
 
@@ -72,23 +72,27 @@ const variantClasses = computed(() => {
 
 .heading-sm {
   font-size: var(--font-size-h4);
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 .text-xl {
   font-size: var(--font-size-text-t1);
+  line-height: 1.2;
 }
 
 .text-lg {
   font-size: var(--font-size-text-t2);
+  line-height: 1.35;
 }
 
 .text-md {
   font-size: var(--font-size-text-t3);
+  line-height: 1.55;
 }
 
 .text-sm {
   font-size: var(--font-size-text-t4);
+  line-height: 1.45;
 }
 
 .eyebrow-md {

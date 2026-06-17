@@ -73,21 +73,35 @@
   --color-white: #fff;
   --text-color-muted: var(--color-envision-gray-600);
 
-  --vw: 1.5vw;
-  --font-size-text-t1: clamp(20px, 0.0125 * calc(100 * var(--vw, 1vw)), 22px);
-  --font-size-text-t2: clamp(18px, 0.0111111111 * calc(100 * var(--vw, 1vw)), 20px);
-  --font-size-text-t3: clamp(16px, 0.0097222222 * calc(100 * var(--vw, 1vw)), 18px);
-  --font-size-text-t4: clamp(14px, 0.0083333333 * calc(100 * var(--vw, 1vw)), 16px);
+  --font-size-text-t4: 0.875rem;
+  --font-size-text-t3: 1rem;
+  --font-size-text-t2: 1.333rem;
+  --font-size-text-t1: 1.777rem;
 
-  --font-size-huge: clamp(35px, 0.081666667 * calc(100 * var(--vw, 1vw)), 75px);
-  --font-size-h1: clamp(32px, 0.0520833333 * calc(100 * var(--vw, 1vw)), 55px);
-  --font-size-h2: clamp(30px, 0.0481944444 * calc(100 * var(--vw, 1vw)), 45px);
-  --font-size-h3: clamp(25px, 0.0243055556 * calc(100 * var(--vw, 1vw)), 35px);
-  --font-size-h4: clamp(20px, 0.0152777778 * calc(100 * var(--vw, 1vw)), 22px);
+  --font-size-h4: 1.333rem;
+  --font-size-h3: 1.777rem;
+  --font-size-h2: 2.369rem;
+  --font-size-h1: 3.157rem;
+  --font-size-huge: 4.209rem;
 
   --border: 1px solid var(--ui-border);
 
   --spacing: 0.25rem;
+}
+
+@media (min-width: 1025px) {
+  :root {
+    --font-size-text-t4: 1rem;
+    --font-size-text-t3: 1.125rem;
+    --font-size-text-t2: 1.5rem;
+    --font-size-text-t1: 2rem;
+
+    --font-size-h4: 1.5rem;
+    --font-size-h3: 2rem;
+    --font-size-h2: 2.666rem;
+    --font-size-h1: 3.553rem;
+    --font-size-huge: 4.737rem;
+  }
 }
 
 html {

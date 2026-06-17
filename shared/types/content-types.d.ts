@@ -141,6 +141,7 @@ export type Service = {
   cta?: string;
   link?: string;
   order?: number;
+  nav_content?: string;
 };
 
 export type APIServices = APICollectionResponse<Service>;
