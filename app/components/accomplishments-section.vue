@@ -66,7 +66,7 @@ withDefaults(
 .accomplishments {
   --section-bg: var(--color-envision-gray-900);
   --section-color: var(--color-white);
-  --accomplishments-accent: var(--color-envision-green-500);
+  --accomplishments-accent: var(--color-envision-blue-500);
   --accomplishments-rule: color-mix(in oklab, var(--section-color) 14%, transparent);
   --accomplishments-muted: color-mix(in oklab, var(--section-color) 66%, transparent);
 
