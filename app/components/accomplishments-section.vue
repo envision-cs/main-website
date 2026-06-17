@@ -171,7 +171,7 @@ withDefaults(
     'label';
   gap: calc(var(--spacing) * 4);
   min-width: 0;
-  min-height: 12rem;
+  /*min-height: 12rem;*/
   padding: calc(var(--spacing) * 8);
   border-block-end: 1px solid var(--accomplishments-rule);
   background: var(--section-bg);
@@ -183,14 +183,14 @@ withDefaults(
   color: var(--accomplishments-muted);
   font-size: var(--font-size-text-t3);
   font-weight: 500;
-  line-height: 1.35;
+  line-height: 1;
 }
 
 .accomplishments__stat dd {
   grid-area: value;
   margin: 0;
   color: var(--section-color);
-  font-size: var(--font-size-huge);
+  font-size: var(--font-size-h1);
   font-weight: 500;
   line-height: 0.95;
 }
@@ -201,7 +201,7 @@ withDefaults(
 
 @media (min-width: 700px) {
   .accomplishments__header {
-    min-height: 24rem;
+    min-height: auto;
     padding: calc(var(--spacing) * 12);
   }
 
@@ -225,7 +225,7 @@ withDefaults(
   }
 
   .accomplishments__header {
-    min-height: 38rem;
+    min-height: auto;
     border-block-end: 0;
     border-inline-end: 1px solid var(--accomplishments-rule);
   }
@@ -235,7 +235,7 @@ withDefaults(
   }
 
   .accomplishments__stat {
-    min-height: 12.666rem;
+    min-height: auto;
     border-inline-end: 0;
     border-block-end: 1px solid var(--accomplishments-rule);
   }
