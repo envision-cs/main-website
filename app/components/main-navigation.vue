@@ -42,6 +42,22 @@ const servicesRef = ref<HTMLElement | null>(null);
 
 const sectorsPopover = createPopoverHandlers(sectorsRef);
 const servicesPopover = createPopoverHandlers(servicesRef);
+
+const servicesPanel = {
+  eyebrow: 'What we do',
+  title: 'One accountable team, start to finish.',
+  copy: 'Preconstruction through closeout — delivered on time and on budget.',
+  to: '/services',
+  cta: 'All services',
+};
+
+const sectorsPanel = {
+  eyebrow: 'Where we work',
+  title: 'Proof across every sector.',
+  copy: 'Browse completed work by the kind of space you’re building.',
+  to: '/projects',
+  cta: 'All projects',
+};
 </script>
 <template>
   <header>
@@ -112,20 +128,30 @@ const servicesPopover = createPopoverHandlers(servicesRef);
       @mouseleave="servicesPopover.close"
       @focusout="servicesPopover.handleFocusOut"
     >
-      <ul>
-        <li v-for="item in services" :key="item.id">
-          <NuxtLink :to="item.to" class="submenu-item">
-            <span class="submenu-item__title">{{ item.title }}</span>
-            <app-typography
-              v-if="item.nav_content"
-              variant="text-sm"
-              class="submenu-item__description"
-            >
-              {{ item.nav_content }}
-            </app-typography>
+      <div class="nav-panel">
+        <aside class="nav-panel__rail">
+          <p class="nav-panel__eyebrow">{{ servicesPanel.eyebrow }}</p>
+          <p class="nav-panel__title">{{ servicesPanel.title }}</p>
+          <p class="nav-panel__copy">{{ servicesPanel.copy }}</p>
+          <NuxtLink :to="servicesPanel.to" class="nav-panel__cta">
+            {{ servicesPanel.cta }}
+            <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
           </NuxtLink>
-        </li>
-      </ul>
+        </aside>
+        <ul class="nav-panel__list">
+          <li v-for="item in services" :key="item.id">
+            <NuxtLink :to="item.to" class="nav-row">
+              <span class="nav-row__body">
+                <span class="nav-row__title">{{ item.title }}</span>
+                <app-typography v-if="item.nav_content" variant="text-sm" class="nav-row__desc">
+                  {{ item.nav_content }}
+                </app-typography>
+              </span>
+              <UIcon name="i-lucide-arrow-up-right" class="nav-row__arrow" aria-hidden="true" />
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div
@@ -136,20 +162,30 @@ const servicesPopover = createPopoverHandlers(servicesRef);
       @mouseleave="sectorsPopover.close"
       @focusout="sectorsPopover.handleFocusOut"
     >
-      <ul>
-        <li v-for="item in sectors" :key="item.name">
-          <NuxtLink :to="item.to" class="submenu-item">
-            <span class="submenu-item__title">{{ item.name }}</span>
-            <app-typography
-              v-if="item.description"
-              variant="text-sm"
-              class="submenu-item__description"
-            >
-              {{ item.description }}
-            </app-typography>
+      <div class="nav-panel">
+        <aside class="nav-panel__rail">
+          <p class="nav-panel__eyebrow">{{ sectorsPanel.eyebrow }}</p>
+          <p class="nav-panel__title">{{ sectorsPanel.title }}</p>
+          <p class="nav-panel__copy">{{ sectorsPanel.copy }}</p>
+          <NuxtLink :to="sectorsPanel.to" class="nav-panel__cta">
+            {{ sectorsPanel.cta }}
+            <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
           </NuxtLink>
-        </li>
-      </ul>
+        </aside>
+        <ul class="nav-panel__list">
+          <li v-for="item in sectors" :key="item.name">
+            <NuxtLink :to="item.to" class="nav-row">
+              <span class="nav-row__body">
+                <span class="nav-row__title">{{ item.name }}</span>
+                <app-typography v-if="item.description" variant="text-sm" class="nav-row__desc">
+                  {{ item.description }}
+                </app-typography>
+              </span>
+              <UIcon name="i-lucide-arrow-up-right" class="nav-row__arrow" aria-hidden="true" />
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
     </div>
   </header>
 </template>
@@ -258,13 +294,8 @@ li {
   top: calc(var(--spacing) * 4);
   position-area: end center;
   width: 800px;
-  padding: calc(var(--spacing) * 3);
-
-  ul {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: calc(var(--spacing) * 3);
-  }
+  padding: 0;
+  overflow: clip;
 }
 
 #projects:popover-open,
@@ -289,33 +320,166 @@ li {
   position-anchor: --services-menu;
 }
 
-.submenu-item {
+/* Split panel: contextual rail + hairline row list */
+.nav-panel {
+  display: grid;
+  grid-template-columns: minmax(200px, 0.85fr) 1.5fr;
+}
+
+.nav-panel__rail {
   display: flex;
   flex-direction: column;
-  text-align: left;
-  text-transform: none;
-  align-items: start;
-  padding: calc(var(--spacing) * 3);
-  border-radius: calc(var(--spacing) * 2);
+  padding: calc(var(--spacing) * 6);
+  border-right: 1px solid color-mix(in oklch, var(--color-white) 12%, transparent);
 }
 
-.submenu-item__title {
-  max-width: 100%;
-  overflow: visible;
-  color: inherit;
-  font-size: 0.95rem;
+.nav-panel__eyebrow {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-envision-blue-400);
+}
+
+.nav-panel__title {
+  margin: calc(var(--spacing) * 4) 0 0;
+  font-size: 1.55rem;
+  font-weight: 300;
+  line-height: 1.12;
+  color: var(--color-white);
+  text-wrap: balance;
+}
+
+.nav-panel__copy {
+  margin: calc(var(--spacing) * 3) 0 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: color-mix(in oklch, var(--color-white) 56%, transparent);
+}
+
+.nav-panel__cta {
+  margin-top: auto;
+  padding-top: calc(var(--spacing) * 6);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-white);
+  transition: color 160ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-envision-blue-300);
+  }
+}
+
+.nav-panel__list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.nav-panel__list li {
+  display: block;
+  position: static;
+}
+
+.nav-panel__list li:not(:first-child) .nav-row {
+  border-top: 1px solid color-mix(in oklch, var(--color-white) 10%, transparent);
+}
+
+.nav-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--spacing) * 4);
+  width: 100%;
+  padding: calc(var(--spacing) * 4) calc(var(--spacing) * 5);
+  border-radius: 0;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-white);
+  transition: background-color 160ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: color-mix(in oklch, var(--color-white) 6%, transparent);
+    color: var(--color-white);
+  }
+}
+
+/* Signature: blue marker grows on the hovered row's leading edge */
+.nav-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 2px;
+  height: 0;
+  background: var(--color-envision-blue-400);
+  transform: translateY(-50%);
+  transition: height 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-row:hover::before,
+.nav-row:focus-visible::before {
+  height: 100%;
+}
+
+.nav-row__body {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 1);
+  min-width: 0;
+}
+
+.nav-row__title {
+  font-size: 0.98rem;
   font-weight: 700;
   line-height: 1.15;
-  text-wrap: pretty;
-  margin-bottom: calc(var(--spacing) * 1);
+  color: inherit;
 }
 
-.submenu-item__description {
-  color: color-mix(in oklch, var(--color-white) 56%, transparent);
+.nav-row__desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: color-mix(in oklch, var(--color-white) 52%, transparent);
   font-size: 0.78rem;
   font-weight: 500;
-  line-height: 1.25;
-  text-wrap: pretty;
+  line-height: 1.3;
+}
+
+.nav-row__arrow {
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: color-mix(in oklch, var(--color-white) 35%, transparent);
+  opacity: 0;
+  transform: translate(-0.25rem, 0.25rem);
+  transition:
+    opacity 180ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    color 180ms ease;
+}
+
+.nav-row:hover .nav-row__arrow,
+.nav-row:focus-visible .nav-row__arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+  color: var(--color-envision-blue-300);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -328,6 +492,11 @@ li {
   #projects:popover-open,
   #services:popover-open {
     transform: none;
+  }
+
+  .nav-row::before,
+  .nav-row__arrow {
+    transition: none;
   }
 }
 </style>
