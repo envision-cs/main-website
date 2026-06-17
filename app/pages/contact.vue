@@ -1,4 +1,5 @@
-<script setup lang="ts">const posthog = usePostHog();
+<script setup lang="ts">
+const posthog = usePostHog();
 const { data: contactData, error } = await useFetch('/api/contact');
 
 function trackEmailClick() {
@@ -52,17 +53,32 @@ useSeoMeta({
                 We're ready to connect, whether you're starting a project, asking a question, or
                 looking for the right construction partner.
               </app-typography>
-              <div>
-                <app-typography tag="p" variant="text-md" class="section-copy">
-                  Email
-                </app-typography>
-                <a href="mailto:pursuits@envision-cs.com" @click="trackEmailClick">pursuits@envision-cs.com</a>
-              </div>
-              <div>
-                <app-typography tag="p" variant="text-md" class="section-copy">
-                  Phone
-                </app-typography>
-                <a href="tel:813-997-0330" @click="trackPhoneClick">813-997-0330</a>
+              <div class="contact-actions" aria-label="Primary contact options">
+                <a
+                  href="mailto:pursuits@envision-cs.com"
+                  class="contact-action"
+                  aria-label="Email Envision pursuits at pursuits@envision-cs.com"
+                  @click="trackEmailClick"
+                >
+                  <span class="contact-action__copy">
+                    <span class="contact-action__eyebrow">Start a Pursuit</span>
+                    <span class="contact-action__label">Email the team</span>
+                    <span class="contact-action__value">pursuits@envision-cs.com</span>
+                  </span>
+                </a>
+
+                <a
+                  href="tel:813-997-0330"
+                  class="contact-action"
+                  aria-label="Call Envision at 813-997-0330"
+                  @click="trackPhoneClick"
+                >
+                  <span class="contact-action__copy">
+                    <span class="contact-action__eyebrow">Speak Directly</span>
+                    <span class="contact-action__label">Call the office</span>
+                    <span class="contact-action__value">813-997-0330</span>
+                  </span>
+                </a>
               </div>
               <app-typography tag="p" variant="text-md" class="section-copy">
                 For pursuits, select Option 4 or dial Ext. 103.
@@ -199,15 +215,80 @@ useSeoMeta({
   color: var(--color-envision-gray-300);
 }
 
-.team-role a {
-  width: fit-content;
-  color: var(--ui-secondary);
-  font-weight: 600;
-  text-decoration: none;
+.contact-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: calc(var(--spacing) * 5);
+  width: min(100%, 36rem);
+  padding-top: calc(var(--spacing) * 4);
 }
 
-.team-role a:focus-visible {
+.contact-action {
+  display: grid;
+  min-width: 0;
+  color: var(--color-white);
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.contact-action__copy {
+  display: grid;
+  gap: calc(var(--spacing) * 1);
+  min-width: 0;
+}
+
+.contact-action__eyebrow,
+.contact-action__value {
+  overflow-wrap: anywhere;
+  font-size: var(--font-size-text-t4);
+  line-height: 1.1;
+}
+
+.contact-action__eyebrow {
+  color: var(--ui-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.contact-action__label {
+  font-size: var(--font-size-text-t2);
+  font-weight: 600;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.contact-action__value {
+  color: color-mix(in oklab, var(--color-white) 72%, transparent);
+  font-weight: 500;
+}
+
+.contact-action:hover {
+  color: var(--ui-secondary);
+}
+
+.contact-action:focus-visible {
   outline: 2px solid var(--ui-secondary);
   outline-offset: 4px;
+}
+
+@media (min-width: 700px) {
+  .contact-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(var(--spacing) * 8);
+  }
+
+  .contact-action {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+
+  .contact-action:first-child {
+    padding-inline-start: 0;
+  }
+
+  .contact-action:last-child {
+    padding-inline-end: 0;
+  }
 }
 </style>
