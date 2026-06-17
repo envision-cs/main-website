@@ -319,11 +319,11 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 
 @media (min-width: 1024px) {
   .hero {
-    min-height: 720px;
+    min-height: 820px;
   }
 
   .hero__inner {
-    min-height: 720px;
+    min-height: 820px;
     padding: calc(var(--spacing) * 20) calc(var(--spacing) * 12) calc(var(--spacing) * 5);
   }
 
@@ -344,11 +344,11 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 
 @media (min-width: 1280px) {
   .hero {
-    min-height: 760px;
+    min-height: 900px;
   }
 
   .hero__inner {
-    min-height: 760px;
+    min-height: 900px;
   }
 }
 

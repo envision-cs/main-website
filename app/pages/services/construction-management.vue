@@ -1,4 +1,5 @@
-<script setup lang="ts">definePageMeta({
+<script setup lang="ts">
+definePageMeta({
   layout: 'layout-a',
 });
 
@@ -10,17 +11,17 @@ onMounted(() => {
 useSeoMeta({
   title: 'Construction Management | Envision Tampa Bay & Central Florida',
   description:
-    'Envision\'s construction management delivers certainty: Target Value Design, real-time cost control, proactive scheduling, and full Procore transparency. 200+ projects on time and on budget, 90% repeat clients.',
+    "Envision's construction management delivers certainty: Target Value Design, real-time cost control, proactive scheduling, and full Procore transparency. 200+ projects on time and on budget, 90% repeat clients.",
   ogTitle: 'Construction Management | Envision Tampa Bay & Central Florida',
   ogDescription:
-    'Owners don\'t just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.',
+    "Owners don't just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.",
   ogImage:
     'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Construction Management | Envision Tampa Bay & Central Florida',
   twitterDescription:
-    'Owners don\'t just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.',
+    "Owners don't just need a builder. They need certainty. Budget control, schedule protection, and total transparency from kickoff to closeout.",
   twitterImage:
     'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428',
 });
@@ -90,7 +91,7 @@ const phases = [
       '12-month legacy lap post-closeout',
       '30-60-90 day check-ins',
       'One-year walkthrough',
-      'Planning what\'s next together',
+      "Planning what's next together",
     ],
   },
 ];
@@ -106,7 +107,7 @@ const projectHighlights = [
     id: 4,
     label: 'Scopes resequenced in real time to maintain progress without compromising quality',
   },
-  { id: 5, label: 'Delivered on schedule—Tampa Bay Sun FC\'s inaugural season started on time' },
+  { id: 5, label: "Delivered on schedule—Tampa Bay Sun FC's inaugural season started on time" },
 ];
 
 const commitments = [
@@ -120,7 +121,7 @@ const commitments = [
     id: 2,
     label: 'Your schedule',
     description:
-      'Proactive sequencing, long-lead identification, and early trade coordination protect your move-in date before it\'s at risk.',
+      "Proactive sequencing, long-lead identification, and early trade coordination protect your move-in date before it's at risk.",
   },
   {
     id: 3,
@@ -137,21 +138,27 @@ const commitments = [
 ];
 
 const stats = [
-  { id: 1, label: '90%', description: 'Repeat client rate earned one project at a time' },
-  { id: 2, label: '200+', description: 'Projects Delivered. On Time & On Budget.' },
-  { id: 3, label: '16 yrs', description: 'Building Greater Tampa Bay' },
+  { id: 1, value: '90%', label: 'Repeat client rate earned one project at a time' },
+  { id: 2, value: '200+', label: 'Projects Delivered. On Time & On Budget.' },
+  { id: 3, value: '16 yrs', label: 'Building Greater Tampa Bay' },
 ];
 </script>
 
 <template>
   <main>
-    <section-d
+    <accomplishments-section
+      bgcolor="blue"
+      eyebrow="Our track record"
+      title="A reputation built one project at a time"
+      :accomplishments="stats"
+    />
+    <!-- <section-d
       bgcolor="blue"
       eyebrow="Our track record"
       title="A reputation built one project at a time"
     >
       <list-e :items="stats" />
-    </section-d>
+    </section-d> -->
     <section-a
       bgcolor="dark"
       eyebrow="What owners actually need"
