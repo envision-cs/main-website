@@ -16,6 +16,21 @@ const titleId = computed(() => {
 const sectionClasses = computed(() => {
   return [`section-f--count-${props.items.length}`];
 });
+
+const cardBackgrounds = [
+  'var(--color-envision-blue-400)',
+  'var(--color-envision-blue-900)',
+  'var(--color-envision-gray-900)',
+  'var(--color-envision-gray-300)',
+];
+
+const innerStyles = computed(() => {
+  const lastItemIndex = Math.max(props.items.length - 1, 0) % cardBackgrounds.length;
+
+  return {
+    '--section-f-inner-gradient-end': cardBackgrounds[lastItemIndex],
+  };
+});
 </script>
 
 <template>
@@ -31,7 +46,7 @@ const sectionClasses = computed(() => {
         {{ body }}
       </app-typography>
     </header>
-    <div class="section-f__inner">
+    <div class="section-f__inner" :style="innerStyles">
       <ol class="section-f__list">
         <li v-for="(item, idx) in items" :key="item.id" class="section-f__item">
           <article class="section-f__card">
@@ -59,25 +74,31 @@ const sectionClasses = computed(() => {
   grid-column: 1 / -1;
   color: var(--color-envision-gray-900);
   background: var(--color-envision-gray-100);
-  border-block: 1px solid color-mix(in oklab, var(--color-envision-gray-900) 12%, transparent);
 }
 
 .section-f__inner {
   display: grid;
   width: 100%;
   max-width: none;
+  place-content: center;
   grid-column: 1 / -1;
+  background: linear-gradient(
+    90deg,
+    var(--color-envision-blue-400) 50%,
+    var(--section-f-inner-gradient-end) 51%
+  );
 }
 
 .section-f__header {
   display: grid;
   width: 100%;
+  max-width: 1300px;
+  margin-inline: auto;
   grid-template-columns: 1fr;
   gap: calc(var(--spacing) * 3);
   align-content: start;
   padding: calc(var(--spacing) * 8);
   padding-block: calc(var(--spacing) * 16);
-  border-block-end: 1px solid color-mix(in oklab, var(--color-envision-gray-900) 12%, transparent);
 }
 
 .section-f__heading {
@@ -107,6 +128,8 @@ const sectionClasses = computed(() => {
 .section-f__list {
   display: grid;
   grid-template-columns: 1fr;
+  max-width: 1300px;
+  margin-inline: auto;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -117,7 +140,6 @@ const sectionClasses = computed(() => {
   color: var(--card-color);
   background: var(--card-bg);
   padding-block: calc(var(--spacing) * 8);
-  border-block-end: 1px solid color-mix(in oklab, var(--color-white) 20%, transparent);
 }
 
 .section-f__item:last-child {
@@ -214,8 +236,6 @@ const sectionClasses = computed(() => {
 @media (min-width: 1024px) {
   .section-f__header {
     border-block-end: 0;
-    border-inline-end: 1px solid
-      color-mix(in oklab, var(--color-envision-gray-900) 12%, transparent);
   }
 
   .section-f--count-3 .section-f__list {
@@ -231,7 +251,6 @@ const sectionClasses = computed(() => {
   .section-f--count-4 .section-f__item:nth-last-child(-n + 2) {
     grid-column: auto;
     border-block-end: 0;
-    border-inline-end: 1px solid color-mix(in oklab, var(--color-white) 20%, transparent);
   }
 
   .section-f__item:last-child {

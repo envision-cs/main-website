@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import SectionF from './section-f.vue';
+
 const steps: Item[] = [
   {
     id: 1,
@@ -28,7 +30,7 @@ const steps: Item[] = [
 </script>
 
 <template>
-  <section-f
+  <SectionF
     eyebrow="Our Proven Process"
     title="A clear path from first conversation to long-term confidence."
     body="Our proven process brings structure and consistency to every project. We listen, plan, and execute to reduce risk, maintain alignment, and deliver on time, on budget, and with complete transparency."
