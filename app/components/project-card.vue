@@ -1,4 +1,5 @@
-<script setup lang="ts">const props = withDefaults(
+<script setup lang="ts">
+const props = withDefaults(
   defineProps<{
     to?: string;
     ariaLabel?: string;
@@ -8,12 +9,12 @@
     imageQuality?: number;
     imageSizes?: string;
     imageDensities?: string;
-    imageLoading?: 'lazy' | 'eager';
+    imageLoading?: "lazy" | "eager";
     imageWidth?: string | number;
     imageHeight?: string | number;
-    aspectRatio?: '5/3' | '4/3' | '16/9' | '3/4' | '1/1' | '3/1';
-    linkMode?: 'wrap' | 'overlay';
-    imageObjectFit?: 'cover' | 'fill' | 'contain';
+    aspectRatio?: "5/3" | "4/3" | "16/9" | "3/4" | "1/1" | "3/1";
+    linkMode?: "wrap" | "overlay";
+    imageObjectFit?: "cover" | "fill" | "contain";
     imageHoverScale?: number;
     overlay?: string;
     contentPadding?: string;
@@ -26,24 +27,24 @@
     outlined?: boolean;
   }>(),
   {
-    to: '#',
-    ariaLabel: 'View details',
-    alt: '',
-    imageFormat: 'avif',
-    imageQuality: 90,
-    imageSizes: '500px sm:700px md:480px',
-    imageDensities: 'x1 x2',
-    imageLoading: undefined,
+    to: "#",
+    ariaLabel: "View details",
+    alt: "",
+    imageFormat: "avif",
+    imageQuality: 100,
+    imageSizes: "100vw sm:50vw lg:33vw xl:33vw 2xl:25vw",
+    imageDensities: "x1 x2",
+    imageLoading: "lazy",
     imageWidth: undefined,
     imageHeight: undefined,
-    aspectRatio: '16/9',
-    linkMode: 'wrap',
-    imageObjectFit: 'cover',
-    imageHoverScale: 1.1,
+    aspectRatio: "16/9",
+    linkMode: "wrap",
+    imageObjectFit: "cover",
+    imageHoverScale: 1.04,
     overlay:
-      'linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0) 100%)',
-    contentPadding: '1rem',
-    contentGap: '0.75rem',
+      "linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.4) 50%, rgb(0 0 0 / 0) 100%)",
+    contentPadding: "1rem",
+    contentGap: "0.75rem",
     title: undefined,
     location: undefined,
     completed: undefined,
@@ -84,6 +85,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
         :sizes="imageSizes"
         :densities="imageDensities"
         :height="imageHeight"
+        decoding="async"
         class="reveal-card__image"
       />
       <div class="reveal-card__content">
@@ -148,6 +150,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
       class="reveal-card__overlay-link"
     />
     <NuxtImg
+      provider="imagekit"
       :src="image"
       :alt="imageAlt"
       :format="imageFormat"
@@ -157,6 +160,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
       :loading="imageLoading"
       :width="imageWidth"
       :height="imageHeight"
+      decoding="async"
       class="reveal-card__image"
     />
     <div class="reveal-card__content">
@@ -217,10 +221,11 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
 
 .reveal-card {
   position: relative;
-  aspect-ratio: v-bind('props.aspectRatio');
+  aspect-ratio: v-bind("props.aspectRatio");
   overflow: hidden;
   isolation: isolate;
   color: var(--ui-text-inverted);
+  background: var(--color-envision-gray-900);
 }
 
 .reveal-card--outlined {
@@ -228,12 +233,12 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
 }
 
 .reveal-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: v-bind('props.overlay');
+  background: v-bind("props.overlay");
 }
 
 .reveal-card__overlay-link {
@@ -247,10 +252,10 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: v-bind('props.imageObjectFit');
+  object-fit: v-bind("props.imageObjectFit");
   z-index: 0;
   transform: scale(1);
-  transition: transform 0.5s var(--ease-base);
+  transition: transform 320ms var(--ease-gentle);
 }
 
 .reveal-card__content {
@@ -258,19 +263,19 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
   inset: auto 0 0;
   z-index: 3;
   display: grid;
-  gap: v-bind('props.contentGap');
-  padding: v-bind('props.contentPadding');
+  gap: v-bind("props.contentGap");
+  padding: v-bind("props.contentPadding");
 }
 
 .reveal-card__title {
   text-wrap: balance;
-  font-size: 1cqh;
 }
 
 .reveal-card__heading {
   margin-bottom: 0.5rem;
   text-wrap: balance;
-  font-size: 3cqh;
+  font-size: clamp(1.25rem, 5.25cqi, 2.25rem);
+  line-height: 1.05;
 }
 
 .reveal-card__details {
@@ -320,7 +325,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
 .reveal-card__wrapper:focus-visible .reveal-card__image,
 .reveal-card--overlay:hover .reveal-card__image,
 .reveal-card--overlay:focus-within .reveal-card__image {
-  transform: scale(v-bind('String(props.imageHoverScale)'));
+  transform: scale(v-bind("String(props.imageHoverScale)"));
   will-change: transform;
 }
 

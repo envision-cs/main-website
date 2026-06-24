@@ -184,11 +184,12 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 .hero-title {
   max-inline-size: 12ch;
   color: var(--color-white);
+  font-family:
+    'Proxima Nova Hero', 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
   text-wrap: balance;
   overflow-wrap: break-word;
   letter-spacing: 0;
   line-height: 1;
-  animation: hero-reveal 1040ms cubic-bezier(0.19, 1, 0.22, 1) both;
   font-weight: 400;
 
   span {
