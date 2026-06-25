@@ -8,6 +8,12 @@ const pageSource = readFileSync(
 );
 
 describe('project page image lightbox accessibility', () => {
+  it('imports project SEO helpers explicitly for production bundling', () => {
+    expect(pageSource).toContain(`from '~/utils/project-seo'`);
+    expect(pageSource).toContain('buildProjectImageAlt');
+    expect(pageSource).toContain('toAbsoluteProjectUrl');
+  });
+
   it('uses a native modal dialog with an accessible name', () => {
     expect(pageSource).toMatch(/<dialog[\s\S]*aria-label=/);
     expect(pageSource).toContain('showModal()');

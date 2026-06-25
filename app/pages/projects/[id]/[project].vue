@@ -2,6 +2,16 @@
 import type { Project } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+import {
+  buildProjectImageAlt,
+  buildProjectImageFilename,
+  buildProjectSeoDescription,
+  buildProjectSeoTitle,
+  formatProjectHeading,
+  getProjectLocationParts,
+  limitSeoText,
+  toAbsoluteProjectUrl,
+} from '~/utils/project-seo';
 
 const { formatMonthYear } = useFormatDate();
 
