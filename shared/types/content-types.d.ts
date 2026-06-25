@@ -99,6 +99,16 @@ export type Project = {
   updatedAt: string;
   publishedAt: string;
   description: string;
+  deliveryMethod?: string;
+  projectType?: string;
+  facilityType?: string;
+  challenge?: string;
+  strategy?: string;
+  preconstructionApproach?: string;
+  tradeCollaboration?: string;
+  outcome?: string;
+  seoTitle?: string;
+  seoDescription?: string;
   content: Content[];
   beck: boolean;
   gallery: Photo[];

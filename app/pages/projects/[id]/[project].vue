@@ -53,6 +53,7 @@ if (projectError.value) {
 interface GalleryImage {
   url: string;
   altText: string;
+  recommendedFilename: string;
 }
 
 const page = computed(() => {
@@ -62,10 +63,25 @@ const page = computed(() => {
     return null;
   }
 
-  const gallery: GalleryImage[] = (entry.gallery || []).map((image) => {
+  const sector = formatProjectSectorLabel(entry) || 'Project';
+  const gallery: GalleryImage[] = (entry.gallery || []).map((image, index) => {
     return {
       url: image.url,
-      altText: typeof image.alternativeText === 'string' ? image.alternativeText : '',
+      altText:
+        typeof image.alternativeText === 'string' && image.alternativeText.trim()
+          ? image.alternativeText.trim()
+          : buildProjectImageAlt({
+              projectTitle: entry.title,
+              location: entry.location,
+              sector,
+              index,
+            }),
+      recommendedFilename: buildProjectImageFilename({
+        projectSlug: entry.slug,
+        location: entry.location,
+        index,
+        extension: image.ext,
+      }),
     };
   });
 
@@ -75,42 +91,60 @@ const page = computed(() => {
     slug: entry.slug,
     main_image: entry.mainImage?.url,
     location: entry.location,
-    sector: formatProjectSectorLabel(entry) || 'Project',
+    sector,
     area: entry.area,
     completed: entry.completed,
     gallery,
     beck: entry.beck,
     content: entry.content,
     description: entry.description,
+    deliveryMethod: entry.deliveryMethod,
+    projectType: entry.projectType,
+    facilityType: entry.facilityType,
+    challenge: entry.challenge,
+    strategy: entry.strategy,
+    preconstructionApproach: entry.preconstructionApproach,
+    tradeCollaboration: entry.tradeCollaboration,
+    outcome: entry.outcome,
+    seoTitle: entry.seoTitle,
+    seoDescription: entry.seoDescription,
+    publishedAt: entry.publishedAt,
+    updatedAt: entry.updatedAt,
   };
 });
 
-const title = computed(() => page.value?.title);
-
-function toSeoDescription(description?: string) {
-  return (
-    description
-      ?.replace(/```[\s\S]*?```/g, ' ')
-      .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ')
-      .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
-      .replace(/[#*_>`~|-]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim()
-      .slice(0, 160) || ''
-  );
-}
+const projectHeading = computed(() =>
+  page.value ? formatProjectHeading(page.value.title, page.value.location) : '',
+);
+const serviceType = computed(
+  () => page.value?.deliveryMethod || page.value?.projectType || page.value?.sector,
+);
 
 const seoTitle = computed(() => {
-  return title.value ? `${title.value} | Envision Projects` : 'Project | Envision';
+  if (!page.value) return 'Project | Envision Construction';
+
+  return (
+    (page.value.seoTitle ? limitSeoText(page.value.seoTitle, 60) : undefined) ||
+    buildProjectSeoTitle({
+      title: page.value.title,
+      serviceType: serviceType.value,
+      location: page.value.location,
+    })
+  );
 });
 
 const seoDescription = computed(() => {
-  const fromDescription = toSeoDescription(page.value?.description);
-  if (fromDescription) return fromDescription;
+  if (!page.value) return 'Explore Envision Construction Services projects.';
 
-  const location = page.value?.location ? ` in ${page.value.location}` : '';
-  const sector = page.value?.sector ? `${page.value.sector} ` : '';
-  return `Explore ${page.value?.title || 'this project'}, an Envision ${sector}project${location}.`;
+  return (
+    (page.value.seoDescription ? limitSeoText(page.value.seoDescription, 155) : undefined) ||
+    buildProjectSeoDescription({
+      title: page.value.title,
+      serviceType: serviceType.value,
+      location: page.value.location,
+      description: page.value.description,
+    })
+  );
 });
 
 const canonicalPath = computed(() => {
@@ -120,6 +154,9 @@ const canonicalPath = computed(() => {
 
   return route.path;
 });
+const canonicalUrl = computed(
+  () => toAbsoluteProjectUrl(canonicalPath.value) || 'https://envision-cs.com/projects',
+);
 
 const posthog = usePostHog();
 
@@ -617,30 +654,37 @@ const { data: ast } = await useAsyncData(
 
 const stats = computed<Item[]>(() => {
   if (!page.value) return [];
-  const stats = [
+  return [
     {
       id: 1,
-      label: page.value.location ?? null,
+      label: page.value.location,
       description: 'Location',
     },
 
     {
       id: 2,
-      label: page.value.completed ? formatMonthYear(page.value.completed) : null,
-      description: 'Completion',
+      label: page.value.projectType || page.value.sector,
+      description: 'Project type',
     },
 
     {
       id: 3,
+      label: page.value.deliveryMethod,
+      description: 'Delivery method',
+    },
+
+    {
+      id: 4,
+      label: page.value.completed ? formatMonthYear(page.value.completed) : '',
+      description: 'Completion',
+    },
+
+    {
+      id: 5,
       label: page.value.area,
       description: 'Area',
     },
-  ];
-
-  if (!stats[0]?.label && !stats[1]?.label && !stats[2]?.label) {
-    return null;
-  }
-  return stats;
+  ].filter((item): item is Item => Boolean(item.label));
 });
 
 useSeoMeta(() => ({
@@ -650,20 +694,136 @@ useSeoMeta(() => ({
   ogDescription: seoDescription.value,
   ogImage: page.value?.main_image,
   ogType: 'article',
-  ogUrl: canonicalPath.value,
+  ogUrl: canonicalUrl.value,
   twitterCard: page.value?.main_image ? 'summary_large_image' : 'summary',
   twitterTitle: seoTitle.value,
   twitterDescription: seoDescription.value,
   twitterImage: page.value?.main_image,
 }));
 
+const projectSchema = computed(() => {
+  if (!page.value) return null;
+
+  const organizationId = 'https://envision-cs.com/#organization';
+  const webpageId = `${canonicalUrl.value}#webpage`;
+  const articleId = `${canonicalUrl.value}#project`;
+  const imageUrls = [page.value.main_image, ...page.value.gallery.map((image) => image.url)]
+    .map(toAbsoluteProjectUrl)
+    .filter((url): url is string => Boolean(url));
+  const location = getProjectLocationParts(page.value.location);
+  const keywords = [
+    page.value.sector,
+    page.value.projectType,
+    page.value.deliveryMethod,
+    location.city,
+    location.stateName,
+  ].filter((value): value is string => Boolean(value));
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': webpageId,
+        url: canonicalUrl.value,
+        name: seoTitle.value,
+        description: seoDescription.value,
+        inLanguage: 'en-US',
+        about: {
+          '@id': articleId,
+        },
+        breadcrumb: {
+          '@id': `${canonicalUrl.value}#breadcrumb`,
+        },
+        ...(imageUrls[0]
+          ? {
+              primaryImageOfPage: {
+                '@type': 'ImageObject',
+                url: imageUrls[0],
+              },
+            }
+          : {}),
+      },
+      {
+        '@type': 'Article',
+        '@id': articleId,
+        url: canonicalUrl.value,
+        headline: projectHeading.value,
+        description: seoDescription.value,
+        articleSection: page.value.sector,
+        keywords: keywords,
+        author: {
+          '@id': organizationId,
+        },
+        publisher: {
+          '@id': organizationId,
+        },
+        ...(page.value.publishedAt ? { datePublished: page.value.publishedAt } : {}),
+        ...(page.value.updatedAt ? { dateModified: page.value.updatedAt } : {}),
+        ...(imageUrls.length ? { image: imageUrls } : {}),
+        ...(page.value.location
+          ? {
+              contentLocation: {
+                '@type': 'Place',
+                name: page.value.location,
+                address: {
+                  '@type': 'PostalAddress',
+                  addressLocality: location.city,
+                  addressRegion: location.stateCode,
+                  addressCountry: 'US',
+                },
+              },
+            }
+          : {}),
+        about: {
+          '@type': 'Thing',
+          name: page.value.projectType || page.value.sector,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${canonicalUrl.value}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Projects',
+            item: 'https://envision-cs.com/projects',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: page.value.sector,
+            item: toAbsoluteProjectUrl(`/projects/${sectorSlug.value}`),
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: page.value.title,
+            item: canonicalUrl.value,
+          },
+        ],
+      },
+    ],
+  };
+});
+
 useHead(() => ({
   link: [
     {
       rel: 'canonical',
-      href: canonicalPath.value,
+      href: canonicalUrl.value,
     },
   ],
+  script: projectSchema.value
+    ? [
+        {
+          key: 'schema-org-project',
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify(projectSchema.value).replace(/</g, '\\u003c'),
+        },
+      ]
+    : [],
 }));
 
 const { data } = await useAsyncData<Project[]>(
@@ -710,6 +870,10 @@ const relatedProjects = computed(() => {
     })
     .slice(0, 3);
 });
+
+const relatedProjectsTitle = computed(
+  () => `Related Commercial Projects in ${page.value?.sector || 'This Sector'}`,
+);
 </script>
 
 <template>
@@ -734,10 +898,14 @@ const relatedProjects = computed(() => {
             variant="heading-lg"
             class="project-intro__title"
           >
-            {{ page.title }}
+            {{ projectHeading }}
           </app-typography>
 
-          <dl v-if="stats != null" class="project-intro__stats" aria-label="Project details">
+          <app-typography tag="h2" variant="heading-sm" class="u-visually-hidden">
+            Project Overview &amp; Commercial Scope
+          </app-typography>
+
+          <dl v-if="stats.length" class="project-intro__stats" aria-label="Project details">
             <div
               v-for="item in stats"
               v-show="item.label"
@@ -775,7 +943,8 @@ const relatedProjects = computed(() => {
               <NuxtImg
                 provider="imagekit"
                 :src="image.url"
-                :alt="image.altText || page.title"
+                :alt="image.altText"
+                :data-recommended-filename="image.recommendedFilename"
                 format="avif"
                 sizes="100vw sm:50vw lg:25vw"
                 loading="lazy"
@@ -833,7 +1002,8 @@ const relatedProjects = computed(() => {
                       <NuxtImg
                         class="lightbox__image"
                         :src="image.url"
-                        :alt="image.altText || page.title"
+                        :alt="image.altText"
+                        :data-recommended-filename="image.recommendedFilename"
                         format="avif"
                         sizes="100vw sm:500px md:600px lg:900px xl:1100px 2xl:1300px"
                         loading="eager"
@@ -895,6 +1065,64 @@ const relatedProjects = computed(() => {
       </template>
     </section-e>
     <div v-else>Oh no! Page not found.</div>
+    <section
+      v-if="
+        page &&
+        (page.challenge ||
+          page.strategy ||
+          page.preconstructionApproach ||
+          page.tradeCollaboration ||
+          page.outcome)
+      "
+      class="project-narrative dark"
+      aria-label="Project execution details"
+    >
+      <div v-if="page.challenge" class="project-narrative__section">
+        <app-typography tag="h2" variant="heading-md">
+          The Challenge: Preconstruction &amp; Scheduling Hurdles
+        </app-typography>
+        <app-typography tag="p" variant="text-md">{{ page.challenge }}</app-typography>
+      </div>
+
+      <div
+        v-if="page.strategy || page.preconstructionApproach || page.tradeCollaboration"
+        class="project-narrative__section"
+      >
+        <app-typography tag="h2" variant="heading-md">
+          The Strategy: How Envision Executed the
+          {{ page.deliveryMethod || 'Project Plan' }}
+        </app-typography>
+        <app-typography v-if="page.strategy" tag="p" variant="text-md">
+          {{ page.strategy }}
+        </app-typography>
+
+        <div v-if="page.preconstructionApproach" class="project-narrative__subsection">
+          <app-typography tag="h3" variant="heading-sm">
+            Enhanced Preconstruction &amp; Cost Estimating
+          </app-typography>
+          <app-typography tag="p" variant="text-md">
+            {{ page.preconstructionApproach }}
+          </app-typography>
+        </div>
+
+        <div v-if="page.tradeCollaboration" class="project-narrative__subsection">
+          <app-typography tag="h3" variant="heading-sm">
+            Specialty Project Management &amp; Trade Collaboration
+          </app-typography>
+          <app-typography tag="p" variant="text-md">
+            {{ page.tradeCollaboration }}
+          </app-typography>
+        </div>
+      </div>
+
+      <div v-if="page.outcome" class="project-narrative__section">
+        <app-typography tag="h2" variant="heading-md">
+          The Outcome: Delivering a Premier
+          {{ page.facilityType || page.projectType || page.sector }} Facility
+        </app-typography>
+        <app-typography tag="p" variant="text-md">{{ page.outcome }}</app-typography>
+      </div>
+    </section>
     <section-e
       v-if="page && relatedProjects.length"
       no-padding
@@ -902,7 +1130,7 @@ const relatedProjects = computed(() => {
       class="related-projects dark"
     >
       <template #header>
-        <section-header-a :eyebrow="page.sector" title="More in this sector" />
+        <section-header-a :eyebrow="page.sector" :title="relatedProjectsTitle" />
       </template>
       <template #body>
         <div class="projects">
@@ -1289,6 +1517,30 @@ const relatedProjects = computed(() => {
   .lightbox__zoom--animated {
     transition: none;
   }
+}
+
+.project-narrative {
+  display: grid;
+  gap: calc(var(--spacing) * 14);
+  padding: calc(var(--spacing) * 12) max(calc(var(--spacing) * 6), 6vw);
+  color: var(--color-white);
+  background: var(--color-envision-gray-900);
+}
+
+.project-narrative__section {
+  display: grid;
+  gap: calc(var(--spacing) * 5);
+  width: min(100%, 68rem);
+  margin-inline: auto;
+  padding-block-start: calc(var(--spacing) * 8);
+  border-block-start: 1px solid color-mix(in oklab, currentcolor 18%, transparent);
+}
+
+.project-narrative__subsection {
+  display: grid;
+  gap: calc(var(--spacing) * 3);
+  max-width: 52rem;
+  margin-block-start: calc(var(--spacing) * 4);
 }
 
 .related-projects {
