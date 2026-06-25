@@ -1,6 +1,14 @@
 @import 'tailwindcss';
 @import "@nuxt/ui";
 
+@font-face {
+  font-family: 'Proxima Nova Hero';
+  src: url('/fonts/proxima-nova.woff2') format('woff2');
+  font-display: optional;
+  font-style: normal;
+  font-weight: 400;
+}
+
 @theme {
   --font-sans:
     'Proxima Nova', 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;

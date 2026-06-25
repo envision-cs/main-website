@@ -10,3 +10,4 @@ xargs -0 vp lint --fix --no-error-on-unmatched-pattern < "$tmp_file"
 status=$?
 rm "$tmp_file"
 exit "$status"
+vp staged
