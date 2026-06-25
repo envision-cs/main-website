@@ -5,60 +5,69 @@ const mobileProjectsOpen = ref(false);
 const menuButtonRef = ref<HTMLButtonElement | null>(null);
 const firstDrawerLinkRef = ref<HTMLElement | null>(null);
 const isDrawerClosing = ref(false);
+const isDrawerPreparing = ref(false);
 
 const { services } = await useServicesList();
 const { sectors } = await useSectors();
 
 const servicesPanel = {
-  eyebrow: "What we do",
-  title: "One accountable team, start to finish.",
-  copy: "Preconstruction through closeout — delivered on time and on budget.",
-  to: "/services",
-  cta: "All services",
+  eyebrow: 'What we do',
+  title: 'One accountable team, start to finish.',
+  copy: 'Preconstruction through closeout — delivered on time and on budget.',
+  to: '/services',
+  cta: 'All services',
 };
 
 const projectsPanel = {
-  eyebrow: "Where we work",
-  title: "Proof across every sector.",
-  copy: "Browse completed work by the kind of space you’re building.",
-  to: "/projects",
-  cta: "All projects",
+  eyebrow: 'Where we work',
+  title: 'Proof across every sector.',
+  copy: 'Browse completed work by the kind of space you’re building.',
+  to: '/projects',
+  cta: 'All projects',
 };
 
 const companyLinks = [
-  { title: "Meet the Team", to: "/team" },
-  { title: "About Us", to: "/about" },
+  { title: 'Meet the Team', to: '/team' },
+  { title: 'About Us', to: '/about' },
 ] as const;
 
 const primaryLinks = [
-  { title: "Contact", to: "/contact" },
-  { title: "Trade Partner Program", to: "/trade-partners", accent: true },
+  { title: 'Contact', to: '/contact' },
+  { title: 'Trade Partner Program', to: '/trade-partners', accent: true },
 ] as const;
 
 const footerLinkGroups = [
   {
-    title: "Envision",
+    title: 'Envision',
     links: [
-      { title: "Home", to: "/" },
-      { title: "Services", to: "/services" },
-      { title: "Projects", to: "/projects" },
-      { title: "Company", to: "/about" },
+      { title: 'Home', to: '/' },
+      { title: 'Services', to: '/services' },
+      { title: 'Projects', to: '/projects' },
+      { title: 'Company', to: '/about' },
     ],
   },
   {
-    title: "Connect",
+    title: 'Connect',
     links: [
-      { title: "Contact", to: "/contact" },
-      { title: "Meet the Team", to: "/team" },
-      { title: "Trade Partners", to: "/trade-partners" },
+      { title: 'Contact', to: '/contact' },
+      { title: 'Meet the Team', to: '/team' },
+      { title: 'Trade Partners', to: '/trade-partners' },
     ],
   },
 ] as const;
 
 const route = useRoute();
-const gsap = useGSAP();
+
+type Gsap = (typeof import('gsap'))['gsap'];
+
+let gsapPromise: Promise<Gsap> | null = null;
 
 type FocusableRef = HTMLElement | { $el?: Element } | null | undefined;
+
+function loadGsap() {
+  gsapPromise ??= import('gsap').then((module) => module.gsap);
+  return gsapPromise;
+}
 
 watch(
   () => route.fullPath,
@@ -84,12 +93,12 @@ function closeDrawerAndNavigate() {
 function scrollPopoverIntoView(selector: string) {
   requestAnimationFrame(() => {
     const trigger = document.body.querySelector(selector);
-    const section = trigger?.closest(".mobile-nav-list__item");
-    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-      ? "auto"
-      : "smooth";
+    const section = trigger?.closest('.mobile-nav-list__item');
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'auto'
+      : 'smooth';
 
-    section?.scrollIntoView({ behavior, block: "start" });
+    section?.scrollIntoView({ behavior, block: 'start' });
   });
 }
 
@@ -145,7 +154,8 @@ function queueFirstDrawerLinkFocus() {
   });
 }
 
-function animateDrawerOpen() {
+async function animateDrawerOpen() {
+  const gsap = await loadGsap();
   const { content, overlay, navTargets } = getDrawerElements();
   if (!content) return;
 
@@ -154,25 +164,26 @@ function animateDrawerOpen() {
 
   if (overlay) {
     gsap.set(overlay, { autoAlpha: 0 });
-    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: "power2.out" });
+    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: 'power2.out' });
   }
 
   gsap.set(content, { xPercent: 100 });
   if (navTargets.length) gsap.set(navTargets, { opacity: 0, x: 24 });
 
   const timeline = gsap.timeline();
-  timeline.to(content, { xPercent: 0, duration: 0.4, ease: "power3.out" }, 0);
+  timeline.to(content, { xPercent: 0, duration: 0.4, ease: 'power3.out' }, 0);
 
   if (navTargets.length) {
     timeline.to(
       navTargets,
-      { opacity: 1, x: 0, duration: 0.24, stagger: 0.06, ease: "power2.out" },
+      { opacity: 1, x: 0, duration: 0.24, stagger: 0.06, ease: 'power2.out' },
       0.1,
     );
   }
 }
 
-function animateDrawerClose() {
+async function animateDrawerClose() {
+  const gsap = await loadGsap();
   const { content, overlay, navTargets } = getDrawerElements();
   if (!content) return Promise.resolve();
 
@@ -185,17 +196,17 @@ function animateDrawerClose() {
         opacity: 0,
         x: 14,
         duration: 0.14,
-        stagger: { each: 0.03, from: "end" },
-        ease: "power2.in",
+        stagger: { each: 0.03, from: 'end' },
+        ease: 'power2.in',
       });
     }
 
-    if (overlay) gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: "power2.inOut" });
+    if (overlay) gsap.to(overlay, { autoAlpha: 0, duration: 0.2, ease: 'power2.inOut' });
 
     gsap.to(content, {
       xPercent: 100,
       duration: 0.3,
-      ease: "power3.in",
+      ease: 'power3.in',
       onComplete: resolve,
     });
   });
@@ -215,11 +226,18 @@ async function closeDrawer() {
 
 async function onDrawerOpenChange(nextOpen: boolean) {
   if (nextOpen) {
+    isDrawerPreparing.value = true;
     mobileDrawerOpen.value = true;
     mobileServicesOpen.value = false;
     mobileProjectsOpen.value = false;
     await nextTick();
-    animateDrawerOpen();
+
+    try {
+      await animateDrawerOpen();
+    } finally {
+      isDrawerPreparing.value = false;
+    }
+
     queueFirstDrawerLinkFocus();
     return;
   }
@@ -248,6 +266,8 @@ function onDrawerCloseAutoFocus(event: Event) {
       aria-label="Open main menu"
       aria-haspopup="dialog"
       :aria-expanded="String(mobileDrawerOpen)"
+      @pointerenter="loadGsap"
+      @focus="loadGsap"
       @click="onDrawerOpenChange(true)"
       @keydown.enter.prevent="onDrawerOpenChange(true)"
       @keydown.space.prevent="onDrawerOpenChange(true)"
@@ -259,9 +279,14 @@ function onDrawerCloseAutoFocus(event: Event) {
     </MButton>
 
     <DialogPortal>
-      <DialogOverlay class="mobile-overlay" data-test="mobile-drawer-overlay" />
+      <DialogOverlay
+        class="mobile-overlay"
+        :class="{ 'mobile-overlay--preparing': isDrawerPreparing }"
+        data-test="mobile-drawer-overlay"
+      />
       <DialogContent
         class="mobile-content"
+        :class="{ 'mobile-content--preparing': isDrawerPreparing }"
         data-test="mobile-drawer"
         aria-label="Main menu"
         @open-auto-focus="onDrawerOpenAutoFocus"
@@ -520,6 +545,10 @@ function onDrawerCloseAutoFocus(event: Event) {
   background: color-mix(in oklch, var(--color-envision-gray-900) 72%, transparent);
 }
 
+.mobile-overlay--preparing {
+  opacity: 0;
+}
+
 .mobile-content {
   --drawer-bg: color-mix(in oklch, var(--color-envision-gray-900) 96%, black);
   --drawer-surface: color-mix(in oklch, var(--color-envision-gray-900) 75%, transparent);
@@ -542,6 +571,10 @@ function onDrawerCloseAutoFocus(event: Event) {
   outline: none;
   background: var(--drawer-bg);
   color: var(--drawer-text);
+}
+
+.mobile-content--preparing {
+  visibility: hidden;
 }
 
 .mobile-content-header {
@@ -627,7 +660,7 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 .mobile-popover-trigger:hover,
 .mobile-popover-trigger:focus-visible,
-.mobile-popover-trigger[aria-expanded="true"] {
+.mobile-popover-trigger[aria-expanded='true'] {
   background: var(--drawer-surface-hover);
 }
 
@@ -653,7 +686,7 @@ function onDrawerCloseAutoFocus(event: Event) {
     transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.mobile-popover-trigger[aria-expanded="true"] .mobile-popover-trigger__icon {
+.mobile-popover-trigger[aria-expanded='true'] .mobile-popover-trigger__icon {
   color: var(--drawer-accent);
   transform: rotate(180deg);
 }
@@ -749,7 +782,7 @@ function onDrawerCloseAutoFocus(event: Event) {
 
 .mobile-popover-row::before,
 .mobile-link::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 0;

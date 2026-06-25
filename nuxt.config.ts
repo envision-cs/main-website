@@ -60,7 +60,6 @@ export default defineNuxtConfig({
     '@nuxtjs/strapi',
     'reka-ui/nuxt',
     '@nuxt/eslint',
-    'v-gsap-nuxt',
     'nuxt-maplibre',
     // nuxt-maplibre force-pushes its css globally; strip it so the map
     // component loads it only on pages that render a map.
@@ -73,12 +72,7 @@ export default defineNuxtConfig({
 
   vite: {
     optimizeDeps: {
-      include: [
-        'gsap/ScrollTrigger',
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-        'embla-carousel-vue',
-      ],
+      include: ['@vue/devtools-core', '@vue/devtools-kit', 'embla-carousel-vue'],
     },
   },
   icon: {
