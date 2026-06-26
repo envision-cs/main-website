@@ -7,18 +7,57 @@ interface HomeHero {
   } | null;
 }
 
-const { data: hero } = useAsyncData<HomeHero>('home-hero', () => $fetch('/api/home-hero'));
+const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px';
+const image = useImage();
+
+const { data: hero } = await useAsyncData<HomeHero>('home-hero', () => $fetch('/api/home-hero'));
 
 const hasHeroTitle = computed(() => Boolean(hero.value?.title?.trim()));
 const hasHeroSummary = computed(() => Boolean(hero.value?.subtitle?.trim()));
 const hasHeroCopy = computed(() => hasHeroTitle.value || hasHeroSummary.value);
+const heroImagePreload = computed(() => {
+  const source = hero.value?.image?.url;
+
+  if (!source) return null;
+
+  return image.getSizes(source, {
+    provider: 'imagekit',
+    sizes: heroImageSizes,
+    modifiers: {
+      width: undefined,
+      height: undefined,
+      format: 'avif',
+      quality: image.options.quality,
+      background: undefined,
+      fit: 'cover',
+    },
+  });
+});
+
+useHead(() => {
+  const preload = heroImagePreload.value;
+
+  if (!preload?.src) return {};
+
+  return {
+    link: [
+      {
+        key: 'home-hero-image-preload',
+        rel: 'preload',
+        as: 'image',
+        href: preload.src,
+        imagesrcset: preload.srcset,
+        imagesizes: preload.sizes,
+        fetchpriority: 'high',
+      },
+    ],
+  };
+});
 
 const FeatureProjects = defineLazyHydrationComponent(
   'idle',
   () => import('../components/home/featured-projects-carousel.vue'),
 );
-
-const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px';
 </script>
 
 <template>
@@ -184,11 +223,12 @@ const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px'
 .hero-title {
   max-inline-size: 12ch;
   color: var(--color-white);
+  font-family:
+    'Proxima Nova Hero', 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
   text-wrap: balance;
   overflow-wrap: break-word;
   letter-spacing: 0;
   line-height: 1;
-  animation: hero-reveal 1040ms cubic-bezier(0.19, 1, 0.22, 1) both;
   font-weight: 400;
 
   span {
