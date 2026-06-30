@@ -27,31 +27,31 @@ const projectsPanel = {
 };
 
 const companyLinks = [
-  { title: 'Meet the Team', to: '/team' },
-  { title: 'About Us', to: '/about' },
+  { title: "Meet the Team", to: "/team" },
+  { title: "About Us", to: "/about" },
 ] as const;
 
 const primaryLinks = [
-  { title: 'Contact', to: '/contact' },
-  { title: 'Trade Partner Program', to: '/trade-partners', accent: true },
+  { title: "Contact", to: "/contact" },
+  { title: "Trade Partner Program", to: "/trade-partners", accent: true },
 ] as const;
 
 const footerLinkGroups = [
   {
-    title: 'Envision',
+    title: "Envision",
     links: [
-      { title: 'Home', to: '/' },
-      { title: 'Services', to: '/services' },
-      { title: 'Projects', to: '/projects' },
-      { title: 'Company', to: '/about' },
+      { title: "Home", to: "/" },
+      { title: "Services", to: "/services" },
+      { title: "Projects", to: "/projects" },
+      { title: "Company", to: "/about" },
     ],
   },
   {
-    title: 'Connect',
+    title: "Connect",
     links: [
-      { title: 'Contact', to: '/contact' },
-      { title: 'Meet the Team', to: '/team' },
-      { title: 'Trade Partners', to: '/trade-partners' },
+      { title: "Contact", to: "/contact" },
+      { title: "Meet the Team", to: "/team" },
+      { title: "Trade Partners", to: "/trade-partners" },
     ],
   },
 ] as const;
@@ -164,19 +164,19 @@ async function animateDrawerOpen() {
 
   if (overlay) {
     gsap.set(overlay, { autoAlpha: 0 });
-    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: 'power2.out' });
+    gsap.to(overlay, { autoAlpha: 1, duration: 0.2, ease: "power2.out" });
   }
 
   gsap.set(content, { xPercent: 100 });
   if (navTargets.length) gsap.set(navTargets, { opacity: 0, x: 24 });
 
   const timeline = gsap.timeline();
-  timeline.to(content, { xPercent: 0, duration: 0.4, ease: 'power3.out' }, 0);
+  timeline.to(content, { xPercent: 0, duration: 0.4, ease: "power3.out" }, 0);
 
   if (navTargets.length) {
     timeline.to(
       navTargets,
-      { opacity: 1, x: 0, duration: 0.24, stagger: 0.06, ease: 'power2.out' },
+      { opacity: 1, x: 0, duration: 0.24, stagger: 0.06, ease: "power2.out" },
       0.1,
     );
   }
@@ -196,8 +196,8 @@ async function animateDrawerClose() {
         opacity: 0,
         x: 14,
         duration: 0.14,
-        stagger: { each: 0.03, from: 'end' },
-        ease: 'power2.in',
+        stagger: { each: 0.03, from: "end" },
+        ease: "power2.in",
       });
     }
 
@@ -206,7 +206,7 @@ async function animateDrawerClose() {
     gsap.to(content, {
       xPercent: 100,
       duration: 0.3,
-      ease: 'power3.in',
+      ease: "power3.in",
       onComplete: resolve,
     });
   });
