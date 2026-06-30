@@ -131,15 +131,25 @@ export default defineNuxtConfig({
     cookieName: 'strapi_jwt',
   },
   routeRules: {
+    // Pages
     '/': { isr: 600 },
     '/about': { prerender: true },
+    '/trade-partners': { prerender: true },
     '/services': { isr: 600 },
-    '/api/services': { cache: { maxAge: 600 } },
+    '/services/**': { isr: 600 },
     '/team': { isr: 600 },
-    '/api/team': { cache: { maxAge: 600 } },
+    '/team/**': { isr: 600 },
     '/projects': { isr: 600 },
+    '/projects/**': { isr: 600 },
+    // API (GET) caching
+    '/api/services': { cache: { maxAge: 600 } },
+    '/api/services/**': { cache: { maxAge: 600 } },
+    '/api/team': { cache: { maxAge: 600 } },
+    '/api/team/**': { cache: { maxAge: 600 } },
     '/api/projects': { cache: { maxAge: 600 } },
+    '/api/projects/**': { cache: { maxAge: 600 } },
     '/api/sectors': { cache: { maxAge: 600 } },
+    '/api/locations': { cache: { maxAge: 600 } },
     '/api/home-hero': { cache: { maxAge: 60 * 10 } }, // 10 min
     '/api/homepage-featured-project-section': { cache: { maxAge: 600 } },
   },
@@ -147,7 +157,7 @@ export default defineNuxtConfig({
     imagekit: {
       baseURL: '',
     },
-    quality: 90,
+    quality: 65,
     format: ['avif', 'webp'],
   },
   scripts: {
