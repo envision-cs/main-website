@@ -157,7 +157,7 @@ export default defineNuxtConfig({
     imagekit: {
       baseURL: '',
     },
-    quality: 65,
+    quality: 90,
     format: ['avif', 'webp'],
   },
   scripts: {
