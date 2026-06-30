@@ -50,7 +50,6 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['~/assets/css/main.css'],
   modules: [
     '@nuxt/ui',
     '@vueuse/nuxt',
@@ -60,7 +59,6 @@ export default defineNuxtConfig({
     '@nuxtjs/strapi',
     'reka-ui/nuxt',
     '@nuxt/eslint',
-    'v-gsap-nuxt',
     'nuxt-maplibre',
     // nuxt-maplibre force-pushes its css globally; strip it so the map
     // component loads it only on pages that render a map.
@@ -73,12 +71,7 @@ export default defineNuxtConfig({
 
   vite: {
     optimizeDeps: {
-      include: [
-        'gsap/ScrollTrigger',
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
-        'embla-carousel-vue',
-      ],
+      include: ['@vue/devtools-core', '@vue/devtools-kit', 'embla-carousel-vue'],
     },
   },
   icon: {
@@ -125,6 +118,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   experimental: {
     sharedPrerenderData: true,
+    inlineStyles: true,
+    componentIslands: true,
   },
   strapi: {
     url: process.env.STRAPI_URL,
@@ -136,12 +131,34 @@ export default defineNuxtConfig({
     cookieName: 'strapi_jwt',
   },
   routeRules: {
+    // Pages
+    '/': { isr: 600 },
+    '/about': { prerender: true },
+    '/trade-partners': { prerender: true },
+    '/services': { isr: 600 },
+    '/services/**': { isr: 600 },
+    '/team': { isr: 600 },
+    '/team/**': { isr: 600 },
+    '/projects': { isr: 600 },
+    '/projects/**': { isr: 600 },
+    // API (GET) caching
+    '/api/services': { cache: { maxAge: 600 } },
+    '/api/services/**': { cache: { maxAge: 600 } },
+    '/api/team': { cache: { maxAge: 600 } },
+    '/api/team/**': { cache: { maxAge: 600 } },
+    '/api/projects': { cache: { maxAge: 600 } },
+    '/api/projects/**': { cache: { maxAge: 600 } },
+    '/api/sectors': { cache: { maxAge: 600 } },
+    '/api/locations': { cache: { maxAge: 600 } },
     '/api/home-hero': { cache: { maxAge: 60 * 10 } }, // 10 min
+    '/api/homepage-featured-project-section': { cache: { maxAge: 600 } },
   },
   image: {
     imagekit: {
       baseURL: '',
     },
+    quality: 65,
+    format: ['avif', 'webp'],
   },
   scripts: {
     registry: {

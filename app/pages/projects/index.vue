@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">
+import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
   id: Project['id'];
@@ -11,25 +12,29 @@ interface ProjectCardItem {
 }
 
 const { formatMonthYear } = useFormatDate();
-const { sectors: categories } = await useSectors();
+
+// Fetch sectors and projects in parallel — both hit the CMS and have no
+// dependency on each other, so awaiting them serially doubles the blocking time.
+const [{ sectors: categories }, { data }] = await Promise.all([
+  useSectors(),
+  useAsyncData<Project[]>(
+    'projects-data',
+    async () => {
+      try {
+        return await $fetch<Project[]>('/api/projects');
+      } catch (err) {
+        console.error('Strapi error:', err);
+        return [];
+      }
+    },
+    { default: () => [] },
+  ),
+]);
+
 const navCategories = computed(() => [
   ...categories.value,
   { name: 'Beck/Envision', slug: 'beck-envision' },
 ]);
-
-const { data } = await useAsyncData<Project[]>(
-  'projects-data',
-  async () => {
-    try {
-      return await $fetch<Project[]>('/api/projects');
-    }
-    catch (err) {
-      console.error('Strapi error:', err);
-      return [];
-    }
-  },
-  { default: () => [] },
-);
 
 function getProjectCompletedTime(project: Project): number {
   const time = project.completed ? new Date(project.completed).getTime() : 0;
@@ -74,7 +79,7 @@ definePageMeta({
 useSeoMeta({
   title: 'Projects | Envision Construction Tampa Bay & Central Florida',
   description:
-    'Browse Envision\'s portfolio of completed construction projects across Tampa Bay and Central Florida, spanning K-12, higher education, sports, hospitality, and institutional sectors.',
+    "Browse Envision's portfolio of completed construction projects across Tampa Bay and Central Florida, spanning K-12, higher education, sports, hospitality, and institutional sectors.",
   ogTitle: 'Projects | Envision Construction Tampa Bay & Central Florida',
   ogDescription:
     'Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.',
@@ -102,7 +107,7 @@ useSeoMeta({
           <projects-categories-nav :categories="navCategories" />
         </div>
         <div class="projects-grid">
-          <project-card
+          <project-card-island
             v-for="project in projectCards"
             :key="project.id"
             :image="project.image"
@@ -110,13 +115,13 @@ useSeoMeta({
             :aria-label="project.title"
             :to="project.to"
             aspect-ratio="3/4"
-            image-densities="x1 x2"
+            image-densities="x1"
             :outlined="false"
             :title="project.title"
             :location="project.location"
             :completed="project.completed"
             :sector="project.sector"
-          />
+          ></project-card-island>
         </div>
       </div>
     </template>

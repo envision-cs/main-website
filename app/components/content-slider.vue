@@ -1,5 +1,4 @@
-<script setup lang="ts">import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
+<script setup lang="ts">
 interface ContentSliderItem {
   id: number | string;
   eyebrow?: string;
@@ -27,14 +26,23 @@ function resolveTone(tone?: string) {
 const trackRef = useTemplateRef('trackRef');
 const targetRef = useTemplateRef('targetRef');
 
-let scrollTriggerInstance: ScrollTrigger | null = null;
+let scrollTriggerInstance: { kill: () => void } | null = null;
+let tweenInstance: { kill: () => void } | null = null;
+let visibilityObserver: IntersectionObserver | null = null;
+let isUnmounted = false;
 
-onMounted(() => {
-  useGSAP().registerPlugin(ScrollTrigger);
-  if (!trackRef.value)
-    return;
+async function initializeSlider() {
+  const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+    import('gsap'),
+    import('gsap/ScrollTrigger'),
+  ]);
 
-  const tween = useGSAP().to(trackRef.value, {
+  if (isUnmounted) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+  if (!trackRef.value) return;
+
+  tweenInstance = gsap.to(trackRef.value, {
     x: getScrollAmount,
     duration: 3,
     ease: 'none',
@@ -45,7 +53,7 @@ onMounted(() => {
     start: 'top top',
     end: () => `+=${getScrollAmount() * -1}`,
     pin: true,
-    animation: tween,
+    animation: tweenInstance,
     scrub: 1,
     invalidateOnRefresh: true,
   });
@@ -54,11 +62,33 @@ onMounted(() => {
     const sw = trackRef.value?.scrollWidth ?? window.innerWidth;
     return -(sw - window.innerWidth);
   }
+}
+
+onMounted(() => {
+  if (!targetRef.value) return;
+
+  visibilityObserver = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+
+      visibilityObserver?.disconnect();
+      visibilityObserver = null;
+      void initializeSlider();
+    },
+    { rootMargin: '300px 0px' },
+  );
+
+  visibilityObserver.observe(targetRef.value);
 });
 
 onUnmounted(() => {
+  isUnmounted = true;
+  visibilityObserver?.disconnect();
+  visibilityObserver = null;
   scrollTriggerInstance?.kill();
   scrollTriggerInstance = null;
+  tweenInstance?.kill();
+  tweenInstance = null;
 });
 </script>
 

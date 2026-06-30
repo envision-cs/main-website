@@ -1,4 +1,5 @@
-<script setup lang="ts">import { SpeedInsights } from '@vercel/speed-insights/vue';
+<script setup lang="ts">
+import { SpeedInsights } from '@vercel/speed-insights/vue';
 </script>
 
 <template>
@@ -11,6 +12,7 @@
 </template>
 
 <style>
+@import '@/assets/css/main.css';
 /* Utilities */
 .u-visually-hidden {
   position: absolute;

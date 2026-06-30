@@ -1,5 +1,13 @@
 @import 'tailwindcss';
-@import "@nuxt/ui";
+@import '@nuxt/ui';
+
+@font-face {
+  font-family: 'Proxima Nova Hero';
+  src: url('/fonts/proxima-nova.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
 @font-face {
   font-family: 'Proxima Nova Hero';
@@ -130,6 +138,4 @@ html:has(dialog[open]) {
 body {
   background-color: var(--color-envision-gray-100);
   color: var(--color-envision-gray-900);
-
-
 }
