@@ -359,11 +359,11 @@ const FeatureProjects = defineLazyHydrationComponent(
 
 @media (min-width: 1024px) {
   .hero {
-    min-height: 720px;
+    min-height: 800px;
   }
 
   .hero__inner {
-    min-height: 720px;
+    min-height: 800px;
     padding: calc(var(--spacing) * 20) calc(var(--spacing) * 12) calc(var(--spacing) * 5);
   }
 
@@ -384,11 +384,11 @@ const FeatureProjects = defineLazyHydrationComponent(
 
 @media (min-width: 1280px) {
   .hero {
-    min-height: 760px;
+    min-height: 900px;
   }
 
   .hero__inner {
-    min-height: 760px;
+    min-height: 900px;
   }
 }
 
