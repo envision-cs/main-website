@@ -119,6 +119,7 @@ export default defineNuxtConfig({
   experimental: {
     sharedPrerenderData: true,
     inlineStyles: true,
+    componentIslands: true,
   },
   strapi: {
     url: process.env.STRAPI_URL,
@@ -130,12 +131,24 @@ export default defineNuxtConfig({
     cookieName: 'strapi_jwt',
   },
   routeRules: {
+    '/': { isr: 600 },
+    '/about': { prerender: true },
+    '/services': { isr: 600 },
+    '/api/services': { cache: { maxAge: 600 } },
+    '/team': { isr: 600 },
+    '/api/team': { cache: { maxAge: 600 } },
+    '/projects': { isr: 600 },
+    '/api/projects': { cache: { maxAge: 600 } },
+    '/api/sectors': { cache: { maxAge: 600 } },
     '/api/home-hero': { cache: { maxAge: 60 * 10 } }, // 10 min
+    '/api/homepage-featured-project-section': { cache: { maxAge: 600 } },
   },
   image: {
     imagekit: {
       baseURL: '',
     },
+    quality: 90,
+    format: ['avif', 'webp'],
   },
   scripts: {
     registry: {

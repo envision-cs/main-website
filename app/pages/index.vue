@@ -1,4 +1,5 @@
-<script setup lang="ts">interface FeaturedProjectCard {
+<script setup lang="ts">
+interface FeaturedProjectCard {
   title: string;
   link: string;
   image: string;
@@ -79,13 +80,12 @@ const testimonials: HomepageTestimonial[] = [
   },
 ];
 
-const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResponse>(
+const { data: featuredProjectCards } = useLazyAsyncData<HomepageFeaturedProjectsResponse>(
   'homepage-featured-projects',
   async () => {
     try {
       return await $fetch('/api/homepage-featured-project-section');
-    }
-    catch (err) {
+    } catch (err) {
       console.error('Failed to fetch homepage featured projects:', err);
       return {
         sectionOne: [],
@@ -113,88 +113,88 @@ const homepageSchema = {
     {
       '@type': ['Organization', 'LocalBusiness', 'GeneralContractor'],
       '@id': organizationId,
-      'name': 'Envision Construction Services',
-      'alternateName': 'Envision',
-      'url': homeUrl,
-      'logo': `${siteUrl}/favicon.svg`,
-      'image': homepageImage,
-      'description':
+      name: 'Envision Construction Services',
+      alternateName: 'Envision',
+      url: homeUrl,
+      logo: `${siteUrl}/favicon.svg`,
+      image: homepageImage,
+      description:
         'Envision is a Tampa Bay construction partner delivering organized, high-quality projects on time and on budget.',
-      'foundingDate': '2009',
-      'telephone': '+1-813-997-0330',
-      'email': 'pursuits@envision-cs.com',
-      'address': {
+      foundingDate: '2009',
+      telephone: '+1-813-997-0330',
+      email: 'pursuits@envision-cs.com',
+      address: {
         '@type': 'PostalAddress',
-        'streetAddress': '5000 Acline Drive East',
-        'addressLocality': 'Tampa',
-        'addressRegion': 'FL',
-        'postalCode': '33619',
-        'addressCountry': 'US',
+        streetAddress: '5000 Acline Drive East',
+        addressLocality: 'Tampa',
+        addressRegion: 'FL',
+        postalCode: '33619',
+        addressCountry: 'US',
       },
-      'areaServed': [
+      areaServed: [
         {
           '@type': 'Place',
-          'name': 'Greater Tampa Bay',
+          name: 'Greater Tampa Bay',
         },
         {
           '@type': 'Place',
-          'name': 'Central Florida',
+          name: 'Central Florida',
         },
       ],
-      'slogan': 'Listen. Plan. Execute. Cultivate.',
-      'sameAs': [
+      slogan: 'Listen. Plan. Execute. Cultivate.',
+      sameAs: [
         'https://www.facebook.com/envisioncstampa',
         'https://www.linkedin.com/company/envision-cs/',
       ],
-      'makesOffer': [
+      makesOffer: [
         {
           '@type': 'Offer',
-          'itemOffered': {
+          itemOffered: {
             '@type': 'Service',
-            'name': 'Construction Management',
-            'serviceType': 'Construction management',
-            'areaServed': 'Greater Tampa Bay and Central Florida',
-            'url': `${siteUrl}/services/construction-management`,
+            name: 'Construction Management',
+            serviceType: 'Construction management',
+            areaServed: 'Greater Tampa Bay and Central Florida',
+            url: `${siteUrl}/services/construction-management`,
           },
         },
         {
           '@type': 'Offer',
-          'itemOffered': {
+          itemOffered: {
             '@type': 'Service',
-            'name': 'Design-Build',
-            'serviceType': 'Design-build construction',
-            'areaServed': 'Greater Tampa Bay and Central Florida',
-            'url': `${siteUrl}/services/design-build`,
+            name: 'Design-Build',
+            serviceType: 'Design-build construction',
+            areaServed: 'Greater Tampa Bay and Central Florida',
+            url: `${siteUrl}/services/design-build`,
           },
         },
         {
           '@type': 'Offer',
-          'itemOffered': {
+          itemOffered: {
             '@type': 'Service',
-            'name': 'Enhanced Preconstruction',
-            'serviceType': 'Preconstruction planning and estimating',
-            'areaServed': 'Greater Tampa Bay and Central Florida',
-            'url': `${siteUrl}/services/enhanced-preconstruction`,
+            name: 'Enhanced Preconstruction',
+            serviceType: 'Preconstruction planning and estimating',
+            areaServed: 'Greater Tampa Bay and Central Florida',
+            url: `${siteUrl}/services/enhanced-preconstruction`,
           },
         },
         {
           '@type': 'Offer',
-          'itemOffered': {
+          itemOffered: {
             '@type': 'Service',
-            'name': 'Tenant Improvements',
-            'serviceType': 'Tenant improvement construction',
-            'areaServed': 'Greater Tampa Bay and Central Florida',
-            'url': `${siteUrl}/services/tenant-improvements`,
+            name: 'Tenant Improvements',
+            serviceType: 'Tenant improvement construction',
+            areaServed: 'Greater Tampa Bay and Central Florida',
+            url: `${siteUrl}/services/tenant-improvements`,
           },
         },
         {
           '@type': 'Offer',
-          'itemOffered': {
+          itemOffered: {
             '@type': 'Service',
-            'name': 'Specialty Projects Division',
-            'serviceType': 'Specialty construction projects',
-            'areaServed': 'Greater Tampa Bay and Central Florida',
-            'url': `${siteUrl}/services/specialty-projects-division`,
+            name: 'Specialty Projects Division',
+            serviceType: 'Specialty construction projects',
+            areaServed: 'Greater Tampa Bay and Central Florida',
+            url: `${siteUrl}/services/specialty-projects-division`,
           },
         },
       ],
@@ -202,47 +202,47 @@ const homepageSchema = {
     {
       '@type': 'WebSite',
       '@id': websiteId,
-      'url': homeUrl,
-      'name': 'Envision Construction Services',
-      'publisher': {
+      url: homeUrl,
+      name: 'Envision Construction Services',
+      publisher: {
         '@id': organizationId,
       },
-      'inLanguage': 'en-US',
+      inLanguage: 'en-US',
     },
     {
       '@type': 'WebPage',
       '@id': homepageId,
-      'url': homeUrl,
-      'name': 'Envision Construction Services | Tampa Bay & Central Florida',
-      'description':
+      url: homeUrl,
+      name: 'Envision Construction Services | Tampa Bay & Central Florida',
+      description:
         'Envision is a Tampa Bay construction partner delivering organized, high-quality projects on time and on budget. 200+ projects delivered since 2009 with a 90% repeat-client rate.',
-      'isPartOf': {
+      isPartOf: {
         '@id': websiteId,
       },
-      'about': {
+      about: {
         '@id': organizationId,
       },
-      'primaryImageOfPage': {
+      primaryImageOfPage: {
         '@type': 'ImageObject',
-        'url': homepageImage,
+        url: homepageImage,
       },
-      'significantLink': [servicesPageId, projectsPageId, contactPageId],
-      'mainEntity': {
+      significantLink: [servicesPageId, projectsPageId, contactPageId],
+      mainEntity: {
         '@id': organizationId,
       },
-      'review': testimonials.map(testimonial => ({
+      review: testimonials.map((testimonial) => ({
         '@type': 'Review',
-        'reviewBody': testimonial.quote,
-        'author': {
+        reviewBody: testimonial.quote,
+        author: {
           '@type': 'Person',
-          'name': testimonial.name,
-          'jobTitle': testimonial.title,
+          name: testimonial.name,
+          jobTitle: testimonial.title,
         },
-        'itemReviewed': {
+        itemReviewed: {
           '@id': organizationId,
         },
       })),
-      'inLanguage': 'en-US',
+      inLanguage: 'en-US',
     },
   ],
 };

@@ -1,4 +1,5 @@
-<script setup lang="ts">const { services } = await useServicesList();
+<script setup lang="ts">
+const { services } = await useServicesList();
 definePageMeta({
   layout: 'layout-a',
 });
@@ -6,7 +7,7 @@ definePageMeta({
 useSeoMeta({
   title: 'Construction Services | Envision Tampa Bay & Central Florida',
   description:
-    'Explore Envision\'s construction services: construction management, design-build, enhanced preconstruction, tenant improvements, development and master planning, and specialty projects across Tampa Bay and Central Florida.',
+    "Explore Envision's construction services: construction management, design-build, enhanced preconstruction, tenant improvements, development and master planning, and specialty projects across Tampa Bay and Central Florida.",
   ogTitle: 'Construction Services | Envision Tampa Bay & Central Florida',
   ogDescription:
     'Construction management, design-build, preconstruction, tenant improvements, master planning, and specialty projects across Tampa Bay and Central Florida.',
@@ -21,30 +22,31 @@ useSeoMeta({
 </script>
 
 <template>
-<div class="projects">
-  <ul class="projects-grid" dense>
-    <li v-for="service in services" :key="service.slug">
-      <project-card
-        :to="service.to"
-        :aria-label="service.title"
-        :image="service?.preview || service.image || ''"
-        :alt="service.title"
-        aspect-ratio="3/4"
-      >
-        <template #title>
-          <app-typography class="h3 project-card-title" variant="heading-md">
-            {{ service.title }}
-          </app-typography>
-        </template>
-        <template #meta>
-          <span class="submenu-reveal-card__meta">
-            View service
-            <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-          </span>
-        </template>
-      </project-card>
-    </li>
-  </ul>
+  <div class="projects">
+    <ul class="projects-grid" dense>
+      <li v-for="service in services" :key="service.slug">
+        <lazy-project-card
+          :to="service.to"
+          :aria-label="service.title"
+          :image="service?.preview || service.image || ''"
+          :alt="service.title"
+          hydrate-on-visible
+          aspect-ratio="3/4"
+        >
+          <template #title>
+            <app-typography class="h3 project-card-title" variant="heading-md">
+              {{ service.title }}
+            </app-typography>
+          </template>
+          <template #meta>
+            <span class="submenu-reveal-card__meta">
+              View service
+              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+            </span>
+          </template>
+        </lazy-project-card>
+      </li>
+    </ul>
   </div>
 </template>
 

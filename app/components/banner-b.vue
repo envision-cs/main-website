@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Comment, Text } from 'vue';
 import type { VNode } from 'vue';
+import { Comment, Text } from 'vue';
 
 interface BannerStat {
   id?: number;
@@ -83,6 +83,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
           :alt="imageAlt || ''"
           sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
           fit="cover"
+          :quality="80"
           fetchpriority="high"
           format="avif"
           loading="eager"
