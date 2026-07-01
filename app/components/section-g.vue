@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface SectionGItem {
   id: number;
-  eyebrow: string;
+  eyebrow?: string;
   label: string;
   description: string;
 }
@@ -37,7 +37,7 @@ const titleId = computed(() => {
       <ol class="section-g__list">
         <li v-for="item in items" :key="item.id" class="section-g__item">
           <article class="section-g__card">
-            <span class="section-g__number">{{ item.eyebrow }}</span>
+            <span v-if="item.eyebrow" class="section-g__number">{{ item.eyebrow }}</span>
             <div class="section-g__copy">
               <app-typography tag="h3" variant="heading-sm" class="section-g__item-title">
                 {{ item.label }}
@@ -57,7 +57,7 @@ const titleId = computed(() => {
 .section-g {
   --section-bg: var(--color-envision-gray-900);
   --section-color: var(--color-white);
-  --section-g-accent: var(--color-envision-green-500);
+  --section-g-accent: var(--color-envision-blue-500);
   --section-g-rule: color-mix(in oklab, var(--section-color) 14%, transparent);
   --section-g-muted: color-mix(in oklab, var(--section-color) 68%, transparent);
 
@@ -84,6 +84,8 @@ const titleId = computed(() => {
   align-content: start;
   padding: calc(var(--spacing) * 8);
   background: var(--section-bg);
+  max-width: unset;
+  width: 100%;
   border-block-end: 1px solid var(--section-g-rule);
 }
 
@@ -125,12 +127,13 @@ const titleId = computed(() => {
 }
 
 .section-g__card {
-  display: grid;
+  display: flex;
   grid-template-columns: auto minmax(0, 1fr);
   gap: calc(var(--spacing) * 6);
   min-height: 12rem;
   padding: calc(var(--spacing) * 8);
-  background: var(--section-bg);
+  background: var(--card-bg);
+  color: var(--card-color);
 }
 
 .section-g__number {
@@ -153,14 +156,15 @@ const titleId = computed(() => {
 }
 
 .section-g__description {
-  max-width: 56rem;
   color: var(--section-g-muted);
   text-wrap: balance;
+  max-width: unset;
 }
 
 @container section-g (min-width: 700px) {
   .section-g__header {
     padding: calc(var(--spacing) * 12);
+    max-width: unset;
   }
 
   .section-g__card {
@@ -171,15 +175,20 @@ const titleId = computed(() => {
 
 @container section-g (min-width: 1024px) {
   .section-g__inner {
-    grid-template-columns: minmax(26rem, 0.82fr) minmax(0, 1.65fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .section-g__header {
     border-block-end: 0;
+    max-width: 650px;
   }
 
   .section-g__card {
     min-height: 8rem;
+  }
+
+  .section__description {
+    max-width: 650px;
   }
 }
 </style>

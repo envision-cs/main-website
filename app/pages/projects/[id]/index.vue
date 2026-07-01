@@ -243,9 +243,14 @@ useHead(() => ({
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   container: projects;
   background-color: var(--color-envision-gray-800);
+}
+@container projects (width > 550px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @container projects (width > 750px) {

@@ -1,4 +1,5 @@
-<script setup lang="ts">const year = new Date().getFullYear();
+<script setup lang="ts">
+const year = new Date().getFullYear();
 
 const navLinks = [
   { id: 1, to: '/', label: 'Home' },
@@ -95,7 +96,7 @@ const { services: servicesLinks } = await useServicesList();
 
 <style scoped>
 footer {
-  background-color: var(--color-envision-gray-800);
+  background-color: var(--color-envision-gray-900);
   padding: calc(var(--spacing) * 4);
   color: var(--color-envision-blue-50);
   overflow: hidden;
