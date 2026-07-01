@@ -1,4 +1,5 @@
-<script setup lang="ts">const props = withDefaults(
+<script setup lang="ts">
+const props = withDefaults(
   defineProps<{
     body?: string;
     image?: string;
@@ -33,10 +34,16 @@ function handleCtaClick() {
       flip: flip,
       center: center,
     }"
-    @click.capture="handleCtaClick"
   >
     <div class="content">
-      <section-header-a :eyebrow :title="title" :body :button-to="href" :button-label="label">
+      <section-header-a
+        :eyebrow
+        :title="title"
+        :body
+        :button-to="href"
+        :button-label="label"
+        @button-click="handleCtaClick"
+      >
         <template #title>
           <slot name="title" />
         </template>
