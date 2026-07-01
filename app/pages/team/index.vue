@@ -50,33 +50,20 @@ const { data } = useFetch('/api/team', {
       <template #body>
         <app-team-member-list class="light">
           <li v-for="member in team.team_members" :key="member.name">
-            <lazy-project-card
+            <project-card-island
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
               :image="member.photo?.url"
               :alt="member.name"
-              hydrate-on-visible
-              link-mode="overlay"
+              :title="member.name"
+              :subtitle="member.title"
               aspect-ratio="3/4"
               image-sizes="(max-width: 768px) 100vw, 300px"
               :image-hover-scale="1.1"
               :outlined="false"
               :meta-border="false"
               class="team-member-card"
-            >
-              <template #title>
-                <app-typography class="h3 team-member-title" variant="heading-md">
-                  {{ member.name }}
-                </app-typography>
-                <app-typography
-                  tag="p"
-                  variant="text-md"
-                  class="team-member-role text-primary-200 dark:text-primary-200"
-                >
-                  {{ member.title }}
-                </app-typography>
-              </template>
-            </lazy-project-card>
+            />
           </li>
         </app-team-member-list>
       </template>
