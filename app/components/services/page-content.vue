@@ -1,6 +1,8 @@
-<script setup lang="ts">import type { Service } from '~~/shared/types/content-types';
+<script setup lang="ts">
+import type { Service } from '~~/shared/types/content-types';
 
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+import { toAbsoluteOptionalSiteUrl } from '~/utils/site-url';
 
 const props = defineProps<{
   service: string;
@@ -13,16 +15,14 @@ const { data: serviceData } = await useAsyncData(
 );
 
 const content = computedAsync(async () => {
-  if (!serviceData.value?.description)
-    return null;
+  if (!serviceData.value?.description) return null;
   return parseMarkdown(serviceData.value.description);
 }, null);
 
 const seoImage = computed(() => {
   const image = serviceData.value?.image;
-  if (typeof image === 'object' && image !== null)
-    return image.url;
-  return typeof image === 'string' ? image : undefined;
+  if (typeof image === 'object' && image !== null) return toAbsoluteOptionalSiteUrl(image.url);
+  return typeof image === 'string' ? toAbsoluteOptionalSiteUrl(image) : undefined;
 });
 
 useSeoMeta(() => ({
@@ -36,6 +36,15 @@ useSeoMeta(() => ({
   twitterTitle: serviceData.value?.title || 'Service',
   twitterDescription: serviceData.value?.description || 'Service Description',
   twitterImage: seoImage.value,
+}));
+
+useHead(() => ({
+  meta: seoImage.value
+    ? [
+        { key: 'og:image', property: 'og:image', content: seoImage.value },
+        { key: 'twitter:image', name: 'twitter:image', content: seoImage.value },
+      ]
+    : [],
 }));
 </script>
 

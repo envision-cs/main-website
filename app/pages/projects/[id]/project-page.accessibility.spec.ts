@@ -30,7 +30,7 @@ describe('project page image lightbox accessibility', () => {
 
   it('provides project-specific SEO metadata', () => {
     expect(pageSource).toContain('description: seoDescription.value');
-    expect(pageSource).toContain('ogImage: page.value?.main_image');
+    expect(pageSource).toContain('ogImage: socialImage.value');
     expect(pageSource).toContain(`rel: 'canonical'`);
     expect(pageSource).toContain('href: canonicalUrl.value');
     expect(pageSource).toContain(`type: 'application/ld+json'`);

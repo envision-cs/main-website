@@ -1,5 +1,26 @@
 <script setup lang="ts">
 import { SpeedInsights } from '@vercel/speed-insights/vue';
+import { toAbsoluteSiteUrl } from '~/utils/site-url';
+
+const route = useRoute();
+const canonicalUrl = computed(() => toAbsoluteSiteUrl(route.path));
+
+useHead(() => ({
+  link: [
+    {
+      key: 'canonical',
+      rel: 'canonical',
+      href: canonicalUrl.value,
+    },
+  ],
+  meta: [
+    {
+      key: 'og:url',
+      property: 'og:url',
+      content: canonicalUrl.value,
+    },
+  ],
+}));
 </script>
 
 <template>

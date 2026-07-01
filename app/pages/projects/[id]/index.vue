@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">
+import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
   id: Project['id'];
@@ -29,7 +30,7 @@ const categorySlug = computed(() => {
 });
 
 const activeCategory = computed(() => {
-  return categories.value.find(category => category.slug === categorySlug.value);
+  return categories.value.find((category) => category.slug === categorySlug.value);
 });
 
 if (!categorySlug.value || !activeCategory.value) {
@@ -65,7 +66,7 @@ const activeProjects = computed(() => {
   }
 
   return data.value
-    .filter(project => projectBelongsToSector(project, activeCategory.value?.slug))
+    .filter((project) => projectBelongsToSector(project, activeCategory.value?.slug))
     .sort((left, right) => getProjectCompletedTime(right) - getProjectCompletedTime(left));
 });
 
@@ -93,6 +94,7 @@ const projectCards = computed<ProjectCardItem[]>(() =>
 );
 
 const bannerImage = computed(() => activeCategory.value?.image || 'projects-all.jpg');
+const socialImage = computed(() => toAbsoluteOptionalSiteUrl(bannerImage.value));
 const bannerBody = computed(() => activeCategory.value?.description || '');
 const projectListTitle = computed(() => `${activeCategory.value?.name || 'Project'} projects`);
 
@@ -102,6 +104,7 @@ definePageMeta({
 const canonicalPath = computed(() =>
   categorySlug.value ? `/projects/${categorySlug.value}` : route.path,
 );
+const canonicalUrl = computed(() => toAbsoluteSiteUrl(canonicalPath.value));
 
 const seoTitle = computed(() =>
   activeCategory.value?.name
@@ -121,17 +124,23 @@ useSeoMeta(() => ({
   description: seoDescription.value,
   ogTitle: seoTitle.value,
   ogDescription: seoDescription.value,
-  ogImage: bannerImage.value,
+  ogImage: socialImage.value,
   ogType: 'website',
-  ogUrl: canonicalPath.value,
+  ogUrl: canonicalUrl.value,
   twitterCard: 'summary_large_image',
   twitterTitle: seoTitle.value,
   twitterDescription: seoDescription.value,
-  twitterImage: bannerImage.value,
+  twitterImage: socialImage.value,
 }));
 
 useHead(() => ({
-  link: [{ rel: 'canonical', href: canonicalPath.value }],
+  link: [{ key: 'canonical', rel: 'canonical', href: canonicalUrl.value }],
+  meta: socialImage.value
+    ? [
+        { key: 'og:image', property: 'og:image', content: socialImage.value },
+        { key: 'twitter:image', name: 'twitter:image', content: socialImage.value },
+      ]
+    : [],
 }));
 </script>
 

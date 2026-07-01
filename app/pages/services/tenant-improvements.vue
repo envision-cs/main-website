@@ -1,10 +1,6 @@
 <!-- eslint-disable @stylistic/quotes, @stylistic/no-multiple-empty-lines -->
-<script setup lang="ts">definePageMeta({ layout: 'layout-a' });
-
-const posthog = usePostHog();
-onMounted(() => {
-  posthog?.capture('service_page_viewed', { service_name: 'Tenant Improvements' });
-});
+<script setup lang="ts">
+definePageMeta({ layout: 'layout-a' });
 
 useSeoMeta({
   title: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
@@ -41,13 +37,13 @@ const operations = [
     id: 3,
     title: 'After-hours and weekend work',
     description:
-      'When operations can\'t pause, we work around them. After-hours and weekend scheduling is standard practice, not an exception.',
+      "When operations can't pause, we work around them. After-hours and weekend scheduling is standard practice, not an exception.",
   },
   {
     id: 4,
     title: 'Daily communication',
     description:
-      'Every day you know exactly what\'s happening: access points, noise windows, site conditions, and what to expect the next day. No surprises.',
+      "Every day you know exactly what's happening: access points, noise windows, site conditions, and what to expect the next day. No surprises.",
   },
 ];
 
@@ -95,7 +91,7 @@ const projectHighlights = [
     id: 3,
     label: 'Budget constraints navigated through product substitution and design collaboration',
   },
-  { id: 4, label: 'Delivered within the client\'s fixed budget without scope reduction' },
+  { id: 4, label: "Delivered within the client's fixed budget without scope reduction" },
   {
     id: 5,
     label:

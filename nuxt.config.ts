@@ -43,7 +43,6 @@ export default defineNuxtConfig({
         publicKey: process.env.NUXT_PUBLIC_POSTHOG_PROJECT_TOKEN || '',
         host: process.env.NUXT_PUBLIC_POSTHOG_HOST || 'https://p.envision-cs.com',
       },
-      posthogDefaults: '2025-05-24',
       strapi: {
         url: '',
       },
@@ -54,6 +53,7 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@vueuse/nuxt',
     '@nuxt/image',
+    '@nuxtjs/sitemap',
     '@nuxtjs/mdc',
     '@posthog/nuxt',
     '@nuxtjs/strapi',
@@ -92,12 +92,19 @@ export default defineNuxtConfig({
     publicKey: process.env.NUXT_PUBLIC_POSTHOG_PROJECT_TOKEN || '',
     host: process.env.NUXT_PUBLIC_POSTHOG_HOST || 'https://p.envision-cs.com',
     clientConfig: {
+      defaults: '2026-05-30',
       capture_exceptions: true,
       capture_heatmaps: true,
       autocapture: true,
       capture_pageview: 'history_change',
       capture_pageleave: 'if_capture_pageview',
-      __add_tracing_headers: ['localhost', 'envision-cs.com'],
+      mask_all_text: true,
+      mask_all_element_attributes: true,
+      session_recording: {
+        maskAllInputs: true,
+        maskTextSelector: '*',
+      },
+      tracing_headers: ['localhost', 'envision-cs.com', 'www.envision-cs.com'],
       ui_host: 'https://us.posthog.com',
       person_profiles: 'identified_only',
     },
@@ -114,6 +121,17 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: 'vercel',
+  },
+  site: {
+    url: 'https://www.envision-cs.com',
+    name: 'Envision Construction Services',
+  },
+  sitemap: {
+    sources: ['/api/__sitemap__/urls'],
+    defaults: {
+      changefreq: 'weekly',
+      priority: 0.7,
+    },
   },
   compatibilityDate: '2025-05-15',
   experimental: {
@@ -159,19 +177,5 @@ export default defineNuxtConfig({
     },
     quality: 90,
     format: ['avif', 'webp'],
-  },
-  scripts: {
-    registry: {
-      posthog: {
-        apiKey: 'phc_bjvPp8gR5qQVaS316DJqXnJ9lwUQo3EGDnpwP1BEB78',
-        apiHost: 'https://p.envision-cs.com', // your Cloudflare managed reverse proxy
-        trigger: 'onNuxtReady',
-        config: {
-          ui_host: 'https://us.posthog.com',
-          defaults: '2026-05-30',
-          person_profiles: 'identified_only',
-        },
-      },
-    },
   },
 });
