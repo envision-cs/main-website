@@ -1,5 +1,5 @@
-<script setup lang="ts">/* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
-import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+<script setup lang="ts">
+/* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
 
 definePageMeta({
   layout: 'default',
@@ -14,12 +14,8 @@ const { data } = await useAsyncData(
   asyncDataKey,
   async () => {
     const response = await $fetch(`/api/team/${id.value}`);
-    const ast = response?.teamMember?.bio ? await parseMarkdown(response.teamMember.bio) : null;
 
-    return {
-      ...response,
-      ast,
-    };
+    return response;
   },
   { watch: [id] },
 );
@@ -68,14 +64,20 @@ const contactActions = computed(() => [
 
 const profileCards = computed(() => [
   {
+    id: 1,
+    eyebrow: '01',
     label: 'Role',
     description: teamMember.value?.title || 'Team member',
   },
   {
+    id: 2,
+    eyebrow: '02',
     label: 'Team',
     description: teamName.value,
   },
   {
+    id: 3,
+    eyebrow: '03',
     label: 'Focus',
     description:
       teamMember.value?.team?.description ||
@@ -85,7 +87,7 @@ const profileCards = computed(() => [
 
 const title = computed(() => data.value?.teamMember?.name);
 
-function toSeoDescription(text?: string) {
+function toPlainText(text?: string) {
   return (
     text
       ?.replace(/```[\s\S]*?```/g, ' ')
@@ -93,19 +95,19 @@ function toSeoDescription(text?: string) {
       .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
       .replace(/[#*_>`~|-]/g, ' ')
       .replace(/\s+/g, ' ')
-      .trim()
-      .slice(0, 160) || ''
+      .trim() || ''
   );
 }
+
+const profileBio = computed(() => toPlainText(teamMember.value?.bio));
 
 const seoTitle = computed(() =>
   title.value ? `${title.value} | Envision` : 'Meet the Team | Envision',
 );
 
 const seoDescription = computed(() => {
-  const fromBio = toSeoDescription(teamMember.value?.bio);
-  if (fromBio)
-    return fromBio;
+  const fromBio = profileBio.value.slice(0, 160);
+  if (fromBio) return fromBio;
 
   const role = teamMember.value?.title ? `${teamMember.value.title}, ` : '';
   return `${role}part of the ${teamName.value} at Envision. Meet the people delivering organized, high-quality construction across Tampa Bay and Central Florida.`;
@@ -175,7 +177,7 @@ useSeoMeta(() => ({
             class="portrait-image"
             fetchpriority="high"
             @error="portraitFailed = true"
-          >
+          />
           <div v-else class="portrait-fallback" aria-hidden="true">
             {{ memberInitials }}
           </div>
@@ -183,24 +185,13 @@ useSeoMeta(() => ({
       </div>
     </section>
 
-    <section class="team-profile-bio dark" :style="{ '--team-accent': teamColor }">
-      <div class="team-profile-bio__inner">
-        <div class="team-profile-bio__copy">
-          <div v-if="data.ast?.body" class="rich-text">
-            <MDCRenderer :body="data.ast.body" :data="data.ast.data" />
-          </div>
-        </div>
-
-        <div class="team-profile-bio__cards" :style="{ '--accent-color': teamColor }">
-          <card-a
-            v-for="(item, index) in profileCards"
-            :key="item.label"
-            :item="item"
-            :idx="index"
-          />
-        </div>
-      </div>
-    </section>
+    <section-g
+      eyebrow="Team Profile"
+      :title="`About ${teamMember.name}`"
+      :body="profileBio"
+      :items="profileCards"
+      :style="{ '--section-g-accent': teamColor }"
+    />
 
     <section-e
       v-if="relatedMembers.length"
@@ -261,8 +252,7 @@ useSeoMeta(() => ({
   background: var(--color-envision-gray-900);
 }
 
-.team-profile-hero,
-.team-profile-bio {
+.team-profile-hero {
   grid-column: 1 / -1;
   background: var(--section-bg);
   color: var(--section-color);
@@ -273,8 +263,7 @@ useSeoMeta(() => ({
   border-bottom: 1px solid color-mix(in oklab, var(--section-color) 12%, transparent);
 }
 
-.team-profile-hero__inner,
-.team-profile-bio__inner {
+.team-profile-hero__inner {
   width: min(100%, 1300px);
   margin-inline: auto;
 }
@@ -372,42 +361,6 @@ useSeoMeta(() => ({
     color-mix(in oklab, var(--team-accent) 52%, var(--color-envision-gray-900));
 }
 
-.team-profile-bio {
-  padding: calc(var(--spacing) * 8) calc(var(--spacing) * 4);
-}
-
-.team-profile-bio__inner {
-  display: grid;
-  gap: calc(var(--spacing) * 6);
-}
-
-.team-profile-bio__copy {
-  display: grid;
-  gap: calc(var(--spacing) * 3);
-}
-
-.rich-text {
-  color: color-mix(in oklab, var(--section-color) 80%, transparent);
-  font-size: var(--font-size-text-t3);
-  line-height: 1.65;
-  max-width: 72ch;
-}
-
-.rich-text :deep(p + p) {
-  margin-top: 1rem;
-}
-
-.rich-text :deep(a) {
-  color: var(--team-accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
-}
-
-.team-profile-bio__cards {
-  display: grid;
-  gap: calc(var(--spacing) * 4);
-}
-
 .team-section {
   --accent-color: #fff;
   display: grid;
@@ -463,11 +416,6 @@ useSeoMeta(() => ({
   .team-profile-hero__portrait {
     height: clamp(420px, 46vw, 650px);
   }
-
-  .team-profile-bio__inner {
-    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.65fr);
-    align-items: start;
-  }
 }
 
 @media (min-width: 1100px) {
@@ -478,15 +426,10 @@ useSeoMeta(() => ({
   .team-profile-hero__inner {
     grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.56fr);
   }
-
-  .team-profile-bio {
-    padding-inline: calc(var(--spacing) * 6);
-  }
 }
 
 @media (max-width: 480px) {
-  .team-profile-hero,
-  .team-profile-bio {
+  .team-profile-hero {
     padding-inline: calc(var(--spacing) * 3);
   }
 }

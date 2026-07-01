@@ -1,4 +1,5 @@
-<script setup lang="ts">withDefaults(
+<script setup lang="ts">
+withDefaults(
   defineProps<{
     body?: string;
     image?: string;
@@ -60,7 +61,7 @@ section {
   min-height: auto;
 
   @media (width > 1500px) {
-      min-height: 600px;
+    min-height: 600px;
     grid-template-columns: 1fr 1fr;
   }
 }
@@ -79,6 +80,10 @@ section {
   gap: calc(var(--spacing) * 4);
   width: 100%;
   margin: auto;
+
+  @media (min-width: 768px) {
+    padding-inline: calc(var(--spacing) * 8);
+  }
 }
 
 .body {
@@ -102,8 +107,8 @@ section {
   }
 
   @media (width > 1500px) {
-      min-height: 500px;
-      object-fit: cover;
+    min-height: 500px;
+    object-fit: cover;
   }
 }
 </style>

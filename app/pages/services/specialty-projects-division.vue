@@ -1,4 +1,5 @@
-<script setup lang="ts">const posthog = usePostHog();
+<script setup lang="ts">
+const posthog = usePostHog();
 onMounted(() => {
   posthog?.capture('service_page_viewed', { service_name: 'Specialty Projects Division' });
 });
@@ -6,7 +7,7 @@ onMounted(() => {
 useSeoMeta({
   title: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   description:
-    'Envision\'s Specialty Projects Division (SPD) handles high-volume maintenance, fast-turnaround renovations, multi-site programs, and annual small-project contracts, with 72-hour turnarounds and full CompanyCam documentation.',
+    "Envision's Specialty Projects Division (SPD) handles high-volume maintenance, fast-turnaround renovations, multi-site programs, and annual small-project contracts, with 72-hour turnarounds and full CompanyCam documentation.",
   ogTitle: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   ogDescription:
     'One reliable partner for ongoing small-scope work. Scope it, price it, execute it, document it, on your schedule, including weekends and overnight.',
@@ -140,18 +141,19 @@ definePageMeta({
       </template>
     </cta-a>
 
-    <section-a bgcolor="dark" eyebrow="How SPD works" title="Fast. Documented. Done right." body="">
+    <section-a bgcolor="blue" eyebrow="How SPD works" title="Fast. Documented. Done right." body="">
       <list-f :items="process" />
     </section-a>
 
-    <section-a
+    <section-g
       bgcolor="light"
       eyebrow="The work your facilities team needs done right now."
       title="The work your facilities team needs done — now."
       body="High volume, fast turnaround, zero compromises on quality."
+      :items="serviceOfferings"
     >
       <list-a :items="serviceOfferings" />
-    </section-a>
+    </section-g>
 
     <cta-a
       eyebrow="Featured Project"

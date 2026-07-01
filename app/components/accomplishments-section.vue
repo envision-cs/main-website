@@ -221,7 +221,7 @@ withDefaults(
 
 @media (min-width: 1024px) {
   .accomplishments__inner {
-    grid-template-columns: minmax(26rem, 1fr) minmax(0, 1.35fr);
+    grid-template-columns: 1fr 1fr;
   }
 
   .accomplishments__header {

@@ -1,4 +1,5 @@
-<script setup lang="ts">definePageMeta({
+<script setup lang="ts">
+definePageMeta({
   layout: 'layout-a',
 });
 
@@ -26,11 +27,11 @@ useSeoMeta({
 });
 
 const stats = [
-  { id: 1, label: '500+', description: 'Qualified Trade Partners' },
+  { id: 1, value: '500+', label: 'Qualified Trade Partners' },
   {
     id: 2,
-    label: '100% Transparency',
-    description: 'Open-book estimating that keeps owners informed and in control.',
+    value: '100% Transparency',
+    label: 'Open-book estimating that keeps owners informed and in control.',
   },
 ];
 
@@ -86,19 +87,18 @@ const projectHighlights = [
 
 <template>
   <main>
-    <section-d
+    <accomplishments-section
       bgcolor="blue"
-      title="1 hr = 10 hrs"
-      body="One hour of preconstruction planning saves ten hours during construction."
-    >
-      <list-e :items="stats" />
-    </section-d>
+      eyebrow="1 hr = 10 hrs"
+      title="One hour of preconstruction planning saves ten hours during construction."
+      :accomplishments="stats"
+    />
     <cta-a
       eyebrow="THE PROBLEM WITH PRICE-FIRST DECISIONS"
       title="A lower price does not always cost less."
       body=""
       image="https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043"
-      bgcolor="light"
+      bgcolor="dark"
     >
       <template #body>
         <app-typography>
@@ -119,21 +119,22 @@ const projectHighlights = [
     </cta-a>
 
     <section-a
-      bgcolor="dark"
+      bgcolor="blue"
       eyebrow="What owners actually need"
       title="Owners do not just need a builder. They need certainty."
     >
       <list-d :items="capabilities" />
     </section-a>
 
-    <section-a
+    <section-g
       bgcolor="light"
       eyebrow="What standalone preconstruction protects"
       title="Certainty before you commit."
       body="Envision helps owners identify risks and make informed decisions while options remain available."
+      :items="protections"
     >
       <list-h :items="protections" />
-    </section-a>
+    </section-g>
 
     <cta-a
       flip

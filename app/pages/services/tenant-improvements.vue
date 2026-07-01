@@ -1,5 +1,6 @@
 <!-- eslint-disable @stylistic/quotes, @stylistic/no-multiple-empty-lines -->
-<script setup lang="ts">definePageMeta({ layout: 'layout-a' });
+<script setup lang="ts">
+definePageMeta({ layout: 'layout-a' });
 
 const posthog = usePostHog();
 onMounted(() => {
@@ -27,27 +28,27 @@ useSeoMeta({
 const operations = [
   {
     id: 1,
-    title: 'Phased construction sequencing',
+    label: 'Phased construction sequencing',
     description:
       'Work is planned around your schedule—not ours. We sequence around your peak hours, events, and operational needs from day one.',
   },
   {
     id: 2,
-    title: 'Negative air and dust containment',
+    label: 'Negative air and dust containment',
     description:
       'In sensitive environments like healthcare, hospitality, occupied offices, we implement full dust barriers and negative air pressure where required.',
   },
   {
     id: 3,
-    title: 'After-hours and weekend work',
+    label: 'After-hours and weekend work',
     description:
-      'When operations can\'t pause, we work around them. After-hours and weekend scheduling is standard practice, not an exception.',
+      "When operations can't pause, we work around them. After-hours and weekend scheduling is standard practice, not an exception.",
   },
   {
     id: 4,
-    title: 'Daily communication',
+    label: 'Daily communication',
     description:
-      'Every day you know exactly what\'s happening: access points, noise windows, site conditions, and what to expect the next day. No surprises.',
+      "Every day you know exactly what's happening: access points, noise windows, site conditions, and what to expect the next day. No surprises.",
   },
 ];
 
@@ -95,7 +96,7 @@ const projectHighlights = [
     id: 3,
     label: 'Budget constraints navigated through product substitution and design collaboration',
   },
-  { id: 4, label: 'Delivered within the client\'s fixed budget without scope reduction' },
+  { id: 4, label: "Delivered within the client's fixed budget without scope reduction" },
   {
     id: 5,
     label:
@@ -126,15 +127,16 @@ const projectHighlights = [
       </template>
     </cta-a>
 
-    <section-a
+    <section-g
       bgcolor="blue"
       eyebrow="Active operations protection"
       title="How we keep your world running while we build."
       body=""
+      :items="operations"
     >
       <template #body> Every TI scope is planned around your schedule, not ours. </template>
       <list-a :items="operations" />
-    </section-a>
+    </section-g>
 
     <section-a bgcolor="light" eyebrow="Where We Work" title="Environments we know well." body="">
       <template #body>
@@ -152,7 +154,7 @@ const projectHighlights = [
       title="What we deliver."
       body=""
       image="https://ik.imagekit.io/pnixsw7lg/main-website/TI_Typical_Scopes_efcd77ecc1.jpg?updatedAt=1780449594590"
-      bgcolor="dark"
+      bgcolor="blue"
     >
       <template #body>
         <list-b :items="scopes" />
