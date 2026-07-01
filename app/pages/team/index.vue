@@ -1,16 +1,17 @@
-<script setup lang="ts">useSeoMeta({
+<script setup lang="ts">
+useSeoMeta({
   title: 'Meet the Team | Envision Construction Services',
   description:
     'Meet the Envision team and learn how each group collaborates to deliver organized, high-quality construction work across Tampa Bay and Central Florida.',
   ogTitle: 'Meet the Team | Envision Construction Services',
   ogDescription:
-    'Six teams, one mission. See how Envision\'s people collaborate to deliver high-quality projects on time and within budget.',
+    "Six teams, one mission. See how Envision's people collaborate to deliver high-quality projects on time and within budget.",
   ogImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Meet the Team | Envision Construction Services',
   twitterDescription:
-    'Six teams, one mission. See how Envision\'s people collaborate to deliver high-quality projects on time and within budget.',
+    "Six teams, one mission. See how Envision's people collaborate to deliver high-quality projects on time and within budget.",
   twitterImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg',
 });
 
@@ -49,11 +50,12 @@ const { data } = useFetch('/api/team', {
       <template #body>
         <app-team-member-list class="light">
           <li v-for="member in team.team_members" :key="member.name">
-            <project-card
+            <lazy-project-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
               :image="member.photo?.url"
               :alt="member.name"
+              hydrate-on-visible
               link-mode="overlay"
               aspect-ratio="3/4"
               image-sizes="(max-width: 768px) 100vw, 300px"
@@ -74,7 +76,7 @@ const { data } = useFetch('/api/team', {
                   {{ member.title }}
                 </app-typography>
               </template>
-            </project-card>
+            </lazy-project-card>
           </li>
         </app-team-member-list>
       </template>

@@ -80,7 +80,7 @@ const testimonials: HomepageTestimonial[] = [
   },
 ];
 
-const { data: featuredProjectCards } = useAsyncData<HomepageFeaturedProjectsResponse>(
+const { data: featuredProjectCards } = useLazyAsyncData<HomepageFeaturedProjectsResponse>(
   'homepage-featured-projects',
   async () => {
     try {
