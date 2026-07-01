@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">
+import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
   id: Project['id'];
@@ -29,7 +30,7 @@ const categorySlug = computed(() => {
 });
 
 const activeCategory = computed(() => {
-  return categories.value.find(category => category.slug === categorySlug.value);
+  return categories.value.find((category) => category.slug === categorySlug.value);
 });
 
 if (!categorySlug.value || !activeCategory.value) {
@@ -65,7 +66,7 @@ const activeProjects = computed(() => {
   }
 
   return data.value
-    .filter(project => projectBelongsToSector(project, activeCategory.value?.slug))
+    .filter((project) => projectBelongsToSector(project, activeCategory.value?.slug))
     .sort((left, right) => getProjectCompletedTime(right) - getProjectCompletedTime(left));
 });
 
@@ -234,9 +235,14 @@ useHead(() => ({
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   container: projects;
   background-color: var(--color-envision-gray-800);
+}
+@container projects (width > 550px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @container projects (width > 750px) {
