@@ -1,4 +1,5 @@
-<script setup lang="ts">defineProps<{
+<script setup lang="ts">
+defineProps<{
   eyebrow?: string;
   title?: string;
   body?: string;
@@ -6,6 +7,10 @@
   buttonTo?: string;
   showBody?: boolean;
   neutral?: boolean;
+}>();
+
+const emit = defineEmits<{
+  buttonClick: [];
 }>();
 </script>
 
@@ -33,7 +38,7 @@
     </app-typography>
 
     <div v-if="buttonTo" class="action mt-6">
-      <m-button :to="buttonTo" variant="outline" size="md">
+      <m-button :to="buttonTo" variant="outline" size="md" @click="emit('buttonClick')">
         {{ buttonLabel }}
       </m-button>
     </div>

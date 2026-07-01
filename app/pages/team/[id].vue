@@ -1,5 +1,7 @@
-<script setup lang="ts">/* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
+<script setup lang="ts">
+/* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+import { toAbsoluteOptionalSiteUrl } from '~/utils/site-url';
 
 definePageMeta({
   layout: 'default',
@@ -104,24 +106,33 @@ const seoTitle = computed(() =>
 
 const seoDescription = computed(() => {
   const fromBio = toSeoDescription(teamMember.value?.bio);
-  if (fromBio)
-    return fromBio;
+  if (fromBio) return fromBio;
 
   const role = teamMember.value?.title ? `${teamMember.value.title}, ` : '';
   return `${role}part of the ${teamName.value} at Envision. Meet the people delivering organized, high-quality construction across Tampa Bay and Central Florida.`;
 });
+const socialImage = computed(() => toAbsoluteOptionalSiteUrl(teamMember.value?.photo?.url));
 
 useSeoMeta(() => ({
   title: seoTitle.value,
   description: seoDescription.value,
   ogTitle: seoTitle.value,
   ogDescription: seoDescription.value,
-  ogImage: teamMember.value?.photo?.url,
+  ogImage: socialImage.value,
   ogType: 'profile',
-  twitterCard: teamMember.value?.photo?.url ? 'summary_large_image' : 'summary',
+  twitterCard: socialImage.value ? 'summary_large_image' : 'summary',
   twitterTitle: seoTitle.value,
   twitterDescription: seoDescription.value,
-  twitterImage: teamMember.value?.photo?.url,
+  twitterImage: socialImage.value,
+}));
+
+useHead(() => ({
+  meta: socialImage.value
+    ? [
+        { key: 'og:image', property: 'og:image', content: socialImage.value },
+        { key: 'twitter:image', name: 'twitter:image', content: socialImage.value },
+      ]
+    : [],
 }));
 </script>
 
@@ -175,7 +186,7 @@ useSeoMeta(() => ({
             class="portrait-image"
             fetchpriority="high"
             @error="portraitFailed = true"
-          >
+          />
           <div v-else class="portrait-fallback" aria-hidden="true">
             {{ memberInitials }}
           </div>

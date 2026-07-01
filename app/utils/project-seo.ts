@@ -1,4 +1,5 @@
-const DEFAULT_SITE_URL = 'https://envision-cs.com';
+import { SITE_URL } from './site-url';
+
 const TITLE_LIMIT = 60;
 const DESCRIPTION_LIMIT = 155;
 
@@ -102,7 +103,7 @@ export function toAbsoluteProjectUrl(pathOrUrl: string | null | undefined): stri
   if (!value) return undefined;
 
   try {
-    return new URL(value, DEFAULT_SITE_URL).toString();
+    return new URL(value, SITE_URL).toString();
   } catch {
     return undefined;
   }

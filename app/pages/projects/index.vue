@@ -70,6 +70,7 @@ const projectCards = computed<ProjectCardItem[]>(() =>
   }),
 );
 const bannerImage = computed(() => 'projects-all.jpg');
+const socialImage = computed(() => toAbsoluteOptionalSiteUrl(bannerImage.value));
 const bannerBody = computed(() => '');
 
 definePageMeta({
@@ -83,13 +84,13 @@ useSeoMeta({
   ogTitle: 'Projects | Envision Construction Tampa Bay & Central Florida',
   ogDescription:
     'Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.',
-  ogImage: '/projects-all.jpg',
+  ogImage: socialImage.value,
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Projects | Envision Construction Tampa Bay & Central Florida',
   twitterDescription:
     'Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.',
-  twitterImage: '/projects-all.jpg',
+  twitterImage: socialImage.value,
 });
 </script>
 

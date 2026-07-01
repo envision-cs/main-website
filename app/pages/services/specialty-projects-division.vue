@@ -1,12 +1,8 @@
-<script setup lang="ts">const posthog = usePostHog();
-onMounted(() => {
-  posthog?.capture('service_page_viewed', { service_name: 'Specialty Projects Division' });
-});
-
+<script setup lang="ts">
 useSeoMeta({
   title: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   description:
-    'Envision\'s Specialty Projects Division (SPD) handles high-volume maintenance, fast-turnaround renovations, multi-site programs, and annual small-project contracts, with 72-hour turnarounds and full CompanyCam documentation.',
+    "Envision's Specialty Projects Division (SPD) handles high-volume maintenance, fast-turnaround renovations, multi-site programs, and annual small-project contracts, with 72-hour turnarounds and full CompanyCam documentation.",
   ogTitle: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   ogDescription:
     'One reliable partner for ongoing small-scope work. Scope it, price it, execute it, document it, on your schedule, including weekends and overnight.',
