@@ -103,10 +103,14 @@ const { data: featuredProjectCards } = useLazyAsyncData<HomepageFeaturedProjects
   },
 );
 
-const stats = [
-  { id: 1, label: '2009', description: 'Year Established' },
-  { id: 2, label: '200+', description: 'Projects Delivered. On Time & On Budget.' },
-  { id: 3, label: '90%', description: 'Repeat Clients' },
+const accomplishmentStats = [
+  { id: 1, value: '2009', label: 'Year Established' },
+  {
+    id: 2,
+    value: '200+',
+    label: 'Projects Delivered. On Time & On Budget.',
+  },
+  { id: 3, value: '90%', label: 'Repeat Clients' },
 ];
 
 const homepageSchema = {
@@ -268,15 +272,12 @@ const LazyCardGroup = defineLazyHydrationComponent(
 <template>
   <main>
     <hero-banner />
-    <section-d
+    <accomplishments-section
       bgcolor="dark"
       eyebrow="Regional Coverage"
       title="Greater Tampa Bay + Central Florida"
-    >
-      <div :style="{ '--accent-color': 'var(--color-envision-green-500)' }">
-        <list-e :items="stats" />
-      </div>
-    </section-d>
+      :accomplishments="accomplishmentStats"
+    />
     <LazyCardGroup :cards="featuredProjectCards.sectionOne" hydrate-on-interaction="mouseover" />
     <cta-a
       bgcolor="dark"

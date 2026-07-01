@@ -24,24 +24,28 @@ useSeoMeta({
 const benefits = [
   {
     id: 1,
+    eyebrow: '01',
     label: 'Certainty early',
     description:
       'Decisions, budget confidence, and schedule realism before a single shovel breaks ground.',
   },
   {
     id: 2,
+    eyebrow: '02',
     label: 'Risk reduction',
     description:
       'Early risk detection in preconstruction while options are still open. Fewer surprises, fewer forced trade-offs.',
   },
   {
     id: 3,
+    eyebrow: '03',
     label: 'Predictable experience',
     description:
       'Clear communication. Consistent follow-through. A team that owns the outcome and never leaves you guessing.',
   },
   {
     id: 4,
+    eyebrow: '04',
     label: 'Value before construction',
     description:
       'Preconstruction as stewardship, not overhead—protecting every dollar that follows',
@@ -108,24 +112,28 @@ const projectHighlights = [
 const commitments = [
   {
     id: 1,
+    eyebrow: '01',
     label: 'Your budget',
     description:
       'Target Value Design and real-time cost control keep your financials visible and decisions informed from day one.',
   },
   {
     id: 2,
+    eyebrow: '02',
     label: 'Your schedule',
     description:
       "Proactive sequencing, long-lead identification, and early trade coordination protect your move-in date before it's at risk.",
   },
   {
     id: 3,
+    eyebrow: '03',
     label: 'Your stakeholders',
     description:
       'Weekly updates and full Procore access mean everyone stays aligned—without you playing middleman.',
   },
   {
     id: 4,
+    eyebrow: '04',
     label: 'Your outcome',
     description:
       'Every project is backed by our Total Transparency guarantee: clear communication and consistent follow-through from kickoff to closeout.',
@@ -133,45 +141,44 @@ const commitments = [
 ];
 
 const stats = [
-  { id: 1, label: '90%', description: 'Repeat client rate earned one project at a time' },
-  { id: 2, label: '200+', description: 'Projects Delivered. On Time & On Budget.' },
-  { id: 3, label: '16 yrs', description: 'Building Greater Tampa Bay' },
+  { id: 1, value: '90%', label: 'Repeat client rate earned one project at a time' },
+  { id: 2, value: '200+', label: 'Projects Delivered. On Time & On Budget.' },
+  { id: 3, value: '16 yrs', label: 'Building Greater Tampa Bay' },
 ];
 </script>
 
 <template>
   <main>
-    <section-d
+    <accomplishments-section
+      bgcolor="blue"
+      eyebrow="Our track record"
+      title="A reputation built one project at a time"
+      :accomplishments="stats"
+    />
+    <!-- <section-d
       bgcolor="blue"
       eyebrow="Our track record"
       title="A reputation built one project at a time"
     >
       <list-e :items="stats" />
-    </section-d>
-    <section-a
-      bgcolor="dark"
+    </section-d> -->
+    <SectionG
       eyebrow="What owners actually need"
       title='"Owners do not just need a builder. They need certainty."'
-    >
-      <list-f :items="benefits" />
-    </section-a>
-    <section-a
-      bgcolor="light"
-      eyebrow="Our Proven Process"
-      title="One Process on every Project. No exceptions."
-      body="Applied consistently regardless of size, sector, or complexity."
-    >
-      <list-g :items="phases" />
-    </section-a>
+      :items="benefits"
+    />
+    <proven-process />
 
     <cta-a
-      title="Four things every owner deserves to have protected."
       image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428"
       bgcolor="dark"
       flip
     >
       <template #body>
-        <list-a :items="commitments" />
+        <section-g
+          title="Four things every owner deserves to have protected."
+          :items="commitments"
+        />
       </template>
     </cta-a>
 
