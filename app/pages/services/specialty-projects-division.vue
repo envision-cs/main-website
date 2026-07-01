@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 useSeoMeta({
   title: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   description:
@@ -136,18 +137,19 @@ definePageMeta({
       </template>
     </cta-a>
 
-    <section-a bgcolor="dark" eyebrow="How SPD works" title="Fast. Documented. Done right." body="">
+    <section-a bgcolor="blue" eyebrow="How SPD works" title="Fast. Documented. Done right." body="">
       <list-f :items="process" />
     </section-a>
 
-    <section-a
+    <section-g
       bgcolor="light"
       eyebrow="The work your facilities team needs done right now."
       title="The work your facilities team needs done — now."
       body="High volume, fast turnaround, zero compromises on quality."
+      :items="serviceOfferings"
     >
       <list-a :items="serviceOfferings" />
-    </section-a>
+    </section-g>
 
     <cta-a
       eyebrow="Featured Project"

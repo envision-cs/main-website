@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import SectionF from './section-f.vue';
-
 const slides: Item[] = [
   {
     id: 1,
@@ -25,8 +23,8 @@ const slides: Item[] = [
 
 <template>
   <SectionF
-    eyebrow="Our Three Uniques"
-    title="Principles that shape every project."
+    eyebrow="Envision"
+    title="Our Three Uniques"
     body="At Envision, every decision we make is guided by a clear philosophy, three core principles that define how we work, why we work, and the impact we strive to create. These Three Uniques are more than values; they are the driving force behind our approach, shaping every project, partnership, and interaction."
     :items="slides"
   />
