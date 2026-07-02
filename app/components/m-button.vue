@@ -203,7 +203,6 @@ const classes = computed(() => [
   display: inline-flex;
 }
 
-.btn__icon :deep(svg),
 .btn__icon svg {
   display: block;
 }
