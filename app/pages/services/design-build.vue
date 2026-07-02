@@ -87,14 +87,15 @@ const deliveryMethods = [
       </template>
     </cta-a>
 
-    <section-a
+    <section-g
       bgcolor="dark"
       eyebrow="What this means for you"
       title="Design-build with Envision means:"
       body="Single-source accountability, fewer handoffs, and better outcomes."
+      :items="differentiators"
     >
       <list-a :items="differentiators" />
-    </section-a>
+    </section-g>
 
     <cta-a
       eyebrow="Typical scopes"

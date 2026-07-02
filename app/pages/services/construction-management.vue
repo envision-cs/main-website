@@ -169,18 +169,16 @@ const stats = [
     />
     <proven-process />
 
-    <cta-a
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428"
-      bgcolor="dark"
-      flip
-    >
-      <template #body>
-        <section-g
-          title="Four things every owner deserves to have protected."
-          :items="commitments"
-        />
-      </template>
-    </cta-a>
+    <section class="split-section" bgcolor="dark">
+      <nuxt-img
+        src="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428"
+        alt="Construction Management"
+        width="100%"
+        height="100%"
+        class="w-full h-full object-cover"
+      />
+      <section-g title="Four things every owner deserves to have protected." :items="commitments" />
+    </section>
 
     <cta-a
       eyebrow="Featured Project"
@@ -244,5 +242,19 @@ Or We Make It Right."
 .list {
   list-style: disc outside;
   padding-left: 1.25rem;
+}
+
+.split-section {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  img {
+    grid-column: 1 / -1;
+    max-height: 80vh;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 </style>

@@ -92,7 +92,6 @@ const innerStyles = computed(() => {
 .section-f__header {
   display: grid;
   width: 100%;
-  max-width: 1300px;
   margin-inline: auto;
   grid-template-columns: 1fr;
   gap: calc(var(--spacing) * 3);
@@ -128,7 +127,6 @@ const innerStyles = computed(() => {
 .section-f__list {
   display: grid;
   grid-template-columns: 1fr;
-  max-width: 1300px;
   margin-inline: auto;
   margin: 0;
   padding: 0;
