@@ -25,26 +25,15 @@ useSeoMeta({
   <div class="projects">
     <ul class="projects-grid" dense>
       <li v-for="service in services" :key="service.slug">
-        <lazy-project-card
+        <project-card-island
           :to="service.to"
           :aria-label="service.title"
           :image="service?.preview || service.image || ''"
           :alt="service.title"
-          hydrate-on-visible
+          :title="service.title"
+          sector="View service"
           aspect-ratio="3/4"
-        >
-          <template #title>
-            <app-typography class="h3 project-card-title" variant="heading-md">
-              {{ service.title }}
-            </app-typography>
-          </template>
-          <template #meta>
-            <span class="submenu-reveal-card__meta">
-              View service
-              <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
-            </span>
-          </template>
-        </lazy-project-card>
+        />
       </li>
     </ul>
   </div>

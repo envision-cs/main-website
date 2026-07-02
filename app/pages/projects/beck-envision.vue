@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">
+import type { Project } from '~~/shared/types/content-types';
 
 interface ProjectCardItem {
   id: Project['id'];
@@ -22,15 +23,14 @@ const { data } = await useAsyncData<Project[]>(
   async () => {
     try {
       return await $fetch<Project[]>('/api/projects');
-    }
-    catch (err) {
+    } catch (err) {
       console.error('Strapi error:', err);
       return [];
     }
   },
   { default: () => [] },
 );
-const activeProjects = computed(() => data.value.filter(p => p.beck === true));
+const activeProjects = computed(() => data.value.filter((p) => p.beck === true));
 const projectCards = computed<ProjectCardItem[]>(() =>
   activeProjects.value.flatMap((project) => {
     const image = project.mainImage?.url;
@@ -54,6 +54,7 @@ const projectCards = computed<ProjectCardItem[]>(() =>
   }),
 );
 const bannerImage = computed(() => 'projects-all.jpg');
+const socialImage = computed(() => toAbsoluteOptionalSiteUrl(bannerImage.value));
 const bannerBody = computed(() => '');
 
 definePageMeta({
@@ -67,13 +68,13 @@ useSeoMeta({
   ogTitle: 'Beck/Envision Partnership | Joint-Venture Construction Projects',
   ogDescription:
     'Two builders, one standard. Explore the projects delivered through the Beck/Envision joint venture, where combined expertise meets local commitment.',
-  ogImage: '/projects-all.jpg',
+  ogImage: socialImage.value,
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Beck/Envision Partnership | Joint-Venture Construction Projects',
   twitterDescription:
     'Two builders, one standard. Explore the projects delivered through the Beck/Envision joint venture, where combined expertise meets local commitment.',
-  twitterImage: '/projects-all.jpg',
+  twitterImage: socialImage.value,
 });
 </script>
 

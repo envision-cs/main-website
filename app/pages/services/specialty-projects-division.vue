@@ -1,8 +1,4 @@
 <script setup lang="ts">
-const posthog = usePostHog();
-onMounted(() => {
-  posthog?.capture('service_page_viewed', { service_name: 'Specialty Projects Division' });
-});
 
 useSeoMeta({
   title: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',

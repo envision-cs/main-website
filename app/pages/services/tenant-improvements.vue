@@ -2,11 +2,6 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'layout-a' });
 
-const posthog = usePostHog();
-onMounted(() => {
-  posthog?.capture('service_page_viewed', { service_name: 'Tenant Improvements' });
-});
-
 useSeoMeta({
   title: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
   description:

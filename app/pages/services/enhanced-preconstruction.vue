@@ -3,11 +3,6 @@ definePageMeta({
   layout: 'layout-a',
 });
 
-const posthog = usePostHog();
-onMounted(() => {
-  posthog?.capture('service_page_viewed', { service_name: 'Enhanced Preconstruction' });
-});
-
 useSeoMeta({
   title: 'Enhanced Preconstruction | Envision Tampa Bay & Central Florida',
   description:

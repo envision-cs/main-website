@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { SITE_URL } from '~/utils/site-url';
+
 interface FeaturedProjectCard {
   title: string;
   link: string;
@@ -20,7 +22,7 @@ interface HomepageTestimonial {
   tone: 'green' | 'blue' | 'charcoal';
 }
 
-const siteUrl = 'https://www.envision-cs.com';
+const siteUrl = SITE_URL;
 const homeUrl = `${siteUrl}/`;
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;

@@ -8,6 +8,10 @@ defineProps<{
   showBody?: boolean;
   neutral?: boolean;
 }>();
+
+const emit = defineEmits<{
+  buttonClick: [];
+}>();
 </script>
 
 <template>
@@ -34,7 +38,7 @@ defineProps<{
     </app-typography>
 
     <div v-if="buttonTo" class="action mt-6">
-      <m-button :to="buttonTo" variant="outline" size="md">
+      <m-button :to="buttonTo" variant="outline" size="md" @click="emit('buttonClick')">
         {{ buttonLabel }}
       </m-button>
     </div>

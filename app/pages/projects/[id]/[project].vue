@@ -165,21 +165,11 @@ const canonicalPath = computed(() => {
   return route.path;
 });
 const canonicalUrl = computed(
-  () => toAbsoluteProjectUrl(canonicalPath.value) || 'https://envision-cs.com/projects',
+  () => toAbsoluteProjectUrl(canonicalPath.value) || toAbsoluteSiteUrl('/projects'),
 );
+const socialImage = computed(() => toAbsoluteOptionalSiteUrl(page.value?.main_image));
 
 const posthog = usePostHog();
-
-onMounted(() => {
-  if (page.value) {
-    posthog?.capture('project_viewed', {
-      project_title: page.value.title,
-      project_sector: page.value.sector,
-      project_location: page.value.location,
-      project_slug: page.value.slug,
-    });
-  }
-});
 
 const imageDialogRef = useTemplateRef<HTMLDialogElement | null>('imageDialogRef');
 const closeButtonRef = useTemplateRef<HTMLButtonElement | null>('closeButtonRef');
@@ -702,19 +692,19 @@ useSeoMeta(() => ({
   description: seoDescription.value,
   ogTitle: seoTitle.value,
   ogDescription: seoDescription.value,
-  ogImage: page.value?.main_image,
+  ogImage: socialImage.value,
   ogType: 'article',
   ogUrl: canonicalUrl.value,
-  twitterCard: page.value?.main_image ? 'summary_large_image' : 'summary',
+  twitterCard: socialImage.value ? 'summary_large_image' : 'summary',
   twitterTitle: seoTitle.value,
   twitterDescription: seoDescription.value,
-  twitterImage: page.value?.main_image,
+  twitterImage: socialImage.value,
 }));
 
 const projectSchema = computed(() => {
   if (!page.value) return null;
 
-  const organizationId = 'https://envision-cs.com/#organization';
+  const organizationId = `${toAbsoluteSiteUrl('/')}#organization`;
   const webpageId = `${canonicalUrl.value}#webpage`;
   const articleId = `${canonicalUrl.value}#project`;
   const imageUrls = [page.value.main_image, ...page.value.gallery.map((image) => image.url)]
@@ -798,7 +788,7 @@ const projectSchema = computed(() => {
             '@type': 'ListItem',
             position: 1,
             name: 'Projects',
-            item: 'https://envision-cs.com/projects',
+            item: toAbsoluteSiteUrl('/projects'),
           },
           {
             '@type': 'ListItem',
@@ -822,9 +812,16 @@ useHead(() => ({
   link: [
     {
       rel: 'canonical',
+      key: 'canonical',
       href: canonicalUrl.value,
     },
   ],
+  meta: socialImage.value
+    ? [
+        { key: 'og:image', property: 'og:image', content: socialImage.value },
+        { key: 'twitter:image', name: 'twitter:image', content: socialImage.value },
+      ]
+    : [],
   script: projectSchema.value
     ? [
         {
