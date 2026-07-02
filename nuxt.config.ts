@@ -53,7 +53,6 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@vueuse/nuxt',
     '@nuxt/image',
-    '@nuxtjs/sitemap',
     '@nuxtjs/mdc',
     '@posthog/nuxt',
     '@nuxtjs/strapi',
@@ -67,6 +66,7 @@ export default defineNuxtConfig({
     },
     '@nuxt/scripts',
     '@nuxt/fonts',
+    '@nuxtjs/seo',
   ],
 
   vite: {
@@ -150,15 +150,15 @@ export default defineNuxtConfig({
   },
   routeRules: {
     // Pages
-    '/': { isr: 600 },
+    '/': { prerender: true },
     '/about': { prerender: true },
     '/trade-partners': { prerender: true },
-    '/services': { isr: 600 },
-    '/services/**': { isr: 600 },
-    '/team': { isr: 600 },
-    '/team/**': { isr: 600 },
-    '/projects': { isr: 600 },
-    '/projects/**': { isr: 600 },
+    '/services': { isr: 3600 },
+    '/services/**': { isr: 3600 },
+    '/team': { isr: 3600 },
+    '/team/**': { isr: 3600 },
+    '/projects': { isr: 3600 },
+    '/projects/**': { isr: 3600 },
     // API (GET) caching
     '/api/services': { cache: { maxAge: 600 } },
     '/api/services/**': { cache: { maxAge: 600 } },
