@@ -17,7 +17,7 @@ defineProps<{
       '--_color': neutral ? 'var(--color-envision-gray-900)' : 'var(--color-envision-blue-500)',
     }"
   >
-    <app-typography v-if="eyebrow" tag="p" variant="text-lg" class="eyebrow">
+    <app-typography v-if="eyebrow" tag="p" variant="text-sm" class="eyebrow">
       {{ eyebrow }}
     </app-typography>
 
@@ -57,7 +57,8 @@ defineProps<{
 .eyebrow {
   text-transform: uppercase;
   font-weight: bold;
-  letter-spacing: 6%;
+  letter-spacing: 0.06em;
+  line-height: 1;
   color: var(--accent-color);
 }
 

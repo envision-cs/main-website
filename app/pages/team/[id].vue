@@ -362,16 +362,12 @@ useSeoMeta(() => ({
 }
 
 .team-section {
-  --accent-color: #fff;
+  --accent-color: var(--teamColor, var(--color-envision-green-500));
   display: grid;
   grid-column: 1/-1;
   border-top: 1px solid var(--ui-border);
   color: var(--section-color);
   background: var(--section-bg);
-}
-
-.team-color {
-  border-left: 8px solid var(--teamColor);
 }
 
 .team-member-card {
