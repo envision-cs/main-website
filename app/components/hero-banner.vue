@@ -139,7 +139,7 @@ const FeatureProjects = defineLazyHydrationComponent(
   display: grid;
   isolation: isolate;
   position: relative;
-  min-height: 100svh;
+  min-height: 640px;
   grid-column: 1 / -1;
   color: var(--section-color);
   background: var(--section-bg);
@@ -186,7 +186,7 @@ const FeatureProjects = defineLazyHydrationComponent(
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-  min-height: 100svh;
+  min-height: 640px;
   gap: calc(var(--spacing) * 6);
   padding: calc(var(--spacing) * 28) calc(var(--spacing) * 4) calc(var(--spacing) * 5);
   align-content: end;
@@ -359,11 +359,11 @@ const FeatureProjects = defineLazyHydrationComponent(
 
 @media (min-width: 1024px) {
   .hero {
-    min-height: 800px;
+    min-height: 720px;
   }
 
   .hero__inner {
-    min-height: 800px;
+    min-height: 720px;
     padding: calc(var(--spacing) * 20) calc(var(--spacing) * 12) calc(var(--spacing) * 5);
   }
 
@@ -384,15 +384,20 @@ const FeatureProjects = defineLazyHydrationComponent(
 
 @media (min-width: 1280px) {
   .hero {
-    min-height: 900px;
+    min-height: 760px;
   }
 
   .hero__inner {
-    min-height: 900px;
+    min-height: 760px;
   }
 }
 
 @media (max-width: 699px) {
+  .hero,
+  .hero__inner {
+    min-height: 100svh;
+  }
+
   .hero__image {
     object-position: center top;
   }
