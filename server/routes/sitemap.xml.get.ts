@@ -60,7 +60,7 @@ function buildUrlXml(siteUrl: string, entry: SitemapEntry) {
   return lines.join('\n');
 }
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   const config = useRuntimeConfig();
   const siteUrl = normalizeSiteUrl(config.site?.url);
   const urls = new Map<string, SitemapEntry>();
@@ -73,13 +73,17 @@ export default defineEventHandler(async (event) => {
     addSitemapUrl(urls, entry);
   }
 
-  setHeader(event, 'Content-Type', 'text/xml; charset=UTF-8');
-  setHeader(event, 'Cache-Control', 'public, max-age=600, s-maxage=600, stale-while-revalidate=3600');
-
-  return [
+  const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ...[...urls.values()].map((entry) => buildUrlXml(siteUrl, entry)),
     '</urlset>',
   ].join('\n');
+
+  return new Response(xml, {
+    headers: {
+      'Content-Type': 'text/xml; charset=UTF-8',
+      'Cache-Control': 'public, max-age=600, s-maxage=600, stale-while-revalidate=3600',
+    },
+  });
 });
