@@ -20,6 +20,7 @@ const props = withDefaults(
     contentPadding?: string;
     contentGap?: string;
     title?: string;
+    subtitle?: string;
     location?: string;
     completed?: string;
     sector?: string;
@@ -47,6 +48,7 @@ const props = withDefaults(
     contentPadding: "1rem",
     contentGap: "0.75rem",
     title: undefined,
+    subtitle: undefined,
     location: undefined,
     completed: undefined,
     sector: undefined,
@@ -94,6 +96,9 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
           <slot name="title">
             <app-typography v-if="title" tag="h3" class="reveal-card__heading" variant="heading-md">
               {{ title }}
+            </app-typography>
+            <app-typography v-if="subtitle" tag="p" variant="text-md" class="reveal-card__subtitle">
+              {{ subtitle }}
             </app-typography>
           </slot>
         </header>
@@ -169,6 +174,9 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
         <slot name="title">
           <app-typography v-if="title" tag="h3" class="reveal-card__heading" variant="heading-md">
             {{ title }}
+          </app-typography>
+          <app-typography v-if="subtitle" tag="p" variant="text-md" class="reveal-card__subtitle">
+            {{ subtitle }}
           </app-typography>
         </slot>
       </header>
@@ -277,6 +285,11 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
   text-wrap: balance;
   font-size: clamp(1.25rem, 5.25cqi, 2.25rem);
   line-height: 1.05;
+}
+
+.reveal-card__subtitle {
+  margin-top: -0.25rem;
+  opacity: 0.85;
 }
 
 .reveal-card__details {

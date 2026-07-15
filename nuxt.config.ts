@@ -137,7 +137,6 @@ export default defineNuxtConfig({
   experimental: {
     sharedPrerenderData: true,
     inlineStyles: true,
-    componentIslands: true,
   },
   strapi: {
     url: process.env.STRAPI_URL,
