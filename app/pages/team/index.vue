@@ -50,11 +50,7 @@ const { data } = useFetch('/api/team', {
       <template #body>
         <app-team-member-list class="light">
           <li v-for="member in team.team_members" :key="member.name">
-<<<<<<< HEAD
-            <project-card
-=======
             <lazy-project-card
->>>>>>> c94f2b85e4e9ee65ad52f00a404894e11cd8e0fc
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
               :image="member.photo?.url"
