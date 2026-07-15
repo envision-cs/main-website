@@ -28,9 +28,9 @@ const homeUrl = `${siteUrl}/`;
 const organizationId = `${siteUrl}/#organization`;
 const websiteId = `${siteUrl}/#website`;
 const homepageId = `${homeUrl}#webpage`;
-const servicesPageId = `${siteUrl}/services#webpage`;
-const projectsPageId = `${siteUrl}/projects#webpage`;
-const contactPageId = `${siteUrl}/contact#webpage`;
+const servicesPageUrl = `${siteUrl}/services`;
+const projectsPageUrl = `${siteUrl}/projects`;
+const contactPageUrl = `${siteUrl}/contact`;
 const homepageImage = 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg';
 
 useSeoMeta({
@@ -233,22 +233,10 @@ const homepageSchema = {
         '@type': 'ImageObject',
         url: homepageImage,
       },
-      significantLink: [servicesPageId, projectsPageId, contactPageId],
+      significantLink: [servicesPageUrl, projectsPageUrl, contactPageUrl],
       mainEntity: {
         '@id': organizationId,
       },
-      review: testimonials.map((testimonial) => ({
-        '@type': 'Review',
-        reviewBody: testimonial.quote,
-        author: {
-          '@type': 'Person',
-          name: testimonial.name,
-          jobTitle: testimonial.title,
-        },
-        itemReviewed: {
-          '@id': organizationId,
-        },
-      })),
       inLanguage: 'en-US',
     },
   ],
@@ -259,7 +247,7 @@ useHead({
     {
       key: 'schema-org-homepage',
       type: 'application/ld+json',
-      innerHTML: JSON.stringify(homepageSchema),
+      innerHTML: JSON.stringify(homepageSchema).replace(/</g, '\\u003c'),
     },
   ],
 });
