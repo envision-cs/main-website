@@ -11,7 +11,7 @@ catalogs:
       version: 0.1.24
 
 overrides:
-  vite: npm:@voidzero-dev/vite-plus-core@latest
+  vite: npm:@voidzero-dev/vite-plus-core@0.1.24
   vitest: npm:@voidzero-dev/vite-plus-test@^0.1.24
 
 importers:
@@ -2566,9 +2566,6 @@ packages:
 
   '@oxc-project/types@0.134.0':
     resolution: {integrity: sha512-T0xuRRKrQFmocH8y+jGfpmSkGcheaJExY9lEihmR1Gm2aH+75B8CzgU2rABRQSzzDxLjZ15Sc0bRVLj5lVeNXQ==}
-
-  '@oxc-project/types@0.136.0':
-    resolution: {integrity: sha512-39Al/B3v9esnHCX7S8l9Se2+s2tb9b2jcMd+bZ2L659VG73kNyGPpPrL5Zi/p0ty7p4pTTU2/Dd+g27hv94XCg==}
 
   '@oxc-project/types@0.137.0':
     resolution: {integrity: sha512-WT+Gb24i8hmvo85AIv2oEYouEXkRlKAlT9WaCa3TfLgNCN+GhrJOGZuIlMouAh38Qe4QOx26eUOVsq70qXrywA==}
@@ -12292,8 +12289,6 @@ snapshots:
 
   '@oxc-project/types@0.134.0': {}
 
-  '@oxc-project/types@0.136.0': {}
-
   '@oxc-project/types@0.137.0': {}
 
   '@oxc-project/types@0.99.0': {}
@@ -13797,7 +13792,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@vitejs/plugin-vue-jsx@5.1.5(@voidzero-dev/vite-plus-core@0.2.1(@types/node@25.9.3)(esbuild@0.28.0)(jiti@2.7.0)(terser@5.48.0)(typescript@6.0.3)(yaml@2.9.0))(vue@3.5.37(typescript@6.0.3))':
+  '@vitejs/plugin-vue-jsx@5.1.5(@voidzero-dev/vite-plus-core@0.1.24(@types/node@25.9.3)(esbuild@0.28.0)(jiti@2.7.0)(terser@5.48.0)(typescript@6.0.3)(yaml@2.9.0))(vue@3.5.37(typescript@6.0.3))':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/plugin-syntax-typescript': 7.29.7(@babel/core@7.29.7)
@@ -17298,6 +17293,77 @@ snapshots:
       '@indoorequal/vue-maplibre-gl': 8.4.2(maplibre-gl@5.24.0)(vue@3.5.37(typescript@6.0.3))
       maplibre-gl: 5.24.0
     transitivePeerDependencies:
+      - vue
+
+  nuxt-og-image@6.7.0(199564f21133aafa0a673c391fb24bfa):
+    dependencies:
+      '@clack/prompts': 1.6.0
+      '@nuxt/kit': 4.4.8(magicast@0.5.3)
+      '@unhead/vue': 2.1.15(vue@3.5.37(typescript@6.0.3))
+      '@unocss/config': 66.7.4
+      '@unocss/core': 66.7.4
+      '@vue/compiler-sfc': 3.5.39
+      chrome-launcher: 1.2.1
+      consola: 3.4.2
+      culori: 4.0.2
+      defu: 6.1.7
+      devalue: 5.8.1
+      exsolve: 1.1.0
+      lightningcss: 1.32.0
+      magic-string: 0.30.21
+      magicast: 0.5.3
+      mocked-exports: 0.1.1
+      nuxt-site-config: 4.1.1(067902204f4b215ce0e66a067c73f757)
+      nuxtseo-shared: 5.3.1(d20168c3f274f4c970cad0dcd6339465)
+      nypm: 0.6.8
+      ofetch: 1.5.1
+      ohash: 2.0.11
+      oxc-parser: 0.137.0
+      oxc-walker: 1.0.0(oxc-parser@0.137.0)(rolldown@1.0.0-rc.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1))
+      pathe: 2.0.3
+      pkg-types: 2.3.1
+      radix3: 1.1.2
+      std-env: 4.1.0
+      strip-literal: 3.1.0
+      tinyexec: 1.2.4
+      tinyglobby: 0.2.17
+      ufo: 1.6.4
+      ultrahtml: 1.6.0
+      unplugin: 3.0.0
+      unstorage: 1.17.5(db0@0.3.4(better-sqlite3@12.10.0))(ioredis@5.11.1)
+    optionalDependencies:
+      '@takumi-rs/core': 2.0.0-beta.14
+      fontless: 0.2.1(db0@0.3.4(better-sqlite3@12.10.0))(ioredis@5.11.1)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.0)(jiti@2.7.0)(terser@5.48.0)(yaml@2.9.0))
+      nitropack: 2.13.4(better-sqlite3@12.10.0)(oxc-parser@0.133.0)(rolldown@1.0.0-rc.10(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1))(srvx@0.11.16)
+      sharp: 0.34.5
+      tailwindcss: 4.3.2
+      unifont: 0.7.4
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - '@nuxt/schema'
+      - nuxt
+      - rolldown
+      - supports-color
+      - vite
+      - vue
+
+  nuxt-schema-org@6.2.3(094c37e4397f4a19330755456f5d2c6f):
+    dependencies:
+      '@nuxt/kit': 4.4.8(magicast@0.5.3)
+      defu: 6.1.7
+      nuxt-site-config: 4.1.1(067902204f4b215ce0e66a067c73f757)
+      nuxtseo-shared: 5.3.1(d20168c3f274f4c970cad0dcd6339465)
+      pkg-types: 2.3.1
+      ufo: 1.6.4
+    optionalDependencies:
+      '@unhead/vue': 2.1.15(vue@3.5.37(typescript@6.0.3))
+      unhead: 2.1.15
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - '@nuxt/schema'
+      - magicast
+      - nuxt
+      - vite
       - vue
 
   nuxt-og-image@6.7.0(199564f21133aafa0a673c391fb24bfa):
