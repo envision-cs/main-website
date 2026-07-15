@@ -142,7 +142,6 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   experimental: {
     sharedPrerenderData: true,
-    inlineStyles: true,
   },
   strapi: {
     url: process.env.STRAPI_URL,

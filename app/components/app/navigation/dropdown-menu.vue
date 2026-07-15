@@ -1,4 +1,7 @@
-<script setup lang="ts">interface DropdownFeaturePanel {
+<script setup lang="ts">
+const posthog = usePostHog();
+
+interface DropdownFeaturePanel {
   to: string;
   image: string;
   eyebrow: string;
@@ -39,8 +42,7 @@ function openMenu() {
 }
 
 function focusFirstMenuItem() {
-  if (!import.meta.client)
-    return;
+  if (!import.meta.client) return;
 
   window.requestAnimationFrame(() => {
     const panel = document.querySelector(`[data-test="${props.panelDataTest}"]`);
@@ -50,8 +52,22 @@ function focusFirstMenuItem() {
   });
 }
 
+const route = useRoute();
+
+const PAGEVIEW: FunnelEvent = {
+  funnel_stage: 'top',
+  conversion_role: 'process_milestone',
+  funnel_movement: 'down',
+  intent: 'low-medium',
+};
+
 function closeOnNavigation() {
   props.closeMenu(1500);
+
+  posthog?.capture(`${props.featurePanel.tone}_navigation_clicked`, {
+    ...PAGEVIEW,
+    page_group: 'global_navigation',
+  });
 
   window.setTimeout(() => {
     props.closeMenu(1500);
@@ -89,7 +105,7 @@ function onTriggerKeydown(event: KeyboardEvent) {
           :data-test="triggerDataTest"
           :data-menu-open="isOpen ? 'true' : undefined"
           aria-haspopup="menu"
-          :aria-expanded="String(isOpen)"
+          :aria-expanded="isOpen"
           @focus="openMenu"
           @focusin="openMenu"
           @pointerenter="openMenu"
