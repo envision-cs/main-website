@@ -1,9 +1,47 @@
 import type { SitemapUrlInput } from '@nuxtjs/sitemap';
-import type { Project, Sector, Team } from '~~/shared/types/content-types';
 
 import { catchError } from '~~/shared/utils/catch-error';
 
 export type SitemapEntry = Exclude<SitemapUrlInput, string>;
+
+type TimestampedEntity = {
+  updatedAt?: string | null;
+  publishedAt?: string | null;
+  createdAt?: string | null;
+};
+
+type SitemapSector = TimestampedEntity & {
+  slug?: string | null;
+};
+
+type SitemapProject = TimestampedEntity & {
+  slug?: string | null;
+  sector?: SitemapSector[] | SitemapSector | null;
+  sectors?: SitemapSector[] | null;
+};
+
+type SitemapTeamMember = TimestampedEntity & {
+  slug?: string | null;
+};
+
+const SITEMAP_FIELDS = ['slug', 'updatedAt', 'publishedAt', 'createdAt'] as const;
+
+function createFieldsQuery(fields: readonly string[]) {
+  const query = new URLSearchParams();
+
+  fields.forEach((field, index) => {
+    query.set(`fields[${index}]`, field);
+  });
+
+  return query;
+}
+
+function createProjectsQuery() {
+  const query = createFieldsQuery(SITEMAP_FIELDS);
+  query.set('populate[sectors][fields][0]', 'slug');
+
+  return query;
+}
 
 function toLastmod(entry: {
   updatedAt?: string | null;
@@ -19,11 +57,11 @@ export function addSitemapUrl(urls: Map<string, SitemapEntry>, entry: SitemapEnt
   urls.set(entry.loc, entry);
 }
 
-function getPrimaryProjectSector(project: Project): Sector | undefined {
+function getPrimaryProjectSector(project: SitemapProject): SitemapSector | undefined {
   const source = project.sectors ?? project.sector;
   const sectors = Array.isArray(source) ? source : source ? [source] : [];
 
-  return sectors.find((sector) => Boolean(sector?.slug && sector?.name));
+  return sectors.find((sector) => Boolean(sector?.slug));
 }
 
 async function fetchCollection<T>(url: string) {
@@ -44,11 +82,16 @@ async function fetchCollection<T>(url: string) {
 export async function getDynamicSitemapUrls() {
   const config = useRuntimeConfig();
   const urls = new Map<string, SitemapEntry>();
+  const baseUrl = config.strapi.url;
+  const projectsQuery = createProjectsQuery();
+  const collectionQuery = createFieldsQuery(SITEMAP_FIELDS);
 
-  const [projects, sectors, teams] = await Promise.all([
-    fetchCollection<Project>(`${config.strapi.url}/api/projects?populate=*`),
-    fetchCollection<Sector>(`${config.strapi.url}/api/sectors?populate=*`),
-    fetchCollection<Team>(`${config.strapi.url}/api/teams?populate[team_members][populate]=*`),
+  const [projects, sectors, teamMembers] = await Promise.all([
+    fetchCollection<SitemapProject>(`${baseUrl}/api/projects?${projectsQuery}`),
+    fetchCollection<SitemapSector>(`${baseUrl}/api/sectors?${collectionQuery}`),
+    fetchCollection<SitemapTeamMember>(
+      `${baseUrl}/api/team-members?${collectionQuery}`,
+    ),
   ]);
 
   for (const sector of sectors) {
@@ -74,17 +117,15 @@ export async function getDynamicSitemapUrls() {
     });
   }
 
-  for (const team of teams) {
-    for (const member of team.team_members ?? []) {
-      if (!member.slug) continue;
+  for (const member of teamMembers) {
+    if (!member.slug) continue;
 
-      addSitemapUrl(urls, {
-        loc: `/team/${member.slug}`,
-        lastmod: toLastmod(member),
-        changefreq: 'monthly',
-        priority: 0.55,
-      });
-    }
+    addSitemapUrl(urls, {
+      loc: `/team/${member.slug}`,
+      lastmod: toLastmod(member),
+      changefreq: 'monthly',
+      priority: 0.55,
+    });
   }
 
   return [...urls.values()];
