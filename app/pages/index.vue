@@ -257,6 +257,8 @@ const LazyCardGroup = defineLazyHydrationComponent(
   () => import('../components/card-group-a.vue'),
 );
 
+const route = useRoute();
+
 const PAGEVIEW: FunnelEvent = {
   funnel_stage: 'top',
   conversion_role: 'process_milestone',
@@ -266,7 +268,7 @@ const PAGEVIEW: FunnelEvent = {
 
 posthog?.capture('page_view', {
   ...PAGEVIEW,
-  source_page: window.location.pathname,
+  source_page: route.path,
 });
 </script>
 
