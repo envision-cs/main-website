@@ -61,6 +61,26 @@ const deliveryMethods = [
 //   { id: 3, label: "Trade partners engaged at every design phase for real-time cost input" },
 //   { id: 4, label: "Delivered on an active school campus with zero disruption to operations" },
 // ];
+
+usePageView({
+  eventName: 'design_build_page_viewed',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    intent: 'medium',
+    funnel_movement: 'down',
+  },
+});
+
+useEngagementTracking({
+  eventName: 'design_build_page_engaged',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium',
+  },
+});
 </script>
 
 <template>

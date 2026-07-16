@@ -145,6 +145,26 @@ const stats = [
   { id: 2, value: '200+', label: 'Projects Delivered. On Time & On Budget.' },
   { id: 3, value: '16 yrs', label: 'Building Greater Tampa Bay' },
 ];
+
+usePageView({
+  eventName: 'construction_managment_page_viewed',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    intent: 'medium',
+    funnel_movement: 'down',
+  },
+});
+
+useEngagementTracking({
+  eventName: 'construction_managment_page_engaged',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium',
+  },
+});
 </script>
 
 <template>
