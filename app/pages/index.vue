@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { SITE_URL } from '~/utils/site-url';
+const posthog = usePostHog();
 
 interface FeaturedProjectCard {
   title: string;
