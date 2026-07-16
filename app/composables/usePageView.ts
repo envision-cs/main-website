@@ -19,6 +19,7 @@ const DEFAULT_PAGE_VIEW_EVENT: FunnelEvent = {
  * Call once at setup; on the server `posthog` is undefined so it no-ops.
  */
 export function usePageView(options: PageViewOptions = {}) {
+  const posthog = usePostHog();
   const { eventName = 'page_view', funnelEvent } = options;
   const route = useRoute();
 

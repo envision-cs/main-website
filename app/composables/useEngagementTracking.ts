@@ -14,6 +14,7 @@ interface EngagementTrackingOptions {
 }
 
 export function useEngagementTracking(options: EngagementTrackingOptions) {
+  const posthog = usePostHog();
   const { eventName, funnelEvent, timeThreshold = 30_000, scrollThreshold = 60 } = options;
 
   const isEngaged = ref(false);
