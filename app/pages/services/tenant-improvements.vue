@@ -98,6 +98,26 @@ const projectHighlights = [
       'Modernized layout and finishes that the client was excited to share with their team and clients',
   },
 ];
+
+usePageView({
+  eventName: 'tenant_improvements_page_viewed',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    intent: 'medium',
+    funnel_movement: 'down',
+  },
+});
+
+useEngagementTracking({
+  eventName: 'tenant_improvements_page_engaged',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium',
+  },
+});
 </script>
 
 <template>
@@ -157,7 +177,7 @@ const projectHighlights = [
     </cta-a>
 
     <cta-a
-      flip="true"
+      :flip="true"
       eyebrow="Featured Project"
       title="Greater Tampa Realtors: Interior Office Renovation"
       body=""

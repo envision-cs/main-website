@@ -78,6 +78,26 @@ const projectHighlights = [
   { id: 4, label: 'Trade partners engaged at every design phase for real-time cost input' },
   { id: 5, label: 'Delivered on schedule within an active school zone' },
 ];
+
+usePageView({
+  eventName: 'enhanced_preconstruction_page_viewed',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    intent: 'medium',
+    funnel_movement: 'down',
+  },
+});
+
+useEngagementTracking({
+  eventName: 'enhanced_preconstruction_page_engaged',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium',
+  },
+});
 </script>
 
 <template>

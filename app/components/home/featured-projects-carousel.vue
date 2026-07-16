@@ -2,6 +2,8 @@
 import type { Project } from '~~/shared/types/content-types';
 
 const AUTOSCROLL_INTERVAL_MS = 8000;
+const TICK_MS = 1000;
+const TOTAL_TICKS = AUTOSCROLL_INTERVAL_MS / TICK_MS;
 
 interface FeaturedProjectSlide {
   id: number;
@@ -14,7 +16,6 @@ interface FeaturedProjectSlide {
 }
 
 const { formatMonthYear } = useFormatDate();
-
 const posthog = usePostHog();
 const route = useRoute();
 
@@ -35,9 +36,7 @@ const { data: projects } = await useAsyncData<Project[]>(
       return [];
     }
   },
-  {
-    default: () => [],
-  },
+  { default: () => [] },
 );
 
 const slides = computed<FeaturedProjectSlide[]>(() => {
@@ -45,16 +44,13 @@ const slides = computed<FeaturedProjectSlide[]>(() => {
     .sort((left, right) => {
       const rightTime = right.completed ? new Date(right.completed).getTime() : 0;
       const leftTime = left.completed ? new Date(left.completed).getTime() : 0;
-
       return rightTime - leftTime;
     })
     .flatMap((project) => {
       const primarySector = getPrimaryProjectSector(project);
       const image = project.mainImage?.url;
 
-      if (!project.slug || !primarySector || !image) {
-        return [];
-      }
+      if (!project.slug || !primarySector || !image) return [];
 
       return [
         {
@@ -73,35 +69,52 @@ const slides = computed<FeaturedProjectSlide[]>(() => {
     .slice(0, 5);
 });
 
-const carouselRef = useTemplateRef<HTMLElement | null>('carouselRef');
+const carouselRef = useTemplateRef<HTMLElement>('carouselRef');
 
-const activeIndex = ref(0);
-const isInteractionPaused = ref(false);
-const prefersReducedMotion = ref(false);
+// ── Environment state (all reactive, all self-cleaning) ─────────────
+const isHovered = useElementHover(carouselRef);
+const { focused: isFocusedWithin } = useFocusWithin(carouselRef);
+const documentVisibility = useDocumentVisibility();
+const motionPreference = usePreferredReducedMotion();
 
-const tick = ref(0);
-const progressTransition = ref(true);
+const prefersReducedMotion = computed(() => motionPreference.value === 'reduce');
+const isInteractionPaused = computed(
+  () => isHovered.value || isFocusedWithin.value || documentVisibility.value === 'hidden',
+);
+
+// ── Slide cycling ────────────────────────────────────────────────────
+const {
+  state: activeSlide,
+  index: activeIndex,
+  next,
+  prev,
+} = useCycleList(slides, { fallbackIndex: 0 });
 
 const slideCount = computed(() => slides.value.length);
-const activeSlide = computed(() => slides.value[activeIndex.value] ?? null);
+const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, '0'));
+const formattedCount = computed(() => String(slideCount.value).padStart(2, '0'));
 
 const liveRegionMode = computed(() =>
   isInteractionPaused.value || prefersReducedMotion.value ? 'polite' : 'off',
 );
 
-const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, '0'));
-const formattedCount = computed(() => String(slideCount.value).padStart(2, '0'));
-const canAutoplay = computed(() => {
-  return slideCount.value > 1 && !isInteractionPaused.value && !prefersReducedMotion.value;
-});
+const canAutoplay = computed(
+  () => slideCount.value > 1 && !isInteractionPaused.value && !prefersReducedMotion.value,
+);
 
-// Normalized 0 → 1 value used for scaleX
-const timerScale = computed(() => {
-  return tick.value / (AUTOSCROLL_INTERVAL_MS / 1000);
-});
+// ── Autoplay timer + progress bar ───────────────────────────────────
+const tick = ref(0);
+const progressTransition = ref(true);
+const timerScale = computed(() => tick.value / TOTAL_TICKS);
 
-let intervalId: ReturnType<typeof window.setInterval> | null = null;
-let motionMediaQuery: MediaQueryList | null = null;
+const { pause: pauseAutoplay, resume: resumeAutoplay } = useIntervalFn(
+  () => {
+    tick.value++;
+    if (tick.value > TOTAL_TICKS) showNextProject();
+  },
+  TICK_MS,
+  { immediate: false },
+);
 
 function resetTick() {
   progressTransition.value = false;
@@ -113,18 +126,15 @@ function resetTick() {
     });
   });
 }
-function setActiveIndex(index: number) {
-  if (!slideCount.value) return;
-  resetTick();
-  activeIndex.value = (index + slideCount.value) % slideCount.value;
-}
 
 function showNextProject() {
-  setActiveIndex(activeIndex.value + 1);
+  resetTick();
+  next();
 }
 
 function showPreviousProject() {
-  setActiveIndex(activeIndex.value - 1);
+  resetTick();
+  prev();
 }
 
 function handleFeaturedProjectClick() {
@@ -141,97 +151,21 @@ function handleFeaturedProjectClick() {
   });
 }
 
-function stopAutoplayInterval() {
-  if (!intervalId) return;
-  resetTick();
-  window.clearInterval(intervalId);
-  intervalId = null;
-}
-
-function startAutoplayInterval() {
-  if (!import.meta.client || !canAutoplay.value) return;
-
-  stopAutoplayInterval();
-  resetTick();
-
-  intervalId = window.setInterval(() => {
-    tick.value++;
-
-    if (tick.value > AUTOSCROLL_INTERVAL_MS / 1000) {
-      showNextProject();
-    }
-  }, 1000);
-}
-
-function onPointerEnter() {
-  isInteractionPaused.value = true;
-}
-
-function onPointerLeave() {
-  isInteractionPaused.value = false;
-}
-
-function onFocusIn() {
-  isInteractionPaused.value = true;
-}
-
-function onFocusOut(event: FocusEvent) {
-  const nextTarget = event.relatedTarget;
-
-  if (!nextTarget || !carouselRef.value?.contains(nextTarget as Node)) {
-    isInteractionPaused.value = false;
-  }
-}
-
-function updateReducedMotionPreference(event?: MediaQueryListEvent) {
-  prefersReducedMotion.value = event?.matches ?? motionMediaQuery?.matches ?? false;
-
-  if (prefersReducedMotion.value) {
-    stopAutoplayInterval();
-  }
-}
-
-function onDocumentVisibilityChange() {
-  isInteractionPaused.value = document.hidden;
-}
-
-watch(canAutoplay, (enabled) => {
-  if (enabled) {
-    startAutoplayInterval();
-    return;
-  }
-  stopAutoplayInterval();
-});
-
-watch(slideCount, (count) => {
-  if (!count) {
-    activeIndex.value = 0;
-    stopAutoplayInterval();
-    return;
-  }
-
-  if (activeIndex.value >= count) {
-    activeIndex.value = 0;
-  }
-});
-
+// Registering the watcher inside onMounted keeps autoplay entirely
+// client-side (no interval ever starts during SSR) and it's still
+// disposed automatically with the component.
 onMounted(() => {
-  motionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  updateReducedMotionPreference();
-
-  motionMediaQuery.addEventListener('change', updateReducedMotionPreference);
-  document.addEventListener('visibilitychange', onDocumentVisibilityChange);
-
-  startAutoplayInterval();
-});
-
-onUnmounted(() => {
-  stopAutoplayInterval();
-  motionMediaQuery?.removeEventListener('change', updateReducedMotionPreference);
-  document.removeEventListener('visibilitychange', onDocumentVisibilityChange);
+  watch(
+    canAutoplay,
+    (enabled) => {
+      resetTick();
+      if (enabled) resumeAutoplay();
+      else pauseAutoplay();
+    },
+    { immediate: true },
+  );
 });
 </script>
-
 <template>
   <section
     v-if="slideCount"
@@ -239,10 +173,6 @@ onUnmounted(() => {
     class="featured-projects"
     aria-label="Featured projects"
     aria-roledescription="carousel"
-    @mouseenter="onPointerEnter"
-    @mouseleave="onPointerLeave"
-    @focusin="onFocusIn"
-    @focusout="onFocusOut"
     @click="handleFeaturedProjectClick"
   >
     <div class="featured-projects__surface" :aria-live="liveRegionMode">

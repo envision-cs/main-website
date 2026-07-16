@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 useSeoMeta({
   title: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   description:
@@ -107,6 +106,26 @@ const stats = [
 
 definePageMeta({
   layout: 'layout-a',
+});
+
+usePageView({
+  eventName: 'specialty_projects_page_viewed',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    intent: 'medium',
+    funnel_movement: 'down',
+  },
+});
+
+useEngagementTracking({
+  eventName: 'specialty_projects_page_engaged',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium',
+  },
 });
 </script>
 
