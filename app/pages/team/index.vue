@@ -18,6 +18,16 @@ useSeoMeta({
 const { data } = useFetch('/api/team', {
   key: 'team',
 });
+
+usePageView({
+  eventName: 'team_page_viewed',
+  funnelEvent: {
+    funnel_stage: 'top',
+    conversion_role: 'secondary_action',
+    intent: 'low-medium',
+    funnel_movement: 'down',
+  },
+});
 </script>
 
 <template>

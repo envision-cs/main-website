@@ -184,4 +184,11 @@ export default defineNuxtConfig({
     quality: 90,
     format: ['avif', 'webp'],
   },
+  scripts: {
+    registry: {
+      posthog: {
+        trigger: 'onNuxtReady',
+      },
+    },
+  },
 });

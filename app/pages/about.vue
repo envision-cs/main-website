@@ -54,6 +54,16 @@ useSeoMeta({
     'Our mission, core values, and proven process. A people-first construction partner serving Greater Tampa Bay and Central Florida.',
   twitterImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg',
 });
+
+usePageView({
+  eventName: 'about_page_viewed',
+  funnelEvent: {
+    funnel_stage: 'top',
+    conversion_role: 'secondary_action',
+    intent: 'low-medium',
+    funnel_movement: 'down',
+  },
+});
 </script>
 
 <template>

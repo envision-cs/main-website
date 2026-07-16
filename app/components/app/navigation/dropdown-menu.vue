@@ -52,8 +52,6 @@ function focusFirstMenuItem() {
   });
 }
 
-const route = useRoute();
-
 const PAGEVIEW: FunnelEvent = {
   funnel_stage: 'top',
   conversion_role: 'process_milestone',
@@ -63,11 +61,6 @@ const PAGEVIEW: FunnelEvent = {
 
 function closeOnNavigation() {
   props.closeMenu(1500);
-
-  posthog?.capture(`${props.featurePanel.tone}_navigation_clicked`, {
-    ...PAGEVIEW,
-    page_group: 'global_navigation',
-  });
 
   window.setTimeout(() => {
     props.closeMenu(1500);
@@ -93,14 +86,26 @@ function onTriggerKeydown(event: KeyboardEvent) {
     props.closeMenu(0);
   }
 }
+
+function onServiceClick(item: DropdownItem) {
+  posthog?.capture(`${props.featurePanel.tone}_nav_item_clicked`, {
+    ...PAGEVIEW,
+    page_group: 'global_navigation',
+    item_slug: item.slug,
+    item_label: item.label,
+    item_to: item.to,
+  });
+
+  closeOnNavigation();
+}
 </script>
 
 <template>
   <NavigationMenuItem :value="props.value">
     <div class="desktop-dropdown-trigger-group">
-      <NuxtLink v-slot="{ href }" :to="featurePanel.to" custom>
-        <a
-          :href="href"
+      <div >
+        <NuxtLink
+        :to="featurePanel.to"
           class="NavigationMenuTrigger desktop-inline-nav-link submenu"
           :data-test="triggerDataTest"
           :data-menu-open="isOpen ? 'true' : undefined"
@@ -113,8 +118,8 @@ function onTriggerKeydown(event: KeyboardEvent) {
           @click="closeOnNavigation"
         >
           {{ label }}
-        </a>
-      </NuxtLink>
+        </NuxtLink>
+      </>
       <MButton
         type="button"
         class="desktop-dropdown-open-button"
@@ -148,7 +153,7 @@ function onTriggerKeydown(event: KeyboardEvent) {
             :to="item.to"
             class="mega-menu-item"
             :data-test="itemDataTest"
-            @click="closeOnNavigation"
+            @click="onServiceClick(item)"
           >
             <span class="mega-menu-item__title">{{ item.label }}</span>
             <span v-if="item.description" class="mega-menu-item__description">
@@ -173,7 +178,7 @@ function onTriggerKeydown(event: KeyboardEvent) {
         </div>
       </div>
     </NavigationMenuContent>
-  </NavigationMenuItem>
+  </div></NavigationMenuItem>
 </template>
 
 <style scoped>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { SITE_URL } from '~/utils/site-url';
-const posthog = usePostHog();
 
 interface FeaturedProjectCard {
   title: string;
@@ -257,18 +256,23 @@ const LazyCardGroup = defineLazyHydrationComponent(
   () => import('../components/card-group-a.vue'),
 );
 
-const route = useRoute();
+usePageView({
+  funnelEvent: {
+    conversion_role: 'process_milestone',
+    intent: 'low',
+    funnel_movement: 'entry',
+    funnel_stage: 'top',
+  },
+});
 
-const PAGEVIEW: FunnelEvent = {
-  funnel_stage: 'top',
-  conversion_role: 'process_milestone',
-  funnel_movement: 'entry',
-  intent: 'low',
-};
-
-posthog?.capture('page_view', {
-  ...PAGEVIEW,
-  source_page: route.path,
+useEngagementTracking({
+  eventName: 'homepage_session_engaged',
+  funnelEvent: {
+    funnel_stage: 'top',
+    conversion_role: 'secondary_action',
+    funnel_movement: 'down',
+    intent: 'low',
+  },
 });
 </script>
 
