@@ -257,16 +257,23 @@ const LazyCardGroup = defineLazyHydrationComponent(
   () => import('../components/card-group-a.vue'),
 );
 
-const PAGEVIEW: FunnelEvent = {
-  funnel_stage: 'top',
-  conversion_role: 'process_milestone',
-  funnel_movement: 'entry',
-  intent: 'low',
-};
+usePageView({
+  funnelEvent: {
+    conversion_role: 'process_milestone',
+    intent: 'low',
+    funnel_movement: 'entry',
+    funnel_stage: 'top',
+  },
+});
 
-posthog?.capture('page_view', {
-  ...PAGEVIEW,
-  source_page: window.location.pathname,
+useEngagementTracking({
+  eventName: 'homepage_session_engaged',
+  funnelEvent: {
+    funnel_stage: 'top',
+    conversion_role: 'secondary_action',
+    funnel_movement: 'down',
+    intent: 'low',
+  },
 });
 </script>
 

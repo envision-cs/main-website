@@ -1,4 +1,5 @@
-<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">
+import type { Project } from '~~/shared/types/content-types';
 
 const AUTOSCROLL_INTERVAL_MS = 8000;
 
@@ -14,13 +15,22 @@ interface FeaturedProjectSlide {
 
 const { formatMonthYear } = useFormatDate();
 
+const posthog = usePostHog();
+const route = useRoute();
+
+const FeaturedProjectEvent: FunnelEvent = {
+  funnel_stage: 'top',
+  conversion_role: 'secondary_action',
+  funnel_movement: 'down',
+  intent: 'low-medium',
+};
+
 const { data: projects } = await useAsyncData<Project[]>(
   'hero-featured-projects-carousel',
   async () => {
     try {
       return await $fetch<Project[]>('/api/projects');
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Failed to fetch hero featured projects:', error);
       return [];
     }
@@ -104,8 +114,7 @@ function resetTick() {
   });
 }
 function setActiveIndex(index: number) {
-  if (!slideCount.value)
-    return;
+  if (!slideCount.value) return;
   resetTick();
   activeIndex.value = (index + slideCount.value) % slideCount.value;
 }
@@ -118,17 +127,29 @@ function showPreviousProject() {
   setActiveIndex(activeIndex.value - 1);
 }
 
+function handleFeaturedProjectClick() {
+  const slide = activeSlide.value;
+  if (!slide) return;
+
+  posthog?.capture('featured_project_carousel_interacted', {
+    ...FeaturedProjectEvent,
+    page_group: 'homepage_hero',
+    source_page: route.path,
+    project_title: slide.title,
+    project_sector: slide.sector,
+    carousel_position: activeIndex.value + 1,
+  });
+}
+
 function stopAutoplayInterval() {
-  if (!intervalId)
-    return;
+  if (!intervalId) return;
   resetTick();
   window.clearInterval(intervalId);
   intervalId = null;
 }
 
 function startAutoplayInterval() {
-  if (!import.meta.client || !canAutoplay.value)
-    return;
+  if (!import.meta.client || !canAutoplay.value) return;
 
   stopAutoplayInterval();
   resetTick();
@@ -222,6 +243,7 @@ onUnmounted(() => {
     @mouseleave="onPointerLeave"
     @focusin="onFocusIn"
     @focusout="onFocusOut"
+    @click="handleFeaturedProjectClick"
   >
     <div class="featured-projects__surface" :aria-live="liveRegionMode">
       <Transition name="featured-fade" mode="out-in">
@@ -336,8 +358,8 @@ onUnmounted(() => {
   color: inherit;
   text-decoration: none;
 
-  @media(min-width: 1100px){
-      display: block;
+  @media (min-width: 1100px) {
+    display: block;
   }
 }
 

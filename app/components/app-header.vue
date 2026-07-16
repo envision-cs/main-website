@@ -27,6 +27,7 @@ const desktopDropdowns = computed(() => [
       title: 'Services',
       copy: servicesDropdownDescription,
       linkLabel: 'view all services',
+      tone: 'services' as const,
     },
     items: services.value.map((item, index) => ({
       id: index,

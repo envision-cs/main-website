@@ -104,7 +104,13 @@ export default defineNuxtConfig({
         maskAllInputs: true,
         maskTextSelector: '*',
       },
-      tracing_headers: ['localhost', 'envision-cs.com', 'www.envision-cs.com'],
+      tracing_headers: [
+        'localhost',
+        'envision-cs.com',
+        'www.envision-cs.com',
+        'preview.envision-cs.com',
+        'envision-prod-preview.localhost',
+      ],
       ui_host: 'https://us.posthog.com',
       person_profiles: 'identified_only',
     },
@@ -136,7 +142,6 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   experimental: {
     sharedPrerenderData: true,
-    inlineStyles: true,
   },
   strapi: {
     url: process.env.STRAPI_URL,
@@ -178,5 +183,12 @@ export default defineNuxtConfig({
     },
     quality: 90,
     format: ['avif', 'webp'],
+  },
+  scripts: {
+    registry: {
+      posthog: {
+        trigger: 'onNuxtReady',
+      },
+    },
   },
 });
