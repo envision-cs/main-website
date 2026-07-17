@@ -34,3 +34,9 @@ export type FunnelEvent = {
   funnel_movement: FunnelMovement;
   intent: Intent;
 };
+
+export interface GalleryImage {
+  url: string;
+  altText: string;
+  recommendedFilename: string;
+}
