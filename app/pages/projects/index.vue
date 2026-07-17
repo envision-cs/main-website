@@ -69,7 +69,9 @@ const projectCards = computed<ProjectCardItem[]>(() =>
     ];
   }),
 );
-const bannerImage = computed(() => 'projects-all.jpg');
+const bannerImage = computed(
+  () => '/main-website/UT%20MPB%20-%20Aerial%20-%20Pre-dawn%20One%20Point.webp',
+);
 const socialImage = computed(() => toAbsoluteOptionalSiteUrl(bannerImage.value));
 const bannerBody = computed(() => '');
 
