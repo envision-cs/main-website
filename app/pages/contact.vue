@@ -25,6 +25,14 @@ useSeoMeta({
     'Speak with our team. Start a project, ask a question, or find the right construction partner across Tampa Bay and Central Florida.',
   twitterImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/contact-image',
 });
+
+       function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
 </script>
 
 <template>
@@ -93,7 +101,7 @@ useSeoMeta({
               <project-card
                 :to="`/team/${member.slug}`"
                 :aria-label="member.name"
-                :image="member.photo?.url ?? ''"
+                :image="getImageKitPath(member.photo?.url)"
                 :alt="member.name"
                 link-mode="overlay"
                 aspect-ratio="3/4"
