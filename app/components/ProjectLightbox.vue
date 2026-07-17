@@ -88,6 +88,14 @@ function onSlideError(image: GalleryImage) {
 }
 
 defineExpose({ open, close });
+
+    function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
 </script>
 
 <template>
@@ -133,7 +141,7 @@ defineExpose({ open, close });
               >
                 <NuxtImg
                   class="lightbox__image"
-                  :src="image.url"
+                  :src="getImageKitPath(image.url)"
                   :alt="image.altText"
                   :data-recommended-filename="image.recommendedFilename"
                   format="avif"
