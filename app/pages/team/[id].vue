@@ -137,6 +137,14 @@ useHead(() => ({
       ]
     : [],
 }));
+
+      function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
 </script>
 
 <template>
@@ -224,7 +232,7 @@ useHead(() => ({
             <project-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
-              :image="member.photo?.url"
+              :image="getImageKitPath(member.photo?.url)"
               :alt="member.name"
               link-mode="overlay"
               aspect-ratio="3/4"
