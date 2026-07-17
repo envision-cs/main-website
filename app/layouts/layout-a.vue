@@ -37,7 +37,7 @@ const activeCategory = computed<{
       link: '/contact',
       slug: 'all',
       image:
-        'https://ik.imagekit.io/pnixsw7lg/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560',
+        '/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560',
     }
   );
 });
