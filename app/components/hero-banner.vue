@@ -58,6 +58,16 @@ const FeatureProjects = defineLazyHydrationComponent(
   'idle',
   () => import('../components/home/featured-projects-carousel.vue'),
 );
+
+  function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
+
+const trimmedImage = computed(() => getImageKitPath(hero.image?.url));
 </script>
 
 <template>
@@ -70,9 +80,9 @@ const FeatureProjects = defineLazyHydrationComponent(
   >
     <div class="hero__media">
       <NuxtImg
-        v-if="hero.image?.url"
+        v-if="trimmedImage"
         provider="imagekit"
-        :src="hero.image.url"
+        :src="trimmedImage"
         alt="Exterior view of a residence hall at dusk"
         :sizes="heroImageSizes"
         fit="cover"
