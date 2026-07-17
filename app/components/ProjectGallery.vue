@@ -33,6 +33,13 @@ async function openLightbox(index: number) {
 
   lightboxRef.value?.open(index);
 }
+  function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
 </script>
 
 <template>
@@ -46,7 +53,7 @@ async function openLightbox(index: number) {
       >
         <NuxtImg
           provider="imagekit"
-          :src="image.url"
+          :src="getImageKitPath(image.url)"
           :alt="image.altText"
           :data-recommended-filename="image.recommendedFilename"
           format="avif"
