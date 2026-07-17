@@ -79,8 +79,8 @@ function getImageKitPath(url?: string) {
   >
     <div class="hero__media">
       <NuxtImg
-        v-if="trimmedImage"
-        provider="hero.image?.url"
+        v-if="hero.image?.url"
+        provider="imagekit"
         :src="getImageKitPath(hero.image?.url)"
         alt="Exterior view of a residence hall at dusk"
         :sizes="heroImageSizes"
