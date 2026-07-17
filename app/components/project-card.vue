@@ -57,6 +57,16 @@ const props = withDefaults(
   },
 );
 
+function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
+
+const trimmedImage = computed(() => getImageKitPath(props.image));
+  
 const imageAlt = computed(() => props.alt || props.ariaLabel);
 const hasProjectDetails = computed(() => Boolean(props.location || props.completed));
 const hasDetails = computed(() => Boolean(useSlots().details || hasProjectDetails.value));
@@ -79,7 +89,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
     >
       <NuxtImg
         provider="imagekit"
-        :src="image"
+        :src="trimmedImage"
         :alt="imageAlt"
         :format="imageFormat"
         :quality="imageQuality"
