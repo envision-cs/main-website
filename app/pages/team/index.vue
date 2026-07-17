@@ -28,6 +28,14 @@ usePageView({
     funnel_movement: 'down',
   },
 });
+
+  function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
 </script>
 
 <template>
@@ -63,7 +71,7 @@ usePageView({
             <lazy-project-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
-              :image="member.photo?.url"
+              :image="getImageKitPath(member.photo?.url)"
               :alt="member.name"
               hydrate-on-visible
               link-mode="overlay"
