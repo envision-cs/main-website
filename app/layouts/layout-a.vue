@@ -41,6 +41,15 @@ const activeCategory = computed<{
     }
   );
 });
+
+    function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
+
 </script>
 
 <template>
@@ -49,7 +58,7 @@ const activeCategory = computed<{
     <div class="header">
       <banner-b
         :position="activeCategory.position"
-        :image="activeCategory?.image"
+        :image="getImageKitPath(activeCategory?.image)"
         :cta="activeCategory.cta"
         cta-to="/contact"
       >
