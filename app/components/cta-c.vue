@@ -10,6 +10,8 @@ const props = withDefaults(
     title: string;
     eyebrow?: string;
     bgcolor?: 'light' | 'dark' | 'blue';
+    eventName?: string;
+    funnelEvent?: FunnelEvent;
   }>(),
   {
     bgcolor: 'light',
@@ -17,10 +19,14 @@ const props = withDefaults(
 );
 
 const posthog = usePostHog();
+const route = useRoute();
 
 function handleCtaClick() {
-  if (props.href) {
-    posthog?.capture('cta_clicked', { label: props.label, href: props.href });
+  if (props.href && props.eventName) {
+    posthog?.capture(props?.eventName, {
+      ...props.funnelEvent,
+      source_page: route.path,
+    });
   }
 }
 </script>

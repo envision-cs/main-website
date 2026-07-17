@@ -118,6 +118,19 @@ useEngagementTracking({
     intent: 'medium',
   },
 });
+
+const { trackClick: handleViewProjectClick } = useClickTracking({
+  eventName: 'tenant_improvements_featured_project_clicked',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium-high',
+  },
+  properties: {
+    page_group: 'service details',
+  },
+});
 </script>
 
 <template>
@@ -203,6 +216,15 @@ useEngagementTracking({
             </app-typography>
           </li>
         </ul>
+        <m-button
+          label="View Project"
+          to="/projects/k-12-education/hillsborough-county-public-schools-liberty-middle-school-play-court-cover"
+          bgcolor="blue"
+          class="mt-6"
+          @click="handleViewProjectClick"
+        >
+          View Project
+        </m-button>
       </template>
     </cta-a>
     <cta-c
@@ -212,6 +234,13 @@ useEngagementTracking({
       label="Tell us about your space"
       href="/contact"
       bgcolor="dark"
+      event-name="tenant_improvements_cta_click"
+      :funnel-event="{
+        funnel_movement: 'down',
+        funnel_stage: 'middle',
+        conversion_role: 'process_milestone',
+        intent: 'high',
+      }"
     >
       <template #title>
         <app-typography

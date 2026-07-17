@@ -165,6 +165,19 @@ useEngagementTracking({
     intent: 'medium',
   },
 });
+
+const { trackClick: handleViewProjectClick } = useClickTracking({
+  eventName: 'construction_managment_featured_project_clicked',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium-high',
+  },
+  properties: {
+    page_group: 'service details',
+  },
+});
 </script>
 
 <template>
@@ -227,6 +240,7 @@ useEngagementTracking({
           to="/projects/athletics/usl-super-league-stadium"
           bgcolor="blue"
           class="mt-6"
+          @click="handleViewProjectClick"
         >
           View Project
         </m-button>
@@ -241,6 +255,13 @@ Or We Make It Right."
       label="Start the conversation"
       href="/contact"
       bgcolor="dark"
+      event-name="construction_management_cta_click"
+      :funnel-event="{
+        funnel_movement: 'down',
+        funnel_stage: 'middle',
+        conversion_role: 'process_milestone',
+        intent: 'high',
+      }"
     >
       <template #title>
         <app-typography
