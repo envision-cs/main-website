@@ -98,6 +98,19 @@ useEngagementTracking({
     intent: 'medium',
   },
 });
+
+const { trackClick: handleViewProjectClick } = useClickTracking({
+  eventName: 'enhanced_preconstruction_featured_project_clicked',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium-high',
+  },
+  properties: {
+    page_group: 'service details',
+  },
+});
 </script>
 
 <template>
@@ -174,6 +187,15 @@ useEngagementTracking({
             </app-typography>
           </li>
         </ul>
+        <m-button
+          label="View Project"
+          to="/projects/k-12-education/hillsborough-county-public-schools-liberty-middle-school-play-court-cover"
+          bgcolor="blue"
+          class="mt-6"
+          @click="handleViewProjectClick"
+        >
+          View Project
+        </m-button>
       </template>
     </cta-a>
     <cta-c
@@ -183,6 +205,13 @@ useEngagementTracking({
       label="Engage Us Early"
       href="/contact"
       bgcolor="dark"
+      event-name="enhanced_preconstruction_cta_click"
+      :funnel-event="{
+        funnel_movement: 'down',
+        funnel_stage: 'middle',
+        conversion_role: 'process_milestone',
+        intent: 'high',
+      }"
     />
   </main>
 </template>

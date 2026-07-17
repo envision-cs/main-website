@@ -232,6 +232,13 @@ useEngagementTracking({
       label="Get a scope started"
       href="/contact"
       bgcolor="dark"
+      event-name="specialty_projects_division_cta_click"
+      :funnel-event="{
+        funnel_movement: 'down',
+        funnel_stage: 'middle',
+        conversion_role: 'process_milestone',
+        intent: 'high',
+      }"
     >
       <template #title>
         <app-typography

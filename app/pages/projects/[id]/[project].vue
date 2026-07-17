@@ -881,6 +881,26 @@ const relatedProjects = computed(() => {
 const relatedProjectsTitle = computed(
   () => `Related Commercial Projects in ${page.value?.sector || 'This Sector'}`,
 );
+
+usePageView({
+  eventName: `${page.value?.slug}_page_viewed`,
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    intent: 'medium',
+    funnel_movement: 'down',
+  },
+});
+
+useEngagementTracking({
+  eventName: `${page.value?.slug}_session_engaged`,
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'low',
+  },
+});
 </script>
 
 <template>
