@@ -37,10 +37,19 @@ const activeCategory = computed<{
       link: '/contact',
       slug: 'all',
       image:
-        'https://ik.imagekit.io/pnixsw7lg/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560',
+        '/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560',
     }
   );
 });
+
+    function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
+
 </script>
 
 <template>
@@ -49,7 +58,7 @@ const activeCategory = computed<{
     <div class="header">
       <banner-b
         :position="activeCategory.position"
-        :image="activeCategory?.image"
+        :image="getImageKitPath(activeCategory?.image)"
         :cta="activeCategory.cta"
         cta-to="/contact"
       >

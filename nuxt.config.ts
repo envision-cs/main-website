@@ -178,8 +178,9 @@ export default defineNuxtConfig({
     '/api/homepage-featured-project-section': { cache: { maxAge: 600 } },
   },
   image: {
+    provider:'imagekit',
     imagekit: {
-      baseURL: '',
+      baseURL: 'https://ik.imagekit.io/pnixsw7lg',
     },
     quality: 90,
     format: ['avif', 'webp'],

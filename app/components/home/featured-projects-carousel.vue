@@ -165,6 +165,15 @@ onMounted(() => {
     { immediate: true },
   );
 });
+
+   function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
+
 </script>
 <template>
   <section
@@ -194,7 +203,7 @@ onMounted(() => {
             <span class="featured-projects__media" aria-hidden="true">
               <NuxtImg
                 provider="imagekit"
-                :src="activeSlide.image"
+                :src="getImageKitPath(activeSlide.image)"
                 height="300"
                 alt=""
                 format="avif"
