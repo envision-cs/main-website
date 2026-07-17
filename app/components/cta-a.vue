@@ -14,6 +14,14 @@ withDefaults(
     bgcolor: 'light',
   },
 );
+
+    function getImageKitPath(url?: string) {
+  if (!url) return undefined;
+
+  return url
+    .replace('https://ik.imagekit.io/pnixsw7lg', '')
+    .split('?')[0];
+}
 </script>
 
 <template>
@@ -32,7 +40,7 @@ withDefaults(
       </div>
     </div>
     <NuxtImg
-      :src="image"
+      :src="getImageKitPath(image)"
       provider="imagekit"
       :modifiers="{ focus: 'bottom' }"
       format="avif"
