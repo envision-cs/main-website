@@ -169,8 +169,6 @@ const canonicalUrl = computed(
 );
 const socialImage = computed(() => toAbsoluteOptionalSiteUrl(page.value?.main_image));
 
-const posthog = usePostHog();
-
 const imageDialogRef = useTemplateRef<HTMLDialogElement | null>('imageDialogRef');
 const closeButtonRef = useTemplateRef<HTMLButtonElement | null>('closeButtonRef');
 const viewportRef = useTemplateRef<HTMLDivElement | null>('viewportRef');
@@ -883,24 +881,42 @@ const relatedProjectsTitle = computed(
 );
 
 usePageView({
-  eventName: `${page.value?.slug}_page_viewed`,
+  eventName: `project_details_page_viewed`,
   funnelEvent: {
     funnel_stage: 'middle',
     conversion_role: 'process_milestone',
     intent: 'medium',
     funnel_movement: 'down',
   },
+  properties: {
+    project_title: page.value?.title ?? '',
+  },
 });
 
 useEngagementTracking({
-  eventName: `${page.value?.slug}_session_engaged`,
+  eventName: `project_details_page_session_engaged`,
   funnelEvent: {
     funnel_stage: 'middle',
     conversion_role: 'process_milestone',
     funnel_movement: 'down',
     intent: 'low',
   },
+  properties: {
+    project_title: page.value?.title ?? '',
+  },
 });
+
+const posthog = usePostHog();
+function trackAssociatedProjectClick(project: any) {
+  posthog?.capture('related_project_clicked', {
+    funnel_stage: 'middle',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium-high',
+    current_project: page.value?.title,
+    project_title: project.title,
+  });
+}
 </script>
 
 <template>
@@ -1176,6 +1192,7 @@ useEngagementTracking({
               :location="project.location"
               :completed="project.completed"
               :sector="project.sector"
+              @click="trackAssociatedProjectClick(project)"
             />
           </div>
         </div>

@@ -11,11 +11,18 @@ interface EngagementTrackingOptions {
   timeThreshold?: number;
   /** Scroll depth percentage before firing `scroll_X` trigger. Default: 60 */
   scrollThreshold?: number;
+  properties?: Record<string, string>;
 }
 
 export function useEngagementTracking(options: EngagementTrackingOptions) {
   const posthog = usePostHog();
-  const { eventName, funnelEvent, timeThreshold = 30_000, scrollThreshold = 60 } = options;
+  const {
+    eventName,
+    funnelEvent,
+    timeThreshold = 30_000,
+    scrollThreshold = 60,
+    properties,
+  } = options;
 
   const isEngaged = ref(false);
 
@@ -43,6 +50,7 @@ export function useEngagementTracking(options: EngagementTrackingOptions) {
 
     posthog?.capture(eventName, {
       ...funnelEvent,
+      ...properties,
       engagement_trigger: trigger,
     });
   }

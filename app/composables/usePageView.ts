@@ -5,6 +5,7 @@ interface PageViewOptions {
   eventName?: string;
   /** Funnel classification props merged over the page-view defaults. */
   funnelEvent?: Partial<FunnelEvent>;
+  properties?: Record<string, string>;
 }
 
 const DEFAULT_PAGE_VIEW_EVENT: FunnelEvent = {
@@ -20,12 +21,13 @@ const DEFAULT_PAGE_VIEW_EVENT: FunnelEvent = {
  */
 export function usePageView(options: PageViewOptions = {}) {
   const posthog = usePostHog();
-  const { eventName = 'page_view', funnelEvent } = options;
+  const { eventName = 'page_view', funnelEvent, properties } = options;
   const route = useRoute();
 
   posthog?.capture(eventName, {
     ...DEFAULT_PAGE_VIEW_EVENT,
     ...funnelEvent,
+    ...properties,
     source_page: route.path,
   });
 }
