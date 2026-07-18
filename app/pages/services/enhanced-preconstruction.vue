@@ -3,6 +3,21 @@ definePageMeta({
   layout: 'layout-a',
 });
 
+const posthog = usePostHog();
+const route = useRoute();
+
+function trackContactCtaClick() {
+  posthog?.capture('contact_cta_clicked', {
+    funnel_stage: 'bottom',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'high',
+    cta_source: 'service',
+    service_name: 'Enhanced Preconstruction',
+    source_page: route.path,
+  });
+}
+
 useSeoMeta({
   title: 'Enhanced Preconstruction | Envision Tampa Bay & Central Florida',
   description:
@@ -205,13 +220,7 @@ const { trackClick: handleViewProjectClick } = useClickTracking({
       label="Engage Us Early"
       href="/contact"
       bgcolor="dark"
-      event-name="enhanced_preconstruction_cta_click"
-      :funnel-event="{
-        funnel_movement: 'down',
-        funnel_stage: 'middle',
-        conversion_role: 'process_milestone',
-        intent: 'high',
-      }"
+      @button-click="trackContactCtaClick"
     />
   </main>
 </template>

@@ -223,6 +223,11 @@ usePageView({
   properties: { project_title: page.value?.title ?? '' },
 });
 
+useProjectEvaluationTracking(
+  () => page.value?.id,
+  () => page.value?.title,
+);
+
 useEngagementTracking({
   eventName: 'project_details_page_session_engaged',
   funnelEvent: {
@@ -242,6 +247,18 @@ function trackRelatedProjectClick(project: RelatedProjectCard) {
     intent: 'medium-high',
     current_project: page.value?.title,
     project_title: project.title,
+  });
+}
+
+function trackContactCtaClick() {
+  posthog?.capture('contact_cta_clicked', {
+    funnel_stage: 'bottom',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'high',
+    cta_source: 'project',
+    project_title: page.value?.title,
+    source_page: route.path,
   });
 }
 </script>
@@ -284,6 +301,16 @@ function trackRelatedProjectClick(project: RelatedProjectCard) {
           <div v-if="ast?.body" class="project-intro__body">
             <MDCRenderer :body="ast.body" :data="ast.data" />
           </div>
+
+          <m-button
+            to="/contact"
+            size="sm"
+            variant="outline"
+            class="project-intro__contact"
+            @click="trackContactCtaClick"
+          >
+            Contact Us
+          </m-button>
 
           <div
             v-if="page.beck"
@@ -470,6 +497,10 @@ function trackRelatedProjectClick(project: RelatedProjectCard) {
 
 .project-intro__body :deep(p + p) {
   margin-block-start: calc(var(--spacing) * 4);
+}
+
+.project-intro__contact {
+  width: fit-content;
 }
 
 .project-intro__partner {

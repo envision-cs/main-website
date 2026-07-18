@@ -1,6 +1,5 @@
 <script setup lang="ts">
 /* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
-import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 import { toAbsoluteOptionalSiteUrl } from '~/utils/site-url';
 
 definePageMeta({
@@ -116,6 +115,20 @@ const seoDescription = computed(() => {
 });
 const socialImage = computed(() => toAbsoluteOptionalSiteUrl(teamMember.value?.photo?.url));
 
+// ── Analytics ──────────────────────────────────────────────────────────────
+usePageView({
+  eventName: 'team_member_profile_viewed',
+  funnelEvent: {
+    funnel_stage: 'middle',
+    conversion_role: 'secondary_action',
+    intent: 'medium',
+    funnel_movement: 'neutral',
+  },
+  properties: {
+    team_member: teamMember.value?.name,
+  },
+});
+
 useSeoMeta(() => ({
   title: seoTitle.value,
   description: seoDescription.value,
@@ -138,12 +151,10 @@ useHead(() => ({
     : [],
 }));
 
-      function getImageKitPath(url?: string) {
+function getImageKitPath(url?: string) {
   if (!url) return undefined;
 
-  return url
-    .replace('https://ik.imagekit.io/pnixsw7lg', '')
-    .split('?')[0];
+  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
 }
 </script>
 

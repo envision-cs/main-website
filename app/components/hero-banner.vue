@@ -9,6 +9,8 @@ interface HomeHero {
 
 const heroImageSizes = '100vw sm:768px md:1024px lg:1280px xl:1530px 2xl:1536px';
 const image = useImage();
+const posthog = usePostHog();
+const route = useRoute();
 
 const { data: hero } = await useAsyncData<HomeHero>('home-hero', () => $fetch('/api/home-hero'));
 
@@ -62,11 +64,18 @@ const FeatureProjects = defineLazyHydrationComponent(
 function getImageKitPath(url?: string) {
   if (!url) return undefined;
 
-  return url
-    .replace('https://ik.imagekit.io/pnixsw7lg', '')
-    .split('?')[0];
+  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
 }
 
+function trackStartProjectClick() {
+  posthog?.capture('start_project_clicked', {
+    funnel_stage: 'bottom',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'high',
+    source_page: route.path,
+  });
+}
 </script>
 
 <template>
@@ -118,7 +127,7 @@ function getImageKitPath(url?: string) {
         </app-typography>
 
         <div class="hero-actions">
-          <m-button variant="primary" size="sm" to="/contact">
+          <m-button variant="primary" size="sm" to="/contact" @click="trackStartProjectClick">
             Start your project
             <template #icon>
               <UIcon name="i-lucide-arrow-right" />

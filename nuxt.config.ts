@@ -111,6 +111,7 @@ export default defineNuxtConfig({
         'preview.envision-cs.com',
         'envision-prod-preview.localhost',
       ],
+      disable_surveys: true,
       ui_host: 'https://us.posthog.com',
       person_profiles: 'identified_only',
     },
@@ -178,7 +179,7 @@ export default defineNuxtConfig({
     '/api/homepage-featured-project-section': { cache: { maxAge: 600 } },
   },
   image: {
-    provider:'imagekit',
+    provider: 'imagekit',
     imagekit: {
       baseURL: 'https://ik.imagekit.io/pnixsw7lg',
     },
@@ -191,5 +192,8 @@ export default defineNuxtConfig({
         trigger: 'onNuxtReady',
       },
     },
+  },
+  features: {
+    inlineStyles: true,
   },
 });

@@ -1,4 +1,19 @@
 <script setup lang="ts">
+const posthog = usePostHog();
+const route = useRoute();
+
+function trackContactCtaClick() {
+  posthog?.capture('contact_cta_clicked', {
+    funnel_stage: 'bottom',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'high',
+    cta_source: 'service',
+    service_name: 'Specialty Projects Division',
+    source_page: route.path,
+  });
+}
+
 useSeoMeta({
   title: 'Specialty Projects Division | Envision Tampa Bay & Central Florida',
   description:
@@ -232,13 +247,7 @@ useEngagementTracking({
       label="Get a scope started"
       href="/contact"
       bgcolor="dark"
-      event-name="specialty_projects_division_cta_click"
-      :funnel-event="{
-        funnel_movement: 'down',
-        funnel_stage: 'middle',
-        conversion_role: 'process_milestone',
-        intent: 'high',
-      }"
+      @button-click="trackContactCtaClick"
     >
       <template #title>
         <app-typography
