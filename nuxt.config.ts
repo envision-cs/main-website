@@ -137,6 +137,7 @@ export default defineNuxtConfig({
   },
   sitemap: {
     sources: ['/api/__sitemap__/urls'],
+    exclude: ['/store', '/store/**'],
     defaults: {
       changefreq: 'weekly',
       priority: 0.7,
@@ -167,6 +168,8 @@ export default defineNuxtConfig({
     '/projects': { isr: 3600 },
     '/projects/**': { isr: 3600 },
     '/contact': { prerender: true },
+    '/store': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
+    '/store/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/api/contact': { cache: { maxAge: 3600 } },
     // API (GET) caching
     '/api/services': { cache: { maxAge: 600 } },

@@ -1,10 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+  middleware: "store-entry",
+});
+</script>
 
 <template>
-  <div>
-    <banner-b image="https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg">
-      Store
-    </banner-b>
-    <NuxtPage />
-  </div>
+  <div />
 </template>

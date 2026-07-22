@@ -3,13 +3,15 @@ definePageMeta({
   middleware: 'page-access',
 });
 
+const closingScriptTag = '</scr' + 'ipt>';
+
 const storeDocument = `
     <div id="my-store-15518248"></div>
     <script
       data-cfasync="false"
       src="https://app.ecwid.com/script.js?15518248&data_platform=code&data_date=2026-07-21"
       charset="utf-8"
-    ><\/script>
+          >${closingScriptTag}
 
     <script>
       xProductBrowser(
@@ -19,7 +21,7 @@ const storeDocument = `
         'searchView=list',
         'id=my-store-15518248'
       );
-      <\/script>
+      ${closingScriptTag}
 `;
 </script>
 
