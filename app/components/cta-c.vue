@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const props = withDefaults(
+withDefaults(
   defineProps<{
     body?: string;
     image?: string;
@@ -10,24 +10,18 @@ const props = withDefaults(
     title: string;
     eyebrow?: string;
     bgcolor?: 'light' | 'dark' | 'blue';
-    eventName?: string;
-    funnelEvent?: FunnelEvent;
   }>(),
   {
     bgcolor: 'light',
   },
 );
 
-const posthog = usePostHog();
-const route = useRoute();
+const emit = defineEmits<{
+  buttonClick: [];
+}>();
 
 function handleCtaClick() {
-  if (props.href && props.eventName) {
-    posthog?.capture(props?.eventName, {
-      ...props.funnelEvent,
-      source_page: route.path,
-    });
-  }
+  emit('buttonClick');
 }
 </script>
 

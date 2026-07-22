@@ -21,24 +21,41 @@ function track(event: string, extra: Record<string, unknown> = {}) {
 // The lightbox (and its gesture code) is only mounted after the first
 // interaction, keeping it out of the initial render + hydration path.
 const lightboxRequested = ref(false);
+const hasTrackedGalleryInteraction = ref(false);
 const lightboxRef = useTemplateRef<InstanceType<typeof ProjectLightbox>>('lightboxRef');
 
-async function openLightbox(index: number) {
-  track('project_gallery_image_opened', { image_index: index });
+watch(
+  () => props.projectSlug,
+  () => {
+    hasTrackedGalleryInteraction.value = false;
+  },
+);
 
+async function openLightbox(index: number) {
   if (!lightboxRequested.value) {
     lightboxRequested.value = true;
     await nextTick();
   }
 
-  lightboxRef.value?.open(index);
+  const lightbox = lightboxRef.value;
+  if (!lightbox) return;
+
+  if (!hasTrackedGalleryInteraction.value) {
+    hasTrackedGalleryInteraction.value = true;
+    track('project_gallery_interacted', {
+      funnel_stage: 'middle',
+      conversion_role: 'process_milestone',
+      funnel_movement: 'neutral',
+      intent: 'medium',
+    });
+  }
+
+  await lightbox.open(index);
 }
-  function getImageKitPath(url?: string) {
+function getImageKitPath(url?: string) {
   if (!url) return undefined;
 
-  return url
-    .replace('https://ik.imagekit.io/pnixsw7lg', '')
-    .split('?')[0];
+  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
 }
 </script>
 
@@ -84,7 +101,6 @@ async function openLightbox(index: number) {
       })
     "
     @image-error="track('project_gallery_image_error', { image_url: $event })"
-    @closed="track('project_gallery_closed', { image_index: $event })"
   />
 </template>
 

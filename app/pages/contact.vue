@@ -1,13 +1,60 @@
 <script setup lang="ts">
 const posthog = usePostHog();
+const route = useRoute();
+const contactDetailsRef = useTemplateRef<HTMLElement>('contactDetailsRef');
 const { data: contactData, error } = await useFetch('/api/contact');
 
-function trackEmailClick() {
-  posthog?.capture('contact_email_clicked');
+usePageView({
+  eventName: 'contact_page_viewed',
+  funnelEvent: {
+    funnel_stage: 'bottom',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'medium-high',
+  },
+});
+
+let hasTrackedContactDetails = false;
+let stopContactDetailsObserver = () => {};
+const contactDetailsObserver = useIntersectionObserver(
+  contactDetailsRef,
+  ([entry]) => {
+    if (!entry?.isIntersecting || entry.intersectionRatio < 0.5 || hasTrackedContactDetails) return;
+
+    hasTrackedContactDetails = true;
+    posthog?.capture('contact_details_viewed', {
+      funnel_stage: 'bottom',
+      conversion_role: 'process_milestone',
+      funnel_movement: 'down',
+      intent: 'high',
+      source_page: route.path,
+    });
+    stopContactDetailsObserver();
+  },
+  { threshold: 0.5 },
+);
+stopContactDetailsObserver = contactDetailsObserver.stop;
+
+function trackPursuitsEmailClick() {
+  posthog?.capture('pursuits_email_clicked', {
+    funnel_stage: 'bottom',
+    conversion_role: 'macro_conversion_proxy',
+    funnel_movement: 'out',
+    intent: 'very-high',
+    outbound_channel: 'email',
+    source_page: route.path,
+  });
 }
 
-function trackPhoneClick() {
-  posthog?.capture('contact_phone_clicked');
+function trackOfficePhoneClick() {
+  posthog?.capture('office_phone_clicked', {
+    funnel_stage: 'bottom',
+    conversion_role: 'macro_conversion_proxy',
+    funnel_movement: 'out',
+    intent: 'very-high',
+    outbound_channel: 'phone',
+    source_page: route.path,
+  });
 }
 
 useSeoMeta({
@@ -26,12 +73,10 @@ useSeoMeta({
   twitterImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/contact-image',
 });
 
-       function getImageKitPath(url?: string) {
+function getImageKitPath(url?: string) {
   if (!url) return undefined;
 
-  return url
-    .replace('https://ik.imagekit.io/pnixsw7lg', '')
-    .split('?')[0];
+  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
 }
 </script>
 
@@ -61,12 +106,16 @@ useSeoMeta({
                 We're ready to connect, whether you're starting a project, asking a question, or
                 looking for the right construction partner.
               </app-typography>
-              <div class="contact-actions" aria-label="Primary contact options">
+              <div
+                ref="contactDetailsRef"
+                class="contact-actions"
+                aria-label="Primary contact options"
+              >
                 <a
                   href="mailto:pursuits@envision-cs.com"
                   class="contact-action"
                   aria-label="Email Envision pursuits at pursuits@envision-cs.com"
-                  @click="trackEmailClick"
+                  @click="trackPursuitsEmailClick"
                 >
                   <span class="contact-action__copy">
                     <span class="contact-action__eyebrow">Start a Pursuit</span>
@@ -79,7 +128,7 @@ useSeoMeta({
                   href="tel:813-997-0330"
                   class="contact-action"
                   aria-label="Call Envision at 813-997-0330"
-                  @click="trackPhoneClick"
+                  @click="trackOfficePhoneClick"
                 >
                   <span class="contact-action__copy">
                     <span class="contact-action__eyebrow">Speak Directly</span>

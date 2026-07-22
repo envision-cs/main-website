@@ -1,5 +1,7 @@
 <script setup lang="ts">
 const year = new Date().getFullYear();
+const posthog = usePostHog();
+const route = useRoute();
 
 const navLinks = [
   { id: 1, to: '/', label: 'Home' },
@@ -16,6 +18,17 @@ const { services: servicesLinks } = await useServicesList();
 //  { id: 4, to: "/services/enhanced-preconstruction", label: "Enhanced Preconstruction" },
 //  { id: 5, to: "/services", label: "View all services" },
 // ];
+
+function trackContactCtaClick() {
+  posthog?.capture('contact_cta_clicked', {
+    funnel_stage: 'bottom',
+    conversion_role: 'process_milestone',
+    funnel_movement: 'down',
+    intent: 'high',
+    cta_source: 'footer',
+    source_page: route.path,
+  });
+}
 </script>
 
 <template>
@@ -76,7 +89,9 @@ const { services: servicesLinks } = await useServicesList();
             From preconstruction through closeout, our process stays direct: listen, plan, execute,
             cultivate.
           </p>
-          <m-button to="/contact" size="sm" variant="outline">Contact Us</m-button>
+          <m-button to="/contact" size="sm" variant="outline" @click="trackContactCtaClick">
+            Contact Us
+          </m-button>
         </div>
       </div>
       <div class="date-socials">
