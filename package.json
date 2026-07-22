@@ -48,6 +48,7 @@
     "motion": "^12.42.2",
     "motion-v": "^2.3.0",
     "nuxt": "^4.4.8",
+    "nuxt-auth-utils": "0.5.29",
     "nuxt-maplibre": "1.2.0",
     "nuxt-security": "2.4.0",
     "nuxt-strapi-blocks-renderer": "^1.1.5",

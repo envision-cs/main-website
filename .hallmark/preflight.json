@@ -1,0 +1,14 @@
+{
+  "scannedAt": "2026-07-22",
+  "sources": {
+    "package.json": 1784714112,
+    "tailwind.config.ts": 1780829239,
+    "app/assets/css/main.css": 1782900001
+  },
+  "framework": "Nuxt 4 with Vue 3",
+  "fontStack": "Proxima Nova with Avenir Next and system sans-serif fallbacks",
+  "palette": "Existing OKLCH Envision blue, green, and gray tokens",
+  "motion": "Motion enabled through GSAP, Motion, motion-v, and VueUse Motion",
+  "spacing": "Existing 4px base through --spacing",
+  "preserve": ["font stack", "brand palette", "spacing scale", "sharp-edged component language"]
+}

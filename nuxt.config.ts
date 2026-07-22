@@ -38,6 +38,7 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    pagePassword: '',
     public: {
       posthog: {
         publicKey: process.env.NUXT_PUBLIC_POSTHOG_PROJECT_TOKEN || '',
@@ -67,6 +68,7 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/fonts',
     '@nuxtjs/seo',
+    'nuxt-auth-utils',
   ],
 
   vite: {
