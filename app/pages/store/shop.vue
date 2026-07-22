@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: "page-access",
+  middleware: 'page-access',
 });
 
 const storeDocument = `
@@ -19,7 +19,7 @@ const storeDocument = `
         'searchView=list',
         'id=my-store-15518248'
       );
-    <\/script>
+      <\/script>
 `;
 </script>
 
