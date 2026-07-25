@@ -24,12 +24,10 @@ const props = defineProps<{
   position?: string;
 }>();
 
-  function getImageKitPath(url?: string) {
+function getImageKitPath(url?: string) {
   if (!url) return undefined;
 
-  return url
-    .replace('https://ik.imagekit.io/pnixsw7lg', '')
-    .split('?')[0];
+  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
 }
 
 const trimmedImage = computed(() => getImageKitPath(props.image));
@@ -91,13 +89,13 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
           v-if="image"
           :src="trimmedImage"
           :alt="imageAlt || ''"
-          sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
+          sizes="100vw 400px:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw 1920px:100vw 2560px:100vw"
+          densities="x1"
           fit="cover"
-          :quality="80"
+          :quality="70"
           fetchpriority="high"
           format="avif"
           loading="eager"
-          preload
           class="banner__image"
         />
       </slot>
