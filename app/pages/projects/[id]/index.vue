@@ -7,6 +7,16 @@ definePageMeta({
   key: (route) => route.fullPath,
 });
 
+interface ProjectListItem {
+  id: Project['id'];
+  title: string;
+  slug: string;
+  location?: string;
+  completed?: string;
+  image?: string;
+  sectors: { name: string; slug: string }[];
+}
+
 interface ProjectCard {
   id: Project['id'];
   image: string;
@@ -18,10 +28,36 @@ interface ProjectCard {
 }
 
 const BECK_ENVISION = { name: 'Beck/Envision', slug: 'beck-envision' };
+// Cards past the first grid row hydrate on scroll instead of at page load.
+const EAGER_CARD_COUNT = 4;
 
 const route = useRoute();
 const { formatMonthYear } = useFormatDate();
-const { sectors } = await useSectors();
+
+const sectorsAsync = useSectors();
+const projectsAsync = useFetch<Project[]>('/api/projects', {
+  key: 'projects',
+  default: () => [],
+  // Runs server-side, so only this reduced shape is serialized into the payload.
+  transform: (all): ProjectListItem[] =>
+    all.map((project) => ({
+      id: project.id,
+      title: project.title,
+      slug: project.slug,
+      location: project.location,
+      completed: project.completed,
+      image: project.mainImage?.url,
+      sectors: getProjectSectors(project).map((entry) => ({
+        name: entry.name,
+        slug: entry.slug,
+      })),
+    })),
+});
+
+const [{ sectors }, { data: projects, error, refresh, status }] = await Promise.all([
+  sectorsAsync,
+  projectsAsync,
+]);
 
 const slug = typeof route.params.id === 'string' ? route.params.id.trim() : '';
 const sector = sectors.value.find((candidate) => candidate.slug === slug);
@@ -32,42 +68,34 @@ if (!sector) {
 
 const navSectors = computed(() => [...sectors.value, BECK_ENVISION]);
 
-const {
-  data: projects,
-  error,
-  refresh,
-  status,
-} = await useFetch<Project[]>('/api/projects', {
-  key: 'projects',
-  default: () => [],
-});
-
-function completedTime(project: Project): number {
+function completedTime(project: ProjectListItem): number {
   const time = project.completed ? Date.parse(project.completed) : 0;
   return Number.isNaN(time) ? 0 : time;
 }
 
 const projectCards = computed<ProjectCard[]>(() =>
   projects.value
-    .filter((project) => projectBelongsToSector(project, sector.slug))
+    .filter((project) => project.sectors.some((entry) => entry.slug === sector.slug))
     .sort((left, right) => completedTime(right) - completedTime(left))
     .flatMap((project) => {
-      const image = project.mainImage?.url;
-      if (!image || !project.slug) return [];
+      if (!project.image || !project.slug) return [];
 
       return [
         {
           id: project.id,
-          image,
+          image: project.image,
           title: project.title,
           to: `/projects/${sector.slug}/${project.slug}`,
           location: project.location,
           completed: project.completed ? formatMonthYear(project.completed) : undefined,
-          sector: formatProjectSectorLabel(project),
+          sector: project.sectors.map((entry) => entry.name).join(', ') || undefined,
         },
       ];
     }),
 );
+
+const eagerCards = computed(() => projectCards.value.slice(0, EAGER_CARD_COUNT));
+const deferredCards = computed(() => projectCards.value.slice(EAGER_CARD_COUNT));
 
 const bannerImage = sector.image || 'projects-all.jpg';
 const socialImage = toAbsoluteOptionalSiteUrl(bannerImage);
@@ -143,8 +171,24 @@ useHead({
 
           <div class="projects-grid">
             <ProjectCard
-              v-for="project in projectCards"
+              v-for="project in eagerCards"
               :key="project.id"
+              :image="project.image"
+              :alt="project.title"
+              :to="project.to"
+              aspect-ratio="3/4"
+              image-densities="x1"
+              :image-quality="60"
+              :outlined="false"
+              :title="project.title"
+              :location="project.location"
+              :completed="project.completed"
+              :sector="project.sector"
+            />
+            <LazyProjectCard
+              v-for="project in deferredCards"
+              :key="project.id"
+              hydrate-on-visible
               :image="project.image"
               :alt="project.title"
               :to="project.to"
