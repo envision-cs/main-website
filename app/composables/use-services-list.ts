@@ -1,6 +1,6 @@
 import type { Service } from '~~/shared/types/content-types';
 
-export type ServiceListItem = Service & {
+export type ServiceListItem = Omit<Service, 'image'> & {
   slug: string;
   image?: string;
   to: string;
@@ -23,7 +23,9 @@ export async function useServicesList() {
         image:
           typeof service.image === 'object' && service.image !== null
             ? service.image.url
-            : undefined,
+            : typeof service.image === 'string'
+              ? service.image
+              : undefined,
         to: `/services/${String((service as ServiceListItem).slug ?? service.param)}`,
       }))
       .sort((a, b) => {
