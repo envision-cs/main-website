@@ -196,6 +196,10 @@ export default defineNuxtConfig({
       posthog: {
         trigger: 'onNuxtReady',
       },
+      googleAnalytics: {
+        id: 'G-WW8RWLRQM4',
+        trigger: 'onNuxtReady',
+      }
     },
   },
   features: {
