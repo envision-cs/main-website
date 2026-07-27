@@ -25,6 +25,9 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
+  future: {
+    compatibilityVersion: 5,
+  },
   app: {
     head: {
       htmlAttrs: {
@@ -70,7 +73,6 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     'nuxt-auth-utils',
   ],
-
   vite: {
     optimizeDeps: {
       include: ['@vue/devtools-core', '@vue/devtools-kit', 'embla-carousel-vue'],
@@ -193,7 +195,8 @@ export default defineNuxtConfig({
   },
   scripts: {
     registry: {
-      posthog: {
+      googleAnalytics: {
+        id: 'G-WW8RWLRQM4',
         trigger: 'onNuxtReady',
       },
       googleAnalytics: {

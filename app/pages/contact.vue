@@ -193,7 +193,7 @@ function getImageKitPath(url?: string) {
           </app-typography>
 
           <div class="location-wrapper">
-            <app-location-card
+            <location-card
               v-for="location in contactData?.locations"
               :key="location.id"
               :title="location.name"

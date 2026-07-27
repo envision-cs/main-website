@@ -11,7 +11,7 @@ const props = defineProps<{
   title: string;
   body?: string;
   items: SectionGItem[];
-  stick: boolean;
+  stick?: boolean;
 }>();
 
 const titleId = computed(() => {
