@@ -1,4 +1,5 @@
-<script setup lang="ts">withDefaults(
+<script setup lang="ts">
+withDefaults(
   defineProps<{
     body?: string;
     title?: string;
@@ -21,9 +22,9 @@
   >
     <div class="content-wrapper">
       <div class="header">
-        <app-typograpy>
+        <app-typography>
           {{ title }}
-        </app-typograpy>
+        </app-typography>
       </div>
       <div class="content">
         <slot />

@@ -47,7 +47,7 @@
     "gsap": "^3.15.0",
     "motion": "^12.42.2",
     "motion-v": "^2.3.0",
-    "nuxt": "^4.4.8",
+    "nuxt": "^4.5.1",
     "nuxt-auth-utils": "0.5.29",
     "nuxt-maplibre": "1.2.0",
     "nuxt-security": "2.4.0",
