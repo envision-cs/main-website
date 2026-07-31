@@ -1,8 +1,6 @@
 <script setup lang="ts">
 const { sectors } = await useSectors();
 const { services } = await useServicesList();
-const posthog = usePostHog();
-const route = useRoute();
 
 function createPopoverHandlers(popoverRef: Ref<HTMLElement | null>) {
   let closeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -60,43 +58,13 @@ const sectorsPanel = {
   to: '/projects',
   cta: 'All projects',
 };
-
-const ServiceNavLinkEvent: FunnelEvent = {
-  funnel_stage: 'top',
-  conversion_role: 'process_milestone',
-  funnel_movement: 'down',
-  intent: 'low-medium',
-};
-
-function handleServiceClick() {
-  posthog?.capture(`service_nav_item_clicked`, {
-    ...ServiceNavLinkEvent,
-    page_group: 'global_navigation',
-    source_page: route.path,
-  });
-}
-
-const ProjectsNavLinkEvent: FunnelEvent = {
-  funnel_stage: 'top',
-  conversion_role: 'process_milestone',
-  funnel_movement: 'down',
-  intent: 'low-medium',
-};
-
-function handleProjectsClick() {
-  posthog?.capture(`projects_nav_item_clicked`, {
-    ...ProjectsNavLinkEvent,
-    page_group: 'global_navigation',
-    source_page: route.path,
-  });
-}
 </script>
 <template>
   <header>
     <NuxtLink to="/" aria-label="Envision home">
       <NuxtImg
         provider="imagekit"
-        src="/main-website/thumbnail_White_Envision_Logo_c1724c69d3.png"
+        src="https://ik.imagekit.io/pnixsw7lg/main-website/thumbnail_White_Envision_Logo_c1724c69d3.png?updatedAt=1780533539340"
         alt="Envision Construction logo"
         width="160"
         height="32"
@@ -114,9 +82,7 @@ function handleProjectsClick() {
           @mouseenter="servicesPopover.open"
           @mouseleave="servicesPopover.scheduleClose"
         >
-          <NuxtLink role="menuitem" aria-haspopup="true" to="/services" @click="handleServiceClick"
-            >Services</NuxtLink
-          >
+          <NuxtLink role="menuitem" aria-haspopup="true" to="/services">Services</NuxtLink>
           <button class="services-menu" popovertarget="services" aria-label="Toggle services menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9">
               <polygon points="1 0, 11 0, 6 8" />
@@ -129,9 +95,7 @@ function handleProjectsClick() {
           @mouseenter="sectorsPopover.open"
           @mouseleave="sectorsPopover.scheduleClose"
         >
-          <NuxtLink role="menuitem" aria-haspopup="true" to="/projects" @click="handleProjectsClick"
-            >Projects</NuxtLink
-          >
+          <NuxtLink role="menuitem" aria-haspopup="true" to="/projects">Projects</NuxtLink>
           <button class="project-menu" popovertarget="projects" aria-label="Toggle projects menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9">
               <polygon points="1 0, 11 0, 6 8" />

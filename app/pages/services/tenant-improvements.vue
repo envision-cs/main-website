@@ -2,21 +2,6 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'layout-a' });
 
-const posthog = usePostHog();
-const route = useRoute();
-
-function trackContactCtaClick() {
-  posthog?.capture('contact_cta_clicked', {
-    funnel_stage: 'bottom',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'high',
-    cta_source: 'service',
-    service_name: 'Tenant Improvements',
-    source_page: route.path,
-  });
-}
-
 useSeoMeta({
   title: 'Tenant Improvements | Envision Tampa Bay & Central Florida',
   description:
@@ -113,39 +98,6 @@ const projectHighlights = [
       'Modernized layout and finishes that the client was excited to share with their team and clients',
   },
 ];
-
-usePageView({
-  eventName: 'tenant_improvements_page_viewed',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    intent: 'medium',
-    funnel_movement: 'down',
-  },
-});
-
-useEngagementTracking({
-  eventName: 'tenant_improvements_page_engaged',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'medium',
-  },
-});
-
-const { trackClick: handleViewProjectClick } = useClickTracking({
-  eventName: 'tenant_improvements_featured_project_clicked',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'medium-high',
-  },
-  properties: {
-    page_group: 'service details',
-  },
-});
 </script>
 
 <template>
@@ -205,7 +157,7 @@ const { trackClick: handleViewProjectClick } = useClickTracking({
     </cta-a>
 
     <cta-a
-      :flip="true"
+      flip="true"
       eyebrow="Featured Project"
       title="Greater Tampa Realtors: Interior Office Renovation"
       body=""
@@ -231,15 +183,6 @@ const { trackClick: handleViewProjectClick } = useClickTracking({
             </app-typography>
           </li>
         </ul>
-        <m-button
-          label="View Project"
-          to="/projects/k-12-education/hillsborough-county-public-schools-liberty-middle-school-play-court-cover"
-          bgcolor="blue"
-          class="mt-6"
-          @click="handleViewProjectClick"
-        >
-          View Project
-        </m-button>
       </template>
     </cta-a>
     <cta-c
@@ -249,7 +192,6 @@ const { trackClick: handleViewProjectClick } = useClickTracking({
       label="Tell us about your space"
       href="/contact"
       bgcolor="dark"
-      @button-click="trackContactCtaClick"
     >
       <template #title>
         <app-typography

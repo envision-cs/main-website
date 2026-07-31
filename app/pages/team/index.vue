@@ -18,24 +18,6 @@ useSeoMeta({
 const { data } = useFetch('/api/team', {
   key: 'team',
 });
-
-usePageView({
-  eventName: 'team_page_viewed',
-  funnelEvent: {
-    funnel_stage: 'top',
-    conversion_role: 'secondary_action',
-    intent: 'low-medium',
-    funnel_movement: 'down',
-  },
-});
-
-  function getImageKitPath(url?: string) {
-  if (!url) return undefined;
-
-  return url
-    .replace('https://ik.imagekit.io/pnixsw7lg', '')
-    .split('?')[0];
-}
 </script>
 
 <template>
@@ -71,7 +53,7 @@ usePageView({
             <lazy-project-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
-              :image="getImageKitPath(member.photo?.url)"
+              :image="member.photo?.url"
               :alt="member.name"
               hydrate-on-visible
               link-mode="overlay"

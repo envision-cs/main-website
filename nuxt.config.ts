@@ -25,9 +25,6 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  future: {
-    compatibilityVersion: 5,
-  },
   app: {
     head: {
       htmlAttrs: {
@@ -41,7 +38,6 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    pagePassword: '',
     public: {
       posthog: {
         publicKey: process.env.NUXT_PUBLIC_POSTHOG_PROJECT_TOKEN || '',
@@ -71,8 +67,8 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxt/fonts',
     '@nuxtjs/seo',
-    'nuxt-auth-utils',
   ],
+
   vite: {
     optimizeDeps: {
       include: ['@vue/devtools-core', '@vue/devtools-kit', 'embla-carousel-vue'],
@@ -108,14 +104,7 @@ export default defineNuxtConfig({
         maskAllInputs: true,
         maskTextSelector: '*',
       },
-      tracing_headers: [
-        'localhost',
-        'envision-cs.com',
-        'www.envision-cs.com',
-        'preview.envision-cs.com',
-        'envision-prod-preview.localhost',
-      ],
-      disable_surveys: true,
+      tracing_headers: ['localhost', 'envision-cs.com', 'www.envision-cs.com'],
       ui_host: 'https://us.posthog.com',
       person_profiles: 'identified_only',
     },
@@ -139,7 +128,6 @@ export default defineNuxtConfig({
   },
   sitemap: {
     sources: ['/api/__sitemap__/urls'],
-    exclude: ['/store', '/store/**'],
     defaults: {
       changefreq: 'weekly',
       priority: 0.7,
@@ -148,6 +136,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   experimental: {
     sharedPrerenderData: true,
+    inlineStyles: true,
+    componentIslands: true,
   },
   strapi: {
     url: process.env.STRAPI_URL,
@@ -170,8 +160,6 @@ export default defineNuxtConfig({
     '/projects': { isr: 3600 },
     '/projects/**': { isr: 3600 },
     '/contact': { prerender: true },
-    '/store': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
-    '/store/**': { headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/api/contact': { cache: { maxAge: 3600 } },
     // API (GET) caching
     '/api/services': { cache: { maxAge: 600 } },
@@ -186,26 +174,10 @@ export default defineNuxtConfig({
     '/api/homepage-featured-project-section': { cache: { maxAge: 600 } },
   },
   image: {
-    provider: 'imagekit',
     imagekit: {
-      baseURL: 'https://ik.imagekit.io/pnixsw7lg',
+      baseURL: '',
     },
     quality: 90,
     format: ['avif', 'webp'],
-  },
-  scripts: {
-    registry: {
-      googleAnalytics: {
-        id: 'G-WW8RWLRQM4',
-        trigger: 'onNuxtReady',
-      },
-      googleAnalytics: {
-        id: 'G-WW8RWLRQM4',
-        trigger: 'onNuxtReady',
-      }
-    },
-  },
-  features: {
-    inlineStyles: true,
   },
 });

@@ -3,21 +3,6 @@ definePageMeta({
   layout: 'layout-a',
 });
 
-const posthog = usePostHog();
-const route = useRoute();
-
-function trackContactCtaClick() {
-  posthog?.capture('contact_cta_clicked', {
-    funnel_stage: 'bottom',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'high',
-    cta_source: 'service',
-    service_name: 'Enhanced Preconstruction',
-    source_page: route.path,
-  });
-}
-
 useSeoMeta({
   title: 'Enhanced Preconstruction | Envision Tampa Bay & Central Florida',
   description:
@@ -93,39 +78,6 @@ const projectHighlights = [
   { id: 4, label: 'Trade partners engaged at every design phase for real-time cost input' },
   { id: 5, label: 'Delivered on schedule within an active school zone' },
 ];
-
-usePageView({
-  eventName: 'enhanced_preconstruction_page_viewed',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    intent: 'medium',
-    funnel_movement: 'down',
-  },
-});
-
-useEngagementTracking({
-  eventName: 'enhanced_preconstruction_page_engaged',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'medium',
-  },
-});
-
-const { trackClick: handleViewProjectClick } = useClickTracking({
-  eventName: 'enhanced_preconstruction_featured_project_clicked',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'medium-high',
-  },
-  properties: {
-    page_group: 'service details',
-  },
-});
 </script>
 
 <template>
@@ -202,15 +154,6 @@ const { trackClick: handleViewProjectClick } = useClickTracking({
             </app-typography>
           </li>
         </ul>
-        <m-button
-          label="View Project"
-          to="/projects/k-12-education/hillsborough-county-public-schools-liberty-middle-school-play-court-cover"
-          bgcolor="blue"
-          class="mt-6"
-          @click="handleViewProjectClick"
-        >
-          View Project
-        </m-button>
       </template>
     </cta-a>
     <cta-c
@@ -220,7 +163,6 @@ const { trackClick: handleViewProjectClick } = useClickTracking({
       label="Engage Us Early"
       href="/contact"
       bgcolor="dark"
-      @button-click="trackContactCtaClick"
     />
   </main>
 </template>

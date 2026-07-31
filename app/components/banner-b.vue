@@ -24,14 +24,6 @@ const props = defineProps<{
   position?: string;
 }>();
 
-function getImageKitPath(url?: string) {
-  if (!url) return undefined;
-
-  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
-}
-
-const trimmedImage = computed(() => getImageKitPath(props.image));
-
 const slots = useSlots();
 
 function hasRenderableSlot(nodes: VNode[] = []): boolean {
@@ -87,15 +79,15 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
       <slot name="image">
         <NuxtImg
           v-if="image"
-          :src="trimmedImage"
+          :src="image"
           :alt="imageAlt || ''"
-          sizes="100vw 400px:100vw sm:100vw md:100vw lg:100vw xl:100vw 2xl:100vw 1920px:100vw 2560px:100vw"
-          densities="x1"
+          sizes="100vw sm:640px md:768px lg:1024px xl:1280px 2xl:1536px"
           fit="cover"
-          :quality="70"
+          :quality="80"
           fetchpriority="high"
           format="avif"
           loading="eager"
+          preload
           class="banner__image"
         />
       </slot>

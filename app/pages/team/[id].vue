@@ -1,5 +1,6 @@
 <script setup lang="ts">
 /* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
+import { parseMarkdown } from '@nuxtjs/mdc/runtime';
 import { toAbsoluteOptionalSiteUrl } from '~/utils/site-url';
 
 definePageMeta({
@@ -115,20 +116,6 @@ const seoDescription = computed(() => {
 });
 const socialImage = computed(() => toAbsoluteOptionalSiteUrl(teamMember.value?.photo?.url));
 
-// ── Analytics ──────────────────────────────────────────────────────────────
-usePageView({
-  eventName: 'team_member_profile_viewed',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'secondary_action',
-    intent: 'medium',
-    funnel_movement: 'neutral',
-  },
-  properties: {
-    team_member: teamMember.value?.name,
-  },
-});
-
 useSeoMeta(() => ({
   title: seoTitle.value,
   description: seoDescription.value,
@@ -150,12 +137,6 @@ useHead(() => ({
       ]
     : [],
 }));
-
-function getImageKitPath(url?: string) {
-  if (!url) return undefined;
-
-  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
-}
 </script>
 
 <template>
@@ -183,6 +164,21 @@ function getImageKitPath(url?: string) {
               {{ teamMember.title }}
             </app-typography>
           </div>
+
+          <!-- <div class="team-profile-hero__actions" aria-label="Team member actions">
+            <app-button
+              v-for="action in contactActions.filter((item) => item.show)"
+              :key="action.label"
+              :to="action.to"
+              :icon="action.icon"
+              variant="ghost"
+              color="secondary"
+              :target="action.label === 'LinkedIn' ? '_blank' : undefined"
+              :aria-label="action.label"
+            >
+              {{ action.label }}
+            </app-button>
+          </div> -->
         </div>
 
         <figure class="team-profile-hero__portrait">
@@ -228,7 +224,7 @@ function getImageKitPath(url?: string) {
             <project-card
               :to="`/team/${member.slug}`"
               :aria-label="member.name"
-              :image="getImageKitPath(member.photo?.url)"
+              :image="member.photo?.url"
               :alt="member.name"
               link-mode="overlay"
               aspect-ratio="3/4"

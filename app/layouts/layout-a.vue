@@ -1,55 +1,46 @@
-<script setup lang="ts">
-interface ServiceCategory {
-  title: string;
-  slug: string;
-  image?: string;
-  position?: string;
-  headline: string;
-  description: string;
-  cta: string;
-  link: string;
-}
-
-const route = useRoute();
+<script setup lang="ts">const route = useRoute();
 
 const { services } = await useServicesList();
 const currentServiceSlug = computed(() => route.path.match(/^\/services\/([^/]+)$/)?.[1] ?? '');
 
-const categories = computed<ServiceCategory[]>(() =>
+const categories = computed(() =>
   services.value
-    .filter((service) => Boolean(service?.title))
-    .map((service) => ({
-      headline: service.headline ?? service.title,
-      description: service.description ?? '',
+    .filter(service => Boolean(service?.title))
+    .map(service => ({
+      headline: service.headline,
+      description: service.description,
       title: service.title,
       slug: service.slug,
       image: service.image,
       position: service.imageposition,
-      cta: service.cta ?? 'Start your project',
-      link: service.link ?? '/contact',
+      cta: service.cta,
+      link: service.link,
     })),
 );
 
-const activeCategory = computed<ServiceCategory>(() => {
+const activeCategory = computed<{
+  title: string;
+  slug: string;
+  image?: string;
+  headline: string;
+  description: string;
+  cta: string;
+  link: string;
+}>(() => {
   return (
-    categories.value.find((category) => category.slug === currentServiceSlug.value) ?? {
-      headline: "Let's Build",
+    categories.value.find(category => category.slug === currentServiceSlug.value) ?? {
+      headline: 'Let\'s Build',
       description:
         'Construction services shaped for complex schedules, demanding coordination, and institution-grade execution.',
       title: 'Envision Services',
       cta: 'Lets get to work',
       link: '/contact',
       slug: 'all',
-      image: '/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560',
+      image:
+        'https://ik.imagekit.io/pnixsw7lg/main-website/AG_site_e29decc2a5.jpg?updatedAt=1780675889560',
     }
   );
 });
-
-function getImageKitPath(url?: string) {
-  if (!url) return undefined;
-
-  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
-}
 </script>
 
 <template>
@@ -58,7 +49,7 @@ function getImageKitPath(url?: string) {
     <div class="header">
       <banner-b
         :position="activeCategory.position"
-        :image="getImageKitPath(activeCategory?.image)"
+        :image="activeCategory?.image"
         :cta="activeCategory.cta"
         cta-to="/contact"
       >

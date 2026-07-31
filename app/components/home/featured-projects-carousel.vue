@@ -1,9 +1,6 @@
-<script setup lang="ts">
-import type { Project } from '~~/shared/types/content-types';
+<script setup lang="ts">import type { Project } from '~~/shared/types/content-types';
 
 const AUTOSCROLL_INTERVAL_MS = 8000;
-const TICK_MS = 1000;
-const TOTAL_TICKS = AUTOSCROLL_INTERVAL_MS / TICK_MS;
 
 interface FeaturedProjectSlide {
   id: number;
@@ -16,27 +13,21 @@ interface FeaturedProjectSlide {
 }
 
 const { formatMonthYear } = useFormatDate();
-const posthog = usePostHog();
-const route = useRoute();
-
-const FeaturedProjectEvent: FunnelEvent = {
-  funnel_stage: 'top',
-  conversion_role: 'secondary_action',
-  funnel_movement: 'down',
-  intent: 'low-medium',
-};
 
 const { data: projects } = await useAsyncData<Project[]>(
   'hero-featured-projects-carousel',
   async () => {
     try {
       return await $fetch<Project[]>('/api/projects');
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Failed to fetch hero featured projects:', error);
       return [];
     }
   },
-  { default: () => [] },
+  {
+    default: () => [],
+  },
 );
 
 const slides = computed<FeaturedProjectSlide[]>(() => {
@@ -44,13 +35,16 @@ const slides = computed<FeaturedProjectSlide[]>(() => {
     .sort((left, right) => {
       const rightTime = right.completed ? new Date(right.completed).getTime() : 0;
       const leftTime = left.completed ? new Date(left.completed).getTime() : 0;
+
       return rightTime - leftTime;
     })
     .flatMap((project) => {
       const primarySector = getPrimaryProjectSector(project);
       const image = project.mainImage?.url;
 
-      if (!project.slug || !primarySector || !image) return [];
+      if (!project.slug || !primarySector || !image) {
+        return [];
+      }
 
       return [
         {
@@ -69,52 +63,35 @@ const slides = computed<FeaturedProjectSlide[]>(() => {
     .slice(0, 5);
 });
 
-const carouselRef = useTemplateRef<HTMLElement>('carouselRef');
+const carouselRef = useTemplateRef<HTMLElement | null>('carouselRef');
 
-// ── Environment state (all reactive, all self-cleaning) ─────────────
-const isHovered = useElementHover(carouselRef);
-const { focused: isFocusedWithin } = useFocusWithin(carouselRef);
-const documentVisibility = useDocumentVisibility();
-const motionPreference = usePreferredReducedMotion();
+const activeIndex = ref(0);
+const isInteractionPaused = ref(false);
+const prefersReducedMotion = ref(false);
 
-const prefersReducedMotion = computed(() => motionPreference.value === 'reduce');
-const isInteractionPaused = computed(
-  () => isHovered.value || isFocusedWithin.value || documentVisibility.value === 'hidden',
-);
-
-// ── Slide cycling ────────────────────────────────────────────────────
-const {
-  state: activeSlide,
-  index: activeIndex,
-  next,
-  prev,
-} = useCycleList(slides, { fallbackIndex: 0 });
+const tick = ref(0);
+const progressTransition = ref(true);
 
 const slideCount = computed(() => slides.value.length);
-const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, '0'));
-const formattedCount = computed(() => String(slideCount.value).padStart(2, '0'));
+const activeSlide = computed(() => slides.value[activeIndex.value] ?? null);
 
 const liveRegionMode = computed(() =>
   isInteractionPaused.value || prefersReducedMotion.value ? 'polite' : 'off',
 );
 
-const canAutoplay = computed(
-  () => slideCount.value > 1 && !isInteractionPaused.value && !prefersReducedMotion.value,
-);
+const formattedIndex = computed(() => String(activeIndex.value + 1).padStart(2, '0'));
+const formattedCount = computed(() => String(slideCount.value).padStart(2, '0'));
+const canAutoplay = computed(() => {
+  return slideCount.value > 1 && !isInteractionPaused.value && !prefersReducedMotion.value;
+});
 
-// ── Autoplay timer + progress bar ───────────────────────────────────
-const tick = ref(0);
-const progressTransition = ref(true);
-const timerScale = computed(() => tick.value / TOTAL_TICKS);
+// Normalized 0 → 1 value used for scaleX
+const timerScale = computed(() => {
+  return tick.value / (AUTOSCROLL_INTERVAL_MS / 1000);
+});
 
-const { pause: pauseAutoplay, resume: resumeAutoplay } = useIntervalFn(
-  () => {
-    tick.value++;
-    if (tick.value > TOTAL_TICKS) showNextProject();
-  },
-  TICK_MS,
-  { immediate: false },
-);
+let intervalId: ReturnType<typeof window.setInterval> | null = null;
+let motionMediaQuery: MediaQueryList | null = null;
 
 function resetTick() {
   progressTransition.value = false;
@@ -126,55 +103,114 @@ function resetTick() {
     });
   });
 }
+function setActiveIndex(index: number) {
+  if (!slideCount.value)
+    return;
+  resetTick();
+  activeIndex.value = (index + slideCount.value) % slideCount.value;
+}
 
 function showNextProject() {
-  resetTick();
-  next();
+  setActiveIndex(activeIndex.value + 1);
 }
 
 function showPreviousProject() {
+  setActiveIndex(activeIndex.value - 1);
+}
+
+function stopAutoplayInterval() {
+  if (!intervalId)
+    return;
   resetTick();
-  prev();
+  window.clearInterval(intervalId);
+  intervalId = null;
 }
 
-function handleFeaturedProjectClick() {
-  const slide = activeSlide.value;
-  if (!slide) return;
+function startAutoplayInterval() {
+  if (!import.meta.client || !canAutoplay.value)
+    return;
 
-  posthog?.capture('featured_project_carousel_interacted', {
-    ...FeaturedProjectEvent,
-    page_group: 'homepage_hero',
-    source_page: route.path,
-    project_title: slide.title,
-    project_sector: slide.sector,
-    carousel_position: activeIndex.value + 1,
-  });
+  stopAutoplayInterval();
+  resetTick();
+
+  intervalId = window.setInterval(() => {
+    tick.value++;
+
+    if (tick.value > AUTOSCROLL_INTERVAL_MS / 1000) {
+      showNextProject();
+    }
+  }, 1000);
 }
 
-// Registering the watcher inside onMounted keeps autoplay entirely
-// client-side (no interval ever starts during SSR) and it's still
-// disposed automatically with the component.
-onMounted(() => {
-  watch(
-    canAutoplay,
-    (enabled) => {
-      resetTick();
-      if (enabled) resumeAutoplay();
-      else pauseAutoplay();
-    },
-    { immediate: true },
-  );
+function onPointerEnter() {
+  isInteractionPaused.value = true;
+}
+
+function onPointerLeave() {
+  isInteractionPaused.value = false;
+}
+
+function onFocusIn() {
+  isInteractionPaused.value = true;
+}
+
+function onFocusOut(event: FocusEvent) {
+  const nextTarget = event.relatedTarget;
+
+  if (!nextTarget || !carouselRef.value?.contains(nextTarget as Node)) {
+    isInteractionPaused.value = false;
+  }
+}
+
+function updateReducedMotionPreference(event?: MediaQueryListEvent) {
+  prefersReducedMotion.value = event?.matches ?? motionMediaQuery?.matches ?? false;
+
+  if (prefersReducedMotion.value) {
+    stopAutoplayInterval();
+  }
+}
+
+function onDocumentVisibilityChange() {
+  isInteractionPaused.value = document.hidden;
+}
+
+watch(canAutoplay, (enabled) => {
+  if (enabled) {
+    startAutoplayInterval();
+    return;
+  }
+  stopAutoplayInterval();
 });
 
-   function getImageKitPath(url?: string) {
-  if (!url) return undefined;
+watch(slideCount, (count) => {
+  if (!count) {
+    activeIndex.value = 0;
+    stopAutoplayInterval();
+    return;
+  }
 
-  return url
-    .replace('https://ik.imagekit.io/pnixsw7lg', '')
-    .split('?')[0];
-}
+  if (activeIndex.value >= count) {
+    activeIndex.value = 0;
+  }
+});
 
+onMounted(() => {
+  motionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  updateReducedMotionPreference();
+
+  motionMediaQuery.addEventListener('change', updateReducedMotionPreference);
+  document.addEventListener('visibilitychange', onDocumentVisibilityChange);
+
+  startAutoplayInterval();
+});
+
+onUnmounted(() => {
+  stopAutoplayInterval();
+  motionMediaQuery?.removeEventListener('change', updateReducedMotionPreference);
+  document.removeEventListener('visibilitychange', onDocumentVisibilityChange);
+});
 </script>
+
 <template>
   <section
     v-if="slideCount"
@@ -182,7 +218,10 @@ onMounted(() => {
     class="featured-projects"
     aria-label="Featured projects"
     aria-roledescription="carousel"
-    @click="handleFeaturedProjectClick"
+    @mouseenter="onPointerEnter"
+    @mouseleave="onPointerLeave"
+    @focusin="onFocusIn"
+    @focusout="onFocusOut"
   >
     <div class="featured-projects__surface" :aria-live="liveRegionMode">
       <Transition name="featured-fade" mode="out-in">
@@ -203,7 +242,7 @@ onMounted(() => {
             <span class="featured-projects__media" aria-hidden="true">
               <NuxtImg
                 provider="imagekit"
-                :src="getImageKitPath(activeSlide.image)"
+                :src="activeSlide.image"
                 height="300"
                 alt=""
                 format="avif"
@@ -297,8 +336,8 @@ onMounted(() => {
   color: inherit;
   text-decoration: none;
 
-  @media (min-width: 1100px) {
-    display: block;
+  @media(min-width: 1100px){
+      display: block;
   }
 }
 

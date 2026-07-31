@@ -9,18 +9,17 @@ const props = withDefaults(
     imageQuality?: number;
     imageSizes?: string;
     imageDensities?: string;
-    imageLoading?: 'lazy' | 'eager';
+    imageLoading?: "lazy" | "eager";
     imageWidth?: string | number;
     imageHeight?: string | number;
-    aspectRatio?: '5/3' | '4/3' | '16/9' | '3/4' | '1/1' | '3/1';
-    linkMode?: 'wrap' | 'overlay';
-    imageObjectFit?: 'cover' | 'fill' | 'contain';
+    aspectRatio?: "5/3" | "4/3" | "16/9" | "3/4" | "1/1" | "3/1";
+    linkMode?: "wrap" | "overlay";
+    imageObjectFit?: "cover" | "fill" | "contain";
     imageHoverScale?: number;
     overlay?: string;
     contentPadding?: string;
     contentGap?: string;
     title?: string;
-    subtitle?: string;
     location?: string;
     completed?: string;
     sector?: string;
@@ -32,12 +31,10 @@ const props = withDefaults(
     ariaLabel: 'View details',
     alt: '',
     imageFormat: 'avif',
-    // Cards can use a lower quality than full-width imagery without a visible loss.
-    imageQuality: 80,
-    // Mirrors the common 1/2/3/4-column project grids and gives Nuxt Image
-    // accurate candidate widths for each viewport range.
-    imageSizes: '100vw sm:320px md:340px lg:426px xl:466px 1400px:384px 2xl:480px',
-    imageDensities: 'x1',
+    // Inherit the global image.quality (nuxt.config) unless a page overrides it.
+    imageQuality: undefined,
+    imageSizes: '100vw sm:50vw lg:33vw xl:33vw 2xl:25vw',
+    imageDensities: 'x1 x2',
     imageLoading: 'lazy',
     imageWidth: undefined,
     imageHeight: undefined,
@@ -50,7 +47,6 @@ const props = withDefaults(
     contentPadding: "1rem",
     contentGap: "0.75rem",
     title: undefined,
-    subtitle: undefined,
     location: undefined,
     completed: undefined,
     sector: undefined,
@@ -58,14 +54,6 @@ const props = withDefaults(
     outlined: true,
   },
 );
-
-function getImageKitPath(url?: string) {
-  if (!url) return undefined;
-
-  return url.replace('https://ik.imagekit.io/pnixsw7lg', '').split('?')[0];
-}
-
-const trimmedImage = computed(() => getImageKitPath(props.image));
 
 const imageAlt = computed(() => props.alt || props.ariaLabel);
 const hasProjectDetails = computed(() => Boolean(props.location || props.completed));
@@ -89,7 +77,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
     >
       <NuxtImg
         provider="imagekit"
-        :src="trimmedImage"
+        :src="image"
         :alt="imageAlt"
         :format="imageFormat"
         :quality="imageQuality"
@@ -106,9 +94,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
           <slot name="title">
             <app-typography v-if="title" tag="h3" class="reveal-card__heading" variant="heading-md">
               {{ title }}
-            </app-typography>
-            <app-typography v-if="subtitle" tag="p" variant="text-md" class="reveal-card__subtitle">
-              {{ subtitle }}
             </app-typography>
           </slot>
         </header>
@@ -167,7 +152,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
     />
     <NuxtImg
       provider="imagekit"
-      :src="trimmedImage"
+      :src="image"
       :alt="imageAlt"
       :format="imageFormat"
       :quality="imageQuality"
@@ -184,9 +169,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
         <slot name="title">
           <app-typography v-if="title" tag="h3" class="reveal-card__heading" variant="heading-md">
             {{ title }}
-          </app-typography>
-          <app-typography v-if="subtitle" tag="p" variant="text-md" class="reveal-card__subtitle">
-            {{ subtitle }}
           </app-typography>
         </slot>
       </header>
@@ -240,7 +222,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
 
 .reveal-card {
   position: relative;
-  aspect-ratio: v-bind('props.aspectRatio');
+  aspect-ratio: v-bind("props.aspectRatio");
   overflow: hidden;
   isolation: isolate;
   color: var(--ui-text-inverted);
@@ -252,12 +234,12 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
 }
 
 .reveal-card::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: v-bind('props.overlay');
+  background: v-bind("props.overlay");
 }
 
 .reveal-card__overlay-link {
@@ -271,7 +253,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: v-bind('props.imageObjectFit');
+  object-fit: v-bind("props.imageObjectFit");
   z-index: 0;
   transform: scale(1);
   transition: transform 320ms var(--ease-gentle);
@@ -282,8 +264,8 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
   inset: auto 0 0;
   z-index: 3;
   display: grid;
-  gap: v-bind('props.contentGap');
-  padding: v-bind('props.contentPadding');
+  gap: v-bind("props.contentGap");
+  padding: v-bind("props.contentPadding");
 }
 
 .reveal-card__title {
@@ -295,11 +277,6 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
   text-wrap: balance;
   font-size: clamp(1.25rem, 5.25cqi, 2.25rem);
   line-height: 1.05;
-}
-
-.reveal-card__subtitle {
-  margin-top: -0.25rem;
-  opacity: 0.85;
 }
 
 .reveal-card__details {
@@ -349,7 +326,7 @@ const hasMeta = computed(() => Boolean(useSlots().meta || props.sector));
 .reveal-card__wrapper:focus-visible .reveal-card__image,
 .reveal-card--overlay:hover .reveal-card__image,
 .reveal-card--overlay:focus-within .reveal-card__image {
-  transform: scale(v-bind('String(props.imageHoverScale)'));
+  transform: scale(v-bind("String(props.imageHoverScale)"));
   will-change: transform;
 }
 

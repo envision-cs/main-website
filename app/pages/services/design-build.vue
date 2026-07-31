@@ -3,21 +3,6 @@ definePageMeta({
   layout: 'layout-a',
 });
 
-const posthog = usePostHog();
-const route = useRoute();
-
-function trackContactCtaClick() {
-  posthog?.capture('contact_cta_clicked', {
-    funnel_stage: 'bottom',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'high',
-    cta_source: 'service',
-    service_name: 'Design-Build',
-    source_page: route.path,
-  });
-}
-
 useSeoMeta({
   title: 'Design-Build | Envision Tampa Bay & Central Florida',
   description:
@@ -76,26 +61,6 @@ const deliveryMethods = [
 //   { id: 3, label: "Trade partners engaged at every design phase for real-time cost input" },
 //   { id: 4, label: "Delivered on an active school campus with zero disruption to operations" },
 // ];
-
-usePageView({
-  eventName: 'design_build_page_viewed',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    intent: 'medium',
-    funnel_movement: 'down',
-  },
-});
-
-useEngagementTracking({
-  eventName: 'design_build_page_engaged',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'medium',
-  },
-});
 </script>
 
 <template>
@@ -149,7 +114,6 @@ useEngagementTracking({
       label="Start the conversation"
       href="/contact"
       bgcolor="dark"
-      @button-click="trackContactCtaClick"
     >
       <template #title>
         <app-typography

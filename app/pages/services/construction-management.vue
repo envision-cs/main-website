@@ -3,21 +3,6 @@ definePageMeta({
   layout: 'layout-a',
 });
 
-const posthog = usePostHog();
-const route = useRoute();
-
-function trackContactCtaClick() {
-  posthog?.capture('contact_cta_clicked', {
-    funnel_stage: 'bottom',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'high',
-    cta_source: 'service',
-    service_name: 'Construction Management',
-    source_page: route.path,
-  });
-}
-
 useSeoMeta({
   title: 'Construction Management | Envision Tampa Bay & Central Florida',
   description:
@@ -160,39 +145,6 @@ const stats = [
   { id: 2, value: '200+', label: 'Projects Delivered. On Time & On Budget.' },
   { id: 3, value: '16 yrs', label: 'Building Greater Tampa Bay' },
 ];
-
-usePageView({
-  eventName: 'construction_managment_page_viewed',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    intent: 'medium',
-    funnel_movement: 'down',
-  },
-});
-
-useEngagementTracking({
-  eventName: 'construction_managment_page_engaged',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'medium',
-  },
-});
-
-const { trackClick: handleViewProjectClick } = useClickTracking({
-  eventName: 'construction_managment_featured_project_clicked',
-  funnelEvent: {
-    funnel_stage: 'middle',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'medium-high',
-  },
-  properties: {
-    page_group: 'service details',
-  },
-});
 </script>
 
 <template>
@@ -219,7 +171,7 @@ const { trackClick: handleViewProjectClick } = useClickTracking({
 
     <section class="split-section" bgcolor="dark">
       <nuxt-img
-        src="/main-website/IMG_1915_5cb1c166a8.jpg"
+        src="https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915_5cb1c166a8.jpg?updatedAt=1780434227428"
         alt="Construction Management"
         width="100%"
         height="100%"
@@ -255,7 +207,6 @@ const { trackClick: handleViewProjectClick } = useClickTracking({
           to="/projects/athletics/usl-super-league-stadium"
           bgcolor="blue"
           class="mt-6"
-          @click="handleViewProjectClick"
         >
           View Project
         </m-button>
@@ -270,7 +221,6 @@ Or We Make It Right."
       label="Start the conversation"
       href="/contact"
       bgcolor="dark"
-      @button-click="trackContactCtaClick"
     >
       <template #title>
         <app-typography

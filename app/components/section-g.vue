@@ -11,7 +11,6 @@ const props = defineProps<{
   title: string;
   body?: string;
   items: SectionGItem[];
-  stick?: boolean;
 }>();
 
 const titleId = computed(() => {
@@ -25,12 +24,7 @@ const titleId = computed(() => {
 <template>
   <section class="section-g" :aria-labelledby="titleId">
     <div class="section-g__inner">
-      <header
-        class="section-g__header"
-        :class="{
-          'section-g__header-sticky': stick,
-        }"
-      >
+      <header class="section-g__header">
         <p v-if="eyebrow" class="section-g__eyebrow">{{ eyebrow }}</p>
         <app-typography :id="titleId" tag="h2" variant="heading-lg" class="section-g__title">
           {{ title }}
@@ -80,10 +74,8 @@ const titleId = computed(() => {
   width: 100%;
 }
 
-.section-g__header-sticky {
-  position: sticky;
-}
 .section-g__header {
+  position: sticky;
   top: 0;
   z-index: 1;
   align-self: start;

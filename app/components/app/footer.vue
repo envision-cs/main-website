@@ -1,7 +1,5 @@
 <script setup lang="ts">
 const year = new Date().getFullYear();
-const posthog = usePostHog();
-const route = useRoute();
 
 const navLinks = [
   { id: 1, to: '/', label: 'Home' },
@@ -18,17 +16,6 @@ const { services: servicesLinks } = await useServicesList();
 //  { id: 4, to: "/services/enhanced-preconstruction", label: "Enhanced Preconstruction" },
 //  { id: 5, to: "/services", label: "View all services" },
 // ];
-
-function trackContactCtaClick() {
-  posthog?.capture('contact_cta_clicked', {
-    funnel_stage: 'bottom',
-    conversion_role: 'process_milestone',
-    funnel_movement: 'down',
-    intent: 'high',
-    cta_source: 'footer',
-    source_page: route.path,
-  });
-}
 </script>
 
 <template>
@@ -37,7 +24,7 @@ function trackContactCtaClick() {
       <NuxtLink class="brand-link" to="/" aria-label="Envision home">
         <NuxtImg
           provider="imagekit"
-          src="/main-website/White_Envision_Logo_c1724c69d3.png"
+          src="https://ik.imagekit.io/pnixsw7lg/main-website/White_Envision_Logo_c1724c69d3.png?updatedAt=1780533539430"
           alt="Envision Construction logo"
           width="160"
           height="32"
@@ -89,9 +76,7 @@ function trackContactCtaClick() {
             From preconstruction through closeout, our process stays direct: listen, plan, execute,
             cultivate.
           </p>
-          <m-button to="/contact" size="sm" variant="outline" @click="trackContactCtaClick">
-            Contact Us
-          </m-button>
+          <m-button to="/contact" size="sm" variant="outline">Contact Us</m-button>
         </div>
       </div>
       <div class="date-socials">

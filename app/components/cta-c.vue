@@ -1,5 +1,5 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
   defineProps<{
     body?: string;
     image?: string;
@@ -16,12 +16,12 @@ withDefaults(
   },
 );
 
-const emit = defineEmits<{
-  buttonClick: [];
-}>();
+const posthog = usePostHog();
 
 function handleCtaClick() {
-  emit('buttonClick');
+  if (props.href) {
+    posthog?.capture('cta_clicked', { label: props.label, href: props.href });
+  }
 }
 </script>
 

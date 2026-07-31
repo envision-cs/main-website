@@ -41,16 +41,6 @@ const hasTestimonials = computed(() => normalizedTestimonials.value.length > 0);
 const showRailNavigation = computed(() => normalizedTestimonials.value.length > 1);
 
 const posthog = usePostHog();
-const route = useRoute();
-
-const TestimonialEvent: FunnelEvent = {
-  funnel_stage: 'top',
-  conversion_role: 'secondary_action',
-  funnel_movement: 'down',
-  intent: 'low-medium',
-};
-
-let hasInteracted = false;
 
 type TestimonialNavMethod = 'button' | 'keyboard' | 'page' | 'swipe';
 
@@ -94,15 +84,6 @@ function trackNavigation(method: TestimonialNavMethod, toIndex: number) {
     to_index: toIndex,
     testimonial_name: target?.name,
   });
-
-  if (!hasInteracted) {
-    hasInteracted = true;
-    captureTestimonialEvent('testimonial_interacted', {
-      ...TestimonialEvent,
-      method,
-      source_page: route.path,
-    });
-  }
 }
 
 function onEmblaPointerDown() {

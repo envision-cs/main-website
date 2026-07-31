@@ -69,9 +69,7 @@ const projectCards = computed<ProjectCardItem[]>(() =>
     ];
   }),
 );
-const bannerImage = computed(
-  () => '/main-website/UT%20MPB%20-%20Aerial%20-%20Pre-dawn%20One%20Point.webp',
-);
+const bannerImage = computed(() => 'projects-all.jpg');
 const socialImage = computed(() => toAbsoluteOptionalSiteUrl(bannerImage.value));
 const bannerBody = computed(() => '');
 
@@ -110,7 +108,7 @@ useSeoMeta({
           <projects-categories-nav :categories="navCategories" />
         </div>
         <div class="projects-grid">
-          <project-card
+          <project-card-island
             v-for="project in projectCards"
             :key="project.id"
             :image="project.image"
@@ -124,7 +122,7 @@ useSeoMeta({
             :location="project.location"
             :completed="project.completed"
             :sector="project.sector"
-          />
+          ></project-card-island>
         </div>
       </div>
     </template>
