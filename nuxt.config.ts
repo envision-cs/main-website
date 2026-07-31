@@ -199,6 +199,10 @@ export default defineNuxtConfig({
         id: 'G-WW8RWLRQM4',
         trigger: 'onNuxtReady',
       },
+      googleAnalytics: {
+        id: 'G-WW8RWLRQM4',
+        trigger: 'onNuxtReady',
+      }
     },
   },
   features: {
