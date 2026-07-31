@@ -8,7 +8,7 @@ interface DropdownFeaturePanel {
   title: string;
   copy: string;
   linkLabel: string;
-  tone?: 'services' | 'projects';
+  tone?: "services" | "projects";
   dataTest?: string;
 }
 
@@ -38,7 +38,7 @@ const emit = defineEmits<{
 }>();
 
 function openMenu() {
-  emit('open', props.value);
+  emit("open", props.value);
 }
 
 function focusFirstMenuItem() {
@@ -46,17 +46,17 @@ function focusFirstMenuItem() {
 
   window.requestAnimationFrame(() => {
     const panel = document.querySelector(`[data-test="${props.panelDataTest}"]`);
-    const firstLink = panel?.querySelector<HTMLElement>('a, button');
+    const firstLink = panel?.querySelector<HTMLElement>("a, button");
 
     firstLink?.focus();
   });
 }
 
 const PAGEVIEW: FunnelEvent = {
-  funnel_stage: 'top',
-  conversion_role: 'process_milestone',
-  funnel_movement: 'down',
-  intent: 'low-medium',
+  funnel_stage: "top",
+  conversion_role: "process_milestone",
+  funnel_movement: "down",
+  intent: "low-medium",
 };
 
 function closeOnNavigation() {
@@ -68,21 +68,21 @@ function closeOnNavigation() {
 }
 
 function onTriggerKeydown(event: KeyboardEvent) {
-  if (event.key === 'ArrowDown') {
+  if (event.key === "ArrowDown") {
     event.preventDefault();
     openMenu();
     focusFirstMenuItem();
     return;
   }
 
-  if (event.key === ' ') {
+  if (event.key === " ") {
     event.preventDefault();
     openMenu();
     focusFirstMenuItem();
     return;
   }
 
-  if (event.key === 'Escape') {
+  if (event.key === "Escape") {
     props.closeMenu(0);
   }
 }
@@ -90,7 +90,7 @@ function onTriggerKeydown(event: KeyboardEvent) {
 function onServiceClick(item: DropdownItem) {
   posthog?.capture(`${props.featurePanel.tone}_nav_item_clicked`, {
     ...PAGEVIEW,
-    page_group: 'global_navigation',
+    page_group: "global_navigation",
     item_slug: item.slug,
     item_label: item.label,
     item_to: item.to,
@@ -103,9 +103,9 @@ function onServiceClick(item: DropdownItem) {
 <template>
   <NavigationMenuItem :value="props.value">
     <div class="desktop-dropdown-trigger-group">
-      <div >
+      <div>
         <NuxtLink
-        :to="featurePanel.to"
+          :to="featurePanel.to"
           class="NavigationMenuTrigger desktop-inline-nav-link submenu"
           :data-test="triggerDataTest"
           :data-menu-open="isOpen ? 'true' : undefined"
@@ -119,7 +119,7 @@ function onServiceClick(item: DropdownItem) {
         >
           {{ label }}
         </NuxtLink>
-      </>
+      </div>
       <MButton
         type="button"
         class="desktop-dropdown-open-button"
@@ -178,7 +178,7 @@ function onServiceClick(item: DropdownItem) {
         </div>
       </div>
     </NavigationMenuContent>
-  </div></NavigationMenuItem>
+  </NavigationMenuItem>
 </template>
 
 <style scoped>
