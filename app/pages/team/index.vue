@@ -58,7 +58,7 @@ const { data } = useFetch('/api/team', {
               hydrate-on-visible
               link-mode="overlay"
               aspect-ratio="3/4"
-              image-sizes="(max-width: 768px) 100vw, 300px"
+              image-sizes="430px sm:320px md:384px lg:340px xl:425px 2xl:384px"
               :image-hover-scale="1.1"
               :outlined="false"
               :meta-border="false"
