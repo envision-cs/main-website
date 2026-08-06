@@ -108,7 +108,7 @@ useSeoMeta({
           <projects-categories-nav :categories="navCategories" />
         </div>
         <div class="projects-grid">
-          <project-card-island
+          <project-card
             v-for="project in projectCards"
             :key="project.id"
             :image="project.image"
@@ -118,11 +118,12 @@ useSeoMeta({
             aspect-ratio="3/4"
             image-densities="x1"
             :outlined="false"
+            image-sizes="430px sm:320px md:384px lg:340px xl:425px 2xl:384px"
             :title="project.title"
             :location="project.location"
             :completed="project.completed"
             :sector="project.sector"
-          ></project-card-island>
+          />
         </div>
       </div>
     </template>

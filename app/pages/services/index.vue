@@ -25,9 +25,10 @@ useSeoMeta({
   <div class="projects">
     <ul class="projects-grid" dense>
       <li v-for="service in services" :key="service.slug">
-        <project-card-island
+        <project-card
           :to="service.to"
           :aria-label="service.title"
+          image-sizes="430px sm:320px md:384px lg:340px xl:425px 2xl:384px"
           :image="service?.preview || service.image || ''"
           :alt="service.title"
           :title="service.title"

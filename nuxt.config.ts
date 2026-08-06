@@ -86,7 +86,31 @@ export default defineNuxtConfig({
     ],
   },
   fonts: {
+    // Proxima Nova is self-hosted; the local provider matches the woff2 files in
+    // `public/fonts/` by filename (proxima-nova.woff2, proxima-nova-300.woff2, ...).
     provider: 'local',
+    // The family is only ever referenced through the `--font-sans` custom property,
+    // so the plugin has to look inside `--font*` variables to discover it.
+    processCSSVariables: 'font-prefixed-only',
+    defaults: {
+      fallbacks: {
+        'sans-serif': [
+          'Aptos',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif',
+        ],
+      },
+      // 400 first: only the first resolved face gets a preload link, and body copy
+      // is what should win it.
+      weights: [400, 300, 600, 800],
+      styles: ['normal'],
+      preload: true,
+    },
   },
   posthogConfig: {
     publicKey: process.env.NUXT_PUBLIC_POSTHOG_PROJECT_TOKEN || '',
@@ -109,7 +133,7 @@ export default defineNuxtConfig({
       person_profiles: 'identified_only',
     },
     serverConfig: {
-      enableExceptionAutocapture: true,
+      enableExceptionAutocapture: false,
     },
     sourcemaps: posthogSourcemaps,
   },
@@ -172,6 +196,14 @@ export default defineNuxtConfig({
     '/api/locations': { cache: { maxAge: 600 } },
     '/api/home-hero': { cache: { maxAge: 60 * 10 } }, // 10 min
     '/api/homepage-featured-project-section': { cache: { maxAge: 600 } },
+    // Font files live in `public/` so their names are not content-hashed, which
+    // means they would otherwise be served `max-age=0` and revalidated on every
+    // visit — re-running the swap flash for returning visitors. Because the names
+    // are stable, replacing a font means giving the file a NEW name rather than
+    // overwriting it; anything else stays cached for up to a year.
+    '/fonts/**': {
+      headers: { 'cache-control': 'public, max-age=31536000, immutable' },
+    },
   },
   image: {
     imagekit: {

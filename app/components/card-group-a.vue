@@ -1,4 +1,5 @@
-<script setup lang="ts">interface Card {
+<script setup lang="ts">
+interface Card {
   title: string;
   link: string;
   image: string;
@@ -17,7 +18,13 @@ defineProps<{
     <div class="main-wrapper site-grid">
       <ul class="wrapper">
         <li v-for="(card, index) in cards" :key="index">
-          <project-card :image="card.image" :title="card.title" :to="card.link" aspect-ratio="3/4">
+          <project-card
+            image-sizes="430px sm:320px md:384px lg:340px xl:425px 2xl:384px"
+            :image="card.image"
+            :title="card.title"
+            :to="card.link"
+            aspect-ratio="3/4"
+          >
             <template #title>
               <app-typography class="title" variant="heading-md">
                 {{ card.title }}

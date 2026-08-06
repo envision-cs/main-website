@@ -24,8 +24,8 @@ const heroImagePreload = computed(() => {
     provider: 'imagekit',
     sizes: heroImageSizes,
     modifiers: {
-      width: undefined,
-      height: undefined,
+      width: 'auto',
+      height: 'auto',
       format: 'avif',
       quality: image.options.quality,
       background: undefined,
@@ -71,6 +71,7 @@ const FeatureProjects = defineLazyHydrationComponent(
     <div class="hero__media">
       <NuxtImg
         v-if="hero.image?.url"
+        quality="80"
         provider="imagekit"
         :src="hero.image.url"
         alt="Exterior view of a residence hall at dusk"
@@ -223,8 +224,7 @@ const FeatureProjects = defineLazyHydrationComponent(
 .hero-title {
   max-inline-size: 12ch;
   color: var(--color-white);
-  font-family:
-    'Proxima Nova Hero', 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
   text-wrap: balance;
   overflow-wrap: break-word;
   letter-spacing: 0;
