@@ -15,16 +15,6 @@ useSeoMeta({
   twitterImage: 'https://ik.imagekit.io/pnixsw7lg/main-website/MeetTheTeam.jpg',
 });
 
-usePageView({
-  eventName: 'about_page_viewed',
-  funnelEvent: {
-    funnel_stage: 'top',
-    conversion_role: 'secondary_action',
-    intent: 'low-medium',
-    funnel_movement: 'down',
-  },
-});
-
 // The Curator.io feed's published bundle looks for its container the moment it
 // runs, so the loader must execute AFTER the feed div is in the DOM (client-side
 // on mount) — never in <head>. Feed styling/layout lives in the Curator dashboard.
