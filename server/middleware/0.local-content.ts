@@ -30,6 +30,10 @@ export default defineEventHandler((event) => {
       const map = maps[prefix];
       if (key in map)
         return map[key];
+      // The snapshots are authoritative for these content types, so an unknown
+      // slug genuinely does not exist (e.g. a removed team member). Return 404
+      // rather than falling through to a CMS that might still have stale data.
+      throw createError({ statusCode: 404, statusMessage: 'Not found' });
     }
   }
 
