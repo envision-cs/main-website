@@ -3,9 +3,13 @@
   "configurations": [
     {
       "name": "nuxt-dev",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["nuxt", "dev", "--port", "4477"],
-      "port": 4477
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-lc",
+        "cd /Users/allengreeneii/projects/main-website && exec pnpm exec nuxt dev"
+      ],
+      "port": 4477,
+      "autoPort": true
     }
   ]
 }
