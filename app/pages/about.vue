@@ -190,7 +190,7 @@ onBeforeUnmount(() => {
     <section id="process" class="sec sec--tint process">
       <div class="processGhost" aria-hidden="true"><img src="/about/proven-process-mark.png" alt=""></div>
       <div class="processHead">
-        <p class="eyebrow">What working with Envision feels like</p>
+        <p class="eyebrow">What working with Envision looks like</p>
         <h2 class="processTitle">
           <img src="/about/proven-process-lockup.png" alt="Our Proven Process: Listen. Plan. Execute. Cultivate.">
         </h2>
@@ -241,7 +241,10 @@ onBeforeUnmount(() => {
       <p class="eyebrow">Our history</p>
       <h2 class="storyTitle">Rooted in faith.<br>Built through relationships.</h2>
       <p class="storyCopy">A history of faith, purpose, mentorship, and opportunity, built one project and one relationship at a time.</p>
+      <!-- History Timeline button hidden until the /history page ships. Restore this
+           NuxtLink (to="/history") when it's live:
       <NuxtLink class="btnDark" to="/history">View the History Timeline <span aria-hidden="true">→</span></NuxtLink>
+      -->
     </section>
 
     <!-- 10 · Start the conversation -->
