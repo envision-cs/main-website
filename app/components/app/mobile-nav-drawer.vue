@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { socialLinks } from '~/utils/social-links';
+
 const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const mobileProjectsOpen = ref(false);
@@ -479,6 +481,23 @@ function onDrawerCloseAutoFocus(event: Event) {
           </ul>
         </nav>
 
+        <div class="mobile-social">
+          <p class="mobile-social__title">Follow Envision</p>
+          <div class="mobile-social__links">
+            <a
+              v-for="social in socialLinks"
+              :key="social.name"
+              class="mobile-social__link"
+              :href="social.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              :aria-label="social.label"
+            >
+              <UIcon :name="social.icon" class="mobile-social__icon" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+
         <footer class="mobile-footer" aria-label="Secondary navigation">
           <div v-for="group in footerLinkGroups" :key="group.title" class="mobile-footer__group">
             <p class="mobile-footer__title">{{ group.title }}</p>
@@ -890,6 +909,67 @@ function onDrawerCloseAutoFocus(event: Event) {
   background: color-mix(in oklch, var(--drawer-accent) 16%, transparent);
 }
 
+.mobile-social {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 4);
+  width: min(100%, 42rem);
+  margin-inline: auto;
+  padding: 0 calc(var(--spacing) * 3) calc(var(--spacing) * 6);
+}
+
+.mobile-social__title {
+  margin: 0;
+  color: var(--drawer-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.mobile-social__links {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+}
+
+.mobile-social__link {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--drawer-border);
+  border-radius: calc(var(--spacing) * 2);
+  background: var(--drawer-surface);
+  color: color-mix(in oklch, var(--color-white) 82%, transparent);
+  transition:
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.mobile-social__link:hover,
+.mobile-social__link:focus-visible {
+  color: #59ba48;
+  background: var(--drawer-surface-hover);
+}
+
+.mobile-social__link:focus-visible {
+  outline: 2px solid var(--drawer-accent);
+  outline-offset: -2px;
+}
+
+.mobile-social__icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-social__link {
+    transition: none;
+  }
+}
+
 .mobile-footer {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -940,6 +1020,7 @@ function onDrawerCloseAutoFocus(event: Event) {
 @media (min-width: 480px) {
   .mobile-content-header,
   .mobile-nav,
+  .mobile-social,
   .mobile-footer {
     padding-inline: calc(var(--spacing) * 6);
   }
