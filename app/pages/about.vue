@@ -190,7 +190,7 @@ onBeforeUnmount(() => {
     <section id="process" class="sec sec--tint process">
       <div class="processGhost" aria-hidden="true"><img src="/about/proven-process-mark.png" alt=""></div>
       <div class="processHead">
-        <p class="eyebrow">What working with Envision feels like</p>
+        <p class="eyebrow">What working with Envision looks like</p>
         <h2 class="processTitle">
           <img src="/about/proven-process-lockup.png" alt="Our Proven Process: Listen. Plan. Execute. Cultivate.">
         </h2>
