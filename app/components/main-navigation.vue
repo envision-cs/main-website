@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { socialLinks } from '~/utils/social-links';
+
 const { sectors } = await useSectors();
 const { services } = await useServicesList();
 const posthog = usePostHog();
@@ -106,6 +108,22 @@ function handleProjectsClick() {
     </NuxtLink>
     <nav aria-label="Envision Construction Services">
       <ul role="menubar" aria-label="Envision Construction Services">
+        <li role="none" class="nav-social-item">
+          <span class="nav-social">
+            <a
+              v-for="social in socialLinks"
+              :key="social.name"
+              class="nav-social__link"
+              :href="social.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              :aria-label="social.label"
+            >
+              <UIcon :name="social.icon" class="nav-social__icon" aria-hidden="true" />
+            </a>
+            <span class="nav-social__divider" aria-hidden="true" />
+          </span>
+        </li>
         <li role="none">
           <NuxtLink role="menuitem" to="/">Home</NuxtLink>
         </li>
@@ -299,6 +317,59 @@ li {
       display: flex;
       opacity: 1;
     }
+  }
+}
+
+/* Social icons at the left end of the nav block, before the divider */
+.nav-social-item {
+  align-items: center;
+}
+
+.nav-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-social__link {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 0;
+  color: rgb(255 255 255 / 0.82);
+  transition:
+    color 160ms ease,
+    background 160ms ease;
+}
+
+.nav-social__link:hover,
+.nav-social__link:focus-visible {
+  color: #59ba48;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.nav-social__link:focus-visible {
+  outline: 2px solid #59ba48;
+  outline-offset: -2px;
+}
+
+.nav-social__icon {
+  width: 17px;
+  height: 17px;
+}
+
+.nav-social__divider {
+  width: 1px;
+  height: 20px;
+  margin: 0 12px 0 8px;
+  background: rgb(255 255 255 / 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-social__link {
+    transition: none;
   }
 }
 
