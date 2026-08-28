@@ -12,7 +12,7 @@ const id = computed(() => route.params.id as string);
 
 const asyncDataKey = computed(() => `team-member-page-${id.value}`);
 
-const { data } = await useAsyncData(
+const { data, error } = await useAsyncData(
   asyncDataKey,
   async () => {
     const response = await $fetch(`/api/team/${id.value}`);
@@ -21,6 +21,12 @@ const { data } = await useAsyncData(
   },
   { watch: [id] },
 );
+
+// If the member doesn't exist (e.g. removed from the team), render a proper 404
+// rather than a degraded 200 page that still carries their name in the title.
+if (error.value || !data.value?.teamMember) {
+  throw createError({ statusCode: 404, statusMessage: 'Team member not found', fatal: true });
+}
 
 const relatedTeam = computed(() => data.value?.team || []);
 const relatedMembers = computed(() => {
