@@ -34,18 +34,16 @@ const timelines = ['Within 3 months', '3 to 6 months', '6 to 12 months', 'Still 
 const sources = ['Referral', 'Worked with us before', 'Google search', 'Social media', 'Jobsite sign', 'Industry event or group', 'Other'];
 
 const nameOk = computed(() => name.value.trim().length > 1);
-const reachable = computed(() => email.value.trim().length > 3 || phone.value.trim().length > 6);
 
 const errorNote = computed(() => {
   if (sendError.value) return sendError.value;
   if (tried.value && !nameOk.value) return 'Add your name so we know who we are talking to.';
-  if (tried.value && !reachable.value) return 'Add an email or phone number so we can reach you.';
   return '';
 });
 
 async function onSubmit() {
   sendError.value = '';
-  if (!nameOk.value || !reachable.value) {
+  if (!nameOk.value) {
     tried.value = true;
     return;
   }
@@ -187,12 +185,12 @@ function reset() {
 
         <label class="field">
           <span class="field__label">Email <span class="field__opt">(optional)</span></span>
-          <input v-model="email" type="email" class="field__input" :class="{ 'field__input--err': tried && !reachable }" placeholder="you@company.com">
+          <input v-model="email" type="email" class="field__input" placeholder="you@company.com">
         </label>
 
         <label class="field">
           <span class="field__label">Phone <span class="field__opt">(optional)</span></span>
-          <input v-model="phone" type="tel" class="field__input" :class="{ 'field__input--err': tried && !reachable }" placeholder="(813) 000-0000">
+          <input v-model="phone" type="tel" class="field__input" placeholder="(813) 000-0000">
         </label>
 
         <label class="field">
