@@ -80,6 +80,17 @@ useSeoMeta({
                   </span>
                 </a>
               </div>
+              <a
+                class="contact-text"
+                href="sms:+18334051332?&body=BUILD"
+                aria-label="Text BUILD to 833-405-1332 to reach Envision"
+              >
+                <span class="contact-action__eyebrow">Prefer to text?</span>
+                <span class="contact-text__line">
+                  Text <strong class="contact-text__em">BUILD</strong> to
+                  <strong class="contact-text__em">833-405-1332</strong>
+                </span>
+              </a>
               <app-typography tag="p" variant="text-md" class="section-copy">
                 For pursuits, select Option 4 or dial Ext. 103.
               </app-typography>
@@ -270,6 +281,46 @@ useSeoMeta({
 }
 
 .contact-action:focus-visible {
+  outline: 2px solid var(--ui-secondary);
+  outline-offset: 4px;
+}
+
+/* "Prefer to text?" bar: same dark section, green eyebrow and padding as the
+   cards above, distinguished by a faint green tint fill and a green top rule. */
+.contact-text {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+  padding: calc(var(--spacing) * 4);
+  border-top: 2px solid var(--ui-secondary);
+  background: color-mix(in oklab, var(--ui-secondary) 10%, transparent);
+  color: var(--color-white);
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.contact-text__line {
+  font-size: var(--font-size-text-t2);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.contact-text__em {
+  font-weight: 700;
+  color: var(--ui-secondary);
+}
+
+.contact-text:hover {
+  background: color-mix(in oklab, var(--ui-secondary) 16%, transparent);
+}
+
+.contact-text:hover .contact-text__line {
+  color: var(--ui-secondary);
+}
+
+.contact-text:focus-visible {
   outline: 2px solid var(--ui-secondary);
   outline-offset: 4px;
 }
