@@ -157,6 +157,13 @@ export default defineNuxtConfig({
       priority: 0.7,
     },
   },
+  linkChecker: {
+    // First two entries preserve the module's own defaults (underscore paths +
+    // llms.txt). The last skips non-navigable sms: links — the checker tries to
+    // resolve them as internal routes and falsely reports a 404, the same way it
+    // already ignores tel:/mailto:.
+    excludeLinks: [/^\/_/, /^\/llms(-[\w-]+)?\.txt$/, /^sms:/],
+  },
   compatibilityDate: '2025-05-15',
   experimental: {
     sharedPrerenderData: true,
