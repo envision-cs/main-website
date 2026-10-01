@@ -70,13 +70,16 @@ useSeoMeta({
                 <a
                   href="tel:813-997-0330"
                   class="contact-action"
-                  aria-label="Call Envision at 813-997-0330"
+                  aria-label="Call Envision at 813-997-0330. For pursuits, select Option 4 or dial Ext. 103."
                   @click="trackPhoneClick"
                 >
                   <span class="contact-action__copy">
                     <span class="contact-action__eyebrow">Speak Directly</span>
                     <span class="contact-action__label">Call the office</span>
                     <span class="contact-action__value">813-997-0330</span>
+                    <span class="contact-action__value">
+                      For pursuits, select Option 4 or dial Ext. 103.
+                    </span>
                   </span>
                 </a>
               </div>
@@ -91,9 +94,6 @@ useSeoMeta({
                   <strong class="contact-text__em">833-405-1332</strong>
                 </span>
               </a>
-              <app-typography tag="p" variant="text-md" class="section-copy">
-                For pursuits, select Option 4 or dial Ext. 103.
-              </app-typography>
               <contact-inquiry-form />
             </div>
           </div>
@@ -247,6 +247,7 @@ useSeoMeta({
 
 .contact-action__copy {
   display: grid;
+  align-content: start;
   gap: calc(var(--spacing) * 1);
   min-width: 0;
 }
@@ -305,7 +306,7 @@ useSeoMeta({
 }
 
 .contact-text__em {
-  font-weight: 700;
+  font-weight: inherit;
   color: var(--ui-secondary);
   white-space: nowrap;
 }
