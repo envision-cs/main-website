@@ -10,6 +10,9 @@ declare global {
 }
 
 const storeId = '15518248';
+// The Ecwid store is shared with Focus Flooring. Open on the Envision
+// category instead of the brand chooser at the store root.
+const envisionCategoryId = '156563002';
 let scriptElement: HTMLScriptElement | null = null;
 
 function initializeStore() {
@@ -18,6 +21,7 @@ function initializeStore() {
     'views=grid(20,3) list(60) table(60)',
     'categoryView=grid',
     'searchView=list',
+    `defaultCategoryId=${envisionCategoryId}`,
     `id=my-store-${storeId}`,
   );
 }
@@ -47,3 +51,25 @@ onUnmounted(() => {
   scriptElement?.removeEventListener('load', initializeStore);
 });
 </script>
+
+<style>
+/* Ecwid renders this markup, so these rules are unscoped and limited to this
+   store's container. Inside the Envision category, hide the breadcrumb link to
+   the shared store root (the brand chooser) so breadcrumbs start at Envision.
+   Pages outside Envision keep Ecwid's default breadcrumbs. */
+#my-store-15518248
+  .ec-breadcrumbs:has(a[data-category-id='156563002'])
+  a[data-category-id='0'],
+#my-store-15518248
+  .ec-breadcrumbs:has(a[data-category-id='156563002'])
+  a[data-category-id='0']
+  + .breadcrumbs__delimiter {
+  display: none;
+}
+
+/* The product sidebar shows only the first breadcrumb link, which was the
+   store root. Show the Envision link in its place. */
+#my-store-15518248 .product-details__sidebar .ec-breadcrumbs a[data-category-id='156563002'] {
+  display: inline !important;
+}
+</style>
