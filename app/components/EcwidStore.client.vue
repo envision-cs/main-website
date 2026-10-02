@@ -6,6 +6,9 @@
 declare global {
   interface Window {
     xProductBrowser?: (...options: string[]) => void;
+    Ecwid?: {
+      OnPageLoaded?: { add: (callback: (page: { type: string }) => void) => void };
+    };
   }
 }
 
@@ -14,6 +17,28 @@ const storeId = '15518248';
 // category instead of the brand chooser at the store root.
 const envisionCategoryId = '156563002';
 let scriptElement: HTMLScriptElement | null = null;
+let productTrailListenerAdded = false;
+
+// Ecwid hides the full breadcrumb trail on product pages, leaving no clear
+// way back to browsing. Copy it to the top of the product, above the photo.
+function addProductTrail(page: { type: string }) {
+  const container = document.getElementById(`my-store-${storeId}`);
+  container?.querySelectorAll('.envision-product-trail').forEach((trail) => trail.remove());
+
+  if (page.type !== 'PRODUCT') return;
+
+  const details = container?.querySelector('.product-details');
+  const source =
+    details?.querySelector('.product-details__description .ec-breadcrumbs') ??
+    details?.querySelector('.ec-breadcrumbs');
+  // Envision products only; pages outside Envision keep Ecwid's defaults.
+  if (!details || !source?.querySelector(`a[data-category-id='${envisionCategoryId}']`)) return;
+
+  const trail = source.cloneNode(true) as HTMLElement;
+  trail.classList.add('envision-product-trail');
+  trail.removeAttribute('itemprop');
+  details.before(trail);
+}
 
 function initializeStore() {
   window.xProductBrowser?.(
@@ -24,6 +49,11 @@ function initializeStore() {
     `defaultCategoryId=${envisionCategoryId}`,
     `id=my-store-${storeId}`,
   );
+
+  if (!productTrailListenerAdded && window.Ecwid?.OnPageLoaded) {
+    window.Ecwid.OnPageLoaded.add(addProductTrail);
+    productTrailListenerAdded = true;
+  }
 }
 
 onMounted(() => {
@@ -71,5 +101,31 @@ onUnmounted(() => {
    store root. Show the Envision link in its place. */
 #my-store-15518248 .product-details__sidebar .ec-breadcrumbs a[data-category-id='156563002'] {
   display: inline !important;
+}
+
+/* Full trail copied to the top of product pages (see addProductTrail). The
+   sidebar link above is the fallback, so hide it when the trail is present. */
+#my-store-15518248 .envision-product-trail {
+  display: block !important;
+  margin-bottom: 24px;
+}
+
+#my-store-15518248 .envision-product-trail a,
+#my-store-15518248 .envision-product-trail .breadcrumbs__delimiter {
+  display: inline !important;
+}
+
+#my-store-15518248
+  .envision-product-trail:has(a[data-category-id='156563002'])
+  a[data-category-id='0'],
+#my-store-15518248
+  .envision-product-trail:has(a[data-category-id='156563002'])
+  a[data-category-id='0']
+  + .breadcrumbs__delimiter {
+  display: none !important;
+}
+
+#my-store-15518248 .envision-product-trail + .product-details .product-details__sidebar .ec-breadcrumbs {
+  display: none !important;
 }
 </style>
