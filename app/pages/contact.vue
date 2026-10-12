@@ -83,17 +83,23 @@ useSeoMeta({
                   </span>
                 </a>
               </div>
-              <a
-                class="contact-text"
-                href="sms:+18334051332?&body=BUILD"
-                aria-label="Text BUILD to 833-405-1332 to reach Envision"
-              >
-                <span class="contact-action__eyebrow">Prefer to text?</span>
-                <span class="contact-text__line">
-                  Text <strong class="contact-text__em">BUILD</strong> to
-                  <strong class="contact-text__em">833-405-1332</strong>
-                </span>
-              </a>
+              <div class="contact-text-block">
+                <a
+                  class="contact-text"
+                  href="sms:+18334051332?&body=BUILD"
+                  aria-label="Text BUILD to 833-405-1332 to reach Envision"
+                >
+                  <span class="contact-action__eyebrow">Prefer to text?</span>
+                  <span class="contact-text__line">
+                    Text <strong class="contact-text__em">BUILD</strong> to
+                    <strong class="contact-text__em">833-405-1332</strong>
+                  </span>
+                </a>
+                <p class="contact-text__disclosure">
+                  No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. All the above categories exclude text messaging originator opt in data and consent; this information will not be shared with any third parties.
+                </p>
+                <NuxtLink to="/privacy" class="contact-text__privacy">Review our Privacy Policy</NuxtLink>
+              </div>
               <contact-inquiry-form />
             </div>
           </div>
@@ -288,12 +294,49 @@ useSeoMeta({
 
 /* "Prefer to text?" sits directly on the dark section, styled like the
    contact actions above: green eyebrow, same label size and spacing. */
+.contact-text-block {
+  display: grid;
+  justify-items: start;
+  gap: calc(var(--spacing) * 2);
+  min-width: 0;
+  margin-top: calc(var(--spacing) * 1);
+}
+
+/* Compliance disclosure and privacy link: footnote-sized, in the same muted
+   tone as the supporting text in the contact actions above. */
+.contact-text__disclosure,
+.contact-text__privacy {
+  max-width: 52ch;
+  margin: 0;
+  color: color-mix(in oklab, var(--color-white) 72%, transparent);
+  font-size: var(--font-size-text-t4);
+  line-height: 1.45;
+}
+
+.contact-text__disclosure {
+  font-style: italic;
+}
+
+.contact-text__privacy {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 180ms ease;
+}
+
+.contact-text__privacy:hover {
+  color: var(--ui-secondary);
+}
+
+.contact-text__privacy:focus-visible {
+  outline: 2px solid var(--ui-secondary);
+  outline-offset: 4px;
+}
+
 .contact-text {
   display: grid;
   justify-self: start;
   gap: calc(var(--spacing) * 1);
   min-width: 0;
-  margin-top: calc(var(--spacing) * 1);
   color: var(--color-white);
   text-decoration: none;
   transition: color 180ms ease;
