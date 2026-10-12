@@ -90,7 +90,7 @@ const { services: servicesLinks } = await useServicesList();
         </div>
         <div class="legal">
           <NuxtLink to="/privacy" class="footer-link">Privacy Policy</NuxtLink>
-          <p>©{{ year }}Envision Construction. All rights reserved.</p>
+          <p>©{{ year }} Envision. All rights reserved.</p>
         </div>
       </div>
     </section>
