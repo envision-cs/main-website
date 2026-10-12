@@ -88,7 +88,10 @@ const { services: servicesLinks } = await useServicesList();
             <Icon name="ri:linkedin-box-fill" size="32" />
           </NuxtLink>
         </div>
-        <p>©{{ year }}Envision Construction. All rights reserved.</p>
+        <div class="legal">
+          <NuxtLink to="/privacy" class="footer-link">Privacy Policy</NuxtLink>
+          <p>©{{ year }} Envision. All rights reserved.</p>
+        </div>
       </div>
     </section>
   </footer>
@@ -170,5 +173,16 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: calc(var(--spacing) * 6);
+}
+
+.legal .footer-link {
+  margin-bottom: 0;
 }
 </style>
