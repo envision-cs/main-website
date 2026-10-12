@@ -22,6 +22,7 @@ const props = defineProps<{
   featureCta?: string;
   stats?: BannerStat[];
   position?: string;
+  compact?: boolean;
 }>();
 
 const slots = useSlots();
@@ -65,6 +66,7 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
 <template>
   <section
     class="banner"
+    :class="{ 'banner--compact': compact }"
     :aria-labelledby="hasTitle ? 'banner-title' : undefined"
     :aria-describedby="hasBody ? 'banner-body' : undefined"
     role="region"
@@ -417,5 +419,15 @@ const hasRail = computed(() => hasFeatureCard.value || hasStats.value);
   .text {
     -webkit-line-clamp: 4;
   }
+}
+
+/* Compact: a page heading rather than a hero. Only as tall as the title plus
+   room for the overlaid site header. */
+.banner.banner--compact {
+  min-height: 0;
+}
+
+.banner.banner--compact .banner__inner {
+  padding-bottom: calc(var(--spacing) * 10);
 }
 </style>

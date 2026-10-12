@@ -8,7 +8,7 @@ useSeoMeta({
 
 <template>
   <div>
-    <banner-b>PRIVACY POLICY</banner-b>
+    <banner-b compact>PRIVACY POLICY</banner-b>
     <section class="site-max px-4 py-12 md:px-8 md:py-16">
       <div class="max-w-3xl space-y-4">
         <app-typography tag="p" variant="text-md"><strong>Last updated: October 8, 2026</strong></app-typography>
