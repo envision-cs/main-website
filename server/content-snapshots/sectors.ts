@@ -834,20 +834,6 @@ export default [
         "publishedAt": "2026-06-06T21:59:25.478Z",
         "description": "Envision completed interior renovations for the University of South Florida’s Office of Veterans Success across two campus buildings, refreshing the spaces to better support student-facing operations.\n\nThe scope included selective demolition, new flooring, MEP modifications, privacy window film, ACT ceiling updates, and a new coded-entry door lock. Our SPD team self-performed demolition, ACT repairs, door hardware, and final cleaning to support a complete, coordinated turnover.",
         "beck": null
-      },
-      {
-        "id": 199,
-        "documentId": "p8a2mdx3pstvnzyyg3f39bvg",
-        "title": "University of South Florida ISA Lab 6019 & 6023 Improvements",
-        "slug": "university-of-south-florida-isa-lab-6019-and-6023-improvements",
-        "completed": null,
-        "location": null,
-        "area": null,
-        "createdAt": "2026-06-06T21:54:27.309Z",
-        "updatedAt": "2026-10-20T12:00:00.000Z",
-        "publishedAt": "2026-06-06T21:54:27.360Z",
-        "description": "In an occupied environment with student researchers, sensitive samples over 20 years old, and complex equipment with values up to $1 million, the ISA Lab 6019 & 6023 Improvements project at the University of South Florida required a carefully coordinated, creative ventilation solution.\n\nNew lab equipment required additional ventilation due to the heat generated within the space. Rather than reworking the full duct system, which would have impacted the surrounding hallway and created greater disruption, Envision identified a more efficient solution by utilizing an unused fume hood connection and tying into the existing fume exhaust system.\n\nThis approach minimized the construction footprint while supporting the lab’s technical needs and maintaining access for students and researchers. Throughout construction, Envision coordinated zip walls, ICRA panels, and controlled work-area separation to protect the active research environment. The project was completed several days early, with research activities continuing throughout construction.\n",
-        "beck": null
       }
     ]
   },
@@ -1037,20 +1023,6 @@ export default [
         "updatedAt": "2026-06-06T19:52:32.328Z",
         "publishedAt": "2026-06-06T19:52:32.371Z",
         "description": "Envision refreshed the Thoracic Waiting Area at Moffitt Cancer Center with new paint, door replacement, and updated door hardware. Our SPD team self-performed painting, drywall patching, sanding, and door refinishing to improve the appearance and finish of the patient-facing space.\n\nWork was completed off-hours with ICRA barriers in place to maintain a clean, controlled environment and minimize disruption for patients, staff, and visitors.\n",
-        "beck": null
-      },
-      {
-        "id": 175,
-        "documentId": "gkr56ok4xy0p88217mfzsz6u",
-        "title": "Moffitt Cancer Center MCC to CSB Entryway Flooring",
-        "slug": "moffitt-cancer-center-mcc-to-csb-entryway-flooring",
-        "completed": null,
-        "location": null,
-        "area": null,
-        "createdAt": "2026-06-06T19:31:32.238Z",
-        "updatedAt": "2026-10-20T12:00:00.000Z",
-        "publishedAt": "2026-06-06T19:32:04.591Z",
-        "description": "Envision completed flooring improvements at the MCC/CSB entryway, removing and replacing existing porcelain tile and wall base to improve the durability and appearance of a high-traffic transition area.\n\nBecause the work took place in an active healthcare environment, our team coordinated off-hours construction, temporary access controls, and clear site separation to minimize disruption for patients, staff, and visitors while maintaining a clean, organized work area.",
         "beck": null
       }
     ]
