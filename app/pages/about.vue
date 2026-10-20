@@ -241,10 +241,7 @@ onBeforeUnmount(() => {
       <p class="eyebrow">Our history</p>
       <h2 class="storyTitle">Rooted in faith.<br>Built through relationships.</h2>
       <p class="storyCopy">A history of faith, purpose, mentorship, and opportunity, built one project and one relationship at a time.</p>
-      <!-- History Timeline button hidden until the /history page ships. Restore this
-           NuxtLink (to="/history") when it's live:
-      <NuxtLink class="btnDark" to="/history">View the History Timeline <span aria-hidden="true">→</span></NuxtLink>
-      -->
+      <NuxtLink class="btnDark" to="/history">Read our history <span aria-hidden="true">→</span></NuxtLink>
     </section>
 
     <!-- 10 · Start the conversation -->
