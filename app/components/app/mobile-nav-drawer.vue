@@ -4,6 +4,7 @@ import { socialLinks } from '~/utils/social-links';
 const mobileDrawerOpen = ref(false);
 const mobileServicesOpen = ref(false);
 const mobileProjectsOpen = ref(false);
+const mobileAboutOpen = ref(false);
 const menuButtonRef = ref<HTMLButtonElement | null>(null);
 const firstDrawerLinkRef = ref<HTMLElement | null>(null);
 const isDrawerClosing = ref(false);
@@ -15,7 +16,7 @@ const { sectors } = await useSectors();
 const servicesPanel = {
   eyebrow: 'What we do',
   title: 'One accountable team, start to finish.',
-  copy: 'Preconstruction through closeout — delivered on time and on budget.',
+  copy: 'Preconstruction through closeout, delivered on time and on budget.',
   to: '/services',
   cta: 'All services',
 };
@@ -28,9 +29,21 @@ const projectsPanel = {
   cta: 'All projects',
 };
 
+const aboutPanel = {
+  eyebrow: 'Who we are',
+  title: 'The people and the story behind Envision.',
+  copy: 'Building legacy & serving others through construction.',
+  to: '/about',
+  cta: 'About us',
+};
+
+const aboutItems = [
+  { title: 'About Envision', to: '/about', description: 'Our mission, values, and proven process.' },
+  { title: 'Our History', to: '/history', description: 'Seventeen years of building, one project at a time.' },
+] as const;
+
 const companyLinks = [
   { title: "Meet the Team", to: "/team" },
-  { title: "About Us", to: "/about" },
 ] as const;
 
 const primaryLinks = [
@@ -78,6 +91,7 @@ watch(
 
     mobileServicesOpen.value = false;
     mobileProjectsOpen.value = false;
+    mobileAboutOpen.value = false;
   },
 );
 
@@ -85,6 +99,7 @@ watch(mobileDrawerOpen, (open) => {
   if (!open) {
     mobileServicesOpen.value = false;
     mobileProjectsOpen.value = false;
+    mobileAboutOpen.value = false;
   }
 });
 
@@ -108,6 +123,7 @@ async function onServicesOpenChange(open: boolean) {
   mobileServicesOpen.value = open;
   if (open) {
     mobileProjectsOpen.value = false;
+    mobileAboutOpen.value = false;
     await nextTick();
     scrollPopoverIntoView('[data-test="mobile-services-toggle"]');
   }
@@ -117,8 +133,19 @@ async function onProjectsOpenChange(open: boolean) {
   mobileProjectsOpen.value = open;
   if (open) {
     mobileServicesOpen.value = false;
+    mobileAboutOpen.value = false;
     await nextTick();
     scrollPopoverIntoView('[data-test="mobile-projects-toggle"]');
+  }
+}
+
+async function onAboutOpenChange(open: boolean) {
+  mobileAboutOpen.value = open;
+  if (open) {
+    mobileServicesOpen.value = false;
+    mobileProjectsOpen.value = false;
+    await nextTick();
+    scrollPopoverIntoView('[data-test="mobile-about-toggle"]');
   }
 }
 
@@ -223,6 +250,7 @@ async function closeDrawer() {
   mobileDrawerOpen.value = false;
   mobileServicesOpen.value = false;
   mobileProjectsOpen.value = false;
+  mobileAboutOpen.value = false;
   isDrawerClosing.value = false;
 }
 
@@ -232,6 +260,7 @@ async function onDrawerOpenChange(nextOpen: boolean) {
     mobileDrawerOpen.value = true;
     mobileServicesOpen.value = false;
     mobileProjectsOpen.value = false;
+    mobileAboutOpen.value = false;
     await nextTick();
 
     try {
@@ -460,6 +489,61 @@ function onDrawerCloseAutoFocus(event: Event) {
                   aria-hidden="true"
                 />
               </NuxtLink>
+            </li>
+
+            <li class="mobile-nav-list__item mobile-nav-list__item--popover">
+              <CollapsibleRoot :open="mobileAboutOpen" @update:open="onAboutOpenChange">
+                <CollapsibleTrigger as-child>
+                  <button
+                    class="mobile-popover-trigger"
+                    type="button"
+                    data-test="mobile-about-toggle"
+                    data-anim="mobile-nav-link"
+                    :aria-expanded="String(mobileAboutOpen)"
+                  >
+                    <span class="mobile-popover-trigger__label">About Us</span>
+                    <UIcon
+                      name="i-lucide-chevron-down"
+                      class="mobile-popover-trigger__icon"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </CollapsibleTrigger>
+                <CollapsibleContent class="mobile-popover-panel" data-test="mobile-about-panel">
+                  <div class="mobile-popover-intro">
+                    <p class="mobile-popover-intro__eyebrow">{{ aboutPanel.eyebrow }}</p>
+                    <p class="mobile-popover-intro__title">{{ aboutPanel.title }}</p>
+                    <p class="mobile-popover-intro__copy">{{ aboutPanel.copy }}</p>
+                    <NuxtLink
+                      :to="aboutPanel.to"
+                      class="mobile-popover-intro__cta"
+                      @click="closeDrawerAndNavigate"
+                    >
+                      {{ aboutPanel.cta }}
+                      <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+                    </NuxtLink>
+                  </div>
+                  <ul class="mobile-popover-list">
+                    <li v-for="item in aboutItems" :key="item.to">
+                      <NuxtLink
+                        class="mobile-sub-link mobile-popover-row"
+                        :to="item.to"
+                        @click="closeDrawerAndNavigate"
+                      >
+                        <span class="mobile-popover-row__body">
+                          <span class="mobile-popover-row__title">{{ item.title }}</span>
+                          <span class="mobile-popover-row__desc">{{ item.description }}</span>
+                        </span>
+                        <UIcon
+                          name="i-lucide-arrow-up-right"
+                          class="mobile-popover-row__arrow"
+                          aria-hidden="true"
+                        />
+                      </NuxtLink>
+                    </li>
+                  </ul>
+                </CollapsibleContent>
+              </CollapsibleRoot>
             </li>
 
             <li v-for="link in primaryLinks" :key="link.to" class="mobile-nav-list__item">

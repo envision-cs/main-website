@@ -41,17 +41,32 @@ function createPopoverHandlers(popoverRef: Ref<HTMLElement | null>) {
 
 const sectorsRef = ref<HTMLElement | null>(null);
 const servicesRef = ref<HTMLElement | null>(null);
+const aboutRef = ref<HTMLElement | null>(null);
 
 const sectorsPopover = createPopoverHandlers(sectorsRef);
 const servicesPopover = createPopoverHandlers(servicesRef);
+const aboutPopover = createPopoverHandlers(aboutRef);
 
 const servicesPanel = {
   eyebrow: 'What we do',
   title: 'One accountable team, start to finish.',
-  copy: 'Preconstruction through closeout — delivered on time and on budget.',
+  copy: 'Preconstruction through closeout, delivered on time and on budget.',
   to: '/services',
   cta: 'All services',
 };
+
+const aboutPanel = {
+  eyebrow: 'Who we are',
+  title: 'The people and the story behind Envision.',
+  copy: 'Building legacy & serving others through construction.',
+  to: '/about',
+  cta: 'About us',
+};
+
+const aboutItems = [
+  { title: 'About Envision', to: '/about', description: 'Our mission, values, and proven process.' },
+  { title: 'Our History', to: '/history', description: 'Seventeen years of building, one project at a time.' },
+];
 
 const sectorsPanel = {
   eyebrow: 'Where we work',
@@ -124,8 +139,17 @@ const sectorsPanel = {
         <li role="none">
           <NuxtLink role="menuitem" to="/team">Meet the Team</NuxtLink>
         </li>
-        <li role="none">
-          <NuxtLink role="menuitem" to="/about">About Us</NuxtLink>
+        <li
+          role="none"
+          @mouseenter="aboutPopover.open"
+          @mouseleave="aboutPopover.scheduleClose"
+        >
+          <NuxtLink role="menuitem" aria-haspopup="true" to="/about">About Us</NuxtLink>
+          <button class="about-menu" popovertarget="about" aria-label="Toggle about menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9">
+              <polygon points="1 0, 11 0, 6 8" />
+            </svg>
+          </button>
         </li>
         <li role="none">
           <NuxtLink role="menuitem" to="/contact">Contact</NuxtLink>
@@ -205,6 +229,39 @@ const sectorsPanel = {
         </ul>
       </div>
     </div>
+    <div
+      id="about"
+      ref="aboutRef"
+      popover
+      @mouseenter="aboutPopover.cancelClose"
+      @mouseleave="aboutPopover.close"
+      @focusout="aboutPopover.handleFocusOut"
+    >
+      <div class="nav-panel">
+        <aside class="nav-panel__rail">
+          <p class="nav-panel__eyebrow">{{ aboutPanel.eyebrow }}</p>
+          <p class="nav-panel__title">{{ aboutPanel.title }}</p>
+          <p class="nav-panel__copy">{{ aboutPanel.copy }}</p>
+          <NuxtLink :to="aboutPanel.to" class="nav-panel__cta">
+            {{ aboutPanel.cta }}
+            <UIcon name="i-lucide-arrow-right" aria-hidden="true" />
+          </NuxtLink>
+        </aside>
+        <ul class="nav-panel__list">
+          <li v-for="item in aboutItems" :key="item.to">
+            <NuxtLink :to="item.to" class="nav-row">
+              <span class="nav-row__body">
+                <span class="nav-row__title">{{ item.title }}</span>
+                <app-typography variant="text-sm" class="nav-row__desc">
+                  {{ item.description }}
+                </app-typography>
+              </span>
+              <UIcon name="i-lucide-arrow-up-right" class="nav-row__arrow" aria-hidden="true" />
+            </NuxtLink>
+          </li>
+        </ul>
+      </div>
+    </div>
   </header>
 </template>
 
@@ -231,6 +288,7 @@ nav {
   }
 
   ul {
+    anchor-name: --nav-bar;
     min-height: 2.5rem;
     display: flex;
     align-items: center;
@@ -345,8 +403,13 @@ li {
   anchor-name: --services-menu;
 }
 
+.about-menu {
+  anchor-name: --about-menu;
+}
+
 #projects,
-#services {
+#services,
+#about {
   border: 1px solid color-mix(in oklch, var(--color-white) 12%, transparent);
   background: color-mix(in oklch, var(--color-envision-gray-900) 75%, transparent);
   backdrop-filter: blur(10px);
@@ -370,14 +433,16 @@ li {
 }
 
 #projects:popover-open,
-#services:popover-open {
+#services:popover-open,
+#about:popover-open {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
 @starting-style {
   #projects:popover-open,
-  #services:popover-open {
+  #services:popover-open,
+  #about:popover-open {
     opacity: 0;
     transform: translateY(-0.75rem) scale(0.98);
   }
@@ -389,6 +454,19 @@ li {
 
 #services {
   position-anchor: --services-menu;
+}
+
+#about {
+  position-anchor: --about-menu;
+  /* About Us sits near the right end of the menu, so centering the 800px panel under
+     it runs off-screen. Keep the shared centered position when it fits, otherwise
+     line the panel's right edge up with the right end of the menu bar. */
+  position-try-fallbacks: --about-under-bar;
+}
+
+@position-try --about-under-bar {
+  position-anchor: --nav-bar;
+  position-area: end span-start;
 }
 
 /* Split panel: contextual rail + hairline row list */
@@ -555,13 +633,15 @@ li {
 
 @media (prefers-reduced-motion: reduce) {
   #projects,
-  #services {
+  #services,
+  #about {
     transform: none;
     transition: none;
   }
 
   #projects:popover-open,
-  #services:popover-open {
+  #services:popover-open,
+  #about:popover-open {
     transform: none;
   }
 

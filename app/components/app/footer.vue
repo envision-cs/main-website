@@ -7,6 +7,7 @@ const navLinks = [
   { id: 3, to: '/projects', label: 'Projects' },
   { id: 4, to: '/team', label: 'Meet the team' },
   { id: 5, to: '/about', label: 'About Us' },
+  { id: 6, to: '/history', label: 'Our History' },
 ];
 const { services: servicesLinks } = await useServicesList();
 // const servicesLinks = [

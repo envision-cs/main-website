@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
         <div class="uCol">
           <span class="uNum">02</span>
           <h3>Impact Beyond Construction</h3>
-          <p>We don’t just build—we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge.</p>
+          <p>We don’t just build, we leave a mark. Every project is an opportunity to create something lasting, from the spaces we shape to the relationships we forge.</p>
         </div>
         <div class="uCol">
           <span class="uNum">03</span>
@@ -203,7 +203,7 @@ onBeforeUnmount(() => {
         </article>
         <article>
           <div class="stepLabel"><span class="stepNum">02</span><h3>Plan</h3></div>
-          <p>Budget-aligned design, permitting, early trade coordination, and risk mitigation—focused on eliminating surprises and protecting your timeline from day one.</p>
+          <p>Budget-aligned design, permitting, early trade coordination, and risk mitigation, focused on eliminating surprises and protecting your timeline from day one.</p>
         </article>
         <article>
           <div class="stepLabel"><span class="stepNum">03</span><h3>Execute</h3></div>
@@ -241,17 +241,14 @@ onBeforeUnmount(() => {
       <p class="eyebrow">Our history</p>
       <h2 class="storyTitle">Rooted in faith.<br>Built through relationships.</h2>
       <p class="storyCopy">A history of faith, purpose, mentorship, and opportunity, built one project and one relationship at a time.</p>
-      <!-- History Timeline button hidden until the /history page ships. Restore this
-           NuxtLink (to="/history") when it's live:
-      <NuxtLink class="btnDark" to="/history">View the History Timeline <span aria-hidden="true">→</span></NuxtLink>
-      -->
+      <NuxtLink class="btnDark" to="/history">Read our history <span aria-hidden="true">→</span></NuxtLink>
     </section>
 
     <!-- 10 · Start the conversation -->
     <section id="contact" class="sec sec--dark contact">
       <p class="eyebrow eyebrow--onDark">Start the conversation</p>
       <h2 class="contactTitle">Total transparency.<br><em>Or we make it right.</em></h2>
-      <p class="lede contactLede">You deserve to know what is happening, what it means, and what comes next—from the first meeting to the final walkthrough.</p>
+      <p class="lede contactLede">You deserve to know what is happening, what it means, and what comes next, from the first meeting to the final walkthrough.</p>
       <NuxtLink class="btnGreen" to="/contact">Talk with our team <span aria-hidden="true">→</span></NuxtLink>
     </section>
   </main>
@@ -277,7 +274,7 @@ onBeforeUnmount(() => {
 
 .about :where(h1, h2, h3) {
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.03;
   letter-spacing: -0.04em;
   text-wrap: pretty;

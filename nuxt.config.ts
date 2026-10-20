@@ -184,6 +184,7 @@ export default defineNuxtConfig({
     // Pages
     '/': { prerender: true },
     '/about': { prerender: true },
+    '/history': { prerender: true },
     '/trade-partners': { prerender: true },
     '/services': { prerender: true },
     '/services/**': { prerender: true },
