@@ -17,7 +17,7 @@ export default [
     "headline": "Certainty before you commit",
     "cta": "Engage us early",
     "link": "/enhanced-preconstruction",
-    "imageposition": "right",
+    "imageposition": "80% 50%",
     "nav_content": "Reduce risk, control costs, and gain clarity before construction begins.",
     "image": {
       "id": 55,
