@@ -19,20 +19,20 @@ useSeoMeta({
 // Year rail: one dot per section; clicking scrolls there and the dot for the
 // section in view fills. Section ids match the reference design.
 const railStops = [
-  { id: 'y1', label: '2002 – 2008', aria: 'Jump to 2002 to 2008' },
+  { id: 'y1', label: '2002 - 2008', aria: 'Jump to 2002 to 2008' },
   { id: 'y2', label: '2009', aria: 'Jump to 2009' },
-  { id: 'y4', label: '2009 – 2013', aria: 'Jump to 2009 to 2013' },
-  { id: 'y4b', label: '2009 – 2010', aria: 'Jump to 2009 to 2010, training and licensure' },
-  { id: 'y3', label: '2010 – 2012', aria: 'Jump to 2010 to 2012, Revealing Truth Ministries' },
+  { id: 'y4', label: '2009 - 2013', aria: 'Jump to 2009 to 2013' },
+  { id: 'y4b', label: '2009 - 2010', aria: 'Jump to 2009 to 2010, training and licensure' },
+  { id: 'y3', label: '2010 - 2012', aria: 'Jump to 2010 to 2012, Revealing Truth Ministries' },
   { id: 'y6', label: '2013', aria: 'Jump to 2013' },
   { id: 'y7', label: '2015', aria: 'Jump to 2015' },
   { id: 'y8', label: '2016', aria: 'Jump to 2016, foundational hires' },
   { id: 'y8b', label: '2016 · BECK', aria: 'Jump to the Beck Group partnership' },
   { id: 'y9', label: '2019', aria: 'Jump to 2019' },
   { id: 'y9b', label: '2019 +', aria: 'Jump to 2019 and onward, proprietary tooling' },
-  { id: 'y10', label: '2021 – 2022', aria: 'Jump to 2021 to 2022' },
-  { id: 'y11', label: '2022 – 2023', aria: 'Jump to 2022 to 2023' },
-  { id: 'y12', label: '2024 – 2026', aria: 'Jump to 2024 to 2026' },
+  { id: 'y10', label: '2021 - 2022', aria: 'Jump to 2021 to 2022' },
+  { id: 'y11', label: '2022 - 2023', aria: 'Jump to 2022 to 2023' },
+  { id: 'y12', label: '2024 - 2026', aria: 'Jump to 2024 to 2026' },
   { id: 'future', label: '2026', aria: 'Jump to 2026' },
 ];
 
@@ -139,7 +139,7 @@ onUnmounted(() => {
         </figure>
         <div class="plateShade" />
         <div class="eraBody">
-          <div class="plateYear"><span>01</span><b>2002&ndash;08</b><small>The trade</small></div>
+          <div class="plateYear"><span>01</span><b>2002-08</b><small>The trade</small></div>
           <div class="eraHeading">
             <p>BEFORE ENVISION</p>
             <h2>The work was in the family before the company had a name.</h2>
@@ -175,10 +175,10 @@ onUnmounted(() => {
       </article>
 
       <article id="y4" class="era tight">
-        <div class="eraIndex"><span>03</span><b>2009&ndash;13</b><small>Residential years</small></div>
+        <div class="eraIndex"><span>03</span><b>2009-13</b><small>Residential years</small></div>
         <div class="eraBody">
           <div class="eraHeading">
-            <p>2009 &ndash; 2013 / BUILDING THE FOUNDATION</p>
+            <p>2009 - 2013 / BUILDING THE FOUNDATION</p>
             <h2>Four years of residential and light commercial work.</h2>
           </div>
           <div class="eraCopy">
@@ -193,10 +193,10 @@ onUnmounted(() => {
       </article>
 
       <article id="y4b" class="era textonly compact">
-        <div class="eraIndex"><span>04</span><b>2009&ndash;10</b><small>Training and licensure</small></div>
+        <div class="eraIndex"><span>04</span><b>2009-10</b><small>Training and licensure</small></div>
         <div class="eraBody">
           <div class="eraHeading">
-            <p>2009 &ndash; 2010 / INVESTMENT IN FUTURE CAPABILITY</p>
+            <p>2009 - 2010 / INVESTMENT IN FUTURE CAPABILITY</p>
             <h2>Formal training, and the license that made it official.</h2>
           </div>
           <div class="eraCopy">
@@ -207,10 +207,10 @@ onUnmounted(() => {
       </article>
 
       <article id="y3" class="era textonly dark">
-        <div class="eraIndex"><span>05</span><b>2010&ndash;12</b><small>Revealing Truth Ministries</small></div>
+        <div class="eraIndex"><span>05</span><b>2010-12</b><small>Revealing Truth Ministries</small></div>
         <div class="eraBody">
           <div class="eraHeading">
-            <p>2010 &ndash; 2012 / THE FIRM'S LONGEST-RUNNING CLIENT RELATIONSHIP</p>
+            <p>2010 - 2012 / THE FIRM'S LONGEST-RUNNING CLIENT RELATIONSHIP</p>
             <h2>Revealing Truth Ministries: from the first project to the first full renovation.</h2>
           </div>
           <div class="eraCopy">
@@ -343,9 +343,9 @@ onUnmounted(() => {
         </figure>
         <div class="plateShade" />
         <div class="eraBody">
-          <div class="plateYear"><span>11</span><b>2021&ndash;22</b><small>EOS onboarded</small></div>
+          <div class="plateYear"><span>11</span><b>2021-22</b><small>EOS onboarded</small></div>
           <div class="eraHeading">
-            <p>2021 &ndash; 2022 / ORDER AND POSITION</p>
+            <p>2021 - 2022 / ORDER AND POSITION</p>
             <h2>What got us here won't get us there.</h2>
           </div>
           <div class="eraCopy two">
@@ -363,7 +363,7 @@ onUnmounted(() => {
         </figure>
         <div class="plateShade" />
         <div class="eraBody">
-          <div class="plateYear"><span>12</span><b>2022&ndash;23</b><small>A division becomes a company</small></div>
+          <div class="plateYear"><span>12</span><b>2022-23</b><small>A division becomes a company</small></div>
           <div class="eraHeading">
             <p>THE FLOORING DIVISION BECOMES FOCUS FLOORING</p>
             <h2>A new chapter of growth.</h2>
@@ -384,7 +384,7 @@ onUnmounted(() => {
         </figure>
         <div class="plateShade" />
         <div class="eraBody">
-          <div class="plateYear"><span>13</span><b>2024&ndash;26</b><small>Two companies, two homes</small></div>
+          <div class="plateYear"><span>13</span><b>2024-26</b><small>Two companies, two homes</small></div>
           <div class="eraHeading">
             <p>A NEW CHAPTER OF INDEPENDENCE</p>
             <h2>Each company comes into its own.</h2>
