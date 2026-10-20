@@ -309,7 +309,7 @@ export default [
     "location": null,
     "area": null,
     "createdAt": "2026-06-06T21:54:27.309Z",
-    "updatedAt": "2026-10-20T12:00:00.000Z",
+    "updatedAt": "2026-06-06T21:54:27.309Z",
     "publishedAt": "2026-06-06T21:54:27.360Z",
     "description": "In an occupied environment with student researchers, sensitive samples over 20 years old, and complex equipment with values up to $1 million, the ISA Lab 6019 & 6023 Improvements project at the University of South Florida required a carefully coordinated, creative ventilation solution.\n\nNew lab equipment required additional ventilation due to the heat generated within the space. Rather than reworking the full duct system, which would have impacted the surrounding hallway and created greater disruption, Envision identified a more efficient solution by utilizing an unused fume hood connection and tying into the existing fume exhaust system.\n\nThis approach minimized the construction footprint while supporting the lab’s technical needs and maintaining access for students and researchers. Throughout construction, Envision coordinated zip walls, ICRA panels, and controlled work-area separation to protect the active research environment. The project was completed several days early, with research activities continuing throughout construction.\n",
     "beck": null,
@@ -493,18 +493,7 @@ export default [
       "publishedAt": "2026-06-06T21:54:18.426Z",
       "focalPoint": null
     },
-    "sectors": [
-      {
-        "id": 23,
-        "documentId": "ku1tju65s27b5lvuakkqvh8t",
-        "name": "Higher Education",
-        "slug": "higher-education",
-        "createdAt": "2026-02-18T10:28:25.163Z",
-        "updatedAt": "2026-05-20T21:31:04.343Z",
-        "publishedAt": "2026-05-20T21:31:04.378Z",
-        "description": "Campus builds and institutional projects that balance complexity with long-term vision"
-      }
-    ]
+    "sectors": []
   },
   {
     "id": 162,
@@ -12545,7 +12534,7 @@ export default [
     "location": null,
     "area": null,
     "createdAt": "2026-06-06T19:31:32.238Z",
-    "updatedAt": "2026-10-20T12:00:00.000Z",
+    "updatedAt": "2026-06-06T19:32:04.548Z",
     "publishedAt": "2026-06-06T19:32:04.591Z",
     "description": "Envision completed flooring improvements at the MCC/CSB entryway, removing and replacing existing porcelain tile and wall base to improve the durability and appearance of a high-traffic transition area.\n\nBecause the work took place in an active healthcare environment, our team coordinated off-hours construction, temporary access controls, and clear site separation to minimize disruption for patients, staff, and visitors while maintaining a clean, organized work area.",
     "beck": null,
@@ -12697,18 +12686,7 @@ export default [
       "publishedAt": "2026-06-06T19:31:51.590Z",
       "focalPoint": null
     },
-    "sectors": [
-      {
-        "id": 25,
-        "documentId": "t1tnk7sx02ferqthy031fau1",
-        "name": "Healthcare",
-        "slug": "healthcare",
-        "createdAt": "2026-05-14T10:03:18.136Z",
-        "updatedAt": "2026-05-20T21:33:38.351Z",
-        "publishedAt": "2026-05-20T21:33:38.386Z",
-        "description": "Medical offices, clinics, and healthcare facilities where patient safety drives every decision"
-      }
-    ]
+    "sectors": []
   },
   {
     "id": 122,
