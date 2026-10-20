@@ -22,7 +22,7 @@ export default {
     {
       "title": "Office Headquarters Build-Out at The Motor Enclave",
       "link": "/projects/business-and-corporate/office-headquarters-build-out-at-the-motor-enclave",
-      "image": "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_7663.jpeg",
+      "image": "https://res.cloudinary.com/evocdaef/image/upload/f_auto,q_auto/envision-site/tme_hq_dusk.jpg",
       "sector": "Business and Corporate",
       "completed": "2026"
     },
