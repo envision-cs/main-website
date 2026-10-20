@@ -32,17 +32,20 @@ const projectsPageUrl = `${siteUrl}/projects`;
 const contactPageUrl = `${siteUrl}/contact`;
 const homepageImage = 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg';
 
+// The title already leads with the company name, so skip the site-wide " | Envision" suffix.
+useHead({ titleTemplate: null });
+
 useSeoMeta({
-  title: 'Envision Construction Services | Tampa Bay & Central Florida',
+  title: 'Envision | Tampa Bay & Central Florida',
   description:
     'Envision is a Tampa Bay construction partner delivering organized, high-quality projects on time and on budget. 200+ projects delivered since 2009 with a 90% repeat-client rate.',
-  ogTitle: 'Envision Construction Services | Tampa Bay & Central Florida',
+  ogTitle: 'Envision | Tampa Bay & Central Florida',
   ogDescription:
     'Construction management, design-build, and preconstruction across Greater Tampa Bay and Central Florida. Listen. Plan. Execute. Cultivate.',
   ogImage: homepageImage,
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Envision Construction Services | Tampa Bay & Central Florida',
+  twitterTitle: 'Envision | Tampa Bay & Central Florida',
   twitterDescription:
     'Construction management, design-build, and preconstruction across Greater Tampa Bay and Central Florida. Listen. Plan. Execute. Cultivate.',
   twitterImage: homepageImage,
@@ -110,8 +113,7 @@ const homepageSchema = {
     {
       '@type': ['Organization', 'LocalBusiness', 'GeneralContractor'],
       '@id': organizationId,
-      name: 'Envision Construction Services',
-      alternateName: 'Envision',
+      name: 'Envision',
       url: homeUrl,
       logo: `${siteUrl}/favicon.svg`,
       image: homepageImage,
@@ -200,7 +202,7 @@ const homepageSchema = {
       '@type': 'WebSite',
       '@id': websiteId,
       url: homeUrl,
-      name: 'Envision Construction Services',
+      name: 'Envision',
       publisher: {
         '@id': organizationId,
       },
@@ -210,7 +212,7 @@ const homepageSchema = {
       '@type': 'WebPage',
       '@id': homepageId,
       url: homeUrl,
-      name: 'Envision Construction Services | Tampa Bay & Central Florida',
+      name: 'Envision | Tampa Bay & Central Florida',
       description:
         'Envision is a Tampa Bay construction partner delivering organized, high-quality projects on time and on budget. 200+ projects delivered since 2009 with a 90% repeat-client rate.',
       isPartOf: {

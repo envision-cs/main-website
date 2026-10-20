@@ -309,7 +309,7 @@ export default {
     "location": null,
     "area": null,
     "createdAt": "2026-06-06T21:54:27.309Z",
-    "updatedAt": "2026-06-06T21:54:27.309Z",
+    "updatedAt": "2026-10-20T12:00:00.000Z",
     "publishedAt": "2026-06-06T21:54:27.360Z",
     "description": "In an occupied environment with student researchers, sensitive samples over 20 years old, and complex equipment with values up to $1 million, the ISA Lab 6019 & 6023 Improvements project at the University of South Florida required a carefully coordinated, creative ventilation solution.\n\nNew lab equipment required additional ventilation due to the heat generated within the space. Rather than reworking the full duct system, which would have impacted the surrounding hallway and created greater disruption, Envision identified a more efficient solution by utilizing an unused fume hood connection and tying into the existing fume exhaust system.\n\nThis approach minimized the construction footprint while supporting the lab’s technical needs and maintaining access for students and researchers. Throughout construction, Envision coordinated zip walls, ICRA panels, and controlled work-area separation to protect the active research environment. The project was completed several days early, with research activities continuing throughout construction.\n",
     "beck": null,
@@ -493,7 +493,18 @@ export default {
       "publishedAt": "2026-06-06T21:54:18.426Z",
       "focalPoint": null
     },
-    "sectors": []
+    "sectors": [
+      {
+        "id": 23,
+        "documentId": "ku1tju65s27b5lvuakkqvh8t",
+        "name": "Higher Education",
+        "slug": "higher-education",
+        "createdAt": "2026-02-18T10:28:25.163Z",
+        "updatedAt": "2026-05-20T21:31:04.343Z",
+        "publishedAt": "2026-05-20T21:31:04.378Z",
+        "description": "Campus builds and institutional projects that balance complexity with long-term vision"
+      }
+    ]
   },
   "university-of-south-florida-fao-ada-restroom-remodel": {
     "id": 162,
@@ -3188,16 +3199,16 @@ export default {
       }
     ]
   },
-  "project": {
+  "moffitt-cancer-center-linac-vault-replacement": {
     "id": 131,
     "documentId": "jkvx9t81d7n7rg58hko71p8q",
     "title": "Moffitt Cancer Center LINAC Vault Replacement ",
-    "slug": "project",
+    "slug": "moffitt-cancer-center-linac-vault-replacement",
     "completed": "2025-07-23",
     "location": "Tampa, FL",
     "area": null,
     "createdAt": "2026-05-14T10:04:19.313Z",
-    "updatedAt": "2026-06-04T04:24:16.771Z",
+    "updatedAt": "2026-10-20T12:00:00.000Z",
     "publishedAt": "2026-06-04T04:24:16.861Z",
     "description": "The Moffitt LINAC Vault Replacement was a three-package effort at Moffitt Cancer Center to replace the LINAC in MCC Vault 3, consolidate the MA work area in MCC1, and install a dedicated UPS in MCC1 Room 1939 to support Radiation Oncology LINACs. Scope of work includes demolition, cabinets, doors, frames & hardware, interior glazing, drywall, acoustical ceilings, flooring, painting, specialties, fire protection, plumbing, HVAC, and electrical.\n_\nIn collaboration with our CM partner, The Beck Group, Envision provided comprehensive support across all phases of the project to include executive oversight, project management, field supervision, preconstruction services, and client engagement. Our integrated role ensured alignment, continuity, and excellence from pursuit to delivery._",
     "beck": true,
@@ -9223,16 +9234,16 @@ export default {
       }
     ]
   },
-  "hcaa-tampa-international-airport-airside-e-roof-renovation-1": {
+  "hcaa-tampa-international-airport-security-systems-replacements": {
     "id": 154,
     "documentId": "wvozbdgr7e0zp5p2nxhfnz9v",
-    "title": "HCAA Tampa International Airport Airside E Roof Renovation ",
-    "slug": "hcaa-tampa-international-airport-airside-e-roof-renovation-1",
+    "title": "HCAA Tampa International Airport Security Systems Replacements",
+    "slug": "hcaa-tampa-international-airport-security-systems-replacements",
     "completed": "2021-12-01",
     "location": "Tampa, FL",
     "area": null,
     "createdAt": "2026-02-13T04:03:50.655Z",
-    "updatedAt": "2026-06-05T14:26:38.336Z",
+    "updatedAt": "2026-10-20T12:00:00.000Z",
     "publishedAt": "2026-06-05T14:26:38.413Z",
     "description": "Envision and The Beck Group provided master planning, architecture, preconstruction, and construction services. This integrated project encompassed the expansion of Access Control Systems to the Main Terminal, Airside guide-way doors, and all Airside jetbridge doors. Additionally, the Video Management System was modified and expanded to replace all existing analog cameras with IP addressable cameras and provide additional cameras for a comprehensive surveillance system throughout the campus.\n\nIn collaboration with our CM partner, The Beck Group, Envision provided comprehensive support across all phases of the project to include executive oversight, project management, field supervision, preconstruction services, and client engagement. Our integrated role ensured alignment, continuity, and excellence from pursuit to delivery.",
     "beck": true,
@@ -9948,16 +9959,16 @@ export default {
       }
     ]
   },
-  "university-of-south-florida-office-of-veterans-success-renovations-university-of-south-florida-office-of-veterans-success-renovations": {
+  "university-of-south-florida-office-of-veterans-success-renovations": {
     "id": 205,
     "documentId": "uczefyhaane4wymxwa4dcklg",
-    "title": "University of South Florida Office of Veterans Success RenovationsUniversity of South Florida Office of Veterans Success Renovations",
-    "slug": "university-of-south-florida-office-of-veterans-success-renovations-university-of-south-florida-office-of-veterans-success-renovations",
+    "title": "University of South Florida Office of Veterans Success Renovations",
+    "slug": "university-of-south-florida-office-of-veterans-success-renovations",
     "completed": null,
     "location": null,
     "area": null,
     "createdAt": "2026-06-06T21:59:24.125Z",
-    "updatedAt": "2026-06-06T21:59:25.433Z",
+    "updatedAt": "2026-10-20T12:00:00.000Z",
     "publishedAt": "2026-06-06T21:59:25.478Z",
     "description": "Envision completed interior renovations for the University of South Florida’s Office of Veterans Success across two campus buildings, refreshing the spaces to better support student-facing operations.\n\nThe scope included selective demolition, new flooring, MEP modifications, privacy window film, ACT ceiling updates, and a new coded-entry door lock. Our SPD team self-performed demolition, ACT repairs, door hardware, and final cleaning to support a complete, coordinated turnover.",
     "beck": null,
@@ -12534,7 +12545,7 @@ export default {
     "location": null,
     "area": null,
     "createdAt": "2026-06-06T19:31:32.238Z",
-    "updatedAt": "2026-06-06T19:32:04.548Z",
+    "updatedAt": "2026-10-20T12:00:00.000Z",
     "publishedAt": "2026-06-06T19:32:04.591Z",
     "description": "Envision completed flooring improvements at the MCC/CSB entryway, removing and replacing existing porcelain tile and wall base to improve the durability and appearance of a high-traffic transition area.\n\nBecause the work took place in an active healthcare environment, our team coordinated off-hours construction, temporary access controls, and clear site separation to minimize disruption for patients, staff, and visitors while maintaining a clean, organized work area.",
     "beck": null,
@@ -12686,7 +12697,18 @@ export default {
       "publishedAt": "2026-06-06T19:31:51.590Z",
       "focalPoint": null
     },
-    "sectors": []
+    "sectors": [
+      {
+        "id": 25,
+        "documentId": "t1tnk7sx02ferqthy031fau1",
+        "name": "Healthcare",
+        "slug": "healthcare",
+        "createdAt": "2026-05-14T10:03:18.136Z",
+        "updatedAt": "2026-05-20T21:33:38.351Z",
+        "publishedAt": "2026-05-20T21:33:38.386Z",
+        "description": "Medical offices, clinics, and healthcare facilities where patient safety drives every decision"
+      }
+    ]
   },
   "hcaa-tampa-international-airport-airside-a-c-and-f-restroom-renovations": {
     "id": 122,

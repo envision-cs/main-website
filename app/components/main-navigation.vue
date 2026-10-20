@@ -82,15 +82,15 @@ const sectorsPanel = {
       <NuxtImg
         provider="imagekit"
         src="https://ik.imagekit.io/pnixsw7lg/main-website/thumbnail_White_Envision_Logo_c1724c69d3.png?updatedAt=1780533539340"
-        alt="Envision Construction logo"
+        alt="Envision logo"
         width="160"
         height="32"
         format="avif"
         data-test="envision-logo"
       />
     </NuxtLink>
-    <nav aria-label="Envision Construction Services">
-      <ul role="menubar" aria-label="Envision Construction Services">
+    <nav aria-label="Envision">
+      <ul role="menubar" aria-label="Envision">
         <li role="none" class="nav-social-item">
           <span class="nav-social">
             <a

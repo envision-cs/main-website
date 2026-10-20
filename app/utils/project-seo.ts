@@ -121,7 +121,7 @@ export function buildProjectImageAlt(input: {
   const imageNumber = typeof input.index === 'number' ? `, image ${input.index + 1}` : '';
 
   return compact(
-    `${sector ? `${sector} project` : 'Completed construction project'} at ${input.projectTitle}${location ? ` in ${location}` : ''}${imageNumber} by Envision Construction Services`,
+    `${sector ? `${sector} project` : 'Completed construction project'} at ${input.projectTitle}${location ? ` in ${location}` : ''}${imageNumber} by Envision`,
   );
 }
 

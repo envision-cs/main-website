@@ -44,7 +44,7 @@ export default {
     },
     {
       "title": "Moffitt Cancer Center LINAC Vault Replacement",
-      "link": "/projects/healthcare/project",
+      "link": "/projects/healthcare/moffitt-cancer-center-linac-vault-replacement",
       "image": "https://ik.imagekit.io/pnixsw7lg/main-website/Moffitt_Cancer_Center_CT_Scan_Room_001_884e24cab5.jpeg?updatedAt=1780170255041",
       "sector": "Healthcare",
       "completed": "2025"

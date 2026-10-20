@@ -135,7 +135,7 @@ const serviceType = computed(
 );
 
 const seoTitle = computed(() => {
-  if (!page.value) return 'Project | Envision Construction';
+  if (!page.value) return 'Project | Envision';
 
   return (
     (page.value.seoTitle ? limitSeoText(page.value.seoTitle, 60) : undefined) ||
@@ -148,7 +148,7 @@ const seoTitle = computed(() => {
 });
 
 const seoDescription = computed(() => {
-  if (!page.value) return 'Explore Envision Construction Services projects.';
+  if (!page.value) return 'Explore Envision projects.';
 
   return (
     (page.value.seoDescription ? limitSeoText(page.value.seoDescription, 155) : undefined) ||
