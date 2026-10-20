@@ -92,7 +92,7 @@ const projectHighlights = [
       eyebrow="THE PROBLEM WITH PRICE-FIRST DECISIONS"
       title="A lower price does not always cost less."
       body=""
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/precon_The_Problem_wit_Waiting_a5bd32fe54.jpg?updatedAt=1780449647043"
+      image="https://res.cloudinary.com/evocdaef/image/upload/c_fill,ar_4:3,g_auto,f_auto,q_auto/envision-site/precon_section_pricefirst_2026.jpg"
       bgcolor="dark"
     >
       <template #body>

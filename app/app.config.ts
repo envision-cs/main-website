@@ -29,7 +29,7 @@ export default defineAppConfig({
         {
           label: 'Enhanced Preconstruction',
           to: '/services/enhanced-preconstruction',
-          image: 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_4100%20(2).jpg',
+          image: 'https://res.cloudinary.com/evocdaef/image/upload/f_auto,q_auto/envision-site/precon_hero_2026_v2.jpg',
         },
         {
           label: 'Specialty Projects Division',

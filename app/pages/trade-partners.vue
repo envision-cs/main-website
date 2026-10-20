@@ -6,22 +6,23 @@
   ogDescription:
     'Partners who show up and follow through. Clear scope, organized sites, and a team that keeps you in the loop. Get prequalified to work with Envision.',
   ogImage:
-    'https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350',
+    'https://res.cloudinary.com/evocdaef/image/upload/f_auto,q_auto/envision-site/tp_hero_2026.jpg',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   twitterTitle: 'Trade Partners Program | Build on the Right Partnerships | Envision',
   twitterDescription:
     'Partners who show up and follow through. Clear scope, organized sites, and a team that keeps you in the loop. Get prequalified to work with Envision.',
   twitterImage:
-    'https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350',
+    'https://res.cloudinary.com/evocdaef/image/upload/f_auto,q_auto/envision-site/tp_hero_2026.jpg',
 });
 </script>
 
 <template>
   <div class="">
     <banner-b
-      image="https://ik.imagekit.io/pnixsw7lg/main-website/TP_Hero_291cf107fa.jpg?updatedAt=1780449597350"
-      position="right"
+      image="https://res.cloudinary.com/evocdaef/image/upload/f_auto,q_auto/envision-site/tp_hero_2026.jpg"
+      image-alt="Two men smile with an arm around each other at the ABC Florida Gulf Coast GC Tabletop event, with exhibitor booths behind them."
+      position="center"
     >
       <template #eyebrow> Trade Partners Program </template>
 
