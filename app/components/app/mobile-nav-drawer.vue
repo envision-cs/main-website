@@ -16,7 +16,7 @@ const { sectors } = await useSectors();
 const servicesPanel = {
   eyebrow: 'What we do',
   title: 'One accountable team, start to finish.',
-  copy: 'Preconstruction through closeout — delivered on time and on budget.',
+  copy: 'Preconstruction through closeout, delivered on time and on budget.',
   to: '/services',
   cta: 'All services',
 };
