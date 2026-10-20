@@ -274,7 +274,7 @@ onBeforeUnmount(() => {
 
 .about :where(h1, h2, h3) {
   margin: 0;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.03;
   letter-spacing: -0.04em;
   text-wrap: pretty;

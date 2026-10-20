@@ -121,7 +121,7 @@ onUnmounted(() => {
         <p>Operational maturity produced two companies.</p>
       </div>
       <div class="manifestoFoot">
-        <span>2002 &mdash; Today</span>
+        <span>2002 - Today</span>
         <a class="skipToday" href="#future" @click.prevent="scrollToSection('future')">Skip to today <svg width="0.8em" height="0.8em" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true" style="display:inline-block;vertical-align:-0.05em;transform:rotate(90deg)"><path d="M3 13 13 3M5.5 3H13v7.5" /></svg></a>
       </div>
     </section>
@@ -187,7 +187,7 @@ onUnmounted(() => {
             <blockquote>This is where the firm's culture and standards were forged.</blockquote>
           </div>
           <figure class="tightFig">
-            <img src="/history/history-sec01-family-flooring.webp" alt="" width="1200" height="900" loading="lazy">
+            <img src="/history/history-sec01-family-flooring.webp" alt="" width="1200" height="900" loading="lazy" style="object-position: 78% 80%">
           </figure>
         </div>
       </article>
@@ -266,10 +266,10 @@ onUnmounted(() => {
         <div class="eraBody">
           <div class="halfDuo">
             <figure>
-              <img src="/history/history-sec08-ariana.webp" alt="" width="724" height="724" loading="lazy" style="object-position: 88% 50%">
+              <img src="/history/history-sec08-ariana.webp" alt="" width="724" height="724" loading="lazy" style="object-position: 50% 50%">
             </figure>
             <figure>
-              <img src="/history/history-sec08-jacques.webp" alt="" width="483" height="724" loading="lazy">
+              <img src="/history/history-sec08-jacques.webp" alt="" width="483" height="724" loading="lazy" style="object-position: 50% 100%">
             </figure>
           </div>
           <div class="halfCopy">
@@ -490,7 +490,10 @@ onUnmounted(() => {
 /* Rebuilt from the approved History reference (handoff v7). Values, breakpoints and
    rule order follow the reference so its overrides resolve the same way. Proxima
    Nova is inherited from the site; the reference's placeholder top bar and footer
-   are replaced by the site's real header and footer. */
+   are replaced by the site's real header and footer. Envision licenses Proxima Nova
+   300/400/600/800 only, so the reference's 500 maps to 600 for headings and to 400
+   (what it already rendered as) for quotes and watermarks, and the browser's default
+   bold (700) is pinned to the 800 face it already resolved to. */
 .history {
   --navy: #0f2233;
   --green: #59ba48;
@@ -513,8 +516,12 @@ onUnmounted(() => {
   line-height: normal;
 }
 
+.history :where(b, strong) {
+  font-weight: 800;
+}
+
 .history :where(h1, h2, h3) {
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.045em;
   margin-top: 0;
 }
@@ -680,7 +687,7 @@ onUnmounted(() => {
 .finale h2 em,
 .manifesto h2 em {
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
 }
 .openingCopy em,
 .manifesto h2 em,
@@ -736,7 +743,7 @@ onUnmounted(() => {
 }
 .stamp b {
   font-size: 1.6rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
 }
 
@@ -882,7 +889,7 @@ onUnmounted(() => {
 }
 .eraIndex b {
   font-size: clamp(1.45rem, 1.9vw, 1.95rem);
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
   margin: 0;
   color: var(--navy);
@@ -942,7 +949,7 @@ onUnmounted(() => {
 .eraCopy blockquote {
   margin: 30px 0 0;
   font-size: 1.35rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.4;
   letter-spacing: -0.02em;
   color: var(--green-text);
@@ -1001,7 +1008,7 @@ onUnmounted(() => {
 .era.plate .plateYear b {
   display: block;
   font-size: clamp(2.6rem, 5.2vw, 4.6rem);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.05em;
   line-height: 0.9;
 }
@@ -1092,7 +1099,7 @@ onUnmounted(() => {
   align-self: start;
   margin: calc(32vw - 56px) 0 6px;
   font-size: clamp(1.35rem, 2vw, 1.85rem);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.3;
   letter-spacing: -0.02em;
   color: var(--green);
@@ -1242,7 +1249,7 @@ onUnmounted(() => {
   right: 10px;
   font-size: 0.56rem;
   letter-spacing: 0.18em;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--navy);
   background: var(--green);
   padding: 4px 7px;
@@ -1409,7 +1416,7 @@ onUnmounted(() => {
   right: 2vw;
   top: 20px;
   font-size: 4.4vw;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: -0.05em;
   color: rgb(15 34 51 / 0.07);
@@ -1519,7 +1526,7 @@ onUnmounted(() => {
   right: 2vw;
   top: 128px;
   font-size: 6vw;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: -0.05em;
   color: rgb(15 34 51 / 0.05);
@@ -1590,7 +1597,7 @@ onUnmounted(() => {
 .futurePromise blockquote {
   margin: 10px 0 0;
   font-size: clamp(1.4rem, 2vw, 1.8rem);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.25;
   letter-spacing: -0.02em;
   color: var(--navy);
@@ -1636,7 +1643,7 @@ onUnmounted(() => {
 }
 .futureRail b {
   font-size: 1.05rem;
-  font-weight: 500;
+  font-weight: 600;
   line-height: normal;
   color: var(--navy);
   letter-spacing: -0.01em;
@@ -2148,7 +2155,7 @@ onUnmounted(() => {
   align-self: start;
   margin: calc(32vw - 56px) 0 6px;
   font-size: clamp(1.35rem, 2vw, 1.85rem);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.3;
   letter-spacing: -0.02em;
   color: var(--green);
@@ -2247,6 +2254,68 @@ onUnmounted(() => {
   }
   .intermission * {
     white-space: normal;
+  }
+}
+
+/* People stay whole (Envision review, Oct 2026). Where the reference's crop cut a
+   person out of frame, these override it; everything else still follows the reference. */
+/* 07: show the whole crowd photo at 3:2, top-right, like sections 11 and 13 */
+@media (min-width: 761px) {
+  .era.plate#y7 figure.plateImg {
+    inset: 0 0 auto 52%;
+    height: auto;
+    aspect-ratio: 3/2;
+  }
+}
+/* 02: where the full-height column gets too narrow for both founders, show the
+   whole 4:3 photo at the top of its column instead */
+@media (min-width: 761px) and (max-width: 1399px) {
+  .era.plate#y2 figure.plateImg {
+    inset: 0 52% auto 0;
+    height: auto;
+    aspect-ratio: 4/3;
+  }
+}
+/* 03: keep the photo 4:3 where stretching it to the copy's height makes it too
+   narrow to hold both workers */
+@media (min-width: 981px) and (max-width: 1199px) {
+  .era.tight#y4 .tightFig {
+    align-self: start;
+    aspect-ratio: 4/3;
+    min-height: 0;
+    height: auto;
+  }
+}
+/* 02 and 07 on phones: the whole photo at its own shape instead of a 260px strip */
+@media (max-width: 760px) {
+  .era.plate#y2 figure.plateImg {
+    height: auto;
+    aspect-ratio: 4/3;
+  }
+  .era.plate#y7 figure.plateImg {
+    height: auto;
+    aspect-ratio: 3/2;
+  }
+}
+/* People scene on phones: the whole team photo above the copy instead of a
+   narrow crop behind it */
+@media (max-width: 760px) {
+  .peopleScene {
+    display: block;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+  }
+  .peopleImg {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 3/2;
+  }
+  .peopleShade {
+    display: none;
+  }
+  .peopleWords {
+    padding: 48px 25px 64px;
   }
 }
 
