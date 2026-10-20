@@ -22,22 +22,20 @@ export default {
     "image": {
       "id": 55,
       "documentId": "33cf08c96b2c4e8b8f083e7a",
-      "name": "IMG_4100 (2).jpg",
+      "name": "precon_hero_2026_v2.jpg",
       "alternativeText": null,
       "caption": null,
-      "width": 5902,
-      "height": 3935,
+      "width": 2800,
+      "height": 1576,
       "formats": {},
-      "hash": "IMG_4100_(2)_6986b6c2",
+      "hash": "precon_hero_2026_v2",
       "ext": ".jpg",
       "mime": "image/jpeg",
-      "size": 11034.23,
-      "url": "https://ik.imagekit.io/pnixsw7lg/main-website/IMG_4100%20(2).jpg",
-      "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/IMG_4100%20(2).jpg?updatedAt=1770436292314",
-      "provider": "imagekit",
-      "provider_metadata": {
-        "fileId": "6986b6c25c7cd75eb8838108"
-      },
+      "size": 840.88,
+      "url": "https://res.cloudinary.com/evocdaef/image/upload/f_auto,q_auto/envision-site/precon_hero_2026_v2.jpg",
+      "previewUrl": "https://res.cloudinary.com/evocdaef/image/upload/f_auto,q_auto/envision-site/precon_hero_2026_v2.jpg",
+      "provider": "cloudinary",
+      "provider_metadata": null,
       "createdAt": "2026-02-07T03:51:41.535Z",
       "updatedAt": "2026-02-07T03:51:41.535Z",
       "publishedAt": "2026-02-07T03:51:41.535Z",
@@ -54,7 +52,7 @@ export default {
       "formats": {
         "small": {
           "ext": ".webp",
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/enhanced_preconstruction_preview_06a5fc4814.webp?updatedAt=1780631499163&tr=w-375%2Ch-500&ik-s=107b4da26d3e803a69f3e08e7eb265e2a4381e64",
+          "url": "https://res.cloudinary.com/evocdaef/image/upload/c_fill,ar_3:4,g_auto,f_auto,q_auto/envision-site/precon_hero_2026_v2.jpg",
           "hash": "small_enhanced_preconstruction_preview_06a5fc4814",
           "mime": "image/webp",
           "name": "small_enhanced-preconstruction_preview.webp",
@@ -70,7 +68,7 @@ export default {
         },
         "medium": {
           "ext": ".webp",
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/enhanced_preconstruction_preview_06a5fc4814.webp?updatedAt=1780631499163&tr=w-562%2Ch-750&ik-s=82a61820d3fe8c28c663189d794078d0e409b06f",
+          "url": "https://res.cloudinary.com/evocdaef/image/upload/c_fill,ar_3:4,g_auto,f_auto,q_auto/envision-site/precon_hero_2026_v2.jpg",
           "hash": "medium_enhanced_preconstruction_preview_06a5fc4814",
           "mime": "image/webp",
           "name": "medium_enhanced-preconstruction_preview.webp",
@@ -86,7 +84,7 @@ export default {
         },
         "thumbnail": {
           "ext": ".webp",
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/enhanced_preconstruction_preview_06a5fc4814.webp?updatedAt=1780631499163&tr=w-117%2Ch-156&ik-s=e497999b791379de85e54692a7616e235a798643",
+          "url": "https://res.cloudinary.com/evocdaef/image/upload/c_fill,ar_3:4,g_auto,f_auto,q_auto/envision-site/precon_hero_2026_v2.jpg",
           "hash": "thumbnail_enhanced_preconstruction_preview_06a5fc4814",
           "mime": "image/webp",
           "name": "thumbnail_enhanced-preconstruction_preview.webp",
@@ -105,7 +103,7 @@ export default {
       "ext": ".webp",
       "mime": "image/webp",
       "size": 50.49,
-      "url": "https://ik.imagekit.io/pnixsw7lg/main-website/enhanced_preconstruction_preview_06a5fc4814.webp?updatedAt=1780631499163",
+      "url": "https://res.cloudinary.com/evocdaef/image/upload/c_fill,ar_3:4,g_auto,f_auto,q_auto/envision-site/precon_hero_2026_v2.jpg",
       "previewUrl": null,
       "provider": "local",
       "provider_metadata": {
