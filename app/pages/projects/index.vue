@@ -78,16 +78,16 @@ definePageMeta({
 });
 
 useSeoMeta({
-  title: 'Projects | Envision Construction Tampa Bay & Central Florida',
+  title: 'Projects | Tampa Bay & Central Florida',
   description:
     "Browse Envision's portfolio of completed construction projects across Tampa Bay and Central Florida, spanning K-12, higher education, sports, hospitality, and institutional sectors.",
-  ogTitle: 'Projects | Envision Construction Tampa Bay & Central Florida',
+  ogTitle: 'Projects | Envision | Tampa Bay & Central Florida',
   ogDescription:
     'Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.',
   ogImage: socialImage.value,
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  twitterTitle: 'Projects | Envision Construction Tampa Bay & Central Florida',
+  twitterTitle: 'Projects | Envision | Tampa Bay & Central Florida',
   twitterDescription:
     'Explore our portfolio of delivered construction projects across Tampa Bay and Central Florida, organized, high-quality, and on time.',
   twitterImage: socialImage.value,

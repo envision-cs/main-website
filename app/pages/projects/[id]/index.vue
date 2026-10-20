@@ -108,8 +108,8 @@ const canonicalUrl = computed(() => toAbsoluteSiteUrl(canonicalPath.value));
 
 const seoTitle = computed(() =>
   activeCategory.value?.name
-    ? `${activeCategory.value.name} Projects | Envision Construction`
-    : 'Projects | Envision Construction',
+    ? `${activeCategory.value.name} Projects | Envision`
+    : 'Projects | Envision',
 );
 
 const seoDescription = computed(() => {

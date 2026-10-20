@@ -148,7 +148,7 @@ export default defineNuxtConfig({
   },
   site: {
     url: 'https://www.envision-cs.com',
-    name: 'Envision Construction Services',
+    name: 'Envision',
   },
   sitemap: {
     sources: ['/api/__sitemap__/urls'],
@@ -192,6 +192,28 @@ export default defineNuxtConfig({
     '/team/**': { isr: 3600 },
     '/projects': { isr: 3600 },
     '/projects/**': { isr: 3600 },
+    // Renamed project addresses. The old URLs stay forwarded so existing links keep working.
+    // This record was mislabeled as a second Airside E Roof Renovation.
+    '/projects/aviation/hcaa-tampa-international-airport-airside-e-roof-renovation-1': {
+      redirect: {
+        to: '/projects/aviation/hcaa-tampa-international-airport-security-systems-replacements',
+        statusCode: 301,
+      },
+    },
+    // The title had been pasted twice, and the slug repeated it.
+    '/projects/higher-education/university-of-south-florida-office-of-veterans-success-renovations-university-of-south-florida-office-of-veterans-success-renovations':
+      {
+        redirect: {
+          to: '/projects/higher-education/university-of-south-florida-office-of-veterans-success-renovations',
+          statusCode: 301,
+        },
+      },
+    '/projects/healthcare/project': {
+      redirect: {
+        to: '/projects/healthcare/moffitt-cancer-center-linac-vault-replacement',
+        statusCode: 301,
+      },
+    },
     '/contact': { prerender: true },
     '/store': { robots: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },
     '/store/**': { robots: false, headers: { 'X-Robots-Tag': 'noindex, nofollow' } },

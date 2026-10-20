@@ -55,7 +55,7 @@ describe('project SEO utilities', () => {
         index: 0,
       }),
     ).toBe(
-      'Higher Education project at Judy Genshaft Honors College in Tampa, Florida, image 1 by Envision Construction Services',
+      'Higher Education project at Judy Genshaft Honors College in Tampa, Florida, image 1 by Envision',
     );
 
     expect(
