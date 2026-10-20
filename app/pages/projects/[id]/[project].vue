@@ -100,6 +100,10 @@ const page = computed(() => {
     title: entry.title,
     slug: entry.slug,
     main_image: entry.mainImage?.url,
+    main_image_alt:
+      typeof entry.mainImage?.alternativeText === 'string'
+        ? entry.mainImage.alternativeText
+        : undefined,
     location: entry.location,
     sector,
     area: entry.area,
@@ -885,7 +889,7 @@ const relatedProjectsTitle = computed(
 
 <template>
   <div>
-    <banner-b :image="page?.main_image">
+    <banner-b :image="page?.main_image" :image-alt="page?.main_image_alt">
       <!-- {{ page?.title }} -->
     </banner-b>
     <section-e

@@ -147,7 +147,12 @@ useHead(() => ({
 <template>
   <layout-a>
     <template #header-slot>
-      <banner-b class="header" :image="bannerImage" :body="bannerBody">
+      <banner-b
+        class="header"
+        :image="bannerImage"
+        :image-alt="activeCategory?.imageAlt"
+        :body="bannerBody"
+      >
         <template #title> Projects </template>
         {{ activeCategory?.name || 'All' }}
         <template #body>

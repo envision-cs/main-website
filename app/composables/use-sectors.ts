@@ -5,6 +5,7 @@ export type SectorListItem = {
   slug: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   preview?: string;
   to: string;
 };
@@ -61,6 +62,10 @@ export async function useSectors() {
         slug: sector.slug,
         description: sector.description,
         image: sector.image?.url,
+        imageAlt:
+          typeof sector.image?.alternativeText === 'string'
+            ? sector.image.alternativeText
+            : undefined,
         to: `/projects/${sector.slug}`,
       })),
   );
