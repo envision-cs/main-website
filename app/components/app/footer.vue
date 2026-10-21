@@ -186,4 +186,51 @@ h3 {
 .legal .footer-link {
   margin-bottom: 0;
 }
+
+/* Phone: one column, the header's 32px gutters, and headings that sit closer to
+   their own links than to the block above. Tablet and desktop are unchanged. */
+@media (max-width: 767px) {
+  footer {
+    padding: calc(var(--spacing) * 8) calc(var(--spacing) * 8) calc(var(--spacing) * 10);
+  }
+
+  .footer-head {
+    margin-top: 0;
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+
+  .site-footer {
+    row-gap: calc(var(--spacing) * 8);
+  }
+
+  .navigation {
+    flex-direction: column;
+    gap: calc(var(--spacing) * 8);
+  }
+
+  h3 {
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+
+  /* The last link's bottom margin would add to the gap before the next heading. */
+  .navigation li:last-child {
+    margin-bottom: 0;
+  }
+
+  .location-contact {
+    gap: calc(var(--spacing) * 8);
+  }
+
+  .date-socials {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: calc(var(--spacing) * 6);
+  }
+
+  .legal {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: calc(var(--spacing) * 2);
+  }
+}
 </style>
