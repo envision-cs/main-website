@@ -802,6 +802,8 @@ onUnmounted(() => {
     padding-block: calc(var(--spacing) * 12);
     /* The site footer follows directly and brings its own 32px top padding. */
     padding-bottom: calc(var(--spacing) * 4);
+    /* Same 32px gutter as the phone footer, so the left edge lines up down the page. */
+    padding-inline: calc(var(--spacing) * 8);
   }
 
   .testimonials__inner {
