@@ -33,7 +33,11 @@ const contactPageUrl = `${siteUrl}/contact`;
 const homepageImage = 'https://ik.imagekit.io/pnixsw7lg/main-website/IMG_1915.jpg';
 
 // The title already leads with the company name, so skip the site-wide " | Envision" suffix.
-useHead({ titleTemplate: null });
+// The Meta domain verification tag belongs on the home page only, server-rendered.
+useHead({
+  titleTemplate: null,
+  meta: [{ name: 'facebook-domain-verification', content: 'kd24i309ugjexc19fdy1m020wv3pbr' }],
+});
 
 useSeoMeta({
   title: 'Envision | Tampa Bay & Central Florida',

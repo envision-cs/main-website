@@ -145,6 +145,29 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: 'vercel',
+    vercel: {
+      config: {
+        // Meta ad landing pages: static files in public/ (see docs/meta-landing-pages),
+        // served at clean URLs. Kept out of the menu, footer and sitemap; each page
+        // carries its own noindex.
+        overrides: {
+          'office-renovation.html': { path: 'office-renovation' },
+          'athletic-facilities.html': { path: 'athletic-facilities' },
+          'thank-you-office.html': { path: 'thank-you-office' },
+          'thank-you-athletic.html': { path: 'thank-you-athletic' },
+        },
+      },
+    },
+  },
+  // Vercel overrides only apply on Vercel, so the dev server forwards the clean
+  // landing page URLs to the files instead.
+  $development: {
+    routeRules: {
+      '/office-renovation': { redirect: '/office-renovation.html' },
+      '/athletic-facilities': { redirect: '/athletic-facilities.html' },
+      '/thank-you-office': { redirect: '/thank-you-office.html' },
+      '/thank-you-athletic': { redirect: '/thank-you-athletic.html' },
+    },
   },
   site: {
     url: 'https://www.envision-cs.com',
