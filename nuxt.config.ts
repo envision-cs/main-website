@@ -156,6 +156,17 @@ export default defineNuxtConfig({
           'thank-you-office.html': { path: 'thank-you-office' },
           'thank-you-athletic.html': { path: 'thank-you-athletic' },
         },
+        // With a trailing slash the pages' relative paths (./support.js, assets/...)
+        // resolve inside the slug and the page never finishes building, so send the
+        // slash versions to the clean URLs. Defined as a Vercel route rather than a
+        // routeRule so it can never match the clean URL itself.
+        routes: [
+          {
+            src: '^/(office-renovation|athletic-facilities|thank-you-office|thank-you-athletic)/$',
+            status: 301,
+            headers: { Location: '/$1' },
+          },
+        ],
       },
     },
   },
