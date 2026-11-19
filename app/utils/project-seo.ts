@@ -37,6 +37,28 @@ export function stripMarkdown(value: string | null | undefined): string {
   );
 }
 
+/**
+ * Plain-text meta description from markdown or rich text (for example a team
+ * member bio), trimmed at a word boundary to fit search result snippets.
+ * Returns an empty string when there is no usable text.
+ */
+export function toSeoDescription(
+  value: string | null | undefined,
+  limit = DESCRIPTION_LIMIT,
+): string {
+  const plain = stripMarkdown(value);
+  if (!plain) return '';
+
+  const truncated = truncateAtWord(plain, limit);
+  if (!truncated.endsWith('…')) return truncated;
+
+  // A cut that lands on a sentence end reads cleanly without the ellipsis, and
+  // a trailing comma or colon before the ellipsis is dropped.
+  const body = truncated.slice(0, -1);
+  if (/[.!?]$/.test(body)) return body;
+  return `${body.replace(/[,;:]+$/, '')}…`;
+}
+
 export function getProjectLocationParts(location: string | null | undefined) {
   const normalized = compact(location);
   const [city = '', state = ''] = normalized.split(',').map((part) => part.trim());

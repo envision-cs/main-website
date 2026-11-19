@@ -1,6 +1,7 @@
 <script setup lang="ts">
 /* oxlint-disable @stylistic/quotes, @stylistic/arrow-parens, @stylistic/operator-linebreak, @stylistic/no-multiple-empty-lines */
 import { parseMarkdown } from '@nuxtjs/mdc/runtime';
+import { toSeoDescription } from '~/utils/project-seo';
 import { toAbsoluteOptionalSiteUrl } from '~/utils/site-url';
 
 definePageMeta({
@@ -122,18 +123,23 @@ const seoDescription = computed(() => {
 });
 const socialImage = computed(() => toAbsoluteOptionalSiteUrl(teamMember.value?.photo?.url));
 
-useSeoMeta(() => ({
-  title: seoTitle.value,
-  description: seoDescription.value,
-  ogTitle: seoTitle.value,
-  ogDescription: seoDescription.value,
-  ogImage: socialImage.value,
+// Object form with reactive values: @unhead/vue's useSeoMeta reads the keys of
+// the object it is given, so a getter function (`useSeoMeta(() => ({...}))`)
+// registers an empty entry and every tag below is silently dropped.
+useSeoMeta({
+  // The site title template appends " | Envision", so the document title is the
+  // name alone; social titles carry the full "Name | Envision".
+  title: () => title.value || 'Meet the Team',
+  description: seoDescription,
+  ogTitle: seoTitle,
+  ogDescription: seoDescription,
+  ogImage: socialImage,
   ogType: 'profile',
-  twitterCard: socialImage.value ? 'summary_large_image' : 'summary',
-  twitterTitle: seoTitle.value,
-  twitterDescription: seoDescription.value,
-  twitterImage: socialImage.value,
-}));
+  twitterCard: () => (socialImage.value ? 'summary_large_image' : 'summary'),
+  twitterTitle: seoTitle,
+  twitterDescription: seoDescription,
+  twitterImage: socialImage,
+});
 
 useHead(() => ({
   meta: socialImage.value
