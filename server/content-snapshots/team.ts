@@ -599,55 +599,6 @@ export default [
         }
       },
       {
-        "id": 115,
-        "documentId": "reknqgws1ksknsk1fhq8ysjn",
-        "name": "Claire Fosburgh",
-        "title": "Marketing Coordinator",
-        "bio": "With a Bachelor of Science in Advertising from University of South Florida and a passion for writing, Claire Fosburgh is a Marketing Coordinator on Envision’s Marketing/Sales Team. Claire is responsible for emulating the voice of Envision and ensuring consistency throughout all marketing efforts. In her spare time, she loves to connect with her Syrian-Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
-        "linkedin": null,
-        "email": null,
-        "createdAt": "2026-02-06T20:21:35.685Z",
-        "updatedAt": "2026-06-03T22:22:28.551Z",
-        "publishedAt": "2026-06-03T22:22:28.597Z",
-        "slug": "claire-fosburgh",
-        "photo": {
-          "id": 43,
-          "documentId": "2a3a462a36db48efb225ddde",
-          "name": "Claire_Fosburgh.jpg",
-          "alternativeText": null,
-          "caption": null,
-          "width": 3097,
-          "height": 3097,
-          "formats": {},
-          "hash": "Claire_Fosburgh_69864dc8",
-          "ext": ".jpg",
-          "mime": "image/jpeg",
-          "size": 4919.4,
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Claire_Fosburgh.jpg",
-          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Claire_Fosburgh.jpg?updatedAt=1770409416892",
-          "provider": "imagekit",
-          "provider_metadata": {
-            "fileId": "69864dc85c7cd75eb801afd1"
-          },
-          "createdAt": "2026-02-06T20:23:45.787Z",
-          "updatedAt": "2026-02-06T20:23:45.787Z",
-          "publishedAt": "2026-02-06T20:23:45.787Z",
-          "focalPoint": null
-        },
-        "team": {
-          "id": 8,
-          "documentId": "put0inflhlaxan8hbyl3xlzx",
-          "name": "C.O.L. Team",
-          "color": "#BAE11F",
-          "role": "BD | Marketing",
-          "description": "The C.O.L Team’s goal is to promote the growth of Envision, inwardly and outwardly by implementing branding and business development efforts.",
-          "createdAt": "2026-02-06T01:49:36.578Z",
-          "updatedAt": "2026-02-06T01:49:38.093Z",
-          "publishedAt": "2026-02-06T01:49:38.119Z",
-          "order": 3
-        }
-      },
-      {
         "id": 118,
         "documentId": "pyo6yphaqs31lklzj4to8w5p",
         "name": "Abigail Torres",
@@ -956,6 +907,55 @@ export default [
           "createdAt": "2026-02-06T21:00:30.090Z",
           "updatedAt": "2026-02-06T21:00:30.090Z",
           "publishedAt": "2026-02-06T21:00:30.090Z",
+          "focalPoint": null
+        },
+        "team": {
+          "id": 17,
+          "documentId": "tczwx4r21e9xomokoh6dcbc0",
+          "name": "Teal Team",
+          "color": "#28a99e",
+          "role": "Specialty Projects Division",
+          "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+          "createdAt": "2026-06-02T20:47:19.359Z",
+          "updatedAt": "2026-06-02T21:38:55.763Z",
+          "publishedAt": "2026-06-02T21:38:55.799Z",
+          "order": 4
+        }
+      },
+      {
+        "id": 115,
+        "documentId": "reknqgws1ksknsk1fhq8ysjn",
+        "name": "Claire Fosburgh",
+        "title": "Project Support Coordinator",
+        "bio": "Claire Fosburgh serves as Project Support Coordinator for Envision’s Specialty Projects Division (SPD), helping keep construction and renovation projects organized and moving forward. She supports the team through project tracking, proposal preparation, vendor and trade partner follow-up, and closeout coordination. With a Bachelor of Science in Advertising from the University of South Florida, Claire brings her background in writing and communication to keeping project information clear and complete. In her spare time, she loves to connect with her Syrian Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
+        "linkedin": null,
+        "email": null,
+        "createdAt": "2026-02-06T20:21:35.685Z",
+        "updatedAt": "2026-06-03T22:22:28.551Z",
+        "publishedAt": "2026-06-03T22:22:28.597Z",
+        "slug": "claire-fosburgh",
+        "photo": {
+          "id": 43,
+          "documentId": "2a3a462a36db48efb225ddde",
+          "name": "Claire_Fosburgh.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 3097,
+          "height": 3097,
+          "formats": {},
+          "hash": "Claire_Fosburgh_69864dc8",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 4919.4,
+          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Claire_Fosburgh.jpg",
+          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Claire_Fosburgh.jpg?updatedAt=1770409416892",
+          "provider": "imagekit",
+          "provider_metadata": {
+            "fileId": "69864dc85c7cd75eb801afd1"
+          },
+          "createdAt": "2026-02-06T20:23:45.787Z",
+          "updatedAt": "2026-02-06T20:23:45.787Z",
+          "publishedAt": "2026-02-06T20:23:45.787Z",
           "focalPoint": null
         },
         "team": {

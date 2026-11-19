@@ -1917,55 +1917,6 @@ export default {
         }
       },
       {
-        "id": 115,
-        "documentId": "reknqgws1ksknsk1fhq8ysjn",
-        "name": "Claire Fosburgh",
-        "title": "Marketing Coordinator",
-        "bio": "With a Bachelor of Science in Advertising from University of South Florida and a passion for writing, Claire Fosburgh is a Marketing Coordinator on Envision’s Marketing/Sales Team. Claire is responsible for emulating the voice of Envision and ensuring consistency throughout all marketing efforts. In her spare time, she loves to connect with her Syrian-Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
-        "linkedin": null,
-        "email": null,
-        "createdAt": "2026-02-06T20:21:35.685Z",
-        "updatedAt": "2026-06-03T22:22:28.551Z",
-        "publishedAt": "2026-06-03T22:22:28.597Z",
-        "slug": "claire-fosburgh",
-        "photo": {
-          "id": 43,
-          "documentId": "2a3a462a36db48efb225ddde",
-          "name": "Claire_Fosburgh.jpg",
-          "alternativeText": null,
-          "caption": null,
-          "width": 3097,
-          "height": 3097,
-          "formats": {},
-          "hash": "Claire_Fosburgh_69864dc8",
-          "ext": ".jpg",
-          "mime": "image/jpeg",
-          "size": 4919.4,
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Claire_Fosburgh.jpg",
-          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Claire_Fosburgh.jpg?updatedAt=1770409416892",
-          "provider": "imagekit",
-          "provider_metadata": {
-            "fileId": "69864dc85c7cd75eb801afd1"
-          },
-          "createdAt": "2026-02-06T20:23:45.787Z",
-          "updatedAt": "2026-02-06T20:23:45.787Z",
-          "publishedAt": "2026-02-06T20:23:45.787Z",
-          "focalPoint": null
-        },
-        "team": {
-          "id": 8,
-          "documentId": "put0inflhlaxan8hbyl3xlzx",
-          "name": "C.O.L. Team",
-          "color": "#BAE11F",
-          "role": "BD | Marketing",
-          "description": "The C.O.L Team’s goal is to promote the growth of Envision, inwardly and outwardly by implementing branding and business development efforts.",
-          "createdAt": "2026-02-06T01:49:36.578Z",
-          "updatedAt": "2026-02-06T01:49:38.093Z",
-          "publishedAt": "2026-02-06T01:49:38.119Z",
-          "order": 3
-        }
-      },
-      {
         "id": 118,
         "documentId": "pyo6yphaqs31lklzj4to8w5p",
         "name": "Abigail Torres",
@@ -2021,8 +1972,8 @@ export default {
       "id": 115,
       "documentId": "reknqgws1ksknsk1fhq8ysjn",
       "name": "Claire Fosburgh",
-      "title": "Marketing Coordinator",
-      "bio": "With a Bachelor of Science in Advertising from University of South Florida and a passion for writing, Claire Fosburgh is a Marketing Coordinator on Envision’s Marketing/Sales Team. Claire is responsible for emulating the voice of Envision and ensuring consistency throughout all marketing efforts. In her spare time, she loves to connect with her Syrian-Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
+      "title": "Project Support Coordinator",
+      "bio": "Claire Fosburgh serves as Project Support Coordinator for Envision’s Specialty Projects Division (SPD), helping keep construction and renovation projects organized and moving forward. She supports the team through project tracking, proposal preparation, vendor and trade partner follow-up, and closeout coordination. With a Bachelor of Science in Advertising from the University of South Florida, Claire brings her background in writing and communication to keeping project information clear and complete. In her spare time, she loves to connect with her Syrian Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
       "linkedin": null,
       "email": null,
       "createdAt": "2026-02-06T20:21:35.685Z",
@@ -2054,74 +2005,286 @@ export default {
         "focalPoint": null
       },
       "team": {
-        "id": 8,
-        "documentId": "put0inflhlaxan8hbyl3xlzx",
-        "name": "C.O.L. Team",
-        "color": "#BAE11F",
-        "role": "BD | Marketing",
-        "description": "The C.O.L Team’s goal is to promote the growth of Envision, inwardly and outwardly by implementing branding and business development efforts.",
-        "createdAt": "2026-02-06T01:49:36.578Z",
-        "updatedAt": "2026-02-06T01:49:38.093Z",
-        "publishedAt": "2026-02-06T01:49:38.119Z",
-        "order": 3
+        "id": 17,
+        "documentId": "tczwx4r21e9xomokoh6dcbc0",
+        "name": "Teal Team",
+        "color": "#28a99e",
+        "role": "Specialty Projects Division",
+        "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+        "createdAt": "2026-06-02T20:47:19.359Z",
+        "updatedAt": "2026-06-02T21:38:55.763Z",
+        "publishedAt": "2026-06-02T21:38:55.799Z",
+        "order": 4
       }
     },
     "team": [
       {
-        "id": 112,
-        "documentId": "eaed578vfk1xwkard52k1650",
-        "name": "Gabrielle Howard",
-        "title": "Marketing & Sales Director",
-        "bio": "As Marketing & Sales Director on Envision’s Marketing/Sales Team, Gabrielle Howard has a heart for brand marketing and messaging. Gabrielle is a graduate of the University of South Florida with a Bachelor of Science in Marketing. While not at work, she enjoys spending time with her family, watching movies, and serving in the local community.",
+        "id": 102,
+        "documentId": "ec1r5j0ytqjlly8g5yetz67u",
+        "name": "Sarita Ramos",
+        "title": "SPD Project Engineer",
+        "bio": "With over four years of experience in various construction roles and industries, Sarita Ramos serves as an SPD Project Engineer on Envision’s SPD Team. Sarita is responsible for project scheduling and budgeting, design coordination and approvals, procurement and trade partner management, client relationship management, risk management and value engineering, and overseeing documentation. Outside of work, Sarita enjoys spending time with family, exploring nature, farming, fishing, kayaking, and visiting the beach.",
         "linkedin": null,
         "email": null,
-        "createdAt": "2026-02-06T20:12:29.829Z",
-        "updatedAt": "2026-06-03T22:21:33.072Z",
-        "publishedAt": "2026-06-03T22:21:33.123Z",
-        "slug": "gabrielle-howard",
+        "createdAt": "2026-05-11T01:38:39.379Z",
+        "updatedAt": "2026-06-03T22:17:26.654Z",
+        "publishedAt": "2026-06-03T22:17:26.742Z",
+        "slug": "sarita-ramos",
         "photo": {
-          "id": 41,
-          "documentId": "6b2ff2e696bc4796a7fb5153",
-          "name": "Gabrielle_Howard.png",
+          "id": 190,
+          "documentId": "dbkjyohtr0d41t163p6lvtov",
+          "name": "Sarita Ramos_01 .png",
           "alternativeText": null,
           "caption": null,
-          "width": 4000,
-          "height": 4000,
-          "formats": {},
-          "hash": "Gabrielle_Howard_69864c28",
+          "width": 3384,
+          "height": 3384,
+          "formats": {
+            "large": {
+              "ext": ".png",
+              "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Sarita_Ramos_01_5e63e4252c.png?updatedAt=1778463507579&tr=w-1000%2Ch-1000&ik-s=1b768c7af7157094a4e49a7a9c95f776bf86fc84",
+              "hash": "large_Sarita_Ramos_01_5e63e4252c",
+              "mime": "image/png",
+              "name": "large_Sarita Ramos_01 .png",
+              "path": null,
+              "size": 1579.76,
+              "width": 1000,
+              "height": 1000,
+              "provider": "imagekit",
+              "sizeInBytes": 1579756,
+              "provider_metadata": {
+                "fileId": "6a0133135c7cd75eb8e02c05"
+              }
+            },
+            "small": {
+              "ext": ".png",
+              "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Sarita_Ramos_01_5e63e4252c.png?updatedAt=1778463507579&tr=w-500%2Ch-500&ik-s=3fb2c827c1f2cc00e74e23dfeeafbe33d4b6bb13",
+              "hash": "small_Sarita_Ramos_01_5e63e4252c",
+              "mime": "image/png",
+              "name": "small_Sarita Ramos_01 .png",
+              "path": null,
+              "size": 383.7,
+              "width": 500,
+              "height": 500,
+              "provider": "imagekit",
+              "sizeInBytes": 383703,
+              "provider_metadata": {
+                "fileId": "6a0133135c7cd75eb8e02bcc"
+              }
+            },
+            "medium": {
+              "ext": ".png",
+              "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Sarita_Ramos_01_5e63e4252c.png?updatedAt=1778463507579&tr=w-750%2Ch-750&ik-s=b96874db502fa645ee09a2ee280d0247f74331a3",
+              "hash": "medium_Sarita_Ramos_01_5e63e4252c",
+              "mime": "image/png",
+              "name": "medium_Sarita Ramos_01 .png",
+              "path": null,
+              "size": 873.35,
+              "width": 750,
+              "height": 750,
+              "provider": "imagekit",
+              "sizeInBytes": 873354,
+              "provider_metadata": {
+                "fileId": "6a0133135c7cd75eb8e02bde"
+              }
+            },
+            "thumbnail": {
+              "ext": ".png",
+              "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Sarita_Ramos_01_5e63e4252c.png?updatedAt=1778463507579&tr=w-156%2Ch-156&ik-s=86efbaa0f4067ea26c348a073579fe464a75b72c",
+              "hash": "thumbnail_Sarita_Ramos_01_5e63e4252c",
+              "mime": "image/png",
+              "name": "thumbnail_Sarita Ramos_01 .png",
+              "path": null,
+              "size": 44.26,
+              "width": 156,
+              "height": 156,
+              "provider": "imagekit",
+              "sizeInBytes": 44261,
+              "provider_metadata": {
+                "fileId": "6a0133125c7cd75eb8e02ae2"
+              }
+            }
+          },
+          "hash": "Sarita_Ramos_01_5e63e4252c",
           "ext": ".png",
           "mime": "image/png",
-          "size": 16652.48,
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Gabrielle_Howard.png",
-          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Gabrielle_Howard.png?updatedAt=1770409002219",
-          "provider": "imagekit",
+          "size": 5297.18,
+          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Sarita_Ramos_01_5e63e4252c.png?updatedAt=1778463507579",
+          "previewUrl": null,
+          "provider": "local",
           "provider_metadata": {
-            "fileId": "69864c285c7cd75eb8f7b8c8"
+            "fileId": "6a0133125c7cd75eb8e02b50"
           },
-          "createdAt": "2026-02-06T20:16:48.181Z",
-          "updatedAt": "2026-02-06T20:16:48.181Z",
-          "publishedAt": "2026-02-06T20:16:48.181Z",
+          "createdAt": "2026-05-11T01:38:27.591Z",
+          "updatedAt": "2026-05-11T01:38:27.591Z",
+          "publishedAt": "2026-05-11T01:38:27.592Z",
           "focalPoint": null
         },
         "team": {
-          "id": 8,
-          "documentId": "put0inflhlaxan8hbyl3xlzx",
-          "name": "C.O.L. Team",
-          "color": "#BAE11F",
-          "role": "BD | Marketing",
-          "description": "The C.O.L Team’s goal is to promote the growth of Envision, inwardly and outwardly by implementing branding and business development efforts.",
-          "createdAt": "2026-02-06T01:49:36.578Z",
-          "updatedAt": "2026-02-06T01:49:38.093Z",
-          "publishedAt": "2026-02-06T01:49:38.119Z",
-          "order": 3
+          "id": 17,
+          "documentId": "tczwx4r21e9xomokoh6dcbc0",
+          "name": "Teal Team",
+          "color": "#28a99e",
+          "role": "Specialty Projects Division",
+          "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+          "createdAt": "2026-06-02T20:47:19.359Z",
+          "updatedAt": "2026-06-02T21:38:55.763Z",
+          "publishedAt": "2026-06-02T21:38:55.799Z",
+          "order": 4
+        }
+      },
+      {
+        "id": 126,
+        "documentId": "n7tyzw3a3bi9i3l50vvppy7c",
+        "name": "Andy Ramos",
+        "title": "Assistant Superintendent",
+        "bio": "Andy Ramos serves as Assistant Superintendent on Envision’s Field Management Team with a decade of construction experience. Andy is responsible for supporting site management and trade coordination, assisting with safety checks and compliance, tracking progress, aiding logistics, and maintaining daily logs. With a passion for cars, Andy enjoys racing and working on cars in his spare time.",
+        "linkedin": null,
+        "email": null,
+        "createdAt": "2026-05-11T01:33:37.595Z",
+        "updatedAt": "2026-06-05T16:08:58.137Z",
+        "publishedAt": "2026-06-05T16:08:58.175Z",
+        "slug": "andy-ramos",
+        "photo": {
+          "id": 216,
+          "documentId": "yhz8ac1lfcxa7isq7acklbun",
+          "name": "AndyRamos.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 1000,
+          "height": 1000,
+          "formats": {
+            "small": {
+              "ext": ".jpg",
+              "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Andy_Ramos_b6090211f6.jpg?updatedAt=1780409542867&tr=w-500%2Ch-500&ik-s=2a4a250ff8ff606b1728d5bb424c9806252f3989",
+              "hash": "small_Andy_Ramos_b6090211f6",
+              "mime": "image/jpeg",
+              "name": "small_AndyRamos.jpg",
+              "path": null,
+              "size": 24.21,
+              "width": 500,
+              "height": 500,
+              "provider": "imagekit",
+              "sizeInBytes": 24207,
+              "provider_metadata": {
+                "fileId": "6a1ee4c65c7cd75eb84d7e83"
+              }
+            },
+            "medium": {
+              "ext": ".jpg",
+              "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Andy_Ramos_b6090211f6.jpg?updatedAt=1780409542867&tr=w-750%2Ch-750&ik-s=ca38b502cae3e26a62aab5c9180aadfc84cdf650",
+              "hash": "medium_Andy_Ramos_b6090211f6",
+              "mime": "image/jpeg",
+              "name": "medium_AndyRamos.jpg",
+              "path": null,
+              "size": 50.94,
+              "width": 750,
+              "height": 750,
+              "provider": "imagekit",
+              "sizeInBytes": 50935,
+              "provider_metadata": {
+                "fileId": "6a1ee4c65c7cd75eb84d7b32"
+              }
+            },
+            "thumbnail": {
+              "ext": ".jpg",
+              "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Andy_Ramos_b6090211f6.jpg?updatedAt=1780409542867&tr=w-156%2Ch-156&ik-s=f40241f3f7bc6393447f3875c9abfc7047cbabe2",
+              "hash": "thumbnail_Andy_Ramos_b6090211f6",
+              "mime": "image/jpeg",
+              "name": "thumbnail_AndyRamos.jpg",
+              "path": null,
+              "size": 4.07,
+              "width": 156,
+              "height": 156,
+              "provider": "imagekit",
+              "sizeInBytes": 4074,
+              "provider_metadata": {
+                "fileId": "6a1ee4c65c7cd75eb84d7b2b"
+              }
+            }
+          },
+          "hash": "Andy_Ramos_b6090211f6",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 88.57,
+          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Andy_Ramos_b6090211f6.jpg?updatedAt=1780409542867",
+          "previewUrl": null,
+          "provider": "local",
+          "provider_metadata": {
+            "fileId": "6a1ee4c65c7cd75eb84d7ae3"
+          },
+          "createdAt": "2026-06-02T14:12:23.097Z",
+          "updatedAt": "2026-06-02T14:12:23.097Z",
+          "publishedAt": "2026-06-02T14:12:23.097Z",
+          "focalPoint": null
+        },
+        "team": {
+          "id": 17,
+          "documentId": "tczwx4r21e9xomokoh6dcbc0",
+          "name": "Teal Team",
+          "color": "#28a99e",
+          "role": "Specialty Projects Division",
+          "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+          "createdAt": "2026-06-02T20:47:19.359Z",
+          "updatedAt": "2026-06-02T21:38:55.763Z",
+          "publishedAt": "2026-06-02T21:38:55.799Z",
+          "order": 4
+        }
+      },
+      {
+        "id": 122,
+        "documentId": "fn33y516phcvce0dateamwa0",
+        "name": "Andre Ramos",
+        "title": "Superintendent",
+        "bio": "With over 15 years of experience in the construction industry, Andre quickly moved from Laborer to Superintendent while at Envision. Andre is a committed, detail-oriented Superintendent on our Field Management Team with experience working through complex projects and managing multiple sub-trade partners. In his spare time, he enjoys fishing and spending time with his family.",
+        "linkedin": null,
+        "email": null,
+        "createdAt": "2026-02-06T20:59:12.812Z",
+        "updatedAt": "2026-06-03T22:24:04.654Z",
+        "publishedAt": "2026-06-03T22:24:04.697Z",
+        "slug": "andre-ramos",
+        "photo": {
+          "id": 48,
+          "documentId": "06e1ef7ad0f34841b20bb45a",
+          "name": "Andre_Ramos_01.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 4851,
+          "height": 4851,
+          "formats": {},
+          "hash": "Andre_Ramos_01_69865663",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 9158.09,
+          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Andre_Ramos_01.jpg",
+          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Andre_Ramos_01.jpg?updatedAt=1770411620375",
+          "provider": "imagekit",
+          "provider_metadata": {
+            "fileId": "698656635c7cd75eb839055a"
+          },
+          "createdAt": "2026-02-06T21:00:30.090Z",
+          "updatedAt": "2026-02-06T21:00:30.090Z",
+          "publishedAt": "2026-02-06T21:00:30.090Z",
+          "focalPoint": null
+        },
+        "team": {
+          "id": 17,
+          "documentId": "tczwx4r21e9xomokoh6dcbc0",
+          "name": "Teal Team",
+          "color": "#28a99e",
+          "role": "Specialty Projects Division",
+          "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+          "createdAt": "2026-06-02T20:47:19.359Z",
+          "updatedAt": "2026-06-02T21:38:55.763Z",
+          "publishedAt": "2026-06-02T21:38:55.799Z",
+          "order": 4
         }
       },
       {
         "id": 115,
         "documentId": "reknqgws1ksknsk1fhq8ysjn",
         "name": "Claire Fosburgh",
-        "title": "Marketing Coordinator",
-        "bio": "With a Bachelor of Science in Advertising from University of South Florida and a passion for writing, Claire Fosburgh is a Marketing Coordinator on Envision’s Marketing/Sales Team. Claire is responsible for emulating the voice of Envision and ensuring consistency throughout all marketing efforts. In her spare time, she loves to connect with her Syrian-Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
+        "title": "Project Support Coordinator",
+        "bio": "Claire Fosburgh serves as Project Support Coordinator for Envision’s Specialty Projects Division (SPD), helping keep construction and renovation projects organized and moving forward. She supports the team through project tracking, proposal preparation, vendor and trade partner follow-up, and closeout coordination. With a Bachelor of Science in Advertising from the University of South Florida, Claire brings her background in writing and communication to keeping project information clear and complete. In her spare time, she loves to connect with her Syrian Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
         "linkedin": null,
         "email": null,
         "createdAt": "2026-02-06T20:21:35.685Z",
@@ -2153,65 +2316,16 @@ export default {
           "focalPoint": null
         },
         "team": {
-          "id": 8,
-          "documentId": "put0inflhlaxan8hbyl3xlzx",
-          "name": "C.O.L. Team",
-          "color": "#BAE11F",
-          "role": "BD | Marketing",
-          "description": "The C.O.L Team’s goal is to promote the growth of Envision, inwardly and outwardly by implementing branding and business development efforts.",
-          "createdAt": "2026-02-06T01:49:36.578Z",
-          "updatedAt": "2026-02-06T01:49:38.093Z",
-          "publishedAt": "2026-02-06T01:49:38.119Z",
-          "order": 3
-        }
-      },
-      {
-        "id": 118,
-        "documentId": "pyo6yphaqs31lklzj4to8w5p",
-        "name": "Abigail Torres",
-        "title": "Client and Community Coordinator",
-        "bio": "As Client and Community Coordinator on Envision’s Marketing/Sales Team, Abbey Torres plays a key role in supporting the company through our sales, community engagement, and culture initiatives. Abbey is a proud graduate of the University of South Florida with a Bachelor of Arts in Global Business Management and a minor in Spanish. Outside of work, she loves exploring her passion for photography and spending time outdoors.",
-        "linkedin": null,
-        "email": null,
-        "createdAt": "2026-02-06T21:14:05.092Z",
-        "updatedAt": "2026-06-03T22:23:13.305Z",
-        "publishedAt": "2026-06-03T22:23:13.350Z",
-        "slug": "abigail-torres",
-        "photo": {
-          "id": 50,
-          "documentId": "7a89443eacfd4b1ab4f7162d",
-          "name": "Abigail_Torres.png",
-          "alternativeText": null,
-          "caption": null,
-          "width": 2878,
-          "height": 2878,
-          "formats": {},
-          "hash": "Abigail_Torres_698659f6",
-          "ext": ".png",
-          "mime": "image/png",
-          "size": 9251.53,
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Abigail_Torres.png",
-          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Abigail_Torres.png?updatedAt=1770412534745",
-          "provider": "imagekit",
-          "provider_metadata": {
-            "fileId": "698659f65c7cd75eb85917ac"
-          },
-          "createdAt": "2026-02-06T21:15:40.178Z",
-          "updatedAt": "2026-02-06T21:15:40.178Z",
-          "publishedAt": "2026-02-06T21:15:40.178Z",
-          "focalPoint": null
-        },
-        "team": {
-          "id": 8,
-          "documentId": "put0inflhlaxan8hbyl3xlzx",
-          "name": "C.O.L. Team",
-          "color": "#BAE11F",
-          "role": "BD | Marketing",
-          "description": "The C.O.L Team’s goal is to promote the growth of Envision, inwardly and outwardly by implementing branding and business development efforts.",
-          "createdAt": "2026-02-06T01:49:36.578Z",
-          "updatedAt": "2026-02-06T01:49:38.093Z",
-          "publishedAt": "2026-02-06T01:49:38.119Z",
-          "order": 3
+          "id": 17,
+          "documentId": "tczwx4r21e9xomokoh6dcbc0",
+          "name": "Teal Team",
+          "color": "#28a99e",
+          "role": "Specialty Projects Division",
+          "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+          "createdAt": "2026-06-02T20:47:19.359Z",
+          "updatedAt": "2026-06-02T21:38:55.763Z",
+          "publishedAt": "2026-06-02T21:38:55.799Z",
+          "order": 4
         }
       }
     ]
@@ -2301,55 +2415,6 @@ export default {
           "createdAt": "2026-02-06T20:16:48.181Z",
           "updatedAt": "2026-02-06T20:16:48.181Z",
           "publishedAt": "2026-02-06T20:16:48.181Z",
-          "focalPoint": null
-        },
-        "team": {
-          "id": 8,
-          "documentId": "put0inflhlaxan8hbyl3xlzx",
-          "name": "C.O.L. Team",
-          "color": "#BAE11F",
-          "role": "BD | Marketing",
-          "description": "The C.O.L Team’s goal is to promote the growth of Envision, inwardly and outwardly by implementing branding and business development efforts.",
-          "createdAt": "2026-02-06T01:49:36.578Z",
-          "updatedAt": "2026-02-06T01:49:38.093Z",
-          "publishedAt": "2026-02-06T01:49:38.119Z",
-          "order": 3
-        }
-      },
-      {
-        "id": 115,
-        "documentId": "reknqgws1ksknsk1fhq8ysjn",
-        "name": "Claire Fosburgh",
-        "title": "Marketing Coordinator",
-        "bio": "With a Bachelor of Science in Advertising from University of South Florida and a passion for writing, Claire Fosburgh is a Marketing Coordinator on Envision’s Marketing/Sales Team. Claire is responsible for emulating the voice of Envision and ensuring consistency throughout all marketing efforts. In her spare time, she loves to connect with her Syrian-Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
-        "linkedin": null,
-        "email": null,
-        "createdAt": "2026-02-06T20:21:35.685Z",
-        "updatedAt": "2026-06-03T22:22:28.551Z",
-        "publishedAt": "2026-06-03T22:22:28.597Z",
-        "slug": "claire-fosburgh",
-        "photo": {
-          "id": 43,
-          "documentId": "2a3a462a36db48efb225ddde",
-          "name": "Claire_Fosburgh.jpg",
-          "alternativeText": null,
-          "caption": null,
-          "width": 3097,
-          "height": 3097,
-          "formats": {},
-          "hash": "Claire_Fosburgh_69864dc8",
-          "ext": ".jpg",
-          "mime": "image/jpeg",
-          "size": 4919.4,
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Claire_Fosburgh.jpg",
-          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Claire_Fosburgh.jpg?updatedAt=1770409416892",
-          "provider": "imagekit",
-          "provider_metadata": {
-            "fileId": "69864dc85c7cd75eb801afd1"
-          },
-          "createdAt": "2026-02-06T20:23:45.787Z",
-          "updatedAt": "2026-02-06T20:23:45.787Z",
-          "publishedAt": "2026-02-06T20:23:45.787Z",
           "focalPoint": null
         },
         "team": {
@@ -2792,6 +2857,55 @@ export default {
           "publishedAt": "2026-06-02T21:38:55.799Z",
           "order": 4
         }
+      },
+      {
+        "id": 115,
+        "documentId": "reknqgws1ksknsk1fhq8ysjn",
+        "name": "Claire Fosburgh",
+        "title": "Project Support Coordinator",
+        "bio": "Claire Fosburgh serves as Project Support Coordinator for Envision’s Specialty Projects Division (SPD), helping keep construction and renovation projects organized and moving forward. She supports the team through project tracking, proposal preparation, vendor and trade partner follow-up, and closeout coordination. With a Bachelor of Science in Advertising from the University of South Florida, Claire brings her background in writing and communication to keeping project information clear and complete. In her spare time, she loves to connect with her Syrian Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
+        "linkedin": null,
+        "email": null,
+        "createdAt": "2026-02-06T20:21:35.685Z",
+        "updatedAt": "2026-06-03T22:22:28.551Z",
+        "publishedAt": "2026-06-03T22:22:28.597Z",
+        "slug": "claire-fosburgh",
+        "photo": {
+          "id": 43,
+          "documentId": "2a3a462a36db48efb225ddde",
+          "name": "Claire_Fosburgh.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 3097,
+          "height": 3097,
+          "formats": {},
+          "hash": "Claire_Fosburgh_69864dc8",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 4919.4,
+          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Claire_Fosburgh.jpg",
+          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Claire_Fosburgh.jpg?updatedAt=1770409416892",
+          "provider": "imagekit",
+          "provider_metadata": {
+            "fileId": "69864dc85c7cd75eb801afd1"
+          },
+          "createdAt": "2026-02-06T20:23:45.787Z",
+          "updatedAt": "2026-02-06T20:23:45.787Z",
+          "publishedAt": "2026-02-06T20:23:45.787Z",
+          "focalPoint": null
+        },
+        "team": {
+          "id": 17,
+          "documentId": "tczwx4r21e9xomokoh6dcbc0",
+          "name": "Teal Team",
+          "color": "#28a99e",
+          "role": "Specialty Projects Division",
+          "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+          "createdAt": "2026-06-02T20:47:19.359Z",
+          "updatedAt": "2026-06-02T21:38:55.763Z",
+          "publishedAt": "2026-06-02T21:38:55.799Z",
+          "order": 4
+        }
       }
     ]
   },
@@ -3155,6 +3269,55 @@ export default {
           "publishedAt": "2026-06-02T21:38:55.799Z",
           "order": 4
         }
+      },
+      {
+        "id": 115,
+        "documentId": "reknqgws1ksknsk1fhq8ysjn",
+        "name": "Claire Fosburgh",
+        "title": "Project Support Coordinator",
+        "bio": "Claire Fosburgh serves as Project Support Coordinator for Envision’s Specialty Projects Division (SPD), helping keep construction and renovation projects organized and moving forward. She supports the team through project tracking, proposal preparation, vendor and trade partner follow-up, and closeout coordination. With a Bachelor of Science in Advertising from the University of South Florida, Claire brings her background in writing and communication to keeping project information clear and complete. In her spare time, she loves to connect with her Syrian Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
+        "linkedin": null,
+        "email": null,
+        "createdAt": "2026-02-06T20:21:35.685Z",
+        "updatedAt": "2026-06-03T22:22:28.551Z",
+        "publishedAt": "2026-06-03T22:22:28.597Z",
+        "slug": "claire-fosburgh",
+        "photo": {
+          "id": 43,
+          "documentId": "2a3a462a36db48efb225ddde",
+          "name": "Claire_Fosburgh.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 3097,
+          "height": 3097,
+          "formats": {},
+          "hash": "Claire_Fosburgh_69864dc8",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 4919.4,
+          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Claire_Fosburgh.jpg",
+          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Claire_Fosburgh.jpg?updatedAt=1770409416892",
+          "provider": "imagekit",
+          "provider_metadata": {
+            "fileId": "69864dc85c7cd75eb801afd1"
+          },
+          "createdAt": "2026-02-06T20:23:45.787Z",
+          "updatedAt": "2026-02-06T20:23:45.787Z",
+          "publishedAt": "2026-02-06T20:23:45.787Z",
+          "focalPoint": null
+        },
+        "team": {
+          "id": 17,
+          "documentId": "tczwx4r21e9xomokoh6dcbc0",
+          "name": "Teal Team",
+          "color": "#28a99e",
+          "role": "Specialty Projects Division",
+          "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+          "createdAt": "2026-06-02T20:47:19.359Z",
+          "updatedAt": "2026-06-02T21:38:55.763Z",
+          "publishedAt": "2026-06-02T21:38:55.799Z",
+          "order": 4
+        }
       }
     ]
   },
@@ -3455,6 +3618,55 @@ export default {
           "createdAt": "2026-02-06T21:00:30.090Z",
           "updatedAt": "2026-02-06T21:00:30.090Z",
           "publishedAt": "2026-02-06T21:00:30.090Z",
+          "focalPoint": null
+        },
+        "team": {
+          "id": 17,
+          "documentId": "tczwx4r21e9xomokoh6dcbc0",
+          "name": "Teal Team",
+          "color": "#28a99e",
+          "role": "Specialty Projects Division",
+          "description": "The SPD Team supports quick-turn, high-impact projects that require agility, clarity, and dependable execution from preconstruction through closeout. The team brings responsiveness, craftsmanship, and care to work that needs to move efficiently, cleanly, and confidently.",
+          "createdAt": "2026-06-02T20:47:19.359Z",
+          "updatedAt": "2026-06-02T21:38:55.763Z",
+          "publishedAt": "2026-06-02T21:38:55.799Z",
+          "order": 4
+        }
+      },
+      {
+        "id": 115,
+        "documentId": "reknqgws1ksknsk1fhq8ysjn",
+        "name": "Claire Fosburgh",
+        "title": "Project Support Coordinator",
+        "bio": "Claire Fosburgh serves as Project Support Coordinator for Envision’s Specialty Projects Division (SPD), helping keep construction and renovation projects organized and moving forward. She supports the team through project tracking, proposal preparation, vendor and trade partner follow-up, and closeout coordination. With a Bachelor of Science in Advertising from the University of South Florida, Claire brings her background in writing and communication to keeping project information clear and complete. In her spare time, she loves to connect with her Syrian Lebanese roots through cooking, playing the darbuka, and dancing dabke.",
+        "linkedin": null,
+        "email": null,
+        "createdAt": "2026-02-06T20:21:35.685Z",
+        "updatedAt": "2026-06-03T22:22:28.551Z",
+        "publishedAt": "2026-06-03T22:22:28.597Z",
+        "slug": "claire-fosburgh",
+        "photo": {
+          "id": 43,
+          "documentId": "2a3a462a36db48efb225ddde",
+          "name": "Claire_Fosburgh.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 3097,
+          "height": 3097,
+          "formats": {},
+          "hash": "Claire_Fosburgh_69864dc8",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 4919.4,
+          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Claire_Fosburgh.jpg",
+          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Claire_Fosburgh.jpg?updatedAt=1770409416892",
+          "provider": "imagekit",
+          "provider_metadata": {
+            "fileId": "69864dc85c7cd75eb801afd1"
+          },
+          "createdAt": "2026-02-06T20:23:45.787Z",
+          "updatedAt": "2026-02-06T20:23:45.787Z",
+          "publishedAt": "2026-02-06T20:23:45.787Z",
           "focalPoint": null
         },
         "team": {
