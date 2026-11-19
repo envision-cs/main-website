@@ -1084,55 +1084,6 @@ export default [
         }
       },
       {
-        "id": 117,
-        "documentId": "ousluczj3o3b4lygo90z7adh",
-        "name": "Brian Nehus",
-        "title": "Superintendent",
-        "bio": "Having started in the HVAC field in 1998, Superintendent Brian Nehus has over 25 years of professional experience within the industry. A member of our Field Management Team, Brian is responsible for managing trade partners to build the best projects for our clients at Envision. He enjoys spending time with his family, vacationing, and cruising in his spare time.",
-        "linkedin": null,
-        "email": null,
-        "createdAt": "2026-02-06T20:28:36.769Z",
-        "updatedAt": "2026-06-03T22:22:59.105Z",
-        "publishedAt": "2026-06-03T22:22:59.165Z",
-        "slug": "brian-nehus",
-        "photo": {
-          "id": 45,
-          "documentId": "0f20d5f44d634898a48a0daf",
-          "name": "Brian_Nehus_01.jpg",
-          "alternativeText": null,
-          "caption": null,
-          "width": 2342,
-          "height": 2342,
-          "formats": {},
-          "hash": "Brian_Nehus_01_69864f13",
-          "ext": ".jpg",
-          "mime": "image/jpeg",
-          "size": 3245.67,
-          "url": "https://ik.imagekit.io/pnixsw7lg/main-website/Brian_Nehus_01.jpg",
-          "previewUrl": "https://ik.imagekit.io/pnixsw7lg/tr:n-ik_ml_thumbnail/main-website/Brian_Nehus_01.jpg?updatedAt=1770409747248",
-          "provider": "imagekit",
-          "provider_metadata": {
-            "fileId": "69864f135c7cd75eb80a0052"
-          },
-          "createdAt": "2026-02-06T20:29:11.960Z",
-          "updatedAt": "2026-02-06T20:29:11.960Z",
-          "publishedAt": "2026-02-06T20:29:11.960Z",
-          "focalPoint": null
-        },
-        "team": {
-          "id": 18,
-          "documentId": "jcbq03dmuhe721re0f5owpoy",
-          "name": "Red Team",
-          "color": "#c05855",
-          "role": "Field Management",
-          "description": "The Red Team, field supervisors, collaborate to ensure the best delivery of schedule and quality of work is maintained and uncompromised on all Envision projects.",
-          "createdAt": "2026-02-06T01:50:32.342Z",
-          "updatedAt": "2026-06-02T21:39:07.102Z",
-          "publishedAt": "2026-06-02T21:39:07.139Z",
-          "order": 5
-        }
-      },
-      {
         "id": 130,
         "documentId": "l72j8aa7o5rus29snil9pbqo",
         "name": "Armani Ramos",

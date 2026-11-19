@@ -224,6 +224,8 @@ export default defineNuxtConfig({
     '/services/**': { prerender: true },
     '/team': { isr: 3600 },
     '/team/**': { isr: 3600 },
+    // Former team members' profiles forward to the team page.
+    '/team/brian-nehus': { redirect: { to: '/team', statusCode: 301 } },
     '/projects': { isr: 3600 },
     '/projects/**': { isr: 3600 },
     // Renamed project addresses. The old URLs stay forwarded so existing links keep working.
