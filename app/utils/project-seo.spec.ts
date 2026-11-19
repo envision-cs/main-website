@@ -7,6 +7,7 @@ import {
   buildProjectSeoTitle,
   formatProjectHeading,
   getProjectLocationParts,
+  toSeoDescription,
 } from './project-seo';
 
 describe('project SEO utilities', () => {
@@ -66,5 +67,38 @@ describe('project SEO utilities', () => {
         extension: '.jpeg',
       }),
     ).toBe('judy-genshaft-honors-college-tampa-fl-01.jpeg');
+  });
+
+  it('builds a plain-text description from a bio, trimmed at a word boundary', () => {
+    const bio =
+      '**Claire** leads [preconstruction](https://example.com) at Envision.\n\n' +
+      'She coordinates estimating, scheduling, and design reviews with owners and architects ' +
+      'so every project starts with a clear plan, a realistic budget, and a dependable team.';
+    const description = toSeoDescription(bio);
+
+    expect(description.length).toBeLessThanOrEqual(155);
+    expect(
+      description.startsWith('Claire leads preconstruction at Envision. She coordinates'),
+    ).toBe(true);
+    expect(description.endsWith('…')).toBe(true);
+    expect(description).not.toMatch(/[*[\]()#]/);
+    expect(description.slice(0, -1)).not.toMatch(/\s$/);
+    expect(bio.replace(/[*[\]]|\(https:\/\/example\.com\)/g, '').replace(/\s+/g, ' ')).toContain(
+      description.slice(0, -1),
+    );
+  });
+
+  it('ends on a full sentence without an ellipsis when the cut lands there', () => {
+    const bio = `${'Word '.repeat(27).trim()}. More text follows here and keeps going past the limit.`;
+    const description = toSeoDescription(bio, 140);
+
+    expect(description.endsWith('Word.')).toBe(true);
+    expect(description).not.toContain('…');
+  });
+
+  it('returns short bios unchanged and empty input as an empty string', () => {
+    expect(toSeoDescription('Short bio for a team member.')).toBe('Short bio for a team member.');
+    expect(toSeoDescription(undefined)).toBe('');
+    expect(toSeoDescription('   ')).toBe('');
   });
 });
